@@ -10,13 +10,9 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.village.PointOfInterestType;
-import net.minecraftforge.client.model.ModelDynBucket;
-import net.minecraftforge.common.ForgeConfig;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.versions.forge.ForgeVersion;
 
 /**
  * @author Georg Burkl

@@ -1,9 +1,15 @@
 package minecraftschurli.arsmagicalegacy;
 
+import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
+import minecraftschurli.arsmagicalegacy.capabilities.mana.ManaStorage;
 import minecraftschurli.arsmagicalegacy.init.Registries;
 import minecraftschurli.arsmagicalegacy.proxy.ClientProxy;
 import minecraftschurli.arsmagicalegacy.proxy.IProxy;
 import minecraftschurli.arsmagicalegacy.proxy.ServerProxy;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 public class ArsMagicaLegacy {
     public static final String MODID = "arsmagicalegacy";
 
-    public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
     public static ArsMagicaLegacy instance;
 
@@ -44,6 +50,7 @@ public class ArsMagicaLegacy {
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
         proxy.init();
+        CapabilityMana.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
@@ -56,5 +63,11 @@ public class ArsMagicaLegacy {
 
     private void processIMC(final InterModProcessEvent event) {
         LOGGER.debug("IMC Process");
+    }
+
+    public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof PlayerEntity) {
+            event.addCapability(new ResourceLocation(MODID, "mana"), new CapabilityMana());
+        }
     }
 }
