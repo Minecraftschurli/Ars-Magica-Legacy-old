@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.mana;
 
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.Direction;
@@ -13,7 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2019-11-07
  */
 public class CapabilityMana implements ICapabilitySerializable<INBT> {
@@ -28,7 +29,10 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
                     @Override
                     public INBT writeNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side)
                     {
-                        return new IntNBT(instance.getMana());
+                        CompoundNBT compoundNBT = new CompoundNBT();
+                        compoundNBT.putInt("mana", instance.getMana());
+                        compoundNBT.putInt("maxMana", instance.getMaxMana());
+                        return compoundNBT;
                     }
 
                     @Override
@@ -36,7 +40,8 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
                     {
                         if (!(instance instanceof ManaStorage))
                             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((ManaStorage)instance).mana = ((IntNBT)nbt).getInt();
+                        ((ManaStorage)instance).mana = ((CompoundNBT)nbt).getInt("mana");
+                        ((ManaStorage)instance).maxMana = ((CompoundNBT)nbt).getInt("maxMana");
                     }
                 },
                 ManaStorage::new);

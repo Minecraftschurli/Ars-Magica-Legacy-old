@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy;
 
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.ManaStorage;
 import minecraftschurli.arsmagicalegacy.init.Registries;
@@ -9,7 +10,10 @@ import minecraftschurli.arsmagicalegacy.proxy.ServerProxy;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.animation.Event;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -22,7 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2019-11-07
  */
 @Mod(ArsMagicaLegacy.MODID)
@@ -43,14 +47,17 @@ public class ArsMagicaLegacy {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(this::processIMC);
+        modEventBus.addListener(this::onAttachCapabilities);
 
         Registries.setEventBus(modEventBus);
+        proxy.preInit();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
         proxy.init();
         CapabilityMana.register();
+        CapabilityBurnout.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
@@ -65,9 +72,10 @@ public class ArsMagicaLegacy {
         LOGGER.debug("IMC Process");
     }
 
-    public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+    private void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(MODID, "mana"), new CapabilityMana());
+            event.addCapability(new ResourceLocation(MODID, "burnout"), new CapabilityBurnout());
         }
     }
 }

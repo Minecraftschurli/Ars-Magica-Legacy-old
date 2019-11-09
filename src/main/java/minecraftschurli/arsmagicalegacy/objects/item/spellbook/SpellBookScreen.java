@@ -6,7 +6,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2019-11-07
  */
 public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {

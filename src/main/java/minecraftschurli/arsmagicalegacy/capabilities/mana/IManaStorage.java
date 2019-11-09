@@ -1,9 +1,11 @@
 package minecraftschurli.arsmagicalegacy.capabilities.mana;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2019-11-07
  */
 public interface IManaStorage {
     int getMana();
+
+    int getMaxMana();
 }

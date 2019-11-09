@@ -15,7 +15,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2019-11-07
  */
 public interface Registries {
