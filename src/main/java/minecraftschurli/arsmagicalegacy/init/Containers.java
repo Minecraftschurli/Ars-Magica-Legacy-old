@@ -11,4 +11,6 @@ import net.minecraftforge.fml.RegistryObject;
 public class Containers implements Registries {
 
     public static final RegistryObject<ContainerType<SpellBookContainer>> SPELLBOOK = CONTAINERS.register("spellbook", () -> new ContainerType<>(SpellBookContainer::new));
+
+    public static void register() {}
 }

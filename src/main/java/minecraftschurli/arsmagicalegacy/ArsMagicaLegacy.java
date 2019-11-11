@@ -3,12 +3,15 @@ package minecraftschurli.arsmagicalegacy;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.ManaStorage;
+import minecraftschurli.arsmagicalegacy.init.Items;
 import minecraftschurli.arsmagicalegacy.init.Registries;
 import minecraftschurli.arsmagicalegacy.proxy.ClientProxy;
 import minecraftschurli.arsmagicalegacy.proxy.IProxy;
 import minecraftschurli.arsmagicalegacy.proxy.ServerProxy;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.animation.Event;
@@ -32,6 +35,12 @@ import org.apache.logging.log4j.Logger;
 @Mod(ArsMagicaLegacy.MODID)
 public class ArsMagicaLegacy {
     public static final String MODID = "arsmagicalegacy";
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(Items.SPELL_BOOK_ITEM.get());
+        }
+    };
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 

@@ -43,5 +43,6 @@ public interface Registries {
         Blocks.register();
         Fluids.register();
         Items.register();
+        Containers.register();
     }
 }
