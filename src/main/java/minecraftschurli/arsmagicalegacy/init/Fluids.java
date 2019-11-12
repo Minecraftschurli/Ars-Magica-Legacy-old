@@ -19,6 +19,15 @@ import java.awt.*;
  * @version 2019-11-07
  */
 public class Fluids implements Registries {
+    public static final Item.Properties BUCKET_PROPERTIES = new Item.Properties()
+            .containerItem(net.minecraft.item.Items.BUCKET)
+            .maxStackSize(1).group(ItemGroup.MISC);
+
+    public static final Block.Properties FLUID_BLOCK_PROPERTIES = Block.Properties.create(Material.WATER)
+            .doesNotBlockMovement()
+            .hardnessAndResistance(100.0F)
+            .noDrops();
+
     public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE = FLUIDS.register(
             "liquid_essence",
             () -> new ForgeFlowingFluid.Source(Fluids.LIQUID_ESSENCE_PROPERTIES)
@@ -29,22 +38,11 @@ public class Fluids implements Registries {
     );
     public static final RegistryObject<FlowingFluidBlock> LIQUID_ESSENCE_BLOCK = BLOCKS.register(
             "liquid_essence_block",
-            () -> new FlowingFluidBlock(
-                    Fluids.LIQUID_ESSENCE,
-                    Block.Properties.create(Material.WATER)
-                    .doesNotBlockMovement()
-                    .hardnessAndResistance(100.0F)
-                    .noDrops()
-            )
+            () -> new FlowingFluidBlock(Fluids.LIQUID_ESSENCE, FLUID_BLOCK_PROPERTIES)
     );
     public static final RegistryObject<Item> LIQUID_ESSENCE_BUCKET = ITEMS.register(
             "liquid_essence_bucket",
-            () -> new BucketItem(
-                    Fluids.LIQUID_ESSENCE,
-                    new Item.Properties()
-                            .containerItem(net.minecraft.item.Items.BUCKET)
-                            .maxStackSize(1).group(ItemGroup.MISC)
-            )
+            () -> new BucketItem(Fluids.LIQUID_ESSENCE, BUCKET_PROPERTIES)
     );
     public static final ForgeFlowingFluid.Properties LIQUID_ESSENCE_PROPERTIES = new ForgeFlowingFluid.Properties(
             Fluids.LIQUID_ESSENCE,
@@ -55,6 +53,6 @@ public class Fluids implements Registries {
             ).color(new Color(0x74FFFC).getRGB()))
             .bucket(Fluids.LIQUID_ESSENCE_BUCKET)
             .block(LIQUID_ESSENCE_BLOCK);
-
+//TODO remove java.awt.Color
     public static void register() {}
 }
