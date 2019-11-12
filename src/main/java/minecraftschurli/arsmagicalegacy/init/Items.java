@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.init;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
