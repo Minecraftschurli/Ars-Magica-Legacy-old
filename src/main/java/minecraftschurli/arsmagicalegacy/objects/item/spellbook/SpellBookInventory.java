@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.init.Items;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -8,8 +7,6 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.items.IItemHandler;
 
 import java.util.Arrays;
 
