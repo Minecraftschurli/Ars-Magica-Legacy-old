@@ -39,10 +39,5 @@ public interface Registries {
         CONTAINERS.register(modEventBus);
         PROFESSIONS.register(modEventBus);
         POI_TYPES.register(modEventBus);
-
-        Blocks.register();
-        Fluids.register();
-        Items.register();
-        Containers.register();
     }
 }

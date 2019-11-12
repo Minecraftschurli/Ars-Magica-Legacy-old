@@ -2,9 +2,7 @@ package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.ManaStorage;
-import minecraftschurli.arsmagicalegacy.init.Items;
-import minecraftschurli.arsmagicalegacy.init.Registries;
+import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.proxy.ClientProxy;
 import minecraftschurli.arsmagicalegacy.proxy.IProxy;
 import minecraftschurli.arsmagicalegacy.proxy.ServerProxy;
@@ -13,10 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.common.animation.Event;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -59,6 +54,12 @@ public class ArsMagicaLegacy {
         modEventBus.addListener(this::onAttachCapabilities);
 
         Registries.setEventBus(modEventBus);
+
+        Blocks.register();
+        Fluids.register();
+        Items.register();
+        Containers.register();
+
         proxy.preInit();
     }
 
