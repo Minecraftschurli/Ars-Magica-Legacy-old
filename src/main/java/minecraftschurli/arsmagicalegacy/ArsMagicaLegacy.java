@@ -33,7 +33,7 @@ public class ArsMagicaLegacy {
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Items.SPELL_BOOK_ITEM.get());
+            return new ItemStack(Items.SPELL_BOOK.get());
         }
     };
 

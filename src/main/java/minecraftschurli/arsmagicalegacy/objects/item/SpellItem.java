@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
  * @version 2019-11-07
  */
 public class SpellItem extends Item {
-    public SpellItem() {
-        super(new Properties().maxStackSize(1));
+    public SpellItem(Properties properties) {
+        super(properties);
     }
 }

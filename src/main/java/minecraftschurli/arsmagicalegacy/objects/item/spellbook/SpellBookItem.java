@@ -32,8 +32,8 @@ import java.util.List;
  * @version 2019-11-07
  */
 public class SpellBookItem extends Item {
-    public SpellBookItem() {
-        super(new Properties().maxStackSize(1).rarity(Rarity.EPIC).group(ArsMagicaLegacy.ITEM_GROUP));
+    public SpellBookItem(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class SpellBookItem extends Item {
             } else {
                 ItemStack currentSpellStack = getActiveItemStack(stack);
                 if (currentSpellStack != null){
-                    Items.SPELL_ITEM.get().onPlayerStoppedUsing(currentSpellStack, worldIn, entityLiving, timeLeft);
+                    Items.SPELL.get().onPlayerStoppedUsing(currentSpellStack, worldIn, entityLiving, timeLeft);
                 }
             }
         }
