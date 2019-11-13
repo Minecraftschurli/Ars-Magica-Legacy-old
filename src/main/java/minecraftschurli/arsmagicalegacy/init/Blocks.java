@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -27,8 +23,39 @@ public class Blocks implements Registries {
     public static final RegistryObject<Block> WITCHWOOD_LOG = BLOCKS.register("witchwood_log", ()->new Block(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> WITCHWOOD_PLANKS = BLOCKS.register("witchwood_planks", ()->new RotatedPillarBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> WITCHWOOD_LEAVES = BLOCKS.register("witchwood_leaves", ()->new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f)));
-    public static final RegistryObject<Block> WITCHWOOD_SLAB = BLOCKS.register("witchwood_slab", ()->new SlabBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> WITCHWOOD_SLAB = BLOCKS.register("witchwood_slab", ()->new SlabBlock(Block.Properties.create(Material.WOOD)));
     public static final RegistryObject<Block> WITCHWOOD_STAIRS = BLOCKS.register("witchwood_stairs", ()->new StairsBlock(WITCHWOOD_PLANKS.lazyMap(Block::getDefaultState), Block.Properties.from(WITCHWOOD_PLANKS.get())));
-    public static final RegistryObject<Block> MAGIC_WALL = BLOCKS.register("magic_wall", ()->new Block(Block.Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(3.0f, 3.0f).harvestTool(ToolType.PICKAXE)));
+    public static final RegistryObject<Block> WITCHWOOD_FENCE = BLOCKS.register("witchwood_fence", ()->new FenceBlock(Block.Properties.from(WITCHWOOD_PLANKS.get())));
+    public static final RegistryObject<Block> WITCHWOOD_FENCE_GATE = BLOCKS.register("witchwood_fence_gate", ()->new FenceGateBlock(Block.Properties.from(WITCHWOOD_PLANKS.get())));
+    public static final RegistryObject<Block> WITCHWOOD_DOOR = BLOCKS.register("witchwood_door", ()->new Door(Block.Properties.from(WITCHWOOD_PLANKS.get())));
+    public static final RegistryObject<Block> WITCHWOOD_TRAPDOOR = BLOCKS.register("witchwood_trapdoor", ()->new Trapdoor(Block.Properties.from(WITCHWOOD_PLANKS.get())));
+    public static final RegistryObject<Block> WITCHWOOD_BUTTON = BLOCKS.register("witchwood_button", ()->new Button(Block.Properties.from(WITCHWOOD_PLANKS.get())));
+    public static final RegistryObject<Block> WITCHWOOD_PRESSURE_PLATE = BLOCKS.register("witchwood_pressure_plate", ()->new PressurePlate(Block.Properties.from(WITCHWOOD_PLANKS.get())));
+    public static final RegistryObject<Block> ALTAR_CORE = BLOCKS.register("altar_core", ()->new Block(Block.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE)));
+    public static final RegistryObject<Block> MAGIC_WALL = BLOCKS.register("magic_wall", ()->new Block(Block.Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE)));
     public static void register() {}
+    //Required because DoorBlock(Block.Properties builder) has protected access
+    private static class Door extends DoorBlock {
+        public Door(Block.Properties builder) {
+            super(builder);
+        }
+    }
+    //Required because TrapDoorBlock(Block.Properties builder) has protected access
+    private static class Trapdoor extends TrapDoorBlock {
+        public Trapdoor(Block.Properties builder) {
+            super(builder);
+        }
+    }
+    //Required because WoodButtonBlock(Block.Properties builder) has protected access
+    private static class Button extends WoodButtonBlock {
+        public Button(Block.Properties builder) {
+            super(builder);
+        }
+    }
+    //Required because PressurePlateBlock(Block.Properties builder) has protected access
+    private static class PressurePlate extends PressurePlateBlock {
+        public PressurePlate(Block.Properties builder) {
+            super(Sensitivity.EVERYTHING, builder);
+        }
+    }
 }

@@ -36,6 +36,13 @@ public class Items implements Registries {
     public static final RegistryObject<Item> WITCHWOOD_SLAB = ITEMS.register("witchwood_slab", ()->new BlockItem(Blocks.WITCHWOOD_SLAB.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_STAIRS = ITEMS.register("witchwood_stairs", ()->new BlockItem(Blocks.WITCHWOOD_STAIRS.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_LEAVES = ITEMS.register("witchwood_leaves", ()->new BlockItem(Blocks.WITCHWOOD_LEAVES.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_FENCE = ITEMS.register("witchwood_fence", ()->new BlockItem(Blocks.WITCHWOOD_FENCE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_FENCE_GATE = ITEMS.register("witchwood_fence_gate", ()->new BlockItem(Blocks.WITCHWOOD_FENCE_GATE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_DOOR = ITEMS.register("witchwood_door", ()->new BlockItem(Blocks.WITCHWOOD_DOOR.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_TRAPDOOR = ITEMS.register("witchwood_trapdoor", ()->new BlockItem(Blocks.WITCHWOOD_TRAPDOOR.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_BUTTON = ITEMS.register("witchwood_button", ()->new BlockItem(Blocks.WITCHWOOD_BUTTON.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_PRESSURE_PLATE = ITEMS.register("witchwood_pressure_plate", ()->new BlockItem(Blocks.WITCHWOOD_PRESSURE_PLATE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> ALTAR_CORE = ITEMS.register("altar_core", ()->new BlockItem(Blocks.ALTAR_CORE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> MAGIC_WALL = ITEMS.register("magic_wall", ()->new BlockItem(Blocks.MAGIC_WALL.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static void register() {}
 }
