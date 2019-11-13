@@ -54,9 +54,10 @@ public class SpellBookContainer extends Container {
 
         //display player action bar
         for (int j1 = 0; j1 < 9; j1++){
-            addSlot(new Slot(inventoryplayer, j1, 48 + j1 * 18, 229));
             if (inventoryplayer.getStackInSlot(j1) == bookStack){
                 specialSlotIndex = j1 + (8 + 4 * 8 + 3 * 9);
+            } else {
+                addSlot(new Slot(inventoryplayer, j1, 48 + j1 * 18, 229));
             }
         }
 
