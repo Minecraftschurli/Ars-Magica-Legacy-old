@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.init.Fluids;
+import minecraftschurli.arsmagicalegacy.init.ModFluids;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
-import net.minecraft.data.IDataProvider;
 import net.minecraft.tags.FluidTags;
 
 /**
@@ -18,6 +17,6 @@ public class AMLFluidTagsProvider extends FluidTagsProvider {
 
     @Override
     protected void registerTags() {
-        this.getBuilder(FluidTags.WATER).add(Fluids.LIQUID_ESSENCE.get(), Fluids.LIQUID_ESSENCE_FLOWING.get());
+        this.getBuilder(FluidTags.WATER).add(ModFluids.LIQUID_ESSENCE.get(), ModFluids.LIQUID_ESSENCE_FLOWING.get());
     }
 }

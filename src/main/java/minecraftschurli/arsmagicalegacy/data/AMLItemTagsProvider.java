@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.init.Items;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
@@ -20,10 +20,10 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
     @Override
     public void registerTags() {
         //TODO @Minecraftschurli : Register Item Tags
-        getBuilder(ModTags.Items.GEMS_CHIMERITE).add(Items.CHIMERITE.get());
-        getBuilder(ModTags.Items.GEMS_MOONSTONE).add(Items.MOONSTONE.get());
-        getBuilder(ModTags.Items.GEMS_SUNSTONE).add(Items.SUNSTONE.get());
-        getBuilder(ModTags.Items.GEMS_TOPAZ).add(Items.TOPAZ.get());
+        getBuilder(ModTags.Items.GEMS_CHIMERITE).add(ModItems.CHIMERITE.get());
+        getBuilder(ModTags.Items.GEMS_MOONSTONE).add(ModItems.MOONSTONE.get());
+        getBuilder(ModTags.Items.GEMS_SUNSTONE).add(ModItems.SUNSTONE.get());
+        getBuilder(ModTags.Items.GEMS_TOPAZ).add(ModItems.TOPAZ.get());
         getBuilder(Tags.Items.GEMS).add(
                 ModTags.Items.GEMS_CHIMERITE,
                 ModTags.Items.GEMS_MOONSTONE,
@@ -31,7 +31,7 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
                 ModTags.Items.GEMS_TOPAZ
         );
 
-        getBuilder(ModTags.Items.DUSTS_VINTEUM).add(Items.VINTEUM.get());
+        getBuilder(ModTags.Items.DUSTS_VINTEUM).add(ModItems.VINTEUM.get());
         getBuilder(Tags.Items.DUSTS).add(ModTags.Items.DUSTS_VINTEUM);
 
         copy(ModTags.Blocks.ORES_CHIMERITE, ModTags.Items.ORES_CHIMERITE);

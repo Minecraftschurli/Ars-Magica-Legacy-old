@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.init.Containers;
+import minecraftschurli.arsmagicalegacy.init.ModContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ClickType;
@@ -23,7 +23,7 @@ public class SpellBookContainer extends Container {
     }
 
     public SpellBookContainer(int id, PlayerInventory inventoryplayer, SpellBookInventory inventoryspellbook){
-        super(Containers.SPELLBOOK.get(), id);
+        super(ModContainers.SPELLBOOK.get(), id);
         //addSlot(new Slot(spellBook,0, 21, 36)); //inventory, index, x, y
         this.bookStack = inventoryplayer.getCurrentItem();
         if (bookStack.getTag() != null) {

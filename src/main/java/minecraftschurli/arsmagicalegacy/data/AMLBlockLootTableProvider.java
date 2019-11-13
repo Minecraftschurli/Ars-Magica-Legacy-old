@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.init.Blocks;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -35,14 +35,14 @@ public class AMLBlockLootTableProvider extends BlockLootTables implements IDataP
     }
 
     protected void addTables(){
-        registerDropSelfLootTable(Blocks.CHIMERITE_BLOCK.get());
-        registerDropSelfLootTable(Blocks.MOONSTONE_BLOCK.get());
-        registerDropSelfLootTable(Blocks.WITCHWOOD_LOG.get());
-        registerDropSelfLootTable(Blocks.WITCHWOOD_PLANKS.get());
-        registerDropSelfLootTable(Blocks.WITCHWOOD_SLAB.get());
-        registerDropSelfLootTable(Blocks.WITCHWOOD_STAIRS.get());
-        registerDropSelfLootTable(Blocks.VINTEUM_BLOCK.get());
-        registerDropSelfLootTable(Blocks.SUNSTONE_BLOCK.get());
+        registerDropSelfLootTable(ModBlocks.CHIMERITE_BLOCK.get());
+        registerDropSelfLootTable(ModBlocks.MOONSTONE_BLOCK.get());
+        registerDropSelfLootTable(ModBlocks.WITCHWOOD_LOG.get());
+        registerDropSelfLootTable(ModBlocks.WITCHWOOD_PLANKS.get());
+        registerDropSelfLootTable(ModBlocks.WITCHWOOD_SLAB.get());
+        registerDropSelfLootTable(ModBlocks.WITCHWOOD_STAIRS.get());
+        registerDropSelfLootTable(ModBlocks.VINTEUM_BLOCK.get());
+        registerDropSelfLootTable(ModBlocks.SUNSTONE_BLOCK.get());
         //TODO @IchHabeHunger54 : Ore Loot tables
     }
 

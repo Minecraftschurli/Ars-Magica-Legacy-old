@@ -1,27 +1,21 @@
 package minecraftschurli.arsmagicalegacy.objects.fluid;
 
-import minecraftschurli.arsmagicalegacy.init.Fluids;
-import minecraftschurli.arsmagicalegacy.init.Items;
-import net.minecraft.block.BlockState;
+import minecraftschurli.arsmagicalegacy.init.ModFluids;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction8;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ticket.AABBTicket;
-import net.minecraftforge.eventbus.EventBus;
-import net.minecraftforge.eventbus.EventBusEngine;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 import java.util.*;
@@ -31,15 +25,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static minecraftschurli.arsmagicalegacy.ArsMagicaLegacy.LOGGER;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-12
  */
 public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
     protected LiquidEssenceFluid() {
-        super(Fluids.LIQUID_ESSENCE_PROPERTIES);
+        super(ModFluids.LIQUID_ESSENCE_PROPERTIES);
     }
 
     @Override
@@ -60,7 +52,7 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
                                         blockPos.getX(),
                                         blockPos.getY()+1.5,
                                         blockPos.getZ(),
-                                        new ItemStack(Items.ARCANE_COMPENDIUM.get(), 1)
+                                        new ItemStack(ModItems.ARCANE_COMPENDIUM.get(), 1)
                                 );
                             }
                         }

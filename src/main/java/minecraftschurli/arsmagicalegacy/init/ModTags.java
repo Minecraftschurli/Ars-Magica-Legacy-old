@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
  * @author Minecraftschurli
  * @version 2019-11-13
  */
-public class ModTags {
+public final class ModTags {
     public static final class Blocks {
         public static final Tag<Block> STORAGE_BLOCKS_TOPAZ = forgeTag("storage_blocks/topaz");
         public static final Tag<Block> STORAGE_BLOCKS_CHIMERITE = forgeTag("storage_blocks/chimerite");

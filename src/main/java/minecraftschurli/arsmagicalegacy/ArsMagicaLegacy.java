@@ -1,9 +1,7 @@
 package minecraftschurli.arsmagicalegacy;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.event.UIRender;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +30,7 @@ public class ArsMagicaLegacy {
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Items.SPELL_BOOK.get());
+            return new ItemStack(ModItems.SPELL_BOOK.get());
         }
     };
 
@@ -54,10 +52,10 @@ public class ArsMagicaLegacy {
 
         Registries.setEventBus(modEventBus);
 
-        Blocks.register();
-        Fluids.register();
-        Items.register();
-        Containers.register();
+        ModBlocks.register();
+        ModFluids.register();
+        ModItems.register();
+        ModContainers.register();
 
         proxy.preInit();
     }
