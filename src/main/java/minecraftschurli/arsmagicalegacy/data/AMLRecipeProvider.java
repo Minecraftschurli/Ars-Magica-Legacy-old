@@ -29,12 +29,16 @@ public class AMLRecipeProvider extends RecipeProvider {
         RecipeHelper.addLargeDecompressRecipe(ModItems.CHIMERITE.get(), ModItems.VINTEUM_BLOCK.get());
         RecipeHelper.addLargeDecompressRecipe(ModItems.CHIMERITE.get(), ModItems.CHIMERITE_BLOCK.get());
         RecipeHelper.addLargeDecompressRecipe(ModItems.CHIMERITE.get(), ModItems.CHIMERITE_BLOCK.get());
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.WITCHWOOD_PLANKS.get(), 4).addIngredient(ModTags.Items.LOGS_WITCHWOOD);
+        RecipeHelper.addSlabRecipe(ModItems.WITCHWOOD_SLAB.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeHelper.addStairRecipe(ModItems.WITCHWOOD_STAIRS.get(), ModItems.WITCHWOOD_PLANKS.get());
         ShapedRecipeBuilder.shapedRecipe(ModItems.WITCHWOOD_DOOR.get(), 3).patternLine("XX").patternLine("XX").patternLine("XX").key('X', ModItems.WITCHWOOD_PLANKS.get());
         ShapedRecipeBuilder.shapedRecipe(ModItems.WITCHWOOD_TRAPDOOR.get(), 2).patternLine("XXX").patternLine("XXX").key('X', ModItems.WITCHWOOD_PLANKS.get());
         ShapedRecipeBuilder.shapedRecipe(ModItems.WITCHWOOD_FENCE.get(), 3).patternLine("XSX").patternLine("XSX").key('X', ModItems.WITCHWOOD_PLANKS.get()).key('S', Items.STICK);
         ShapedRecipeBuilder.shapedRecipe(ModItems.WITCHWOOD_FENCE_GATE.get(), 3).patternLine("SXS").patternLine("SXS").key('X', ModItems.WITCHWOOD_PLANKS.get()).key('S', Items.STICK);
         ShapedRecipeBuilder.shapedRecipe(ModItems.WITCHWOOD_PRESSURE_PLATE.get()).patternLine("XX").key('X', ModItems.WITCHWOOD_PLANKS.get());
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.WITCHWOOD_BUTTON.get()).addIngredient(ModItems.WITCHWOOD_PLANKS.get());
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.WITCHWOOD_PLANKS.get(), 4).addIngredient(ModTags.Items.LOGS_WITCHWOOD);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.ALTAR_CORE.get()).patternLine("V").patternLine("S").key('V', ModItems.VINTEUM.get()).key('S', Items.STONE);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGIC_WALL.get(), 16).patternLine("VSV").key('V', ModItems.VINTEUM.get()).key('S', Items.STONE);
     }
 }
