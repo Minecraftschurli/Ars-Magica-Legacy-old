@@ -47,6 +47,9 @@ public class Items implements Registries {
     public static final RegistryObject<Item> MAGIC_WALL = ITEMS.register("magic_wall", ()->new BlockItem(Blocks.MAGIC_WALL.get(), ITEM_64));
 
     public static final RegistryObject<Item> WITCHWOOD_LOG = ITEMS.register("witchwood_log", ()->new BlockItem(Blocks.WITCHWOOD_LOG.get(), ITEM_64));
+    public static final RegistryObject<Item> WITCHWOOD_WOOD = ITEMS.register("witchwood_wood", ()->new BlockItem(Blocks.WITCHWOOD_WOOD.get(), ITEM_64));
+    public static final RegistryObject<Item> STRIPPED_WITCHWOOD_LOG = ITEMS.register("stripped_witchwood_log", ()->new BlockItem(Blocks.STRIPPED_WITCHWOOD_LOG.get(), ITEM_64));
+    public static final RegistryObject<Item> STRIPPED_WITCHWOOD_WOOD = ITEMS.register("stripped_witchwood_wood", ()->new BlockItem(Blocks.STRIPPED_WITCHWOOD_WOOD.get(), ITEM_64));
     public static final RegistryObject<Item> WITCHWOOD_PLANKS = ITEMS.register("witchwood_planks", ()->new BlockItem(Blocks.WITCHWOOD_PLANKS.get(), ITEM_64));
     public static final RegistryObject<Item> WITCHWOOD_SLAB = ITEMS.register("witchwood_slab", ()->new BlockItem(Blocks.WITCHWOOD_SLAB.get(), ITEM_64));
     public static final RegistryObject<Item> WITCHWOOD_STAIRS = ITEMS.register("witchwood_stairs", ()->new BlockItem(Blocks.WITCHWOOD_STAIRS.get(), ITEM_64));

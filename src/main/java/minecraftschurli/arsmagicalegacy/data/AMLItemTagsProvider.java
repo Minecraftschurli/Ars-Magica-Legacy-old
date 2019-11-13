@@ -3,14 +3,10 @@ package minecraftschurli.arsmagicalegacy.data;
 import minecraftschurli.arsmagicalegacy.init.Items;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IDataProvider;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
-
-import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -28,7 +24,6 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
         getBuilder(ModTags.Items.GEMS_MOONSTONE).add(Items.MOONSTONE.get());
         getBuilder(ModTags.Items.GEMS_SUNSTONE).add(Items.SUNSTONE.get());
         getBuilder(ModTags.Items.GEMS_TOPAZ).add(Items.TOPAZ.get());
-        getBuilder(ModTags.Items.DUSTS_VINTEUM).add(Items.VINTEUM.get());
         getBuilder(Tags.Items.GEMS).add(
                 ModTags.Items.GEMS_CHIMERITE,
                 ModTags.Items.GEMS_MOONSTONE,
@@ -36,6 +31,7 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
                 ModTags.Items.GEMS_TOPAZ
         );
 
+        getBuilder(ModTags.Items.DUSTS_VINTEUM).add(Items.VINTEUM.get());
         getBuilder(Tags.Items.DUSTS).add(ModTags.Items.DUSTS_VINTEUM);
 
         copy(ModTags.Blocks.ORES_CHIMERITE, ModTags.Items.ORES_CHIMERITE);
@@ -51,7 +47,7 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
         copy(Tags.Blocks.ORES, Tags.Items.ORES);
         copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
-        copy(ModTags.Blocks.WITCHWOOD_LOGS, ModTags.Items.WITCHWOOD_LOGS);
+        copy(ModTags.Blocks.LOGS_WITCHWOOD, ModTags.Items.LOGS_WITCHWOOD);
 
         copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
@@ -61,5 +57,6 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
         copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
         copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
         copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+        copy(BlockTags.PLANKS, ItemTags.PLANKS);
     }
 }

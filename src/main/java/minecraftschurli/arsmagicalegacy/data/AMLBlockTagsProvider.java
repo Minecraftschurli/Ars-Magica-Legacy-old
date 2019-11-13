@@ -4,7 +4,6 @@ import minecraftschurli.arsmagicalegacy.init.Blocks;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IDataProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
 
@@ -54,9 +53,13 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
         getBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(Blocks.WITCHWOOD_PRESSURE_PLATE.get());
         getBuilder(BlockTags.WOODEN_SLABS).add(Blocks.WITCHWOOD_SLAB.get());
         getBuilder(BlockTags.WOODEN_STAIRS).add(Blocks.WITCHWOOD_STAIRS.get());
-        getBuilder(ModTags.Blocks.WITCHWOOD_LOGS).add(
-                Blocks.WITCHWOOD_LOG.get()
+        getBuilder(BlockTags.PLANKS).add(Blocks.WITCHWOOD_PLANKS.get());
+        getBuilder(ModTags.Blocks.LOGS_WITCHWOOD).add(
+                Blocks.WITCHWOOD_LOG.get(),
+                Blocks.WITCHWOOD_WOOD.get(),
+                Blocks.STRIPPED_WITCHWOOD_LOG.get(),
+                Blocks.STRIPPED_WITCHWOOD_WOOD.get()
         );
-        getBuilder(BlockTags.LOGS).add(ModTags.Blocks.WITCHWOOD_LOGS);
+        getBuilder(BlockTags.LOGS).add(ModTags.Blocks.LOGS_WITCHWOOD);
     }
 }

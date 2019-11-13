@@ -25,7 +25,8 @@ public class ModTags {
         public static final Tag<Block> ORES_MOONSTONE = forgeTag("ores/moonstone");
         public static final Tag<Block> ORES_SUNSTONE = forgeTag("ores/sunstone");
         public static final Tag<Block> ORES_VINTEUM = forgeTag("ores/vinteum");
-        public static final Tag<Block> WITCHWOOD_LOGS = tag("witchwood_logs");
+
+        public static final Tag<Block> LOGS_WITCHWOOD = tag("witchwood_logs");
 
         private static Tag<Block> forgeTag(String name) {
             return new BlockTags.Wrapper(new ResourceLocation("forge", name));
@@ -53,7 +54,8 @@ public class ModTags {
         public static final Tag<Item> ORES_MOONSTONE = forgeTag("ores/moonstone");
         public static final Tag<Item> ORES_SUNSTONE = forgeTag("ores/sunstone");
         public static final Tag<Item> ORES_VINTEUM = forgeTag("ores/vinteum");
-        public static final Tag<Item> WITCHWOOD_LOGS = tag("logs/witchwood");
+
+        public static final Tag<Item> LOGS_WITCHWOOD = tag("logs/witchwood");
 
         private static Tag<Item> forgeTag(String name) {
             return new ItemTags.Wrapper(new ResourceLocation("forge", name));
