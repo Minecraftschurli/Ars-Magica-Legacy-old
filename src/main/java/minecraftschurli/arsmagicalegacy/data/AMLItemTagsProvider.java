@@ -1,8 +1,13 @@
 package minecraftschurli.arsmagicalegacy.data;
 
+import minecraftschurli.arsmagicalegacy.init.Items;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ForgeItemTagsProvider;
 
 import java.util.stream.Collectors;
@@ -19,5 +24,42 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
     @Override
     public void registerTags() {
         //TODO @Minecraftschurli : Register Item Tags
+        getBuilder(ModTags.Items.GEMS_CHIMERITE).add(Items.CHIMERITE.get());
+        getBuilder(ModTags.Items.GEMS_MOONSTONE).add(Items.MOONSTONE.get());
+        getBuilder(ModTags.Items.GEMS_SUNSTONE).add(Items.SUNSTONE.get());
+        getBuilder(ModTags.Items.GEMS_TOPAZ).add(Items.TOPAZ.get());
+        getBuilder(ModTags.Items.DUSTS_VINTEUM).add(Items.VINTEUM.get());
+        getBuilder(Tags.Items.GEMS).add(
+                ModTags.Items.GEMS_CHIMERITE,
+                ModTags.Items.GEMS_MOONSTONE,
+                ModTags.Items.GEMS_SUNSTONE,
+                ModTags.Items.GEMS_TOPAZ
+        );
+
+        getBuilder(Tags.Items.DUSTS).add(ModTags.Items.DUSTS_VINTEUM);
+
+        copy(ModTags.Blocks.ORES_CHIMERITE, ModTags.Items.ORES_CHIMERITE);
+        copy(ModTags.Blocks.STORAGE_BLOCKS_CHIMERITE, ModTags.Items.STORAGE_BLOCKS_CHIMERITE);
+        copy(ModTags.Blocks.ORES_MOONSTONE, ModTags.Items.ORES_MOONSTONE);
+        copy(ModTags.Blocks.STORAGE_BLOCKS_MOONSTONE, ModTags.Items.STORAGE_BLOCKS_MOONSTONE);
+        copy(ModTags.Blocks.ORES_SUNSTONE, ModTags.Items.ORES_SUNSTONE);
+        copy(ModTags.Blocks.STORAGE_BLOCKS_SUNSTONE, ModTags.Items.STORAGE_BLOCKS_SUNSTONE);
+        copy(ModTags.Blocks.ORES_TOPAZ, ModTags.Items.ORES_TOPAZ);
+        copy(ModTags.Blocks.STORAGE_BLOCKS_TOPAZ, ModTags.Items.STORAGE_BLOCKS_TOPAZ);
+        copy(ModTags.Blocks.ORES_VINTEUM, ModTags.Items.ORES_VINTEUM);
+        copy(ModTags.Blocks.STORAGE_BLOCKS_VINTEUM, ModTags.Items.STORAGE_BLOCKS_VINTEUM);
+        copy(Tags.Blocks.ORES, Tags.Items.ORES);
+        copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+
+        copy(ModTags.Blocks.WITCHWOOD_LOGS, ModTags.Items.WITCHWOOD_LOGS);
+
+        copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+        copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+        copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
+        copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+        copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
+        copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
+        copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
+        copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
     }
 }
