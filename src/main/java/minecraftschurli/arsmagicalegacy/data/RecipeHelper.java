@@ -74,4 +74,40 @@ public final class RecipeHelper {
                 .addIngredient(item2)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
     }
+
+    public static ShapedRecipeBuilder addStairRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 4)
+                .patternLine("X  ")
+                .patternLine("XX ")
+                .patternLine("XXX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addStairRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 4)
+                .patternLine("X  ")
+                .patternLine("XX ")
+                .patternLine("XXX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addSlabRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 6)
+                .patternLine("XXX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addSlabRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 6)
+                .patternLine("XXX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
 }
