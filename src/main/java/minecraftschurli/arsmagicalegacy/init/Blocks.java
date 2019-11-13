@@ -1,5 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import minecraftschurli.arsmagicalegacy.objects.block.Button;
+import minecraftschurli.arsmagicalegacy.objects.block.Door;
+import minecraftschurli.arsmagicalegacy.objects.block.PressurePlate;
+import minecraftschurli.arsmagicalegacy.objects.block.Trapdoor;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
@@ -32,30 +36,6 @@ public class Blocks implements Registries {
     public static final RegistryObject<Block> WITCHWOOD_BUTTON = BLOCKS.register("witchwood_button", ()->new Button(Block.Properties.from(WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<Block> WITCHWOOD_PRESSURE_PLATE = BLOCKS.register("witchwood_pressure_plate", ()->new PressurePlate(Block.Properties.from(WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<Block> ALTAR_CORE = BLOCKS.register("altar_core", ()->new Block(Block.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGIC_WALL = BLOCKS.register("magic_wall", ()->new Block(Block.Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE)));
+    public static final RegistryObject<Block> MAGIC_WALL = BLOCKS.register("magic_wall", ()->new IceBlock(Block.Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).slipperiness(0.6f)));
     public static void register() {}
-    //Required because DoorBlock(Block.Properties builder) has protected access
-    private static class Door extends DoorBlock {
-        public Door(Block.Properties builder) {
-            super(builder);
-        }
-    }
-    //Required because TrapDoorBlock(Block.Properties builder) has protected access
-    private static class Trapdoor extends TrapDoorBlock {
-        public Trapdoor(Block.Properties builder) {
-            super(builder);
-        }
-    }
-    //Required because WoodButtonBlock(Block.Properties builder) has protected access
-    private static class Button extends WoodButtonBlock {
-        public Button(Block.Properties builder) {
-            super(builder);
-        }
-    }
-    //Required because PressurePlateBlock(Block.Properties builder) has protected access
-    private static class PressurePlate extends PressurePlateBlock {
-        public PressurePlate(Block.Properties builder) {
-            super(Sensitivity.EVERYTHING, builder);
-        }
-    }
 }

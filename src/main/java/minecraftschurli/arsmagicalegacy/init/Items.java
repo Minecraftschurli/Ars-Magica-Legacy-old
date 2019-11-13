@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.TallBlockItem;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -38,7 +39,7 @@ public class Items implements Registries {
     public static final RegistryObject<Item> WITCHWOOD_LEAVES = ITEMS.register("witchwood_leaves", ()->new BlockItem(Blocks.WITCHWOOD_LEAVES.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_FENCE = ITEMS.register("witchwood_fence", ()->new BlockItem(Blocks.WITCHWOOD_FENCE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_FENCE_GATE = ITEMS.register("witchwood_fence_gate", ()->new BlockItem(Blocks.WITCHWOOD_FENCE_GATE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
-    public static final RegistryObject<Item> WITCHWOOD_DOOR = ITEMS.register("witchwood_door", ()->new BlockItem(Blocks.WITCHWOOD_DOOR.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
+    public static final RegistryObject<Item> WITCHWOOD_DOOR = ITEMS.register("witchwood_door", ()->new TallBlockItem(Blocks.WITCHWOOD_DOOR.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_TRAPDOOR = ITEMS.register("witchwood_trapdoor", ()->new BlockItem(Blocks.WITCHWOOD_TRAPDOOR.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_BUTTON = ITEMS.register("witchwood_button", ()->new BlockItem(Blocks.WITCHWOOD_BUTTON.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
     public static final RegistryObject<Item> WITCHWOOD_PRESSURE_PLATE = ITEMS.register("witchwood_pressure_plate", ()->new BlockItem(Blocks.WITCHWOOD_PRESSURE_PLATE.get(), new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64)));
