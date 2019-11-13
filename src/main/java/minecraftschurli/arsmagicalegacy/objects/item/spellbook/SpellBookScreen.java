@@ -21,8 +21,8 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
     }
     private int bookActiveSlot;
 
-    private static final ResourceLocation background = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/guis/spell_book.png");
-    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/guis/spell_book_extra.png");
+    private static final ResourceLocation background = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui.png");
+    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui_2.png");
 
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {

@@ -1,16 +1,23 @@
 package minecraftschurli.arsmagicalegacy.objects.fluid;
 
 import minecraftschurli.arsmagicalegacy.init.Fluids;
+import minecraftschurli.arsmagicalegacy.init.Items;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.LecternTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction8;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ticket.AABBTicket;
 import net.minecraftforge.eventbus.EventBus;
@@ -36,16 +43,39 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    public void tick(World worldIn, BlockPos pos, IFluidState state) {
-        super.tick(worldIn, pos, state);
-        LOGGER.info("tick");
+    protected void randomTick(World worldIn, BlockPos pos, IFluidState state, Random random) {
         if (!worldIn.isRemote && state.isSource()) {
-            getLecternInRange(worldIn, pos, 2).ifPresent(blockPos -> {
-                if (worldIn.getBlockState(blockPos).get(LecternBlock.HAS_BOOK)) {
-                    LOGGER.info(blockPos);
-                }
-            });
+            getLecternInRange(worldIn, pos, 2)
+                    .filter(blockPos -> worldIn.getBlockState(blockPos).get(LecternBlock.HAS_BOOK))
+                    .ifPresent(blockPos -> {
+                        TileEntity te = worldIn.getTileEntity(blockPos);
+                        if (te instanceof LecternTileEntity) {
+                            LecternTileEntity lectern = (LecternTileEntity) te;
+                            if (lectern.getBook().getItem() == net.minecraft.item.Items.WRITABLE_BOOK){
+                                lectern.clear();
+                                LecternBlock.setHasBook(worldIn, blockPos, worldIn.getBlockState(blockPos), false);
+                                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+                                InventoryHelper.spawnItemStack(
+                                        worldIn,
+                                        blockPos.getX(),
+                                        blockPos.getY()+1.5,
+                                        blockPos.getZ(),
+                                        new ItemStack(Items.ARCANE_COMPENDIUM.get(), 1)
+                                );
+                            }
+                        }
+                    });
         }
+    }
+
+    @Override
+    protected boolean ticksRandomly() {
+        return true;
+    }
+
+    @Override
+    public int getTickRate(IWorldReader world) {
+        return 6;
     }
 
     private Optional<BlockPos> getLecternInRange(final World worldIn, final BlockPos pos, int YRange) {
@@ -67,7 +97,7 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
             })
             .map(Collection::stream)
             .reduce(Stream::concat)
-            .get()
+            .orElseGet(Stream::empty)
             .filter(blockPos -> worldIn.getBlockState(blockPos).getBlock() == Blocks.LECTERN)
             .findFirst();
     }

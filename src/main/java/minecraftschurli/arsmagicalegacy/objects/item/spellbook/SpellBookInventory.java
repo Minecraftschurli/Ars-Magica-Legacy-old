@@ -2,73 +2,24 @@ package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 
-import java.util.Arrays;
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-09
  */
-public class SpellBookInventory extends Inventory {
+public class SpellBookInventory implements IInventory {
     public static int inventorySize = 40;
-    public static int activeInventorySize = 8;
-    private ItemStack[] inventoryItems;
+    private NonNullList<ItemStack> contents;
 
     public SpellBookInventory(){
-        inventoryItems = new ItemStack[inventorySize];
-        Arrays.fill(inventoryItems, ItemStack.EMPTY);
-    }
-
-    public void setInventoryContents(ItemStack[] inventoryContents){
-        int loops = (int)Math.min(inventorySize, inventoryContents.length);
-        for (int i = 0; i < loops; ++i){
-            inventoryItems[i] = inventoryContents[i];
-        }
-    }
-
-    @Override
-    public int getSizeInventory(){
-        return inventorySize;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int i){
-        if (i < 0 || i > inventoryItems.length - 1){
-            return ItemStack.EMPTY;
-        }
-        return inventoryItems[i];
-    }
-
-    @Override
-    public void setInventorySlotContents(int i, ItemStack itemstack){
-        inventoryItems[i] = itemstack;
-    }
-
-    @Override
-    public int getInventoryStackLimit(){
-        return 1;
-    }
-
-    public boolean isUseableByPlayer(PlayerEntity entityplayer){
-        return true;
-    }
-
-    public ItemStack[] getInventoryContents(){
-        return inventoryItems;
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int i, ItemStack itemstack){
-        return itemstack.getItem() instanceof SpellItem;
-    }
-
-    @Override
-    public void markDirty(){
+        contents = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
     }
 
     public void readNBT(CompoundNBT compound) {
@@ -85,5 +36,99 @@ public class SpellBookInventory extends Inventory {
             list.set(index, getStackInSlot(index));
         }
         ItemStackHelper.saveAllItems(compound, list, false);
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    /**
+     * Returns the number of slots in the inventory.
+     */
+    @Override
+    public int getSizeInventory() {
+        return inventorySize;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.contents.stream().noneMatch(ItemStack::isEmpty);
+    }
+
+    /**
+     * Returns the stack in the given slot.
+     *
+     * @param index
+     */
+    @Nonnull
+    @Override
+    public ItemStack getStackInSlot(int index) {
+        return this.contents.get(index);
+    }
+
+    /**
+     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+     *
+     * @param index
+     * @param count
+     */
+    @Nonnull
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+        return this.contents.get(index).split(count);
+    }
+
+    /**
+     * Removes a stack from the given slot and returns it.
+     *
+     * @param index
+     */
+    @Nonnull
+    @Override
+    public ItemStack removeStackFromSlot(int index) {
+        final ItemStack stack = this.contents.get(index).copy();
+        this.contents.set(index, ItemStack.EMPTY);
+        return stack;
+    }
+
+    /**
+     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     *
+     * @param index
+     * @param stack
+     */
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        this.contents.set(index, stack);
+    }
+
+    /**
+     * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
+     * hasn't changed and skip it.
+     */
+    @Override
+    public void markDirty() {
+
+    }
+
+    /**
+     * Don't rename this method to canInteractWith due to conflicts with Container
+     *
+     * @param player
+     */
+    @Override
+    public boolean isUsableByPlayer(PlayerEntity player) {
+        return true;
+    }
+
+    @Override
+    public void clear() {
+        this.contents = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return stack.getItem() instanceof SpellItem;
     }
 }

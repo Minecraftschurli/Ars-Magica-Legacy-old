@@ -5,7 +5,7 @@ package minecraftschurli.arsmagicalegacy.proxy;
  * @version 2019-11-07
  */
 public interface IProxy {
-    default void init() {};
+    default void init() {}
 
-    default void preInit() {};
+    default void preInit() {}
 }

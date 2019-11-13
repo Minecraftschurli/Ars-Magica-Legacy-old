@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.init.Items;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -23,14 +22,17 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
+
+import static minecraftschurli.arsmagicalegacy.init.Items.ITEM_1;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
 public class SpellBookItem extends Item {
-    public SpellBookItem(Properties properties) {
-        super(properties);
+    public SpellBookItem() {
+        super(ITEM_1);
     }
 
     @Override
@@ -39,18 +41,20 @@ public class SpellBookItem extends Item {
         if (player.isSneaking()) {
             if (!world.isRemote && player instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-
                     @Override
                     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
                         return new SpellBookContainer(id, playerInventory, new SpellBookInventory());
                     }
-
                     @Override
                     public ITextComponent getDisplayName() {
                         return stack.getDisplayName();
                     }
                 });
             }
+        } else {
+            return getActiveScroll(stack)
+                    .map(spellItem -> spellItem.onItemRightClick(world, player, hand))
+                    .orElse(ActionResult.newResult(ActionResultType.FAIL, stack));
         }
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
@@ -65,55 +69,27 @@ public class SpellBookItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        SpellItem scroll = getActiveScroll(stack);
-        if (scroll != null){
-            return scroll.getUseDuration(stack);
-        }
-        return 0;
+        return getActiveScroll(stack)
+                .map(spellItem -> spellItem.getUseDuration(stack))
+                .orElse(0);
     }
 
-    private ItemStack[] getMyInventory(ItemStack itemStack){
+    private NonNullList<ItemStack> getInventory(ItemStack itemStack){
         return readFromStackTagCompound(itemStack);
     }
 
-    public ItemStack[] getActiveScrollInventory(ItemStack bookStack){
-        ItemStack[] inventoryItems = getMyInventory(bookStack);
-        ItemStack[] returnArray = new ItemStack[8];
-        for (int i = 0; i < 8; ++i){
-            returnArray[i] = inventoryItems[i];
-        }
-        return returnArray;
-    }
-
-    public SpellItem getActiveScroll(ItemStack bookStack){
-        ItemStack[] inventoryItems = getMyInventory(bookStack);
-        if (inventoryItems[getActiveSlot(bookStack)].isEmpty()){
-            return null;
-        }
-        return (SpellItem)inventoryItems[getActiveSlot(bookStack)].getItem();
+    public Optional<SpellItem> getActiveScroll(ItemStack bookStack){
+        return Optional.of(getInventory(bookStack).get(getActiveSlot(bookStack)))
+                .filter(stack -> !stack.isEmpty())
+                .map(ItemStack::getItem)
+                .map(item -> (SpellItem)item);
     }
 
     public ItemStack getActiveItemStack(ItemStack bookStack){
-        ItemStack[] inventoryItems = getMyInventory(bookStack);
-        if (inventoryItems[getActiveSlot(bookStack)].isEmpty()){
-            return ItemStack.EMPTY;
-        }
-        return inventoryItems[getActiveSlot(bookStack)].copy();
-    }
-
-    @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-        if (entityLiving instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity) entityLiving;
-            if (playerEntity.isSneaking()) {
-                // open GUI
-            } else {
-                ItemStack currentSpellStack = getActiveItemStack(stack);
-                if (currentSpellStack != null){
-                    Items.SPELL.get().onPlayerStoppedUsing(currentSpellStack, worldIn, entityLiving, timeLeft);
-                }
-            }
-        }
+        return Optional.of(getInventory(bookStack).get(getActiveSlot(bookStack)))
+                .filter(stack -> !stack.isEmpty())
+                .map(ItemStack::copy)
+                .orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -123,6 +99,29 @@ public class SpellBookItem extends Item {
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
+        final PlayerEntity player = context.getPlayer();
+        final Hand hand = context.getHand();
+        final World world = context.getWorld();
+        final ItemStack stack = player.getHeldItem(hand);
+        if (player.isSneaking()) {
+            if (!world.isRemote && player instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+                    @Override
+                    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+                        return new SpellBookContainer(id, playerInventory, new SpellBookInventory());
+                    }
+                    @Override
+                    public ITextComponent getDisplayName() {
+                        return stack.getDisplayName();
+                    }
+                });
+                return ActionResultType.SUCCESS;
+            }
+        } else {
+            return getActiveScroll(stack)
+                    .map(spellItem -> spellItem.onItemUse(context))
+                    .orElse(ActionResultType.FAIL);
+        }
         return ActionResultType.FAIL;
     }
 
@@ -175,25 +174,16 @@ public class SpellBookItem extends Item {
         return itemStack.getTag().getInt("spellbookactiveslot");
     }
 
-    public ItemStack[] readFromStackTagCompound(ItemStack itemStack){
+    public NonNullList<ItemStack> readFromStackTagCompound(ItemStack itemStack){
         NonNullList<ItemStack> list = NonNullList.withSize(8*4, ItemStack.EMPTY);
         if (itemStack.getTag() != null)
         ItemStackHelper.loadAllItems(itemStack.getTag(), list);
 
-        return list.toArray(new ItemStack[0]);
-    }
-
-    public SpellBookInventory convertToInventory(ItemStack bookStack){
-        SpellBookInventory isb = new SpellBookInventory();
-        isb.setInventoryContents(getMyInventory(bookStack));
-        return isb;
+        return list;
     }
 
     public ITextComponent getActiveSpellName(ItemStack bookStack){
         ItemStack stack = getActiveItemStack(bookStack);
-        /*if (stack == null){
-            // return StatCollector.translateToLocal("am2.tooltip.none");
-        }*/
         return stack.getDisplayName();
     }
 
@@ -217,7 +207,7 @@ public class SpellBookItem extends Item {
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         ItemStack scrollStack = getActiveItemStack(stack);
-        if (scrollStack != null){
+        if (!scrollStack.isEmpty()){
             // TODO ItemsCommonProxy.spell.onUsingTick(scrollStack, player, count);
         }
     }

@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
+import minecraftschurli.arsmagicalegacy.event.UIRender;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.proxy.ClientProxy;
-import minecraftschurli.arsmagicalegacy.proxy.IProxy;
-import minecraftschurli.arsmagicalegacy.proxy.ServerProxy;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
@@ -37,7 +36,7 @@ public class ArsMagicaLegacy {
         }
     };
 
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+    public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
 
     public static ArsMagicaLegacy instance;
 

@@ -1,11 +1,5 @@
 package minecraftschurli.arsmagicalegacy.capabilities.mana;
 
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-
-import javax.annotation.Nullable;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
