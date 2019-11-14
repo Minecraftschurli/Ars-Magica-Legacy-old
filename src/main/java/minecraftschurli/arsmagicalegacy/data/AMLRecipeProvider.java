@@ -88,5 +88,14 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .key('S', Tags.Items.STONE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
                 .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_BOOK.get())
+                .patternLine("SLL")
+                .patternLine("SPP")
+                .patternLine("SLL")
+                .key('S', Tags.Items.STRING)
+                .key('L', Tags.Items.LEATHER)
+                .key('P', Items.PAPER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STRING).build()))
+                .build(consumer);
     }
 }
