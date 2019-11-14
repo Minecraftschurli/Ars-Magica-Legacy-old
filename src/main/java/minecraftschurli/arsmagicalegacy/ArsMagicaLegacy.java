@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
+import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,7 +49,7 @@ public class ArsMagicaLegacy {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(this::processIMC);
-        modEventBus.addListener(this::onAttachCapabilities);
+        modEventBus.addListener(this::onAttachPlayerCapabilities);
 
         Registries.setEventBus(modEventBus);
 
@@ -79,10 +80,15 @@ public class ArsMagicaLegacy {
         LOGGER.debug("IMC Process");
     }
 
-    private void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+    private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(MODID, "mana"), new CapabilityMana());
             event.addCapability(new ResourceLocation(MODID, "burnout"), new CapabilityBurnout());
+            event.addCapability(new ResourceLocation(MODID, "research"), new CapabilityResearch());
         }
     }
+
+    /*private void onAttachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
+        event.addCapability(new ResourceLocation(MODID, "spell"), null);
+    }*/
 }

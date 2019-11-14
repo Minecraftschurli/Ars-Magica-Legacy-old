@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
 import minecraftschurli.arsmagicalegacy.capabilities.spell.ISpell;
+import minecraftschurli.arsmagicalegacy.capabilities.spell.SpellUtils;
 import minecraftschurli.arsmagicalegacy.capabilities.spell.TestSpell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -44,11 +45,11 @@ public class SpellItem extends Item {
     }
 
     protected boolean performSpell(World world, ItemStack stack, PlayerEntity player) {
-        player.getCooldownTracker().setCooldown(stack.getItem(), this.getCooldown());
-        return this.spell.execute(world, stack, player);
+        player.getCooldownTracker().setCooldown(stack.getItem(), this.getCooldown(stack));
+        return SpellUtils.getSpell(stack).map(iSpell -> iSpell.execute(world, stack, player)).orElse(false);
     }
 
-    protected int getCooldown() {
-        return this.spell.getCooldown();
+    protected int getCooldown(ItemStack stack) {
+        return SpellUtils.getSpell(stack).map(ISpell::getCooldown).orElse(0);
     }
 }

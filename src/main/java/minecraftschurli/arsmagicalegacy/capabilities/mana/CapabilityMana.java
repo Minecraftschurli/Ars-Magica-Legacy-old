@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.capabilities.mana;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -23,6 +22,14 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
 
     private LazyOptional<IManaStorage> instance = LazyOptional.of(MANA::getDefaultInstance);
 
+    public CapabilityMana (){
+        LazyOptional<ManaStorage> tmp = this.instance.filter(iManaStorage -> iManaStorage instanceof ManaStorage).cast();
+        tmp.ifPresent(manaStorage -> {
+            manaStorage.setMaxMana(100);
+            manaStorage.setMana(100);
+        });
+    }
+
     public static void register()
     {
         CapabilityManager.INSTANCE.register(IManaStorage.class, new Capability.IStorage<IManaStorage>() {
@@ -40,8 +47,8 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
                     {
                         if (!(instance instanceof ManaStorage))
                             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((ManaStorage)instance).mana = ((CompoundNBT)nbt).getInt("mana");
-                        ((ManaStorage)instance).maxMana = ((CompoundNBT)nbt).getInt("maxMana");
+                        ((ManaStorage)instance).setMana(((CompoundNBT)nbt).getInt("mana"));
+                        ((ManaStorage)instance).setMaxMana(((CompoundNBT)nbt).getInt("maxMana"));
                     }
                 },
                 ManaStorage::new);

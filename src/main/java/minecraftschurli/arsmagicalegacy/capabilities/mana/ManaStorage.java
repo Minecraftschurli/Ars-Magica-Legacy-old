@@ -6,8 +6,8 @@ package minecraftschurli.arsmagicalegacy.capabilities.mana;
  */
 public class ManaStorage implements IManaStorage {
 
-    int maxMana;
-    int mana;
+    private int maxMana;
+    private int mana;
 
     @Override
     public int getMana() {

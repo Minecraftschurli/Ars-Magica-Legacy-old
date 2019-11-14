@@ -10,6 +10,7 @@ import net.minecraft.world.World;
  */
 public interface ISpell {
     boolean execute(World world, ItemStack stack, PlayerEntity player);
-
     int getCooldown();
+    int getManaCost();
+    int getBurnoutCost();
 }

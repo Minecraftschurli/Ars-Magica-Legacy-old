@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.capabilities.burnout;
 
-import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.ManaStorage;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -23,6 +21,11 @@ public class CapabilityBurnout implements ICapabilitySerializable<INBT> {
     public static Capability<IBurnoutStorage> BURNOUT = null;
 
     private LazyOptional<IBurnoutStorage> instance = LazyOptional.of(BURNOUT::getDefaultInstance);
+
+    public CapabilityBurnout (){
+        LazyOptional<BurnoutStorage> tmp = this.instance.filter(iBurnoutStorage -> iBurnoutStorage instanceof BurnoutStorage).cast();
+        tmp.ifPresent(burnoutStorage -> burnoutStorage.maxBurnout = 100);
+    }
 
     public static void register()
     {
