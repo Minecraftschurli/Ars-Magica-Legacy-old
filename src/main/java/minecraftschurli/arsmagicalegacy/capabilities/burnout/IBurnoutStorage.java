@@ -7,4 +7,6 @@ package minecraftschurli.arsmagicalegacy.capabilities.burnout;
 public interface IBurnoutStorage {
     int getBurnout();
     int getMaxBurnout();
+    void decrease(int amount);
+    void increase(int amount);
 }
