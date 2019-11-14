@@ -18,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-interface Registries {
+public interface Registries {
     DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, ArsMagicaLegacy.MODID);
     DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, ArsMagicaLegacy.MODID);
     DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, ArsMagicaLegacy.MODID);
