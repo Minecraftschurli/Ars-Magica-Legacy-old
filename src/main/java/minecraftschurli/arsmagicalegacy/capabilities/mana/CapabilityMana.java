@@ -22,14 +22,6 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
 
     private LazyOptional<IManaStorage> instance = LazyOptional.of(MANA::getDefaultInstance);
 
-    public CapabilityMana (){
-        LazyOptional<ManaStorage> tmp = this.instance.filter(iManaStorage -> iManaStorage instanceof ManaStorage).cast();
-        tmp.ifPresent(manaStorage -> {
-            manaStorage.setMaxMana(100);
-            manaStorage.setMana(100);
-        });
-    }
-
     public static void register()
     {
         CapabilityManager.INSTANCE.register(IManaStorage.class, new Capability.IStorage<IManaStorage>() {

@@ -22,11 +22,6 @@ public class CapabilityBurnout implements ICapabilitySerializable<INBT> {
 
     private LazyOptional<IBurnoutStorage> instance = LazyOptional.of(BURNOUT::getDefaultInstance);
 
-    public CapabilityBurnout (){
-        LazyOptional<BurnoutStorage> tmp = this.instance.filter(iBurnoutStorage -> iBurnoutStorage instanceof BurnoutStorage).cast();
-        tmp.ifPresent(burnoutStorage -> burnoutStorage.maxBurnout = 100);
-    }
-
     public static void register()
     {
         CapabilityManager.INSTANCE.register(IBurnoutStorage.class, new Capability.IStorage<IBurnoutStorage>() {

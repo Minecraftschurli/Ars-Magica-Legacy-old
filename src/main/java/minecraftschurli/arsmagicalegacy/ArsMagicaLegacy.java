@@ -56,6 +56,7 @@ public class ArsMagicaLegacy {
         ModBlocks.register();
         ModFluids.register();
         ModItems.register();
+        ModEffects.register();
         ModContainers.register();
 
         proxy.preInit();
@@ -66,6 +67,7 @@ public class ArsMagicaLegacy {
         proxy.init();
         CapabilityMana.register();
         CapabilityBurnout.register();
+        CapabilityResearch.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

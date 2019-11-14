@@ -62,8 +62,8 @@ public final class ModItems implements Registries {
     public static final RegistryObject<Item> RUNE = ITEMS.register("rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> WHITE_RUNE = ITEMS.register("white_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> ORANGE_RUNE = ITEMS.register("orange_rune", () -> new Item(ITEM_64));
-    public static final RegistryObject<Item> MAGENTA_RUNE = ITEMS.register("white_rune", () -> new Item(ITEM_64));
-    public static final RegistryObject<Item> LIGHT_BLUE_RUNE = ITEMS.register("white_rune", () -> new Item(ITEM_64));
+    public static final RegistryObject<Item> MAGENTA_RUNE = ITEMS.register("magenta_rune", () -> new Item(ITEM_64));
+    public static final RegistryObject<Item> LIGHT_BLUE_RUNE = ITEMS.register("light_blue_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> YELLOW_RUNE = ITEMS.register("yellow_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> LIME_RUNE = ITEMS.register("lime_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> PINK_RUNE = ITEMS.register("pink_rune", () -> new Item(ITEM_64));
@@ -74,7 +74,7 @@ public final class ModItems implements Registries {
     public static final RegistryObject<Item> BLUE_RUNE = ITEMS.register("blue_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> BROWN_RUNE = ITEMS.register("brown_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> GREEN_RUNE = ITEMS.register("green_rune", () -> new Item(ITEM_64));
-    public static final RegistryObject<Item> RED_RUNE = ITEMS.register("white_rune", () -> new Item(ITEM_64));
+    public static final RegistryObject<Item> RED_RUNE = ITEMS.register("red_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> BLACK_RUNE = ITEMS.register("black_rune", () -> new Item(ITEM_64));
     
     public static void register() {}

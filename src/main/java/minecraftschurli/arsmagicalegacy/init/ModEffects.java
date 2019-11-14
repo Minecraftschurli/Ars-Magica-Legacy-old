@@ -12,4 +12,5 @@ import net.minecraftforge.fml.RegistryObject;
 public final class ModEffects implements Registries {
     public static final RegistryObject<Effect> MANA_REGEN = POTIONS.register("mana_regen", EffectManaRegen::new);
     public static final RegistryObject<Effect> MANA_DRAIN = POTIONS.register("mana_drain", EffectManaDrain::new);
+    public static void register() {}
 }
