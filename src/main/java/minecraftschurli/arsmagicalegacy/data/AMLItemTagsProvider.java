@@ -19,7 +19,6 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
 
     @Override
     public void registerTags() {
-        //TODO @Minecraftschurli : Register Item Tags
         getBuilder(ModTags.Items.GEMS_CHIMERITE).add(ModItems.CHIMERITE.get());
         getBuilder(ModTags.Items.GEMS_MOONSTONE).add(ModItems.MOONSTONE.get());
         getBuilder(ModTags.Items.GEMS_SUNSTONE).add(ModItems.SUNSTONE.get());
