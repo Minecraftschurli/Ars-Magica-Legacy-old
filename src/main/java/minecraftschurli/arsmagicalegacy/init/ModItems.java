@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
+import minecraftschurli.arsmagicalegacy.objects.item.ResearchOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.item.BlockItem;
@@ -76,6 +77,10 @@ public final class ModItems implements Registries {
     public static final RegistryObject<Item> GREEN_RUNE = ITEMS.register("green_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> RED_RUNE = ITEMS.register("red_rune", () -> new Item(ITEM_64));
     public static final RegistryObject<Item> BLACK_RUNE = ITEMS.register("black_rune", () -> new Item(ITEM_64));
-    
+
+    public static final RegistryObject<Item> BLUE_ORB = ITEMS.register("blue_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.BLUE));
+    public static final RegistryObject<Item> GREEN_ORB = ITEMS.register("green_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.GREEN));
+    public static final RegistryObject<Item> RED_ORB = ITEMS.register("red_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.RED));
+
     public static void register() {}
 }
