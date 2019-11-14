@@ -18,7 +18,6 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void registerTags() {
-        //TODO @Minecraftschurli : Register Block Tags
         getBuilder(ModTags.Blocks.ORES_CHIMERITE).add(ModBlocks.CHIMERITE_ORE.get());
         getBuilder(ModTags.Blocks.ORES_SUNSTONE).add(ModBlocks.SUNSTONE_ORE.get());
         getBuilder(ModTags.Blocks.ORES_MOONSTONE).add(ModBlocks.MOONSTONE_ORE.get());

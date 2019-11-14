@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -43,7 +44,11 @@ public class AMLBlockLootTableProvider extends BlockLootTables implements IDataP
         registerDropSelfLootTable(ModBlocks.WITCHWOOD_STAIRS.get());
         registerDropSelfLootTable(ModBlocks.VINTEUM_BLOCK.get());
         registerDropSelfLootTable(ModBlocks.SUNSTONE_BLOCK.get());
-        //TODO @IchHabeHunger54 : Ore Loot tables
+        registerGemDropLootTable(ModBlocks.CHIMERITE_ORE.get(), ModItems.CHIMERITE.get());
+        registerGemDropLootTable(ModBlocks.TOPAZ_ORE.get(), ModItems.TOPAZ.get());
+        registerGemDropLootTable(ModBlocks.VINTEUM_ORE.get(), ModItems.VINTEUM.get());
+        registerGemDropLootTable(ModBlocks.MOONSTONE_ORE.get(), ModItems.MOONSTONE.get());
+        registerGemDropLootTable(ModBlocks.SUNSTONE_ORE.get(), ModItems.SUNSTONE.get());
     }
 
     public void addTable(Block block, LootTable.Builder lootTable) {
