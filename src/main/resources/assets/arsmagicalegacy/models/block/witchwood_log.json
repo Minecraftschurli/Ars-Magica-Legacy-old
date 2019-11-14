@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "arsmagicalegacy:block/witchwood_log_top",
-    "side": "arsmagicalegacy:block/witchwood_log"
+    "side": "arsmagicalegacy:block/witchwood_wood"
   }
 }
