@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/torch_wall",
+  "parent": "block/torch_wall",
   "textures": {
     "torch": "arsmagicalegacy:block/vinteum_torch"
   }
