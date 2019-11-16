@@ -64,7 +64,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> WITCHWOOD_TRAPDOOR = blockItem(ModBlocks.WITCHWOOD_TRAPDOOR);
     public static final RegistryObject<Item> WITCHWOOD_BUTTON = blockItem(ModBlocks.WITCHWOOD_BUTTON);
     public static final RegistryObject<Item> WITCHWOOD_PRESSURE_PLATE = blockItem(ModBlocks.WITCHWOOD_PRESSURE_PLATE);
-    
+
     public static final RegistryObject<Item> RUNE = stackableItem64("rune");
     public static final RegistryObject<Item> WHITE_RUNE = stackableItem64("white_rune");
     public static final RegistryObject<Item> ORANGE_RUNE = stackableItem64("orange_rune");
@@ -98,7 +98,7 @@ public final class ModItems implements IInit {
         Objects.requireNonNull(name);
         return ITEMS.register(name, ModItems::item64);
     }
-    
+
     private static Item item64() {
         return new Item(ITEM_64);
     }
