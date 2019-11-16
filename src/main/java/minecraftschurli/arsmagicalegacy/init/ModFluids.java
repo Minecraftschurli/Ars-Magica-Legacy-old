@@ -19,7 +19,7 @@ import java.awt.*;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-public final class ModFluids implements Registries {
+public final class ModFluids implements IInit {
     public static final Item.Properties BUCKET_PROPERTIES = new Item.Properties()
             .containerItem(net.minecraft.item.Items.BUCKET)
             .maxStackSize(1).group(ItemGroup.MISC);

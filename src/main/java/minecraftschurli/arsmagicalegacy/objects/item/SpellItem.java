@@ -30,7 +30,7 @@ public class SpellItem extends Item {
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
         if (worldIn.isRemote)
-            return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
+            return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         return performSpell(worldIn, playerIn.getHeldItem(handIn), playerIn) ?
                 new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn)) :
                 new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));

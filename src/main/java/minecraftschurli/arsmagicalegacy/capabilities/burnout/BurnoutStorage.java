@@ -5,28 +5,52 @@ package minecraftschurli.arsmagicalegacy.capabilities.burnout;
  * @version 2019-11-08
  */
 public class BurnoutStorage implements IBurnoutStorage {
-    int burnout;
-    int maxBurnout;
+    float burnout;
+    float maxBurnout;
 
     @Override
-    public int getBurnout() {
+    public float getBurnout() {
         return burnout;
     }
 
     @Override
-    public int getMaxBurnout() {
+    public float getMaxBurnout() {
         return maxBurnout;
     }
 
     @Override
-    public void decrease(int amount) {
+    public boolean setBurnout(float amount) {
+        if (amount > maxBurnout)
+            return false;
+        burnout = amount;
+        return true;
+    }
+
+    @Override
+    public void setMaxBurnout(float amount) {
+        if (amount > 0)
+            maxBurnout = amount;
+    }
+
+    @Override
+    public void decrease(float amount) {
         if (amount > 0)
             this.burnout = Math.max(0, getBurnout() - amount);
     }
 
     @Override
-    public void increase(int amount) {
-        if (amount > 0)
+    public boolean increase(float amount) {
+        if (amount > 0) {
+            if (getBurnout() + amount > getMaxBurnout())
+                return false;
             this.burnout = Math.min(getBurnout() + amount, getMaxBurnout());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "BurnoutStorage{maxBurnout=" + maxBurnout + ", burnout=" + burnout + "}";
     }
 }

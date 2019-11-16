@@ -22,25 +22,20 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
 
     private LazyOptional<IManaStorage> instance = LazyOptional.of(MANA::getDefaultInstance);
 
-    public static void register()
-    {
+    public static void register() {
         CapabilityManager.INSTANCE.register(IManaStorage.class, new Capability.IStorage<IManaStorage>() {
                     @Override
-                    public INBT writeNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side)
-                    {
+                    public INBT writeNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
-                        compoundNBT.putInt("mana", instance.getMana());
-                        compoundNBT.putInt("maxMana", instance.getMaxMana());
+                        compoundNBT.putFloat("maxMana", instance.getMaxMana());
+                        compoundNBT.putFloat("mana", instance.getMana());
                         return compoundNBT;
                     }
 
                     @Override
-                    public void readNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side, INBT nbt)
-                    {
-                        if (!(instance instanceof ManaStorage))
-                            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((ManaStorage)instance).setMana(((CompoundNBT)nbt).getInt("mana"));
-                        ((ManaStorage)instance).setMaxMana(((CompoundNBT)nbt).getInt("maxMana"));
+                    public void readNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side, INBT nbt) {
+                        instance.setMaxMana(((CompoundNBT)nbt).getFloat("maxMana"));
+                        instance.setMana(((CompoundNBT)nbt).getFloat("mana"));
                     }
                 },
                 ManaStorage::new);

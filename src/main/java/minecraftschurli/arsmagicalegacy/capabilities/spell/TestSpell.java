@@ -17,26 +17,28 @@ public class TestSpell implements ISpell {
     @Override
     public boolean execute(World world, ItemStack stack, PlayerEntity player) {
         double rayTraceRange = 15;
-        SpellUtils.use(player, getManaCost(), getBurnoutCost());
-        BlockPos blockpos = SpellUtils.rayTrace(world, player, rayTraceRange);
-        LightningBoltEntity lightningboltentity = new LightningBoltEntity(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, false);
-        lightningboltentity.setCaster(player instanceof ServerPlayerEntity ? (ServerPlayerEntity)player : null);
-        ((ServerWorld)world).addLightningBolt(lightningboltentity);
-        return true;
+        if (SpellUtils.use(player, getManaCost(), getBurnoutCost())) {
+            BlockPos blockpos = SpellUtils.rayTrace(world, player, rayTraceRange);
+            LightningBoltEntity lightningboltentity = new LightningBoltEntity(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, false);
+            lightningboltentity.setCaster(player instanceof ServerPlayerEntity ? (ServerPlayerEntity)player : null);
+            ((ServerWorld)world).addLightningBolt(lightningboltentity);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public int getCooldown() {
-        return 10;
+        return 4;
     }
 
     @Override
     public int getManaCost() {
-        return 1;
+        return 8;
     }
 
     @Override
     public int getBurnoutCost() {
-        return 0;
+        return 8;
     }
 }

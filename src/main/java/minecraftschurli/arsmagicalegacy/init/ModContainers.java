@@ -8,7 +8,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Minecraftschurli
  * @version 2019-11-08
  */
-public final class ModContainers implements Registries {
+public final class ModContainers implements IInit {
 
     public static final RegistryObject<ContainerType<SpellBookContainer>> SPELLBOOK = CONTAINERS.register("spellbook", () -> new ContainerType<>(SpellBookContainer::new));
 

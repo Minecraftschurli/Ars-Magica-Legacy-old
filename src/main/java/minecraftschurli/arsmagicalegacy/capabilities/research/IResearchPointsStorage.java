@@ -23,4 +23,7 @@ public interface IResearchPointsStorage {
     void addRed(int count);
     void addGreen(int count);
     void addBlue(int count);
+    void setRed(int count);
+    void setGreen(int count);
+    void setBlue(int count);
 }

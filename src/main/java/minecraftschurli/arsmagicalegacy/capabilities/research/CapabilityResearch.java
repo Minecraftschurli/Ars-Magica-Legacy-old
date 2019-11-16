@@ -22,12 +22,10 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
 
     private LazyOptional<IResearchPointsStorage> pointsInstance = LazyOptional.of(RESEARCH_POINTS::getDefaultInstance);
 
-    public static void register()
-    {
+    public static void register() {
         CapabilityManager.INSTANCE.register(IResearchPointsStorage.class, new Capability.IStorage<IResearchPointsStorage>() {
                     @Override
-                    public INBT writeNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side)
-                    {
+                    public INBT writeNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
                         compoundNBT.putInt("red", instance.getRed());
                         compoundNBT.putInt("green", instance.getGreen());
@@ -35,13 +33,10 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                         return compoundNBT;
                     }
                     @Override
-                    public void readNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side, INBT nbt)
-                    {
-                        if (!(instance instanceof ResearchPointsStorage))
-                            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((ResearchPointsStorage)instance).setRed(((CompoundNBT)nbt).getInt("red"));
-                        ((ResearchPointsStorage)instance).setGreen(((CompoundNBT)nbt).getInt("green"));
-                        ((ResearchPointsStorage)instance).setBlue(((CompoundNBT)nbt).getInt("blue"));
+                    public void readNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side, INBT nbt) {
+                        instance.setRed(((CompoundNBT)nbt).getInt("red"));
+                        instance.setGreen(((CompoundNBT)nbt).getInt("green"));
+                        instance.setBlue(((CompoundNBT)nbt).getInt("blue"));
                     }
                 },
                 ResearchPointsStorage::new);

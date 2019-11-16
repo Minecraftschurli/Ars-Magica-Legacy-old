@@ -6,40 +6,45 @@ package minecraftschurli.arsmagicalegacy.capabilities.mana;
  */
 public class ManaStorage implements IManaStorage {
 
-    private int maxMana;
-    private int mana;
+    private float maxMana;
+    private float mana;
 
     @Override
-    public int getMana() {
+    public float getMana() {
         return mana;
     }
 
     @Override
-    public int getMaxMana() {
+    public float getMaxMana() {
         return maxMana;
     }
 
-    boolean setMana(int mana) {
+    public boolean setMana(float mana) {
         if (mana < 0)
             return false;
         this.mana = Math.min(mana, this.maxMana);
         return true;
     }
 
-    void setMaxMana(int maxMana) {
+    public void setMaxMana(float maxMana) {
         if (maxMana >= 0)
             this.maxMana = maxMana;
     }
 
     @Override
-    public boolean increase(int amount) {
+    public boolean increase(float amount) {
         if (amount <= 0) return false;
         return this.setMana(this.getMana() + amount);
     }
 
     @Override
-    public boolean decrease(int amount) {
+    public boolean decrease(float amount) {
         if (amount <= 0) return false;
         return this.setMana(this.getMana() - amount);
+    }
+
+    @Override
+    public String toString() {
+        return "ManaStorage{maxMana=" + maxMana + ", mana=" + mana + "}";
     }
 }

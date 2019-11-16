@@ -14,7 +14,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-public final class ModBlocks implements Registries {
+public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> VINTEUM_ORE = BLOCKS.register("vinteum_ore", ()->new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3.0f, 3.0f).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> CHIMERITE_ORE = BLOCKS.register("chimerite_ore", ()->new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3.0f, 3.0f).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> TOPAZ_ORE = BLOCKS.register("topaz_ore", ()->new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3.0f, 3.0f).harvestTool(ToolType.PICKAXE)));

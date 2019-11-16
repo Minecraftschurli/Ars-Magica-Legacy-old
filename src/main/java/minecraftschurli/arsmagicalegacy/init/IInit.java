@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.spellsystem.SpellPart;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
@@ -18,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-public interface Registries {
+public interface IInit {
     DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, ArsMagicaLegacy.MODID);
     DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, ArsMagicaLegacy.MODID);
     DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, ArsMagicaLegacy.MODID);
@@ -28,6 +29,9 @@ public interface Registries {
     DeferredRegister<ContainerType<?>> CONTAINERS = new DeferredRegister<>(ForgeRegistries.CONTAINERS, ArsMagicaLegacy.MODID);
     DeferredRegister<VillagerProfession> PROFESSIONS = new DeferredRegister<>(ForgeRegistries.PROFESSIONS, ArsMagicaLegacy.MODID);
     DeferredRegister<PointOfInterestType> POI_TYPES = new DeferredRegister<>(ForgeRegistries.POI_TYPES, ArsMagicaLegacy.MODID);
+
+    // Mod Registries
+    DeferredRegister<SpellPart> SPELL_PARTS = new DeferredRegister<>(ModRegistries.SPELL_PARTS, ArsMagicaLegacy.MODID);
 
     static void setEventBus(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
@@ -39,5 +43,7 @@ public interface Registries {
         CONTAINERS.register(modEventBus);
         PROFESSIONS.register(modEventBus);
         POI_TYPES.register(modEventBus);
+
+        SPELL_PARTS.register(modEventBus);
     }
 }

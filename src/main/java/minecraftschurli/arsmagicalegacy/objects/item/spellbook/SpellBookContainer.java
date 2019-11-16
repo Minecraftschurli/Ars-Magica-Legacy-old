@@ -73,6 +73,11 @@ public class SpellBookContainer extends Container {
     }
 
     @Override
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public ItemStack slotClick(int slotId, int dragType, ClickType clickType, PlayerEntity player) {
         Slot tmpSlot;
         if (slotId >= 0 && slotId < inventorySlots.size()) {
@@ -86,7 +91,7 @@ public class SpellBookContainer extends Container {
             }
         }
         if (clickType == ClickType.SWAP) {
-            ItemStack stack = player.inventory.getStackInSlot(dragType);
+            ItemStack stack = player.inventory.getStackInSlot(slotId);
             if (stack == player.inventory.getCurrentItem()) {
                 return ItemStack.EMPTY;
             }
