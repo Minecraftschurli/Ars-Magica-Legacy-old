@@ -84,5 +84,11 @@ public final class ModItems implements Registries {
     public static final RegistryObject<Item> IRON_INLAY = ITEMS.register("iron_inlay", ()->new BlockItem(ModBlocks.IRON_INLAY.get(), ITEM_64));
     public static final RegistryObject<Item> GOLD_INLAY = ITEMS.register("gold_inlay", ()->new BlockItem(ModBlocks.GOLD_INLAY.get(), ITEM_64));
     public static final RegistryObject<Item> VINTEUM_TORCH = ITEMS.register("vinteum_torch", ()->new WallOrFloorItem(ModBlocks.VINTEUM_TORCH.get(), ModBlocks.VINTEUM_WALL_TORCH.get(), ITEM_64));
+    public static final RegistryObject<Item> PURIFIED_VINTEUM = ITEMS.register("purified_vinteum", ()->new Item(ITEM_64));
+    public static final RegistryObject<Item> ARCANE_ASH = ITEMS.register("arcane_ash", ()->new Item(ITEM_64));
+    public static final RegistryObject<Item> ARCANE_COMPOUND = ITEMS.register("arcane_compound", ()->new Item(ITEM_64));
+    public static final RegistryObject<Item> PIG_FAT = ITEMS.register("pig_fat", ()->new Item(ITEM_64));
+    public static final RegistryObject<Item> SPELL_PARCHMENT = ITEMS.register("spell_parchment", ()->new Item(ITEM_64));
+    public static final RegistryObject<Item> WOODEN_LEG = ITEMS.register("wooden_leg", ()->new Item(ITEM_64));
     public static void register() {}
 }
