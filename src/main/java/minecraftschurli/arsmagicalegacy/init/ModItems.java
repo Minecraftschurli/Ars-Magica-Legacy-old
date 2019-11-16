@@ -6,9 +6,11 @@ import minecraftschurli.arsmagicalegacy.objects.item.ResearchOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.TallBlockItem;
+import net.minecraft.item.WallOrFloorItem;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -81,5 +83,6 @@ public final class ModItems implements Registries {
     public static final RegistryObject<Item> REDSTONE_INLAY = ITEMS.register("redstone_inlay", ()->new BlockItem(ModBlocks.REDSTONE_INLAY.get(), ITEM_64));
     public static final RegistryObject<Item> IRON_INLAY = ITEMS.register("iron_inlay", ()->new BlockItem(ModBlocks.IRON_INLAY.get(), ITEM_64));
     public static final RegistryObject<Item> GOLD_INLAY = ITEMS.register("gold_inlay", ()->new BlockItem(ModBlocks.GOLD_INLAY.get(), ITEM_64));
+    public static final RegistryObject<Item> VINTEUM_TORCH = ITEMS.register("vinteum_torch", ()->new WallOrFloorItem(ModBlocks.VINTEUM_TORCH.get(), ModBlocks.VINTEUM_WALL_TORCH.get(), ITEM_64));
     public static void register() {}
 }
