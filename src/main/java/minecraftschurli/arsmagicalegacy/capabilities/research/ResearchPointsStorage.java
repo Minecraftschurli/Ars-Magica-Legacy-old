@@ -7,15 +7,15 @@ package minecraftschurli.arsmagicalegacy.capabilities.research;
 public class ResearchPointsStorage implements IResearchPointsStorage {
     private int red, green, blue;
 
-    void setRed(int count) {
+    public void setRed(int count) {
         this.red = count;
     }
 
-    void setGreen(int count) {
+    public void setGreen(int count) {
         this.green = count;
     }
 
-    void setBlue(int count) {
+    public void setBlue(int count) {
         this.blue = count;
     }
 

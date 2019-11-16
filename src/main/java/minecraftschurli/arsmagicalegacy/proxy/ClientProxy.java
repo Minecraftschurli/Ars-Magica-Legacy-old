@@ -5,7 +5,9 @@ import minecraftschurli.arsmagicalegacy.event.UIRender;
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -30,5 +32,10 @@ public class ClientProxy implements IProxy {
                 return new SpellBookScreen(container, inventory, name);
             }
         });
+    }
+
+    @Override
+    public PlayerEntity getClientPlayer() {
+        return Minecraft.getInstance().player;
     }
 }

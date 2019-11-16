@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * @version 2019-11-09
  */
 public class SpellBookInventory implements IInventory {
-    public static int inventorySize = 40;
+    public int inventorySize = 40;
     private NonNullList<ItemStack> contents;
 
     public SpellBookInventory(){
@@ -23,19 +23,11 @@ public class SpellBookInventory implements IInventory {
     }
 
     public void readNBT(CompoundNBT compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
-        ItemStackHelper.loadAllItems(compound, list);
-        for (int index = 0; index < list.size(); index++) {
-            setInventorySlotContents(index, list.get(index));
-        }
+        ItemStackHelper.loadAllItems(compound, this.contents);
     }
 
     public void writeNBT(CompoundNBT compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
-        for (int index = 0; index < list.size(); index++) {
-            list.set(index, getStackInSlot(index));
-        }
-        ItemStackHelper.saveAllItems(compound, list, false);
+        ItemStackHelper.saveAllItems(compound, this.contents, true);
     }
 
     @Override

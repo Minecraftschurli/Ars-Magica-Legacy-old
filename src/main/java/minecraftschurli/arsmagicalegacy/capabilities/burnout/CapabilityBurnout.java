@@ -22,25 +22,20 @@ public class CapabilityBurnout implements ICapabilitySerializable<INBT> {
 
     private LazyOptional<IBurnoutStorage> instance = LazyOptional.of(BURNOUT::getDefaultInstance);
 
-    public static void register()
-    {
+    public static void register() {
         CapabilityManager.INSTANCE.register(IBurnoutStorage.class, new Capability.IStorage<IBurnoutStorage>() {
                     @Override
-                    public INBT writeNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side)
-                    {
+                    public INBT writeNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
-                        compoundNBT.putInt("burnout", instance.getBurnout());
-                        compoundNBT.putInt("maxBurnout", instance.getMaxBurnout());
+                        compoundNBT.putFloat("maxBurnout", instance.getMaxBurnout());
+                        compoundNBT.putFloat("burnout", instance.getBurnout());
                         return compoundNBT;
                     }
 
                     @Override
-                    public void readNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side, INBT nbt)
-                    {
-                        if (!(instance instanceof BurnoutStorage))
-                            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((BurnoutStorage)instance).burnout = ((CompoundNBT)nbt).getInt("burnout");
-                        ((BurnoutStorage)instance).maxBurnout = ((CompoundNBT)nbt).getInt("maxBurnout");
+                    public void readNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side, INBT nbt) {
+                        instance.setMaxBurnout(((CompoundNBT)nbt).getFloat("maxBurnout"));
+                        instance.setBurnout(((CompoundNBT)nbt).getFloat("burnout"));
                     }
                 },
                 BurnoutStorage::new);

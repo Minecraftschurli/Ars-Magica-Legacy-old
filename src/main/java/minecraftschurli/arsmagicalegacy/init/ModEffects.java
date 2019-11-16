@@ -9,8 +9,9 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Minecraftschurli
  * @version 2019-11-14
  */
-public final class ModEffects implements Registries {
+public final class ModEffects implements IInit {
     public static final RegistryObject<Effect> MANA_REGEN = POTIONS.register("mana_regen", EffectManaRegen::new);
     public static final RegistryObject<Effect> MANA_DRAIN = POTIONS.register("mana_drain", EffectManaDrain::new);
+
     public static void register() {}
 }
