@@ -1,7 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.spellsystem.SpellPart;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellShape;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,11 +18,15 @@ import net.minecraftforge.registries.RegistryBuilder;
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ArsMagicaLegacy.MODID)
 public class ModRegistries {
-    public static IForgeRegistry<SpellPart> SPELL_PARTS = null;
+    public static IForgeRegistry<SpellComponent> SPELL_COMPONENTS = null;
+    public static IForgeRegistry<SpellModifier> SPELL_MODIFIERS = null;
+    public static IForgeRegistry<SpellShape> SPELL_SHAPES = null;
 
     @SubscribeEvent
     public static void registerRegistries(final RegistryEvent.NewRegistry event) {
-        SPELL_PARTS = new RegistryBuilder<SpellPart>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "spell_parts")).setType(SpellPart.class).create();
+        SPELL_COMPONENTS = new RegistryBuilder<SpellComponent>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "spell_components")).setType(SpellComponent.class).create();
+        SPELL_MODIFIERS = new RegistryBuilder<SpellModifier>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "spell_modifiers")).setType(SpellModifier.class).create();
+        SPELL_SHAPES = new RegistryBuilder<SpellShape>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "spell_shapes")).setType(SpellShape.class).create();
 
         IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
 

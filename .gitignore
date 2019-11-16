@@ -4,7 +4,6 @@ gradlew.bat
 /.gradle/
 /build/
 /build/classes/java/main/
-/gradle/
 /run/
 /src/generated/
 /.idea/
