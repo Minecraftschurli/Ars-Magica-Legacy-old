@@ -2,9 +2,11 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 
@@ -110,5 +112,44 @@ public final class RecipeHelper {
                 .key('X', item2)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
     }
-    //TODO @Minecraftschurli : Add furnace recipe helper
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp) {
+        return addSmeltingRecipe(output, input, exp, 200);
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, Tag<Item> input, float exp) {
+        return addSmeltingRecipe(output, input, exp, 200);
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp, int time) {
+        return CookingRecipeBuilder
+                .smeltingRecipe(Ingredient.fromItems(input), output, exp, time)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(input));
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, Tag<Item> input, float exp, int time) {
+        return CookingRecipeBuilder
+                .smeltingRecipe(Ingredient.fromTag(input), output, exp, time)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build()));
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp) {
+        return addBlastingRecipe(output,input,exp, 100);
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp) {
+        return addBlastingRecipe(output, input, exp, 100);
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp, int time) {
+        return CookingRecipeBuilder
+                .blastingRecipe(Ingredient.fromItems(input), output, exp, time)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(input));
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp, int time) {
+        return CookingRecipeBuilder
+                .blastingRecipe(Ingredient.fromTag(input), output, exp, time)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build()));
+    }
 }
