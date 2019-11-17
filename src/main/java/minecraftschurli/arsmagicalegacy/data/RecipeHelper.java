@@ -110,4 +110,5 @@ public final class RecipeHelper {
                 .key('X', item2)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
     }
+    //TODO @Minecraftschurli : Add furnace recipe helper
 }
