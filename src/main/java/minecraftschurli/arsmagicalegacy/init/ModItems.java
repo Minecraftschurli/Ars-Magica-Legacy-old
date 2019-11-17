@@ -92,6 +92,16 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> PIG_FAT = stackableItem64("pig_fat");
     public static final RegistryObject<Item> SPELL_PARCHMENT = stackableItem64("spell_parchment");
     public static final RegistryObject<Item> WOODEN_LEG = stackableItem64("wooden_leg");
+    public static final RegistryObject<Item> WATER_ESSENCE = stackableItem64("water_essence");
+    public static final RegistryObject<Item> FIRE_ESSENCE = stackableItem64("fire_essence");
+    public static final RegistryObject<Item> EARTH_ESSENCE = stackableItem64("earth_essence");
+    public static final RegistryObject<Item> AIR_ESSENCE = stackableItem64("air_essence");
+    public static final RegistryObject<Item> LIGHTNING_ESSENCE = stackableItem64("lightning_essence");
+    public static final RegistryObject<Item> ICE_ESSENCE = stackableItem64("ice_essence");
+    public static final RegistryObject<Item> NATURE_ESSENCE = stackableItem64("nature_essence");
+    public static final RegistryObject<Item> LIFE_ESSENCE = stackableItem64("life_essence");
+    public static final RegistryObject<Item> ARCANE_ESSENCE = stackableItem64("arcane_essence");
+    public static final RegistryObject<Item> ENDER_ESSENCE = stackableItem64("ender_essence");
     public static void register() {}
     private static RegistryObject<Item> blockItem(final RegistryObject<Block> block) {
         Objects.requireNonNull(block);

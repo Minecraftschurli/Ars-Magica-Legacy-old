@@ -8,6 +8,7 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 
 /**
  * @author Minecraftschurli
@@ -259,6 +260,15 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .addIngredient(Tags.Items.DUSTS_REDSTONE)
                 .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.NETHERRACK))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.WOODEN_LEG.get())
+                .patternLine("P")
+                .patternLine("W")
+                .patternLine("S")
+                .key('P', ModItems.WITCHWOOD_PLANKS.get())
+                .key('W', ModItems.WITCHWOOD_SLAB.get())
+                .key('S', Items.STICK)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.STICK))
                 .build(consumer);
     }
 }
