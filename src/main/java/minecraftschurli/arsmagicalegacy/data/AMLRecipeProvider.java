@@ -270,5 +270,6 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .key('S', Items.STICK)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.STICK))
                 .build(consumer);
+        RecipeHelper.addBlastingRecipe(ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
     }
 }
