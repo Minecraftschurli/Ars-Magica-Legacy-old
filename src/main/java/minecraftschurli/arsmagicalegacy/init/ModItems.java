@@ -86,6 +86,12 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> BLUE_ORB = ITEMS.register("blue_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.BLUE));
     public static final RegistryObject<Item> GREEN_ORB = ITEMS.register("green_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.GREEN));
     public static final RegistryObject<Item> RED_ORB = ITEMS.register("red_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.RED));
+    public static final RegistryObject<Item> PURIFIED_VINTEUM = stackableItem64("purified_vinteum");
+    public static final RegistryObject<Item> ARCANE_ASH = stackableItem64("arcane_ash");
+    public static final RegistryObject<Item> ARCANE_COMPOUND = stackableItem64("arcane_compound");
+    public static final RegistryObject<Item> PIG_FAT = stackableItem64("pig_fat");
+    public static final RegistryObject<Item> SPELL_PARCHMENT = stackableItem64("spell_parchment");
+    public static final RegistryObject<Item> WOODEN_LEG = stackableItem64("wooden_leg");
     public static void register() {}
     private static RegistryObject<Item> blockItem(final RegistryObject<Block> block) {
         Objects.requireNonNull(block);

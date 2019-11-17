@@ -204,5 +204,36 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .key('P', Items.PAPER)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STRING).build()))
                 .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.VINTEUM_TORCH.get(), 4)
+                .patternLine("V")
+                .patternLine("S")
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .key('S', Items.STICK)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.REDSTONE_INLAY.get(), 4)
+                .patternLine("MMM")
+                .patternLine("MVM")
+                .patternLine("MMM")
+                .key('M', Tags.Items.DUSTS_REDSTONE)
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.DUSTS_REDSTONE).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.IRON_INLAY.get(), 4)
+                .patternLine("MMM")
+                .patternLine("MVM")
+                .patternLine("MMM")
+                .key('M', Tags.Items.INGOTS_IRON)
+                .key('V', ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_IRON).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.GOLD_INLAY.get(), 4)
+                .patternLine("MMM")
+                .patternLine("MVM")
+                .patternLine("MMM")
+                .key('M', Tags.Items.INGOTS_GOLD)
+                .key('V', ModItems.PURIFIED_VINTEUM.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_GOLD).build()))
+                .build(consumer);
     }
 }
