@@ -15,6 +15,7 @@ import java.util.Random;
  * @version 2019-11-16
  */
 public abstract class SpellComponent extends SpellPart<SpellComponent> {
+    public SpellComponent (){}
     /**
      * Apply the effect to a single block
      *

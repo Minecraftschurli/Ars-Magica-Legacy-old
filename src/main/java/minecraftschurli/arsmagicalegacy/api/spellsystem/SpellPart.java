@@ -7,5 +7,8 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  * @version 2019-11-16
  */
 public abstract class SpellPart<T extends SpellPart<T>> extends ForgeRegistryEntry<T> {
+    SpellPart (){
+
+    }
     public abstract Object[] getRecipeItems();
 }

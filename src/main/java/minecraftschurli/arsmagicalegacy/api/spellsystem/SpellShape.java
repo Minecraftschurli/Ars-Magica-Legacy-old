@@ -12,6 +12,7 @@ import net.minecraft.world.World;
  * @version 2019-11-16
  */
 public abstract class SpellShape extends SpellPart<SpellShape> {
+    public SpellShape (){}
     /**
      * Creates the target area/entity list and applies the effects to ground/mobs
      *
