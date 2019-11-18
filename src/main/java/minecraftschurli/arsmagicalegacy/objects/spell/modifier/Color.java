@@ -1,11 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
+import java.nio.ByteBuffer;
 import java.util.EnumSet;
 
 /**
@@ -16,11 +19,11 @@ public class Color extends SpellModifier {
     /**
      * Returns a list of the aspects of a spell that this modifier can change.
      *
-     * @return
+     * @return the aspects modified by this {@link SpellModifier}
      */
     @Override
     public EnumSet<Type> getAspectsModified() {
-        return null;
+        return EnumSet.of(SpellModifier.Type.COLOR);
     }
 
     /**
@@ -35,7 +38,8 @@ public class Color extends SpellModifier {
      */
     @Override
     public float getModifier(Type type, LivingEntity caster, Entity target, World world, byte[] metadata) {
-        return 0;
+        if (metadata.length != 4) return 0;
+        return ByteBuffer.wrap(metadata).getInt();
     }
 
     /**
@@ -47,11 +51,14 @@ public class Color extends SpellModifier {
      */
     @Override
     public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 0;
+        return 1;
     }
 
     @Override
     public Object[] getRecipeItems() {
-        return new Object[0];
+        return new Object[]{
+                new ItemStack(ModItems.CHIMERITE_ORE.get(), 1),
+                Tags.Items.DYES
+        };
     }
 }

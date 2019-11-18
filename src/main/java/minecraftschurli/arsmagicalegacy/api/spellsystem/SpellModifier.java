@@ -16,7 +16,7 @@ public abstract class SpellModifier extends SpellPart<SpellModifier> {
     /**
      * Returns a list of the aspects of a spell that this modifier can change.
      *
-     * @return
+     * @return the aspects modified by this {@link SpellModifier}
      */
     public abstract EnumSet<Type> getAspectsModified();
 
