@@ -12,6 +12,7 @@ import java.util.EnumSet;
  * @version 2019-11-16
  */
 public abstract class SpellModifier extends SpellPart<SpellModifier> {
+    public SpellModifier (){}
     /**
      * Returns a list of the aspects of a spell that this modifier can change.
      *
