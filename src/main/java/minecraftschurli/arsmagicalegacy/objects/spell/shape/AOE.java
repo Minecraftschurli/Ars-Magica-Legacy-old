@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
 import minecraftschurli.arsmagicalegacy.util.SpellHelper;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Blocks;
@@ -211,12 +210,12 @@ public class AOE extends SpellShape {
     }
 
     @Override
-    public Object[] getRecipeItems() {
-        return new Object[]{
-                new ItemStack(ModItems.MOONSTONE.get(), 1),
-                new ItemStack(ModItems.AIR_ESSENCE.get(), 1),
-                //String.format("E:%d|%d|%d", EssenceTypes.LIGHT.ID(), EssenceTypes.NEUTRAL.ID(), EssenceTypes.DARK.ID()), 1000,
-                Blocks.TNT
+    public ISpellIngredient[] getRecipeItems() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MOONSTONE.get(), 1)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get(), 1)),
+                new EssenceSpellIngredient(EssenceType.ANY, 1000),
+                new ItemStackSpellIngredient(new ItemStack(Blocks.TNT, 1))
         };
     }
 }

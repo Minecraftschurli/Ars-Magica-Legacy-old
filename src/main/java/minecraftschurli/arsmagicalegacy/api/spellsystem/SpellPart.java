@@ -10,5 +10,5 @@ public abstract class SpellPart<T extends SpellPart<T>> extends ForgeRegistryEnt
     SpellPart (){
 
     }
-    public abstract Object[] getRecipeItems();
+    public abstract ISpellIngredient[] getRecipeItems();
 }
