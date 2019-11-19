@@ -437,4 +437,25 @@ public final class SpellUtils {
         }
         return components;*/
     }
+
+    public static ItemStack popStackStage(ItemStack stack){
+        if (!stack.hasTag())
+            return stack;
+
+        ItemStack workingStack = stack.copy();
+        int stages = numStages(workingStack);
+        if (stages == 0) return workingStack;
+        for (int i = 1; i < stages; ++i){
+            workingStack.getTag().putIntArray(COMPONENT_PREFIX + (i - 1), workingStack.getTag().getIntArray(COMPONENT_PREFIX + i));
+            workingStack.getTag().putIntArray(MODIFIER_PREFIX + (i - 1), workingStack.getTag().getIntArray(MODIFIER_PREFIX + i));
+            workingStack.getTag().putInt(SHAPE_PREFIX + (i - 1), workingStack.getTag().getInt(SHAPE_PREFIX + i));
+        }
+        workingStack.getTag().putInt(STAGES_IDENTIFIER, stages - 1);
+
+        workingStack.getTag().remove(COMPONENT_PREFIX + (stages - 1));
+        workingStack.getTag().remove(MODIFIER_PREFIX + (stages - 1));
+        workingStack.getTag().remove(SHAPE_PREFIX + (stages - 1));
+
+        return workingStack;
+    }
 }
