@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
+import minecraftschurli.arsmagicalegacy.api.spellsystem.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.entity.Entity;
@@ -55,10 +58,10 @@ public class Color extends SpellModifier {
     }
 
     @Override
-    public Object[] getRecipeItems() {
-        return new Object[]{
-                new ItemStack(ModItems.CHIMERITE_ORE.get(), 1),
-                Tags.Items.DYES
+    public ISpellIngredient[] getRecipeItems() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.CHIMERITE_ORE.get(), 1)),
+                new ItemTagSpellIngredient(Tags.Items.DYES, 1)
         };
     }
 }
