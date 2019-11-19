@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.spell;
 
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

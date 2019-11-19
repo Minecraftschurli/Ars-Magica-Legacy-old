@@ -17,6 +17,10 @@ import javax.annotation.Nullable;
  * @version 2019-11-14
  */
 public class CapabilityResearch implements ICapabilitySerializable<INBT> {
+
+    @CapabilityInject(ISkillTreeStorage.class)
+    public static Capability<ISkillTreeStorage> SKILL_TREE = null;
+
     @CapabilityInject(IResearchPointsStorage.class)
     public static Capability<IResearchPointsStorage> RESEARCH_POINTS = null;
 

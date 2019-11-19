@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import minecraftschurli.arsmagicalegacy.capabilities.spell.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;

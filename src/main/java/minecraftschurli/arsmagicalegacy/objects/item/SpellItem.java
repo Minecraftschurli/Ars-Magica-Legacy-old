@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
 import minecraftschurli.arsmagicalegacy.capabilities.spell.ISpell;
-import minecraftschurli.arsmagicalegacy.capabilities.spell.SpellUtils;
 import minecraftschurli.arsmagicalegacy.capabilities.spell.TestSpell;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
