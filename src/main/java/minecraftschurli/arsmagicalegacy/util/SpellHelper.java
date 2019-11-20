@@ -93,10 +93,8 @@ public final class SpellHelper {
             }
         }
 
-        if (appliedOneComponent)
-            return SpellCastResult.SUCCESS;
-        else
-            return SpellCastResult.EFFECT_FAILED;
+        if (appliedOneComponent) return SpellCastResult.SUCCESS;
+        return SpellCastResult.EFFECT_FAILED;
     }
 
     /*public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, int side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed){
