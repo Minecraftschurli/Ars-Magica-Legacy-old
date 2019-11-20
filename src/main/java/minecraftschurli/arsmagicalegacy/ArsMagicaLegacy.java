@@ -9,7 +9,7 @@ import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchPointsSto
 import minecraftschurli.arsmagicalegacy.event.TickHandler;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -118,8 +118,12 @@ public final class ArsMagicaLegacy {
     public static void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getPlayer() instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-            SpellUtils.syncMana(player);
-            SpellUtils.syncBurnout(player);
+            MagicHelper.syncMana(player);
+            MagicHelper.syncBurnout(player);
         }
+    }
+
+    public String getVersion() {
+        return "0.0.1.0";
     }
 }
