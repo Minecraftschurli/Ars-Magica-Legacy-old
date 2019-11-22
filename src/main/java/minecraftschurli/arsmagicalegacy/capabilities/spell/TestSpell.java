@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.spell;
 
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +19,7 @@ public class TestSpell implements ISpell {
     @Override
     public boolean execute(World world, ItemStack stack, PlayerEntity player) {
         double rayTraceRange = 15;
-        if (SpellUtils.use(player, getManaCost(), getBurnoutCost())) {
+        if (MagicHelper.use(player, getManaCost(), getBurnoutCost())) {
             BlockPos blockpos = SpellUtils.rayTrace(world, player, rayTraceRange);
             LightningBoltEntity lightningboltentity = new LightningBoltEntity(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, false);
             lightningboltentity.setCaster(player instanceof ServerPlayerEntity ? (ServerPlayerEntity)player : null);

@@ -4,23 +4,17 @@ import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellShape;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.capabilities.spell.ISpell;
 import minecraftschurli.arsmagicalegacy.capabilities.spell.TestSpell;
 import minecraftschurli.arsmagicalegacy.event.ModifierCalculatedEvent;
 import minecraftschurli.arsmagicalegacy.init.ModRegistries;
-import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.network.SyncBurnout;
-import minecraftschurli.arsmagicalegacy.network.SyncMana;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -31,9 +25,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Minecraftschurli
@@ -49,60 +44,13 @@ public final class SpellUtils {
     private static final String MODIFIER_META_PREFIX = "spell_modifier_meta_";
     private static final String STAGES_IDENTIFIER = "num_stages";
 
-    public static boolean use(PlayerEntity player, int manaCost, int burnoutCost) {
-        if (player instanceof ServerPlayerEntity){
-            LazyOptional<IManaStorage> manaStorage = player.getCapability(CapabilityMana.MANA);
-            LazyOptional<IBurnoutStorage> burnoutStorage = player.getCapability(CapabilityBurnout.BURNOUT);
-            if (manaStorage.map(IManaStorage::getMana).orElse(0.0f) >= manaCost && burnoutStorage.map(iBurnoutStorage -> iBurnoutStorage.getMaxBurnout() - iBurnoutStorage.getBurnout()).orElse(0.0f) >= burnoutCost) {
-                manaStorage.ifPresent(iManaStorage -> iManaStorage.decrease(manaCost));
-                burnoutStorage.ifPresent(iBurnoutStorage -> iBurnoutStorage.increase(burnoutCost));
-                syncMana((ServerPlayerEntity)player);
-                syncBurnout((ServerPlayerEntity) player);
-                return true;
-            }
-        }
-        return false;
-    }
+    private static final String GLOBAL_SPELL_META = "spellMetadata";
 
-    public static void syncMana(ServerPlayerEntity player) {
-        Objects.requireNonNull(player);
-        player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncMana(
-                    iManaStorage.getMana(),
-                    iManaStorage.getMaxMana()
-                )
-        ));
-    }
+    private static final String BASE_MANA_COST_IDENTIFIER = "BMC_";
+    private static final String BASE_BURNOUT_IDENTIFIER = "BB_";
 
-    public static void syncBurnout(ServerPlayerEntity player) {
-        Objects.requireNonNull(player);
-        player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncBurnout(
-                        iBurnoutStorage.getBurnout(),
-                        iBurnoutStorage.getMaxBurnout()
-                )
-        ));
-    }
-
-    public static void regenMana(PlayerEntity player, float amount) {
-        if (player instanceof ServerPlayerEntity) {
-            player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> {
-                iManaStorage.increase(amount);
-            });
-            syncMana((ServerPlayerEntity) player);
-        }
-    }
-
-    public static void regenBurnout(PlayerEntity player, float amount) {
-        if (player instanceof ServerPlayerEntity) {
-            player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> {
-                iBurnoutStorage.decrease(amount);
-            });
-            syncBurnout((ServerPlayerEntity) player);
-        }
-    }
+    private static final String BASE_REAGENTS_IDENTIFIER = "BRR";
+    //private static final String ForcedAffinity = "ForcedAffinity";
 
     public static BlockPos rayTrace(World world, PlayerEntity player, double rayTraceRange) {
         Vec3d look = player.getLookVec();
@@ -377,19 +325,6 @@ public final class SpellUtils {
                 .map(ResourceLocation::new)
                 .map(ModRegistries.SPELL_MODIFIERS::getValue)
                 .toArray(SpellModifier[]::new);
-
-        /*int[] modifierIDs = stack.getTag().getIntArray(MODIFIER_PREFIX + stage);
-        SpellModifier.Type[] modifiers = new SpellModifier.Type[modifierIDs.length];
-        int count = 0;
-        for (int i : modifierIDs){
-            SkillTreeEntry modifier = SkillManager.getSkill(i);
-            *//*if (SkillTreeManager.instance.isSkillDisabled(modifier)){
-                modifiers[count++] = SkillManager.missingModifier;
-                continue;
-            }*//*
-            modifiers[count++] = (SpellModifier)modifier;
-        }
-        return modifiers;*/
     }
 
     public static byte[] getModifierMetadataFromStack(ItemStack stack, SpellModifier modifier, int stage, int ordinal){
@@ -424,18 +359,6 @@ public final class SpellUtils {
                 .map(ResourceLocation::new)
                 .map(ModRegistries.SPELL_COMPONENTS::getValue)
                 .toArray(SpellComponent[]::new);
-        /*int[] componentIDs = stack.stackTagCompound.getIntArray();
-        ISpellComponent[] components = new ISpellComponent[componentIDs.length];
-        int count = 0;
-        for (int i : componentIDs){
-            ISkillTreeEntry component = SkillManager.instance.getSkill(i);
-            if (SkillTreeManager.instance.isSkillDisabled(component)){
-                components[count++] = SkillManager.instance.missingComponent;
-                continue;
-            }
-            components[count++] = component != null && component instanceof ISpellComponent ? (ISpellComponent)component : SkillManager.instance.missingComponent;
-        }
-        return components;*/
     }
 
     public static ItemStack popStackStage(ItemStack stack){
@@ -457,5 +380,131 @@ public final class SpellUtils {
         workingStack.getTag().remove(SHAPE_PREFIX + (stages - 1));
 
         return workingStack;
+    }
+
+    public static SpellRequirements getSpellRequirements(ItemStack stack, LivingEntity caster){
+        if (!spellRequirementsPresent(stack, caster)){
+            writeSpellRequirements(stack, caster, calculateSpellRequirements(stack, caster));
+        }
+
+        return modifySpellRequirementsByAffinity(stack, caster, parseSpellRequirements(stack, caster));
+    }
+
+    public static SpellRequirements modifySpellRequirementsByAffinity(ItemStack stack, LivingEntity caster, SpellRequirements reqs){
+        /*HashMap<Affinity, Float> affinities = this.AffinityFor(stack);
+        AffinityData affData = AffinityData.For(caster);
+
+        if (affData == null)*/
+            return reqs;
+
+        /*float manaCost = reqs.manaCost;
+
+        *//*for (Affinity aff : affinities.keySet()){
+            float depth = affData.getAffinityDepth(aff);
+            //calculate the modifier based on the player's affinity depth as well as how much of the spell is that affinity
+            float effectiveness = affinities.get(aff); //how much does this affinity affect the overall mana cost?
+            float multiplier = 0.5f * depth; //how much will the player's affinity reduce the mana cost? (max 50%)
+
+            float manaMod = manaCost * effectiveness;
+            manaCost -= manaMod * multiplier;
+        }*//*
+
+        return new SpellRequirements(manaCost, reqs.burnout, reqs.reagents);*/
+    }
+
+    private static SpellRequirements calculateSpellRequirements(ItemStack stack, LivingEntity caster){
+        float manaCost = 0;
+        float burnout = 0;
+        ArrayList<ItemStack> reagents = new ArrayList<ItemStack>();
+        int stages = numStages(stack);
+
+        for (int i = stages - 1; i >= 0; --i){
+            float stageManaCost = 0;
+            float stageBurnout = 0;
+
+            SpellShape shape = getShapeForStage(stack, i);
+            SpellComponent[] components = getComponentsForStage(stack, i);
+            SpellModifier[] modifiers = getModifiersForStage(stack, i);
+
+            for (SpellComponent component : components){
+                ItemStack[] componentReagents = component.getReagents(caster);
+                if (componentReagents != null)
+                    for (ItemStack reagentStack : componentReagents) reagents.add(reagentStack);
+                stageManaCost += component.getManaCost(caster);
+                stageBurnout += component.getBurnout(caster);
+            }
+
+            HashMap<SpellModifier, Integer> modifierWithQuantity = new HashMap<SpellModifier, Integer>();
+            for (SpellModifier modifier : modifiers){
+                if (modifierWithQuantity.containsKey(modifier)){
+                    Integer qty = modifierWithQuantity.get(modifier);
+                    if (qty == null) qty = 1;
+                    qty++;
+                    modifierWithQuantity.put(modifier, qty);
+                }else{
+                    modifierWithQuantity.put(modifier, 1);
+                }
+            }
+
+            for (SpellModifier modifier : modifierWithQuantity.keySet()){
+                stageManaCost *= modifier.getManaCostMultiplier(stack, i, modifierWithQuantity.get(modifier));
+            }
+
+            manaCost += (stageManaCost * shape.getManaCostMultiplier(stack));
+            burnout += stageBurnout;
+        }
+
+        return new SpellRequirements(manaCost, burnout, reagents);
+    }
+
+    private static SpellRequirements parseSpellRequirements(ItemStack stack, LivingEntity caster){
+        float burnoutPct = (MagicHelper.getBurnout(caster) / MagicHelper.getMaxBurnout(caster)) + 1f;
+
+        float manaCost = stack.getTag().getFloat(BASE_MANA_COST_IDENTIFIER) * burnoutPct;
+        float burnout = stack.getTag().getFloat(BASE_BURNOUT_IDENTIFIER);
+
+        ListNBT reagentList = stack.getTag().getList(BASE_REAGENTS_IDENTIFIER, Constants.NBT.TAG_COMPOUND);
+        ArrayList<ItemStack> reagents = new ArrayList<ItemStack>();
+        for (net.minecraft.nbt.INBT inbt : reagentList) {
+            CompoundNBT entry = (CompoundNBT) inbt;
+            reagents.add(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getString("name"))), entry.getInt("amount")));
+        }
+
+        return new SpellRequirements(manaCost, burnout, reagents);
+    }
+
+    private static void writeSpellRequirements(ItemStack stack, LivingEntity caster, SpellRequirements requirements){
+        if (!stack.hasTag()) return;
+
+        stack.getTag().putFloat(BASE_MANA_COST_IDENTIFIER, requirements.manaCost);
+        stack.getTag().putFloat(BASE_BURNOUT_IDENTIFIER, requirements.burnout);
+
+        ListNBT reagentList = new ListNBT();
+        for (ItemStack reagentStack : requirements.reagents){
+            CompoundNBT reagent = new CompoundNBT();
+            reagent.putString("name", reagentStack.getItem().getRegistryName().toString());
+            reagent.putInt("amount", reagentStack.getCount());
+            reagentList.add(reagent);
+        }
+
+        stack.getTag().put(BASE_REAGENTS_IDENTIFIER, reagentList);
+        writeModVersionToStack(stack);
+    }
+
+    private static boolean spellRequirementsPresent(ItemStack stack, LivingEntity caster){
+        if (!stack.hasTag()) return false;
+        if (isOldVersionSpell(stack)) return false;
+        return stack.getTag().hasUniqueId(BASE_MANA_COST_IDENTIFIER) && stack.getTag().hasUniqueId(BASE_BURNOUT_IDENTIFIER) && stack.getTag().hasUniqueId(BASE_REAGENTS_IDENTIFIER);
+    }
+
+    public static void writeModVersionToStack(ItemStack stack){
+        if (!stack.hasTag()) return;
+        stack.getTag().putString("spell_mod_version", ArsMagicaLegacy.instance.getVersion());
+    }
+
+    public static boolean isOldVersionSpell(ItemStack stack){
+        if (!stack.hasTag()) return false;
+        String version = stack.getTag().getString("spell_mod_version");
+        return !version.equals(ArsMagicaLegacy.instance.getVersion());
     }
 }

@@ -4,14 +4,18 @@ import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellShape;
+import minecraftschurli.arsmagicalegacy.event.SpellCastingEvent;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * @author Minecraftschurli
@@ -97,10 +101,10 @@ public final class SpellHelper {
         return SpellCastResult.EFFECT_FAILED;
     }
 
-    /*public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, int side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed){
+    public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, Vec3d pos, Direction side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed){
 
-        if (caster.isPotionActive(BuffList.silence.id))
-            return SpellCastResult.SILENCED;
+        /*if (caster.isPotionActive(BuffList.silence.id))
+            return SpellCastResult.SILENCED;*/
 
         //ItemStack parsedStack = SpellUtils.constructSpellStack(stack);
 
@@ -116,12 +120,12 @@ public final class SpellHelper {
 
         SpellCastingEvent.Pre checkEvent = null;
         if (consumeMBR){
-            checkEvent = preSpellCast(parsedStack, caster, false);
+            checkEvent = preSpellCast(stack, caster, false);
             if (checkEvent.castResult != SpellCastResult.SUCCESS){
-                if (checkEvent.castResult == SpellCastResult.NOT_ENOUGH_MANA && caster.world.isRemote && caster instanceof PlayerEntity){
-                    AMCore.proxy.flashManaBar();
+                if (checkEvent.castResult == SpellCastResult.NOT_ENOUGH_MANA && caster.world.isRemote){
+                    //AMCore.proxy.flashManaBar();
                 }
-                SpellCastingEvent.Post event = new SpellCastingEvent().new Post(parsedStack, (ItemSpellBase)parsedStack.getItem(), caster, checkEvent.manaCost, checkEvent.burnout, false, checkEvent.castResult);
+                SpellCastingEvent.Post event = new SpellCastingEvent.Post(stack, (SpellItem) stack.getItem(), caster, checkEvent.manaCost, checkEvent.burnout, false, checkEvent.castResult);
                 MinecraftForge.EVENT_BUS.post(event);
 
                 return checkEvent.castResult;
@@ -131,11 +135,11 @@ public final class SpellHelper {
         SpellCastResult result = SpellCastResult.MALFORMED_SPELL_STACK;
 
         if (shape != null){
-            result = shape.beginStackStage(item, parsedStack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
+            result = shape.beginStackStage(item, stack, caster, target, world, pos, side, giveXP, ticksUsed);
 
-            if (!world.isRemote){
+            /*if (!world.isRemote){
                 AMDataWriter writer = new AMDataWriter();
-                writer.add(parsedStack);
+                writer.add(stack);
                 writer.add(caster.getEntityId());
                 if (target != null){
                     writer.add(true);
@@ -143,12 +147,12 @@ public final class SpellHelper {
                 }else{
                     writer.add(false);
                 }
-                writer.add(x).add(y).add(z);
+                writer.add(pos);
                 writer.add(side);
                 writer.add(ticksUsed);
 
-                AMNetHandler.INSTANCE.sendPacketToAllClientsNear(world.provider.dimensionId, x, y, z, 32, AMPacketIDs.SPELL_CAST, writer.generate());
-            }
+                NetworkHandler.INSTANCE.send(PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(pos.x, pos.y, pos.z, 32, world.dimension.getType())), writer.generate());
+            }*/
         }
 
         float manaCost = 0;
@@ -167,10 +171,9 @@ public final class SpellHelper {
 
         if (result == SpellCastResult.SUCCESS){
             if (consumeMBR){
-                ExtendedProperties.For(caster).deductMana(manaCost);
-                ExtendedProperties.For(caster).addBurnout(burnout);
+                MagicHelper.use((PlayerEntity) caster, manaCost, burnout);
             }
-            if (world.isRemote){
+            /*if (world.isRemote){
                 String sfx = shape.getSoundForAffinity(SpellUtils.instance.mainAffinityFor(parsedStack), parsedStack, null);
                 if (sfx != null){
                     if (!shape.isChanneled()){
@@ -179,44 +182,44 @@ public final class SpellHelper {
                         //SoundHelper.instance.loopSound(world, (float)x, (float)y, (float)z, sfx, 0.6f);
                     }
                 }
-            }
+            }*/
         }
 
-        SpellCastingEvent.Post event = new SpellCastingEvent().new Post(parsedStack, (ItemSpellBase)parsedStack.getItem(), caster, manaCost, burnout, false, result);
+        SpellCastingEvent.Post event = new SpellCastingEvent.Post(stack, (SpellItem) stack.getItem(), caster, manaCost, burnout, false, result);
         MinecraftForge.EVENT_BUS.post(event);
 
         return result;
     }
 
-    private SpellCastingEvent.Pre preSpellCast(ItemStack stack, LivingEntity caster, boolean isChanneled){
+    private static SpellCastingEvent.Pre preSpellCast(ItemStack stack, LivingEntity caster, boolean isChanneled){
 
         SpellRequirements reqs = SpellUtils.getSpellRequirements(stack, caster);
 
         float manaCost = reqs.manaCost;
         float burnout = reqs.burnout;
-        ArrayList<ItemStack> reagents = reqs.reagents;
+        /*ArrayList<ItemStack> reagents = reqs.reagents;
 
         ManaCostEvent mce = new ManaCostEvent(stack, caster, manaCost, burnout);
 
         MinecraftForge.EVENT_BUS.post(mce);
 
         manaCost = mce.manaCost;
-        burnout = mce.burnout;
+        burnout = mce.burnout;*/
 
         SpellCastingEvent.Pre event = new SpellCastingEvent.Pre(stack, (SpellItem)stack.getItem(), caster, manaCost, burnout, isChanneled);
 
-        if (MinecraftForge.EVENT_BUS.post(event)){
+        /*if (MinecraftForge.EVENT_BUS.post(event)){
             event.castResult = SpellCastResult.EFFECT_FAILED;
             return event;
         }
 
         event.castResult = SpellCastResult.SUCCESS;
 
-        if (!SpellUtils.instance.casterHasAllReagents(caster, reagents))
+        if (!SpellUtils.casterHasAllReagents(caster, reagents))
             event.castResult = SpellCastResult.REAGENTS_MISSING;
-        if (!SpellUtils.instance.casterHasMana(caster, manaCost))
-            event.castResult = SpellCastResult.NOT_ENOUGH_MANA;
+        if (!SpellUtils.casterHasMana(caster, manaCost))
+            event.castResult = SpellCastResult.NOT_ENOUGH_MANA;*/
 
         return event;
-    }*/
+    }
 }

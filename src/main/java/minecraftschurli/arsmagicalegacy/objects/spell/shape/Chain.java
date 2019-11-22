@@ -86,7 +86,7 @@ public class Chain extends SpellShape {
             if (e == caster)
                 continue;
             result = SpellHelper.applyStageToEntity(stack, caster, world, e, 0, giveXP);
-            //SpellHelper.applyStackStage(newItemStack, caster, e, e.posX, e.posY, e.posZ, 0, world, true, giveXP, 0);
+            //Todo SpellHelper.applyStackStage(newItemStack, caster, e, e.posX, e.posY, e.posZ, 0, world, true, giveXP, 0);
 
             if (world.isRemote){
                 if (prevEntity == null)
@@ -110,7 +110,7 @@ public class Chain extends SpellShape {
     private void spawnChainParticles(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, ItemStack spellStack){
         int color = getPFXColor(spellStack);
 
-        /*Affinity aff = SpellUtils.instance.mainAffinityFor(spellStack);
+        /* Todo Affinity aff = SpellUtils.instance.mainAffinityFor(spellStack);
 
         if (aff == Affinity.LIGHTNING){
             AMCore.proxy.particleManager.BoltFromPointToPoint(world, startX, startY, startZ, endX, endY, endZ, 1, color);
