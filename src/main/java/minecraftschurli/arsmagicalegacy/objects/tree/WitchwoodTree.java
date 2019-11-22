@@ -14,8 +14,10 @@ import java.util.Random;
  * @version 2019-11-22
  */
 public class WitchwoodTree extends Tree {
+    public static final AbstractTreeFeature<NoFeatureConfig> WITCHWOOD_TREE = new TreeFeature(NoFeatureConfig::deserialize, true, 5, ModBlocks.WITCHWOOD_LOG.get().getDefaultState(), ModBlocks.WITCHWOOD_LEAVES.get().getDefaultState(), false);
+
     @Override
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(@Nonnull Random random) {
-        return new TreeFeature(NoFeatureConfig::deserialize, true, 5, ModBlocks.WITCHWOOD_LOG.get().getDefaultState(), ModBlocks.WITCHWOOD_LEAVES.get().getDefaultState(), false);
+        return WITCHWOOD_TREE;
     }
 }

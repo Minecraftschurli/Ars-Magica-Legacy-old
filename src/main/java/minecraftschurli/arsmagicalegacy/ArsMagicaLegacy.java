@@ -10,6 +10,7 @@ import minecraftschurli.arsmagicalegacy.event.TickHandler;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.worldgen.OreGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -67,6 +68,7 @@ public final class ArsMagicaLegacy {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
+        OreGenerator.setupOregen();
         proxy.init();
         NetworkHandler.registerMessages();
         CapabilityMana.register();

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "arsmagicalegacy:logs/witchwood"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:witchwood_planks",
+    "count": 4
+  }
+}

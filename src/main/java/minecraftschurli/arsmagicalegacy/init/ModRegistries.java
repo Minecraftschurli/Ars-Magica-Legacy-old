@@ -34,6 +34,7 @@ public class ModRegistries {
         ModFluids.register();
         ModItems.register();
         ModEffects.register();
+        ModBiomes.register();
         ModContainers.register();
         SpellParts.register();
     }

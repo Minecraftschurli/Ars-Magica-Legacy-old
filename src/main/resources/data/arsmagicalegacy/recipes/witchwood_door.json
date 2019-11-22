@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX",
+    "XX",
+    "XX"
+  ],
+  "key": {
+    "X": {
+      "item": "arsmagicalegacy:witchwood_planks"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:witchwood_door",
+    "count": 3
+  }
+}

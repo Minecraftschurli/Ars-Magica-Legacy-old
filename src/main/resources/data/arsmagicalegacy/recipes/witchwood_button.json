@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "arsmagicalegacy:witchwood_planks"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:witchwood_button"
+  }
+}
