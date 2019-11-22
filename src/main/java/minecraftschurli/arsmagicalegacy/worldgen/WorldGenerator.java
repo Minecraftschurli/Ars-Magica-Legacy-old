@@ -1,8 +1,10 @@
 package minecraftschurli.arsmagicalegacy.worldgen;
 
+import minecraftschurli.arsmagicalegacy.init.ModBiomes;
 import minecraftschurli.arsmagicalegacy.objects.block.OreBase;
 import minecraftschurli.arsmagicalegacy.worldgen.structures.MoonstoneMeteor;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -18,7 +20,7 @@ import java.util.stream.Stream;
  * @author Minecraftschurli
  * @version 2019-11-22
  */
-public class OreGenerator {
+public class WorldGenerator {
     public static void setupOregen() {
         Stream<OreBase> ores = OreBase.ORES.stream();
         Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
@@ -29,7 +31,11 @@ public class OreGenerator {
                     biomes1.forEach(biome -> biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(isNether(biome) ? OreFeatureConfig.FillerBlockType.NETHERRACK : OreFeatureConfig.FillerBlockType.NATURAL_STONE, ore.getDefaultState(), ore.getVeinSize()), Placement.COUNT_RANGE, new CountRangeConfig(ore.getChance(), ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()))));
                 }
         );
-        biomes.filter(OreGenerator::isOverworld).forEach(biome -> biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new MoonstoneMeteor(NoFeatureConfig::deserialize), NoFeatureConfig.NO_FEATURE_CONFIG, Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1))));
+        biomes.filter(WorldGenerator::isOverworld).forEach(biome -> biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new MoonstoneMeteor(NoFeatureConfig::deserialize), NoFeatureConfig.NO_FEATURE_CONFIG, Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1))));
+    }
+
+    public static void setupBiomeGen() {
+        OverworldBiomeProvider.BIOMES_TO_SPAWN_IN.add(ModBiomes.WITCHWOOD_FOREST.get());
     }
 
     private static boolean isNether(Biome biome) {
