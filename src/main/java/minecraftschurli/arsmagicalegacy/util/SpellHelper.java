@@ -97,10 +97,8 @@ public final class SpellHelper {
             }
         }
 
-        if (appliedOneComponent)
-            return SpellCastResult.SUCCESS;
-        else
-            return SpellCastResult.EFFECT_FAILED;
+        if (appliedOneComponent) return SpellCastResult.SUCCESS;
+        return SpellCastResult.EFFECT_FAILED;
     }
 
     public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, Vec3d pos, Direction side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed){
@@ -110,16 +108,10 @@ public final class SpellHelper {
 
         //ItemStack parsedStack = SpellUtils.constructSpellStack(stack);
 
-        if (SpellUtils.numStages(stack) == 0){
-            return SpellCastResult.SUCCESS;
-        }
+        if (SpellUtils.numStages(stack) == 0) return SpellCastResult.SUCCESS;
         SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
         SpellItem item = (SpellItem) stack.getItem();
-
-        if (!(caster instanceof PlayerEntity)){
-            consumeMBR = false;
-        }
-
+        if (!(caster instanceof PlayerEntity)) consumeMBR = false;
         SpellCastingEvent.Pre checkEvent = null;
         if (consumeMBR){
             checkEvent = preSpellCast(stack, caster, false);
@@ -129,7 +121,6 @@ public final class SpellHelper {
                 }
                 SpellCastingEvent.Post event = new SpellCastingEvent.Post(stack, (SpellItem) stack.getItem(), caster, checkEvent.manaCost, checkEvent.burnout, false, checkEvent.castResult);
                 MinecraftForge.EVENT_BUS.post(event);
-
                 return checkEvent.castResult;
             }
         }
