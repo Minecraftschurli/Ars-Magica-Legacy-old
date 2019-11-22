@@ -73,4 +73,33 @@ public class Touch extends SpellShape {
     public boolean isPrincipumShape() {
         return false;
     }
+
+//    @Override
+//    public String getSoundForAffinity(Affinity affinity, ItemStack stack, World world){
+//        switch (affinity){
+//            case AIR:
+//                return "arsmagica2:spell.loop.air";
+//            case ARCANE:
+//                return "arsmagica2:spell.loop.arcane";
+//            case EARTH:
+//                return "arsmagica2:spell.loop.earth";
+//            case ENDER:
+//                return "arsmagica2:spell.loop.ender";
+//            case FIRE:
+//                return "arsmagica2:spell.loop.fire";
+//            case ICE:
+//                return "arsmagica2:spell.loop.ice";
+//            case LIFE:
+//                return "arsmagica2:spell.loop.life";
+//            case LIGHTNING:
+//                return "arsmagica2:spell.loop.lightning";
+//            case NATURE:
+//                return "arsmagica2:spell.loop.nature";
+//            case WATER:
+//                return "arsmagica2:spell.loop.water";
+//            case NONE:
+//            default:
+//                return "arsmagica2:spell.loop.none";
+//        }
+//    }
 }
