@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
+//import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +16,7 @@ public class Projectile extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, Vec3d pos, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote){
-            SpellProjectileEntity projectile = new SpellProjectileEntity(world);
+//            SpellProjectileEntity projectile = new SpellProjectileEntity(world);
 //            projectile.setShootingEntity(caster);
 //            projectile.setBounces(SpellUtils.getModifiedIntAdd(SpellModifier.Type.BOUNCE, stack, caster, target, world, 0));
 //            projectile.setEffectStack(stack);
