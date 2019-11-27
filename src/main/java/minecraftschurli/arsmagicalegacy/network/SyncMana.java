@@ -31,7 +31,7 @@ public class SyncMana {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ArsMagicaLegacy.proxy.getClientPlayer().getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> {
+        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> {
             iManaStorage.setMaxMana(this.maxMana);
             iManaStorage.setMana(this.mana);
         });

@@ -31,7 +31,7 @@ public class SyncBurnout {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ArsMagicaLegacy.proxy.getClientPlayer().getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> {
+        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> {
             iBurnoutStorage.setMaxBurnout(this.maxBurnout);
             iBurnoutStorage.setBurnout(this.burnout);
         });

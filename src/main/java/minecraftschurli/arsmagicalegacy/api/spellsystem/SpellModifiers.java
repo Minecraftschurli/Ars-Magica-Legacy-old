@@ -1,0 +1,35 @@
+package minecraftschurli.arsmagicalegacy.api.spellsystem;
+
+/**
+ * @author Minecraftschurli
+ * @version 2019-11-26
+ */
+public enum SpellModifiers {
+    SPEED(1.0D),
+    GRAVITY(0),
+    BOUNCE(0),
+    DAMAGE(4.0D),
+    HEALING(1.0D),
+    VELOCITY_ADDED(0.0D),
+    RADIUS(1.0D),
+    DURATION(1.0D),
+    PROCS(1),
+    RANGE(8.0D),
+    TARGET_NONSOLID_BLOCKS(0),
+    PIERCING(2),
+    COLOR(0xFFFFFF),
+    MINING_POWER(1),
+    FORTUNE_LEVEL(1),
+    SILKTOUCH_LEVEL(1),
+    DISMEMBERING_LEVEL(1),
+    BUFF_POWER(1),
+    HOMING(0);
+
+    public double defaultValue;
+    public int defaultValueInt;
+
+    SpellModifiers(double defaultValue) {
+        this.defaultValue = defaultValue;
+        this.defaultValueInt = (int) defaultValue;
+    }
+}

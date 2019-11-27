@@ -11,4 +11,9 @@ public interface IManaStorage {
     void setMaxMana(float amount);
     boolean increase(float amount);
     boolean decrease(float amount);
+
+    default void setFrom(IManaStorage old) {
+        this.setMaxMana(old.getMaxMana());
+        this.setMana(old.getMana());
+    }
 }

@@ -26,4 +26,10 @@ public interface IResearchPointsStorage {
     void setRed(int count);
     void setGreen(int count);
     void setBlue(int count);
+
+    default void setFrom(IResearchPointsStorage old) {
+        this.setRed(old.getRed());
+        this.setGreen(old.getGreen());
+        this.setBlue(old.getBlue());
+    }
 }

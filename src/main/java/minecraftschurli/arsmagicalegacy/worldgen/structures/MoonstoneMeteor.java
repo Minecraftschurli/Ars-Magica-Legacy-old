@@ -4,8 +4,6 @@ import com.mojang.datafixers.Dynamic;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +29,7 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
     @Override
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
         BlockState moonstone_ore = ModBlocks.MOONSTONE_ORE.get().getDefaultState();
+        pos = pos.offset(Direction.UP);
         setBlockState(worldIn, pos, moonstone_ore);
         for (Direction value : Direction.values()) {
             if(canReplace(worldIn, pos.offset(value)))
@@ -44,15 +43,10 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
             return true;
         BlockState state = worldIn.getBlockState(pos);
         Block block = state.getBlock();
-        Material material = state.getMaterial();
-        return material == Material.LEAVES ||
-                material == Material.PLANTS ||
-                material == Material.TALL_PLANTS ||
-                block == Blocks.WATER ||
-                BlockTags.DIRT_LIKE.contains(block) ||
-                BlockTags.SAND.contains(block) ||
-                Tags.Blocks.DIRT.contains(block) ||
-                Tags.Blocks.SAND.contains(block) ||
-                Tags.Blocks.STONE.contains(block);
+        return BlockTags.DIRT_LIKE.contains(block) ||
+            BlockTags.SAND.contains(block) ||
+            Tags.Blocks.DIRT.contains(block) ||
+            Tags.Blocks.SAND.contains(block) ||
+            Tags.Blocks.STONE.contains(block);
     }
 }

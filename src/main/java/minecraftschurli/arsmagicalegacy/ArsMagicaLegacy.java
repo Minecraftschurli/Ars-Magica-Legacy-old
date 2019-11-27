@@ -1,15 +1,13 @@
 package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
-import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchPointsStorage;
 import minecraftschurli.arsmagicalegacy.event.TickHandler;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,6 +44,7 @@ public final class ArsMagicaLegacy {
         }
     };
 
+    @SuppressWarnings("Convert2MethodRef")
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
 
     public static ArsMagicaLegacy instance;
@@ -56,10 +55,13 @@ public final class ArsMagicaLegacy {
         instance = this;
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(this::processIMC);
+
+        modEventBus.register(SpellRegistry.class);
         MinecraftForge.EVENT_BUS.register(ArsMagicaLegacy.class);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
 
@@ -101,19 +103,29 @@ public final class ArsMagicaLegacy {
     @SubscribeEvent
     public static void playerClone(final PlayerEvent.Clone event) {
         if (event.isWasDeath()){
-            final IManaStorage oldManaCap = event.getOriginal().getCapability(CapabilityMana.MANA).orElseThrow(() -> new RuntimeException("No player capability found!"));
-            final IManaStorage newManaCap = event.getPlayer().getCapability(CapabilityMana.MANA).orElseThrow(() -> new RuntimeException("No player capability found!"));
-            newManaCap.setMana(oldManaCap.getMana());
-            newManaCap.setMaxMana(oldManaCap.getMaxMana());
-            final IBurnoutStorage oldBurnoutCap = event.getOriginal().getCapability(CapabilityBurnout.BURNOUT).orElseThrow(() -> new RuntimeException("No player capability found!"));
-            final IBurnoutStorage newBurnoutCap = event.getPlayer().getCapability(CapabilityBurnout.BURNOUT).orElseThrow(() -> new RuntimeException("No player capability found!"));
-            newBurnoutCap.setBurnout(oldBurnoutCap.getBurnout());
-            newBurnoutCap.setMaxBurnout(oldBurnoutCap.getMaxBurnout());
-            final IResearchPointsStorage oldResearchCap = event.getOriginal().getCapability(CapabilityResearch.RESEARCH_POINTS).orElseThrow(() -> new RuntimeException("No player capability found!"));
-            final IResearchPointsStorage newResearchCap = event.getPlayer().getCapability(CapabilityResearch.RESEARCH_POINTS).orElseThrow(() -> new RuntimeException("No player capability found!"));
-            newResearchCap.setRed(oldResearchCap.getRed());
-            newResearchCap.setGreen(oldResearchCap.getGreen());
-            newResearchCap.setBlue(oldResearchCap.getBlue());
+            event.getPlayer()
+                    .getCapability(CapabilityMana.MANA)
+                    .orElseThrow(() -> new RuntimeException("No player capability found!"))
+                    .setFrom(event.getOriginal()
+                            .getCapability(CapabilityMana.MANA)
+                            .orElseThrow(() -> new RuntimeException("No player capability found!"))
+                    );
+
+            event.getPlayer()
+                    .getCapability(CapabilityBurnout.BURNOUT)
+                    .orElseThrow(() -> new RuntimeException("No player capability found!"))
+                    .setFrom(event.getOriginal()
+                            .getCapability(CapabilityBurnout.BURNOUT)
+                            .orElseThrow(() -> new RuntimeException("No player capability found!"))
+                    );
+
+            event.getPlayer()
+                    .getCapability(CapabilityResearch.RESEARCH_POINTS)
+                    .orElseThrow(() -> new RuntimeException("No player capability found!"))
+                    .setFrom(event.getOriginal()
+                            .getCapability(CapabilityResearch.RESEARCH_POINTS)
+                            .orElseThrow(() -> new RuntimeException("No player capability found!"))
+                    );
         }
     }
 

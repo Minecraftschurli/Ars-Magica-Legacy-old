@@ -76,10 +76,14 @@ public class MagicHelper {
     }
 
     public static float getBurnout(LivingEntity caster) {
-        return 0;
+        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(()->new IllegalStateException("No Burnout Capability present!")).getBurnout();
     }
 
     public static float getMaxBurnout(LivingEntity caster) {
-        return 0;
+        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(()->new IllegalStateException("No Burnout Capability present!")).getMaxBurnout();
+    }
+
+    public static boolean hasEnoughtMana(LivingEntity caster, float manaCost) {
+        return caster.getCapability(CapabilityMana.MANA).orElseThrow(()->new IllegalStateException("No Mana Capability present!")).getMana() >= manaCost;
     }
 }

@@ -11,5 +11,5 @@ public interface IProxy {
 
     default void preInit() {}
 
-    default PlayerEntity getClientPlayer() {throw new IllegalStateException("must only be run on client");}
+    default PlayerEntity getLocalPlayer() {throw new IllegalStateException("must only be run on client");}
 }

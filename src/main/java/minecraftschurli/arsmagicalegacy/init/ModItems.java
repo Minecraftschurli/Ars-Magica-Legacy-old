@@ -6,7 +6,6 @@ import minecraftschurli.arsmagicalegacy.objects.item.ResearchOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.TallBlockItem;

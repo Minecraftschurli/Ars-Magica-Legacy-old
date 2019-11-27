@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.api.spellsystem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -11,14 +12,18 @@ import java.util.EnumSet;
  * @author Minecraftschurli
  * @version 2019-11-16
  */
-public abstract class SpellModifier extends SpellPart<SpellModifier> {
-    public SpellModifier (){}
+public abstract class SpellModifier extends AbstractSpellPart {
     /**
      * Returns a list of the aspects of a spell that this modifier can change.
      *
-     * @return the aspects modified by this {@link SpellModifier}
+     * @return
      */
-    public abstract EnumSet<Type> getAspectsModified();
+    public abstract EnumSet<SpellModifiers> getAspectsModified();
+
+    @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return getAspectsModified();
+    }
 
     /**
      * Returns the modified value for the specified type.
@@ -27,10 +32,9 @@ public abstract class SpellModifier extends SpellPart<SpellModifier> {
      * @param caster   The caster
      * @param target   The target (can be the same as the caster)
      * @param world    The world in which the spell is being cast.
-     * @param metadata Any metadata written to the spell for this modifier (obtained from getModifierMetadata)
      * @return A factor to multiply the default value by (or add, depending on the component's programming)
      */
-    public abstract float getModifier(Type type, LivingEntity caster, Entity target, World world, byte[] metadata);
+    public abstract float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt);
 
     /**
      * Gets the amount that adding this modifier to the spell alters the mana cost.
@@ -40,34 +44,4 @@ public abstract class SpellModifier extends SpellPart<SpellModifier> {
      * @param quantity   The quantity of this multiplier in the specified stage.
      */
     public abstract float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity);
-
-    public enum Type {
-        SPEED(1.0D),
-        GRAVITY(0),
-        BOUNCE(0),
-        DAMAGE(4.0D),
-        HEALING(1.0D),
-        VELOCITY_ADDED(0.0D),
-        RADIUS(1.0D),
-        DURATION(1.0D),
-        PROCS(1),
-        RANGE(8.0D),
-        TARGET_NONSOLID_BLOCKS(0),
-        PIERCING(2),
-        COLOR(0xFFFFFF),
-        MINING_POWER(1),
-        FORTUNE_LEVEL(1),
-        SILKTOUCH_LEVEL(1),
-        DISMEMBERING_LEVEL(1),
-        BUFF_POWER(1),
-        HOMING(0);
-
-        public double defaultValue;
-        public int defaultValueInt;
-
-        Type(double defaultValue){
-            this.defaultValue = defaultValue;
-            this.defaultValueInt = (int)defaultValue;
-        }
-    }
 }

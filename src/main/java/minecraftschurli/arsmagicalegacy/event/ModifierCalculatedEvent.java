@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;
@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.Event;
  */
 public class ModifierCalculatedEvent extends Event {
     //The attribute being modified
-    public final SpellModifier.Type attribute;
+    public final SpellModifiers attribute;
     //The caster of the spell
     public final LivingEntity caster;
     //The spell being cast.  This is a copy of the ItemStack.
@@ -29,7 +29,7 @@ public class ModifierCalculatedEvent extends Event {
         MULTIPLY
     }
 
-    public ModifierCalculatedEvent(ItemStack spell, LivingEntity caster, SpellModifier.Type attribute, double initialValue, double modifiedValue, OperationType operation){
+    public ModifierCalculatedEvent(ItemStack spell, LivingEntity caster, SpellModifiers attribute, double initialValue, double modifiedValue, OperationType operation){
         this.spell = spell;
         this.caster = caster;
         this.attribute = attribute;
