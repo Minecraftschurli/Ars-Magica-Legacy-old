@@ -114,7 +114,7 @@ public class Beam extends SpellShape {
 //            }
         }
         if (result != null && spellVec != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
-            //ItemStack newItemStack = SpellUtils.instance.popStackStage(stack);
+//            ItemStack newItemStack = SpellUtils.popStackStage(stack);
             return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), mop != null ? ((BlockRayTraceResult)mop).getFace() : null, world, true, giveXP, 0);
         } else return SpellCastResult.SUCCESS_REDUCE_MANA;
     }
@@ -122,11 +122,11 @@ public class Beam extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.STANDARD_FOCUS.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
+//                new ItemStackSpellIngredient(new ItemStack(ModItems.STANDARD_FOCUS.get())),
                 new EssenceSpellIngredient(EssenceType.NEUTRAL, 500)
         };
     }
