@@ -38,13 +38,13 @@ public class Toggle extends SpellShape {
         String current = stack.getTag().getString("ToggleShapeID");
 //        ArrayList<ItemStack> rs = EntityExtension.For(caster).runningStacks;
         int foundID = -1;
-        for (int i = 0; i < rs.size(); i++) {
-            ItemStack is = rs.get(i);
-            if (is != null && is.getTag() != null && is.getTag().getString("ToggleShapeID").equals(current)) {
-                foundID = i;
-                break;
-            }
-        }
+//        for (int i = 0; i < rs.size(); i++) {
+//            ItemStack is = rs.get(i);
+//            if (is != null && is.getTag() != null && is.getTag().getString("ToggleShapeID").equals(current)) {
+//                foundID = i;
+//                break;
+//            }
+//        }
         if (foundID != -1) {
 //            EntityExtension.For(caster).runningStacks.remove(foundID);
             if (caster instanceof PlayerEntity) {

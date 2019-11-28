@@ -1,18 +1,13 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
-import minecraftschurli.arsmagicalegacy.objects.item.ResearchOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.TallBlockItem;
-import net.minecraft.item.WallOrFloorItem;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.block.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -101,6 +96,15 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> LIFE_ESSENCE = stackableItem64("life_essence");
     public static final RegistryObject<Item> ARCANE_ESSENCE = stackableItem64("arcane_essence");
     public static final RegistryObject<Item> ENDER_ESSENCE = stackableItem64("ender_essence");
+    public static final RegistryObject<Item> LESSER_FOCUS = stackableItem64("lesser_focus");
+    public static final RegistryObject<Item> STANDARD_FOCUS = stackableItem64("standard_focus");
+    public static final RegistryObject<Item> GREATER_FOCUS = stackableItem64("greater_focus");
+    public static final RegistryObject<Item> MANA_FOCUS = stackableItem64("mana_focus");
+    public static final RegistryObject<Item> PLAYER_FOCUS = stackableItem64("player_focus");
+    public static final RegistryObject<Item> CREATURE_FOCUS = stackableItem64("creature_focus");
+    public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
+    public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
+    public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
     public static void register() {}
     private static RegistryObject<Item> blockItem(final RegistryObject<Block> block) {
         Objects.requireNonNull(block);
