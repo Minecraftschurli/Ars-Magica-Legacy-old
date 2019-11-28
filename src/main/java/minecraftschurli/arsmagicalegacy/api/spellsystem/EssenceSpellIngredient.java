@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.spellsystem;
 
-import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
+import minecraftschurli.arsmagicalegacy.objects.spell.*;
 
 /**
  * @author Minecraftschurli
@@ -13,5 +13,8 @@ public class EssenceSpellIngredient implements ISpellIngredient {
     public EssenceSpellIngredient (EssenceType type, int amount){
         this.essenceType = type;
         this.amount = amount;
+    }
+    public EssenceSpellIngredient(EssenceType type) {
+        this(type, 0);
     }
 }
