@@ -12,9 +12,10 @@ import java.util.EnumSet;
 public abstract class AbstractSpellPart extends ForgeRegistryEntry<AbstractSpellPart> {
     /**
      * Supports :
-     *     ItemStacks
-     *     OreDict String
-     *     Essence Strings ("E:mask1|mask2" (* for any), num)
+     * ItemStacks
+     * OreDict String
+     * Essence Strings ("E:mask1|mask2" (* for any), num)
+     *
      * @return
      */
     public abstract ISpellIngredient[] getRecipe();

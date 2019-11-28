@@ -24,24 +24,24 @@ import java.util.Random;
  */
 public class Accelerate extends SpellComponent {
     @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target){
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        ((LivingEntity)target).setAIMoveSpeed(((LivingEntity)target).getAIMoveSpeed() * 1.6f);
+        ((LivingEntity) target).setAIMoveSpeed(((LivingEntity) target).getAIMoveSpeed() * 1.6f);
         return true;
     }
 
     @Override
-    public float getManaCost(LivingEntity caster){
+    public float getManaCost(LivingEntity caster) {
         return 6;
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster){
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier){
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         /*AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "sparkle", x, y, z);
         if (particle != null){
             particle.AddParticleController(new ParticleOrbitEntity(particle, caster, 0.1f, 1, false).SetTargetDistance(rand.nextDouble() + 0.5));
@@ -53,11 +53,11 @@ public class Accelerate extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe(){
+    public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                        new ItemStackSpellIngredient(new ItemStack(Items.REDSTONE))
+                new ItemStackSpellIngredient(new ItemStack(Items.REDSTONE))
         };
     }
 
@@ -70,14 +70,14 @@ public class Accelerate extends SpellComponent {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-        
+
     }
 
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (world.rand.nextDouble() < 0.5){
+        if (world.rand.nextDouble() < 0.5) {
             BlockState block = world.getBlockState(blockPos);
-            if (block.isAir(world, blockPos)){
+            if (block.isAir(world, blockPos)) {
                 block.tick(world, blockPos, world.rand);
             }
         }

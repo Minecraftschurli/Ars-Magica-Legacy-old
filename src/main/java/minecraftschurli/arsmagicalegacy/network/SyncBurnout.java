@@ -20,14 +20,14 @@ public class SyncBurnout {
         this.burnout = buf.readFloat();
     }
 
-    public void toBytes(PacketBuffer buf) {
-        buf.writeFloat(this.maxBurnout);
-        buf.writeFloat(this.burnout);
-    }
-
     public SyncBurnout(float burnout, float maxBurnout) {
         this.maxBurnout = maxBurnout;
         this.burnout = burnout;
+    }
+
+    public void toBytes(PacketBuffer buf) {
+        buf.writeFloat(this.maxBurnout);
+        buf.writeFloat(this.burnout);
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {

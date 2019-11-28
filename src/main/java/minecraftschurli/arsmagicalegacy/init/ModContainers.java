@@ -12,5 +12,6 @@ public final class ModContainers implements IInit {
 
     public static final RegistryObject<ContainerType<SpellBookContainer>> SPELLBOOK = CONTAINERS.register("spellbook", () -> new ContainerType<>(SpellBookContainer::new));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

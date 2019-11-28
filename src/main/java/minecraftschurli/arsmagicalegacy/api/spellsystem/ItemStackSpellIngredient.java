@@ -8,7 +8,8 @@ import net.minecraft.item.ItemStack;
  */
 public class ItemStackSpellIngredient implements ISpellIngredient {
     public final ItemStack stack;
-    public ItemStackSpellIngredient (ItemStack stack){
+
+    public ItemStackSpellIngredient(ItemStack stack) {
         this.stack = stack;
     }
 }

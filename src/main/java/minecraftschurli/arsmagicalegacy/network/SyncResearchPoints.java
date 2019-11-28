@@ -20,7 +20,7 @@ public class SyncResearchPoints {
         this.points = points;
     }
 
-    public SyncResearchPoints (PacketBuffer buf){
+    public SyncResearchPoints(PacketBuffer buf) {
         this.points = buf.readVarIntArray();
     }
 

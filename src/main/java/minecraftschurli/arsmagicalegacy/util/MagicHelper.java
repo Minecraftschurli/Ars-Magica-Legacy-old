@@ -24,13 +24,13 @@ import java.util.Objects;
  */
 public class MagicHelper {
     public static boolean use(PlayerEntity player, float manaCost, float burnoutCost) {
-        if (player instanceof ServerPlayerEntity){
+        if (player instanceof ServerPlayerEntity) {
             LazyOptional<IManaStorage> manaStorage = player.getCapability(CapabilityMana.MANA);
             LazyOptional<IBurnoutStorage> burnoutStorage = player.getCapability(CapabilityBurnout.BURNOUT);
             if (manaStorage.map(IManaStorage::getMana).orElse(0.0f) >= manaCost && burnoutStorage.map(iBurnoutStorage -> iBurnoutStorage.getMaxBurnout() - iBurnoutStorage.getBurnout()).orElse(0.0f) >= burnoutCost) {
                 manaStorage.ifPresent(iManaStorage -> iManaStorage.decrease(manaCost));
                 burnoutStorage.ifPresent(iBurnoutStorage -> iBurnoutStorage.increase(burnoutCost));
-                syncMana((ServerPlayerEntity)player);
+                syncMana((ServerPlayerEntity) player);
                 syncBurnout((ServerPlayerEntity) player);
                 return true;
             }
@@ -43,8 +43,8 @@ public class MagicHelper {
         player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> NetworkHandler.INSTANCE.send(
                 PacketDistributor.PLAYER.with(() -> player),
                 new SyncMana(
-                    iManaStorage.getMana(),
-                    iManaStorage.getMaxMana()
+                        iManaStorage.getMana(),
+                        iManaStorage.getMaxMana()
                 )
         ));
     }
@@ -87,14 +87,14 @@ public class MagicHelper {
     }
 
     public static float getBurnout(LivingEntity caster) {
-        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(()->new IllegalStateException("No Burnout Capability present!")).getBurnout();
+        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(() -> new IllegalStateException("No Burnout Capability present!")).getBurnout();
     }
 
     public static float getMaxBurnout(LivingEntity caster) {
-        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(()->new IllegalStateException("No Burnout Capability present!")).getMaxBurnout();
+        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(() -> new IllegalStateException("No Burnout Capability present!")).getMaxBurnout();
     }
 
     public static boolean hasEnoughtMana(LivingEntity caster, float manaCost) {
-        return caster.getCapability(CapabilityMana.MANA).orElseThrow(()->new IllegalStateException("No Mana Capability present!")).getMana() >= manaCost;
+        return caster.getCapability(CapabilityMana.MANA).orElseThrow(() -> new IllegalStateException("No Mana Capability present!")).getMana() >= manaCost;
     }
 }

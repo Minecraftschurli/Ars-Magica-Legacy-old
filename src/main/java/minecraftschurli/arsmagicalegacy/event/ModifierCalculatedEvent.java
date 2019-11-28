@@ -24,17 +24,17 @@ public class ModifierCalculatedEvent extends Event {
     //the final modified value of the variable
     public double modifiedValue;
 
-    public enum OperationType{
-        ADD,
-        MULTIPLY
-    }
-
-    public ModifierCalculatedEvent(ItemStack spell, LivingEntity caster, SpellModifiers attribute, double initialValue, double modifiedValue, OperationType operation){
+    public ModifierCalculatedEvent(ItemStack spell, LivingEntity caster, SpellModifiers attribute, double initialValue, double modifiedValue, OperationType operation) {
         this.spell = spell;
         this.caster = caster;
         this.attribute = attribute;
         this.initialValue = initialValue;
         this.modifiedValue = modifiedValue;
         this.operation = operation;
+    }
+
+    public enum OperationType {
+        ADD,
+        MULTIPLY
     }
 }

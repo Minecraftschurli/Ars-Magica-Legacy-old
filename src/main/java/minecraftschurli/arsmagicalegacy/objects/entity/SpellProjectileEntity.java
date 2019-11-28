@@ -49,7 +49,7 @@ public class SpellProjectileEntity extends Entity {
         super(entityEntityType, worldIn);
     }
 
-    public void setTargetWater(){
+    public void setTargetWater() {
         if (!this.world.isRemote)
             this.getDataManager().set(DW_TARGETGRASS, true);
     }
@@ -77,40 +77,47 @@ public class SpellProjectileEntity extends Entity {
         return null;
     }
 
-    public void setShooter (LivingEntity living) {
-        this.getDataManager().set(DW_SHOOTER, living.getEntityId());
+    public void decreaseBounces() {
+        setBounces(getBounces() - 1);
     }
 
-    public void decreaseBounces () {
-        setBounces(getBounces() -1);
-    }
-
-    public int getBounces () {
+    public int getBounces() {
         return this.getDataManager().get(DW_BOUNCE_COUNTER);
     }
 
-    public int getPierces () { return this.getDataManager().get(DW_PIERCE_COUNT) - this.currentPierces; }
+    public void setBounces(int projectileBounce) {
+        this.getDataManager().set(DW_BOUNCE_COUNTER, projectileBounce);
+    }
 
-    public ItemStack getSpell () {
+    public int getPierces() {
+        return this.getDataManager().get(DW_PIERCE_COUNT) - this.currentPierces;
+    }
+
+    public ItemStack getSpell() {
         return this.getDataManager().get(DW_EFFECT);
+    }
+
+    public void setSpell(ItemStack stack) {
+        this.getDataManager().set(DW_EFFECT, stack);
+        /*Affinity mainAff = AffinityShiftUtils.getMainShiftForStack(stack);
+        if (mainAff.equals(Affinity.ENDER)) this.getDataManager().set(DW_COLOR, 0x550055);
+        else if (mainAff.equals(Affinity.ICE)) this.getDataManager().set(DW_COLOR, 0x2299FF);
+        else if (mainAff.equals(Affinity.LIFE)) this.getDataManager().set(DW_COLOR, 0x22FF44);*/
     }
 
     public void bounce(Direction facing) {
         if (facing == null) {
             this.setMotion(this.getMotion().inverse());
-        }
-        else {
+        } else {
             double projectileSpeed = SpellUtils.getModifiedDoubleMul(1, getSpell(), getShooter(), null, world, SpellModifiers.VELOCITY_ADDED);
             double newMotionX = getMotion().x / projectileSpeed;
             double newMotionY = getMotion().y / projectileSpeed;
             double newMotionZ = getMotion().z / projectileSpeed;
             if (facing.equals(Direction.UP) || facing.equals(Direction.DOWN)) {
                 newMotionY = -newMotionY;
-            }
-            else if (facing.equals(Direction.NORTH) || facing.equals(Direction.SOUTH)) {
+            } else if (facing.equals(Direction.NORTH) || facing.equals(Direction.SOUTH)) {
                 newMotionZ = -newMotionZ;
-            }
-            else if (facing.equals(Direction.EAST) || facing.equals(Direction.WEST)) {
+            } else if (facing.equals(Direction.EAST) || facing.equals(Direction.WEST)) {
                 newMotionX = -newMotionX;
             }
             setMotion(newMotionX * projectileSpeed, newMotionY * projectileSpeed, newMotionZ * projectileSpeed);
@@ -125,8 +132,8 @@ public class SpellProjectileEntity extends Entity {
                 this.remove();
             RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(getPositionVec(), this.getPositionVec().add(getMotion()), RayTraceContext.BlockMode.COLLIDER, targetWater() ? RayTraceContext.FluidMode.ANY : RayTraceContext.FluidMode.NONE, this));
             if (mop != null && mop.getType().equals(RayTraceResult.Type.BLOCK)) {
-                if (world.getBlockState(((BlockRayTraceResult)mop).getPos()).isSolid() || targetWater()) {
-                    world.getBlockState(((BlockRayTraceResult)mop).getPos()).onEntityCollision(world, ((BlockRayTraceResult) mop).getPos(), this);
+                if (world.getBlockState(((BlockRayTraceResult) mop).getPos()).isSolid() || targetWater()) {
+                    world.getBlockState(((BlockRayTraceResult) mop).getPos()).onEntityCollision(world, ((BlockRayTraceResult) mop).getPos(), this);
                     if (getBounces() > 0) {
                         bounce(((BlockRayTraceResult) mop).getFace());
                     } else {
@@ -147,8 +154,8 @@ public class SpellProjectileEntity extends Entity {
                             effSize--;
                             continue;
                         }
-                        if (entity instanceof EnderDragonPartEntity && ((EnderDragonPartEntity)entity).dragon instanceof LivingEntity)
-                            entity = ((EnderDragonPartEntity)entity).dragon;
+                        if (entity instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) entity).dragon instanceof LivingEntity)
+                            entity = ((EnderDragonPartEntity) entity).dragon;
                         SpellUtils.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
                         SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.posX, entity.posY, entity.posZ, null, world, false, true, 0);
                         break;
@@ -178,6 +185,10 @@ public class SpellProjectileEntity extends Entity {
             this.remove();
             return null;
         }
+    }
+
+    public void setShooter(LivingEntity living) {
+        this.getDataManager().set(DW_SHOOTER, living.getEntityId());
     }
 
     @Override
@@ -213,7 +224,7 @@ public class SpellProjectileEntity extends Entity {
         am2Tag.putInt("HomingTarget", dataManager.get(DW_HOMING_TARGET));
     }
 
-    public void selectHomingTarget () {
+    public void selectHomingTarget() {
         List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getCollisionBoundingBox().expand(10.0F, 10.0F, 10.0F));
         Vec3d pos = new Vec3d(posX, posY, posZ);
         LivingEntity target = null;
@@ -224,7 +235,7 @@ public class SpellProjectileEntity extends Entity {
                 double eDist = pos.distanceTo(ePos);
                 if (eDist < dist) {
                     dist = eDist;
-                    target = (LivingEntity)entity;
+                    target = (LivingEntity) entity;
                 }
             }
         }
@@ -242,18 +253,6 @@ public class SpellProjectileEntity extends Entity {
         this.getDataManager().set(DW_GRAVITY, projectileGravity);
     }
 
-    public void setSpell(ItemStack stack) {
-        this.getDataManager().set(DW_EFFECT, stack);
-        /*Affinity mainAff = AffinityShiftUtils.getMainShiftForStack(stack);
-        if (mainAff.equals(Affinity.ENDER)) this.getDataManager().set(DW_COLOR, 0x550055);
-        else if (mainAff.equals(Affinity.ICE)) this.getDataManager().set(DW_COLOR, 0x2299FF);
-        else if (mainAff.equals(Affinity.LIFE)) this.getDataManager().set(DW_COLOR, 0x22FF44);*/
-    }
-
-    public void setBounces(int projectileBounce) {
-        this.getDataManager().set(DW_BOUNCE_COUNTER, projectileBounce);
-    }
-
     public void setNumPierces(int pierces) {
         this.getDataManager().set(DW_PIERCE_COUNT, pierces);
         this.currentPierces = 0;
@@ -263,12 +262,12 @@ public class SpellProjectileEntity extends Entity {
         this.getDataManager().set(DW_HOMING, homing);
     }
 
-    public void setIcon(String icon) {
-        this.getDataManager().set(DW_ICON_NAME, icon);
-    }
-
     public String getIcon() {
         return this.getDataManager().get(DW_ICON_NAME);
+    }
+
+    public void setIcon(String icon) {
+        this.getDataManager().set(DW_ICON_NAME, icon);
     }
 
     public int getColor() {

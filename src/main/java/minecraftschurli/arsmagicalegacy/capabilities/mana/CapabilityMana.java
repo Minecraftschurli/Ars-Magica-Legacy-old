@@ -34,8 +34,8 @@ public class CapabilityMana implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side, INBT nbt) {
-                        instance.setMaxMana(((CompoundNBT)nbt).getFloat("maxMana"));
-                        instance.setMana(((CompoundNBT)nbt).getFloat("mana"));
+                        instance.setMaxMana(((CompoundNBT) nbt).getFloat("maxMana"));
+                        instance.setMana(((CompoundNBT) nbt).getFloat("mana"));
                     }
                 },
                 ManaStorage::new);

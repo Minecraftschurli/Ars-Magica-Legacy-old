@@ -134,7 +134,7 @@ public final class RecipeHelper {
     }
 
     public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp) {
-        return addBlastingRecipe(output,input,exp, 100);
+        return addBlastingRecipe(output, input, exp, 100);
     }
 
     public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp) {

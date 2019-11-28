@@ -10,11 +10,13 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
  * @version 2019-11-14
  */
 public class NetworkHandler {
-    private static int ID = 0;
     private static final String PROTOCOL_VERSION = "1";
     public static SimpleChannel INSTANCE;
+    private static int ID = 0;
 
-    public static int nextID() {return ID++;}
+    public static int nextID() {
+        return ID++;
+    }
 
     public static void registerMessages() {
         INSTANCE = NetworkRegistry.newSimpleChannel(

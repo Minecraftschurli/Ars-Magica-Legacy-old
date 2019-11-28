@@ -19,16 +19,16 @@ public class ManaStorage implements IManaStorage {
         return maxMana;
     }
 
+    public void setMaxMana(float maxMana) {
+        if (maxMana >= 0)
+            this.maxMana = maxMana;
+    }
+
     public boolean setMana(float mana) {
         if (mana < 0)
             return false;
         this.mana = Math.min(mana, this.maxMana);
         return true;
-    }
-
-    public void setMaxMana(float maxMana) {
-        if (maxMana >= 0)
-            this.maxMana = maxMana;
     }
 
     @Override

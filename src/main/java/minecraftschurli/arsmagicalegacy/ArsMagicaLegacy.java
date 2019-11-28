@@ -43,15 +43,12 @@ public final class ArsMagicaLegacy {
             return new ItemStack(ModItems.ARCANE_COMPENDIUM.get());
         }
     };
-
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
     @SuppressWarnings("Convert2MethodRef")
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
-
     public static ArsMagicaLegacy instance;
 
-    public static final Logger LOGGER = LogManager.getLogger(MODID);
-
-    public ArsMagicaLegacy (){
+    public ArsMagicaLegacy() {
         instance = this;
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -68,29 +65,6 @@ public final class ArsMagicaLegacy {
         proxy.preInit();
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.debug("Common Setup");
-        WorldGenerator.setupOregen();
-        WorldGenerator.setupBiomeGen();
-        proxy.init();
-        NetworkHandler.registerMessages();
-        CapabilityMana.register();
-        CapabilityBurnout.register();
-        CapabilityResearch.register();
-    }
-
-    private void clientSetup(final FMLClientSetupEvent event) {
-        LOGGER.debug("Client Setup");
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        LOGGER.debug("IMC Enqueue");
-    }
-
-    private void processIMC(final InterModProcessEvent event) {
-        LOGGER.debug("IMC Process");
-    }
-
     @SubscribeEvent
     public static void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
@@ -102,7 +76,7 @@ public final class ArsMagicaLegacy {
 
     @SubscribeEvent
     public static void playerClone(final PlayerEvent.Clone event) {
-        if (event.isWasDeath()){
+        if (event.isWasDeath()) {
             event.getPlayer()
                     .getCapability(CapabilityMana.MANA)
                     .orElseThrow(() -> new RuntimeException("No player capability found!"))
@@ -137,6 +111,29 @@ public final class ArsMagicaLegacy {
             MagicHelper.syncBurnout(player);
             MagicHelper.syncResearch(player);
         }
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        LOGGER.debug("Common Setup");
+        WorldGenerator.setupOregen();
+        WorldGenerator.setupBiomeGen();
+        proxy.init();
+        NetworkHandler.registerMessages();
+        CapabilityMana.register();
+        CapabilityBurnout.register();
+        CapabilityResearch.register();
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        LOGGER.debug("Client Setup");
+    }
+
+    private void enqueueIMC(final InterModEnqueueEvent event) {
+        LOGGER.debug("IMC Enqueue");
+    }
+
+    private void processIMC(final InterModProcessEvent event) {
+        LOGGER.debug("IMC Process");
     }
 
     public String getVersion() {

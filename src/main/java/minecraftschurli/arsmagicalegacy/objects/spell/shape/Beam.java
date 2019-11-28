@@ -1,19 +1,25 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.boss.dragon.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
+import minecraftschurli.arsmagicalegacy.util.MathUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
 
 public class Beam extends SpellShape {
 //    private final HashMap<Integer, AMBeam> beams;
@@ -29,7 +35,7 @@ public class Beam extends SpellShape {
     @Override
     public float manaCostMultiplier(ItemStack spellStack) {
         int stages = SpellUtils.numStages(spellStack);
-        for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i){
+        for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i) {
             SpellShape shape = SpellUtils.getShapeForStage(spellStack, i);
             if (!shape.equals(this)) continue;
             if (shape.getClass() == Beam.class) return 1.0f;
@@ -57,35 +63,36 @@ public class Beam extends SpellShape {
         SpellCastResult result = null;
         Vec3d beamHitVec = null;
         Vec3d spellVec = null;
-        if (mop == null){
+        if (mop == null) {
             beamHitVec = MathUtils.extrapolateEntityLook(caster, range);
             spellVec = beamHitVec;
-        } else if (mop.getType() == RayTraceResult.Type.ENTITY){
-            if (shouldApplyEffectEntity && !world.isRemote){
-                Entity e = ((EntityRayTraceResult)mop).getEntity();
-                if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null) e = ((EnderDragonPartEntity)e).dragon;
+        } else if (mop.getType() == RayTraceResult.Type.ENTITY) {
+            if (shouldApplyEffectEntity && !world.isRemote) {
+                Entity e = ((EntityRayTraceResult) mop).getEntity();
+                if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
+                    e = ((EnderDragonPartEntity) e).dragon;
                 result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
-            float rng = (float)mop.getHitVec().distanceTo(new Vec3d(caster.posX, caster.posY, caster.posZ));
+            float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.posX, caster.posY, caster.posZ));
             beamHitVec = MathUtils.extrapolateEntityLook(caster, rng);
             spellVec = beamHitVec;
         } else {
-            if (shouldApplyEffectBlock && !world.isRemote){
-                result = SpellUtils.applyStageToGround(stack, caster, world, ((BlockRayTraceResult)mop).getPos(), ((BlockRayTraceResult)mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
+            if (shouldApplyEffectBlock && !world.isRemote) {
+                result = SpellUtils.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
             beamHitVec = mop.getHitVec();
-            spellVec = new Vec3d(((BlockRayTraceResult)mop).getPos());
+            spellVec = new Vec3d(((BlockRayTraceResult) mop).getPos());
         }
-        if (world.isRemote && beamHitVec != null){
+        if (world.isRemote && beamHitVec != null) {
 //            AMBeam beam = beams.get(caster.getEntityId());
             double startX = caster.posX;
             double startY = caster.posY + caster.getEyeHeight() - 0.2f;
             double startZ = caster.posZ;
 //            Affinity affinity = AffinityShiftUtils.getMainShiftForStack(stack);
             int color = -1;
-            if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)){
+            if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
                 List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
 //                for (SpellModifier mod : mods) if (mod instanceof Colour) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTagCompound());
             }
@@ -115,7 +122,7 @@ public class Beam extends SpellShape {
         }
         if (result != null && spellVec != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
 //            ItemStack newItemStack = SpellUtils.popStackStage(stack);
-            return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), mop != null ? ((BlockRayTraceResult)mop).getFace() : null, world, true, giveXP, 0);
+            return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), mop != null ? ((BlockRayTraceResult) mop).getFace() : null, world, true, giveXP, 0);
         } else return SpellCastResult.SUCCESS_REDUCE_MANA;
     }
 

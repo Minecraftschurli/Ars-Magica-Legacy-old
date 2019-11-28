@@ -1,16 +1,19 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.UUID;
 
 public class Toggle extends SpellShape {
     @Override
@@ -48,19 +51,21 @@ public class Toggle extends SpellShape {
         if (foundID != -1) {
 //            EntityExtension.For(caster).runningStacks.remove(foundID);
             if (caster instanceof PlayerEntity) {
-                PlayerInventory inv = ((PlayerEntity)caster).inventory;
+                PlayerInventory inv = ((PlayerEntity) caster).inventory;
                 for (int i = 0; i < inv.getSizeInventory(); i++) {
                     ItemStack is = inv.getStackInSlot(i);
-                    if (is != null && is.getItem() instanceof SpellItem && is.getTag() != null && is.getTag().getString("ToggleShapeID").equals(current)) is.getTag().putBoolean("HasEffect", false);
+                    if (is != null && is.getItem() instanceof SpellItem && is.getTag() != null && is.getTag().getString("ToggleShapeID").equals(current))
+                        is.getTag().putBoolean("HasEffect", false);
                 }
             }
         } else {
 //            EntityExtension.For(caster).runningStacks.add(stack.copy());
             if (caster instanceof PlayerEntity) {
-                PlayerInventory inv = ((PlayerEntity)caster).inventory;
+                PlayerInventory inv = ((PlayerEntity) caster).inventory;
                 for (int i = 0; i < inv.getSizeInventory(); i++) {
                     ItemStack is = inv.getStackInSlot(i);
-                    if (is != null && is.getItem() instanceof SpellItem && is.getTag() != null && is.getTag().getString("ToggleShapeID").equals(current)) is.getTag().putBoolean("HasEffect", true);
+                    if (is != null && is.getItem() instanceof SpellItem && is.getTag() != null && is.getTag().getString("ToggleShapeID").equals(current))
+                        is.getTag().putBoolean("HasEffect", true);
                 }
             }
         }

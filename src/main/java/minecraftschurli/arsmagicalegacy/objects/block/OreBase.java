@@ -65,7 +65,7 @@ public class OreBase extends Block {
         private int minHeight;
         private int maxHeight;
 
-        private OreSpawnProperties(int veinSize, int chance, int minHeight, int maxHeight){
+        private OreSpawnProperties(int veinSize, int chance, int minHeight, int maxHeight) {
             this.veinSize = veinSize;
             this.chance = chance;
             this.minHeight = minHeight;
@@ -77,7 +77,7 @@ public class OreBase extends Block {
             return new OreSpawnProperties(veinSize, chance, minHeight, maxHeight);
         }
 
-        public OreSpawnProperties addFilter(BiomeFilter filter){
+        public OreSpawnProperties addFilter(BiomeFilter filter) {
             this.biomeFilter = new BiomeFilter(this.biomeFilter.biomes.toArray(new Biome[0]), filter.biomes.toArray(new Biome[0]));
             return this;
         }

@@ -1,17 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
 
 public class Rune extends SpellShape {
     @Override
@@ -39,8 +39,9 @@ public class Rune extends SpellShape {
         int procs = SpellUtils.getModifiedIntAdd(1, stack, caster, target, world, SpellModifiers.PROCS);
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
         RayTraceResult mop = null;//item.getMovingObjectPosition(caster, world, 8.0f, true, targetWater);
-        if (mop == null || mop.getType() == RayTraceResult.Type.ENTITY/* || !BlockDefs.spellRune.placeAt(world, ((BlockRayTraceResult)mop).getPos().up(), BlockDefs.spellRune.getDefaultState())*/) return SpellCastResult.EFFECT_FAILED;
-        if (!world.isRemote){
+        if (mop == null || mop.getType() == RayTraceResult.Type.ENTITY/* || !BlockDefs.spellRune.placeAt(world, ((BlockRayTraceResult)mop).getPos().up(), BlockDefs.spellRune.getDefaultState())*/)
+            return SpellCastResult.EFFECT_FAILED;
+        if (!world.isRemote) {
 //            world.setTileEntity(((BlockRayTraceResult)mop).getPos().up(), BlockDefs.spellRune.createNewTileEntity(world, 0));
 //            BlockDefs.spellRune.setSpellStack(world, ((BlockRayTraceResult)mop).getPos().up(), stack);
 //            BlockDefs.spellRune.setPlacedBy(world, ((BlockRayTraceResult)mop).getPos().up(), caster);

@@ -32,7 +32,7 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
         pos = pos.offset(Direction.UP);
         setBlockState(worldIn, pos, moonstone_ore);
         for (Direction value : Direction.values()) {
-            if(canReplace(worldIn, pos.offset(value)))
+            if (canReplace(worldIn, pos.offset(value)))
                 setBlockState(worldIn, pos.offset(value), moonstone_ore);
         }
         return false;
@@ -44,9 +44,9 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
         BlockState state = worldIn.getBlockState(pos);
         Block block = state.getBlock();
         return BlockTags.DIRT_LIKE.contains(block) ||
-            BlockTags.SAND.contains(block) ||
-            Tags.Blocks.DIRT.contains(block) ||
-            Tags.Blocks.SAND.contains(block) ||
-            Tags.Blocks.STONE.contains(block);
+                BlockTags.SAND.contains(block) ||
+                Tags.Blocks.DIRT.contains(block) ||
+                Tags.Blocks.SAND.contains(block) ||
+                Tags.Blocks.STONE.contains(block);
     }
 }
