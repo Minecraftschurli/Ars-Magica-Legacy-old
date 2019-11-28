@@ -20,22 +20,22 @@ import java.util.*;
  * @author Minecraftschurli
  * @version 2019-11-28
  */
-public class EntityThrownRock extends Entity {
+public class ThrownRockEntity extends Entity {
     private LivingEntity throwingEntity;
     private int maxTicksToExist;
     private Vec3d target = null;
     private float damage;
 
-    private static final DataParameter<Boolean> IS_MOONSTONE_METEOR = EntityDataManager.createKey(EntityThrownRock.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IS_SHOOTING_STAR = EntityDataManager.createKey(EntityThrownRock.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<ItemStack> SPELL_STACK = EntityDataManager.createKey(EntityThrownRock.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Boolean> IS_MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IS_SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<ItemStack> SPELL_STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
 
 
-    public EntityThrownRock(World worldIn) {
+    public ThrownRockEntity(World worldIn) {
         this(ModEntities.THROWN_ROCK.get(), worldIn);
     }
 
-    public EntityThrownRock(EntityType<?> entityTypeIn, World worldIn) {
+    public ThrownRockEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         ticksExisted = 0;
         maxTicksToExist = 120;
@@ -62,7 +62,7 @@ public class EntityThrownRock extends Entity {
         return dataManager.get(IS_SHOOTING_STAR) ;
     }
 
-    public EntityThrownRock(World world, LivingEntity entityLiving, double projectileSpeed){
+    public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed){
         this(world);
         this.noClip = true;
         throwingEntity = entityLiving;

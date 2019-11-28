@@ -1,25 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.entity.EntityThrownRock;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.entity.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class FallingStar extends SpellComponent {
 
@@ -36,16 +28,16 @@ public class FallingStar extends SpellComponent {
 
 	private boolean spawnStar(ItemStack spellStack, LivingEntity caster, Entity target, World world, double x, double y, double z){
 
-		List<EntityThrownRock> rocks = world.getEntitiesWithinAABB(EntityThrownRock.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
+		List<ThrownRockEntity> rocks = world.getEntitiesWithinAABB(ThrownRockEntity.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
 
 		int damageMultitplier = SpellUtils.getModifiedIntMul(15, spellStack, caster, target, world, SpellModifiers.DAMAGE);
-		for (EntityThrownRock rock : rocks){
+		for (ThrownRockEntity rock : rocks){
 			if (rock.getIsShootingStar())
 				return false;
 		}
 
 		if (!world.isRemote){
-			EntityThrownRock star = new EntityThrownRock(world);
+			ThrownRockEntity star = new ThrownRockEntity(world);
 			star.setPosition(x, world.getActualHeight(), z);
 			star.setShootingStar(2 * damageMultitplier);
 			star.setThrowingEntity(caster);
