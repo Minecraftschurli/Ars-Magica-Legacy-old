@@ -14,5 +14,6 @@ import net.minecraftforge.fml.RegistryObject;
 public final class SpellParts implements IInit {
     public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "missing_shape", null, SkillPoint.SILVER_POINT, new MissingShape(), null, 0, 0);
 
-    public static void register() {}
+    public static void register() {
+    }
 }

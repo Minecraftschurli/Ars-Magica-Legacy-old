@@ -34,8 +34,8 @@ public class CapabilityBurnout implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side, INBT nbt) {
-                        instance.setMaxBurnout(((CompoundNBT)nbt).getFloat("maxBurnout"));
-                        instance.setBurnout(((CompoundNBT)nbt).getFloat("burnout"));
+                        instance.setMaxBurnout(((CompoundNBT) nbt).getFloat("maxBurnout"));
+                        instance.setBurnout(((CompoundNBT) nbt).getFloat("burnout"));
                     }
                 },
                 BurnoutStorage::new);

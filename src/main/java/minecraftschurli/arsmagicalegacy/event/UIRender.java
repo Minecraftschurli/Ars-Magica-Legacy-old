@@ -21,9 +21,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
  */
 public class UIRender {
 
-    private final Minecraft mc = Minecraft.getInstance();
-    private FontRenderer fontRenderer() {return mc.fontRenderer;}
     public static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/bar.png");
+    private final Minecraft mc = Minecraft.getInstance();
+
+    public static int getWidth(double d1, double d2) {
+        int w = 80;
+        double d3 = Math.max(w * (d1 / d2), 0);
+        return (int) Math.ceil(d3);
+    }
+
+    private FontRenderer fontRenderer() {
+        return mc.fontRenderer;
+    }
 
     @SubscribeEvent
     public void renderBars(RenderGameOverlayEvent.Pre event) {
@@ -43,7 +52,7 @@ public class UIRender {
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 - 181;
         int yStart = scaledHeight - 15;
-        LazyOptional<IBurnoutStorage> burnoutStore =  player.getCapability(CapabilityBurnout.BURNOUT, null);
+        LazyOptional<IBurnoutStorage> burnoutStore = player.getCapability(CapabilityBurnout.BURNOUT, null);
         double burnout = burnoutStore.map(IBurnoutStorage::getBurnout).orElse(0.0f);
         double maxBurnout = burnoutStore.map(IBurnoutStorage::getMaxBurnout).orElse(0.0f);
         renderBar(xStart, yStart, burnout, maxBurnout, 0xAA0000, "burnout");
@@ -54,7 +63,7 @@ public class UIRender {
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 15;
-        LazyOptional<IManaStorage> manaStore =  player.getCapability(CapabilityMana.MANA, null);
+        LazyOptional<IManaStorage> manaStore = player.getCapability(CapabilityMana.MANA, null);
         double mana = manaStore.map(IManaStorage::getMana).orElse(0.0f);
         double maxMana = manaStore.map(IManaStorage::getMaxMana).orElse(0.0f);
         renderBar(xStart, yStart, mana, maxMana, 0x99FFFF, "mana");
@@ -73,21 +82,15 @@ public class UIRender {
         float g = (color >> 8 & 0xFF) / 255f;
         float b = (color & 0xFF) / 255f;
         GlStateManager.color3f(r, g, b);
-        drawTexturedModalRect(x+2, y+2, 2, 11, getWidth(value, maxValue)-1, 7);
-        GlStateManager.color4f(1,1,1,1);
+        drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
+        GlStateManager.color4f(1, 1, 1, 1);
 
-        int i2 = getStringLength((int)value + "");
-        drawStringOnHUD((int)value + "", x - 5 - i2, y - 1, color);
+        int i2 = getStringLength((int) value + "");
+        drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
 
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
         mc.getProfiler().endSection();
-    }
-
-    public static int getWidth(double d1, double d2) {
-        int w = 80;
-        double d3 = Math.max(w * (d1 / d2), 0);
-        return (int) Math.ceil(d3);
     }
 
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {

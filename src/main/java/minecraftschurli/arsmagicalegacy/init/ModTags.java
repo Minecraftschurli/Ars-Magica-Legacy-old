@@ -31,10 +31,12 @@ public final class ModTags {
         private static Tag<Block> forgeTag(String name) {
             return new BlockTags.Wrapper(new ResourceLocation("forge", name));
         }
+
         private static Tag<Block> tag(String name) {
             return new BlockTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
         }
     }
+
     public static final class Items {
         public static final Tag<Item> GEMS_TOPAZ = forgeTag("gems/topaz");
         public static final Tag<Item> GEMS_CHIMERITE = forgeTag("gems/chimerite");
@@ -60,6 +62,7 @@ public final class ModTags {
         private static Tag<Item> forgeTag(String name) {
             return new ItemTags.Wrapper(new ResourceLocation("forge", name));
         }
+
         private static Tag<Item> tag(String name) {
             return new ItemTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
         }

@@ -8,11 +8,15 @@ import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
  */
 public interface IResearchPointsStorage {
     int get(String type);
+
     boolean use(String type, int count);
+
     default void add(String type) {
         this.add(type, 1);
     }
+
     void add(String type, int count);
+
     void set(String type, int count);
 
     default void setFrom(IResearchPointsStorage old) {

@@ -28,10 +28,10 @@ public abstract class SpellModifier extends AbstractSpellPart {
     /**
      * Returns the modified value for the specified type.
      *
-     * @param type     The type of value we are modifying
-     * @param caster   The caster
-     * @param target   The target (can be the same as the caster)
-     * @param world    The world in which the spell is being cast.
+     * @param type   The type of value we are modifying
+     * @param caster The caster
+     * @param target The target (can be the same as the caster)
+     * @param world  The world in which the spell is being cast.
      * @return A factor to multiply the default value by (or add, depending on the component's programming)
      */
     public abstract float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt);

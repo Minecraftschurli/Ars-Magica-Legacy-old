@@ -36,11 +36,12 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                         compoundNBT.putInt("blue", instance.getGreen());
                         return compoundNBT;
                     }
+
                     @Override
                     public void readNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side, INBT nbt) {
-                        instance.setRed(((CompoundNBT)nbt).getInt("red"));
-                        instance.setGreen(((CompoundNBT)nbt).getInt("green"));
-                        instance.setBlue(((CompoundNBT)nbt).getInt("blue"));
+                        instance.setRed(((CompoundNBT) nbt).getInt("red"));
+                        instance.setGreen(((CompoundNBT) nbt).getInt("green"));
+                        instance.setBlue(((CompoundNBT) nbt).getInt("blue"));
                     }
                 },
                 ResearchPointsStorage::new);

@@ -47,6 +47,7 @@ public class SpellBookItem extends Item {
                     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
                         return new SpellBookContainer(id, playerInventory, new SpellBookInventory());
                     }
+
                     @Override
                     public ITextComponent getDisplayName() {
                         return stack.getDisplayName();
@@ -62,8 +63,8 @@ public class SpellBookItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack itemstack){
-        if (getUseDuration(itemstack) == 0){
+    public UseAction getUseAction(ItemStack itemstack) {
+        if (getUseDuration(itemstack) == 0) {
             return UseAction.NONE;
         }
         return UseAction.BLOCK;
@@ -76,18 +77,18 @@ public class SpellBookItem extends Item {
                 .orElse(0);
     }
 
-    private NonNullList<ItemStack> getInventory(ItemStack itemStack){
+    private NonNullList<ItemStack> getInventory(ItemStack itemStack) {
         return readFromStackTagCompound(itemStack);
     }
 
-    public Optional<SpellItem> getActiveScroll(ItemStack bookStack){
+    public Optional<SpellItem> getActiveScroll(ItemStack bookStack) {
         return Optional.of(getInventory(bookStack).get(getActiveSlot(bookStack)))
                 .filter(stack -> !stack.isEmpty())
                 .map(ItemStack::getItem)
-                .map(item -> (SpellItem)item);
+                .map(item -> (SpellItem) item);
     }
 
-    public ItemStack getActiveItemStack(ItemStack bookStack){
+    public ItemStack getActiveItemStack(ItemStack bookStack) {
         return Optional.of(getInventory(bookStack).get(getActiveSlot(bookStack)))
                 .filter(stack -> !stack.isEmpty())
                 .map(ItemStack::copy)
@@ -112,6 +113,7 @@ public class SpellBookItem extends Item {
                     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
                         return new SpellBookContainer(id, playerInventory, new SpellBookInventory());
                     }
+
                     @Override
                     public ITextComponent getDisplayName() {
                         return stack.getDisplayName();
@@ -128,8 +130,8 @@ public class SpellBookItem extends Item {
     }
 
 
-    public void setActiveSlot(ItemStack itemStack, int slot){
-        if (itemStack.getTag() == null){
+    public void setActiveSlot(ItemStack itemStack, int slot) {
+        if (itemStack.getTag() == null) {
             itemStack.setTag(new CompoundNBT());
         }
         if (slot < 0) slot = 0;
@@ -144,47 +146,47 @@ public class SpellBookItem extends Item {
             AMEnchantmentHelper.soulbindStack(itemStack);*/
     }
 
-    public int setNextSlot(ItemStack itemStack){
+    public int setNextSlot(ItemStack itemStack) {
         int slot = getActiveSlot(itemStack);
         int newSlot = slot;
 
-        do{
+        do {
             newSlot++;
             if (newSlot > 7) newSlot = 0;
             setActiveSlot(itemStack, newSlot);
-        }while (getActiveScroll(itemStack) == null && newSlot != slot);
+        } while (getActiveScroll(itemStack) == null && newSlot != slot);
         return slot;
     }
 
-    public int setPrevSlot(ItemStack itemStack){
+    public int setPrevSlot(ItemStack itemStack) {
         int slot = getActiveSlot(itemStack);
         int newSlot = slot;
 
-        do{
+        do {
             newSlot--;
             if (newSlot < 0) newSlot = 7;
             setActiveSlot(itemStack, newSlot);
-        }while (getActiveScroll(itemStack) == null && newSlot != slot);
+        } while (getActiveScroll(itemStack) == null && newSlot != slot);
         return slot;
     }
 
-    public int getActiveSlot(ItemStack itemStack){
-        if (itemStack.getTag() == null){
+    public int getActiveSlot(ItemStack itemStack) {
+        if (itemStack.getTag() == null) {
             setActiveSlot(itemStack, 0);
             return 0;
         }
         return itemStack.getTag().getInt("spellbookactiveslot");
     }
 
-    public NonNullList<ItemStack> readFromStackTagCompound(ItemStack itemStack){
-        NonNullList<ItemStack> list = NonNullList.withSize(8*4, ItemStack.EMPTY);
+    public NonNullList<ItemStack> readFromStackTagCompound(ItemStack itemStack) {
+        NonNullList<ItemStack> list = NonNullList.withSize(8 * 4, ItemStack.EMPTY);
         if (itemStack.getTag() != null)
-        ItemStackHelper.loadAllItems(itemStack.getTag(), list);
+            ItemStackHelper.loadAllItems(itemStack.getTag(), list);
 
         return list;
     }
 
-    public ITextComponent getActiveSpellName(ItemStack bookStack){
+    public ITextComponent getActiveSpellName(ItemStack bookStack) {
         ItemStack stack = getActiveItemStack(bookStack);
         return stack.getDisplayName();
     }
@@ -209,13 +211,13 @@ public class SpellBookItem extends Item {
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         ItemStack scrollStack = getActiveItemStack(stack);
-        if (!scrollStack.isEmpty()){
+        if (!scrollStack.isEmpty()) {
             // TODO ItemsCommonProxy.spell.onUsingTick(scrollStack, player, count);
         }
     }
 
     @Override
-    public int getItemEnchantability(){
+    public int getItemEnchantability() {
         return 1;
     }
 }

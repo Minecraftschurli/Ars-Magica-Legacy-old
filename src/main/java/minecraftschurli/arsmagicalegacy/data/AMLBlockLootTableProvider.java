@@ -35,7 +35,7 @@ public class AMLBlockLootTableProvider extends BlockLootTables implements IDataP
         this.generator = dataGeneratorIn;
     }
 
-    protected void addTables(){
+    protected void addTables() {
         registerDropSelfLootTable(ModBlocks.CHIMERITE_BLOCK.get());
         registerDropSelfLootTable(ModBlocks.MOONSTONE_BLOCK.get());
         registerDropSelfLootTable(ModBlocks.WITCHWOOD_LOG.get());

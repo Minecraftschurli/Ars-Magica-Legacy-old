@@ -19,17 +19,17 @@ public class BurnoutStorage implements IBurnoutStorage {
     }
 
     @Override
+    public void setMaxBurnout(float amount) {
+        if (amount > 0)
+            maxBurnout = amount;
+    }
+
+    @Override
     public boolean setBurnout(float amount) {
         if (amount > maxBurnout)
             return false;
         burnout = amount;
         return true;
-    }
-
-    @Override
-    public void setMaxBurnout(float amount) {
-        if (amount > 0)
-            maxBurnout = amount;
     }
 
     @Override

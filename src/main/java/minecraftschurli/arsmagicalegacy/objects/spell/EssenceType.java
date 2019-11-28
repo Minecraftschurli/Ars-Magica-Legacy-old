@@ -14,7 +14,7 @@ public enum EssenceType {
     ANY(7);
     public final int i;
 
-    EssenceType (int i){
+    EssenceType(int i) {
         this.i = i;
     }
 }

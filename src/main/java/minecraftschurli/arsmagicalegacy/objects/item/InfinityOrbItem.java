@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
  */
 public class InfinityOrbItem extends Item {
     private static String TYPE_KEY = "type";
+
     public InfinityOrbItem() {
         super(ModItems.ITEM_64);
     }
@@ -32,7 +33,7 @@ public class InfinityOrbItem extends Item {
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
             for (SkillPoint type : SkillPoint.TYPES) {
                 ItemStack stack = new ItemStack(this);
@@ -45,12 +46,12 @@ public class InfinityOrbItem extends Item {
     @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-        if(worldIn.isRemote) return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
+        if (worldIn.isRemote) return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
     }
 
     private ActionResult<ItemStack> useOrb(PlayerEntity playerIn, ItemStack heldItem) {
-        playerIn.getCapability(CapabilityResearch.RESEARCH_POINTS).orElseThrow(()->new IllegalStateException("No Research Capability Present")).add(heldItem.getTag().getString(TYPE_KEY));
+        playerIn.getCapability(CapabilityResearch.RESEARCH_POINTS).orElseThrow(() -> new IllegalStateException("No Research Capability Present")).add(heldItem.getTag().getString(TYPE_KEY));
         heldItem.shrink(1);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }

@@ -22,8 +22,8 @@ import java.util.Random;
 
 public class AstralDistortion extends SpellComponent {
 
-	@Override
-	public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction facing, double impactX, double impactY, double impactZ, LivingEntity caster){
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction facing, double impactX, double impactY, double impactZ, LivingEntity caster) {
 
 		/*if (world.getBlockState(pos).getBlock().equals(Blocks.SPAWNER)){
 			boolean hasMatch = RitualShapeHelper.instance.matchesRitual(this, world, pos);
@@ -44,40 +44,40 @@ public class AstralDistortion extends SpellComponent {
 			}
 		}*/
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target){
-		if (target instanceof LivingEntity){
-			int duration = (int) SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
-			//duration = SpellUtils.modifyDurationBasedOnArmor(caster, duration);
+    @Override
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+        if (target instanceof LivingEntity) {
+            int duration = (int) SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
+            //duration = SpellUtils.modifyDurationBasedOnArmor(caster, duration);
 
-			if (!world.isRemote)
-				((LivingEntity)target).addPotionEffect(new EffectInstance(ModEffects.ASTRAL_DISTORTION.get(), duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	public EnumSet<SpellModifiers> getModifiers() {
-		return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
-	}
+            if (!world.isRemote)
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ASTRAL_DISTORTION.get(), duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
+    }
 
 
-	@Override
-	public float getManaCost(LivingEntity caster){
-		return 80;
-	}
+    @Override
+    public float getManaCost(LivingEntity caster) {
+        return 80;
+    }
 
-	@Override
-	public ItemStack[] getReagents(LivingEntity caster){
-		return null;
-	}
+    @Override
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return null;
+    }
 
-	@Override
-	public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier){
+    @Override
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 		/*for (int i = 0; i < 10; ++i){
 			AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "pulse", x, y, z);
 			if (particle != null){
@@ -90,27 +90,27 @@ public class AstralDistortion extends SpellComponent {
 				}
 			}
 		}*/
-	}
+    }
 
 	/*@Override
 	public Set<Affinity> getAffinity(){
 		return Sets.newHashSet(Affinity.ENDER);
 	}*/
 
-	@Override
-	public ISpellIngredient[] getRecipe(){
-		return new ISpellIngredient[]{
-				new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
-				new ItemStackSpellIngredient(new ItemStack(Items.ENDER_EYE))
-		};
-	}
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.ENDER_EYE))
+        };
+    }
 
 	/*@Override
 	public float getAffinityShift(Affinity affinity){
 		return 0.05f;
 	}*/
 
-	@Override
-	public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-	}
+    @Override
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    }
 }

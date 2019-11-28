@@ -1,17 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
 
 public class Channel extends SpellShape {
     @Override
@@ -36,7 +36,8 @@ public class Channel extends SpellShape {
 
     @Override
     public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        if (useCount % 10 == 0/* || SpellUtils.componentIsPresent(stack, Telekinesis.class) || SpellUtils.componentIsPresent(stack, Attract.class) || SpellUtils.componentIsPresent(stack, Repel.class)*/) return SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
+        if (useCount % 10 == 0/* || SpellUtils.componentIsPresent(stack, Telekinesis.class) || SpellUtils.componentIsPresent(stack, Attract.class) || SpellUtils.componentIsPresent(stack, Repel.class)*/)
+            return SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
         return SpellCastResult.SUCCESS;
     }
 

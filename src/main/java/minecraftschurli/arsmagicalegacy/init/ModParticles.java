@@ -6,5 +6,6 @@ package minecraftschurli.arsmagicalegacy.init;
  */
 public class ModParticles implements IInit {
 
-    public static void register() {}
+    public static void register() {
+    }
 }

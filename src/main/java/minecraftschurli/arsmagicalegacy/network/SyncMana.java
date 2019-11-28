@@ -20,14 +20,14 @@ public class SyncMana {
         this.mana = buf.readFloat();
     }
 
-    public void toBytes(PacketBuffer buf) {
-        buf.writeFloat(this.maxMana);
-        buf.writeFloat(this.mana);
-    }
-
     public SyncMana(float mana, float maxMana) {
         this.maxMana = maxMana;
         this.mana = mana;
+    }
+
+    public void toBytes(PacketBuffer buf) {
+        buf.writeFloat(this.maxMana);
+        buf.writeFloat(this.mana);
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {

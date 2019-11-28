@@ -1,34 +1,41 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.network.datasync.*;
-import net.minecraft.util.*;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-28
  */
 public class ThrownRockEntity extends Entity {
+    private static final DataParameter<Boolean> IS_MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IS_SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<ItemStack> SPELL_STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
     private LivingEntity throwingEntity;
     private int maxTicksToExist;
     private Vec3d target = null;
     private float damage;
-
-    private static final DataParameter<Boolean> IS_MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IS_SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<ItemStack> SPELL_STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
 
 
     public ThrownRockEntity(World worldIn) {
@@ -41,28 +48,8 @@ public class ThrownRockEntity extends Entity {
         maxTicksToExist = 120;
         this.noClip = true;
     }
-    public void setMoonstoneMeteor(){
-        this.dataManager.set(IS_MOONSTONE_METEOR, true);
-    }
 
-    public void setShootingStar(float damage){
-        this.dataManager.set(IS_SHOOTING_STAR, true);
-        this.damage = damage;
-    }
-
-    public void setMoonstoneMeteorTarget(Vec3d target){
-        this.target = target;
-    }
-
-    public boolean getIsMoonstoneMeteor(){
-        return dataManager.get(IS_MOONSTONE_METEOR);
-    }
-
-    public boolean getIsShootingStar(){
-        return dataManager.get(IS_SHOOTING_STAR) ;
-    }
-
-    public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed){
+    public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed) {
         this(world);
         this.noClip = true;
         throwingEntity = entityLiving;
@@ -82,7 +69,28 @@ public class ThrownRockEntity extends Entity {
         setHeading(getMotion().x, getMotion().y, getMotion().z, projectileSpeed, projectileSpeed);
     }
 
-    public void setHeading(double movementX, double movementY, double movementZ, double projectileSpeed, double projectileSpeed2){
+    public void setMoonstoneMeteor() {
+        this.dataManager.set(IS_MOONSTONE_METEOR, true);
+    }
+
+    public void setShootingStar(float damage) {
+        this.dataManager.set(IS_SHOOTING_STAR, true);
+        this.damage = damage;
+    }
+
+    public void setMoonstoneMeteorTarget(Vec3d target) {
+        this.target = target;
+    }
+
+    public boolean getIsMoonstoneMeteor() {
+        return dataManager.get(IS_MOONSTONE_METEOR);
+    }
+
+    public boolean getIsShootingStar() {
+        return dataManager.get(IS_SHOOTING_STAR);
+    }
+
+    public void setHeading(double movementX, double movementY, double movementZ, double projectileSpeed, double projectileSpeed2) {
         float f = MathHelper.sqrt(movementX * movementX + movementY * movementY + movementZ * movementZ);
         movementX /= f;
         movementY /= f;
@@ -95,33 +103,33 @@ public class ThrownRockEntity extends Entity {
         movementZ *= projectileSpeed;
         setMotion(movementX, movementY, movementZ);
         float f1 = MathHelper.sqrt(movementX * movementX + movementZ * movementZ);
-        prevRotationYaw = rotationYaw = (float)((Math.atan2(movementX, movementZ) * 180D) / Math.PI);
-        prevRotationPitch = rotationPitch = (float)((Math.atan2(movementY, f1) * 180D) / Math.PI);
+        prevRotationYaw = rotationYaw = (float) ((Math.atan2(movementX, movementZ) * 180D) / Math.PI);
+        prevRotationPitch = rotationPitch = (float) ((Math.atan2(movementY, f1) * 180D) / Math.PI);
     }
 
-    public void setThrowingEntity(LivingEntity thrower){
+    public void setThrowingEntity(LivingEntity thrower) {
         this.throwingEntity = thrower;
     }
 
     @Override
-    protected void registerData(){
+    protected void registerData() {
         this.dataManager.register(IS_MOONSTONE_METEOR, false);
         this.dataManager.register(IS_SHOOTING_STAR, false);
         this.dataManager.register(SPELL_STACK, new ItemStack(ModItems.SPELL.get()));
     }
 
-    private ItemStack getSpellStack(){
+    private ItemStack getSpellStack() {
         return this.dataManager.get(SPELL_STACK);
     }
 
-    public void setSpellStack(ItemStack spellStack){
+    public void setSpellStack(ItemStack spellStack) {
         this.dataManager.set(SPELL_STACK, spellStack);
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         super.tick();
-        if (this.target != null && this.posY > this.target.y){
+        if (this.target != null && this.posY > this.target.y) {
             double deltaX = this.posX - target.x;
             double deltaY = this.posY - target.y;
             double deltaZ = this.posZ - target.z;
@@ -135,26 +143,26 @@ public class ThrownRockEntity extends Entity {
             setMotion(-Math.cos(angle) * 0.2, -Math.sin(vAngle) * 2.5, -Math.sin(angle) * 0.2);
         }
 
-        if (!getIsMoonstoneMeteor() && !getIsShootingStar()){
-            if (!world.isRemote && (throwingEntity == null || !throwingEntity.isAlive())){
+        if (!getIsMoonstoneMeteor() && !getIsShootingStar()) {
+            if (!world.isRemote && (throwingEntity == null || !throwingEntity.isAlive())) {
                 remove();
-            }else{
+            } else {
                 ticksExisted++;
                 int maxTicksToLive = maxTicksToExist > -1 ? maxTicksToExist : 100;
-                if (ticksExisted >= maxTicksToLive && !world.isRemote){
+                if (ticksExisted >= maxTicksToLive && !world.isRemote) {
                     remove();
                     return;
                 }
             }
         }
 
-        if (getIsShootingStar()){
+        if (getIsShootingStar()) {
             setMotion(getMotion().x, getMotion().y - 0.1f, getMotion().z);
             if (getMotion().y < -2f)
                 setMotion(getMotion().x, -2f, getMotion().z);
         }
 
-        if (world.isRemote){
+        if (world.isRemote) {
             /*if (getIsMoonstoneMeteor()){
                 AMParticle fire = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "explosion_2", posX, posY, posZ);
                 if (fire != null){
@@ -164,15 +172,16 @@ public class ThrownRockEntity extends Entity {
                     fire.AddParticleController(new ParticleHoldPosition(fire, 20, 1, false));
                     fire.AddParticleController(new ParticleColorShift(fire, 1, false).SetShiftSpeed(0.1f).SetColorTarget(0.01f, 0.01f, 0.01f).SetEndOnReachingTargetColor().setKillParticleOnFinish(false));
                 }
-            }else*/ if (getIsShootingStar()){
+            }else*/
+            if (getIsShootingStar()) {
 
                 int color = -1;
                 getSpellStack();
-                if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, getSpellStack())){
+                if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, getSpellStack())) {
                     List<SpellModifier> mods = SpellUtils.getModifiersForStage(getSpellStack(), -1);
-                    for (SpellModifier mod : mods){
-                        if (mod instanceof Color){
-                            color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, getSpellStack().getTag());
+                    for (SpellModifier mod : mods) {
+                        if (mod instanceof Color) {
+                            color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, getSpellStack().getTag());
                         }
                     }
                 }
@@ -204,7 +213,7 @@ public class ThrownRockEntity extends Entity {
         RayTraceResult movingobjectposition = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
         vec3d = getPositionVec();
         vec3d1 = getPositionVec().add(getMotion());
-        if (movingobjectposition != null){
+        if (movingobjectposition != null) {
             vec3d1 = movingobjectposition.getHitVec();
         }
         Entity entity = null;
@@ -227,10 +236,10 @@ public class ThrownRockEntity extends Entity {
             }
         }
 
-        if (entity != null){
+        if (entity != null) {
             movingobjectposition = new EntityRayTraceResult(entity);
         }
-        if (movingobjectposition != null){
+        if (movingobjectposition != null) {
             hitObject(movingobjectposition);
         }
 
@@ -238,52 +247,56 @@ public class ThrownRockEntity extends Entity {
         posY += getMotion().y;
         posZ += getMotion().z;
         float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
-        rotationYaw = (float)((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
-        for (rotationPitch = (float)((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F){}
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F){}
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F){}
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F){}
+        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
+        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+        }
+        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {
+        }
+        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {
+        }
+        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {
+        }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         setPosition(posX, posY, posZ);
     }
 
 
-
-    protected void hitObject(RayTraceResult movingobjectposition){
-        if (world.isRemote){
+    protected void hitObject(RayTraceResult movingobjectposition) {
+        if (world.isRemote) {
             return;
         }
 
 
-        if (getIsShootingStar()){
+        if (getIsShootingStar()) {
             //AMNetHandler.INSTANCE.sendStarImpactToClients(posX, posY + ((movingobjectposition.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)movingobjectposition).getEntity().getEyeHeight() : 1.5f), posZ, world, this.getSpellStack());
             List<LivingEntity> ents = world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12));
             this.posY++;
-            for (LivingEntity e : ents){
+            for (LivingEntity e : ents) {
                 if (e == throwingEntity) continue;
                 if (this.getDistance(e) < 12)
                     SpellUtils.attackTargetSpecial(null, e, DamageSource.causeIndirectMagicDamage(throwingEntity, this), damage);
             }
-        }else{
+        } else {
 
             ((EntityRayTraceResult) movingobjectposition).getEntity();
-            if (((EntityRayTraceResult)movingobjectposition).getEntity() instanceof LivingEntity){
-                if (((EntityRayTraceResult) movingobjectposition).getEntity() == throwingEntity || throwingEntity == null) return;
-                if (throwingEntity != null){
+            if (((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {
+                if (((EntityRayTraceResult) movingobjectposition).getEntity() == throwingEntity || throwingEntity == null)
+                    return;
+                if (throwingEntity != null) {
                     ((EntityRayTraceResult) movingobjectposition).getEntity().attackEntityFrom(DamageSource.causeMobDamage(throwingEntity), 10);
                 }
-            }else if (movingobjectposition.getType() == RayTraceResult.Type.BLOCK){
-                if (this.getIsMoonstoneMeteor()){
+            } else if (movingobjectposition.getType() == RayTraceResult.Type.BLOCK) {
+                if (this.getIsMoonstoneMeteor()) {
 
-                    if (this.target == null){
+                    if (this.target == null) {
                         this.target = movingobjectposition.getHitVec();
                     }
                     this.world.createExplosion(this, this.target.getX(), this.target.getY(), this.target.getZ(), 0.8f, Explosion.Mode.NONE /*ArsMagica2.config.moonstoneMeteorsDestroyTerrain()*/);
 
                     int numOres = rand.nextInt(4) + 1;
 
-                    for (int i = 0; i < numOres; ++i){
+                    for (int i = 0; i < numOres; ++i) {
                         generateSurfaceOreAtOffset(world, new BlockPos(target), i == 0);
                     }
 
@@ -298,7 +311,7 @@ public class ThrownRockEntity extends Entity {
         this.remove();
     }
 
-    private void generateSurfaceOreAtOffset(World world, BlockPos pos, boolean force){
+    private void generateSurfaceOreAtOffset(World world, BlockPos pos, boolean force) {
         pos = pos.east(rand.nextInt(4) - 2);
         pos = pos.south(rand.nextInt(4) - 2);
 
@@ -312,7 +325,7 @@ public class ThrownRockEntity extends Entity {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2){
+    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         return false;
     }
 

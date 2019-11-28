@@ -51,7 +51,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> WITCHWOOD_LEAVES = blockItem(ModBlocks.WITCHWOOD_LEAVES);
     public static final RegistryObject<Item> WITCHWOOD_FENCE = blockItem(ModBlocks.WITCHWOOD_FENCE);
     public static final RegistryObject<Item> WITCHWOOD_FENCE_GATE = blockItem(ModBlocks.WITCHWOOD_FENCE_GATE);
-    public static final RegistryObject<Item> WITCHWOOD_DOOR = ITEMS.register("witchwood_door", ()->new TallBlockItem(ModBlocks.WITCHWOOD_DOOR.get(), ITEM_64));
+    public static final RegistryObject<Item> WITCHWOOD_DOOR = ITEMS.register("witchwood_door", () -> new TallBlockItem(ModBlocks.WITCHWOOD_DOOR.get(), ITEM_64));
     public static final RegistryObject<Item> WITCHWOOD_TRAPDOOR = blockItem(ModBlocks.WITCHWOOD_TRAPDOOR);
     public static final RegistryObject<Item> WITCHWOOD_BUTTON = blockItem(ModBlocks.WITCHWOOD_BUTTON);
     public static final RegistryObject<Item> WITCHWOOD_PRESSURE_PLATE = blockItem(ModBlocks.WITCHWOOD_PRESSURE_PLATE);
@@ -64,7 +64,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> REDSTONE_INLAY = blockItem(ModBlocks.REDSTONE_INLAY);
     public static final RegistryObject<Item> IRON_INLAY = blockItem(ModBlocks.IRON_INLAY);
     public static final RegistryObject<Item> GOLD_INLAY = blockItem(ModBlocks.GOLD_INLAY);
-    public static final RegistryObject<Item> VINTEUM_TORCH = ITEMS.register("vinteum_torch", ()->new WallOrFloorItem(ModBlocks.VINTEUM_TORCH.get(), ModBlocks.VINTEUM_WALL_TORCH.get(), ITEM_64));
+    public static final RegistryObject<Item> VINTEUM_TORCH = ITEMS.register("vinteum_torch", () -> new WallOrFloorItem(ModBlocks.VINTEUM_TORCH.get(), ModBlocks.VINTEUM_WALL_TORCH.get(), ITEM_64));
     public static final RegistryObject<Item> RUNE = stackableItem64("rune");
     public static final RegistryObject<Item> WHITE_RUNE = stackableItem64("white_rune");
     public static final RegistryObject<Item> ORANGE_RUNE = stackableItem64("orange_rune");
@@ -108,15 +108,20 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
     public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
-    public static void register() {}
+
+    public static void register() {
+    }
+
     private static RegistryObject<Item> blockItem(final RegistryObject<Block> block) {
         Objects.requireNonNull(block);
-        return ITEMS.register(block.getId().getPath(), ()->new BlockItem(block.get(), ITEM_64));
+        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_64));
     }
+
     private static RegistryObject<Item> stackableItem64(final String name) {
         Objects.requireNonNull(name);
         return ITEMS.register(name, ModItems::item64);
     }
+
     private static Item item64() {
         return new Item(ITEM_64);
     }

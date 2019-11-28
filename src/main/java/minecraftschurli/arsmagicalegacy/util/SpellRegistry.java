@@ -47,25 +47,25 @@ public class SpellRegistry {
     }
 
     @SubscribeEvent
-    public static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event){
+    public static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event) {
         event.getRegistry().registerAll(SPELL_PARTS.toArray(new AbstractSpellPart[0]));
     }
 
     @SubscribeEvent
-    public static void onSkillRegister(RegistryEvent.Register<Skill> event){
+    public static void onSkillRegister(RegistryEvent.Register<Skill> event) {
         event.getRegistry().registerAll(SKILLS.toArray(new Skill[0]));
     }
 
     /**
      * Register a spell component
      *
-     * @param id : Name of this component
-     * @param icon : Icon
-     * @param tier : Skill Point required to unlock
-     * @param part : Actual Component, use new {@link SpellComponent} ()
-     * @param tree : Skill Tree
-     * @param posX : Position in the tree
-     * @param posY : Position in the tree
+     * @param id      : Name of this component
+     * @param icon    : Icon
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Component, use new {@link SpellComponent} ()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static RegistryObject<SpellComponent> registerSpellComponent(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
@@ -80,13 +80,13 @@ public class SpellRegistry {
     /**
      * Register a spell component
      *
-     * @param name : Name of this component
-     * @param icon : Icon
-     * @param tier : Skill Point required to unlock
-     * @param part : Actual Component, use new {@link SpellComponent} ()
-     * @param tree : Skill Tree
-     * @param posX : Position in the tree
-     * @param posY : Position in the tree
+     * @param name    : Name of this component
+     * @param icon    : Icon
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Component, use new {@link SpellComponent} ()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static RegistryObject<SpellComponent> registerSpellComponent(String modid, String name, ResourceLocation icon, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
@@ -96,13 +96,13 @@ public class SpellRegistry {
     /**
      * Register a spell modifier
      *
-     * @param id : Name of this modifier
-     * @param icon : Icon
-     * @param tier : Skill Point required to unlock
-     * @param part : Actual Modifier, use new {@link SpellModifier} ()
-     * @param tree : Skill Tree
-     * @param posX : Position in the tree
-     * @param posY : Position in the tree
+     * @param id      : Name of this modifier
+     * @param icon    : Icon
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Modifier, use new {@link SpellModifier} ()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static RegistryObject<SpellModifier> registerSpellModifier(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
@@ -117,13 +117,13 @@ public class SpellRegistry {
     /**
      * Register a spell modifier
      *
-     * @param name : Name of this modifier
-     * @param icon : Icon
-     * @param tier : Skill Point required to unlock
-     * @param part : Actual Modifier, use new {@link SpellModifier} ()
-     * @param tree : Skill Tree
-     * @param posX : Position in the tree
-     * @param posY : Position in the tree
+     * @param name    : Name of this modifier
+     * @param icon    : Icon
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Modifier, use new {@link SpellModifier} ()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static RegistryObject<SpellModifier> registerSpellModifier(String modid, String name, ResourceLocation icon, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
@@ -133,13 +133,13 @@ public class SpellRegistry {
     /**
      * Register a spell shape
      *
-     * @param id : Name of this shape
-     * @param icon : Icon
-     * @param tier : Skill Point required to unlock
-     * @param part : Actual Shape, use new {@link SpellShape} ()
-     * @param tree : Skill Tree
-     * @param posX : Position in the tree
-     * @param posY : Position in the tree
+     * @param id      : Name of this shape
+     * @param icon    : Icon
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Shape, use new {@link SpellShape} ()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static RegistryObject<SpellShape> registerSpellShape(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
@@ -154,13 +154,13 @@ public class SpellRegistry {
     /**
      * Register a spell shape
      *
-     * @param name : Name of this shape
-     * @param icon : Icon
-     * @param tier : Skill Point required to unlock
-     * @param part : Actual Shape, use new {@link SpellShape} ()
-     * @param tree : Skill Tree
-     * @param posX : Position in the tree
-     * @param posY : Position in the tree
+     * @param name    : Name of this shape
+     * @param icon    : Icon
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Shape, use new {@link SpellShape} ()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static RegistryObject<SpellShape> registerSpellShape(String modid, String name, ResourceLocation icon, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {

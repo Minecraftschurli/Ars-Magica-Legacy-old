@@ -10,11 +10,11 @@ import net.minecraft.util.math.Vec3d;
  */
 public class NBTUtils {
 
-    public static CompoundNBT getAM2Tag (CompoundNBT baseTag) {
+    public static CompoundNBT getAM2Tag(CompoundNBT baseTag) {
         return addTag(baseTag, "AM2");
     }
 
-    public static CompoundNBT getEssenceTag (CompoundNBT baseTag) {
+    public static CompoundNBT getEssenceTag(CompoundNBT baseTag) {
         return addTag(getAM2Tag(baseTag), "Essence");
     }
 
@@ -31,23 +31,34 @@ public class NBTUtils {
     public static Object getValueAt(CompoundNBT baseTag, String tagName) {
         INBT base = baseTag.get(tagName);
         switch (base.getId()) {
-            case 0: return null;
-            case 1: return ((ByteNBT)base).getByte();
-            case 2: return ((ShortNBT)base).getShort();
-            case 3: return ((IntNBT)base).getInt();
-            case 4: return ((LongNBT)base).getLong();
-            case 5: return ((FloatNBT)base).getFloat();
-            case 6: return ((DoubleNBT)base).getDouble();
-            case 7: return ((ByteArrayNBT)base).getByteArray();
-            case 8: return base.getString();
-            case 9: return base;
-            case 10: return ((IntArrayNBT)base).getIntArray();
+            case 0:
+                return null;
+            case 1:
+                return ((ByteNBT) base).getByte();
+            case 2:
+                return ((ShortNBT) base).getShort();
+            case 3:
+                return ((IntNBT) base).getInt();
+            case 4:
+                return ((LongNBT) base).getLong();
+            case 5:
+                return ((FloatNBT) base).getFloat();
+            case 6:
+                return ((DoubleNBT) base).getDouble();
+            case 7:
+                return ((ByteArrayNBT) base).getByteArray();
+            case 8:
+                return base.getString();
+            case 9:
+                return base;
+            case 10:
+                return ((IntArrayNBT) base).getIntArray();
             default:
                 return null;
         }
     }
 
-    public static CompoundNBT addTag (CompoundNBT upper, String name) {
+    public static CompoundNBT addTag(CompoundNBT upper, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
         CompoundNBT newTag = new CompoundNBT();
         if (upper.hasUniqueId(name)) {
@@ -57,13 +68,13 @@ public class NBTUtils {
         return newTag;
     }
 
-    public static CompoundNBT addTag (CompoundNBT upper, CompoundNBT compound, String name) {
+    public static CompoundNBT addTag(CompoundNBT upper, CompoundNBT compound, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
         upper.put(name, compound);
         return upper;
     }
 
-    public static ListNBT addList (CompoundNBT upper, int type, String name) {
+    public static ListNBT addList(CompoundNBT upper, int type, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
         ListNBT newTag = new ListNBT();
         if (upper.getList(name, type) != null) {
@@ -88,7 +99,7 @@ public class NBTUtils {
                 continue;
             if (checkTag == null) return false;
             if (tag instanceof CompoundNBT && checkTag instanceof CompoundNBT)
-                match &= contains((CompoundNBT)tag, (CompoundNBT) checkTag);
+                match &= contains((CompoundNBT) tag, (CompoundNBT) checkTag);
             else
                 match &= tag.equals(checkTag);
             if (!match)

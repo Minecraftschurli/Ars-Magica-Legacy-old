@@ -17,5 +17,6 @@ public final class ModEffects implements IInit {
     public static final RegistryObject<Effect> SHRINK = POTIONS.register("shrink", EffectShrink::new);
     public static final RegistryObject<Effect> ASTRAL_DISTORTION = null;
 
-    public static void register() {}
+    public static void register() {
+    }
 }

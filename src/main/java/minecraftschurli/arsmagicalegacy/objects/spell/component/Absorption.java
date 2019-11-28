@@ -27,7 +27,7 @@ import java.util.Random;
  */
 public class Absorption extends SpellComponent {
     @Override
-    public float getManaCost(LivingEntity caster){
+    public float getManaCost(LivingEntity caster) {
         return 100;
     }
 
@@ -47,7 +47,7 @@ public class Absorption extends SpellComponent {
             }*/
 
             if (!world.isRemote)
-                ((LivingEntity)target).addPotionEffect(new EffectInstance(Effects.ABSORPTION, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(Effects.ABSORPTION, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
 
             return true;
         }
@@ -85,7 +85,7 @@ public class Absorption extends SpellComponent {
     }*/
 
     @Override
-    public ISpellIngredient[] getRecipe(){
+    public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get(), 1)),
                 new ItemStackSpellIngredient(new ItemStack(Items.GOLDEN_APPLE, 1)),

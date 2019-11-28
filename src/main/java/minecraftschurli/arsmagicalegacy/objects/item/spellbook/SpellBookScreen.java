@@ -14,15 +14,21 @@ import org.lwjgl.opengl.GL11;
  */
 public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
 
+    private static final ResourceLocation background = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui.png");
+    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui_2.png");
+    private int bookActiveSlot;
     public SpellBookScreen(SpellBookContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         xSize = 256;
         ySize = 250;
     }
-    private int bookActiveSlot;
 
-    private static final ResourceLocation background = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui.png");
-    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui_2.png");
+    public SpellBookScreen(SpellBookContainer container, PlayerInventory inventoryplayer, ItemStack spellBookStack) {
+        super(container, inventoryplayer, spellBookStack.getDisplayName());
+        bookActiveSlot = ((SpellBookItem) spellBookStack.getItem()).getActiveSlot(spellBookStack);
+        xSize = 256;
+        ySize = 250;
+    }
 
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
@@ -32,7 +38,7 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int i, int j){
+    protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         minecraft.getTextureManager().bindTexture(background);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int l = (width - xSize) / 2;
@@ -40,18 +46,11 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
         blit(l, i1, 0, 0, xSize, ySize);
     }
 
-    public SpellBookScreen(SpellBookContainer container, PlayerInventory inventoryplayer, ItemStack spellBookStack){
-        super(container, inventoryplayer, spellBookStack.getDisplayName());
-        bookActiveSlot = ((SpellBookItem)spellBookStack.getItem()).getActiveSlot(spellBookStack);
-        xSize = 256;
-        ySize = 250;
-    }
-
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2){
-        for (int i = 0; i < 8; ++i){
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        for (int i = 0; i < 8; ++i) {
             ItemStack stack = container.getInventory().get(i);
-            if (stack.isEmpty()){
+            if (stack.isEmpty()) {
                 continue;
             }
             String[] nameParts = stack.getDisplayName().getString().split(" ");
@@ -59,9 +58,9 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
             int Y = 5 + i * 18;
             int maxWidth = 120;
             int line = 1;
-            for (String s : nameParts){
+            for (String s : nameParts) {
                 int width = font.getStringWidth(s);
-                if (X + width > maxWidth && line == 1){
+                if (X + width > maxWidth && line == 1) {
                     Y += font.FONT_HEIGHT;
                     line++;
                     X = 37;

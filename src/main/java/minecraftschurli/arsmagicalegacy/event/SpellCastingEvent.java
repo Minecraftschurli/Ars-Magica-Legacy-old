@@ -32,15 +32,15 @@ public class SpellCastingEvent extends Event {
      */
     public final ItemStack stack;
     /**
-     * The result to be returned after casting the spell
-     */
-    public SpellCastResult castResult;
-    /**
      * Is the spell channeled (maintained in any way, not the shape, so beam counts too)
      */
     public final boolean isChanneled;
+    /**
+     * The result to be returned after casting the spell
+     */
+    public SpellCastResult castResult;
 
-    public SpellCastingEvent(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled){
+    public SpellCastingEvent(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
         this.caster = caster;
         this.spell = spell;
         this.manaCost = manaCost;
@@ -48,6 +48,7 @@ public class SpellCastingEvent extends Event {
         this.stack = stack;
         this.isChanneled = isChanneled;
     }
+
     public static class Pre extends SpellCastingEvent {
 
         public Pre(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {

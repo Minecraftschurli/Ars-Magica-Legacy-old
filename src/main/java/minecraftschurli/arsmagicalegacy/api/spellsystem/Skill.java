@@ -50,7 +50,7 @@ public class Skill extends ForgeRegistryEntry<Skill> {
         return parents;
     }
 
-    public void writeToNBT (CompoundNBT tag) {
+    public void writeToNBT(CompoundNBT tag) {
         tag.putString("ID", getID());
     }
 

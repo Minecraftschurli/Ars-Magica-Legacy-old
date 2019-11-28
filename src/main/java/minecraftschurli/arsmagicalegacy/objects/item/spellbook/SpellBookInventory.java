@@ -18,7 +18,7 @@ public class SpellBookInventory implements IInventory {
     public int inventorySize = 40;
     private NonNullList<ItemStack> contents;
 
-    public SpellBookInventory(){
+    public SpellBookInventory() {
         contents = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
     }
 

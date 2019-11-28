@@ -6,10 +6,15 @@ package minecraftschurli.arsmagicalegacy.capabilities.mana;
  */
 public interface IManaStorage {
     float getMana();
+
     float getMaxMana();
-    boolean setMana(float amount);
+
     void setMaxMana(float amount);
+
+    boolean setMana(float amount);
+
     boolean increase(float amount);
+
     boolean decrease(float amount);
 
     default void setFrom(IManaStorage old) {

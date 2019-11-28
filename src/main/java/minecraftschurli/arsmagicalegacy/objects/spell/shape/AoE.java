@@ -1,20 +1,24 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.entity.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.boss.dragon.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
 
 public class AoE extends SpellShape {
     @Override
@@ -29,7 +33,8 @@ public class AoE extends SpellShape {
         for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i) {
             if (!SpellUtils.getShapeForStage(spellStack, i).equals(this)) continue;
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(spellStack, i);
-            for (SpellModifier modifier : mods) if (modifier.getAspectsModified().contains(SpellModifiers.RADIUS)) radius++;
+            for (SpellModifier modifier : mods)
+                if (modifier.getAspectsModified().contains(SpellModifiers.RADIUS)) radius++;
         }
         return 2 * (radius + 1);
     }
@@ -51,24 +56,29 @@ public class AoE extends SpellShape {
         boolean appliedToAtLeastOneEntity = false;
         for (Entity e : entities) {
             if (e == caster || e instanceof SpellProjectileEntity) continue;
-            if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null) e = ((EnderDragonPartEntity) e).dragon;
-            if (SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP) == SpellCastResult.SUCCESS) appliedToAtLeastOneEntity = true;
+            if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
+                e = ((EnderDragonPartEntity) e).dragon;
+            if (SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP) == SpellCastResult.SUCCESS)
+                appliedToAtLeastOneEntity = true;
         }
         BlockPos pos = new BlockPos(x, y, z);
         if (side != null) {
             switch (side) {
                 case UP:
                 case DOWN:
-                    if (world.isRemote) spawnAoEParticles(stack, caster, world, x + 0.5f, y + ((side.equals(Direction.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2.0f)), z + 0.5f, (int) radius);
+                    if (world.isRemote)
+                        spawnAoEParticles(stack, caster, world, x + 0.5f, y + ((side.equals(Direction.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2.0f)), z + 0.5f, (int) radius);
                     int gravityMagnitude = SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack);
                     return applyStageHorizontal(stack, caster, world, pos, side, (int) Math.floor(radius), gravityMagnitude, giveXP);
                 case NORTH:
                 case SOUTH:
-                    if (world.isRemote) spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int) radius);
+                    if (world.isRemote)
+                        spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int) radius);
                     return applyStageVerticalZ(stack, caster, world, pos, side, (int) Math.floor(radius), giveXP);
                 case EAST:
-                case WEST: 
-                    if (world.isRemote) spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int) radius);
+                case WEST:
+                    if (world.isRemote)
+                        spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int) radius);
                     return applyStageVerticalX(stack, caster, world, pos, side, (int) Math.floor(radius), giveXP);
             }
         } else {
@@ -128,37 +138,40 @@ public class AoE extends SpellShape {
     }
 
     private SpellCastResult applyStageHorizontal(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, int gravityMagnitude, boolean giveXP) {
-        for (int i = -radius; i <= radius; ++i) for (int j = -radius; j <= radius; ++j) {
-            BlockPos lookPos = pos.add(i, 0, j);
-            int searchDist = 0;
-            if (gravityMagnitude > 0) while (world.isAirBlock(lookPos) && searchDist < gravityMagnitude) {
-                pos.down();
-                searchDist++;
+        for (int i = -radius; i <= radius; ++i)
+            for (int j = -radius; j <= radius; ++j) {
+                BlockPos lookPos = pos.add(i, 0, j);
+                int searchDist = 0;
+                if (gravityMagnitude > 0) while (world.isAirBlock(lookPos) && searchDist < gravityMagnitude) {
+                    pos.down();
+                    searchDist++;
+                }
+                if (world.isAirBlock(lookPos)) continue;
+                SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face == null ? Direction.UP : face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
+                if (result != SpellCastResult.SUCCESS) return result;
             }
-            if (world.isAirBlock(lookPos)) continue;
-            SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face == null ? Direction.UP : face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
-            if (result != SpellCastResult.SUCCESS) return result;
-        }
         return SpellCastResult.SUCCESS;
     }
 
     private SpellCastResult applyStageVerticalX(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, boolean giveXP) {
-        for (int i = -radius; i <= radius; ++i) for (int j = -radius; j <= radius; ++j) {
-            BlockPos lookPos = pos.add(0, j, i);
-            if (world.isAirBlock(lookPos)) continue;
-            SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
-            if (result != SpellCastResult.SUCCESS) return result;
-        }
+        for (int i = -radius; i <= radius; ++i)
+            for (int j = -radius; j <= radius; ++j) {
+                BlockPos lookPos = pos.add(0, j, i);
+                if (world.isAirBlock(lookPos)) continue;
+                SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
+                if (result != SpellCastResult.SUCCESS) return result;
+            }
         return SpellCastResult.SUCCESS;
     }
 
     private SpellCastResult applyStageVerticalZ(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, boolean giveXP) {
-        for (int i = -radius; i <= radius; ++i) for (int j = -radius; j <= radius; ++j) {
-            BlockPos lookPos = pos.add(i, j, 0);
-            if (world.isAirBlock(lookPos)) continue;
-            SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
-            if (result != SpellCastResult.SUCCESS) return result;
-        }
+        for (int i = -radius; i <= radius; ++i)
+            for (int j = -radius; j <= radius; ++j) {
+                BlockPos lookPos = pos.add(i, j, 0);
+                if (world.isAirBlock(lookPos)) continue;
+                SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
+                if (result != SpellCastResult.SUCCESS) return result;
+            }
         return SpellCastResult.SUCCESS;
     }
 }
