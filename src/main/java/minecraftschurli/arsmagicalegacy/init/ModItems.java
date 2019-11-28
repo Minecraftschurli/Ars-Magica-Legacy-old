@@ -1,13 +1,18 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import net.minecraft.block.*;
-import net.minecraft.item.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.TallBlockItem;
+import net.minecraft.item.WallOrFloorItem;
+import net.minecraftforge.fml.RegistryObject;
 
-import java.util.*;
+import java.util.Objects;
 
 /**
  * @author Minecraftschurli
@@ -77,9 +82,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> GREEN_RUNE = stackableItem64("green_rune");
     public static final RegistryObject<Item> RED_RUNE = stackableItem64("red_rune");
     public static final RegistryObject<Item> BLACK_RUNE = stackableItem64("black_rune");
-    public static final RegistryObject<Item> BLUE_ORB = ITEMS.register("blue_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.BLUE));
-    public static final RegistryObject<Item> GREEN_ORB = ITEMS.register("green_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.GREEN));
-    public static final RegistryObject<Item> RED_ORB = ITEMS.register("red_orb", ()->new ResearchOrbItem(ResearchOrbItem.OrbTypes.RED));
+    public static final RegistryObject<Item> INFINITY_ORB = ITEMS.register("blue_orb", InfinityOrbItem::new);
     public static final RegistryObject<Item> PURIFIED_VINTEUM = stackableItem64("purified_vinteum");
     public static final RegistryObject<Item> ARCANE_ASH = stackableItem64("arcane_ash");
     public static final RegistryObject<Item> ARCANE_COMPOUND = stackableItem64("arcane_compound");

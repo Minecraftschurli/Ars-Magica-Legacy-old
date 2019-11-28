@@ -1,78 +1,38 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-14
  */
 public class ResearchPointsStorage implements IResearchPointsStorage {
-    private int red, green, blue;
+    private Map<String, Integer> points = new HashMap<>();
 
-    public void setRed(int count) {
-        this.red = count;
-    }
-
-    public void setGreen(int count) {
-        this.green = count;
-    }
-
-    public void setBlue(int count) {
-        this.blue = count;
+    @Override
+    public int get(String type) {
+        return this.points.getOrDefault(type, 0);
     }
 
     @Override
-    public int getRed() {
-        return red;
-    }
-
-    @Override
-    public int getGreen() {
-        return green;
-    }
-
-    @Override
-    public int getBlue() {
-        return blue;
-    }
-
-    @Override
-    public boolean useRed(int count) {
-        if (this.getRed() - count >= 0) {
-            this.red -= count;
+    public boolean use(String type, int count) {
+        if (this.points.containsKey(type)) {
+            int newVal = this.points.get(type) - count;
+            if (newVal < 0) return false;
+            this.points.put(type, newVal);
             return true;
-        }
-        return false;
+        } else
+            return false;
     }
 
     @Override
-    public boolean useGreen(int count) {
-        if (this.getGreen() - count >= 0) {
-            this.green -= count;
-            return true;
-        }
-        return false;
+    public void add(String type, int count) {
+        this.points.computeIfPresent(type, (s, integer) -> integer + count);
     }
 
     @Override
-    public boolean useBlue(int count) {
-        if (this.getBlue() - count >= 0) {
-            this.blue -= count;
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void addRed(int count) {
-        this.red+=count;
-    }
-
-    @Override
-    public void addGreen(int count) {
-        this.green+=count;
-    }
-
-    @Override
-    public void addBlue(int count) {
-        this.blue+=count;
+    public void set(String type, int count) {
+        this.points.put(type, count);
     }
 }

@@ -135,6 +135,7 @@ public final class ArsMagicaLegacy {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
             MagicHelper.syncMana(player);
             MagicHelper.syncBurnout(player);
+            MagicHelper.syncResearch(player);
         }
     }
 
