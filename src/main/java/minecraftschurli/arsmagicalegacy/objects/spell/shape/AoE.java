@@ -87,9 +87,9 @@ public class AoE extends SpellShape {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MOONSTONE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
                 new EssenceSpellIngredient(EssenceType.ANY)
-//                AffinityShiftUtils.getEssenceForAffinity(Affinity.AIR),
         };
     }
 

@@ -46,8 +46,8 @@ public class Self extends SpellShape {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.LESSER_FOCUS.get())),
                 new EssenceSpellIngredient(EssenceType.NEUTRAL, 500)
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.LESSER_FOCUS.get())),
         };
     }
 

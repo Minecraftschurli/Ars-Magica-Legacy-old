@@ -72,7 +72,7 @@ public class Toggle extends SpellShape {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.LEVER)),
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.GREATER_FOCUS.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREATER_FOCUS.get())),
         };
     }
 

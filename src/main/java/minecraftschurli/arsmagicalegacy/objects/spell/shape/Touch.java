@@ -66,7 +66,7 @@ public class Touch extends SpellShape {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.CLAY_BALL)),
                 new ItemStackSpellIngredient(new ItemStack(Items.COD)),
-                new ItemStackSpellIngredient(new ItemStack(Items.FEATHER)),
+                new ItemStackSpellIngredient(new ItemStack(Items.FEATHER))
         };
     }
 

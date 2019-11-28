@@ -45,8 +45,8 @@ public class Channel extends SpellShape {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
                 new EssenceSpellIngredient(EssenceType.ANY, 500)
-//                AffinityShiftUtils.getEssenceForAffinity(Affinity.ARCANE),
         };
     }
 
