@@ -29,8 +29,7 @@ public class AoE extends SpellShape {
         for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i) {
             if (!SpellUtils.getShapeForStage(spellStack, i).equals(this)) continue;
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(spellStack, i);
-            for (SpellModifier modifier : mods)
-                if (modifier.getAspectsModified().contains(SpellModifiers.RADIUS)) radius++;
+            for (SpellModifier modifier : mods) if (modifier.getAspectsModified().contains(SpellModifiers.RADIUS)) radius++;
         }
         return 2 * (radius + 1);
     }
@@ -87,7 +86,7 @@ public class AoE extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MOONSTONE_ORE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MOONSTONE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
                 new EssenceSpellIngredient(EssenceType.ANY)
 //                AffinityShiftUtils.getEssenceForAffinity(Affinity.AIR),
@@ -100,7 +99,7 @@ public class AoE extends SpellShape {
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
-        return null;
+        return EnumSet.of(SpellModifiers.RADIUS, SpellModifiers.GRAVITY);
     }
 
     private void spawnAoEParticles(ItemStack stack, LivingEntity caster, World world, double x, double y, double z, int radius) {

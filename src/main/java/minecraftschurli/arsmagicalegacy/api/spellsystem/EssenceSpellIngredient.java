@@ -15,6 +15,6 @@ public class EssenceSpellIngredient implements ISpellIngredient {
         this.amount = amount;
     }
     public EssenceSpellIngredient(EssenceType type) {
-        this(type, 0);
+        this(type, 1);
     }
 }
