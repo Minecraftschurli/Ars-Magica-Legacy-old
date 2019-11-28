@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -44,6 +45,16 @@ public class SpellRegistry {
         SpellParts.register();
     }
 
+    @SubscribeEvent
+    public static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event){
+        event.getRegistry().registerAll(SPELL_PARTS.toArray(new AbstractSpellPart[0]));
+    }
+
+    @SubscribeEvent
+    public static void onSkillRegister(RegistryEvent.Register<Skill> event){
+        event.getRegistry().registerAll(SKILLS.toArray(new Skill[0]));
+    }
+
     /**
      * Register a spell component
      *
@@ -56,12 +67,29 @@ public class SpellRegistry {
      * @param posY : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static void registerSpellComponent(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellComponent> registerSpellComponent(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         Skill skill = new Skill(icon, tier, posX, posY, tree, parents);
         skill.setRegistryName(id);
         SKILLS.add(skill);
+        return RegistryObject.of(id, SPELL_PART_REGISTRY);
+    }
+
+    /**
+     * Register a spell component
+     *
+     * @param name : Name of this component
+     * @param icon : Icon
+     * @param tier : Skill Point required to unlock
+     * @param part : Actual Component, use new {@link SpellComponent} ()
+     * @param tree : Skill Tree
+     * @param posX : Position in the tree
+     * @param posY : Position in the tree
+     * @param parents : Skills that need to be unlocked before this one (occulus only)
+     */
+    public static RegistryObject<SpellComponent> registerSpellComponent(String modid, String name, ResourceLocation icon, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSpellComponent(new ResourceLocation(modid, name), icon, tier, part, tree, posX, posY, parents);
     }
 
     /**
@@ -76,12 +104,29 @@ public class SpellRegistry {
      * @param posY : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static void registerSpellModifier(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellModifier> registerSpellModifier(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         Skill skill = new Skill(icon, tier, posX, posY, tree, parents);
         skill.setRegistryName(id);
         SKILLS.add(skill);
+        return RegistryObject.of(id, SPELL_PART_REGISTRY);
+    }
+
+    /**
+     * Register a spell modifier
+     *
+     * @param name : Name of this modifier
+     * @param icon : Icon
+     * @param tier : Skill Point required to unlock
+     * @param part : Actual Modifier, use new {@link SpellModifier} ()
+     * @param tree : Skill Tree
+     * @param posX : Position in the tree
+     * @param posY : Position in the tree
+     * @param parents : Skills that need to be unlocked before this one (occulus only)
+     */
+    public static RegistryObject<SpellModifier> registerSpellModifier(String modid, String name, ResourceLocation icon, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSpellModifier(new ResourceLocation(modid, name), icon, tier, part, tree, posX, posY, parents);
     }
 
     /**
@@ -96,12 +141,29 @@ public class SpellRegistry {
      * @param posY : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static void registerSpellShape(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellShape> registerSpellShape(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         Skill skill = new Skill(icon, tier, posX, posY, tree, parents);
         skill.setRegistryName(id);
         SKILLS.add(skill);
+        return RegistryObject.of(id, SPELL_PART_REGISTRY);
+    }
+
+    /**
+     * Register a spell shape
+     *
+     * @param name : Name of this shape
+     * @param icon : Icon
+     * @param tier : Skill Point required to unlock
+     * @param part : Actual Shape, use new {@link SpellShape} ()
+     * @param tree : Skill Tree
+     * @param posX : Position in the tree
+     * @param posY : Position in the tree
+     * @param parents : Skills that need to be unlocked before this one (occulus only)
+     */
+    public static RegistryObject<SpellShape> registerSpellShape(String modid, String name, ResourceLocation icon, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSpellShape(new ResourceLocation(modid, name), icon, tier, part, tree, posX, posY, parents);
     }
 
     public static Skill getSkillFromPart(AbstractSpellPart part) {
