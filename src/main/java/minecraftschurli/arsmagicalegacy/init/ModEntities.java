@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import minecraftschurli.arsmagicalegacy.objects.entity.EntityThrownRock;
 import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -12,4 +13,7 @@ import net.minecraftforge.fml.RegistryObject;
  */
 public class ModEntities implements IInit {
     public static final RegistryObject<EntityType<Entity>> SPELL_PROJECTILE = ENTITIES.register("spell_projectile", () -> EntityType.Builder.create(SpellProjectileEntity::new, EntityClassification.MISC).build("spell_projectile"));
+    public static final RegistryObject<EntityType<Entity>> THROWN_ROCK = ENTITIES.register("thrown_rock", () -> EntityType.Builder.create(EntityThrownRock::new, EntityClassification.MISC).build("thrown_rock"));
+
+    public static void register() {}
 }
