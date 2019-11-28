@@ -1,10 +1,7 @@
-package minecraftschurli.arsmagicalegacy.objects.spell.shapes;
+package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.*;
-import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -13,7 +10,7 @@ import net.minecraft.world.*;
 
 import java.util.*;
 
-public class Self extends SpellShape {
+public class MissingShape extends SpellShape {
     @Override
     public boolean isChanneled() {
         return false;
@@ -21,7 +18,7 @@ public class Self extends SpellShape {
 
     @Override
     public float manaCostMultiplier(ItemStack spellStack) {
-        return 0.5f;
+        return 0;
     }
 
     @Override
@@ -36,19 +33,12 @@ public class Self extends SpellShape {
 
     @Override
     public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        SpellCastResult result = SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
-        if (result != SpellCastResult.SUCCESS) return result;
-        return SpellUtils.applyStackStage(stack, caster, target, x, y, z, null, world, true, giveXP, 0);
+        return null;
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
-                new EssenceSpellIngredient(EssenceType.NEUTRAL, 500)
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.LESSER_FOCUS.get())),
-        };
+        return new ISpellIngredient[0];
     }
 
     @Override
