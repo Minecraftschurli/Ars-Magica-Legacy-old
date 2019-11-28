@@ -37,6 +37,7 @@ public class SpellRegistry {
         ModBlocks.register();
         ModFluids.register();
         ModItems.register();
+        ModEntities.register();
         ModEffects.register();
         ModBiomes.register();
         ModContainers.register();

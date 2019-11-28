@@ -1,14 +1,16 @@
 package am2.spell;
 
-import am2.api.spell.component.interfaces.ISpellComponent;
-import am2.api.spell.component.interfaces.ISpellModifier;
-import am2.api.spell.component.interfaces.ISpellPart;
-import am2.api.spell.component.interfaces.ISpellShape;
-import am2.spell.components.Summon;
-import net.minecraft.util.StatCollector;
-
 import java.util.ArrayList;
 
+import am2.api.SpellRegistry;
+import am2.api.spell.AbstractSpellPart;
+import am2.api.spell.SpellComponent;
+import am2.api.spell.SpellModifier;
+import am2.api.spell.SpellShape;
+import am2.spell.component.Summon;
+import net.minecraft.util.text.translation.I18n;
+
+@SuppressWarnings("deprecation")
 public class SpellValidator{
 	public static final SpellValidator instance = new SpellValidator();
 
@@ -23,7 +25,7 @@ public class SpellValidator{
 
 	}
 
-	public ValidationResult spellDefIsValid(ArrayList<ArrayList<ISpellPart>> shapeGroups, ArrayList<ArrayList<ISpellPart>> segmented){
+	public ValidationResult spellDefIsValid(ArrayList<ArrayList<AbstractSpellPart>> shapeGroups, ArrayList<ArrayList<AbstractSpellPart>> segmented){
 		boolean noParts = true;
 		for (int i = 0; i < shapeGroups.size(); ++i)
 			if (shapeGroups.get(i).size() > 0)
@@ -41,7 +43,7 @@ public class SpellValidator{
 					if (result != null)
 						return result;
 				}
-				ArrayList<ISpellPart> concatenated = new ArrayList<ISpellPart>();
+				ArrayList<AbstractSpellPart> concatenated = new ArrayList<AbstractSpellPart>();
 				concatenated.addAll(shapeGroups.get(x));
 				for (int i = 0; i < segmented.size(); ++i){
 					concatenated.addAll(segmented.get(i));
@@ -63,38 +65,38 @@ public class SpellValidator{
 		return new ValidationResult();
 	}
 
-	private ValidationResult internalValidation(ArrayList<ArrayList<ISpellPart>> segmented){
+	private ValidationResult internalValidation(ArrayList<ArrayList<AbstractSpellPart>> segmented){
 		for (int i = 0; i < segmented.size(); ++i){
 			StageValidations result = validateStage(segmented.get(i), i == segmented.size() - 1);
 
 			if (result == StageValidations.NOT_VALID){
-				return new ValidationResult(segmented.get(i).get(0), StatCollector.translateToLocal("am2.spell.validate.compMiss"));
+				return new ValidationResult(segmented.get(i).get(0), I18n.translateToLocal("am2.spell.validate.compMiss"));
 			}else if (result == StageValidations.PRINCIPUM && i == segmented.size() - 1){
-				return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SkillManager.instance.getDisplayName(segmented.get(i).get(0)), StatCollector.translateToLocal("am2.spell.validate.principum")));
+				return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)), I18n.translateToLocal("am2.spell.validate.principum")));
 			}else if (result == StageValidations.TERMINUS && i < segmented.size() - 1){
-				return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SkillManager.instance.getDisplayName(segmented.get(i).get(0)), StatCollector.translateToLocal("am2.spell.validate.terminus")));
+				return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)), I18n.translateToLocal("am2.spell.validate.terminus")));
 			}
 		}
 
 		return null;
 	}
 
-	private StageValidations validateStage(ArrayList<ISpellPart> stageDefinition, boolean isFinalStage){
+	private StageValidations validateStage(ArrayList<AbstractSpellPart> stageDefinition, boolean isFinalStage){
 		boolean terminus = false;
 		boolean principum = false;
 		boolean one_component = !isFinalStage;
 		boolean one_shape = false;
-		for (ISpellPart part : stageDefinition){
+		for (AbstractSpellPart part : stageDefinition){
 			if (part instanceof Summon) return StageValidations.TERMINUS;
-			if (part instanceof ISpellShape){
+			if (part instanceof SpellShape){
 				one_shape = true;
-				if (((ISpellShape)part).isTerminusShape())
+				if (((SpellShape)part).isTerminusShape())
 					terminus = true;
-				if (((ISpellShape)part).isPrincipumShape())
+				if (((SpellShape)part).isPrincipumShape())
 					principum = true;
 				continue;
 			}
-			if (part instanceof ISpellComponent){
+			if (part instanceof SpellComponent){
 				one_component = true;
 				continue;
 			}
@@ -109,30 +111,30 @@ public class SpellValidator{
 		return StageValidations.VALID;
 	}
 
-	public static ArrayList<ArrayList<ISpellPart>> splitToStages(ArrayList<ISpellPart> currentRecipe){
-		ArrayList<ArrayList<ISpellPart>> segmented = new ArrayList<ArrayList<ISpellPart>>();
-		int idx = (currentRecipe.size() > 0 && currentRecipe.get(0) instanceof ISpellShape) ? -1 : 0;
+	public static ArrayList<ArrayList<AbstractSpellPart>> splitToStages(ArrayList<AbstractSpellPart> currentRecipe){
+		ArrayList<ArrayList<AbstractSpellPart>> segmented = new ArrayList<ArrayList<AbstractSpellPart>>();
+		int idx = (currentRecipe.size() > 0 && currentRecipe.get(0) instanceof SpellShape) ? -1 : 0;
 		for (int i = 0; i < currentRecipe.size(); ++i){
-			ISpellPart part = currentRecipe.get(i);
-			if (part instanceof ISpellShape)
+			AbstractSpellPart part = currentRecipe.get(i);
+			if (part instanceof SpellShape)
 				idx++;
 			if (segmented.size() - 1 < idx) //while loop not necessary as this will keep up
-				segmented.add(new ArrayList<ISpellPart>());
+				segmented.add(new ArrayList<AbstractSpellPart>());
 			segmented.get(idx).add(part);
 		}
 		return segmented;
 	}
 
-	public boolean modifierCanBeAdded(ISpellModifier modifier){
+	public boolean modifierCanBeAdded(SpellModifier modifier){
 		return false;
 	}
 
 	public class ValidationResult{
 		public final boolean valid;
-		public final ISpellPart offendingPart;
+		public final AbstractSpellPart offendingPart;
 		public final String message;
 
-		public ValidationResult(ISpellPart offendingPart, String message){
+		public ValidationResult(AbstractSpellPart offendingPart, String message){
 			valid = false;
 			this.offendingPart = offendingPart;
 			this.message = message;
