@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.spellsystem;
 
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.TextFormatting;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Minecraftschurli

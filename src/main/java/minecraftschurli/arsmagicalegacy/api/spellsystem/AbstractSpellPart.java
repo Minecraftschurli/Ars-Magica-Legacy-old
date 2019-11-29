@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.spellsystem;
 
-import net.minecraft.nbt.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import java.util.*;
+import java.util.EnumSet;
 
 /**
  * @author Minecraftschurli

@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.*;
-import net.minecraft.client.gui.screen.inventory.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.util.text.*;
-import org.lwjgl.opengl.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import org.lwjgl.opengl.GL11;
 
 /**
  * @author Minecraftschurli

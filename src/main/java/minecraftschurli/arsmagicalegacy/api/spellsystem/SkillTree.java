@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.spellsystem;
 
-import net.minecraft.util.*;
-import net.minecraft.util.text.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 /**
  * @author Minecraftschurli

@@ -41,7 +41,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     @Override
                     public void readNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side, INBT nbt) {
                         for (SkillPoint type : SkillPoint.TYPES) {
-                            instance.set(type.getName(), ((CompoundNBT)nbt).getInt(type.getName()));
+                            instance.set(type.getName(), ((CompoundNBT) nbt).getInt(type.getName()));
                         }
                     }
                 },

@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.*;
-import net.minecraft.data.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import net.minecraft.data.DataGenerator;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 /**
  * @author Minecraftschurli

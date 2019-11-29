@@ -1,11 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Minecraftschurli

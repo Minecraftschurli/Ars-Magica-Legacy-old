@@ -1,16 +1,20 @@
 package minecraftschurli.arsmagicalegacy.worldgen;
 
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.block.*;
-import minecraftschurli.arsmagicalegacy.worldgen.structures.*;
-import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placement.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.registries.*;
+import minecraftschurli.arsmagicalegacy.init.ModBiomes;
+import minecraftschurli.arsmagicalegacy.objects.block.OreBase;
+import minecraftschurli.arsmagicalegacy.worldgen.structures.MoonstoneMeteor;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.CountRangeConfig;
+import net.minecraft.world.gen.placement.FrequencyConfig;
+import net.minecraft.world.gen.placement.Placement;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.stream.*;
+import java.util.stream.Stream;
 
 /**
  * @author Minecraftschurli

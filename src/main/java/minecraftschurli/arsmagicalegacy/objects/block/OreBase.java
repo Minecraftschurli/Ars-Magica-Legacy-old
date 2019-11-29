@@ -1,10 +1,13 @@
 package minecraftschurli.arsmagicalegacy.objects.block;
 
-import net.minecraft.block.*;
-import net.minecraft.world.biome.*;
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Minecraftschurli

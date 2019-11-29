@@ -1,11 +1,13 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellShape;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli

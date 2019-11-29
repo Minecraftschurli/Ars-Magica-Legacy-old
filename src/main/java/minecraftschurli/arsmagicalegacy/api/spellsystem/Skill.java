@@ -1,9 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.spellsystem;
 
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.text.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * @author Minecraftschurli
