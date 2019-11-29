@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
+import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -18,8 +19,8 @@ import javax.annotation.Nullable;
  */
 public class CapabilityResearch implements ICapabilitySerializable<INBT> {
 
-    @CapabilityInject(ISkillTreeStorage.class)
-    public static Capability<ISkillTreeStorage> SKILL_TREE = null;
+    /*@CapabilityInject(ISkillTreeStorage.class)
+    public static Capability<ISkillTreeStorage> SKILL_TREE = null;*/
 
     @CapabilityInject(IResearchPointsStorage.class)
     public static Capability<IResearchPointsStorage> RESEARCH_POINTS = null;
@@ -31,17 +32,17 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     @Override
                     public INBT writeNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
-                        compoundNBT.putInt("red", instance.getRed());
-                        compoundNBT.putInt("green", instance.getGreen());
-                        compoundNBT.putInt("blue", instance.getGreen());
+                        for (SkillPoint type : SkillPoint.TYPES) {
+                            compoundNBT.putInt(type.getName(), instance.get(type.getName()));
+                        }
                         return compoundNBT;
                     }
 
                     @Override
                     public void readNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side, INBT nbt) {
-                        instance.setRed(((CompoundNBT) nbt).getInt("red"));
-                        instance.setGreen(((CompoundNBT) nbt).getInt("green"));
-                        instance.setBlue(((CompoundNBT) nbt).getInt("blue"));
+                        for (SkillPoint type : SkillPoint.TYPES) {
+                            instance.set(type.getName(), ((CompoundNBT)nbt).getInt(type.getName()));
+                        }
                     }
                 },
                 ResearchPointsStorage::new);

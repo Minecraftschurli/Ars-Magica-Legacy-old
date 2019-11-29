@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
+import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchPointsStorage;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.network.SyncBurnout;
 import minecraftschurli.arsmagicalegacy.network.SyncMana;
@@ -87,14 +88,37 @@ public class MagicHelper {
     }
 
     public static float getBurnout(LivingEntity caster) {
-        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(() -> new IllegalStateException("No Burnout Capability present!")).getBurnout();
+        return getBurnoutCapability(caster).getBurnout();
     }
 
     public static float getMaxBurnout(LivingEntity caster) {
-        return caster.getCapability(CapabilityBurnout.BURNOUT).orElseThrow(() -> new IllegalStateException("No Burnout Capability present!")).getMaxBurnout();
+        return getBurnoutCapability(caster).getMaxBurnout();
+    }
+
+    public static float getMana(LivingEntity caster) {
+        return getManaCapability(caster).getMana();
+    }
+
+    public static float getMaxMana(LivingEntity caster) {
+        return getManaCapability(caster).getMaxMana();
     }
 
     public static boolean hasEnoughtMana(LivingEntity caster, float manaCost) {
-        return caster.getCapability(CapabilityMana.MANA).orElseThrow(() -> new IllegalStateException("No Mana Capability present!")).getMana() >= manaCost;
+        return getManaCapability(caster).getMana() >= manaCost;
+    }
+
+    public static IManaStorage getManaCapability(LivingEntity entity) {
+        return entity.getCapability(CapabilityMana.MANA)
+                .orElseThrow(() -> new IllegalStateException("No Mana Capability present!"));
+    }
+
+    public static IBurnoutStorage getBurnoutCapability(LivingEntity entity) {
+        return entity.getCapability(CapabilityBurnout.BURNOUT)
+                .orElseThrow(() -> new IllegalStateException("No Burnout Capability present!"));
+    }
+
+    public static IResearchPointsStorage getResearchCapability(LivingEntity entity) {
+        return entity.getCapability(CapabilityResearch.RESEARCH_POINTS)
+                .orElseThrow(() -> new IllegalStateException("No Research Capability present!"));
     }
 }

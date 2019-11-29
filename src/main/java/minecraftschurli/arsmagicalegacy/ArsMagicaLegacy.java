@@ -77,29 +77,11 @@ public final class ArsMagicaLegacy {
     @SubscribeEvent
     public static void playerClone(final PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-            event.getPlayer()
-                    .getCapability(CapabilityMana.MANA)
-                    .orElseThrow(() -> new RuntimeException("No player capability found!"))
-                    .setFrom(event.getOriginal()
-                            .getCapability(CapabilityMana.MANA)
-                            .orElseThrow(() -> new RuntimeException("No player capability found!"))
-                    );
-
-            event.getPlayer()
-                    .getCapability(CapabilityBurnout.BURNOUT)
-                    .orElseThrow(() -> new RuntimeException("No player capability found!"))
-                    .setFrom(event.getOriginal()
-                            .getCapability(CapabilityBurnout.BURNOUT)
-                            .orElseThrow(() -> new RuntimeException("No player capability found!"))
-                    );
-
-            event.getPlayer()
-                    .getCapability(CapabilityResearch.RESEARCH_POINTS)
-                    .orElseThrow(() -> new RuntimeException("No player capability found!"))
-                    .setFrom(event.getOriginal()
-                            .getCapability(CapabilityResearch.RESEARCH_POINTS)
-                            .orElseThrow(() -> new RuntimeException("No player capability found!"))
-                    );
+            PlayerEntity newPlayer = event.getPlayer();
+            PlayerEntity oldPlayer = event.getOriginal();
+            MagicHelper.getManaCapability(newPlayer).setFrom(MagicHelper.getManaCapability(oldPlayer));
+            MagicHelper.getBurnoutCapability(newPlayer).setFrom(MagicHelper.getBurnoutCapability(oldPlayer));
+            MagicHelper.getResearchCapability(newPlayer).setFrom(MagicHelper.getResearchCapability(oldPlayer));
         }
     }
 
