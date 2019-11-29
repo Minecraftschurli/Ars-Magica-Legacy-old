@@ -27,5 +27,6 @@ public class NetworkHandler {
         );
         INSTANCE.registerMessage(nextID(), SyncMana.class, SyncMana::toBytes, SyncMana::new, SyncMana::handle);
         INSTANCE.registerMessage(nextID(), SyncBurnout.class, SyncBurnout::toBytes, SyncBurnout::new, SyncBurnout::handle);
+        INSTANCE.registerMessage(nextID(), SyncResearchPoints.class, SyncResearchPoints::toBytes, SyncResearchPoints::new, SyncResearchPoints::handle);
     }
 }
