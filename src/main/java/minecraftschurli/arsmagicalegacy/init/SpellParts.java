@@ -21,6 +21,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellModifier> FORTUNE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "fortune", null, SkillPoint.SILVER_POINT, new Fortune(), null, 0, 0);
     public static final RegistryObject<SpellModifier> GRAVITY = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "gravity", null, SkillPoint.SKILL_POINT_1, new Gravity(), null, 0, 0);
     public static final RegistryObject<SpellModifier> HEALING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "healing", null, SkillPoint.SKILL_POINT_3, new Healing(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> LUNAR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "lunar", null, SkillPoint.SKILL_POINT_3, new Lunar(), null, 0, 0);
     public static final RegistryObject<SpellModifier> MINING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "mining", null, SkillPoint.SKILL_POINT_2, new Mining(), null, 0, 0);
     public static final RegistryObject<SpellModifier> MISSING_MODIFIER = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "missing_modifier", null, SkillPoint.SILVER_POINT, new MissingModifier(), null, 0, 0);
     public static final RegistryObject<SpellModifier> PIERCING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "piercing", null, SkillPoint.SKILL_POINT_3, new Piercing(), null, 0, 0);
@@ -28,6 +29,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellModifier> RANGE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "range", null, SkillPoint.SKILL_POINT_3, new Range(), null, 0, 0);
     public static final RegistryObject<SpellModifier> RUNE_PROCS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "rune_procs", null, SkillPoint.SKILL_POINT_2, new RuneProcs(), null, 0, 0);
     public static final RegistryObject<SpellModifier> SILK_TOUCH = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "silk_touch", null, SkillPoint.SKILL_POINT_1, new SilkTouch(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> SOLAR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "solar", null, SkillPoint.SKILL_POINT_3, new Solar(), null, 0, 0);
     public static final RegistryObject<SpellModifier> SPEED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "speed", null, SkillPoint.SKILL_POINT_3, new Speed(), null, 0, 0);
     public static final RegistryObject<SpellModifier> TARGET_NON_SOLID_BLOCKS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "target_non_solid_blocks", null, SkillPoint.SKILL_POINT_1, new TargetNonSolidBlocks(), null, 0, 0);
     public static final RegistryObject<SpellModifier> VELOCITY_ADDED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "velocity_added", null, SkillPoint.SKILL_POINT_3, new VelocityAdded(), null, 0, 0);
