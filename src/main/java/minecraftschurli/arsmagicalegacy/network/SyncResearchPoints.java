@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
-import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.capabilities.research.*;
+import net.minecraft.network.*;
+import net.minecraftforge.fml.network.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

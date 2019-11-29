@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
 
 /**
  * @author Minecraftschurli

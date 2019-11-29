@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.capabilities.spell;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
 
 /**
  * @author Minecraftschurli

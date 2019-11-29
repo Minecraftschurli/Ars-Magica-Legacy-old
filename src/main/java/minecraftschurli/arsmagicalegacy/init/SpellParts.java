@@ -46,6 +46,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wall", null, SkillPoint.SKILL_POINT_2, new Wall(), null, 0, 0);
     public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wave", null, SkillPoint.SKILL_POINT_3, new Wave(), null, 0, 0);
     public static final RegistryObject<SpellShape> ZONE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "zone", null, SkillPoint.SKILL_POINT_3, new Zone(), null, 0, 0);
+
     public static void register() {
     }
 }

@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

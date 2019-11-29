@@ -18,7 +18,7 @@ public class Lunar extends SpellModifier {
     @SuppressWarnings("incomplete_switch")
     @Override
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        switch(type) {
+        switch (type) {
             case DAMAGE:
                 return modifyValueOnTime(world, 2.4f);
             case DURATION:
@@ -53,7 +53,7 @@ public class Lunar extends SpellModifier {
 
     private float modifyValueOnTime(World world, float value) {
         long x = world.getGameTime() % 24000;
-        float multiplierFromTime = (float)(Math.sin(((x / 4600f) * (x / 21000f) - 900f) * (180f / Math.PI)) * 3f) + 1;
+        float multiplierFromTime = (float) (Math.sin(((x / 4600f) * (x / 21000f) - 900f) * (180f / Math.PI)) * 3f) + 1;
         if (multiplierFromTime < 0) multiplierFromTime *= -0.5f;
         return value * multiplierFromTime;
     }

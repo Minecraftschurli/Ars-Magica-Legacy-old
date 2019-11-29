@@ -1,13 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.potion.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli

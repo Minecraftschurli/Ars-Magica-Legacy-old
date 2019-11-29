@@ -1,12 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.init.ModContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ClickType;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.*;
+import net.minecraft.item.*;
 
 /**
  * @author Minecraftschurli

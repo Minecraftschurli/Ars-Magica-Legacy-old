@@ -1,10 +1,8 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.effect.EffectManaDrain;
-import minecraftschurli.arsmagicalegacy.objects.effect.EffectManaRegen;
-import minecraftschurli.arsmagicalegacy.objects.effect.EffectShrink;
-import net.minecraft.potion.Effect;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.objects.effect.*;
+import net.minecraft.potion.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli

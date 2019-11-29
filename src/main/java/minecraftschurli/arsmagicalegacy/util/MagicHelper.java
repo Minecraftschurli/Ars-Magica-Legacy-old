@@ -1,22 +1,16 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
-import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.network.SyncBurnout;
-import minecraftschurli.arsmagicalegacy.network.SyncMana;
-import minecraftschurli.arsmagicalegacy.network.SyncResearchPoints;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.PacketDistributor;
+import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
+import minecraftschurli.arsmagicalegacy.capabilities.research.*;
+import minecraftschurli.arsmagicalegacy.network.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.fml.network.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

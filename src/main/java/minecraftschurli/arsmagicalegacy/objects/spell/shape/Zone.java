@@ -1,16 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 public class Zone extends SpellShape {
     @Override
