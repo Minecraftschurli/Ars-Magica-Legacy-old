@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.spell.shape;
+package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifier;
