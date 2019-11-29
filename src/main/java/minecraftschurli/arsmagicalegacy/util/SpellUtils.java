@@ -1,30 +1,22 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.google.common.collect.Lists;
-import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import com.google.common.collect.*;
+import javafx.util.*;
+import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.SpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 public class SpellUtils {
 
@@ -621,7 +613,7 @@ public class SpellUtils {
     public static List<AbstractSpellPart> getPartsForGroup(ItemStack stack, int group) {
         List<AbstractSpellPart> mods = new ArrayList<>();
         try {
-            CompoundNBT compound = (CompoundNBT) NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(stack.getTag()).getInt("CurrentShapeGroup")).copy();
+            CompoundNBT compound = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(stack.getTag()).getInt("CurrentShapeGroup")).copy();
             for (int j = 0; j <= compound.getInt("StageNum"); j++) {
                 ListNBT stageTag = NBTUtils.addCompoundList(compound, STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {

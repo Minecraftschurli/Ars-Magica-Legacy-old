@@ -1,8 +1,7 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.*;
+import net.minecraft.util.math.*;
 
 public final class MathUtils {
     public static double normalizeRotation(double yaw) {

@@ -1,15 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TorchBlock;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.block.*;
+import net.minecraft.particles.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.Random;
+import java.util.*;
 
 public class Torch extends TorchBlock {
     public Torch(Block.Properties properties) {

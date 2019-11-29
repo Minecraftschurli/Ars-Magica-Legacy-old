@@ -52,15 +52,15 @@ public class Solar extends SpellModifier {
 
     }
 
-    private float modifyValueOnTime(World world, float value){
+    private float modifyValueOnTime(World world, float value) {
         long x = world.getGameTime() % 24000;
-        float multiplierFromTime = (float)(Math.cos(((x / 3800f) * (x / 24000f) - 13000f) * (180f / Math.PI)) * 1.5f) + 1;
+        float multiplierFromTime = (float) (Math.cos(((x / 3800f) * (x / 24000f) - 13000f) * (180f / Math.PI)) * 1.5f) + 1;
         if (multiplierFromTime < 0)
             multiplierFromTime *= -0.5f;
         return value * multiplierFromTime;
     }
 
-    private float modifyValueOnInverseLunarCycle(World world, float value){
+    private float modifyValueOnInverseLunarCycle(World world, float value) {
         long boundedTime = world.getGameTime() % 24000;
         int phase = 8 - (8 - world.getMoonPhase());
         if (boundedTime > 23500 && boundedTime < 12500) return value + (phase / 2);

@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import minecraftschurli.arsmagicalegacy.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.network.*;
+import net.minecraftforge.fml.network.simple.*;
 
 /**
  * @author Minecraftschurli
