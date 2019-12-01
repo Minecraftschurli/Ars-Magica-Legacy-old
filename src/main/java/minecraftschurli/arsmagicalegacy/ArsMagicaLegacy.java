@@ -14,6 +14,7 @@ import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -99,9 +100,9 @@ public final class ArsMagicaLegacy {
         }
     }
 
-    public void registerItemColorHandler(ColorHandlerEvent.Item event) {
-        LOGGER.debug("registerItemColorHandler");
+    private void registerItemColorHandler(ColorHandlerEvent.Item event) {
         event.getItemColors().register((stack, tint) -> tint == 0 ? SkillPoint.getByName(stack.getTag().getString(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
+        event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem)stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
