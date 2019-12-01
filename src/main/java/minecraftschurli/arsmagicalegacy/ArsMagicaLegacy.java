@@ -101,6 +101,7 @@ public final class ArsMagicaLegacy {
         WorldGenerator.setupBiomeGen();
         proxy.init();
         NetworkHandler.registerMessages();
+
         CapabilityMana.register();
         CapabilityBurnout.register();
         CapabilityResearch.register();

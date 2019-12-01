@@ -51,7 +51,7 @@ public class InfinityOrbItem extends Item {
     }
 
     private ActionResult<ItemStack> useOrb(PlayerEntity playerIn, ItemStack heldItem) {
-        playerIn.getCapability(CapabilityResearch.RESEARCH_POINTS).orElseThrow(() -> new IllegalStateException("No Research Capability Present")).add(heldItem.getTag().getString(TYPE_KEY));
+        playerIn.getCapability(CapabilityResearch.RESEARCH).orElseThrow(() -> new IllegalStateException("No Research Capability Present")).add(heldItem.getTag().getString(TYPE_KEY));
         heldItem.shrink(1);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }

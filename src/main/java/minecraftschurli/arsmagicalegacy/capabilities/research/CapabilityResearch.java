@@ -3,11 +3,15 @@ package minecraftschurli.arsmagicalegacy.capabilities.research;
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
@@ -19,33 +23,43 @@ import javax.annotation.Nullable;
  */
 public class CapabilityResearch implements ICapabilitySerializable<INBT> {
 
-    /*@CapabilityInject(ISkillTreeStorage.class)
-    public static Capability<ISkillTreeStorage> SKILL_TREE = null;*/
+    @CapabilityInject(IResearchStorage.class)
+    public static Capability<IResearchStorage> RESEARCH = null;
 
-    @CapabilityInject(IResearchPointsStorage.class)
-    public static Capability<IResearchPointsStorage> RESEARCH_POINTS = null;
-
-    private LazyOptional<IResearchPointsStorage> pointsInstance = LazyOptional.of(RESEARCH_POINTS::getDefaultInstance);
+    private LazyOptional<IResearchStorage> pointsInstance = LazyOptional.of(RESEARCH::getDefaultInstance);
 
     public static void register() {
-        CapabilityManager.INSTANCE.register(IResearchPointsStorage.class, new Capability.IStorage<IResearchPointsStorage>() {
+        CapabilityManager.INSTANCE.register(IResearchStorage.class, new Capability.IStorage<IResearchStorage>() {
                     @Override
-                    public INBT writeNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side) {
+                    public INBT writeNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
                         for (SkillPoint type : SkillPoint.TYPES) {
                             compoundNBT.putInt(type.getName(), instance.get(type.getName()));
                         }
+                        ListNBT learned = new ListNBT();
+                        instance.getLearned()
+                                .stream()
+                                .map(ResourceLocation::toString)
+                                .map(StringNBT::new)
+                                .forEach(learned::add);
+                        compoundNBT.put("learned", learned);
                         return compoundNBT;
                     }
 
                     @Override
-                    public void readNBT(Capability<IResearchPointsStorage> capability, IResearchPointsStorage instance, Direction side, INBT nbt) {
+                    public void readNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side, INBT nbt) {
                         for (SkillPoint type : SkillPoint.TYPES) {
                             instance.set(type.getName(), ((CompoundNBT) nbt).getInt(type.getName()));
                         }
+                        ((CompoundNBT) nbt)
+                                .getList("learned", Constants.NBT.TAG_STRING)
+                                .stream()
+                                .map(INBT::getString)
+                                .map(ResourceLocation::new)
+                                .forEach(instance::learn);
                     }
                 },
-                ResearchPointsStorage::new);
+                ResearchStorage::new);
     }
 
     /**
@@ -61,16 +75,16 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == RESEARCH_POINTS ? pointsInstance.cast() : LazyOptional.empty();
+        return cap == RESEARCH ? pointsInstance.cast() : LazyOptional.empty();
     }
 
     @Override
     public INBT serializeNBT() {
-        return RESEARCH_POINTS.getStorage().writeNBT(RESEARCH_POINTS, this.pointsInstance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
+        return RESEARCH.getStorage().writeNBT(RESEARCH, this.pointsInstance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
     }
 
     @Override
     public void deserializeNBT(INBT nbt) {
-        RESEARCH_POINTS.getStorage().readNBT(RESEARCH_POINTS, this.pointsInstance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
+        RESEARCH.getStorage().readNBT(RESEARCH, this.pointsInstance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
     }
 }

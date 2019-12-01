@@ -1,12 +1,15 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
 import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
+import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-14
  */
-public interface IResearchPointsStorage {
+public interface IResearchStorage {
     int get(String type);
 
     boolean use(String type, int count);
@@ -19,9 +22,19 @@ public interface IResearchPointsStorage {
 
     void set(String type, int count);
 
-    default void setFrom(IResearchPointsStorage old) {
+    default void setFrom(IResearchStorage old) {
         for (SkillPoint type : SkillPoint.TYPES) {
             this.set(type.getName(), old.get(type.getName()));
         }
+        this.forgetAll();
+        old.getLearned().forEach(this::learn);
     }
+
+    List<ResourceLocation> getLearned();
+
+    void learn(ResourceLocation location);
+
+    void forget(ResourceLocation location);
+
+    void forgetAll();
 }
