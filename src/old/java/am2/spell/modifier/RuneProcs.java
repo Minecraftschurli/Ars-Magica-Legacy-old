@@ -1,4 +1,4 @@
-	package am2.spell.modifier;
+package am2.spell.modifier;
 
 import java.util.EnumSet;
 
