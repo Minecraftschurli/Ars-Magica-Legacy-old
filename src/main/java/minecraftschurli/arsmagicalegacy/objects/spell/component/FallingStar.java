@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.entity.ThrownRockEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;

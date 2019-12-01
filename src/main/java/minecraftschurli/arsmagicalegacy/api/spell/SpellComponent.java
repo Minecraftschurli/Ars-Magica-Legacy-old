@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.api.spellsystem;
+package minecraftschurli.arsmagicalegacy.api.spell;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

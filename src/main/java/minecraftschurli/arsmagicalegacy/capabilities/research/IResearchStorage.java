@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;

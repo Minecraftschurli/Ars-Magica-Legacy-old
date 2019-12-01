@@ -1,6 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.util.NBTUtils;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;

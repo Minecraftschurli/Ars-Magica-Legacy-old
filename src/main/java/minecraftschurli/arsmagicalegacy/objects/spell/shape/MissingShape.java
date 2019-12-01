@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;

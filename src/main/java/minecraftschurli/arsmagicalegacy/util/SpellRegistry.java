@@ -1,7 +1,13 @@
 package minecraftschurli.arsmagicalegacy.util;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

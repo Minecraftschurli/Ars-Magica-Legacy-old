@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.entity.player.PlayerEntity;

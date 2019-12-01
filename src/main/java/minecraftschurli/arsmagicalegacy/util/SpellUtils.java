@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.util;
 import com.google.common.collect.Lists;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.SpellParts;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
