@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom_rh",
+    "textures": {
+        "bottom": "arsmagica2:blocks/keystone_door_lower",
+        "top": "arsmagica2:blocks/keystone_door_upper"
+    }
+}

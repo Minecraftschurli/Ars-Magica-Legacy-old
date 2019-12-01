@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagica2:blocks/essence_refiner_top",
+        "down": "arsmagica2:blocks/essence_refiner_side",
+        "north": "arsmagica2:blocks/essence_refiner_front_active",
+        "east": "arsmagica2:blocks/essence_refiner_side",
+        "south": "arsmagica2:blocks/essence_refiner_side",
+        "west": "arsmagica2:blocks/essence_refiner_side",
+        "particle": "arsmagica2:blocks/essence_refiner_side"
+    }
+}

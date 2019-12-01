@@ -1,0 +1,13 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"custom": {
+		},
+		"model": "arsmagica2:scaleup"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{"submodel":"arsmagica2:celestial_prism_cullface.json"}],
+		"facing": {"south":{}, "east":{}, "north":{}, "west":{}}
+	}
+}

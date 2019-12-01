@@ -1,0 +1,6 @@
+{
+    "parent": "arsmagica2:item/bound_bow",
+    "textures": {
+        "layer0": "arsmagica2:items/bound_bow_pulling_0"
+    }
+}

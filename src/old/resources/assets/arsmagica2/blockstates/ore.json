@@ -1,0 +1,9 @@
+{
+    "variants": {
+		"ore_type=vinteum": { "model": "arsmagica2:ore_vinteum"},
+		"ore_type=chimerite": { "model": "arsmagica2:ore_chimerite"},
+		"ore_type=bluetopaz": { "model": "arsmagica2:ore_bluetopaz"},
+		"ore_type=moonstone": { "model": "arsmagica2:ore_moonstone"},
+		"ore_type=sunstone": { "model": "arsmagica2:ore_sunstone"}
+    }
+}

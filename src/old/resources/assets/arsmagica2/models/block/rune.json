@@ -1,0 +1,15 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particles":"#all"
+    },
+	"elements":[
+	{
+		"from":[0, 0, 0],
+		"to":[16,0.32,16],
+		"faces": {
+			"up":{"texture":"#all"}
+		}
+	}
+	]
+}

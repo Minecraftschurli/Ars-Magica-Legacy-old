@@ -1,0 +1,14 @@
+{
+    "variants": {
+        "shape=north_south": { "model": "arsmagica2:inlay_flat_gold" },
+        "shape=east_west": { "model": "arsmagica2:inlay_flat_gold", "y": 90 },
+        "shape=ascending_east": { "model": "arsmagica2:inlay_raised_ne_gold", "y": 90 },
+        "shape=ascending_west": { "model": "arsmagica2:inlay_raised_sw_gold", "y": 90 },
+        "shape=ascending_north": { "model": "arsmagica2:inlay_raised_ne_gold" },
+        "shape=ascending_south": { "model": "arsmagica2:inlay_raised_sw_gold" },
+        "shape=south_east": { "model": "arsmagica2:inlay_curved_gold" },
+        "shape=south_west": { "model": "arsmagica2:inlay_curved_gold", "y": 90 },
+        "shape=north_west": { "model": "arsmagica2:inlay_curved_gold", "y": 180 },
+        "shape=north_east": { "model": "arsmagica2:inlay_curved_gold", "y": 270 }
+    }
+}
