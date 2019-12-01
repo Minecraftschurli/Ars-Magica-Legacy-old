@@ -14,6 +14,10 @@ public class SkillTree {
     private boolean canRender = true;
     private String unlock = null;
 
+    public SkillTree(String modid, String name) {
+        this(name, new ResourceLocation(modid, "textures/gui/"+name), new ResourceLocation(modid, "textures/icon/"+name));
+    }
+
     public SkillTree(String name, ResourceLocation background, ResourceLocation icon) {
         this.name = name.toLowerCase();
         this.background = background;
