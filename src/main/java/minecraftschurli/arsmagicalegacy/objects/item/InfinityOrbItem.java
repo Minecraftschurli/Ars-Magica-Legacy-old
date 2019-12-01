@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * @author IchHabeHunger54
  */
 public class InfinityOrbItem extends Item {
-    private static String TYPE_KEY = "type";
+    public static String TYPE_KEY = "type";
 
     public InfinityOrbItem() {
         super(ModItems.ITEM_64);

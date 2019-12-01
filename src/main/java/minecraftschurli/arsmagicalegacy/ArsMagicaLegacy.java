@@ -1,11 +1,13 @@
 package minecraftschurli.arsmagicalegacy;
 
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.event.TickHandler;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
@@ -15,6 +17,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -57,6 +60,7 @@ public final class ArsMagicaLegacy {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(this::processIMC);
+        modEventBus.addListener(this::registerItemColorHandler);
 
         modEventBus.register(SpellRegistry.class);
         MinecraftForge.EVENT_BUS.register(ArsMagicaLegacy.class);
@@ -93,6 +97,11 @@ public final class ArsMagicaLegacy {
             MagicHelper.syncBurnout(player);
             MagicHelper.syncResearch(player);
         }
+    }
+
+    public void registerItemColorHandler(ColorHandlerEvent.Item event) {
+        LOGGER.debug("registerItemColorHandler");
+        event.getItemColors().register((stack, tint) -> tint == 0 ? SkillPoint.getByName(stack.getTag().getString(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
