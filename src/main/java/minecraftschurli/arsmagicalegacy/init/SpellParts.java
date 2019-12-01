@@ -53,17 +53,17 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellModifier> VELOCITY_ADDED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "velocity_added", SkillPoint.SKILL_POINT_3, new VelocityAdded(), null, 0, 0);
     
     //shapes
-    public static final RegistryObject<SpellShape> AOE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "aoe", SkillPoint.SKILL_POINT_2, new AoE(), null, 0, 0);
+    public static final RegistryObject<SpellShape> AOE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "aoe", SkillPoint.SKILL_POINT_2, new AoE(), OFFENSE, 300, 180, "arsmagicalegacy:frost_damage", "arsmagicalegacy:physical_damage", "arsmagicalegacy:fire_damage", "arsmagicalegacy:lightning_damage", "arsmagicalegacy:magic_damage");//done
     public static final RegistryObject<SpellShape> BEAM = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "beam", SkillPoint.SKILL_POINT_3, new Beam(), null, 0, 0);
     public static final RegistryObject<SpellShape> CHAIN = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "chain", SkillPoint.SKILL_POINT_3, new Chain(), null, 0, 0);
     public static final RegistryObject<SpellShape> CHANNEL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "channel", SkillPoint.SKILL_POINT_2, new MissingShape(), null, 0, 0);
     public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "null", null, new MissingShape(), null, 0, 0);
-    public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "projectile", SkillPoint.SKILL_POINT_1, new Projectile(), null, 0, 0);
+    public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "projectile", SkillPoint.SKILL_POINT_1, new Projectile(), OFFENSE, 300, 45);//done
     public static final RegistryObject<SpellShape> RUNE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "rune", SkillPoint.SKILL_POINT_2, new Rune(), null, 0, 0);
-    public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "self", SkillPoint.SKILL_POINT_1, new Self(), null, 0, 0);
+    public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "self", SkillPoint.SKILL_POINT_1, new Self(), DEFENSE, 267, 45);//done
     public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "toggle", SkillPoint.SKILL_POINT_3, new Toggle(), null, 0, 0);
     public static final RegistryObject<SpellShape> TOUCH = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "touch", SkillPoint.SKILL_POINT_1, new Touch(), null, 0, 0);
-    public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wall", SkillPoint.SKILL_POINT_2, new Wall(), null, 0, 0);
+    public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wall", SkillPoint.SKILL_POINT_2, new Wall(), DEFENSE, 87, 200, "arsmagicalegacy:repel");//done
     public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wave", SkillPoint.SKILL_POINT_3, new Wave(), null, 0, 0);
     public static final RegistryObject<SpellShape> ZONE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "zone", SkillPoint.SKILL_POINT_3, new Zone(), null, 0, 0);
 
