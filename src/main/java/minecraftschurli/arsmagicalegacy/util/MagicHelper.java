@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;
@@ -8,13 +9,11 @@ import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchStorage;
-import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.network.SyncBurnout;
-import minecraftschurli.arsmagicalegacy.network.SyncMana;
-import minecraftschurli.arsmagicalegacy.network.SyncResearch;
+import minecraftschurli.arsmagicalegacy.network.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.PacketDistributor;
 
@@ -44,7 +43,7 @@ public class MagicHelper {
         Objects.requireNonNull(player);
         player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> NetworkHandler.INSTANCE.send(
                 PacketDistributor.PLAYER.with(() -> player),
-                new SyncMana(
+                new SyncManaPacket(
                         iManaStorage.getMana(),
                         iManaStorage.getMaxMana()
                 )
@@ -55,7 +54,7 @@ public class MagicHelper {
         Objects.requireNonNull(player);
         player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> NetworkHandler.INSTANCE.send(
                 PacketDistributor.PLAYER.with(() -> player),
-                new SyncBurnout(
+                new SyncBurnoutPacket(
                         iBurnoutStorage.getBurnout(),
                         iBurnoutStorage.getMaxBurnout()
                 )
@@ -67,25 +66,31 @@ public class MagicHelper {
         player.getCapability(CapabilityResearch.RESEARCH).ifPresent(iStorage ->
                 NetworkHandler.INSTANCE.send(
                         PacketDistributor.PLAYER.with(() -> player),
-                        new SyncResearch(iStorage)
+                        new SyncResearchPacket(iStorage)
+                )
+        );
+    }
+
+    public static void syncMagic(ServerPlayerEntity player) {
+        Objects.requireNonNull(player);
+        player.getCapability(CapabilityMagic.MAGIC).ifPresent(iStorage ->
+                NetworkHandler.INSTANCE.send(
+                        PacketDistributor.PLAYER.with(() -> player),
+                        new SyncMagicPacket(iStorage.getCurrentLevel())
                 )
         );
     }
 
     public static void regenMana(PlayerEntity player, float amount) {
         if (player instanceof ServerPlayerEntity) {
-            player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> {
-                iManaStorage.increase(amount);
-            });
+            player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.increase(amount));
             syncMana((ServerPlayerEntity) player);
         }
     }
 
     public static void regenBurnout(PlayerEntity player, float amount) {
         if (player instanceof ServerPlayerEntity) {
-            player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> {
-                iBurnoutStorage.decrease(amount);
-            });
+            player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.decrease(amount));
             syncBurnout((ServerPlayerEntity) player);
         }
     }
@@ -107,7 +112,7 @@ public class MagicHelper {
     }
 
     public static boolean hasEnoughtMana(LivingEntity caster, float manaCost) {
-        return getManaCapability(caster).getMana() >= manaCost;
+        return getMana(caster) >= manaCost;
     }
 
     public static int getCurrentLevel(PlayerEntity player) {
@@ -115,22 +120,40 @@ public class MagicHelper {
     }
 
     public static IManaStorage getManaCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
         return entity.getCapability(CapabilityMana.MANA)
                 .orElseThrow(() -> new IllegalStateException("No Mana Capability present!"));
     }
 
     public static IBurnoutStorage getBurnoutCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
         return entity.getCapability(CapabilityBurnout.BURNOUT)
                 .orElseThrow(() -> new IllegalStateException("No Burnout Capability present!"));
     }
 
     public static IResearchStorage getResearchCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
         return entity.getCapability(CapabilityResearch.RESEARCH)
                 .orElseThrow(() -> new IllegalStateException("No Research Capability present!"));
     }
 
-    private static IMagicStorage getMagicCapability(LivingEntity entity) {
+    public static IMagicStorage getMagicCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
         return entity.getCapability(CapabilityMagic.MAGIC)
                 .orElseThrow(() -> new IllegalStateException("No Magic Capability present!"));
+    }
+
+    public static void learnSkill(PlayerEntity player, String skill) {
+        getResearchCapability(player).learn(SpellRegistry.SKILL_REGISTRY.getValue(new ResourceLocation(skill)));
+    }
+
+    public static int getSkillPoint(PlayerEntity player, SkillPoint point) {
+        return getResearchCapability(player).get(point.getName());
+    }
+
+    public static void addSkillPoint(LivingEntity entity, String name) {
+        getResearchCapability(entity).add(name);
+        if (entity instanceof ServerPlayerEntity)
+            syncResearch((ServerPlayerEntity) entity);
     }
 }

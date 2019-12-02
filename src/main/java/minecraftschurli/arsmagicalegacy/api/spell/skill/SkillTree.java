@@ -15,7 +15,7 @@ public class SkillTree {
     private String unlock = null;
 
     public SkillTree(String modid, String name) {
-        this(name, new ResourceLocation(modid, "textures/gui/"+name), new ResourceLocation(modid, "textures/icon/"+name));
+        this(name, new ResourceLocation(modid, "textures/gui/occulus/"+name+".png"), new ResourceLocation(modid, "textures/icon/"+name+".png"));
     }
 
     public SkillTree(String name, ResourceLocation background, ResourceLocation icon) {

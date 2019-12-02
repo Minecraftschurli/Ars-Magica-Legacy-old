@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
+import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.event.TickHandler;
@@ -9,6 +10,7 @@ import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.util.SpellIconManager;
 import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.entity.Entity;
@@ -66,6 +68,7 @@ public final class ArsMagicaLegacy {
         modEventBus.register(SpellRegistry.class);
         MinecraftForge.EVENT_BUS.register(ArsMagicaLegacy.class);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
+        MinecraftForge.EVENT_BUS.register(SpellIconManager.class);
 
         proxy.preInit();
     }
@@ -76,6 +79,7 @@ public final class ArsMagicaLegacy {
             event.addCapability(new ResourceLocation(MODID, "mana"), new CapabilityMana());
             event.addCapability(new ResourceLocation(MODID, "burnout"), new CapabilityBurnout());
             event.addCapability(new ResourceLocation(MODID, "research"), new CapabilityResearch());
+            event.addCapability(new ResourceLocation(MODID, "magic"), new CapabilityMagic());
         }
     }
 
@@ -87,6 +91,7 @@ public final class ArsMagicaLegacy {
             MagicHelper.getManaCapability(newPlayer).setFrom(MagicHelper.getManaCapability(oldPlayer));
             MagicHelper.getBurnoutCapability(newPlayer).setFrom(MagicHelper.getBurnoutCapability(oldPlayer));
             MagicHelper.getResearchCapability(newPlayer).setFrom(MagicHelper.getResearchCapability(oldPlayer));
+            MagicHelper.getMagicCapability(newPlayer).setFrom(MagicHelper.getMagicCapability(oldPlayer));
         }
     }
 
@@ -97,6 +102,7 @@ public final class ArsMagicaLegacy {
             MagicHelper.syncMana(player);
             MagicHelper.syncBurnout(player);
             MagicHelper.syncResearch(player);
+            MagicHelper.syncMagic(player);
         }
     }
 
@@ -115,6 +121,7 @@ public final class ArsMagicaLegacy {
         CapabilityMana.register();
         CapabilityBurnout.register();
         CapabilityResearch.register();
+        CapabilityMagic.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

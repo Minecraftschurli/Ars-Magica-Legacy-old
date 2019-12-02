@@ -14,15 +14,15 @@ import java.util.function.Supplier;
  * @author Minecraftschurli
  * @version 2019-11-28
  */
-public class SyncResearch {
+public class SyncResearchPacket {
 
     private IResearchStorage capability;
 
-    public SyncResearch(IResearchStorage capability) {
+    public SyncResearchPacket(IResearchStorage capability) {
         this.capability = capability;
     }
 
-    public SyncResearch(PacketBuffer buf) {
+    public SyncResearchPacket(PacketBuffer buf) {
         this.capability = new ResearchStorage();
         CapabilityResearch.RESEARCH.readNBT(this.capability, null, buf.readCompoundTag());
     }

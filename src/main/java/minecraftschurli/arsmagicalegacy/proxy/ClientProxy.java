@@ -3,6 +3,8 @@ package minecraftschurli.arsmagicalegacy.proxy;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.event.UIRender;
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusContainer;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusScreen;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
 import net.minecraft.client.Minecraft;
@@ -30,6 +32,12 @@ public class ClientProxy implements IProxy {
             @Override
             public SpellBookScreen create(SpellBookContainer container, PlayerInventory inventory, ITextComponent name) {
                 return new SpellBookScreen(container, inventory, name);
+            }
+        });
+        ScreenManager.registerFactory(ModContainers.OCCULUS.get(), new ScreenManager.IScreenFactory<OcculusContainer, OcculusScreen>() {
+            @Override
+            public OcculusScreen create(OcculusContainer container, PlayerInventory inventory, ITextComponent name) {
+                return new OcculusScreen(name, container, inventory.player);
             }
         });
     }
