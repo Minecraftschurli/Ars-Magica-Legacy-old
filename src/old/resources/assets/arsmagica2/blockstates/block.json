@@ -1,0 +1,9 @@
+{
+    "variants": {
+		"block_type=vinteum": { "model": "arsmagica2:block_vinteum"},
+		"block_type=chimerite": { "model": "arsmagica2:block_chimerite"},
+		"block_type=bluetopaz": { "model": "arsmagica2:block_bluetopaz"},
+		"block_type=moonstone": { "model": "arsmagica2:block_moonstone"},
+		"block_type=sunstone": { "model": "arsmagica2:block_sunstone"}
+    }
+}

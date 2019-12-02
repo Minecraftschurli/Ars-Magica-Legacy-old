@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;

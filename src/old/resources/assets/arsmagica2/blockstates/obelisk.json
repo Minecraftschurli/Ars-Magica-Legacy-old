@@ -1,0 +1,13 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"custom": {
+		},
+		"model": "arsmagica2:scaledown"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{"submodel":"arsmagica2:obelisk.obj"}],
+		"facing": {"south":{}, "east":{}, "north":{}, "west":{}}
+	}
+}

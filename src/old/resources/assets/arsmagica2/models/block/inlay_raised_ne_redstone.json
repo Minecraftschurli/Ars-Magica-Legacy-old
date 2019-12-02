@@ -1,0 +1,6 @@
+{
+    "parent": "arsmagica2:block/rail_raised_ne",
+    "textures": {
+        "rail": "arsmagica2:blocks/Inlay_Straight_Redstone"
+    }
+}

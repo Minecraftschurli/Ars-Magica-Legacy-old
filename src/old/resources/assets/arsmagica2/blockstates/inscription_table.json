@@ -1,0 +1,119 @@
+{
+	"multipart": [
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight"}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft"}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_1":"true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft1"}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_2":"true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight2"}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_2":"true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft2"}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_3":"true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight3"}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_3":"true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft3"}
+	},
+	
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight", "y":180}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft", "y":180}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_1":"true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft1", "y":180}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_2":"true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight2", "y":180}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_2":"true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft2", "y":180}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_3":"true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight3", "y":180}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_3":"true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft3", "y":180}
+	},
+	
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight", "y":270}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_1":"true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft1", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_2":"true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight2", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_2":"true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft2", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_3":"true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight3", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_3":"true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft3", "y":270}
+	},
+	
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight", "y":90}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_1":"true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft1", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_2":"true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight2", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_2":"true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft2", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier_3":"true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableRight3", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier_3":"true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagica2:inscriptionTableLeft3", "y":90}
+	}
+	]
+}

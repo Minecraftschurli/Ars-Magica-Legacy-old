@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=east": { "model": "arsmagica2:occulus", "y": 90},
+        "facing=south": { "model": "arsmagica2:occulus", "y": 180},
+        "facing=west": { "model": "arsmagica2:occulus", "y": 270},
+        "facing=north": { "model": "arsmagica2:occulus"}
+    }
+}

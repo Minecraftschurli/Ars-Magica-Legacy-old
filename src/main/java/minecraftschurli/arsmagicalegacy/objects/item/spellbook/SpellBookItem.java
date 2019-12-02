@@ -9,10 +9,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.UseAction;
+import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -32,7 +29,7 @@ import static minecraftschurli.arsmagicalegacy.init.ModItems.ITEM_1;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-public class SpellBookItem extends Item {
+public class SpellBookItem extends Item implements IDyeableArmorItem {
     public SpellBookItem() {
         super(ITEM_1);
     }

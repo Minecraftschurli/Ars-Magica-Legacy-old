@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "facing=up": { "model": "arsmagica2:vinteum_torch" },
+        "facing=east": { "model": "arsmagica2:vinteum_torch_wall" },
+        "facing=south": { "model": "arsmagica2:vinteum_torch_wall", "y": 90 },
+        "facing=west": { "model": "arsmagica2:vinteum_torch_wall", "y": 180 },
+        "facing=north": { "model": "arsmagica2:vinteum_torch_wall", "y": 270 }
+    }
+}

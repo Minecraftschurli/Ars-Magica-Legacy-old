@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north": {"model":"arsmagica2:arcane_deconstructor"},
+		"facing=south": {"model":"arsmagica2:arcane_deconstructor", "y":180},
+		"facing=east": {"model":"arsmagica2:arcane_deconstructor", "y":90},
+		"facing=west": {"model":"arsmagica2:arcane_deconstructor", "y":270}
+	}
+}

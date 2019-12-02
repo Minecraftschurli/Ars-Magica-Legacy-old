@@ -1,0 +1,14 @@
+{
+    "variants": {
+        "shape=north_south": { "model": "arsmagica2:inlay_flat_redstone" },
+        "shape=east_west": { "model": "arsmagica2:inlay_flat_redstone", "y": 90 },
+        "shape=ascending_east": { "model": "arsmagica2:inlay_raised_ne_redstone", "y": 90 },
+        "shape=ascending_west": { "model": "arsmagica2:inlay_raised_sw_redstone", "y": 90 },
+        "shape=ascending_north": { "model": "arsmagica2:inlay_raised_ne_redstone" },
+        "shape=ascending_south": { "model": "arsmagica2:inlay_raised_sw_redstone" },
+        "shape=south_east": { "model": "arsmagica2:inlay_curved_redstone" },
+        "shape=south_west": { "model": "arsmagica2:inlay_curved_redstone", "y": 90 },
+        "shape=north_west": { "model": "arsmagica2:inlay_curved_redstone", "y": 180 },
+        "shape=north_east": { "model": "arsmagica2:inlay_curved_redstone", "y": 270 }
+    }
+}

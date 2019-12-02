@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagica2:blocks/deconstruction_table_top",
+        "down": "arsmagica2:blocks/deconstruction_table_bottom",
+        "north": "arsmagica2:blocks/deconstruction_table_front",
+        "east": "arsmagica2:blocks/deconstruction_table_side",
+        "south": "arsmagica2:blocks/deconstruction_table_side",
+        "west": "arsmagica2:blocks/deconstruction_table_side",
+        "particle": "arsmagica2:blocks/deconstruction_table_side"
+    }
+}

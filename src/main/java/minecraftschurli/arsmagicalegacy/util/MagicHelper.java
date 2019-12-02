@@ -1,16 +1,15 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
-import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchPointsStorage;
+import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchStorage;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.network.SyncBurnout;
 import minecraftschurli.arsmagicalegacy.network.SyncMana;
-import minecraftschurli.arsmagicalegacy.network.SyncResearchPoints;
+import minecraftschurli.arsmagicalegacy.network.SyncResearch;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -63,10 +62,12 @@ public class MagicHelper {
 
     public static void syncResearch(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
-        player.getCapability(CapabilityResearch.RESEARCH_POINTS).ifPresent(iStorage -> NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncResearchPoints(SkillPoint.TYPES.stream().map(SkillPoint::getName).mapToInt(iStorage::get).toArray())
-        ));
+        player.getCapability(CapabilityResearch.RESEARCH).ifPresent(iStorage ->
+                NetworkHandler.INSTANCE.send(
+                        PacketDistributor.PLAYER.with(() -> player),
+                        new SyncResearch(iStorage)
+                )
+        );
     }
 
     public static void regenMana(PlayerEntity player, float amount) {
@@ -117,8 +118,8 @@ public class MagicHelper {
                 .orElseThrow(() -> new IllegalStateException("No Burnout Capability present!"));
     }
 
-    public static IResearchPointsStorage getResearchCapability(LivingEntity entity) {
-        return entity.getCapability(CapabilityResearch.RESEARCH_POINTS)
+    public static IResearchStorage getResearchCapability(LivingEntity entity) {
+        return entity.getCapability(CapabilityResearch.RESEARCH)
                 .orElseThrow(() -> new IllegalStateException("No Research Capability present!"));
     }
 }

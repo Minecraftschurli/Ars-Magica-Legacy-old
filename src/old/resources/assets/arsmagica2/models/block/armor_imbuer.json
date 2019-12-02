@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagica2:blocks/armor_infuser_top",
+		"down": "arsmagica2:blocks/armor_infuser_bottom",
+		"north": "arsmagica2:blocks/armor_infuser_side",
+		"east": "arsmagica2:blocks/armor_infuser_side",
+		"south": "arsmagica2:blocks/armor_infuser_side",
+		"west": "arsmagica2:blocks/armor_infuser_side",
+		"particle": "arsmagica2:blocks/armor_infuser_side"
+    }
+}

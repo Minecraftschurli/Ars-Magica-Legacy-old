@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"facing=north,hidden=false": {"model":"arsmagica2:particle_emitter"},
+		"facing=south,hidden=false": {"model":"arsmagica2:particle_emitter"},
+		"facing=east,hidden=false": {"model":"arsmagica2:particle_emitter"},
+		"facing=west,hidden=false": {"model":"arsmagica2:particle_emitter"},
+		"facing=north,hidden=true": {"model":"arsmagica2:null"},
+		"facing=south,hidden=true": {"model":"arsmagica2:null"},
+		"facing=east,hidden=true": {"model":"arsmagica2:null"},
+		"facing=west,hidden=true": {"model":"arsmagica2:null"}
+	}
+}

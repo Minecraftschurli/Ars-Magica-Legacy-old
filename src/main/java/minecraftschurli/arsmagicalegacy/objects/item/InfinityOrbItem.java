@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * @author IchHabeHunger54
  */
 public class InfinityOrbItem extends Item {
-    private static String TYPE_KEY = "type";
+    public static String TYPE_KEY = "type";
 
     public InfinityOrbItem() {
         super(ModItems.ITEM_64);
@@ -51,7 +51,7 @@ public class InfinityOrbItem extends Item {
     }
 
     private ActionResult<ItemStack> useOrb(PlayerEntity playerIn, ItemStack heldItem) {
-        playerIn.getCapability(CapabilityResearch.RESEARCH_POINTS).orElseThrow(() -> new IllegalStateException("No Research Capability Present")).add(heldItem.getTag().getString(TYPE_KEY));
+        playerIn.getCapability(CapabilityResearch.RESEARCH).orElseThrow(() -> new IllegalStateException("No Research Capability Present")).add(heldItem.getTag().getString(TYPE_KEY));
         heldItem.shrink(1);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }

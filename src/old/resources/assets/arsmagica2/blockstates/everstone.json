@@ -1,0 +1,8 @@
+{
+    "variants": {
+		"has_facade=false,is_solid=false": { "model": "arsmagica2:everstone"},
+		"has_facade=false,is_solid=true": { "model": "arsmagica2:everstone"},
+ 		"has_facade=true,is_solid=false": { "model": "arsmagica2:everstone"},
+ 		"has_facade=true,is_solid=true": { "model": "arsmagica2:everstone"}
+     }
+}

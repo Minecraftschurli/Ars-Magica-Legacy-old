@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;

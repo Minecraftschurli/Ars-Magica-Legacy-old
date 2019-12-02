@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import minecraftschurli.arsmagicalegacy.api.spellsystem.SpellCastResult;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
