@@ -115,7 +115,7 @@ public class MagicHelper {
         return getMana(caster) >= manaCost;
     }
 
-    public static int getCurrentLevel(PlayerEntity player) {
+    public static int getCurrentLevel(LivingEntity player) {
         return getMagicCapability(player).getCurrentLevel();
     }
 

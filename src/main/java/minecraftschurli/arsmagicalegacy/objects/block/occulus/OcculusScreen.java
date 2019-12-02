@@ -205,6 +205,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
             }
             //Minecraft.getInstance().getTextureManager().bindTexture();
             for (Skill s : skills) {
+                // FIXME @minecraftschurli @ichhabehunger54
                 if (!s.getPoint().canRender() && !data.knows(s))
                     continue;
                 GlStateManager.color4f(1, 1, 1, 1.0F);

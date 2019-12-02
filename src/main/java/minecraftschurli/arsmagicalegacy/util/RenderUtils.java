@@ -139,7 +139,7 @@ public class RenderUtils {
 		GL11.glPopMatrix();
 	}
 	
-	public static void RenderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3f rotation){
+	public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3f rotation){
 		GlStateManager.pushMatrix();
 
 		GlStateManager.rotatef(rotation.x, 1.0f, 0.0f, 0.0f);
