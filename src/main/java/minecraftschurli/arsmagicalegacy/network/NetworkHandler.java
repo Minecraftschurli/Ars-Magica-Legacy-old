@@ -25,8 +25,10 @@ public class NetworkHandler {
                 PROTOCOL_VERSION::equals,
                 PROTOCOL_VERSION::equals
         );
-        INSTANCE.registerMessage(nextID(), SyncMana.class, SyncMana::toBytes, SyncMana::new, SyncMana::handle);
-        INSTANCE.registerMessage(nextID(), SyncBurnout.class, SyncBurnout::toBytes, SyncBurnout::new, SyncBurnout::handle);
-        INSTANCE.registerMessage(nextID(), SyncResearch.class, SyncResearch::toBytes, SyncResearch::new, SyncResearch::handle);
+        INSTANCE.registerMessage(nextID(), SyncManaPacket.class, SyncManaPacket::toBytes, SyncManaPacket::new, SyncManaPacket::handle);
+        INSTANCE.registerMessage(nextID(), SyncBurnoutPacket.class, SyncBurnoutPacket::toBytes, SyncBurnoutPacket::new, SyncBurnoutPacket::handle);
+        INSTANCE.registerMessage(nextID(), SyncResearchPacket.class, SyncResearchPacket::toBytes, SyncResearchPacket::new, SyncResearchPacket::handle);
+        INSTANCE.registerMessage(nextID(), LearnSkillPacket.class, LearnSkillPacket::toBytes, LearnSkillPacket::new, LearnSkillPacket::handle);
+        INSTANCE.registerMessage(nextID(), SyncMagicPacket.class, SyncMagicPacket::toBytes, SyncMagicPacket::new, SyncMagicPacket::handle);
     }
 }

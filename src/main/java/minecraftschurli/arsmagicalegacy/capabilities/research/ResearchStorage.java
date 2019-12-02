@@ -1,12 +1,11 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
 import com.google.common.collect.ImmutableList;
+import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
+import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -14,7 +13,7 @@ import java.util.Map;
  */
 public class ResearchStorage implements IResearchStorage {
     private Map<String, Integer> points = new HashMap<>();
-    private List<ResourceLocation> learned = new ArrayList<>();
+    private List<Skill> learned = new ArrayList<>();
 
     @Override
     public int get(String type) {
@@ -48,17 +47,27 @@ public class ResearchStorage implements IResearchStorage {
     }
 
     @Override
-    public List<ResourceLocation> getLearned() {
+    public boolean knows(Skill skill) {
+        return this.learned.contains(skill);
+    }
+
+    @Override
+    public boolean canLearn(Skill skill) {
+        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).map(SpellRegistry.SKILL_REGISTRY::getValue).allMatch(this::knows);
+    }
+
+    @Override
+    public List<Skill> getLearned() {
         return ImmutableList.copyOf(this.learned);
     }
 
     @Override
-    public void learn(ResourceLocation location) {
+    public void learn(Skill location) {
         this.learned.add(location);
     }
 
     @Override
-    public void forget(ResourceLocation location) {
+    public void forget(Skill location) {
         this.learned.remove(location);
     }
 }

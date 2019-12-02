@@ -20,6 +20,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Contains all spell parts, used for both registration<BR>
@@ -218,5 +219,9 @@ public class SpellRegistry {
     public static SpellComponent getComponentFromName(String shapeName) {
         AbstractSpellPart part = SPELL_PART_REGISTRY.getValue(new ResourceLocation(shapeName));
         return part instanceof SpellComponent ? (SpellComponent) part : null;
+    }
+
+    public static List<Skill> getSkillsForTree(SkillTree tree) {
+        return SKILL_REGISTRY.getValues().stream().filter(skill -> skill.getTree() == tree).collect(Collectors.toList());
     }
 }

@@ -16,14 +16,14 @@ import net.minecraftforge.fml.RegistryObject;
  */
 public final class SpellParts implements IInit {
     //TODO: skill trees and (x|y) positions
-    //  [src/old/java/am2/defs/SpellDefs.java]
-    //  [src/old/java/am2/defs/SkillDefs.java]
+    //  [src/old/java/am2/defs/SpellDefs.java]am2.defs.SpellDefs
+    //  [src/old/java/am2/defs/SkillDefs.java]am2.defs.SkillDefs
 
     //skill trees
     public static final SkillTree OFFENSE = new SkillTree(ArsMagicaLegacy.MODID, "offense");
-    public static final SkillTree DEFENSE = new SkillTree(ArsMagicaLegacy.MODID, "defence");
+    public static final SkillTree DEFENSE = new SkillTree(ArsMagicaLegacy.MODID, "defense");
     public static final SkillTree UTILITY = new SkillTree(ArsMagicaLegacy.MODID, "utility");
-    //public static final SkillTree AFFINITY = new SkillTree(ArsMagicaLegacy.MODID, "affinity");
+    public static final SkillTree AFFINITY = new SkillTree(ArsMagicaLegacy.MODID, "affinity");
     public static final SkillTree TALENT = new SkillTree(ArsMagicaLegacy.MODID, "talent");
 
     //skills

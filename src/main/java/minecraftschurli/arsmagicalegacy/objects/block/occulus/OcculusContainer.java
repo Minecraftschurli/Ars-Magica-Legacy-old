@@ -10,11 +10,9 @@ import net.minecraft.inventory.container.Container;
  * @version 2019-12-02
  */
 public class OcculusContainer extends Container {
-    private final PlayerEntity player;
 
     public OcculusContainer(int id, PlayerInventory playerInventory) {
         super(ModContainers.OCCULUS.get(), id);
-        this.player = playerInventory.player;
     }
 
     /**

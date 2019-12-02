@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
+import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
@@ -30,11 +30,15 @@ public interface IResearchStorage {
         old.getLearned().forEach(this::learn);
     }
 
-    List<ResourceLocation> getLearned();
+    List<Skill> getLearned();
 
-    void learn(ResourceLocation location);
+    void learn(Skill location);
 
-    void forget(ResourceLocation location);
+    void forget(Skill location);
 
     void forgetAll();
+
+    boolean knows(Skill skill);
+
+    boolean canLearn(Skill skill);
 }

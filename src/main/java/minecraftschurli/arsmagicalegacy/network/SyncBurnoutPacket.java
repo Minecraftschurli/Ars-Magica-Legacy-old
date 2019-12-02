@@ -11,16 +11,16 @@ import java.util.function.Supplier;
  * @author Minecraftschurli
  * @version 2019-11-14
  */
-public class SyncBurnout {
+public class SyncBurnoutPacket {
     private float burnout;
     private float maxBurnout;
 
-    public SyncBurnout(PacketBuffer buf) {
+    public SyncBurnoutPacket(PacketBuffer buf) {
         this.maxBurnout = buf.readFloat();
         this.burnout = buf.readFloat();
     }
 
-    public SyncBurnout(float burnout, float maxBurnout) {
+    public SyncBurnoutPacket(float burnout, float maxBurnout) {
         this.maxBurnout = maxBurnout;
         this.burnout = burnout;
     }

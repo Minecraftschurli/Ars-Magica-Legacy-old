@@ -6,4 +6,10 @@ package minecraftschurli.arsmagicalegacy.capabilities.magic;
  */
 public interface IMagicStorage {
     int getCurrentLevel();
+    void levelUp();
+    void setLevel(int level);
+
+    default void setFrom(IMagicStorage old) {
+        this.setLevel(old.getCurrentLevel());
+    }
 }

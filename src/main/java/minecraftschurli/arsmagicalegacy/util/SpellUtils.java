@@ -67,11 +67,11 @@ public class SpellUtils {
         AMEnchantmentHelper.silkTouchStack(stack, silkTouch);*/
     }
 
-    public static float modifyDamage(LivingEntity caster, float damage) { //TODO @minecraftschurli
-        /*float factor = (float)(EntityExtension.For(caster).getCurrentLevel() < 20 ?
-                0.5 + (0.5 * (EntityExtension.For(caster).getCurrentLevel() / 19)) :
-                1.0 + (1.0 * (EntityExtension.For(caster).getCurrentLevel() - 20) / 79));*/
-        return damage/* * factor*/;
+    public static float modifyDamage(LivingEntity caster, float damage) {
+        float factor = (float)(MagicHelper.getCurrentLevel(caster) < 20 ?
+                0.5 + (0.5 * (MagicHelper.getCurrentLevel(caster) / 19)) :
+                1.0 + (1.0 * (MagicHelper.getCurrentLevel(caster) - 20) / 79));
+        return damage * factor;
     }
 
 

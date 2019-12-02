@@ -1,6 +1,8 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
+import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -39,6 +41,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                         ListNBT learned = new ListNBT();
                         instance.getLearned()
                                 .stream()
+                                .map(Skill::getRegistryName)
                                 .map(ResourceLocation::toString)
                                 .map(StringNBT::new)
                                 .forEach(learned::add);
@@ -56,6 +59,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                                 .stream()
                                 .map(INBT::getString)
                                 .map(ResourceLocation::new)
+                                .map(SpellRegistry.SKILL_REGISTRY::getValue)
                                 .forEach(instance::learn);
                     }
                 },

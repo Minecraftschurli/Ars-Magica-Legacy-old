@@ -11,16 +11,16 @@ import java.util.function.Supplier;
  * @author Minecraftschurli
  * @version 2019-11-14
  */
-public class SyncMana {
+public class SyncManaPacket {
     private float mana;
     private float maxMana;
 
-    public SyncMana(PacketBuffer buf) {
+    public SyncManaPacket(PacketBuffer buf) {
         this.maxMana = buf.readFloat();
         this.mana = buf.readFloat();
     }
 
-    public SyncMana(float mana, float maxMana) {
+    public SyncManaPacket(float mana, float maxMana) {
         this.maxMana = maxMana;
         this.mana = mana;
     }
