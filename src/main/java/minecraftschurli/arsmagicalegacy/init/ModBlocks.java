@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.BlockOcculus;
 import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -64,6 +65,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> GOLD_INLAY = BLOCKS.register("gold_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
     public static final RegistryObject<Block> VINTEUM_TORCH = BLOCKS.register("vinteum_torch", () -> new Torch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> VINTEUM_WALL_TORCH = BLOCKS.register("vinteum_wall_torch", () -> new WallTorch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> OCCULUS = BLOCKS.register("occulus", BlockOcculus::new);
 
     public static void register() {
     }

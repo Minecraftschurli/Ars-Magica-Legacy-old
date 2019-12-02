@@ -2,6 +2,8 @@ package minecraftschurli.arsmagicalegacy.util;
 
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
+import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;
+import minecraftschurli.arsmagicalegacy.capabilities.magic.IMagicStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
@@ -108,6 +110,10 @@ public class MagicHelper {
         return getManaCapability(caster).getMana() >= manaCost;
     }
 
+    public static int getCurrentLevel(PlayerEntity player) {
+        return getMagicCapability(player).getCurrentLevel();
+    }
+
     public static IManaStorage getManaCapability(LivingEntity entity) {
         return entity.getCapability(CapabilityMana.MANA)
                 .orElseThrow(() -> new IllegalStateException("No Mana Capability present!"));
@@ -121,5 +127,10 @@ public class MagicHelper {
     public static IResearchStorage getResearchCapability(LivingEntity entity) {
         return entity.getCapability(CapabilityResearch.RESEARCH)
                 .orElseThrow(() -> new IllegalStateException("No Research Capability present!"));
+    }
+
+    private static IMagicStorage getMagicCapability(LivingEntity entity) {
+        return entity.getCapability(CapabilityMagic.MAGIC)
+                .orElseThrow(() -> new IllegalStateException("No Magic Capability present!"));
     }
 }
