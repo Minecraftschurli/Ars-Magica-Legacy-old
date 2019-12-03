@@ -2,7 +2,9 @@ package minecraftschurli.arsmagicalegacy.objects.item;
 
 import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.SpellParts;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -29,14 +31,14 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putString(TYPE_KEY, SkillPoint.SILVER_POINT.getName());
+        stack.getOrCreateTag().putString(TYPE_KEY, SpellParts.SILVER_POINT.getName());
     }
 
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
-            for (SkillPoint type : SkillPoint.TYPES) {
-                if (type == SkillPoint.SILVER_POINT) continue;
+            for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY.getValues()) {
+                if (type == SpellParts.SILVER_POINT.get()) continue;
                 ItemStack stack = new ItemStack(this);
                 stack.getOrCreateTag().putString(TYPE_KEY, type.getName());
                 items.add(stack);

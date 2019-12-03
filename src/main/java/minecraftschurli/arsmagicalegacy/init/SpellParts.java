@@ -8,6 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
 import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -19,53 +20,62 @@ public final class SpellParts implements IInit {
     //  [src/old/java/am2/defs/SpellDefs.java]am2.defs.SpellDefs
     //  [src/old/java/am2/defs/SkillDefs.java]am2.defs.SkillDefs
 
+    //skill points
+    public static final RegistryObject<SkillPoint> SILVER_POINT = SKILL_POINTS.register("silver", () -> new SkillPoint(TextFormatting.GRAY, 0x777777, -1, -1).disableRender());
+    public static final RegistryObject<SkillPoint> SKILL_POINT_1 = SKILL_POINTS.register("blue", () -> new SkillPoint(TextFormatting.BLUE, 0x0000dd, 0, 1));
+    public static final RegistryObject<SkillPoint> SKILL_POINT_3 = SKILL_POINTS.register("red", () -> new SkillPoint(TextFormatting.RED, 0xdd0000, 30, 2));
+    public static final RegistryObject<SkillPoint> SKILL_POINT_2 = SKILL_POINTS.register("green", () -> new SkillPoint(TextFormatting.GREEN, 0x00dd00, 20, 2));
+    public static final RegistryObject<SkillPoint> SKILL_POINT_4 = SKILL_POINTS.register("yellow", () -> new SkillPoint(TextFormatting.YELLOW, 0xdddd00, 40, 3));
+    public static final RegistryObject<SkillPoint> SKILL_POINT_5 = SKILL_POINTS.register("magenta", () -> new SkillPoint(TextFormatting.LIGHT_PURPLE, 0xdd00dd, 50, 3));
+    public static final RegistryObject<SkillPoint> SKILL_POINT_6 = SKILL_POINTS.register("cyan", () -> new SkillPoint(TextFormatting.AQUA, 0x00dddd, 60, 4));
+
     //skill trees
-    public static final SkillTree OFFENSE = new SkillTree(ArsMagicaLegacy.MODID, "offense");
-    public static final SkillTree DEFENSE = new SkillTree(ArsMagicaLegacy.MODID, "defense");
-    public static final SkillTree UTILITY = new SkillTree(ArsMagicaLegacy.MODID, "utility");
-    public static final SkillTree AFFINITY = new SkillTree(ArsMagicaLegacy.MODID, "affinity");
-    public static final SkillTree TALENT = new SkillTree(ArsMagicaLegacy.MODID, "talent");
+    public static final RegistryObject<SkillTree> OFFENSE = SKILL_TREES.register("offense", SkillTree::new);
+    public static final RegistryObject<SkillTree> DEFENSE = SKILL_TREES.register("defense", SkillTree::new);
+    public static final RegistryObject<SkillTree> UTILITY = SKILL_TREES.register("utility", SkillTree::new);
+    public static final RegistryObject<SkillTree> AFFINITY = SKILL_TREES.register("affinity", SkillTree::new);
+    public static final RegistryObject<SkillTree> TALENT = SKILL_TREES.register("talent", SkillTree::new);
 
     //skills
 
 
     //modifiers
-    public static final RegistryObject<SpellModifier> BOUNCE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "bounce", SkillPoint.SKILL_POINT_1, new Bounce(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> BUFF_POWER = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "buff_power", SkillPoint.SILVER_POINT, new BuffPower(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> COLOR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "color", SkillPoint.SKILL_POINT_1, new Color(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> DAMAGE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "damage", SkillPoint.SKILL_POINT_3, new Damage(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> DISMEMBERING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "dismembering", SkillPoint.SILVER_POINT, new Dismembering(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> DURATION = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "duration", SkillPoint.SKILL_POINT_3, new Bounce(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> FORTUNE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "fortune", SkillPoint.SILVER_POINT, new Fortune(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> GRAVITY = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "gravity", SkillPoint.SKILL_POINT_1, new Gravity(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> HEALING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "healing", SkillPoint.SKILL_POINT_3, new Healing(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> LUNAR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "lunar", SkillPoint.SKILL_POINT_3, new Lunar(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> MINING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "mining", SkillPoint.SKILL_POINT_2, new Mining(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> MISSING_MODIFIER = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "missing_modifier", SkillPoint.SILVER_POINT, new MissingModifier(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> PIERCING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "piercing", SkillPoint.SKILL_POINT_3, new Piercing(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> RADIUS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "radius", SkillPoint.SKILL_POINT_3, new Radius(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> RANGE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "range", SkillPoint.SKILL_POINT_3, new Range(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> RUNE_PROCS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "rune_procs", SkillPoint.SKILL_POINT_2, new RuneProcs(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> SILK_TOUCH = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "silk_touch", SkillPoint.SKILL_POINT_1, new SilkTouch(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> SOLAR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "solar", SkillPoint.SKILL_POINT_3, new Solar(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> SPEED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "speed", SkillPoint.SKILL_POINT_3, new Speed(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> TARGET_NON_SOLID_BLOCKS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "target_non_solid_blocks", SkillPoint.SKILL_POINT_1, new TargetNonSolidBlocks(), null, 0, 0);
-    public static final RegistryObject<SpellModifier> VELOCITY_ADDED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "velocity_added", SkillPoint.SKILL_POINT_3, new VelocityAdded(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> BOUNCE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "bounce", SKILL_POINT_1, new Bounce(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> BUFF_POWER = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "buff_power", SILVER_POINT, new BuffPower(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> COLOR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "color", SKILL_POINT_1, new Color(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> DAMAGE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "damage", SKILL_POINT_3, new Damage(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> DISMEMBERING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "dismembering", SILVER_POINT, new Dismembering(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> DURATION = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "duration", SKILL_POINT_3, new Bounce(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> FORTUNE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "fortune", SILVER_POINT, new Fortune(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> GRAVITY = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "gravity", SKILL_POINT_1, new Gravity(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> HEALING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "healing", SKILL_POINT_3, new Healing(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> LUNAR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "lunar", SKILL_POINT_3, new Lunar(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> MINING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "mining", SKILL_POINT_2, new Mining(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> MISSING_MODIFIER = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "missing_modifier", SILVER_POINT, new MissingModifier(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> PIERCING = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "piercing", SKILL_POINT_3, new Piercing(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> RADIUS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "radius", SKILL_POINT_3, new Radius(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> RANGE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "range", SKILL_POINT_3, new Range(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> RUNE_PROCS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "rune_procs", SKILL_POINT_2, new RuneProcs(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> SILK_TOUCH = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "silk_touch", SKILL_POINT_1, new SilkTouch(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> SOLAR = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "solar", SKILL_POINT_3, new Solar(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> SPEED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "speed", SKILL_POINT_3, new Speed(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> TARGET_NON_SOLID_BLOCKS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "target_non_solid_blocks", SKILL_POINT_1, new TargetNonSolidBlocks(), null, 0, 0);
+    public static final RegistryObject<SpellModifier> VELOCITY_ADDED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "velocity_added", SKILL_POINT_3, new VelocityAdded(), null, 0, 0);
     
     //shapes
-    public static final RegistryObject<SpellShape> AOE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "aoe", SkillPoint.SKILL_POINT_2, new AoE(), OFFENSE, 300, 180, "arsmagicalegacy:frost_damage", "arsmagicalegacy:physical_damage", "arsmagicalegacy:fire_damage", "arsmagicalegacy:lightning_damage", "arsmagicalegacy:magic_damage");//done
-    public static final RegistryObject<SpellShape> BEAM = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "beam", SkillPoint.SKILL_POINT_3, new Beam(), null, 0, 0);
-    public static final RegistryObject<SpellShape> CHAIN = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "chain", SkillPoint.SKILL_POINT_3, new Chain(), null, 0, 0);
-    public static final RegistryObject<SpellShape> CHANNEL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "channel", SkillPoint.SKILL_POINT_2, new MissingShape(), null, 0, 0);
+    public static final RegistryObject<SpellShape> AOE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "aoe", SKILL_POINT_2, new AoE(), OFFENSE, 300, 180, "arsmagicalegacy:frost_damage", "arsmagicalegacy:physical_damage", "arsmagicalegacy:fire_damage", "arsmagicalegacy:lightning_damage", "arsmagicalegacy:magic_damage");//done
+    public static final RegistryObject<SpellShape> BEAM = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "beam", SKILL_POINT_3, new Beam(), null, 0, 0);
+    public static final RegistryObject<SpellShape> CHAIN = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "chain", SKILL_POINT_3, new Chain(), null, 0, 0);
+    public static final RegistryObject<SpellShape> CHANNEL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "channel", SKILL_POINT_2, new MissingShape(), null, 0, 0);
     public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "null", null, new MissingShape(), null, 0, 0);
-    public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "projectile", SkillPoint.SKILL_POINT_1, new Projectile(), OFFENSE, 300, 45);//done
-    public static final RegistryObject<SpellShape> RUNE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "rune", SkillPoint.SKILL_POINT_2, new Rune(), null, 0, 0);
-    public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "self", SkillPoint.SKILL_POINT_1, new Self(), DEFENSE, 267, 45);//done
-    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "toggle", SkillPoint.SKILL_POINT_3, new Toggle(), null, 0, 0);
-    public static final RegistryObject<SpellShape> TOUCH = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "touch", SkillPoint.SKILL_POINT_1, new Touch(), null, 0, 0);
-    public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wall", SkillPoint.SKILL_POINT_2, new Wall(), DEFENSE, 87, 200, "arsmagicalegacy:repel");//done
-    public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wave", SkillPoint.SKILL_POINT_3, new Wave(), null, 0, 0);
-    public static final RegistryObject<SpellShape> ZONE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "zone", SkillPoint.SKILL_POINT_3, new Zone(), null, 0, 0);
+    public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "projectile", SKILL_POINT_1, new Projectile(), OFFENSE, 300, 45);//done
+    public static final RegistryObject<SpellShape> RUNE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "rune", SKILL_POINT_2, new Rune(), null, 0, 0);
+    public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "self", SKILL_POINT_1, new Self(), DEFENSE, 267, 45);//done
+    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "toggle", SKILL_POINT_3, new Toggle(), null, 0, 0);
+    public static final RegistryObject<SpellShape> TOUCH = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "touch", SKILL_POINT_1, new Touch(), null, 0, 0);
+    public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wall", SKILL_POINT_2, new Wall(), DEFENSE, 87, 200, "arsmagicalegacy:repel");//done
+    public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wave", SKILL_POINT_3, new Wave(), null, 0, 0);
+    public static final RegistryObject<SpellShape> ZONE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "zone", SKILL_POINT_3, new Zone(), null, 0, 0);
 
     //components
     

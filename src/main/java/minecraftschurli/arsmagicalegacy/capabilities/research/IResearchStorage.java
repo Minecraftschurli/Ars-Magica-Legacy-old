@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.capabilities.research;
 
 import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface IResearchStorage {
     void set(String type, int count);
 
     default void setFrom(IResearchStorage old) {
-        for (SkillPoint type : SkillPoint.TYPES) {
+        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY.getValues()) {
             this.set(type.getName(), old.get(type.getName()));
         }
         this.forgetAll();
