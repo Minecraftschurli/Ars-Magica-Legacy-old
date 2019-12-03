@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.api.spell.skill;
+package minecraftschurli.arsmagicalegacy.api.skill;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -9,7 +9,6 @@ import net.minecraft.util.text.TranslationTextComponent;
  */
 public class SkillTree {
     private final ResourceLocation id;
-    private String name;
     private ResourceLocation background;
     private ResourceLocation icon;
     private boolean canRender = true;
@@ -29,12 +28,12 @@ public class SkillTree {
 
     public ResourceLocation getBackground() {
         if (background != null) return background;
-        return new ResourceLocation(id.getNamespace(), "textures/gui/occulus/"+id.getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/gui/occulus/" + id.getPath() + ".png");
     }
 
     public ResourceLocation getIcon() {
         if (icon != null) return icon;
-        return new ResourceLocation(id.getNamespace(), "textures/icon/"+id.getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/icon/" + id.getPath() + ".png");
     }
 
     public String getUnlocalizedName() {

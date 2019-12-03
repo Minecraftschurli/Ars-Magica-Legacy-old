@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.util;
 
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class SpellRequirements {
     public final float manaCost;
     public final float burnout;
-    public final ArrayList<ItemStack> reagents;
+    public final List<ItemStack> reagents;
 
-    public SpellRequirements(float mana, float burnout, ArrayList<ItemStack> reagents) {
+    public SpellRequirements(float mana, float burnout, List<ItemStack> reagents) {
         this.manaCost = mana;
         this.burnout = burnout;
         this.reagents = reagents;

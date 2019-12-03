@@ -1,13 +1,13 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
-import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -15,6 +15,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Minecraftschurli
  * @version 2019-11-16
  */
+@SuppressWarnings("unused")
 public final class SpellParts implements IInit {
     //TODO: skill trees and (x|y) positions
     //  [src/old/java/am2/defs/SpellDefs.java] am2.defs.SpellDefs
@@ -61,7 +62,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellModifier> SPEED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "speed", SKILL_POINT_3, new Speed(), null, 0, 0);
     public static final RegistryObject<SpellModifier> TARGET_NON_SOLID_BLOCKS = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "target_non_solid_blocks", SKILL_POINT_1, new TargetNonSolidBlocks(), null, 0, 0);
     public static final RegistryObject<SpellModifier> VELOCITY_ADDED = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "velocity_added", SKILL_POINT_3, new VelocityAdded(), null, 0, 0);
-    
+
     //shapes
     public static final RegistryObject<SpellShape> AOE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "aoe", SKILL_POINT_2, new AoE(), OFFENSE, 300, 180, "arsmagicalegacy:frost_damage", "arsmagicalegacy:physical_damage", "arsmagicalegacy:fire_damage", "arsmagicalegacy:lightning_damage", "arsmagicalegacy:magic_damage");//done
     public static final RegistryObject<SpellShape> BEAM = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "beam", SKILL_POINT_3, new Beam(), null, 0, 0);
@@ -78,6 +79,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellShape> ZONE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "zone", SKILL_POINT_3, new Zone(), null, 0, 0);
 
     //components
-    
-    public static void register() {}
+
+    public static void register() {
+    }
 }

@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.api.spell.skill;
+package minecraftschurli.arsmagicalegacy.api.skill;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;

@@ -33,7 +33,7 @@ public class CapabilityMagic implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IMagicStorage> capability, IMagicStorage instance, Direction side, INBT nbt) {
-                        instance.setLevel(((CompoundNBT)nbt).getInt("level"));
+                        instance.setLevel(((CompoundNBT) nbt).getInt("level"));
                     }
                 },
                 MagicStorage::new);

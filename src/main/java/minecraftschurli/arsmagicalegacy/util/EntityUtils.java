@@ -1,32 +1,35 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Method;
+import java.util.List;
 
 public class EntityUtils {
-//    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
+    //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
 //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedAITasks = new HashMap<>();
     private static final String isSummonKey = "AM2_Entity_Is_Made_Summon";
     //	private static final String summonEntityIDs = "AM2_Summon_Entity_IDs";
     private static final String summonDurationKey = "AM2_Summon_Duration";
     private static final String summonOwnerKey = "AM2_Summon_Owner";
-    private static Method ptrSetSize = null;
     private static final String summonTileXKey = "AM2_Summon_Tile_X";
     private static final String summonTileYKey = "AM2_Summon_Tile_Y";
     private static final String summonTileZKey = "AM2_Summon_Tile_Z";
+    private static Method ptrSetSize = null;
 
-
-    public static int getLevelFromXP(float totalXP){
+    public static int getLevelFromXP(float totalXP) {
         int level = 0;
-        int xp = (int)Math.floor(totalXP);
-        while(true) {
+        int xp = (int) Math.floor(totalXP);
+        while (true) {
             int cap = xpBarCap(level);
             xp -= cap;
             if (xp < 0) break;
@@ -35,7 +38,7 @@ public class EntityUtils {
         return level;
     }
 
-    public static Entity getPointedEntity(World world, LivingEntity entityplayer, double range, double collideRadius, boolean nonCollide, boolean targetWater){
+    public static Entity getPointedEntity(World world, LivingEntity entityplayer, double range, double collideRadius, boolean nonCollide, boolean targetWater) {
         Entity pointedEntity = null;
         double d = range;
         Vec3d vec3d = new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
@@ -67,24 +70,24 @@ public class EntityUtils {
         return pointedEntity;
     }
 
-    public static int getXPFromLevel(int level){
+    public static int getXPFromLevel(int level) {
         int totalXP = 0;
-        for(int i = 0; i < level; i++) totalXP += xpBarCap(i);
+        for (int i = 0; i < level; i++) totalXP += xpBarCap(i);
         return totalXP;
     }
 
-    public static int xpBarCap(int experienceLevel){
+    public static int xpBarCap(int experienceLevel) {
         return experienceLevel >= 30 ? 112 + (experienceLevel - 30) * 9 : (experienceLevel >= 15 ? 37 + (experienceLevel - 15) * 5 : 7 + experienceLevel * 2);//experienceLevel >= 30 ? 62 + (experienceLevel - 30) * 7 : (experienceLevel >= 15 ? 17 + (experienceLevel - 15) * 3 : 17);
     }
 
-    public static boolean isAIEnabled(CreatureEntity ent){
+    public static boolean isAIEnabled(CreatureEntity ent) {
         return !ent.isAIDisabled();
     }
 
-    public static void makeSummonPlayerFaction(CreatureEntity entityliving, PlayerEntity player, boolean storeForRevert){
+    public static void makeSummonPlayerFaction(CreatureEntity entityliving, PlayerEntity player, boolean storeForRevert) {
 //        if (isAIEnabled(entityliving) && EntityExtension.For(player).getCurrentSummons() < EntityExtension.For(player).getMaxSummons()){
 //            if (storeForRevert) storedTasks.put(entityliving.getEntityId(), new ArrayList<EntityAITasks.EntityAITaskEntry>(entityliving.targetTasks.taskEntries));
-            boolean addMeleeAttack = false;
+        boolean addMeleeAttack = false;
 //            ArrayList<EntityAITaskEntry> toRemove = new ArrayList<EntityAITaskEntry>();
 //            for (Object task : entityliving.tasks.taskEntries){
 //                EntityAITaskEntry base = (EntityAITaskEntry)task;
@@ -95,11 +98,11 @@ public class EntityUtils {
 //            }
 //            entityliving.tasks.taskEntries.removeAll(toRemove);
 //            if (storeForRevert) storedAITasks.put(entityliving.getEntityId(), toRemove);
-            if (addMeleeAttack){
-                float speed = entityliving.getAIMoveSpeed();
-                if (speed <= 0) speed = 1.0f;
+        if (addMeleeAttack) {
+            float speed = entityliving.getAIMoveSpeed();
+            if (speed <= 0) speed = 1.0f;
 //                entityliving.tasks.addTask(3, new EntityAIAttackMelee(entityliving, speed, true));
-            }
+        }
 //            entityliving.targetTasks.taskEntries.clear();
 //            entityliving.targetTasks.addTask(1, new EntityAIHurtByTarget(entityliving, true));
 //            entityliving.targetTasks.addTask(2, new EntityAINearestAttackableTarget<MobEntity>(entityliving, MobEntity.class, 0, true, false, SummonEntitySelector.instance));
@@ -107,11 +110,11 @@ public class EntityUtils {
 //            entityliving.targetTasks.addTask(2, new EntityAINearestAttackableTarget<GhastEntity>(entityliving, GhastEntity.class, true));
 //            entityliving.targetTasks.addTask(2, new EntityAINearestAttackableTarget<ShulkerEntity>(entityliving, ShulkerEntity.class, true));
 //            if (!entityliving.world.isRemote && entityliving.getAttackTarget() != null && entityliving.getAttackTarget() instanceof PlayerEntity) ArsMagica2.proxy.addDeferredTargetSet(entityliving, null);
-            if (entityliving instanceof TameableEntity){
-                ((TameableEntity)entityliving).setTamed(true);
-                ((TameableEntity)entityliving).setOwnerId(player.getUniqueID());
-            }
-            entityliving.getPersistentData().putBoolean(isSummonKey, true);
+        if (entityliving instanceof TameableEntity) {
+            ((TameableEntity) entityliving).setTamed(true);
+            ((TameableEntity) entityliving).setOwnerId(player.getUniqueID());
+        }
+        entityliving.getPersistentData().putBoolean(isSummonKey, true);
 //            EntityExtension.For(player).addSummon(entityliving);
 //        }
     }
@@ -120,8 +123,8 @@ public class EntityUtils {
         return entityliving.getPersistentData().getBoolean(isSummonKey);
     }
 
-    public static void makeSummonMonsterFaction(CreatureEntity entityliving, boolean storeForRevert){
-        if (isAIEnabled(entityliving)){
+    public static void makeSummonMonsterFaction(CreatureEntity entityliving, boolean storeForRevert) {
+        if (isAIEnabled(entityliving)) {
 //            if (storeForRevert) storedTasks.put(entityliving.getEntityId(), new ArrayList<EntityAITasks.EntityAITaskEntry>(entityliving.targetTasks.taskEntries));
 //            entityliving.targetTasks.taskEntries.clear();
 //            entityliving.targetTasks.addTask(1, new EntityAIHurtByTarget(entityliving, true));
@@ -131,32 +134,32 @@ public class EntityUtils {
         }
     }
 
-    public static void setOwner(LivingEntity entityliving, LivingEntity owner){
-        if (owner == null){
+    public static void setOwner(LivingEntity entityliving, LivingEntity owner) {
+        if (owner == null) {
             entityliving.getPersistentData().remove(summonOwnerKey);
             return;
         }
         entityliving.getPersistentData().putInt(summonOwnerKey, owner.getEntityId());
-        if (entityliving instanceof CreatureEntity){
+        if (entityliving instanceof CreatureEntity) {
             float speed = entityliving.getAIMoveSpeed();
             if (speed <= 0) speed = 1.0f;
 //            ((CreatureEntity)entityliving).tasks.addTask(1, new EntityAISummonFollowOwner((CreatureEntity)entityliving, speed, 10, 20));
         }
     }
 
-    public static void setSummonDuration(LivingEntity entity, int duration){
+    public static void setSummonDuration(LivingEntity entity, int duration) {
         entity.getPersistentData().putInt(summonDurationKey, duration);
     }
 
-    public static int getOwner(LivingEntity entityliving){
+    public static int getOwner(LivingEntity entityliving) {
         if (!isSummon(entityliving)) return -1;
         return entityliving.getPersistentData().getInt(summonOwnerKey);
     }
 
-    public static boolean revertAI(CreatureEntity entityliving){
+    public static boolean revertAI(CreatureEntity entityliving) {
         int ownerID = getOwner(entityliving);
         Entity owner = entityliving.world.getEntityByID(ownerID);
-        if (owner instanceof LivingEntity){
+        if (owner instanceof LivingEntity) {
 //            EntityExtension.For((LivingEntity)owner).removeSummon();
 //            if (EntityExtension.For((LivingEntity)owner).isManaLinkedTo(entityliving)) EntityExtension.For((LivingEntity)owner).updateManaLink(entityliving);
         }
@@ -196,17 +199,17 @@ public class EntityUtils {
         return false;
     }
 
-    public static void setSize(LivingEntity entityliving, float width, float height){
+    public static void setSize(LivingEntity entityliving, float width, float height) {
         if (entityliving.getWidth() == width && entityliving.getHeight() == height) return;
         if (ptrSetSize == null) try {
 //            ptrSetSize = ReflectionHelper.findMethod(Entity.class, entityliving, new String[]{"func_70105_a", "setSize"}, Float.TYPE, Float.TYPE);
-        }catch (Throwable t){
+        } catch (Throwable t) {
             t.printStackTrace();
         }
         else try {
             ptrSetSize.setAccessible(true);
             ptrSetSize.invoke(entityliving, width, height);
-        }catch (Throwable t){
+        } catch (Throwable t) {
             t.printStackTrace();
         }
     }
@@ -250,7 +253,7 @@ public class EntityUtils {
 //        entityliving.getPersistentData().putInt(summonTileZKey, summoner.getPos().getZ());
 //    }
 
-    public static void setGuardSpawnLocation(CreatureEntity entity, double x, double y, double z){
+    public static void setGuardSpawnLocation(CreatureEntity entity, double x, double y, double z) {
         float speed = entity.getAIMoveSpeed();
         if (speed <= 0) speed = 1.0f;
 //        entity.tasks.addTask(1, new EntityAIGuardSpawnLocation(entity, speed, 3, 16, new Vec3d(x, y, z)));
@@ -266,7 +269,7 @@ public class EntityUtils {
         while (addedXP < player.experienceTotal) {
             int toAdd = player.experienceTotal - addedXP;
             toAdd = Math.min(toAdd, player.xpBarCap());
-            player.experience = toAdd / (float)player.xpBarCap();
+            player.experience = toAdd / (float) player.xpBarCap();
             if (player.experience == 1f) {
                 player.experienceLevel++;
                 player.experience = 0;

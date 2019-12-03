@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.SpellParts;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -66,7 +66,7 @@ public class InfinityOrbItem extends Item {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return super.getTranslationKey(stack)+"."+stack.getTag().getInt(TYPE_KEY);
+        return super.getTranslationKey(stack) + "." + stack.getTag().getInt(TYPE_KEY);
     }
 
     /*@Override

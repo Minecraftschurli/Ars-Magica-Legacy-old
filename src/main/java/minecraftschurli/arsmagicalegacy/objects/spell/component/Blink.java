@@ -1,19 +1,26 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class Blink extends SpellComponent {
     @Override
@@ -26,9 +33,9 @@ public class Blink extends SpellComponent {
         if (!(target instanceof LivingEntity)) return false;
 //        if (world.isRemote) EntityExtension.For((LivingEntity)target).astralBarrierBlocked = false;
         double distance = SpellUtils.getModifiedIntAdd(12, stack, caster, target, caster.getEntityWorld(), SpellModifiers.RANGE);
-        double motionX = -MathHelper.sin((target.rotationYaw / 180F) * (float)Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float)Math.PI) * distance;
-        double motionZ = MathHelper.cos((target.rotationYaw / 180F) * (float)Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float)Math.PI) * distance;
-        double motionY = -MathHelper.sin((target.rotationPitch / 180F) * (float)Math.PI) * distance;
+        double motionX = -MathHelper.sin((target.rotationYaw / 180F) * (float) Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float) Math.PI) * distance;
+        double motionZ = MathHelper.cos((target.rotationYaw / 180F) * (float) Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float) Math.PI) * distance;
+        double motionY = -MathHelper.sin((target.rotationPitch / 180F) * (float) Math.PI) * distance;
         double d = motionX, d1 = motionY, d2 = motionZ;
         float f2 = MathHelper.sqrt(d * d + d1 * d1 + d2 * d2);
         d /= f2;
@@ -86,17 +93,17 @@ public class Blink extends SpellComponent {
 //                newY = target.posY + motionY;
 //                blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            }
-            if (distance < 0) {
-                coordsValid = false;
+        if (distance < 0) {
+            coordsValid = false;
 //                break;
-            }
-            if (newY >= 0) {
-                coordsValid = true;
+        }
+        if (newY >= 0) {
+            coordsValid = true;
 //                break;
-            }
-            if (newY - 1 >= 0) {
-                newY--;
-                coordsValid = true;
+        }
+        if (newY - 1 >= 0) {
+            newY--;
+            coordsValid = true;
 //                break;
             if (newY + 1 >= 0) {
                 newY++;
@@ -104,9 +111,9 @@ public class Blink extends SpellComponent {
 //                break;
             }
             distance--;
-            motionX = -MathHelper.sin((target.rotationYaw / 180F) * (float)Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float)Math.PI) * distance;
-            motionZ = MathHelper.cos((target.rotationYaw / 180F) * (float)Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float)Math.PI) * distance;
-            motionY = -MathHelper.sin((target.rotationPitch / 180F) * (float)Math.PI) * distance;
+            motionX = -MathHelper.sin((target.rotationYaw / 180F) * (float) Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float) Math.PI) * distance;
+            motionZ = MathHelper.cos((target.rotationYaw / 180F) * (float) Math.PI) * MathHelper.cos((target.rotationPitch / 180F) * (float) Math.PI) * distance;
+            motionY = -MathHelper.sin((target.rotationPitch / 180F) * (float) Math.PI) * distance;
             d = motionX;
             d1 = motionY;
             d2 = motionZ;
@@ -128,8 +135,8 @@ public class Blink extends SpellComponent {
 //            EntityExtension.For((LivingEntity)target).astralBarrierBlocked = true;
 //            if (finalBlocker != null) finalBlocker.onEntityBlocked((LivingEntity)target);
         }
-        if (!world.isRemote){
-            if (!coordsValid && target instanceof PlayerEntity){
+        if (!world.isRemote) {
+            if (!coordsValid && target instanceof PlayerEntity) {
                 target.sendMessage(new TextComponent() {
                     @Override
                     public String getUnformattedComponentText() {
@@ -160,7 +167,7 @@ public class Blink extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i){
+        for (int i = 0; i < 25; ++i) {
 //            AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "sparkle", x, y, z);
 //            if (particle != null){
 //                particle.addRandomOffset(1, 2, 1);

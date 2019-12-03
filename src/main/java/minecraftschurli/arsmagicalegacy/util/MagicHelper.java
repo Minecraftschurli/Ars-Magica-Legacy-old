@@ -1,7 +1,8 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;

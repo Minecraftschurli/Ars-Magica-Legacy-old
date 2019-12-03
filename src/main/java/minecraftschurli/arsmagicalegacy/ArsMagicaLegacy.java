@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy;
 
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
@@ -9,8 +10,6 @@ import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import minecraftschurli.arsmagicalegacy.util.SpellIconManager;
-import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -64,7 +63,6 @@ public final class ArsMagicaLegacy {
         modEventBus.addListener(this::processIMC);
         modEventBus.addListener(this::registerItemColorHandler);
 
-        modEventBus.register(SpellIconManager.class);
         modEventBus.register(SpellRegistry.class);
         MinecraftForge.EVENT_BUS.register(ArsMagicaLegacy.class);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
@@ -107,7 +105,7 @@ public final class ArsMagicaLegacy {
 
     private void registerItemColorHandler(ColorHandlerEvent.Item event) {
         event.getItemColors().register((stack, tint) -> tint == 0 ? SpellRegistry.getSkillPointFromName(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
-        event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem)stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
+        event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

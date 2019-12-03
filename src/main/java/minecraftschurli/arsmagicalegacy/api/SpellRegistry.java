@@ -1,13 +1,13 @@
-package minecraftschurli.arsmagicalegacy.util;
+package minecraftschurli.arsmagicalegacy.api;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -31,12 +31,12 @@ import java.util.stream.Collectors;
  * @version 2019-11-27
  */
 public class SpellRegistry {
+    public static final List<SkillPoint> SKILL_POINT_REGISTRY = new ArrayList<>();
+    public static final List<SkillTree> SKILL_TREE_REGISTRY = new ArrayList<>();
     private static final List<AbstractSpellPart> SPELL_PARTS = new ArrayList<>();
     private static final List<Supplier<Skill>> SKILLS = new ArrayList<>();
     public static IForgeRegistry<AbstractSpellPart> SPELL_PART_REGISTRY = null;
     public static IForgeRegistry<Skill> SKILL_REGISTRY = null;
-    public static final List<SkillPoint> SKILL_POINT_REGISTRY = new ArrayList<>();
-    public static final List<SkillTree> SKILL_TREE_REGISTRY = new ArrayList<>();
 
     @SubscribeEvent
     public static void registerRegistries(final RegistryEvent.NewRegistry event) {
@@ -68,7 +68,7 @@ public class SpellRegistry {
         event.getRegistry()
                 .registerAll(
                         SKILLS.stream()
-                        .map(Supplier::get)
+                                .map(Supplier::get)
                                 .toArray(Skill[]::new)
                 );
     }
@@ -92,7 +92,7 @@ public class SpellRegistry {
     }
 
     private static ResourceLocation getComponentIcon(ResourceLocation id) {
-        return new ResourceLocation(id.getNamespace(), "textures/icon/spell/component/"+id.getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/icon/spell/component/" + id.getPath() + ".png");
     }
 
     /**
@@ -129,7 +129,7 @@ public class SpellRegistry {
     }
 
     private static ResourceLocation getModifierIcon(ResourceLocation id) {
-        return new ResourceLocation(id.getNamespace(), "textures/icon/spell/modifier/"+id.getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/icon/spell/modifier/" + id.getPath() + ".png");
     }
 
     /**
@@ -167,7 +167,7 @@ public class SpellRegistry {
 
     private static ResourceLocation getShapeIcon(ResourceLocation id) {
         if (id.getPath().equals("null")) return null;
-        return new ResourceLocation(id.getNamespace(), "textures/icon/spell/shape/"+id.getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/icon/spell/shape/" + id.getPath() + ".png");
     }
 
     /**

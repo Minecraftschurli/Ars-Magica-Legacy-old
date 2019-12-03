@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 
 import java.util.List;
 

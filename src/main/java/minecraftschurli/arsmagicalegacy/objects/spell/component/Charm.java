@@ -1,24 +1,32 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.EntityUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
-public class Charm extends SpellComponent /*implements IRitualInteraction*/{
+public class Charm extends SpellComponent /*implements IRitualInteraction*/ {
     @Override
-    public ISpellIngredient[] getRecipe(){
+    public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.LIFE_ESSENCE.get()))
@@ -27,14 +35,15 @@ public class Charm extends SpellComponent /*implements IRitualInteraction*/{
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (!(target instanceof CreatureEntity) || /*((CreatureEntity)target).isPotionActive(PotionEffectsDefs.charme) || */EntityUtils.isSummon((CreatureEntity)target)) return false;
+        if (!(target instanceof CreatureEntity) || /*((CreatureEntity)target).isPotionActive(PotionEffectsDefs.charme) || */EntityUtils.isSummon((CreatureEntity) target))
+            return false;
         int duration = SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
 //        if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())){
 //            duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
 //            RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
 //        }
-        if (target instanceof AnimalEntity){
-            ((AnimalEntity)target).setInLove(null);
+        if (target instanceof AnimalEntity) {
+            ((AnimalEntity) target).setInLove(null);
             return true;
         }
 //        if (EntityExtension.For(caster).getCanHaveMoreSummons()){
@@ -50,8 +59,9 @@ public class Charm extends SpellComponent /*implements IRitualInteraction*/{
 //                return true;
 //            }
 //        } else {
-            if (caster instanceof PlayerEntity) caster.sendMessage(new TranslationTextComponent("chat.noMoreSummons"));//"You cannot have any more summons."
-            return true;
+        if (caster instanceof PlayerEntity)
+            caster.sendMessage(new TranslationTextComponent("chat.noMoreSummons"));//"You cannot have any more summons."
+        return true;
 //        }
 //        return false;
     }
@@ -63,13 +73,13 @@ public class Charm extends SpellComponent /*implements IRitualInteraction*/{
 
 
     @Override
-    public float getManaCost(LivingEntity caster){
+    public float getManaCost(LivingEntity caster) {
         return 300;
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier){
-        for (int i = 0; i < 10; ++i){
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+        for (int i = 0; i < 10; ++i) {
 //            AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "heart", x, y, z);
 //            if (particle != null){
 //                particle.addRandomOffset(1, 2, 1);

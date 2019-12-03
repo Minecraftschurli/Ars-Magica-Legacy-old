@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.util;
 import com.google.common.collect.Lists;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.SpellParts;
@@ -68,7 +69,7 @@ public class SpellUtils {
     }
 
     public static float modifyDamage(LivingEntity caster, float damage) {
-        float factor = (float)(MagicHelper.getCurrentLevel(caster) < 20 ?
+        float factor = (float) (MagicHelper.getCurrentLevel(caster) < 20 ?
                 0.5 + (0.5 * (MagicHelper.getCurrentLevel(caster) / 19)) :
                 1.0 + (1.0 * (MagicHelper.getCurrentLevel(caster) - 20) / 79));
         return damage * factor;

@@ -1,17 +1,23 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class Blind extends SpellComponent {
     @Override
@@ -21,16 +27,13 @@ public class Blind extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity) {
-//            int duration = SpellUtils.getModifiedIntMul(PotionEffectsDefs.default_buff_duration, stack, caster, target, world, SpellModifiers.DURATION);
-//            if (RitualShapeHelper.matchesRitual(this, world, target.getPosition())) {
-//                duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
-//                RitualShapeHelper.consumeReagents(this, world, target.getPosition());
-//            }
-//            if (!world.isRemote) ((LivingEntity)target).addPotionEffect(new Effect(Potion.getPotionTypeForName("minecraft:blindness"), duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-            return true;
-        }
-        return false;
+        //            int duration = SpellUtils.getModifiedIntMul(PotionEffectsDefs.default_buff_duration, stack, caster, target, world, SpellModifiers.DURATION);
+        //            if (RitualShapeHelper.matchesRitual(this, world, target.getPosition())) {
+        //                duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
+        //                RitualShapeHelper.consumeReagents(this, world, target.getPosition());
+        //            }
+        //            if (!world.isRemote) ((LivingEntity)target).addPotionEffect(new Effect(Potion.getPotionTypeForName("minecraft:blindness"), duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+        return target instanceof LivingEntity;
     }
 
     @Override
@@ -41,8 +44,8 @@ public class Blind extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-            new ItemStack(Items.CARROT),
-            new ItemStack(Items.POISONOUS_POTATO)
+                new ItemStack(Items.CARROT),
+                new ItemStack(Items.POISONOUS_POTATO)
         };
     }
 
@@ -62,9 +65,9 @@ public class Blind extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-            new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-            new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.NIGHT_VISION)),
-            new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WEAKNESS))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
+                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.NIGHT_VISION)),
+                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WEAKNESS))
         };
     }
 

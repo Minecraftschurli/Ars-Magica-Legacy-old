@@ -71,7 +71,7 @@ public class Attract extends SpellComponent {
         return EnumSet.noneOf(SpellModifiers.class);
     }
 
-    private boolean doTKExtrapolated(ItemStack stack, World world, double impactX, double impactY, double impactZ, LivingEntity caster){
+    private boolean doTKExtrapolated(ItemStack stack, World world, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (caster instanceof PlayerEntity) {
             double range = 0;//EntityExtension.For(caster).getTKDistance();
             RayTraceResult mop = null;//((SpellItem)ModItems.SPELL.get()).getMovingObjectPosition(caster, world, range, false, false);
@@ -90,9 +90,12 @@ public class Attract extends SpellComponent {
             double y = -(movement.getY() * factor);
             double z = -(movement.getZ() * factor);
             target.addVelocity(x, y, z);
-            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2)) target.setMotion(x * (target.getMotion().getX() / target.getMotion().getX()), target.getMotion().getY(), target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getY()) > Math.abs(x * 2)) target.setMotion(target.getMotion().getX(), y * (target.getMotion().getY() / target.getMotion().getY()), target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getZ()) > Math.abs(z * 2)) target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z * (target.getMotion().getZ() / target.getMotion().getZ()));
+            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2))
+                target.setMotion(x * (target.getMotion().getX() / target.getMotion().getX()), target.getMotion().getY(), target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getY()) > Math.abs(x * 2))
+                target.setMotion(target.getMotion().getX(), y * (target.getMotion().getY() / target.getMotion().getY()), target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getZ()) > Math.abs(z * 2))
+                target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z * (target.getMotion().getZ() / target.getMotion().getZ()));
         }
         return true;
     }
@@ -101,7 +104,7 @@ public class Attract extends SpellComponent {
         AxisAlignedBB bb = new AxisAlignedBB(point.getX() - 16, point.getY() - 16, point.getZ() - 16, point.getX() + 16, point.getY() + 16, point.getZ() + 16);
         List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, bb);
         LivingEntity closest = null;
-        for (LivingEntity e : entities){
+        for (LivingEntity e : entities) {
             if (e == caster) continue;
             if (closest == null || point.distanceSq(e.getPosition()) < point.distanceSq(closest.getPosition()))
                 closest = e;

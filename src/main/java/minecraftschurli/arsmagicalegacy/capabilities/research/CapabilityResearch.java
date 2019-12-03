@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -36,7 +36,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     public INBT writeNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
                         for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
-                            compoundNBT.putInt("skillpoint"+type.getTier(), instance.get(type.getTier()));
+                            compoundNBT.putInt("skillpoint" + type.getTier(), instance.get(type.getTier()));
                         }
                         ListNBT learned = new ListNBT();
                         instance.getLearned()
@@ -52,7 +52,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     @Override
                     public void readNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side, INBT nbt) {
                         for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
-                            instance.set(type.getTier(), ((CompoundNBT) nbt).getInt("skillpoint"+type.getTier()));
+                            instance.set(type.getTier(), ((CompoundNBT) nbt).getInt("skillpoint" + type.getTier()));
                         }
                         ((CompoundNBT) nbt)
                                 .getList("learned", Constants.NBT.TAG_STRING)
