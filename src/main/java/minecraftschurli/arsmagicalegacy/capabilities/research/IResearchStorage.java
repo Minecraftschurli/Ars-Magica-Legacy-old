@@ -15,6 +15,10 @@ public interface IResearchStorage {
 
     boolean use(int tier, int count);
 
+    default boolean use(int tier) {
+        return use(tier, 1);
+    }
+
     default void add(int tier) {
         this.add(tier, 1);
     }

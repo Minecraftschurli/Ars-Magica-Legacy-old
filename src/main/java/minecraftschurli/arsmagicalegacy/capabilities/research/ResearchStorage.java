@@ -53,7 +53,7 @@ public class ResearchStorage implements IResearchStorage {
 
     @Override
     public boolean canLearn(Skill skill) {
-        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).map(SpellRegistry.SKILL_REGISTRY::getValue).allMatch(this::knows);
+        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).map(SpellRegistry.SKILL_REGISTRY::getValue).allMatch(this::knows) && !knows(skill);
     }
 
     @Override
