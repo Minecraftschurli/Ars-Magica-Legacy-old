@@ -31,16 +31,16 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putString(TYPE_KEY, SpellParts.SILVER_POINT.getName());
+        stack.getOrCreateTag().putInt(TYPE_KEY, SpellParts.SILVER_POINT.getTier());
     }
 
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
-            for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY.getValues()) {
-                if (type == SpellParts.SILVER_POINT.get()) continue;
+            for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+                if (!type.canRender()) continue;
                 ItemStack stack = new ItemStack(this);
-                stack.getOrCreateTag().putString(TYPE_KEY, type.getName());
+                stack.getOrCreateTag().putInt(TYPE_KEY, type.getTier());
                 items.add(stack);
             }
         }
@@ -59,14 +59,14 @@ public class InfinityOrbItem extends Item {
     }*/
 
     private ActionResult<ItemStack> useOrb(LivingEntity entity, ItemStack heldItem) {
-        MagicHelper.addSkillPoint(entity, heldItem.getTag().getString(TYPE_KEY));
+        MagicHelper.addSkillPoint(entity, heldItem.getTag().getInt(TYPE_KEY));
         heldItem.shrink(1);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return super.getTranslationKey(stack)+"."+stack.getTag().getString(TYPE_KEY).toLowerCase();
+        return super.getTranslationKey(stack)+"."+stack.getTag().getInt(TYPE_KEY);
     }
 
     /*@Override

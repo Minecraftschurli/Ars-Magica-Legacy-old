@@ -2,41 +2,43 @@ package minecraftschurli.arsmagicalegacy.api.spell.skill;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-public class SkillTree extends ForgeRegistryEntry<SkillTree> {
+public class SkillTree {
+    private final ResourceLocation id;
     private String name;
     private ResourceLocation background;
     private ResourceLocation icon;
     private boolean canRender = true;
     private String unlock = null;
 
-    public SkillTree() {
+    public SkillTree(ResourceLocation id) {
         this.background = null;
         this.icon = null;
+        this.id = id;
     }
 
-    public SkillTree(ResourceLocation background, ResourceLocation icon) {
+    public SkillTree(ResourceLocation id, ResourceLocation background, ResourceLocation icon) {
         this.background = background;
         this.icon = icon;
+        this.id = id;
     }
 
     public ResourceLocation getBackground() {
         if (background != null) return background;
-        return new ResourceLocation(getRegistryName().getNamespace(), "textures/gui/occulus/"+getRegistryName().getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/gui/occulus/"+id.getPath()+".png");
     }
 
     public ResourceLocation getIcon() {
         if (icon != null) return icon;
-        return new ResourceLocation(getRegistryName().getNamespace(), "textures/icon/"+getRegistryName().getPath()+".png");
+        return new ResourceLocation(id.getNamespace(), "textures/icon/"+id.getPath()+".png");
     }
 
     public String getUnlocalizedName() {
-        return "skilltree." + getRegistryName().getPath();
+        return "skilltree." + id.getPath();
     }
 
     public String getLocalizedName() {

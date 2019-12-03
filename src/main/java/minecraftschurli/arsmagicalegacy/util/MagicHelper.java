@@ -148,11 +148,11 @@ public class MagicHelper {
     }
 
     public static int getSkillPoint(PlayerEntity player, SkillPoint point) {
-        return getResearchCapability(player).get(point.getName());
+        return getResearchCapability(player).get(point.getTier());
     }
 
-    public static void addSkillPoint(LivingEntity entity, String name) {
-        getResearchCapability(entity).add(name);
+    public static void addSkillPoint(LivingEntity entity, int tier) {
+        getResearchCapability(entity).add(tier);
         if (entity instanceof ServerPlayerEntity)
             syncResearch((ServerPlayerEntity) entity);
     }

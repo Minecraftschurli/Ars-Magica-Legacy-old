@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Contains all spell parts, used for both registration<BR>
+ * Contains all spell parts, used for both registration<BR
  * Skill are automatically created when doing any thing
  *
  * @author Minecraftschurli
@@ -35,15 +35,15 @@ public class SpellRegistry {
     private static final List<Supplier<Skill>> SKILLS = new ArrayList<>();
     public static IForgeRegistry<AbstractSpellPart> SPELL_PART_REGISTRY = null;
     public static IForgeRegistry<Skill> SKILL_REGISTRY = null;
-    public static IForgeRegistry<SkillPoint> SKILL_POINT_REGISTRY = null;
-    public static IForgeRegistry<SkillTree> SKILL_TREE_REGISTRY = null;
+    public static final List<SkillPoint> SKILL_POINT_REGISTRY = new ArrayList<>();
+    public static final List<SkillTree> SKILL_TREE_REGISTRY = new ArrayList<>();
 
     @SubscribeEvent
     public static void registerRegistries(final RegistryEvent.NewRegistry event) {
         SPELL_PART_REGISTRY = new RegistryBuilder<AbstractSpellPart>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "spell_parts")).setType(AbstractSpellPart.class).create();
+        //SKILL_POINT_REGISTRY = new RegistryBuilder<SkillPoint>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "skill_points")).setType(SkillPoint.class).create();
+        //SKILL_TREE_REGISTRY = new RegistryBuilder<SkillTree>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "skill_trees")).setType(SkillTree.class).create();
         SKILL_REGISTRY = new RegistryBuilder<Skill>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "skills")).setType(Skill.class).create();
-        SKILL_POINT_REGISTRY = new RegistryBuilder<SkillPoint>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "skill_points")).setType(SkillPoint.class).create();
-        SKILL_TREE_REGISTRY = new RegistryBuilder<SkillTree>().setName(new ResourceLocation(ArsMagicaLegacy.MODID, "skill_trees")).setType(SkillTree.class).create();
 
         IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
 
@@ -65,7 +65,12 @@ public class SpellRegistry {
 
     @SubscribeEvent
     public static void onSkillRegister(RegistryEvent.Register<Skill> event) {
-        event.getRegistry().registerAll(SKILLS.stream().map(Supplier::get).toArray(Skill[]::new));
+        event.getRegistry()
+                .registerAll(
+                        SKILLS.stream()
+                        .map(Supplier::get)
+                                .toArray(Skill[]::new)
+                );
     }
 
     /**
@@ -79,11 +84,10 @@ public class SpellRegistry {
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static RegistryObject<SpellComponent> registerSpellComponent(ResourceLocation id, Supplier<SkillPoint> tier, SpellComponent part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellComponent> registerSpellComponent(ResourceLocation id, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
-        Supplier<Skill> skill = () -> new Skill(getComponentIcon(id), tier.get(), posX, posY, tree.get(), parents).setRegistryName(id);
-        SKILLS.add(skill);
+        registerSkill(id, getComponentIcon(id), tier, tree, posX, posY, parents);
         return RegistryObject.of(id, SPELL_PART_REGISTRY);
     }
 
@@ -102,7 +106,7 @@ public class SpellRegistry {
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static RegistryObject<SpellComponent> registerSpellComponent(String modid, String name, Supplier<SkillPoint> tier, SpellComponent part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellComponent> registerSpellComponent(String modid, String name, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
         return registerSpellComponent(new ResourceLocation(modid, name), tier, part, tree, posX, posY, parents);
     }
 
@@ -117,11 +121,10 @@ public class SpellRegistry {
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static RegistryObject<SpellModifier> registerSpellModifier(ResourceLocation id, Supplier<SkillPoint> tier, SpellModifier part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellModifier> registerSpellModifier(ResourceLocation id, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
-        Supplier<Skill> skill = () -> new Skill(getModifierIcon(id), tier.get(), posX, posY, tree.get(), parents).setRegistryName(id);
-        SKILLS.add(skill);
+        registerSkill(id, getModifierIcon(id), tier, tree, posX, posY, parents);
         return RegistryObject.of(id, SPELL_PART_REGISTRY);
     }
 
@@ -140,7 +143,7 @@ public class SpellRegistry {
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static RegistryObject<SpellModifier> registerSpellModifier(String modid, String name, Supplier<SkillPoint> tier, SpellModifier part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellModifier> registerSpellModifier(String modid, String name, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
         return registerSpellModifier(new ResourceLocation(modid, name), tier, part, tree, posX, posY, parents);
     }
 
@@ -155,11 +158,10 @@ public class SpellRegistry {
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static RegistryObject<SpellShape> registerSpellShape(ResourceLocation id, Supplier<SkillPoint> tier, SpellShape part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellShape> registerSpellShape(ResourceLocation id, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
-        Supplier<Skill> skill = () -> new Skill(getShapeIcon(id), tier.get(), posX, posY, tree.get(), parents).setRegistryName(id);
-        SKILLS.add(skill);
+        registerSkill(id, getShapeIcon(id), tier, tree, posX, posY, parents);
         return RegistryObject.of(id, SPELL_PART_REGISTRY);
     }
 
@@ -179,7 +181,7 @@ public class SpellRegistry {
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
-    public static RegistryObject<SpellShape> registerSpellShape(String modid, String name, Supplier<SkillPoint> tier, SpellShape part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+    public static RegistryObject<SpellShape> registerSpellShape(String modid, String name, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
         return registerSpellShape(new ResourceLocation(modid, name), tier, part, tree, posX, posY, parents);
     }
 
@@ -187,7 +189,7 @@ public class SpellRegistry {
         return SKILL_REGISTRY.getValue(part.getRegistryName());
     }
 
-    public static AbstractSpellPart getPartByRecipe(ArrayList<ItemStack> currentAddedItems) {
+    public static AbstractSpellPart getPartByRecipe(List<ItemStack> currentAddedItems) {
         //TODO @minecraftschurli
         /*for (AbstractSpellPart data : SPELL_PART_REGISTRY.getValues()) {
             if (data != null && data.getRecipe() != null) {
@@ -206,6 +208,10 @@ public class SpellRegistry {
             }
         }*/
         return null;
+    }
+
+    private static void registerSkill(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SkillTree tree, int posX, int posY, String[] parents) {
+        SKILLS.add(() -> new Skill(icon, tier, posX, posY, tree, parents).setRegistryName(id));
     }
 
     public static SpellShape getShapeFromName(String shapeName) {
@@ -227,7 +233,18 @@ public class SpellRegistry {
         return SKILL_REGISTRY.getValues().stream().filter(skill -> skill.getTree() == tree).collect(Collectors.toList());
     }
 
-    public static SkillPoint getSkillFromName(String name) {
-        return SKILL_POINT_REGISTRY.getValue(new ResourceLocation(name));
+    public static SkillPoint getSkillPointFromName(int tier) {
+        return SKILL_POINT_REGISTRY.get(tier);
+    }
+
+    public static SkillPoint registerSkillPoint(SkillPoint skillPoint) {
+        SKILL_POINT_REGISTRY.add(skillPoint);
+        return skillPoint;
+    }
+
+    public static SkillTree registerSkillTree(String modid, String name) {
+        SkillTree tree = new SkillTree(new ResourceLocation(modid, name));
+        SKILL_TREE_REGISTRY.add(tree);
+        return tree;
     }
 }

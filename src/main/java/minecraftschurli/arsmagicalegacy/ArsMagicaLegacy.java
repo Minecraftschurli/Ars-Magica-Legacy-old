@@ -106,7 +106,7 @@ public final class ArsMagicaLegacy {
     }
 
     private void registerItemColorHandler(ColorHandlerEvent.Item event) {
-        event.getItemColors().register((stack, tint) -> tint == 0 ? SpellRegistry.getSkillFromName(stack.getTag().getString(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
+        event.getItemColors().register((stack, tint) -> tint == 0 ? SpellRegistry.getSkillPointFromName(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
         event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem)stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
     }
 

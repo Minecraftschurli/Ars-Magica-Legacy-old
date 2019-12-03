@@ -17,24 +17,24 @@ import net.minecraftforge.fml.RegistryObject;
  */
 public final class SpellParts implements IInit {
     //TODO: skill trees and (x|y) positions
-    //  [src/old/java/am2/defs/SpellDefs.java]am2.defs.SpellDefs
-    //  [src/old/java/am2/defs/SkillDefs.java]am2.defs.SkillDefs
+    //  [src/old/java/am2/defs/SpellDefs.java] am2.defs.SpellDefs
+    //  [src/old/java/am2/defs/SkillDefs.java] am2.defs.SkillDefs
 
     //skill points
-    public static final RegistryObject<SkillPoint> SILVER_POINT = SKILL_POINTS.register("silver", () -> new SkillPoint(TextFormatting.GRAY, 0x777777, -1, -1).disableRender());
-    public static final RegistryObject<SkillPoint> SKILL_POINT_1 = SKILL_POINTS.register("blue", () -> new SkillPoint(TextFormatting.BLUE, 0x0000dd, 0, 1));
-    public static final RegistryObject<SkillPoint> SKILL_POINT_3 = SKILL_POINTS.register("red", () -> new SkillPoint(TextFormatting.RED, 0xdd0000, 30, 2));
-    public static final RegistryObject<SkillPoint> SKILL_POINT_2 = SKILL_POINTS.register("green", () -> new SkillPoint(TextFormatting.GREEN, 0x00dd00, 20, 2));
-    public static final RegistryObject<SkillPoint> SKILL_POINT_4 = SKILL_POINTS.register("yellow", () -> new SkillPoint(TextFormatting.YELLOW, 0xdddd00, 40, 3));
-    public static final RegistryObject<SkillPoint> SKILL_POINT_5 = SKILL_POINTS.register("magenta", () -> new SkillPoint(TextFormatting.LIGHT_PURPLE, 0xdd00dd, 50, 3));
-    public static final RegistryObject<SkillPoint> SKILL_POINT_6 = SKILL_POINTS.register("cyan", () -> new SkillPoint(TextFormatting.AQUA, 0x00dddd, 60, 4));
+    public static final SkillPoint SILVER_POINT = SpellRegistry.registerSkillPoint(new SkillPoint(0, TextFormatting.GRAY, 0x777777, -1, -1).disableRender());
+    public static final SkillPoint SKILL_POINT_1 = SpellRegistry.registerSkillPoint(new SkillPoint(1, TextFormatting.BLUE, 0x0000dd, 0, 1));
+    public static final SkillPoint SKILL_POINT_3 = SpellRegistry.registerSkillPoint(new SkillPoint(2, TextFormatting.RED, 0xdd0000, 30, 2));
+    public static final SkillPoint SKILL_POINT_2 = SpellRegistry.registerSkillPoint(new SkillPoint(3, TextFormatting.GREEN, 0x00dd00, 20, 2));
+    public static final SkillPoint SKILL_POINT_4 = SpellRegistry.registerSkillPoint(new SkillPoint(4, TextFormatting.YELLOW, 0xdddd00, 40, 3));
+    public static final SkillPoint SKILL_POINT_5 = SpellRegistry.registerSkillPoint(new SkillPoint(5, TextFormatting.LIGHT_PURPLE, 0xdd00dd, 50, 3));
+    public static final SkillPoint SKILL_POINT_6 = SpellRegistry.registerSkillPoint(new SkillPoint(6, TextFormatting.AQUA, 0x00dddd, 60, 4));
 
     //skill trees
-    public static final RegistryObject<SkillTree> OFFENSE = SKILL_TREES.register("offense", SkillTree::new);
-    public static final RegistryObject<SkillTree> DEFENSE = SKILL_TREES.register("defense", SkillTree::new);
-    public static final RegistryObject<SkillTree> UTILITY = SKILL_TREES.register("utility", SkillTree::new);
-    public static final RegistryObject<SkillTree> AFFINITY = SKILL_TREES.register("affinity", SkillTree::new);
-    public static final RegistryObject<SkillTree> TALENT = SKILL_TREES.register("talent", SkillTree::new);
+    public static final SkillTree OFFENSE = SpellRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "offense");
+    public static final SkillTree DEFENSE = SpellRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "defense");
+    public static final SkillTree UTILITY = SpellRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "utility");
+    public static final SkillTree AFFINITY = SpellRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "affinity");
+    public static final SkillTree TALENT = SpellRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "talent");
 
     //skills
 

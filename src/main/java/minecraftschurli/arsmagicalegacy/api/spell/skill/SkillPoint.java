@@ -11,10 +11,12 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 public class SkillPoint extends ForgeRegistryEntry<SkillPoint> {
     private final int color, minEarnLevel, levelsForPoint;
     private final TextFormatting chatColor;
+    private final int tier;
 
     private boolean render = true;
 
-    public SkillPoint(TextFormatting chatColor, int color, int minEarnLevel, int levelsForPoint) {
+    public SkillPoint(int tier, TextFormatting chatColor, int color, int minEarnLevel, int levelsForPoint) {
+        this.tier = tier;
         this.color = color;
         this.minEarnLevel = minEarnLevel;
         this.levelsForPoint = levelsForPoint;
@@ -33,12 +35,12 @@ public class SkillPoint extends ForgeRegistryEntry<SkillPoint> {
         return minEarnLevel;
     }
 
-    public String getName() {
-        return getRegistryName().toString();
+    public int getTier() {
+        return this.tier;
     }
 
     public String getDisplayName() {
-        return new TranslationTextComponent("skillpoint." + getRegistryName().getNamespace() + "." + getRegistryName().getPath()).toString();
+        return new TranslationTextComponent("skillpoint." + tier).getFormattedText();
     }
 
     @Override

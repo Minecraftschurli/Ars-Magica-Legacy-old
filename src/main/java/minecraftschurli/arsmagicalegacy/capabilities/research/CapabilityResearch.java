@@ -35,8 +35,8 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     @Override
                     public INBT writeNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
-                        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY.getValues()) {
-                            compoundNBT.putInt(type.getName(), instance.get(type.getName()));
+                        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+                            compoundNBT.putInt("skillpoint"+type.getTier(), instance.get(type.getTier()));
                         }
                         ListNBT learned = new ListNBT();
                         instance.getLearned()
@@ -51,8 +51,8 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side, INBT nbt) {
-                        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY.getValues()) {
-                            instance.set(type.getName(), ((CompoundNBT) nbt).getInt(type.getName()));
+                        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+                            instance.set(type.getTier(), ((CompoundNBT) nbt).getInt("skillpoint"+type.getTier()));
                         }
                         ((CompoundNBT) nbt)
                                 .getList("learned", Constants.NBT.TAG_STRING)

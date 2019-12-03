@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillTree;
-import minecraftschurli.arsmagicalegacy.util.SpellRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
@@ -36,9 +33,6 @@ public interface IInit {
     DeferredRegister<VillagerProfession> PROFESSIONS = new DeferredRegister<>(ForgeRegistries.PROFESSIONS, ArsMagicaLegacy.MODID);
     DeferredRegister<PointOfInterestType> POI_TYPES = new DeferredRegister<>(ForgeRegistries.POI_TYPES, ArsMagicaLegacy.MODID);
 
-    DeferredRegister<SkillPoint> SKILL_POINTS = new DeferredRegister<>(SpellRegistry.SKILL_POINT_REGISTRY, ArsMagicaLegacy.MODID);
-    DeferredRegister<SkillTree> SKILL_TREES = new DeferredRegister<>(SpellRegistry.SKILL_TREE_REGISTRY, ArsMagicaLegacy.MODID);
-
     static void setEventBus(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
         FLUIDS.register(modEventBus);
@@ -51,8 +45,5 @@ public interface IInit {
         CONTAINERS.register(modEventBus);
         PROFESSIONS.register(modEventBus);
         POI_TYPES.register(modEventBus);
-
-        SKILL_POINTS.register(modEventBus);
-        SKILL_TREES.register(modEventBus);
     }
 }

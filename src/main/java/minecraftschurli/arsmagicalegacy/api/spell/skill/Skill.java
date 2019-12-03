@@ -17,11 +17,11 @@ public class Skill extends ForgeRegistryEntry<Skill> {
     private ResourceLocation icon;
     private SkillPoint point;
 
-    public Skill(ResourceLocation icon, SkillPoint point, int posX, int posY, SkillTree tree, String... string) {
+    public Skill(ResourceLocation icon, SkillPoint point, int posX, int posY, SkillTree tree, String... parents) {
         this.posX = posX;
         this.posY = posY;
         this.tree = tree;
-        this.parents = string;
+        this.parents = parents;
         this.icon = icon;
         this.point = point;
     }
@@ -64,10 +64,10 @@ public class Skill extends ForgeRegistryEntry<Skill> {
     }
 
     public ITextComponent getName() {
-        return new TranslationTextComponent("skill." + getID() + ".name");
+        return new TranslationTextComponent("skill." + getRegistryName().getNamespace() + "." + getRegistryName().getPath() + ".name");
     }
 
     public ITextComponent getOcculusDesc() {
-        return new TranslationTextComponent("skill." + getID() + ".occulusdesc");
+        return new TranslationTextComponent("skill." + getRegistryName().getNamespace() + "." + getRegistryName().getPath() + ".occulusdesc");
     }
 }

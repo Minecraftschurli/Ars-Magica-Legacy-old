@@ -11,21 +11,21 @@ import java.util.List;
  * @version 2019-11-14
  */
 public interface IResearchStorage {
-    int get(String type);
+    int get(int tier);
 
-    boolean use(String type, int count);
+    boolean use(int tier, int count);
 
-    default void add(String type) {
-        this.add(type, 1);
+    default void add(int tier) {
+        this.add(tier, 1);
     }
 
-    void add(String type, int count);
+    void add(int tier, int count);
 
-    void set(String type, int count);
+    void set(int tier, int count);
 
     default void setFrom(IResearchStorage old) {
-        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY.getValues()) {
-            this.set(type.getName(), old.get(type.getName()));
+        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+            this.set(type.getTier(), old.get(type.getTier()));
         }
         this.forgetAll();
         old.getLearned().forEach(this::learn);
