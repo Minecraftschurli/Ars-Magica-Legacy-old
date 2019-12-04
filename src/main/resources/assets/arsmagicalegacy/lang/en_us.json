@@ -1,5 +1,12 @@
 {
-  "skillpoint.1": "Blue",
-  "skillpoint.2": "Red",
-  "skillpoint.3": "Green"
+  "item.arsmagicalegacy.infinity_orb": "%s Infinity Orb",
+  "skillpoint.0": "Blue",
+  "skillpoint.1": "Red",
+  "skillpoint.2": "Green",
+  "skill.arsmagicalegacy.projectile.name": "Projectile",
+  "skill.arsmagicalegacy.projectile.occulusdesc": "Snowball!",
+  "skill.arsmagicalegacy.gravity.name": "Gravity",
+  "skill.arsmagicalegacy.gravity.occulusdesc": "Falling... Okay...",
+  "skill.arsmagicalegacy.bounce.name": "Bounce",
+  "skill.arsmagicalegacy.bounce.occulusdesc": "Hey! Come back!"
 }

@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import net.minecraft.nbt.CompoundNBT;
@@ -35,7 +36,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     @Override
                     public INBT writeNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
-                        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+                        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
                             compoundNBT.putInt("skillpoint" + type.getTier(), instance.get(type.getTier()));
                         }
                         ListNBT learned = new ListNBT();
@@ -51,7 +52,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side, INBT nbt) {
-                        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+                        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
                             instance.set(type.getTier(), ((CompoundNBT) nbt).getInt("skillpoint" + type.getTier()));
                         }
                         ((CompoundNBT) nbt)
@@ -59,7 +60,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                                 .stream()
                                 .map(INBT::getString)
                                 .map(ResourceLocation::new)
-                                .map(SpellRegistry.SKILL_REGISTRY::getValue)
+                                .map(ArsMagicaLegacyAPI.SKILL_REGISTRY::getValue)
                                 .forEach(instance::learn);
                     }
                 },

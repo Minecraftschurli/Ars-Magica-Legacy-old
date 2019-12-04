@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 
@@ -28,7 +28,7 @@ public interface IResearchStorage {
     void set(int tier, int count);
 
     default void setFrom(IResearchStorage old) {
-        for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
             this.set(type.getTier(), old.get(type.getTier()));
         }
         this.forgetAll();

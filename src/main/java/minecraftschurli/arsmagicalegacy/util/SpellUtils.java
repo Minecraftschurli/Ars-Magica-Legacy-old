@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.util;
 import com.google.common.collect.Lists;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -649,7 +650,7 @@ public class SpellUtils {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
-                    mods.add(SpellRegistry.SPELL_PART_REGISTRY.getValue(new ResourceLocation(tag.getString(ID))));
+                    mods.add(ArsMagicaLegacyAPI.SPELL_PART_REGISTRY.getValue(new ResourceLocation(tag.getString(ID))));
                 }
             }
             return mods;

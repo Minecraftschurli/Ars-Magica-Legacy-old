@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.SpellParts;
@@ -14,6 +14,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -37,7 +39,7 @@ public class InfinityOrbItem extends Item {
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
-            for (SkillPoint type : SpellRegistry.SKILL_POINT_REGISTRY) {
+            for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
                 if (!type.canRender()) continue;
                 ItemStack stack = new ItemStack(this);
                 stack.getOrCreateTag().putInt(TYPE_KEY, type.getTier());
@@ -65,8 +67,8 @@ public class InfinityOrbItem extends Item {
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
-        return super.getTranslationKey(stack) + "." + stack.getTag().getInt(TYPE_KEY);
+    public ITextComponent getDisplayName(ItemStack stack) {
+        return new TranslationTextComponent(this.getTranslationKey(stack), SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY)).getDisplayName());
     }
 
     /*@Override

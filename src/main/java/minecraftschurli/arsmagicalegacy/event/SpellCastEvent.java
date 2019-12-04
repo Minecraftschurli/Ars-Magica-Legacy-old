@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.Event;
  * @author Minecraftschurli
  * @version 2019-11-20
  */
-public class SpellCastingEvent extends Event {
+public class SpellCastEvent extends Event {
     /**
      * The spell being cast
      */
@@ -22,11 +22,11 @@ public class SpellCastingEvent extends Event {
     /**
      * The calculated mana cost of the spell
      */
-    public final float manaCost;
+    public float manaCost;
     /**
      * The calculated burnout of the spell
      */
-    public final float burnout;
+    public float burnout;
     /**
      * The itemstack representing the spell
      */
@@ -40,7 +40,7 @@ public class SpellCastingEvent extends Event {
      */
     public SpellCastResult castResult;
 
-    public SpellCastingEvent(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
+    public SpellCastEvent(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
         this.caster = caster;
         this.spell = spell;
         this.manaCost = manaCost;
@@ -49,14 +49,14 @@ public class SpellCastingEvent extends Event {
         this.isChanneled = isChanneled;
     }
 
-    public static class Pre extends SpellCastingEvent {
+    public static class Pre extends SpellCastEvent {
 
         public Pre(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
             super(stack, spell, caster, manaCost, burnout, isChanneled);
         }
     }
 
-    public static class Post extends SpellCastingEvent {
+    public static class Post extends SpellCastEvent {
 
         public Post(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled, SpellCastResult castResult) {
             super(stack, spell, caster, manaCost, burnout, isChanneled);

@@ -2,7 +2,10 @@ package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillTreeRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
@@ -21,10 +24,13 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -53,7 +59,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         super(name);
         this.container = container;
         this.player = player;
-        currentTree = SpellRegistry.SKILL_TREE_REGISTRY.get(0);
+        currentTree = SkillTreeRegistry.SKILL_TREE_REGISTRY.get(0);
         currentTabId = 0;
     }
 
@@ -62,7 +68,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         int tabId = 0;
         int posX = width / 2 - xSize / 2;
         int posY = height / 2 - ySize / 2;
-        for (SkillTree tree : SpellRegistry.SKILL_TREE_REGISTRY) {
+        for (SkillTree tree : SkillTreeRegistry.SKILL_TREE_REGISTRY) {
             if (tabId % 16 < 8) {
                 addButton(new GuiButtonSkillTree(tabId, posX + 7 + ((tabId % 16) * 24), posY - 22, tree, (int) Math.floor((float) tabId / 16F), false, this::actionPerformed));
             } else {
@@ -155,33 +161,33 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         float calcYOffest = ((float) offsetY / 568) * (1 - renderRatio);
         float calcXOffest = ((float) offsetX / 568) * (1 - renderRatio);
         int maxSize = 0;
-        for (SkillPoint point : SpellRegistry.SKILL_POINT_REGISTRY) {
+        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
             if (!point.canRender()) continue;
-            maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName() + " : " + MagicHelper.getSkillPoint(player, point)));
+            maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getSkillPoint(player, point)));
         }
         blitOffset = -1;
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
-        for (SkillPoint point : SpellRegistry.SKILL_POINT_REGISTRY) {
+        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
             if (!point.canRender()) continue;
-            font.drawString(point.getDisplayName() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
+            font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
             pointOffsetX += 10;
         }
         GlStateManager.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
         if (currentTree != SpellParts.AFFINITY) {
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
-            List<Skill> skills = SpellRegistry.getSkillsForTree(currentTree);
+            List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             blitOffset = 1;
             IResearchStorage data = MagicHelper.getResearchCapability(player);
             for (Skill s : skills) {
-                if (!s.getPoint().canRender() && !data.knows(s))
+                if (s.getPoint() == null || (!s.getPoint().canRender() && !data.knows(s)))
                     continue;
                 for (String p : s.getParents()) {
                     if (p == null)
                         continue;
-                    Skill parent = SpellRegistry.SKILL_REGISTRY.getValue(new ResourceLocation(p));
+                    Skill parent = ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(p));
                     if (parent == null || !skills.contains(parent)) continue;
                     if (!parent.getPoint().canRender() && !data.knows(parent))
                         continue;
@@ -204,7 +210,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
             }
             //Minecraft.getInstance().getTextureManager().bindTexture();
             for (Skill s : skills) {
-                if (!s.getPoint().canRender() && !data.knows(s))
+                if (s.getPoint() == null || (!s.getPoint().canRender() && !data.knows(s)))
                     continue;
                 GlStateManager.color4f(1, 1, 1, 1.0F);
                 IResearchStorage skillData = MagicHelper.getResearchCapability(player);
@@ -229,18 +235,14 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                 float xEndMod = 0;
                 float yEndMod = 0;
                 if (offsetX < posX + 7) {
-                    float mod = (posX + 7 - offsetX);
-                    xStartMod = mod;
+                    xStartMod = (float) (posX + 7 - offsetX);
                 } else if (offsetX + renderSize > posX + 203) {
-                    float mod = renderSize - (posX + 203 - offsetX);
-                    xEndMod = mod;
+                    xEndMod = renderSize - (posX + 203 - offsetX);
                 }
                 if (offsetY < posY + 7) {
-                    float mod = (posY + 7 - offsetY);
-                    yStartMod = mod;
+                    yStartMod = (float) (posY + 7 - offsetY);
                 } else if (offsetY + renderSize > posY + 203) {
-                    float mod = renderSize - (posY + 203 - offsetY);
-                    yEndMod = mod;
+                    yEndMod = renderSize - (posY + 203 - offsetY);
                 }
                 if (!hasPrereq)
                     GlStateManager.color3f(0.5F, 0.5F, 0.5F);
@@ -313,18 +315,19 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                         continue;
                     boolean hasPrereq = true;
                     for (String subParent : s.getParents()) {
-                        hasPrereq &= data.knows(SpellRegistry.SKILL_REGISTRY.getValue(new ResourceLocation(subParent)));
+                        hasPrereq &= data.knows(ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(subParent)));
                     }
                     List<ITextComponent> list = new ArrayList<>();
-                    list.add(new StringTextComponent(s.getPoint().getChatColor().toString() + s.getName()));
+                    list.add(s.getName().applyTextStyle(s.getPoint().getChatColor()));
                     /*if (ArsMagica2.disabledSkills.isSkillDisabled(s.getID()))
                         list.add(new TranslationTextComponent(".gui.occulus.disabled").setStyle(new Style().setColor(TextFormatting.DARK_RED)));
                     else*/
                     if (hasPrereq)
-                        list.add(s.getOcculusDesc().setStyle(new Style().setColor(TextFormatting.DARK_GRAY)));
+                        list.add(s.getOcculusDesc().applyTextStyle(TextFormatting.DARK_GRAY));
                     else
-                        list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.occulus.missingrequirements").setStyle(new Style().setColor(TextFormatting.DARK_RED)));
+                        list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
 
+                    renderTooltip(list.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY, font);
                     flag = true;
                     hoverItem = s;
                     RenderHelper.disableStandardItemLighting();

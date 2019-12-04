@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
@@ -146,7 +146,7 @@ public class MagicHelper {
     }
 
     public static void learnSkill(PlayerEntity player, String skillid) {
-        Skill skill = SpellRegistry.SKILL_REGISTRY.getValue(new ResourceLocation(skillid));
+        Skill skill = ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(skillid));
         IResearchStorage research = getResearchCapability(player);
         if (!research.canLearn(skill) || skill == null || research.get(skill.getPoint().getTier()) <= 0)
             return;

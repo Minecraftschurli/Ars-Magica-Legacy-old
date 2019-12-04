@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
 import com.google.common.collect.ImmutableList;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.util.ResourceLocation;
 
@@ -53,7 +53,7 @@ public class ResearchStorage implements IResearchStorage {
 
     @Override
     public boolean canLearn(Skill skill) {
-        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).map(SpellRegistry.SKILL_REGISTRY::getValue).allMatch(this::knows) && !knows(skill);
+        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).map(ArsMagicaLegacyAPI.SKILL_REGISTRY::getValue).allMatch(this::knows) && !knows(skill);
     }
 
     @Override
