@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Mining extends SpellModifier {
+public class MiningPower extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.MINING_POWER);

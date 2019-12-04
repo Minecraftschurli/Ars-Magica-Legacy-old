@@ -20,14 +20,14 @@ public class RenderUtils {
     private static Random rand = new Random();
 
 
-    public static void drawBox(float minX, float minZ, float maxX, float maxZ, float zLevel, float minU, float minV, float maxU, float maxV) {
+    public static void drawBox(float minX, float minY, float maxX, float maxY, float zLevel, float minU, float minV, float maxU, float maxV) {
         Tessellator t = Tessellator.getInstance();
         BufferBuilder wr = t.getBuffer();
         wr.begin(7, DefaultVertexFormats.POSITION_TEX);
-        wr.pos(minX, minZ + maxZ, zLevel).tex(minU, maxV).endVertex();
-        wr.pos(minX + maxX, minZ + maxZ, zLevel).tex(maxU, maxV).endVertex();
-        wr.pos(minX + maxX, minZ, zLevel).tex(maxU, minV).endVertex();
-        wr.pos(minX, minZ, zLevel).tex(minU, minV).endVertex();
+        wr.pos(minX, minY + maxY, zLevel).tex(minU, maxV).endVertex();
+        wr.pos(minX + maxX, minY + maxY, zLevel).tex(maxU, maxV).endVertex();
+        wr.pos(minX + maxX, minY, zLevel).tex(maxU, minV).endVertex();
+        wr.pos(minX, minY, zLevel).tex(minU, minV).endVertex();
         t.draw();
     }
 

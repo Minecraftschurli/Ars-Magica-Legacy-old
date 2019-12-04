@@ -92,7 +92,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                 if (data.canLearn(hoverItem)) {
                     NetworkHandler.INSTANCE.sendToServer(new LearnSkillPacket(hoverItem.getID()));
                 }
-            }
+            } else setDragging(true);
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -125,7 +125,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         int posY = height / 2 - ySize / 2;
         float renderSize = 32F;
         float renderRatio = 0.29F;
-        blitOffset = 1;
+        this.blitOffset = -5;
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/overlay.png"));
         //Overlay
         blit(posX, posY, 0, 0, 210, 210);
@@ -154,23 +154,21 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         lastMouseY = mouseY;
         float calcYOffest = ((float) offsetY / 568) * (1 - renderRatio);
         float calcXOffest = ((float) offsetX / 568) * (1 - renderRatio);
-        {
-            int maxSize = 0;
-            for (SkillPoint point : SpellRegistry.SKILL_POINT_REGISTRY) {
-                if (!point.canRender()) continue;
-                maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName() + " : " + MagicHelper.getSkillPoint(player, point)));
-            }
-            blitOffset = 0;
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
-            drawSkillPointBackground(posX, posY, maxSize + 10, 210);
-            int pointOffsetX = 5;
-            for (SkillPoint point : SpellRegistry.SKILL_POINT_REGISTRY) {
-                if (!point.canRender()) continue;
-                font.drawString(point.getDisplayName() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
-                pointOffsetX += 10;
-            }
-            GlStateManager.color3f(1f, 1f, 1f);
+        int maxSize = 0;
+        for (SkillPoint point : SpellRegistry.SKILL_POINT_REGISTRY) {
+            if (!point.canRender()) continue;
+            maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName() + " : " + MagicHelper.getSkillPoint(player, point)));
         }
+        blitOffset = -1;
+        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
+        drawSkillPointBackground(posX, posY, maxSize + 10, 210);
+        int pointOffsetX = 5;
+        for (SkillPoint point : SpellRegistry.SKILL_POINT_REGISTRY) {
+            if (!point.canRender()) continue;
+            font.drawString(point.getDisplayName() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
+            pointOffsetX += 10;
+        }
+        GlStateManager.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
         if (currentTree != SpellParts.AFFINITY) {
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
@@ -206,7 +204,6 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
             }
             //Minecraft.getInstance().getTextureManager().bindTexture();
             for (Skill s : skills) {
-                // FIXME @minecraftschurli @ichhabehunger54
                 if (!s.getPoint().canRender() && !data.knows(s))
                     continue;
                 GlStateManager.color4f(1, 1, 1, 1.0F);
@@ -216,13 +213,17 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                 int offsetY = calcYOffset(posY, s);
                 int tick = (player.ticksExisted % 80) >= 40 ? (player.ticksExisted % 40) - 20 : -(player.ticksExisted % 40) + 20;
                 float multiplier = 0.75F + tick / 80F;
-                //TextureAtlasSprite sprite = SpellIconManager.getSprite(s.getID());
+                //TextureAtlasSprite sprite = Minecraft.getInstance().getTextureMap().getSprite(s.getIcon());
                 if (offsetX + renderSize < posX + 7 || offsetX > posX + 203 || offsetY + renderSize < posY + 7 || offsetY > posY + 203 /*|| sprite == null*/) {
                     continue;
                 }
                 Minecraft.getInstance().getTextureManager().bindTexture(s.getIcon());
-                /*float spriteXSize = sprite.getMaxU() - sprite.getMinU();
-                float spriteYSize = sprite.getMaxV() - sprite.getMinV();*/
+                float minU=0.53125f*64;
+                float minV=0.15625f*32;
+                float maxU=0.546875f*64;
+                float maxV=0.1875f*32;
+                float spriteXSize = maxU - minU;
+                float spriteYSize = maxV - minV;
                 float xStartMod = 0;
                 float yStartMod = 0;
                 float xEndMod = 0;
@@ -248,22 +249,21 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
 
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID()))
                     GlStateManager.color3f(0.3f, 0.3f, 0.3f);*/
-                blit((int) (offsetX + xStartMod), (int) (offsetY + yStartMod), 0, 0, 0, (int) renderSize, (int) renderSize, (int) renderSize, (int) renderSize);
-                //blit((int)(offsetX + xStartMod), (int)(offsetY + yStartMod), 0, 0, (int)(renderSize - xStartMod - xEndMod), (int)(renderSize - yStartMod - yEndMod));
-                /*RenderUtils.drawBox(offsetX + xStartMod,
+                //blit((int) (offsetX + xStartMod), (int) (offsetY + yStartMod), 0, 0, 0, (int) renderSize, (int) renderSize, (int) renderSize, (int) renderSize);
+                RenderUtils.drawBox(offsetX + xStartMod,
                         offsetY + yStartMod,
                         renderSize - xStartMod - xEndMod,
                         renderSize - yStartMod - yEndMod,
                         0,
-                        sprite.getMinU() + (xStartMod / renderSize * spriteXSize),
-                        sprite.getMinV() + (yStartMod / renderSize * spriteYSize),
-                        sprite.getMaxU() - (xEndMod / renderSize * spriteXSize),
-                        sprite.getMaxV() - (yEndMod / renderSize * spriteYSize));
-                GlStateManager.color4f(1, 1, 1, 1.0F);*/
+                        minU + (xStartMod / renderSize * spriteXSize),
+                        minV + (yStartMod / renderSize * spriteYSize),
+                        maxU - (xEndMod / renderSize * spriteXSize),
+                        maxV - (yEndMod / renderSize * spriteYSize));
+                GlStateManager.color4f(1, 1, 1, 1.0F);
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID())){
                     sprite = AMGuiIcons.padlock;
-                    spriteXSize = sprite.getMaxU() - sprite.getMinU();
-                    spriteYSize = sprite.getMaxV() - sprite.getMinV();
+                    spriteXSize = maxU - minU;
+                    spriteYSize = maxV - minV;
                     xStartMod = 0;
                     yStartMod = 0;
                     xEndMod = 0;
@@ -290,10 +290,10 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                             16 - xStartMod - xEndMod,
                             16 - yStartMod - yEndMod,
                             0,
-                            sprite.getMinU() + (xStartMod / 16 * spriteXSize),
-                            sprite.getMinV() + (yStartMod / 16 * spriteYSize),
-                            sprite.getMaxU() - (xEndMod / 16 * spriteXSize),
-                            sprite.getMaxV() - (yEndMod / 16 * spriteYSize));
+                            minU + (xStartMod / 16 * spriteXSize),
+                            minV + (yStartMod / 16 * spriteYSize),
+                            maxU - (xEndMod / 16 * spriteXSize),
+                            maxV - (yEndMod / 16 * spriteYSize));
                     GlStateManager.color4f(1, 1, 1, 1.0F);
                 }*/
 
@@ -330,8 +330,9 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                     RenderHelper.disableStandardItemLighting();
                     GlStateManager.color3f(1.0F, 1.0F, 1.0F);
                 }
-                if (!flag)
+                if (!flag) {
                     hoverItem = null;
+                }
             }
 
         } else {
@@ -437,16 +438,10 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         int h = height - 8;
         while (w > 0) {
             int x = 0;
-            if (w > 252)
-                x = 252;
-            else
-                x = w;
+            x = Math.min(w, 252);
             while (h > 0) {
                 int y = 0;
-                if (h > 248)
-                    y = 248;
-                else
-                    y = h;
+                y = Math.min(h, 248);
                 blit(startX + posX + w - x, startY + posY + 4 + h - y, 4, 4, x, y);
                 h -= y;
             }
@@ -456,10 +451,7 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
         h = height - 8;
         while (w > 0) {
             int x = 0;
-            if (w > 252)
-                x = 252;
-            else
-                x = w;
+            x = Math.min(w, 252);
             blit(startX + posX + w - x, startY + posY, 4, 0, x, 4);
             blit(startX + posX + w - x, startY + posY + height - 4, 4, 252, x, 4);
             w -= x;
