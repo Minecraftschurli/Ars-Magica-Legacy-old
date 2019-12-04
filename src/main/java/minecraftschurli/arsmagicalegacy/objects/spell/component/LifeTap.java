@@ -3,9 +3,10 @@ package minecraftschurli.arsmagicalegacy.spell.component;
 import com.google.common.collect.*;
 import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.blocks.*;
+import minecraftschurli.arsmagicalegacy.api.extensions.*;
 import minecraftschurli.arsmagicalegacy.api.rituals.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.buffs.*;
+import minecraftschurli.arsmagicalegacy.extensions.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.particles.*;
 import minecraftschurli.arsmagicalegacy.utils.*;
@@ -20,9 +21,9 @@ import net.minecraft.world.*;
 
 import java.util.*;
 
-public class AstralDistortion extends SpellComponent {
+public class LifeTap extends SpellComponent {
     @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction facing, double impactX, double impactY, double impactZ, LivingEntity caster) {
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (world.getBlockState(pos).getBlock().equals(Blocks.MOB_SPAWNER)) {
             boolean hasMatch = RitualShapeHelper.instance.matchesRitual(this, world, pos);
             if (hasMatch) {
@@ -44,24 +45,28 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity) {
-            int duration = (int) SpellUtils.getModifiedIntMul(PotionEffectsDefs.default_buff_duration, stack, caster, target, world, SpellModifiers.DURATION);
-            //duration = SpellUtils.modifyDurationBasedOnArmor(caster, duration);
-            if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new BuffEffectAstralDistortion(duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-            return true;
+        if (!(target instanceof LivingEntity)) return false;
+        if (!world.isRemote) {
+            double damage = SpellUtils.getModifiedDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE);
+            IEntityExtension casterProperties = EntityExtension.For(caster);
+            float manaRefunded = (float) (((damage * 0.01)) * casterProperties.getMaxMana());
+            if ((caster).attackEntityFrom(DamageSource.outOfWorld, (int) Math.floor(damage))) {
+                casterProperties.setCurrentMana(casterProperties.getCurrentMana() + manaRefunded);
+            } else {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
+        return EnumSet.of(SpellModifiers.DAMAGE);
     }
 
     @Override
     public float getManaCost(LivingEntity caster) {
-        return 80;
+        return 0;
     }
 
     @Override
@@ -71,13 +76,17 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 10; ++i) {
-            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "pulse", x, y, z);
+        for (int i = 0; i < 25; ++i) {
+            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
             if (particle != null) {
-                particle.addRandomOffset(5, 4, 5);
-                particle.AddParticleController(new ParticleFloatUpward(particle, 0.2f, 0, 1, false));
-                particle.setMaxAge(25 + rand.nextInt(10));
-                particle.setRGBColorF(0.7f, 0.2f, 0.9f);
+                particle.addRandomOffset(2, 2, 2);
+                particle.setMaxAge(15);
+                particle.setParticleScale(0.1f);
+                particle.AddParticleController(new ParticleApproachEntity(particle, target, 0.1, 0.1, 1, false));
+                if (rand.nextBoolean())
+                    particle.setRGBColorF(0.4f, 0.1f, 0.5f);
+                else
+                    particle.setRGBColorF(0.1f, 0.5f, 0.1f);
                 if (colorModifier > -1) {
                     particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
                 }
@@ -87,20 +96,20 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ENDER);
+        return Sets.newHashSet(Affinity.LIFE, Affinity.ENDER);
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.PURPLE_RUNE.get()),
-                Items.ENDER_EYE
+                new ItemStack(ModItems.BLACK_RUNE.get()),
+                ModBlocks.aum
         };
     }
 
     @Override
     public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
+        return 0.01f;
     }
 
     @Override
@@ -110,17 +119,9 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public ItemStack[] getReagents() {
-        int enderMeta = 0;
-        for (Affinity aff : ArsMagicaAPI.getAffinityRegistry().getValues()) {
-            if (aff.equals(Affinity.NONE))
-                continue;
-            if (aff.equals(Affinity.ENDER))
-                break;
-            enderMeta++;
-        }
         return new ItemStack[]{
                 new ItemStack(ModItems.mobFocus),
-                new ItemStack(ModItems.essence, 1, enderMeta)
+                new ItemStack(ModItems.ENDER_ESSENCE.get())
         };
     }
 

@@ -3,15 +3,17 @@ package minecraftschurli.arsmagicalegacy.spell.component;
 import com.google.common.collect.*;
 import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.blocks.*;
+import minecraftschurli.arsmagicalegacy.api.power.*;
 import minecraftschurli.arsmagicalegacy.api.rituals.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.buffs.*;
+import minecraftschurli.arsmagicalegacy.entity.*;
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.items.*;
 import minecraftschurli.arsmagicalegacy.particles.*;
+import minecraftschurli.arsmagicalegacy.power.*;
 import minecraftschurli.arsmagicalegacy.utils.*;
+import net.minecraft.block.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.*;
-import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -20,20 +22,17 @@ import net.minecraft.world.*;
 
 import java.util.*;
 
-public class AstralDistortion extends SpellComponent {
+public class FireDamage extends SpellComponent {
     @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction facing, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (world.getBlockState(pos).getBlock().equals(Blocks.MOB_SPAWNER)) {
-            boolean hasMatch = RitualShapeHelper.instance.matchesRitual(this, world, pos);
-            if (hasMatch) {
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        Block block = world.getBlockState(pos).getBlock();
+        if (block == ModBlocks.obelisk) {
+            if (RitualShapeHelper.instance.matchesRitual(this, world, pos)) {
                 if (!world.isRemote) {
-                    world.setBlockToAir(pos);
                     RitualShapeHelper.instance.consumeReagents(this, world, pos);
                     RitualShapeHelper.instance.consumeShape(this, world, pos);
-                    ItemEntity item = new ItemEntity(world);
-                    item.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-                    item.setItemEntityStack(new ItemStack(ModBlocks.inertSpawner));
-                    world.addEntity(item);
+                    world.setBlockState(pos, ModBlocks.blackAurem.getDefaultState());
+                    PowerNodeRegistry.For(world).registerPowerNode((IPowerNode<?>) world.getTileEntity(pos));
                 } else {
                 }
                 return true;
@@ -44,24 +43,29 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity) {
-            int duration = (int) SpellUtils.getModifiedIntMul(PotionEffectsDefs.default_buff_duration, stack, caster, target, world, SpellModifiers.DURATION);
-            //duration = SpellUtils.modifyDurationBasedOnArmor(caster, duration);
-            if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new BuffEffectAstralDistortion(duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+        if (!(target instanceof LivingEntity)) return false;
+        float baseDamage = 6;
+        double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
+        if (isNetherMob(target))
             return true;
-        }
-        return false;
+        return SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeFireDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
+    }
+
+    private boolean isNetherMob(Entity target) {
+        return target instanceof EntityPigZombie ||
+                target instanceof EntityDarkling ||
+                target instanceof EntityFireElemental ||
+                target instanceof EntityGhast;
     }
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
+        return EnumSet.of(SpellModifiers.DAMAGE);
     }
 
     @Override
     public float getManaCost(LivingEntity caster) {
-        return 80;
+        return 120;
     }
 
     @Override
@@ -71,13 +75,15 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 10; ++i) {
-            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "pulse", x, y, z);
+        for (int i = 0; i < 5; ++i) {
+            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "explosion_2", x, y, z);
             if (particle != null) {
-                particle.addRandomOffset(5, 4, 5);
-                particle.AddParticleController(new ParticleFloatUpward(particle, 0.2f, 0, 1, false));
-                particle.setMaxAge(25 + rand.nextInt(10));
-                particle.setRGBColorF(0.7f, 0.2f, 0.9f);
+                particle.addRandomOffset(1, 0.5, 1);
+                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
+                particle.setAffectedByGravity();
+                particle.setDontRequireControllers();
+                particle.setMaxAge(5);
+                particle.setParticleScale(0.1f);
                 if (colorModifier > -1) {
                     particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
                 }
@@ -87,20 +93,21 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ENDER);
+        return Sets.newHashSet(Affinity.FIRE);
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.PURPLE_RUNE.get()),
-                Items.ENDER_EYE
+                new ItemStack(ModItems.RED_RUNE.get()),
+                Items.FLINT_AND_STEEL,
+                new ItemStack(ModItems.itemOre, 1, ItemOre.META_VINTEUM),
         };
     }
 
     @Override
     public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
+        return 0.01f;
     }
 
     @Override
@@ -110,17 +117,9 @@ public class AstralDistortion extends SpellComponent {
 
     @Override
     public ItemStack[] getReagents() {
-        int enderMeta = 0;
-        for (Affinity aff : ArsMagicaAPI.getAffinityRegistry().getValues()) {
-            if (aff.equals(Affinity.NONE))
-                continue;
-            if (aff.equals(Affinity.ENDER))
-                break;
-            enderMeta++;
-        }
         return new ItemStack[]{
                 new ItemStack(ModItems.mobFocus),
-                new ItemStack(ModItems.essence, 1, enderMeta)
+                new ItemStack(ModItems.itemOre, 1, ItemOre.META_SUNSTONE)
         };
     }
 
@@ -136,6 +135,6 @@ public class AstralDistortion extends SpellComponent {
     @Override
     @SideOnly(Side.CLIENT)
     public ItemStack getResult() {
-        return new ItemStack(ModBlocks.inertSpawner);
+        return new ItemStack(ModBlocks.blackAurem);
     }
 }

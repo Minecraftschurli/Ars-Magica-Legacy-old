@@ -8,6 +8,7 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.items.*;
 import minecraftschurli.arsmagicalegacy.utils.*;
 import net.minecraft.entity.*;
+import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -16,54 +17,58 @@ import net.minecraft.world.*;
 
 import java.util.*;
 
-public class FallingStar extends SpellComponent {
+public class FireRain extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.ARCANE_ESSENCE.get()),
+                new ItemStack(ModItems.FIRE_ESSENCE.get()),
                 new ItemStack(ModItems.itemOre, 1, ItemOre.META_ARCANEASH),
-                new ItemStack(ModItems.ARCANE_ESSENCE.get()),
-                ModBlocks.manaBattery,
+                Blocks.NETHERRACK,
+                new ItemStack(ModItems.FIRE_ESSENCE.get()),
                 Items.LAVA_BUCKET
         };
     }
 
-    private boolean spawnStar(ItemStack spellStack, LivingEntity caster, Entity target, World world, double x, double y, double z) {
-        List<EntityThrownRock> rocks = world.getEntitiesWithinAABB(EntityThrownRock.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
-        int damageMultitplier = SpellUtils.getModifiedIntMul(15, spellStack, caster, target, world, SpellModifiers.DAMAGE);
-        for (EntityThrownRock rock : rocks) {
-            if (rock.getIsShootingStar())
+    private boolean spawnFireRain(ItemStack stack, World world, LivingEntity caster, Entity target, double x, double y, double z) {
+        List<EntitySpellEffect> zones = world.getEntitiesWithinAABB(EntitySpellEffect.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
+        for (EntitySpellEffect zone : zones) {
+            if (zone.isRainOfFire())
                 return false;
         }
         if (!world.isRemote) {
-            EntityThrownRock star = new EntityThrownRock(world);
-            star.setPosition(x, world.getActualHeight(), z);
-            star.setShootingStar(2 * damageMultitplier);
-            star.setThrowingEntity(caster);
-            star.setSpellStack(spellStack.copy());
-            world.addEntity(star);
+            int radius = SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS) / 2 + 1;
+            double damage = SpellUtils.getModifiedDoubleMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
+            int duration = SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION);
+            EntitySpellEffect fire = new EntitySpellEffect(world);
+            fire.setPosition(x, y, z);
+            fire.setRainOfFire(false);
+            fire.setRadius(radius);
+            fire.setDamageBonus((float) damage);
+            fire.setTicksToExist(duration);
+            fire.SetCasterAndStack(caster, stack);
+            world.addEntity(fire);
         }
         return true;
     }
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.DAMAGE, SpellModifiers.COLOR);
+        return EnumSet.of(SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.COLOR);
     }
 
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return spawnStar(stack, caster, caster, world, impactX, impactY + 50, impactZ);
+        return spawnFireRain(stack, world, caster, caster, impactX, impactY, impactZ);
     }
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return spawnStar(stack, caster, target, world, target.posX, target.posY + 50, target.posZ);
+        return spawnFireRain(stack, world, caster, target, target.posX, target.posY, target.posZ);
     }
 
     @Override
     public float getManaCost(LivingEntity caster) {
-        return 400;
+        return 3000;
     }
 
     @Override
@@ -77,12 +82,12 @@ public class FallingStar extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ARCANE);
+        return Sets.newHashSet(Affinity.FIRE);
     }
 
     @Override
     public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
+        return 0.1f;
     }
 
     @Override

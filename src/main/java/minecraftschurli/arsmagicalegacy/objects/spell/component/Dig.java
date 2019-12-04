@@ -1,9 +1,10 @@
-package minecraftschurli.arsmagicalegacy.objects.spell.component;
+package minecraftschurli.arsmagicalegacy.spell.component;
 
+import com.google.common.collect.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
+import minecraftschurli.arsmagicalegacy.extensions.*;
+import minecraftschurli.arsmagicalegacy.utils.*;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
@@ -17,26 +18,47 @@ import java.util.*;
 
 public class Dig extends SpellComponent {
     @Override
+    public ISpellIngredient[] getRecipe() {
+        return new Object[]{
+                new ItemStack(Items.IRON_SHOVEL),
+                new ItemStack(Items.IRON_AXE),
+                new ItemStack(Items.IRON_PICKAXE)
+        };
+    }
+
+    @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (!(caster instanceof PlayerEntity)) return false;
-        if (world.isRemote) return true;
+        if (!(caster instanceof PlayerEntity))
+            return false;
+        if (world.isRemote)
+            return true;
         if (SpellUtils.modifierIsPresent(SpellModifiers.SILKTOUCH_LEVEL, stack)) {
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) <= 0) stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) <= 0) {
+                stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+            }
         } else if (SpellUtils.modifierIsPresent(SpellModifiers.FORTUNE_LEVEL, stack)) {
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) <= 0) stack.addEnchantment(Enchantments.FORTUNE, SpellUtils.countModifiers(SpellModifiers.FORTUNE_LEVEL, stack));
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) <= 0) {
+                stack.addEnchantment(Enchantments.FORTUNE, SpellUtils.countModifiers(SpellModifiers.FORTUNE_LEVEL, stack));
+            }
         }
         BlockState state = world.getBlockState(blockPos);
         float hardness = state.getBlockHardness(world, blockPos);
         if (hardness != -1 && state.getBlock().getHarvestLevel(state) <= SpellUtils.getModifiedIntAdd(2, stack, caster, null, world, SpellModifiers.MINING_POWER)) {
             state.getBlock().harvestBlock(world, (PlayerEntity) caster, blockPos, state, null, stack);
             world.destroyBlock(blockPos, false);
-//            EntityExtension.For(caster).deductMana(hardness * 1.28f);
+            EntityExtension.For(caster).deductMana(hardness * 1.28f);
         }
         return true;
     }
 
     @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.FORTUNE_LEVEL, SpellModifiers.MINING_POWER);
+    }
+
+    @Override
+    public boolean applyEffectEntity(ItemStack stack, World world,
+                                     LivingEntity caster, Entity target) {
         return false;
     }
 
@@ -46,31 +68,27 @@ public class Dig extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[0];
+    public ItemStack[] reagents(LivingEntity caster) {
+        return null;
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-
+    public void spawnParticles(World world, double x, double y, double z,
+                               LivingEntity caster, Entity target, Random rand,
+                               int colorModifier) {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_AXE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_PICKAXE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SHOVEL))
-        };
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(Affinity.EARTH);
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
+    public float getAffinityShift(Affinity affinity) {
+        return 0.001F;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.FORTUNE_LEVEL, SpellModifiers.MINING_POWER);
+    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
     }
 }

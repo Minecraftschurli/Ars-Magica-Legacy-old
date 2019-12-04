@@ -5,7 +5,9 @@ import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.blocks.*;
 import minecraftschurli.arsmagicalegacy.api.rituals.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.buffs.*;
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.items.*;
 import minecraftschurli.arsmagicalegacy.particles.*;
 import minecraftschurli.arsmagicalegacy.utils.*;
 import net.minecraft.entity.*;
@@ -19,7 +21,28 @@ import net.minecraft.world.*;
 
 import java.util.*;
 
-public class Blind extends SpellComponent {
+public class Fury extends SpellComponent {
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                Items.FISH,
+                new ItemStack(ModItems.itemOre, 1, ItemOre.META_SUNSTONE)
+        };
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
@@ -29,16 +52,22 @@ public class Blind extends SpellComponent {
                 duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
                 RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
             }
-            if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:blindness"), duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            if (!world.isRemote) {
+                ((LivingEntity) target).addPotionEffect(new BuffEffectFury(duration, 0));
+            }
             return true;
         }
         return false;
     }
 
     @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.RADIUS, SpellModifiers.BUFF_POWER);
+    }
+
+    @Override
     public float getManaCost(LivingEntity caster) {
-        return 80;
+        return 261;
     }
 
     @Override
@@ -48,41 +77,26 @@ public class Blind extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; ++i) {
-            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "lens_flare", x, y, z);
+        for (int i = 0; i < 5 * ArsMagica2.config.getGFXLevel(); ++i) {
+            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "pulse", x, y, z);
             if (particle != null) {
-                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.1f, 1, false).SetTargetDistance(rand.nextDouble() + 0.5));
-                particle.setMaxAge(25 + rand.nextInt(10));
-                particle.setRGBColorF(0, 0, 0);
-                if (colorModifier > -1) {
-                    particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
-                }
+                particle.addRandomOffset(1, 1, 1);
+                particle.setRGBColorF(1, 0, 0);
+                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.15f, 1, false).SetTargetDistance(world.rand.nextDouble() + 1f).setIgnoreYCoordinate(true));
+                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.1f, 1, false));
+                particle.setMaxAge(10);
             }
         }
     }
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ENDER);
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStack(ModItems.BLACK_RUNE.get()),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WEAKNESS),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.NIGHT_VISION)
-        };
+        return Sets.newHashSet(Affinity.FIRE, Affinity.LIGHTNING);
     }
 
     @Override
     public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
+        return 0.01f;
     }
 
     @Override
@@ -93,8 +107,8 @@ public class Blind extends SpellComponent {
     @Override
     public ItemStack[] getReagents() {
         return new ItemStack[]{
-                new ItemStack(Items.CARROT),
-                new ItemStack(Items.POISONOUS_POTATO)
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.SWIFTNESS),
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.STRENGTH)
         };
     }
 
@@ -108,9 +122,8 @@ public class Blind extends SpellComponent {
     }
 
     @Override
-    public boolean applyEffectBlock(ItemStack stack, World world,
-                                    BlockPos blockPos, Direction blockFace, double impactX,
-                                    double impactY, double impactZ, LivingEntity caster) {
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace,
+                                    double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
     }
 
