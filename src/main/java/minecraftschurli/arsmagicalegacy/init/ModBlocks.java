@@ -41,7 +41,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> WITCHWOOD_LOG = BLOCKS.register("witchwood_log", () -> new LogBlock(MaterialColor.PURPLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> WITCHWOOD_WOOD = BLOCKS.register("witchwood_wood", () -> new RotatedPillarBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> STRIPPED_WITCHWOOD_LOG = BLOCKS.register("stripped_witchwood_log", () -> new LogBlock(MaterialColor.PURPLE, Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_WITCHWOOD_WOOD = BLOCKS.register("stripped_witchwood_wood", () -> new Block(Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_WITCHWOOD_WOOD = BLOCKS.register("stripped_witchwood_wood", () -> new RotatedPillarBlock(Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> WITCHWOOD_PLANKS = BLOCKS.register("witchwood_planks", () -> new Block(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> WITCHWOOD_LEAVES = BLOCKS.register("witchwood_leaves", () -> new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f)));
     public static final RegistryObject<Block> WITCHWOOD_SLAB = BLOCKS.register("witchwood_slab", () -> new SlabBlock(Block.Properties.create(Material.WOOD)));
@@ -64,7 +64,9 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> GOLD_INLAY = BLOCKS.register("gold_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
     public static final RegistryObject<Block> VINTEUM_TORCH = BLOCKS.register("vinteum_torch", () -> new Torch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> VINTEUM_WALL_TORCH = BLOCKS.register("vinteum_wall_torch", () -> new WallTorch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
+
     public static final RegistryObject<Block> OCCULUS = BLOCKS.register("occulus", BlockOcculus::new);
+    public static final RegistryObject<Block> MANA_BATTERY = BLOCKS.register("mana_battery", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
 
     public static void register() {
     }

@@ -4,6 +4,7 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -18,11 +19,10 @@ public class ManaDrain extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
         double manaStolen = 250;
-//        IEntityExtension mana = EntityExtension.For((LivingEntity) target);
-//        if (manaStolen > mana.getCurrentMana()) manaStolen = mana.getCurrentMana();
-//        mana.setCurrentMana((float) (mana.getCurrentMana() - manaStolen));
-//        IEntityExtension casterProperties = EntityExtension.For(caster);
-//        casterProperties.setCurrentMana((float) (casterProperties.getCurrentMana() + manaStolen));
+        float mana = MagicHelper.getMana((LivingEntity) target);
+        if (manaStolen > mana) manaStolen = mana;
+        MagicHelper.getManaCapability((LivingEntity) target).setMana((float) (mana - manaStolen));
+        MagicHelper.getManaCapability(caster).increase((float)manaStolen);
         return true;
     }
 

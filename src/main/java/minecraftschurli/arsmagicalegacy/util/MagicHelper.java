@@ -1,23 +1,19 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;
-import minecraftschurli.arsmagicalegacy.capabilities.magic.IMagicStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
-import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.capabilities.magic.*;
+import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
+import minecraftschurli.arsmagicalegacy.capabilities.research.*;
 import minecraftschurli.arsmagicalegacy.network.*;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.fml.network.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -143,16 +139,22 @@ public class MagicHelper {
                 .orElseThrow(() -> new IllegalStateException("No Magic Capability present!"));
     }
 
-    public static void learnSkill(PlayerEntity player, String skill) {
-        getResearchCapability(player).learn(SpellRegistry.SKILL_REGISTRY.getValue(new ResourceLocation(skill)));
+    public static void learnSkill(PlayerEntity player, String skillid) {
+        Skill skill = ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(skillid));
+        IResearchStorage research = getResearchCapability(player);
+        if (!research.canLearn(skill) || skill == null || research.get(skill.getPoint().getTier()) <= 0)
+            return;
+        research.learn(skill);
+        research.use(skill.getPoint().getTier());
+        syncResearch((ServerPlayerEntity) player);
     }
 
     public static int getSkillPoint(PlayerEntity player, SkillPoint point) {
-        return getResearchCapability(player).get(point.getName());
+        return getResearchCapability(player).get(point.getTier());
     }
 
-    public static void addSkillPoint(LivingEntity entity, String name) {
-        getResearchCapability(entity).add(name);
+    public static void addSkillPoint(LivingEntity entity, int tier) {
+        getResearchCapability(entity).add(tier);
         if (entity instanceof ServerPlayerEntity)
             syncResearch((ServerPlayerEntity) entity);
     }

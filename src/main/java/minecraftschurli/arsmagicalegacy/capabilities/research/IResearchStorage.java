@@ -1,30 +1,34 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-14
  */
 public interface IResearchStorage {
-    int get(String type);
+    int get(int tier);
 
-    boolean use(String type, int count);
+    boolean use(int tier, int count);
 
-    default void add(String type) {
-        this.add(type, 1);
+    default boolean use(int tier) {
+        return use(tier, 1);
     }
 
-    void add(String type, int count);
+    default void add(int tier) {
+        this.add(tier, 1);
+    }
 
-    void set(String type, int count);
+    void add(int tier, int count);
+
+    void set(int tier, int count);
 
     default void setFrom(IResearchStorage old) {
-        for (SkillPoint type : SkillPoint.TYPES) {
-            this.set(type.getName(), old.get(type.getName()));
+        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+            this.set(type.getTier(), old.get(type.getTier()));
         }
         this.forgetAll();
         old.getLearned().forEach(this::learn);

@@ -1,17 +1,13 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.fluid.LiquidEssenceFluid;
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.objects.fluid.*;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.fluid.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.*;
 
 import java.awt.*;
 
@@ -28,6 +24,10 @@ public final class ModFluids implements IInit {
             .doesNotBlockMovement()
             .hardnessAndResistance(100.0F)
             .noDrops();
+    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE = FLUIDS.register(
+            "liquid_essence",
+            LiquidEssenceFluid.Source::new
+    );
     public static final RegistryObject<FlowingFluidBlock> LIQUID_ESSENCE_BLOCK = BLOCKS.register(
             "liquid_essence_block",
             () -> new FlowingFluidBlock(ModFluids.LIQUID_ESSENCE, FLUID_BLOCK_PROPERTIES)
@@ -35,6 +35,10 @@ public final class ModFluids implements IInit {
     public static final RegistryObject<Item> LIQUID_ESSENCE_BUCKET = ITEMS.register(
             "liquid_essence_bucket",
             () -> new BucketItem(ModFluids.LIQUID_ESSENCE, BUCKET_PROPERTIES)
+    );
+    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE_FLOWING = FLUIDS.register(
+            "liquid_essence_flowing",
+            LiquidEssenceFluid.Flowing::new
     );
     public static final ForgeFlowingFluid.Properties LIQUID_ESSENCE_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluids.LIQUID_ESSENCE,
@@ -48,14 +52,6 @@ public final class ModFluids implements IInit {
     )
             .bucket(ModFluids.LIQUID_ESSENCE_BUCKET)
             .block(LIQUID_ESSENCE_BLOCK);
-    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE = FLUIDS.register(
-            "liquid_essence",
-            LiquidEssenceFluid.Source::new
-    );
-    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE_FLOWING = FLUIDS.register(
-            "liquid_essence_flowing",
-            LiquidEssenceFluid.Flowing::new
-    );
 
     //TODO remove java.awt.Color
     public static void register() {

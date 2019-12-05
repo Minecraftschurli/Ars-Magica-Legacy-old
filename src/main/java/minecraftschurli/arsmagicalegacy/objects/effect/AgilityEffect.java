@@ -1,0 +1,26 @@
+package minecraftschurli.arsmagicalegacy.objects.effect;
+
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.potion.*;
+
+/**
+ * @author Minecraftschurli
+ * @version 2019-12-04
+ */
+public class AgilityEffect extends AMEffect {
+    public AgilityEffect() {
+        super(EffectType.BENEFICIAL, 0xade000);
+        addAttributesModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070633", 1.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    }
+
+    @Override
+    public void performEffect(LivingEntity entityLivingIn, int amplifier) {
+        entityLivingIn.stepHeight = 1.01f;
+    }
+
+    @Override
+    public void stopEffect(LivingEntity livingEntity) {
+        livingEntity.stepHeight = 0.6f;
+    }
+}

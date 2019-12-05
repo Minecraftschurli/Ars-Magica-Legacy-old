@@ -1,16 +1,11 @@
 package minecraftschurli.arsmagicalegacy.capabilities.magic;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.util.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli
@@ -33,7 +28,7 @@ public class CapabilityMagic implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IMagicStorage> capability, IMagicStorage instance, Direction side, INBT nbt) {
-                        instance.setLevel(((CompoundNBT)nbt).getInt("level"));
+                        instance.setLevel(((CompoundNBT) nbt).getInt("level"));
                     }
                 },
                 MagicStorage::new);

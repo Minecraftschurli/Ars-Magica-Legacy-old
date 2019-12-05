@@ -1,30 +1,23 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.google.common.collect.Lists;
-import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import com.google.common.collect.*;
+import javafx.util.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.SpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 public class SpellUtils {
 
@@ -68,7 +61,7 @@ public class SpellUtils {
     }
 
     public static float modifyDamage(LivingEntity caster, float damage) {
-        float factor = (float)(MagicHelper.getCurrentLevel(caster) < 20 ?
+        float factor = (float) (MagicHelper.getCurrentLevel(caster) < 20 ?
                 0.5 + (0.5 * (MagicHelper.getCurrentLevel(caster) / 19)) :
                 1.0 + (1.0 * (MagicHelper.getCurrentLevel(caster) - 20) / 79));
         return damage * factor;
@@ -648,7 +641,7 @@ public class SpellUtils {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
-                    mods.add(SpellRegistry.SPELL_PART_REGISTRY.getValue(new ResourceLocation(tag.getString(ID))));
+                    mods.add(ArsMagicaLegacyAPI.SPELL_PART_REGISTRY.getValue(new ResourceLocation(tag.getString(ID))));
                 }
             }
             return mods;

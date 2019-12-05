@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -24,10 +25,10 @@ public class ManaBlast extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-//        float consumed = EntityExtension.For(caster).getCurrentMana();
-//        EntityExtension.For(caster).deductMana(consumed);
-//        double damage = SpellUtils.getModifiedDoubleMul((consumed / 50F), stack, caster, target, world, SpellModifiers.DAMAGE);
-//        SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeMagicDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
+        float consumed = MagicHelper.getMana(caster);
+        MagicHelper.getManaCapability(caster).setMana(0);
+        double damage = SpellUtils.getModifiedDoubleMul((consumed / 50F), stack, caster, target, world, SpellModifiers.DAMAGE);
+        SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, caster), SpellUtils.modifyDamage(caster, (float) damage));
         return true;
     }
 

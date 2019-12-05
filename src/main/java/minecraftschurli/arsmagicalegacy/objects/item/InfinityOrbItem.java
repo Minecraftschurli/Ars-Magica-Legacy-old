@@ -1,20 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.spell.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 /**
  * @author IchHabeHunger54
@@ -29,16 +26,16 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putString(TYPE_KEY, SkillPoint.SILVER_POINT.getName());
+        stack.getOrCreateTag().putInt(TYPE_KEY, SpellParts.SILVER_POINT.getTier());
     }
 
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
-            for (SkillPoint type : SkillPoint.TYPES) {
-                if (type == SkillPoint.SILVER_POINT) continue;
+            for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+                if (!type.canRender()) continue;
                 ItemStack stack = new ItemStack(this);
-                stack.getOrCreateTag().putString(TYPE_KEY, type.getName());
+                stack.getOrCreateTag().putInt(TYPE_KEY, type.getTier());
                 items.add(stack);
             }
         }
@@ -57,14 +54,14 @@ public class InfinityOrbItem extends Item {
     }*/
 
     private ActionResult<ItemStack> useOrb(LivingEntity entity, ItemStack heldItem) {
-        MagicHelper.addSkillPoint(entity, heldItem.getTag().getString(TYPE_KEY));
+        MagicHelper.addSkillPoint(entity, heldItem.getTag().getInt(TYPE_KEY));
         heldItem.shrink(1);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
-        return super.getTranslationKey(stack)+"."+stack.getTag().getString(TYPE_KEY).toLowerCase();
+    public ITextComponent getDisplayName(ItemStack stack) {
+        return new TranslationTextComponent(this.getTranslationKey(stack), SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY)).getDisplayName());
     }
 
     /*@Override

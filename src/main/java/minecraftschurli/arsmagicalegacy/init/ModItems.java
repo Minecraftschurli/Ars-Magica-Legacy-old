@@ -1,18 +1,13 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.TallBlockItem;
-import net.minecraft.item.WallOrFloorItem;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.block.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -65,6 +60,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> IRON_INLAY = blockItem(ModBlocks.IRON_INLAY);
     public static final RegistryObject<Item> GOLD_INLAY = blockItem(ModBlocks.GOLD_INLAY);
     public static final RegistryObject<Item> VINTEUM_TORCH = ITEMS.register("vinteum_torch", () -> new WallOrFloorItem(ModBlocks.VINTEUM_TORCH.get(), ModBlocks.VINTEUM_WALL_TORCH.get(), ITEM_64));
+    public static final RegistryObject<Item> OCCULUS = blockItem(ModBlocks.OCCULUS);
+    public static final RegistryObject<Item> MANA_BATTERY = blockItem(ModBlocks.MANA_BATTERY);
     public static final RegistryObject<Item> RUNE = stackableItem64("rune");
     public static final RegistryObject<Item> WHITE_RUNE = stackableItem64("white_rune");
     public static final RegistryObject<Item> ORANGE_RUNE = stackableItem64("orange_rune");
