@@ -1,10 +1,8 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.particles.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
@@ -28,51 +26,44 @@ public class Accelerate extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
-        return null;
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return new ItemStack[0];
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle", x, y, z);
-        if (particle != null) {
-            particle.AddParticleController(new ParticleOrbitEntity(particle, caster, 0.1f, 1, false).SetTargetDistance(rand.nextDouble() + 0.5));
-            particle.setMaxAge(25 + rand.nextInt(10));
-            if (colorModifier > -1) {
-                particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
-            }
-        }
+//        AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle", x, y, z);
+//        if (particle != null) {
+//            particle.AddParticleController(new ParticleOrbitEntity(particle, caster, 0.1f, 1, false).SetTargetDistance(rand.nextDouble() + 0.5));
+//            particle.setMaxAge(25 + rand.nextInt(10));
+//            if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
+//        }
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.YELLOW_RUNE.get()),
-                Items.LEATHER_BOOTS,
-                Items.REDSTONE
+                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
+                new ItemStackSpellIngredient(new ItemStack(Items.REDSTONE))
         };
     }
 
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        if (affinity.equals(Affinity.AIR)) return 1F;
+//        return 0;
+//    }
+//
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        if (affinity.equals(Affinity.AIR))
-            return 1F;
-        return 0;
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world,
-                                    BlockPos blockPos, Direction blockFace, double impactX,
-                                    double impactY, double impactZ, LivingEntity caster) {
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (world.rand.nextDouble() < 0.5) {
             Block block = world.getBlockState(blockPos).getBlock();
-            if (block != Blocks.AIR) {
-                block.updateTick(world, blockPos, world.getBlockState(blockPos), world.rand);
-            }
+            if (block != Blocks.AIR) block.animateTick(world.getBlockState(blockPos), world, blockPos, world.rand);
         }
         return true;
     }
@@ -81,9 +72,9 @@ public class Accelerate extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.noneOf(SpellModifiers.class);
     }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.AIR);
-    }
+//
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.AIR);
+//    }
 }
