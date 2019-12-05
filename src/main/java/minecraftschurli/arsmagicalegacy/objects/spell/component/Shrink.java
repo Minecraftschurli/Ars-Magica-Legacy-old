@@ -1,15 +1,10 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
-import minecraftschurli.arsmagicalegacy.api.blocks.*;
-import minecraftschurli.arsmagicalegacy.api.rituals.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.buffs.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
-import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -22,12 +17,12 @@ public class Shrink extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                Blocks.BROWN_MUSHROOM,
-                Blocks.STONE_BUTTON,
-                Items.BONE,
-                Items.GOLD_NUGGET,
-                Items.SPIDER_EYE,
-                ModItems.manaCake
+//                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_CAKE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.BONE)),
+                new ItemStackSpellIngredient(new ItemStack(Items.BROWN_MUSHROOM)),
+                new ItemStackSpellIngredient(new ItemStack(Items.GOLD_NUGGET)),
+                new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE)),
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_BUTTON))
         };
     }
 
@@ -39,14 +34,12 @@ public class Shrink extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity && target.isNonBoss()) {
-            int duration = SpellUtils.getModifiedIntMul(PotionEffectsDefs.default_buff_duration, stack, caster, target, world, SpellModifiers.DURATION);
-            //duration = SpellUtils.modifyDurationBasedOnArmor(caster, duration);
-            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
-                duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
-                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
-            }
-            if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new BuffEffectShrink(duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            int duration = SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
+//            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
+//                duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
+//                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
+//            }
+//            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new ShrinkEffect(duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;
@@ -63,48 +56,37 @@ public class Shrink extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.NONE);
+//    }
+//
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.05f;
+//    }
+//
+//    @Override
+//    public MultiblockStructureDefinition getRitualShape() {
+//        return RitualShapeHelper.instance.hourglass;
+//    }
+//
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.NONE);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
-    }
-
-    @Override
-    public MultiblockStructureDefinition getRitualShape() {
-        return RitualShapeHelper.instance.hourglass;
-    }
-
-    @Override
-    public ItemStack[] getReagents() {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
                 new ItemStack(Items.BLAZE_ROD)
         };
     }
 
+//    @Override
+//    public int getReagentSearchRadius() {
+//        return 3;
+//    }
+//
     @Override
-    public int getReagentSearchRadius() {
-        return 3;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ItemStack getResult() {
-        return null;
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }
