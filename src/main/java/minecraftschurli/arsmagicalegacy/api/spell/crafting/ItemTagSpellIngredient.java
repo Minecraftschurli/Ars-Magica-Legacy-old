@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.item.Item;
-import net.minecraft.tags.Tag;
+import net.minecraft.item.*;
+import net.minecraft.tags.*;
 
 /**
  * @author Minecraftschurli
@@ -14,5 +14,8 @@ public class ItemTagSpellIngredient implements ISpellIngredient {
     public ItemTagSpellIngredient(Tag<Item> tag, int amount) {
         this.tag = tag;
         this.amount = amount;
+    }
+    public ItemTagSpellIngredient(Tag<Item> tag) {
+        this(tag, 1);
     }
 }

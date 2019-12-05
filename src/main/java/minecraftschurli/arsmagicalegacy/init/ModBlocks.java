@@ -1,14 +1,13 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
-import minecraftschurli.arsmagicalegacy.objects.block.occulus.BlockOcculus;
-import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.*;
+import minecraftschurli.arsmagicalegacy.objects.tree.*;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.potion.Effects;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.block.material.*;
+import net.minecraft.potion.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli
@@ -55,11 +54,11 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> WITCHWOOD_PRESSURE_PLATE = BLOCKS.register("witchwood_pressure_plate", () -> new PressurePlate(Block.Properties.from(ModBlocks.WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<Block> WITCHWOOD_SAPLING = BLOCKS.register("witchwood_sapling", () -> new Sapling(new WitchwoodTree(), Block.Properties.create(Material.PLANTS)));
 
-    public static final RegistryObject<Block> AUM = BLOCKS.register("aum", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
-    public static final RegistryObject<Block> CERUBLOSSOM = BLOCKS.register("cerublossom", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
-    public static final RegistryObject<Block> DESERT_NOVA = BLOCKS.register("desert_nova", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
-    public static final RegistryObject<Block> TARMA_ROOT = BLOCKS.register("tarma_root", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
-    public static final RegistryObject<Block> WAKEBLOOM = BLOCKS.register("wakebloom", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
+    public static final RegistryObject<FlowerBlock> AUM = BLOCKS.register("aum", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
+    public static final RegistryObject<FlowerBlock> CERUBLOSSOM = BLOCKS.register("cerublossom", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
+    public static final RegistryObject<FlowerBlock> DESERT_NOVA = BLOCKS.register("desert_nova", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
+    public static final RegistryObject<FlowerBlock> TARMA_ROOT = BLOCKS.register("tarma_root", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
+    public static final RegistryObject<FlowerBlock> WAKEBLOOM = BLOCKS.register("wakebloom", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
     public static final RegistryObject<Block> REDSTONE_INLAY = BLOCKS.register("redstone_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
     public static final RegistryObject<Block> IRON_INLAY = BLOCKS.register("iron_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
     public static final RegistryObject<Block> GOLD_INLAY = BLOCKS.register("gold_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));

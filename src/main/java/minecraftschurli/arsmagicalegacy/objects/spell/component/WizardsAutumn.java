@@ -1,17 +1,18 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -19,16 +20,15 @@ public class WizardsAutumn extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                Blocks.SAPLING,
-                new ItemStack(ModItems.GREEN_RUNE.get()),
-                Items.STICK,
-                Items.IRON_INGOT
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.STICK)),
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON)
         };
     }
 
     @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace,
-                                    double impactX, double impactY, double impactZ, LivingEntity caster) {
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (!world.isRemote) {
             int radius = 2;
             radius = SpellUtils.getModifiedIntMul(radius, stack, caster, null, world, SpellModifiers.RADIUS);
@@ -38,10 +38,10 @@ public class WizardsAutumn extends SpellComponent {
                         BlockPos pos = blockPos.add(i, j, k);
                         BlockState state = world.getBlockState(pos);
                         Block block = state.getBlock();
-                        if (block != null && block.isLeaves(state, world, pos)) {
-                            if (block.removedByPlayer(state, world, pos, DummyPlayerEntity.fromEntityLiving(caster), true)) {
-                                block.onBlockDestroyedByPlayer(world, pos, state);
-                                block.harvestBlock(world, DummyPlayerEntity.fromEntityLiving(caster), pos, state, null, stack);
+                        if (block instanceof LeavesBlock) {
+                            if (block.removedByPlayer(state, world, pos, (PlayerEntity) caster, true, null)) {
+                                block.onPlayerDestroy(world, pos, state);
+                                block.harvestBlock(world, (PlayerEntity) caster, pos, state, null, stack);
                                 //TODO : play sound
                             }
                         }
@@ -63,7 +63,7 @@ public class WizardsAutumn extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 
@@ -71,18 +71,18 @@ public class WizardsAutumn extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
+    //    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.NATURE);
+//    }
+//
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.01f;
+//    }
+//
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.NATURE);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 
     @Override
