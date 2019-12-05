@@ -1,10 +1,9 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
@@ -12,51 +11,43 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.util.*;
 
 import java.util.*;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecated")
 public class PlaceBlock extends SpellComponent {
     private static final String KEY_BLOCKID = "PlaceBlockID";
-    private static final String KEY_META = "PlaceMeta";
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                Items.STONE_AXE,
-                Items.STONE_PICKAXE,
-                Items.STONE_SHOVEL,
-                Blocks.CHEST
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_AXE)),
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_PICKAXE)),
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_SHOVEL)),
+                new ItemStackSpellIngredient(new ItemStack(Items.CHEST))
         };
     }
 
     private BlockState getPlaceBlock(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey(KEY_BLOCKID)) {
-            return Block.getBlockById(stack.getTagCompound().getInteger(KEY_BLOCKID)).getStateFromMeta(stack.getTagCompound().getInteger(KEY_META));
-        }
+        if (stack.hasTag() && stack.getTag().get(KEY_BLOCKID) != null) return Block.getStateById(stack.getTag().getInt(KEY_BLOCKID));
         return null;
     }
 
     private void setPlaceBlock(ItemStack stack, BlockState state) {
-        if (!stack.hasTagCompound())
-            stack.setTagCompound(new CompoundNBT());
-        stack.getTagCompound().setInteger(KEY_BLOCKID, Block.getIdFromBlock(state.getBlock()));
-        stack.getTagCompound().setInteger(KEY_META, state.getBlock().getMetaFromState(state));
-        //set lore entry so that the stack displays the name of the block to place
-        if (!stack.getTagCompound().hasKey("Lore"))
-            stack.getTagCompound().setTag("Lore", new NBTTagList());
-        ItemStack blockStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-        NBTTagList tagList = stack.getTagCompound().getTagList("Lore", Constants.NBT.TAG_COMPOUND);
-        for (int i = 0; i < tagList.tagCount(); ++i) {
-            String str = tagList.getStringTagAt(i);
-            if (str.startsWith(String.format(I18n.translateToLocal("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell"), ""))) {
-                tagList.removeTag(i);
-            }
+        if (!stack.hasTag()) stack.setTag(new CompoundNBT());
+        stack.getTag().putInt(KEY_BLOCKID, Block.getStateId(state));
+        if (stack.getTag().get("Lore") == null) stack.getTag().put("Lore", new ListNBT());
+        ItemStack blockStack = new ItemStack(state.getBlock());
+        ListNBT tagList = stack.getTag().getList("Lore", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.size(); ++i) {
+            String str = tagList.getString(i);
+            if (str.startsWith(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString())) tagList.remove(i);
         }
-        tagList.appendTag(new NBTTagString(String.format(I18n.translateToLocal("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell"), blockStack.getDisplayName())));
-        stack.getTagCompound().setTag("Lore", tagList);
+        tagList.add(new StringNBT(String.format(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString(), blockStack.getDisplayName().toString())));
+        stack.getTag().put("Lore", tagList);
     }
 
     @Override
@@ -66,32 +57,24 @@ public class PlaceBlock extends SpellComponent {
 
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (!(caster instanceof PlayerEntity))
-            return false;
+        if (!(caster instanceof PlayerEntity)) return false;
         PlayerEntity player = (PlayerEntity) caster;
         ItemStack spellStack = player.getActiveItemStack();
-        if (spellStack == null || spellStack.getItem() != ModItems.spell || !SpellUtils.componentIsPresent(spellStack, PlaceBlock.class))
-            return false;
+        if (spellStack.getItem() != ModItems.SPELL.get() || !SpellUtils.componentIsPresent(spellStack, PlaceBlock.class)) return false;
         BlockState bd = getPlaceBlock(spellStack);
         if (bd != null && !caster.isSneaking()) {
-            if (world.isAirBlock(pos) || !world.getBlockState(pos).isSideSolid(world, pos, blockFace))
-                blockFace = null;
-            if (blockFace != null) {
-                pos = pos.add(blockFace.getDirectionVec());
-            }
+            if (world.isAirBlock(pos) || !world.getBlockState(pos).isSolid()) blockFace = null;
+            if (blockFace != null) pos = pos.add(blockFace.getDirectionVec());
             if (world.isAirBlock(pos) || !world.getBlockState(pos).getMaterial().isSolid()) {
-                ItemStack searchStack = new ItemStack(bd.getBlock(), 1, bd.getBlock().getMetaFromState(bd));
-                if (!world.isRemote && (player.capabilities.isCreativeMode || InventoryUtilities.inventoryHasItem(player.inventory, searchStack, 1))) {
+                ItemStack searchStack = new ItemStack(bd.getBlock());
+                if (!world.isRemote && (player.isCreative() || player.inventory.hasItemStack(searchStack))) {
                     world.setBlockState(pos, bd);
-                    if (!player.capabilities.isCreativeMode)
-                        InventoryUtilities.deductFromInventory(player.inventory, searchStack, 1);
+                    if (!player.isCreative()) player.inventory.deleteStack(searchStack);
                 }
                 return true;
             }
         } else if (caster.isSneaking()) {
-            if (!world.isRemote && !world.isAirBlock(pos)) {
-                setPlaceBlock(spellStack, world.getBlockState(pos));
-            }
+            if (!world.isRemote && !world.isAirBlock(pos)) setPlaceBlock(spellStack, world.getBlockState(pos));
             return true;
         }
         return false;
@@ -108,7 +91,7 @@ public class PlaceBlock extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 
@@ -116,17 +99,17 @@ public class PlaceBlock extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.EARTH, Affinity.ENDER);
+//    }
+//
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.05f;
+//    }
+//
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.EARTH, Affinity.ENDER);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }
