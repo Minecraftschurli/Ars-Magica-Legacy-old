@@ -1,13 +1,9 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.enchantments.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.particles.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
-import net.minecraft.enchantment.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
@@ -32,14 +28,12 @@ public class MagicDamage extends SpellComponent {
         float mod = 0.0f;
         if (target instanceof PlayerEntity) {
             for (ItemStack item : ((PlayerEntity) target).inventory.armorInventory) {
-                if (item == null)
-                    continue;
-                if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item) > 0)
-                    mod = mod + (0.04f * EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item));
+                if (item == null) continue;
+//                if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item) > 0) mod = mod + (0.04f * EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item));
             }
         }
         damage = damage - (damage * mod);
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeMagicDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
+        return false;//SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeMagicDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
     }
 
     @Override
@@ -50,18 +44,16 @@ public class MagicDamage extends SpellComponent {
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         for (int i = 0; i < 5; ++i) {
-            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "arcane", x, y, z);
-            if (particle != null) {
-                particle.addRandomOffset(1, 0.5, 1);
-                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
-                particle.setAffectedByGravity();
-                particle.setDontRequireControllers();
-                particle.setMaxAge(5);
-                particle.setParticleScale(0.1f);
-                if (colorModifier > -1) {
-                    particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
-                }
-            }
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x, y, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 0.5, 1);
+//                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
+//                particle.setAffectedByGravity();
+//                particle.setDontRequireControllers();
+//                particle.setMaxAge(5);
+//                particle.setParticleScale(0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
+//            }
         }
     }
 
@@ -70,34 +62,33 @@ public class MagicDamage extends SpellComponent {
         return EnumSet.of(SpellModifiers.DAMAGE);
     }
 
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ARCANE, Affinity.ENDER);
-    }
-
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.ARCANE, Affinity.ENDER);
+//    }
+//
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.PURPLE_RUNE.get()),
-                new ItemStack(Items.DYE, 1, 4),
-                Items.BOOK,
-                Items.STONE_SWORD
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.BOOK)),
+                new ItemStackSpellIngredient(new ItemStack(Items.LAPIS_LAZULI)),
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_SWORD))
         };
     }
 
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        if (affinity == Affinity.ENDER) return 0.005f;
+//        return 0.01f;
+//    }
+//
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        if (affinity == Affinity.ENDER)
-            return 0.005f;
-        return 0.01f;
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
-    }
-
-    @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 }
