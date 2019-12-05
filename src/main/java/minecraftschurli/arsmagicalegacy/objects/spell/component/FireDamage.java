@@ -1,19 +1,12 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
-import minecraftschurli.arsmagicalegacy.api.blocks.*;
-import minecraftschurli.arsmagicalegacy.api.power.*;
-import minecraftschurli.arsmagicalegacy.api.rituals.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.entity.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.items.*;
-import minecraftschurli.arsmagicalegacy.particles.*;
-import minecraftschurli.arsmagicalegacy.power.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.monster.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -26,18 +19,17 @@ public class FireDamage extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         Block block = world.getBlockState(pos).getBlock();
-        if (block == ModBlocks.obelisk) {
-            if (RitualShapeHelper.instance.matchesRitual(this, world, pos)) {
-                if (!world.isRemote) {
-                    RitualShapeHelper.instance.consumeReagents(this, world, pos);
-                    RitualShapeHelper.instance.consumeShape(this, world, pos);
-                    world.setBlockState(pos, ModBlocks.blackAurem.getDefaultState());
-                    PowerNodeRegistry.For(world).registerPowerNode((IPowerNode<?>) world.getTileEntity(pos));
-                } else {
-                }
-                return true;
-            }
-        }
+//        if (block == ModBlocks.obelisk) {
+//            if (RitualShapeHelper.instance.matchesRitual(this, world, pos)) {
+//                if (!world.isRemote) {
+////                    RitualShapeHelper.instance.consumeReagents(this, world, pos);
+////                    RitualShapeHelper.instance.consumeShape(this, world, pos);
+////                    world.setBlockState(pos, ModBlocks.blackAurem.getDefaultState());
+////                    PowerNodeRegistry.For(world).registerPowerNode((IPowerNode<?>) world.getTileEntity(pos));
+//                }
+//                return true;
+//            }
+//        }
         return false;
     }
 
@@ -46,16 +38,8 @@ public class FireDamage extends SpellComponent {
         if (!(target instanceof LivingEntity)) return false;
         float baseDamage = 6;
         double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
-        if (isNetherMob(target))
-            return true;
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeFireDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
-    }
-
-    private boolean isNetherMob(Entity target) {
-        return target instanceof EntityPigZombie ||
-                target instanceof EntityDarkling ||
-                target instanceof EntityFireElemental ||
-                target instanceof EntityGhast;
+        if (target.isImmuneToFire() || target instanceof ZombiePigmanEntity || target instanceof GhastEntity || target instanceof WitherSkeletonEntity || target instanceof BlazeEntity) return true;
+        return false;//SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeFireDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
     }
 
     @Override
@@ -69,72 +53,59 @@ public class FireDamage extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         for (int i = 0; i < 5; ++i) {
-            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "explosion_2", x, y, z);
-            if (particle != null) {
-                particle.addRandomOffset(1, 0.5, 1);
-                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
-                particle.setAffectedByGravity();
-                particle.setDontRequireControllers();
-                particle.setMaxAge(5);
-                particle.setParticleScale(0.1f);
-                if (colorModifier > -1) {
-                    particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
-                }
-            }
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "explosion_2", x, y, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 0.5, 1);
+//                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
+//                particle.setAffectedByGravity();
+//                particle.setDontRequireControllers();
+//                particle.setMaxAge(5);
+//                particle.setParticleScale(0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
+//            }
         }
     }
 
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.FIRE);
-    }
-
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.FIRE);
+//    }
+//
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.RED_RUNE.get()),
-                Items.FLINT_AND_STEEL,
-                new ItemStack(ModItems.itemOre, 1, ItemOre.META_VINTEUM),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL))
         };
     }
 
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.01f;
+//    }
+//
+//    @Override
+//    public MultiblockStructureDefinition getRitualShape() {
+//        return RitualShapeHelper.instance.corruption;
+//    }
+//
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public MultiblockStructureDefinition getRitualShape() {
-        return RitualShapeHelper.instance.corruption;
-    }
-
-    @Override
-    public ItemStack[] getReagents() {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(ModItems.mobFocus),
-                new ItemStack(ModItems.itemOre, 1, ItemOre.META_SUNSTONE)
+                new ItemStack(ModItems.MONSTER_FOCUS.get()),
+                new ItemStack(ModItems.SUNSTONE.get())
         };
     }
 
+//    @Override
+//    public int getReagentSearchRadius() {
+//        return 3;
+//    }
+//
     @Override
-    public int getReagentSearchRadius() {
-        return 3;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ItemStack getResult() {
-        return new ItemStack(ModBlocks.blackAurem);
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }
