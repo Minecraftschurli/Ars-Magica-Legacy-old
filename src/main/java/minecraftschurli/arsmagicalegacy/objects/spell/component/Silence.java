@@ -1,14 +1,9 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.buffs.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.items.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
 import net.minecraft.entity.*;
-import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -21,10 +16,10 @@ public class Silence extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                Blocks.WOOL,
-                new ItemStack(ModItems.itemOre, 1, ItemOre.META_ARCANEASH),
-                Blocks.JUKEBOX,
-                Blocks.WOOL
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.JUKEBOX)),
+                new ItemStackSpellIngredient(new ItemStack(Items.WHITE_WOOL)),
+                new ItemStackSpellIngredient(new ItemStack(Items.WHITE_WOOL))
         };
     }
 
@@ -36,8 +31,7 @@ public class Silence extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity && target.isNonBoss()) {
-            if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new BuffEffectSilence(PotionEffectsDefs.default_buff_duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+//            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new SilenceEffect(ModEffects.DEFAULT_BUFF_DURATION, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;
@@ -54,29 +48,27 @@ public class Silence extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(ModItems.itemOre, 1, ItemOre.META_PURIFIED_VINTEUM)
+                new ItemStack(ModItems.PURIFIED_VINTEUM.get())
         };
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z,
-                               LivingEntity caster, Entity target, Random rand,
-                               int colorModifier) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.WATER, Affinity.ENDER);
+//    }
+//
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.01f;
+//    }
+//
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.WATER, Affinity.ENDER);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }
