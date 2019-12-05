@@ -1,14 +1,14 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
+import net.minecraft.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -37,12 +37,10 @@ public class RandomTeleport extends SpellComponent {
         return EnumSet.of(SpellModifiers.RANGE);
     }
 
-    protected boolean teleportTo(double par1, double par3, double par5, Entity target) {
+    private boolean teleportTo(double par1, double par3, double par5, Entity target) {
         if (target instanceof LivingEntity) {
             EnderTeleportEvent event = new EnderTeleportEvent((LivingEntity) target, par1, par3, par5, 0);
-            if (MinecraftForge.EVENT_BUS.post(event)) {
-                return false;
-            }
+            if (MinecraftForge.EVENT_BUS.post(event)) return false;
             par1 = event.getTargetX();
             par3 = event.getTargetY();
             par5 = event.getTargetZ();
@@ -56,30 +54,25 @@ public class RandomTeleport extends SpellComponent {
         boolean locationValid = false;
         BlockPos pos = target.getPosition();
         Block l;
-        if (target.worldObj.getBlockState(pos) != null) {
-            boolean targetBlockIsSolid = false;
-            while (!targetBlockIsSolid && pos.getY() > 0) {
-                l = target.worldObj.getBlockState(pos.down()).getBlock();
-                if (l != Blocks.AIR && l.isPassable(target.worldObj, pos)) {
-                    targetBlockIsSolid = true;
-                } else {
-                    --target.posY;
-                    pos = pos.down();
-                }
+        target.world.getBlockState(pos);
+        boolean targetBlockIsSolid = false;
+        while (!targetBlockIsSolid && pos.getY() > 0) {
+            l = target.world.getBlockState(pos.down()).getBlock();
+            if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos)) targetBlockIsSolid = true;
+            else {
+                --target.posY;
+                pos = pos.down();
             }
-            if (targetBlockIsSolid) {
-                target.setPosition(target.posX, target.posY, target.posZ);
-                if (target.worldObj.getCollisionBoxes(target, target.getEntityBoundingBox()).isEmpty()) {
-                    locationValid = true;
-                }
-            }
+        }
+        if (targetBlockIsSolid) {
+            target.setPosition(target.posX, target.posY, target.posZ);
+            if (target.world.getCollisionShapes(target, target.getBoundingBox()).toArray().length == 0) locationValid = true;
         }
         if (!locationValid) {
             target.setPosition(d3, d4, d5);
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     @Override
@@ -88,40 +81,39 @@ public class RandomTeleport extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        world.spawnParticle(EnumParticleTypes.PORTAL, target.posX + (rand.nextDouble() - 0.5D) * target.width, target.posY + rand.nextDouble() * target.height - 0.25D, target.posZ + (rand.nextDouble() - 0.5D) * target.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+        world.addParticle(ParticleTypes.PORTAL, target.posX + (rand.nextDouble() - 0.5D) * target.getWidth(), target.posY + rand.nextDouble() * target.getHeight() - 0.25D, target.posZ + (rand.nextDouble() - 0.5D) * target.getWidth(), (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
     }
 
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ENDER);
-    }
-
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.ENDER);
+//    }
+//
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.BLACK_RUNE.get()),
-                Items.ENDER_PEARL
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.ENDER_PEARL)),
         };
     }
 
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.01f;
+//    }
+//
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace,
-                                    double impactX, double impactY, double impactZ, LivingEntity caster) {
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
     }
 }
