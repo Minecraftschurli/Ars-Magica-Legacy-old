@@ -91,7 +91,7 @@ public class Storm extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
                 new ItemStackSpellIngredient(new ItemStack(Items.GHAST_TEAR))
         };
     }

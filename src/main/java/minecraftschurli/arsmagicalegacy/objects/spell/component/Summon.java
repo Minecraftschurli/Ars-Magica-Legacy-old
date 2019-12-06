@@ -46,7 +46,7 @@ public class Summon extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.CHIMERITE.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MONSTER_FOCUS.get())),

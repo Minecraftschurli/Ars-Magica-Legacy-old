@@ -11,6 +11,7 @@ import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -68,7 +69,7 @@ public class Slowfall extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.FEATHER))
+                new ItemTagSpellIngredient(Tags.Items.FEATHERS)
         };
     }
 

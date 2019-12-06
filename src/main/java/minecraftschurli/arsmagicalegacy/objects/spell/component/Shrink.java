@@ -10,6 +10,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class Shrink extends SpellComponent {
 //                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_CAKE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.BONE)),
                 new ItemStackSpellIngredient(new ItemStack(Items.BROWN_MUSHROOM)),
-                new ItemStackSpellIngredient(new ItemStack(Items.GOLD_NUGGET)),
+                new ItemTagSpellIngredient(Tags.Items.NUGGETS_GOLD),
                 new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE)),
                 new ItemStackSpellIngredient(new ItemStack(Items.STONE_BUTTON))
         };

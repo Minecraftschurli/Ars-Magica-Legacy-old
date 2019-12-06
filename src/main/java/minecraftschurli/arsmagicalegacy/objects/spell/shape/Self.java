@@ -1,22 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 public class Self extends SpellShape {
     @Override
@@ -49,7 +45,7 @@ public class Self extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.LESSER_FOCUS.get())),
                 new EssenceSpellIngredient(EssenceType.NEUTRAL, 500)

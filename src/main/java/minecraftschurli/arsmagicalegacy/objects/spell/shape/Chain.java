@@ -1,27 +1,20 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.boss.dragon.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 public class Chain extends SpellShape {
     @Override
@@ -89,8 +82,8 @@ public class Chain extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.SUNSTONE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_INGOT)),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
                 new ItemStackSpellIngredient(new ItemStack(Items.LEAD)),
                 new ItemStackSpellIngredient(new ItemStack(Items.STRING)),
                 new ItemStackSpellIngredient(new ItemStack(Items.TRIPWIRE_HOOK))

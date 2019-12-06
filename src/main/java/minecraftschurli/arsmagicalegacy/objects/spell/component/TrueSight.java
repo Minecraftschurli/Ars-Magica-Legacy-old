@@ -67,7 +67,7 @@ public class TrueSight extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.CHIMERITE.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
                 new ItemStackSpellIngredient(new ItemStack(Items.GLASS_PANE))
         };
     }

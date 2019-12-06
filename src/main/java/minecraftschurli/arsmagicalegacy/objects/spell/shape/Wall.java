@@ -1,22 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 public class Wall extends SpellShape {
     @Override
@@ -56,11 +52,10 @@ public class Wall extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get())),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get(), 2)),
                 new ItemStackSpellIngredient(new ItemStack(Items.COBBLESTONE_WALL)),
-                new ItemStackSpellIngredient(new ItemStack(Items.OAK_FENCE)),
+                new ItemTagSpellIngredient(Tags.Items.FENCES_WOODEN),
                 new EssenceSpellIngredient(EssenceType.ANY, 2500)
         };
     }

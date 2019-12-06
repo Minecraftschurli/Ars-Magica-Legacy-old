@@ -11,6 +11,7 @@ import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -69,8 +70,8 @@ public class Haste extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.REDSTONE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.GLOWSTONE_DUST))
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE)
         };
     }
 

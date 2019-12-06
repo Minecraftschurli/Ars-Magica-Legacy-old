@@ -64,8 +64,8 @@ public class ManaDrain extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MOONSTONE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
         };
     }
 

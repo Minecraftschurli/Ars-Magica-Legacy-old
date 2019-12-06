@@ -77,7 +77,7 @@ public class FireDamage extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
                 new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL))
         };
     }

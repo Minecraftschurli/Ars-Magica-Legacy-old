@@ -10,6 +10,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -45,7 +46,7 @@ public class Accelerate extends SpellComponent {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                new ItemStackSpellIngredient(new ItemStack(Items.REDSTONE))
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE)
         };
     }
 

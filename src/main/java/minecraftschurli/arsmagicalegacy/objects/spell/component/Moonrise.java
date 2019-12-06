@@ -16,7 +16,7 @@ public class Moonrise extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MOONSTONE.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
                 new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
         };
     }

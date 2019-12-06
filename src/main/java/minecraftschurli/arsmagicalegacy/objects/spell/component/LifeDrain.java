@@ -70,7 +70,7 @@ public class LifeDrain extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.SUNSTONE.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get()))
         };
     }

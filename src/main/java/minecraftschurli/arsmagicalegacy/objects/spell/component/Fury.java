@@ -19,7 +19,7 @@ public class Fury extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(Items.COD, 14)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.SUNSTONE.get()))
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE)
         };
     }
 

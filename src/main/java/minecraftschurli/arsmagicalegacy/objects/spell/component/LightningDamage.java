@@ -10,6 +10,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -62,8 +63,8 @@ public class LightningDamage extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_INGOT)),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
                 new ItemStackSpellIngredient(new ItemStack(Items.STICK))
         };
     }
