@@ -6,10 +6,12 @@ import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.util.LazyOptional;
@@ -35,7 +37,7 @@ public class UIRender {
     }
 
     @SubscribeEvent
-    public void renderBars(RenderGameOverlayEvent.Pre event) {
+    public void render(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL)
             return;
 
@@ -45,6 +47,18 @@ public class UIRender {
             return;
         renderManaBar(player);
         renderBurnoutBar(player);
+        if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
+            renderSpellBook(player, Hand.MAIN_HAND);
+        else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
+            renderSpellBook(player, Hand.OFF_HAND);
+    }
+
+    private void renderSpellBook(PlayerEntity player, Hand hand) {
+        if (hand == Hand.MAIN_HAND){
+
+        } else {
+
+        }
     }
 
     private void renderBurnoutBar(PlayerEntity player) {
@@ -85,9 +99,10 @@ public class UIRender {
         drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
         GlStateManager.color4f(1, 1, 1, 1);
 
-        int i2 = getStringLength((int) value + "");
-        drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
-
+        if (false){
+            int i2 = getStringLength((int) value + "");
+            drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
+        }
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
         mc.getProfiler().endSection();
@@ -99,10 +114,6 @@ public class UIRender {
 
     public int getStringLength(String s) {
         return fontRenderer().getStringWidth(s);
-    }
-
-    public void drawScaledBar(double value, double maxValue, int x, int y, boolean left) {
-
     }
 
     public void drawStringOnHUD(String string, int xOffset, int yOffset, int color) {

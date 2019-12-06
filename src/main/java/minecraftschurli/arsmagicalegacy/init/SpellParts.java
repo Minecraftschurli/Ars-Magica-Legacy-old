@@ -2,8 +2,10 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
 import minecraftschurli.arsmagicalegacy.api.SkillTreeRegistry;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -44,7 +46,16 @@ public final class SpellParts implements IInit {
     public static final SkillTree TALENT = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "talent");
 
     //skills
-
+    public static final RegistryObject<Skill> MANA_REGEN_1 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen1", SKILL_POINT_1, TALENT, 275, 75);
+    public static final RegistryObject<Skill> MANA_REGEN_2 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen2", SKILL_POINT_2, TALENT, 275, 120, "arsmagicalegacy:mana_regen1");
+    public static final RegistryObject<Skill> MANA_REGEN_3 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen3", SKILL_POINT_3, TALENT, 275, 165, "arsmagicalegacy:mana_regen2");
+    public static final RegistryObject<Skill> MAGE_POSSE_1 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mage_posse1", SKILL_POINT_2, TALENT, 320, 120, "arsmagicalegacy:mana_regen2");
+    public static final RegistryObject<Skill> MAGE_POSSE_2 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mage_posse2", SKILL_POINT_3, TALENT, 320, 165, "arsmagicalegacy:mage_posse1");
+    public static final RegistryObject<Skill> SPELL_MOTION = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "spell_motion", SKILL_POINT_2, TALENT, 230, 120, "arsmagicalegacy:mana_regen2");
+    public static final RegistryObject<Skill> AUGMENTED_CASTING = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "augmented_casting", SKILL_POINT_3, TALENT, 230, 165, "arsmagicalegacy:spell_motion");
+    public static final RegistryObject<Skill> AFFINITY_GAINS = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "affinity_gains", SKILL_POINT_1, TALENT, 365, 120, "arsmagicalegacy:mana_regen1");
+    public static final RegistryObject<Skill> EXTRA_SUMMONS = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "extra_summons", SKILL_POINT_3, TALENT, 230, 210, "arsmagicalegacy:augmented_casting");
+    public static final RegistryObject<Skill> SHIELD_OVERLOAD = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "shield_overload", SILVER_POINT, TALENT, 275, 210);
 
     //modifiers
     public static final RegistryObject<SpellModifier> BOUNCE = SpellRegistry.registerSpellModifier(ArsMagicaLegacy.MODID, "bounce", SKILL_POINT_1, new Bounce(), OFFENSE, 345, 70, "arsmagicalegacy:projectile");
@@ -85,7 +96,7 @@ public final class SpellParts implements IInit {
     //components
     public static final RegistryObject<SpellComponent> ABSORPTION = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "absorption", SKILL_POINT_3, new Absorption(), DEFENSE, 312, 270, "arsmagicalegacy:shield");
     public static final RegistryObject<SpellComponent> ACCELERATE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "accelerate", SKILL_POINT_2, new Accelerate(), DEFENSE, 177, 245, "arsmagicalegacy:swift_swim");
-    /*public static final RegistryObject<SpellComponent> APPROPRIATON = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "appropriation", SKILL_POINT_3, new Appropriation(), DEFENSE, 87, 245, "arsmagicalegacy:entangle");
+    public static final RegistryObject<SpellComponent> APPROPRIATON = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "appropriation", SKILL_POINT_3, new Appropriation(), DEFENSE, 87, 245, "arsmagicalegacy:entangle");
     public static final RegistryObject<SpellComponent> ASTRAL_DISTORTION = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "astral_distortion", SKILL_POINT_2, new AstralDistortion(), OFFENSE, 367, 215, "arsmagicalegacy:magic_damage", "arsmagicalegacy:frost_damage");
     public static final RegistryObject<SpellComponent> ATTRACT = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "attract", SKILL_POINT_2, new Attract(), UTILITY, 245, 300, "arsmagicalegacy:rift");
     public static final RegistryObject<SpellComponent> BANISH_RAIN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "banish_rain", SKILL_POINT_2, new BanishRain(), UTILITY, 365, 345, "arsmagicalegacy:drought");
@@ -101,7 +112,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellComponent> DISPEL = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "dispel", SKILL_POINT_2, new Dispel(), DEFENSE, 357, 180, "arsmagicalegacy:heal");
     public static final RegistryObject<SpellComponent> DIVINE_INTERVENTION = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "divine_intervention", SKILL_POINT_3, new DivineIntervention(), UTILITY, 172, 480, "arsmagicalegacy:recall", "arsmagicalegacy:mark");
     public static final RegistryObject<SpellComponent> DROUGHT = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "drought", SKILL_POINT_2, new Drought(), UTILITY, 365, 300, "arsmagicalegacy:light");
-    public static final RegistryObject<SpellComponent> DROWN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "drown", SKILL_POINT_1, new Drown(), OFFENSE, 435, 135, "arsmagicalegacy:magic_damage");*/
+    public static final RegistryObject<SpellComponent> DROWN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "drown", SKILL_POINT_1, new Drown(), OFFENSE, 435, 135, "arsmagicalegacy:magic_damage");
     public static final RegistryObject<SpellComponent> ENDER_INTERVENTION = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "ender_intervention", SKILL_POINT_3, new EnderIntervention(), UTILITY, 198, 480, "arsmagicalegacy:recall", "arsmagicalegacy:mark");
     public static final RegistryObject<SpellComponent> ENTANGLE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "entangle", SKILL_POINT_2, new Entangle(), DEFENSE, 132, 245, "arsmagicalegacy:repel");
     public static final RegistryObject<SpellComponent> FALLING_STAR = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "falling_star", SILVER_POINT, new FallingStar(), OFFENSE, 75, 90);
@@ -109,7 +120,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellComponent> FIRE_RAIN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "fire_rain", SILVER_POINT, new FireRain(), OFFENSE, 75, 135);
     public static final RegistryObject<SpellComponent> FLIGHT = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "flight", SKILL_POINT_3, new Flight(), DEFENSE, 222, 270, "arsmagicalegacy:levitate");
     public static final RegistryObject<SpellComponent> FLING = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "fling", SKILL_POINT_2, new Fling(), OFFENSE, 390, 245, "arsmagicalegacy:knockback");
-    //    public static final RegistryObject<SpellComponent> FORGE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "forge", SKILL_POINT_2, new Forge(), OFFENSE, 120, 135, "arsmagicalegacy:ignition");
+    public static final RegistryObject<SpellComponent> FORGE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "forge", SKILL_POINT_2, new Forge(), OFFENSE, 120, 135, "arsmagicalegacy:ignition");
     public static final RegistryObject<SpellComponent> FREEZE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "freeze", SKILL_POINT_2, new Freeze(), OFFENSE, 345, 180, "arsmagicalegacy:frost_damage");
     public static final RegistryObject<SpellComponent> FROST_DAMAGE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "frost_damage", SKILL_POINT_1, new FrostDamage(), OFFENSE, 345, 135, "arsmagicalegacy:magic_damage");
     public static final RegistryObject<SpellComponent> FURY = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "fury", SKILL_POINT_3, new Fury(), OFFENSE, 255, 315, "arsmagicalegacy:beam", "arsmagicalegacy:storm");

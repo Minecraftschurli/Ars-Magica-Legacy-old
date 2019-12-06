@@ -51,12 +51,12 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
                     }
                 });
             }
+            return new ActionResult<>(ActionResultType.SUCCESS, stack);
         } else {
             return getActiveScroll(stack)
                     .map(spellItem -> spellItem.onItemRightClick(world, player, hand))
                     .orElse(ActionResult.newResult(ActionResultType.FAIL, stack));
         }
-        return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
 
     @Override
@@ -93,13 +93,8 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     }
 
     @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        return ActionResultType.FAIL;
-    }
-
-    @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        final PlayerEntity player = context.getPlayer();
+        /*final PlayerEntity player = context.getPlayer();
         final Hand hand = context.getHand();
         final World world = context.getWorld();
         final ItemStack stack = player.getHeldItem(hand);
@@ -123,7 +118,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
                     .map(spellItem -> spellItem.onItemUse(context))
                     .orElse(ActionResultType.FAIL);
         }
-        return ActionResultType.FAIL;
+        return ActionResultType.FAIL;*/return ActionResultType.PASS;
     }
 
 

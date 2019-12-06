@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class ResearchStorage implements IResearchStorage {
     private Map<Integer, Integer> points = new HashMap<>();
-    private List<Skill> learned = new ArrayList<>();
+    private Set<Skill> learned = new HashSet<>();
 
     @Override
     public int get(int tier) {

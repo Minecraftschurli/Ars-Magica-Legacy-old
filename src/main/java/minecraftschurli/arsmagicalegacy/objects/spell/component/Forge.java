@@ -10,10 +10,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.FurnaceRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -21,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.Random;
 
 public class Forge extends SpellComponent {
@@ -84,20 +90,19 @@ public class Forge extends SpellComponent {
             if (!world.isRemote) world.setBlockState(pos, Blocks.WATER.getDefaultState());
             return true;
         }
-//        ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(block));
-//        if (smelted == null) return false;
-//        if (!world.isRemote) {
-//            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((BlockItem) smelted.getItem()).block.getStateFromMeta(smelted.getDamage()));
-//            else {
-//                ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5F, smelted.copy());
-//                float f3 = 0.05F;
-//                item.getMotion().getX() = (float) world.rand.nextGaussian() * f3;
-//                item.getMotion().getY() = (float) world.rand.nextGaussian() * f3 + 0.2F;
-//                item.getMotion().getZ() = (float) world.rand.nextGaussian() * f3;
-//                world.addEntity(item);
-//                world.setBlockState(pos, Blocks.AIR.getDefaultState());
-//            }
-//        }
+        Optional<FurnaceRecipe> recipe = world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(new ItemStack(block)), world);
+        if (!recipe.isPresent()) return false;
+        ItemStack smelted = recipe.get().getRecipeOutput();
+        if (!world.isRemote) {
+            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
+            else {
+                ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5F, smelted.copy());
+                float f3 = 0.05F;
+                item.setMotion(world.rand.nextGaussian() * f3, world.rand.nextGaussian() * f3 + 0.2F, world.rand.nextGaussian() * f3);
+                world.addEntity(item);
+                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            }
+        }
         return true;
     }
 

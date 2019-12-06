@@ -19,6 +19,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * @author IchHabeHunger54
@@ -39,7 +41,7 @@ public class InfinityOrbItem extends Item {
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
-            for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+            for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
                 if (!type.canRender()) continue;
                 ItemStack stack = new ItemStack(this);
                 stack.getOrCreateTag().putInt(TYPE_KEY, type.getTier());

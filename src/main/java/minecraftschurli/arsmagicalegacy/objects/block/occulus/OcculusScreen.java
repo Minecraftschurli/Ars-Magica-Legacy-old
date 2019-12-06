@@ -28,6 +28,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -161,7 +162,7 @@ public class OcculusScreen extends Screen {
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
-        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
             if (!point.canRender()) continue;
             font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
             pointOffsetX += 10;
