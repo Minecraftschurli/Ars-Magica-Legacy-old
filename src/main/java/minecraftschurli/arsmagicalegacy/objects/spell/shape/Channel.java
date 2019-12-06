@@ -38,7 +38,7 @@ public class Channel extends SpellShape {
 
     @Override
     public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        if (useCount % 10 == 0 || SpellUtils.componentIsPresent(stack, Telekinesis.class) || SpellUtils.componentIsPresent(stack, minecraftschurli.arsmagicalegacy.spell.component.Attract.class) || SpellUtils.componentIsPresent(stack, Repel.class))
+        if (useCount % 10 == 0 || SpellUtils.componentIsPresent(stack, Telekinesis.class) || SpellUtils.componentIsPresent(stack, Attract.class) || SpellUtils.componentIsPresent(stack, Repel.class))
             return SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
         return SpellCastResult.SUCCESS;
     }

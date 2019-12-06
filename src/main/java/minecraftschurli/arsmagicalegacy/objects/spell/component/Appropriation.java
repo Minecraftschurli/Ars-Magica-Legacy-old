@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
@@ -113,7 +113,7 @@ public class Appropriation extends SpellComponent {
                         stack.getTag().remove(storageKey);
                         return;
                     }
-                    if (storageCompound.key("tileEntity") != null) {
+                    if (storageCompound.get("tileEntity") != null) {
                         TileEntity te = world.getTileEntity(pos);
                         if (te != null) {
                             te.read(storageCompound.getCompound("tileEntity"));
@@ -202,7 +202,7 @@ public class Appropriation extends SpellComponent {
                             int updateFlag = blocksnapshot.getFlag();
                             BlockState oldBlock = blocksnapshot.getReplacedBlock();
                             BlockState newBlock = world.getBlockState(pos);
-                            if (newBlock != null && !(newBlock.getBlock().hasTileEntity(newBlock))) newBlock.getBlock().onBlockAdded(world, pos, newBlock);
+//                            if (newBlock != null && !(newBlock.getBlock().hasTileEntity(newBlock))) newBlock.getBlock().onBlockAdded(world, pos, newBlock);
                             world.markAndNotifyBlock(pos, null, oldBlock, newBlock, updateFlag);
                         }
                     }
@@ -215,22 +215,22 @@ public class Appropriation extends SpellComponent {
                 data.putInt("blockID", Block.getStateId(block.getDefaultState()));
                 PlayerEntity casterPlayer = (PlayerEntity) caster;
                 if (!ForgeEventFactory.doPlayerHarvestCheck(casterPlayer, world.getBlockState(blockPos), true)) return false;
-                int event = ForgeHooks.onBlockBreakEvent(world, casterPlayer.interactionManager.getGameType(), casterPlayer, blockPos);
-                if (event == -1) return false;
+//                int event = ForgeHooks.onBlockBreakEvent(world, casterPlayer.interactionManager.getGameType(), casterPlayer, blockPos);
+//                if (event == -1) return false;
                 TileEntity te = world.getTileEntity(blockPos);
                 if (te != null) {
                     CompoundNBT teData = new CompoundNBT();
-                    te.writeToNBT(teData);
-                    data.setTag("tileEntity", teData);
+                    te.write(teData);
+                    data.put("tileEntity", teData);
                     try {
                         world.removeTileEntity(blockPos);
                     } catch (Throwable exception) {
                         exception.printStackTrace();
                     }
                 }
-                originalSpellStack.getTagCompound().setTag(storageKey, data);
+                originalSpellStack.getTag().put(storageKey, data);
                 setOriginalSpellStackData((PlayerEntity) caster, originalSpellStack);
-                world.setBlockToAir(blockPos);
+                world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
             }
         }
         return true;

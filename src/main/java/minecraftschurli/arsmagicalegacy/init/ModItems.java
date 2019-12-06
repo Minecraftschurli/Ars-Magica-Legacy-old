@@ -109,7 +109,7 @@ public final class ModItems implements IInit {
     public static void register() {
     }
 
-    private static RegistryObject<Item> blockItem(final RegistryObject<Block> block) {
+    private static RegistryObject<Item> blockItem(final RegistryObject<? extends Block> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_64));
     }

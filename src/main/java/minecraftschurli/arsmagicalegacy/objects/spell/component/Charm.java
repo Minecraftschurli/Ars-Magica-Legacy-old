@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
@@ -57,7 +57,7 @@ public class Charm extends SpellComponent {
             if (caster instanceof PlayerEntity) ((PlayerEntity) caster).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noMoreSummons"));
             return true;
 //        }
-        return false;
+//        return false;
     }
 
     @Override

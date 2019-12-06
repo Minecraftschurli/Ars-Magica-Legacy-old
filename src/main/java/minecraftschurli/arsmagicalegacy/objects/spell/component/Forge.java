@@ -6,7 +6,6 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.*;
 import net.minecraft.entity.merchant.villager.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
@@ -76,21 +75,20 @@ public class Forge extends SpellComponent {
             if (!world.isRemote) world.setBlockState(pos, Blocks.WATER.getDefaultState());
             return true;
         }
-        int meta = world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos));
-        ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(block, 1, meta));
-        if (smelted == null) return false;
-        if (!world.isRemote) {
-            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((ItemBlock) smelted.getItem()).block.getStateFromMeta(smelted.getItemDamage()));
-            else {
-                ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5F, smelted.copy());
-                float f3 = 0.05F;
-                item.getMotion().getX() = (float) world.rand.nextGaussian() * f3;
-                item.getMotion().getY() = (float) world.rand.nextGaussian() * f3 + 0.2F;
-                item.getMotion().getZ() = (float) world.rand.nextGaussian() * f3;
-                world.addEntity(item);
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            }
-        }
+//        ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(block));
+//        if (smelted == null) return false;
+//        if (!world.isRemote) {
+//            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((BlockItem) smelted.getItem()).block.getStateFromMeta(smelted.getDamage()));
+//            else {
+//                ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5F, smelted.copy());
+//                float f3 = 0.05F;
+//                item.getMotion().getX() = (float) world.rand.nextGaussian() * f3;
+//                item.getMotion().getY() = (float) world.rand.nextGaussian() * f3 + 0.2F;
+//                item.getMotion().getZ() = (float) world.rand.nextGaussian() * f3;
+//                world.addEntity(item);
+//                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+//            }
+//        }
         return true;
     }
 
@@ -102,11 +100,11 @@ public class Forge extends SpellComponent {
         };
     }
 
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.01f;
+//    }
+//
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
