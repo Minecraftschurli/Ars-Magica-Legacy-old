@@ -8,3 +8,4 @@ gradlew.bat
 /src/generated/
 /.idea/
 /src/old/
+/src/main/resources/rename.py
