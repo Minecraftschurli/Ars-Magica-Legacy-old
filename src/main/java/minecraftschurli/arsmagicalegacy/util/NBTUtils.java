@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.*;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 /**
  * @author Minecraftschurli

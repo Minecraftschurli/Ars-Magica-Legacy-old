@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraft.nbt.*;
+import net.minecraftforge.registries.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

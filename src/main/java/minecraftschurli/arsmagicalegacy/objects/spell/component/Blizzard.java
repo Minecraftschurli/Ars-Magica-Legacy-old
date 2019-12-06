@@ -1,14 +1,9 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.entity.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.items.*;
-import minecraftschurli.arsmagicalegacy.utils.*;
 import net.minecraft.entity.*;
-import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -21,32 +16,25 @@ public class Blizzard extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.ICE_ESSENCE.get()),
-                new ItemStack(ModItems.itemOre, 1, ItemOre.META_BLUE_TOPAZ),
-                Blocks.ICE,
-                new ItemStack(ModItems.ICE_ESSENCE.get())
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get(), 2)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.ICE))
         };
     }
 
     private boolean spawnBlizzard(ItemStack stack, World world, LivingEntity caster, Entity target, double x, double y, double z) {
-        List<EntitySpellEffect> zones = world.getEntitiesWithinAABB(EntitySpellEffect.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
-        for (EntitySpellEffect zone : zones) {
-            if (zone.isBlizzard())
-                return false;
-        }
-        if (!world.isRemote) {
-            int radius = SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS);
-            double damage = SpellUtils.getModifiedDoubleMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
-            int duration = SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION);
-            EntitySpellEffect blizzard = new EntitySpellEffect(world);
-            blizzard.setPosition(x, y, z);
-            blizzard.setBlizzard();
-            blizzard.setRadius(radius);
-            blizzard.setTicksToExist(duration);
-            blizzard.setDamageBonus((float) damage);
-            blizzard.SetCasterAndStack(caster, stack);
-            world.addEntity(blizzard);
-        }
+//        List<EntitySpellEffect> zones = world.getEntitiesWithinAABB(EntitySpellEffect.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
+//        for (EntitySpellEffect zone : zones) if (zone.isBlizzard()) return false;
+//        if (!world.isRemote) {
+//            EntitySpellEffect blizzard = new EntitySpellEffect(world);
+//            blizzard.setPosition(x, y, z);
+//            blizzard.setBlizzard();
+//            blizzard.setRadius(SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
+//            blizzard.setTicksToExist(SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
+//            blizzard.setDamageBonus(SpellUtils.getModifiedDoubleMul(1, stack, caster, target, world, SpellModifiers.DAMAGE));
+//            blizzard.SetCasterAndStack(caster, stack);
+//            world.addEntity(blizzard);
+//        }
         return true;
     }
 
@@ -71,25 +59,25 @@ public class Blizzard extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
-        return null;
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return new ItemStack[0];
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.ICE);
+//    }
+//
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.1f;
+//    }
+//
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.ICE);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.1f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

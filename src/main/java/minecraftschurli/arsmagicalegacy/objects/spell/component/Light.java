@@ -29,9 +29,8 @@ public class Light extends SpellComponent {
 //        }
         if (world.getBlockState(pos).getBlock() == Blocks.AIR) blockFace = null;
         if (blockFace != null) pos = pos.offset(blockFace);
-        if (world.getBlockState(pos).getBlock() != Blocks.AIR) return false;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR;
 //        if (!world.isRemote) world.setBlockState(pos, ModBlocks.blockMageLight.getDefaultState().withProperty(BlockMageLight.COLOR, EnumDyeColor.byMetadata(getColor(stack))));
-        return true;
     }
 
     @Override

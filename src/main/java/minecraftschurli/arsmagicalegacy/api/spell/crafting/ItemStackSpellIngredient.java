@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 /**
  * @author Minecraftschurli

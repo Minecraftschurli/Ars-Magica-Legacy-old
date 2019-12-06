@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import minecraftschurli.arsmagicalegacy.init.ModContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.*;
 
 /**
  * @author Minecraftschurli

@@ -1,10 +1,8 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.items.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -18,19 +16,17 @@ public class Daylight extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.itemOre, 1, ItemOre.META_SUNSTONE),
-                Items.CLOCK,
-                new ItemStack(ModItems.core, 1, ItemCore.META_PURE)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.SUNSTONE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
         };
     }
 
     private boolean setDayTime(World world) {
-        if (world.isDaytime())
-            return false;
+        if (world.isDaytime()) return false;
         if (!world.isRemote) {
-            long curTime = ((WorldServer) world).getWorldTime();
+            long curTime = world.getGameTime();
             int day = (int) Math.ceil((curTime / 24000));
-            ((WorldServer) world).setWorldTime(day * 24000);
+            world.setGameTime(day * 24000);
         }
         return true;
     }
@@ -56,7 +52,7 @@ public class Daylight extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 
@@ -64,17 +60,17 @@ public class Daylight extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.NONE);
+//    }
+//
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0;
+//    }
+//
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.NONE);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

@@ -38,8 +38,7 @@ public class FireDamage extends SpellComponent {
         if (!(target instanceof LivingEntity)) return false;
         float baseDamage = 6;
         double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
-        if (target.isImmuneToFire() || target instanceof ZombiePigmanEntity || target instanceof GhastEntity || target instanceof WitherSkeletonEntity || target instanceof BlazeEntity) return true;
-        return false;//SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeFireDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
+        return target.isImmuneToFire() || target instanceof ZombiePigmanEntity || target instanceof GhastEntity || target instanceof WitherSkeletonEntity || target instanceof BlazeEntity;//SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeFireDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
     }
 
     @Override

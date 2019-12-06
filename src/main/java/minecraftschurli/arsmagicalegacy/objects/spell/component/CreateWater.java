@@ -1,13 +1,14 @@
-package minecraftschurli.arsmagicalegacy.spell.component;
+package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import com.google.common.collect.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.fluid.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
+import net.minecraft.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -19,12 +20,12 @@ public class CreateWater extends SpellComponent {
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         Block block = world.getBlockState(pos).getBlock();
         if (block == Blocks.CAULDRON) {
-            world.setBlockState(pos, Blocks.CAULDRON.getDefaultState().withProperty(BlockCauldron.LEVEL, 3));
+            world.setBlockState(pos, Blocks.CAULDRON.getDefaultState().with(CauldronBlock.LEVEL, 3));
             return true;
         }
         pos = pos.offset(blockFace);
         block = world.getBlockState(pos).getBlock();
-        if (world.isAirBlock(pos) || block == Blocks.SNOW_LAYER || block == Blocks.WATER || block == Blocks.FLOWING_WATER || block instanceof BlockFlower) {
+        if (world.isAirBlock(pos) || block == Blocks.SNOW || world.getFluidState(pos).getFluid() == Fluids.FLOWING_WATER || world.getFluidState(pos).getFluid() == Fluids.WATER || block instanceof FlowerBlock) {
             world.setBlockState(pos, Blocks.WATER.getDefaultState());
             return true;
         }
@@ -42,27 +43,25 @@ public class CreateWater extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] reagents(LivingEntity caster) {
+    public ItemStack[] getReagents(LivingEntity caster) {
         return null;
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; ++i) {
-            world.spawnParticle(EnumParticleTypes.WATER_SPLASH, x - 0.5 + rand.nextDouble(), y, z - 0.5 + rand.nextDouble(), 0.5 - rand.nextDouble(), 0.1, 0.5 - rand.nextDouble());
-        }
+        for (int i = 0; i < 15; ++i) world.addParticle(ParticleTypes.SPLASH, x - 0.5 + rand.nextDouble(), y, z - 0.5 + rand.nextDouble(), 0.5 - rand.nextDouble(), 0.1, 0.5 - rand.nextDouble());
     }
 
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(Affinity.WATER);
-    }
-
+//    @Override
+//    public Set<Affinity> getAffinity() {
+//        return Sets.newHashSet(Affinity.WATER);
+//    }
+//
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStack(ModItems.BLUE_RUNE.get()),
-                Items.WATER_BUCKET
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET))
         };
     }
 
@@ -71,12 +70,12 @@ public class CreateWater extends SpellComponent {
         return EnumSet.noneOf(SpellModifiers.class);
     }
 
+//    @Override
+//    public float getAffinityShift(Affinity affinity) {
+//        return 0.001f;
+//    }
+//
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.001f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, Object[] recipe) {
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

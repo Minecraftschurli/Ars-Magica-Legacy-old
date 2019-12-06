@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusContainer;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.inventory.container.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli

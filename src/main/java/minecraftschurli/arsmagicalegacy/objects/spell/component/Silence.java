@@ -30,11 +30,8 @@ public class Silence extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity && target.isNonBoss()) {
-//            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new SilenceEffect(ModEffects.DEFAULT_BUFF_DURATION, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-            return true;
-        }
-        return false;
+        //            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new SilenceEffect(ModEffects.DEFAULT_BUFF_DURATION, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+        return target instanceof LivingEntity && target.isNonBoss();
     }
 
     @Override
