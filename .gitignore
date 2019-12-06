@@ -7,3 +7,4 @@ gradlew.bat
 /run/
 /src/generated/
 /.idea/
+/src/old/
