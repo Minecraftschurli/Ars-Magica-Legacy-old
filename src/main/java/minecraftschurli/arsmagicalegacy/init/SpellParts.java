@@ -80,7 +80,7 @@ public final class SpellParts implements IInit {
     //components
     public static final RegistryObject<SpellComponent> ABSORPTION = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "absorption", SKILL_POINT_3, new Absorption(), DEFENSE, 312, 270, "arsmagicalegacy:shield");
     public static final RegistryObject<SpellComponent> ACCELERATE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "accelerate", SKILL_POINT_2, new Accelerate(), DEFENSE, 177, 245, "arsmagicalegacy:swift_swim");
-    public static final RegistryObject<SpellComponent> APPROPRIATON = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "appropriation", SKILL_POINT_3, new .Appropriation(), DEFENSE, 87, 245, "arsmagicalegacy:entangle");
+    public static final RegistryObject<SpellComponent> APPROPRIATON = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "appropriation", SKILL_POINT_3, new Appropriation(), DEFENSE, 87, 245, "arsmagicalegacy:entangle");
     public static final RegistryObject<SpellComponent> ASTRAL_DISTORTION = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "astral_distortion", SKILL_POINT_2, new AstralDistortion(), OFFENSE, 367, 215, "arsmagicalegacy:magic_damage", "arsmagicalegacy:frost_damage");
     public static final RegistryObject<SpellComponent> ATTRACT = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "attract", SKILL_POINT_2, new Attract(), UTILITY, 245, 300, "arsmagicalegacy:rift");
     public static final RegistryObject<SpellComponent> BANISH_RAIN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "banish_rain", SKILL_POINT_2, new BanishRain(), UTILITY, 365, 345, "arsmagicalegacy:drought");
