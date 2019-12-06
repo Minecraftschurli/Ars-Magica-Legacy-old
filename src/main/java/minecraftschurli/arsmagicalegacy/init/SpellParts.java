@@ -23,7 +23,7 @@ import net.minecraftforge.fml.RegistryObject;
  */
 @SuppressWarnings("unused")
 public final class SpellParts implements IInit {
-    //TODO: skill trees and (x|y) positions
+    //DONE: skill trees and (x|y) positions
     //  [src/old/java/am2/defs/SpellDefs.java] am2.defs.SpellDefs
     //  [src/old/java/am2/defs/SkillDefs.java] am2.defs.SkillDefs
 
