@@ -40,14 +40,14 @@ public class WorldGenerator {
     }
 
     private static boolean isNether(Biome biome) {
-        return biome.getCategory() == Biome.Category.NETHER;
+        return BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER);
     }
 
     private static boolean isTheEnd(Biome biome) {
-        return biome.getCategory() == Biome.Category.THEEND;
+        return BiomeDictionary.hasType(biome, BiomeDictionary.Type.END);
     }
 
     private static boolean isOverworld(Biome biome) {
-        return !isNether(biome) && !isTheEnd(biome);
+        return BiomeDictionary.hasType(biome, BiomeDictionary.Type.OVERWORLD);
     }
 }
