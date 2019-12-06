@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.network.*;
-import net.minecraftforge.fml.network.*;
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

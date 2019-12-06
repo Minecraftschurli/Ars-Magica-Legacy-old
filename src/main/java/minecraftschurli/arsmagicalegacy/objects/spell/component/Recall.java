@@ -1,18 +1,24 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 @SuppressWarnings("deprecated")
 public class Recall extends SpellComponent {
@@ -24,16 +30,18 @@ public class Recall extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get()) || ((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) if (caster instanceof PlayerEntity) {
-            caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.cantTeleport"));
-            return false;
-        }
+        if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get()) || ((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get()))
+            if (caster instanceof PlayerEntity) {
+                caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.cantTeleport"));
+                return false;
+            }
 //        if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
 //            ItemStack[] ritualRunes = RitualShapeHelper.instance.checkForRitual(this, world, target.getPosition());
 //            if (ritualRunes != null) return handleRitualReagents(ritualRunes, world, target.getPosition(), caster, target);
 //        }
         if (caster.dimension.getId() == -512) {
-            if (caster instanceof PlayerEntity && !world.isRemote) caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.cantTeleport"));
+            if (caster instanceof PlayerEntity && !world.isRemote)
+                caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.cantTeleport"));
             return false;
         }
         if (!world.isRemote) target.setPositionAndUpdate(caster.posX, caster.posY, caster.posZ);
@@ -64,7 +72,7 @@ public class Recall extends SpellComponent {
         }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.ARCANE);
 //    }
@@ -79,7 +87,7 @@ public class Recall extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0.1f;
 //    }
@@ -98,7 +106,7 @@ public class Recall extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public int getReagentSearchRadius() {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }

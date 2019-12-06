@@ -1,21 +1,29 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.util.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 @SuppressWarnings("deprecated")
 public class PlaceBlock extends SpellComponent {
@@ -32,7 +40,8 @@ public class PlaceBlock extends SpellComponent {
     }
 
     private BlockState getPlaceBlock(ItemStack stack) {
-        if (stack.hasTag() && stack.getTag().get(KEY_BLOCKID) != null) return Block.getStateById(stack.getTag().getInt(KEY_BLOCKID));
+        if (stack.hasTag() && stack.getTag().get(KEY_BLOCKID) != null)
+            return Block.getStateById(stack.getTag().getInt(KEY_BLOCKID));
         return null;
     }
 
@@ -44,7 +53,8 @@ public class PlaceBlock extends SpellComponent {
         ListNBT tagList = stack.getTag().getList("Lore", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); ++i) {
             String str = tagList.getString(i);
-            if (str.startsWith(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString())) tagList.remove(i);
+            if (str.startsWith(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString()))
+                tagList.remove(i);
         }
         tagList.add(new StringNBT(String.format(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString(), blockStack.getDisplayName().toString())));
         stack.getTag().put("Lore", tagList);
@@ -60,7 +70,8 @@ public class PlaceBlock extends SpellComponent {
         if (!(caster instanceof PlayerEntity)) return false;
         PlayerEntity player = (PlayerEntity) caster;
         ItemStack spellStack = player.getActiveItemStack();
-        if (spellStack.getItem() != ModItems.SPELL.get() || !SpellUtils.componentIsPresent(spellStack, PlaceBlock.class)) return false;
+        if (spellStack.getItem() != ModItems.SPELL.get() || !SpellUtils.componentIsPresent(spellStack, PlaceBlock.class))
+            return false;
         BlockState bd = getPlaceBlock(spellStack);
         if (bd != null && !caster.isSneaking()) {
             if (world.isAirBlock(pos) || !world.getBlockState(pos).isSolid()) blockFace = null;
@@ -99,7 +110,7 @@ public class PlaceBlock extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.EARTH, Affinity.ENDER);
 //    }

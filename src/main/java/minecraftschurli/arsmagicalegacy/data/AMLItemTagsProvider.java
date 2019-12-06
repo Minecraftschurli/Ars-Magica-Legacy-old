@@ -1,9 +1,12 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.data.*;
-import net.minecraft.tags.*;
-import net.minecraftforge.common.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
 
 /**
  * @author Minecraftschurli

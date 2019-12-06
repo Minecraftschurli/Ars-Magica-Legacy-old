@@ -1,9 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import net.minecraft.util.*;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
+import net.minecraft.util.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Minecraftschurli

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.proxy;
 
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.PlayerEntity;
 
 /**
  * @author Minecraftschurli

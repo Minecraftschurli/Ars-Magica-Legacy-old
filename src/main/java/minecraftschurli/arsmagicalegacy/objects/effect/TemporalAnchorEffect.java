@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectType;
 
 /**
  * @author Minecraftschurli
@@ -19,16 +19,16 @@ public class TemporalAnchorEffect extends AMEffect {
     public void startEffect(LivingEntity livingEntity) {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putDouble("X", livingEntity.posX);
-		nbt.putDouble("Y", livingEntity.posY);
-		nbt.putDouble("Z", livingEntity.posZ);
-		nbt.putFloat("RotationPitch", livingEntity.rotationPitch);
-		nbt.putFloat("RotationYaw", livingEntity.rotationYaw);
-		nbt.putFloat("RotationYawHead", livingEntity.rotationYawHead);
-		nbt.putFloat("Mana", MagicHelper.getMana(livingEntity));
-		nbt.putFloat("Health", livingEntity.getHealth());
-		if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaLegacy.MODID))
-		    livingEntity.getPersistentData().put(ArsMagicaLegacy.MODID, new CompoundNBT());
-		livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("anchor", nbt);
+        nbt.putDouble("Y", livingEntity.posY);
+        nbt.putDouble("Z", livingEntity.posZ);
+        nbt.putFloat("RotationPitch", livingEntity.rotationPitch);
+        nbt.putFloat("RotationYaw", livingEntity.rotationYaw);
+        nbt.putFloat("RotationYawHead", livingEntity.rotationYawHead);
+        nbt.putFloat("Mana", MagicHelper.getMana(livingEntity));
+        nbt.putFloat("Health", livingEntity.getHealth());
+        if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaLegacy.MODID))
+            livingEntity.getPersistentData().put(ArsMagicaLegacy.MODID, new CompoundNBT());
+        livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("anchor", nbt);
     }
 
     @Override
@@ -49,6 +49,7 @@ public class TemporalAnchorEffect extends AMEffect {
             MagicHelper.getManaCapability(livingEntity).setMana(mana);
             livingEntity.setHealth(health);
             livingEntity.fallDistance = 0;
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 }

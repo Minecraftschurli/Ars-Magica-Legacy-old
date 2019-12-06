@@ -1,16 +1,22 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class MeltArmor extends SpellComponent {
     private static final String mmpsNBTTagName = "mmmpsmod";
@@ -34,13 +40,16 @@ public class MeltArmor extends SpellComponent {
 
     private void doMeltArmor(LivingEntity caster, NonNullList<ItemStack> armor) {
         double mmpsCharge = -1;
-        for (ItemStack stack : armor) if (stack != null && stack.getTag() != null) {
+        for (ItemStack stack : armor)
+            if (stack != null && stack.getTag() != null) {
                 CompoundNBT subCompound = (CompoundNBT) stack.getTag().get(mmpsNBTTagName);
-                if (subCompound != null && subCompound.get(mmpsChargeTagName) != null) mmpsCharge += subCompound.getDouble(mmpsChargeTagName);
-        }
+                if (subCompound != null && subCompound.get(mmpsChargeTagName) != null)
+                    mmpsCharge += subCompound.getDouble(mmpsChargeTagName);
+            }
         for (ItemStack stack : armor) {
             if (stack == null) continue;
-            if (!stack.hasTag() || stack.getTag().get(mmpsNBTTagName) == null) stack.damageItem((int) Math.ceil(stack.getItem().getMaxDamage() * 0.25f), caster, null);
+            if (!stack.hasTag() || stack.getTag().get(mmpsNBTTagName) == null)
+                stack.damageItem((int) Math.ceil(stack.getItem().getMaxDamage() * 0.25f), caster, null);
             else {
                 CompoundNBT subCompound = (CompoundNBT) stack.getTag().get(mmpsNBTTagName);
                 double charge = stack.getTag().getDouble(mmpsChargeTagName);
@@ -79,7 +88,7 @@ public class MeltArmor extends SpellComponent {
 //        }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.FIRE);
 //    }

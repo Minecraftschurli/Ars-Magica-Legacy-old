@@ -1,21 +1,28 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.particles.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.entity.living.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class RandomTeleport extends SpellComponent {
     @Override
@@ -58,7 +65,8 @@ public class RandomTeleport extends SpellComponent {
         boolean targetBlockIsSolid = false;
         while (!targetBlockIsSolid && pos.getY() > 0) {
             l = target.world.getBlockState(pos.down()).getBlock();
-            if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos)) targetBlockIsSolid = true;
+            if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos))
+                targetBlockIsSolid = true;
             else {
                 --target.posY;
                 pos = pos.down();
@@ -66,7 +74,8 @@ public class RandomTeleport extends SpellComponent {
         }
         if (targetBlockIsSolid) {
             target.setPosition(target.posX, target.posY, target.posZ);
-            if (target.world.getCollisionShapes(target, target.getBoundingBox()).toArray().length == 0) locationValid = true;
+            if (target.world.getCollisionShapes(target, target.getBoundingBox()).toArray().length == 0)
+                locationValid = true;
         }
         if (!locationValid) {
             target.setPosition(d3, d4, d5);
@@ -90,7 +99,7 @@ public class RandomTeleport extends SpellComponent {
         world.addParticle(ParticleTypes.PORTAL, target.posX + (rand.nextDouble() - 0.5D) * target.getWidth(), target.posY + rand.nextDouble() * target.getHeight() - 0.25D, target.posZ + (rand.nextDouble() - 0.5D) * target.getWidth(), (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.ENDER);
 //    }
@@ -103,7 +112,7 @@ public class RandomTeleport extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0.01f;
 //    }

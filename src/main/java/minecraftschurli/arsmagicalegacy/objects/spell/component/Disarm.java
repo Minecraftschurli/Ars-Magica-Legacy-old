@@ -1,21 +1,28 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.item.*;
-import net.minecraft.entity.monster.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class Disarm extends SpellComponent {
     @Override
@@ -26,7 +33,8 @@ public class Disarm extends SpellComponent {
         if (/*target instanceof EntityDarkMage && */!world.isRemote) {
             ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
             ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
-            if (dropstack.getMaxDamage() > 0) dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
+            if (dropstack.getMaxDamage() > 0)
+                dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
             item.setItem(dropstack);
             item.setPosition(target.posX, target.posY, target.posZ);
             item.setPickupDelay(15);
@@ -65,7 +73,8 @@ public class Disarm extends SpellComponent {
             if (!world.isRemote) {
                 ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
                 ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
-                if (dropstack.getMaxDamage() > 0) dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
+                if (dropstack.getMaxDamage() > 0)
+                    dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
                 item.setItem(dropstack);
                 item.setPosition(target.posX, target.posY, target.posZ);
                 item.setDefaultPickupDelay();
@@ -110,7 +119,7 @@ public class Disarm extends SpellComponent {
         }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.NONE);
 //    }
@@ -123,7 +132,7 @@ public class Disarm extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0;
 //    }

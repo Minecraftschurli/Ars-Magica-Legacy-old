@@ -1,13 +1,15 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.advancements.criterion.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.*;
-import net.minecraft.item.*;
-import net.minecraft.tags.*;
-import net.minecraftforge.common.*;
+import net.minecraft.item.Items;
+import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli

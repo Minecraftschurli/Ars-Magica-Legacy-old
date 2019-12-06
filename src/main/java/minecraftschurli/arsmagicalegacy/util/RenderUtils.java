@@ -1,18 +1,19 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.mojang.blaze3d.platform.*;
-import com.sun.javafx.geom.*;
-import net.minecraft.block.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.vertex.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.world.*;
-import org.lwjgl.opengl.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.sun.javafx.geom.Vec3f;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.Random;
 
 public class RenderUtils {
 
@@ -121,7 +122,7 @@ public class RenderUtils {
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
-		int j = fontrenderer.getStringWidth(text) / 2;
+        int j = fontrenderer.getStringWidth(text) / 2;
         tessellator.getBuffer().pos(-j - 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
         tessellator.getBuffer().pos(-j - 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
         tessellator.getBuffer().pos(j + 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();

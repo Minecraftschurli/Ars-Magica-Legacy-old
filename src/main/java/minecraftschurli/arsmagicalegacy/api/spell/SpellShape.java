@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
+import net.minecraft.world.World;
 
 /**
  * @author Minecraftschurli

@@ -1,16 +1,15 @@
 package minecraftschurli.arsmagicalegacy.proxy;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.event.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.block.occulus.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.text.*;
-import net.minecraftforge.client.model.obj.*;
-import net.minecraftforge.common.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.event.UIRender;
+import minecraftschurli.arsmagicalegacy.init.ModContainers;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * @author Minecraftschurli
@@ -25,18 +24,8 @@ public class ClientProxy implements IProxy {
 
     @Override
     public void init() {
-        ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), new ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>() {
-            @Override
-            public SpellBookScreen create(SpellBookContainer container, PlayerInventory inventory, ITextComponent name) {
-                return new SpellBookScreen(container, inventory, name);
-            }
-        });
-        ScreenManager.registerFactory(ModContainers.OCCULUS.get(), new ScreenManager.IScreenFactory<OcculusContainer, OcculusScreen>() {
-            @Override
-            public OcculusScreen create(OcculusContainer container, PlayerInventory inventory, ITextComponent name) {
-                return new OcculusScreen(name, container, inventory.player);
-            }
-        });
+        //noinspection RedundantCast
+        ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>)SpellBookScreen::new);
     }
 
     @Override

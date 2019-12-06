@@ -1,18 +1,28 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.item.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 
 public class Telekinesis extends SpellComponent {
     @Override
@@ -50,9 +60,12 @@ public class Telekinesis extends SpellComponent {
                 double y = -(movement.getY() * factor);
                 double z = -(movement.getZ() * factor);
                 e.addVelocity(x, y, z);
-                if (Math.abs(e.getMotion().getX()) > Math.abs(x * 2)) e.setMotion(x, e.getMotion().getY(), e.getMotion().getZ());
-                if (Math.abs(e.getMotion().getY()) > Math.abs(y * 2)) e.setMotion(e.getMotion().getX(), y, e.getMotion().getZ());
-                if (Math.abs(e.getMotion().getZ()) > Math.abs(z * 2)) e.setMotion(e.getMotion().getX(), e.getMotion().getY(), z);
+                if (Math.abs(e.getMotion().getX()) > Math.abs(x * 2))
+                    e.setMotion(x, e.getMotion().getY(), e.getMotion().getZ());
+                if (Math.abs(e.getMotion().getY()) > Math.abs(y * 2))
+                    e.setMotion(e.getMotion().getX(), y, e.getMotion().getZ());
+                if (Math.abs(e.getMotion().getZ()) > Math.abs(z * 2))
+                    e.setMotion(e.getMotion().getX(), e.getMotion().getY(), z);
             }
         }
         return true;
@@ -92,7 +105,7 @@ public class Telekinesis extends SpellComponent {
 //        }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.ARCANE);
 //    }
@@ -106,7 +119,7 @@ public class Telekinesis extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0.001f;
 //    }

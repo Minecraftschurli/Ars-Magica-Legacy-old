@@ -1,13 +1,14 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
-import minecraftschurli.arsmagicalegacy.objects.block.occulus.*;
-import minecraftschurli.arsmagicalegacy.objects.tree.*;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.BlockOcculus;
+import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
 import net.minecraft.block.*;
-import net.minecraft.block.material.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.potion.Effects;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli

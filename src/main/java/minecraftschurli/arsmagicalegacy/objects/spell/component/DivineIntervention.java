@@ -1,37 +1,46 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.tags.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class DivineIntervention extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (world.isRemote || !(target instanceof LivingEntity)) return true;
         if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
-            if (target instanceof PlayerEntity) ((PlayerEntity) target).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noTeleportDistortion"));
+            if (target instanceof PlayerEntity)
+                ((PlayerEntity) target).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noTeleportDistortion"));
             return true;
         }
         if (target.dimension.getId() == 1) {
-            if (target instanceof PlayerEntity) ((PlayerEntity) target).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noTeleport"));
+            if (target instanceof PlayerEntity)
+                ((PlayerEntity) target).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noTeleport"));
             return true;
         } else if (target.dimension.getId() == 0) {
             BlockPos coords = target instanceof PlayerEntity ? ((PlayerEntity) target).getBedLocation(target.dimension) : null;
             if (coords == null || (coords == BlockPos.ZERO)) coords = world.getSpawnPoint();
-            while (world.getBlockState(coords).getBlock() != Blocks.AIR && world.getBlockState(coords.up()).getBlock() != Blocks.AIR) coords = coords.up();
+            while (world.getBlockState(coords).getBlock() != Blocks.AIR && world.getBlockState(coords.up()).getBlock() != Blocks.AIR)
+                coords = coords.up();
             target.setPositionAndUpdate(coords.getX() + 0.5, coords.getY(), coords.getZ() + 0.5);
         } else {
 //            DimensionUtilities.doDimensionTransfer((LivingEntity) target, 0);
@@ -69,7 +78,7 @@ public class DivineIntervention extends SpellComponent {
         }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.ENDER);
 //    }
@@ -83,7 +92,7 @@ public class DivineIntervention extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0.4f;
 //    }

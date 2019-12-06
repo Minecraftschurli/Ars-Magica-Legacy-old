@@ -1,25 +1,31 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
-import net.minecraft.world.dimension.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class Mark extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
 //        EntityExtension.For(caster).setMark(impactX, impactY, impactZ, caster.world.getDimension());
-        if (caster instanceof PlayerEntity && world.isRemote) caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.markSet"));
+        if (caster instanceof PlayerEntity && world.isRemote)
+            caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.markSet"));
         return true;
     }
 
@@ -28,10 +34,12 @@ public class Mark extends SpellComponent {
         if (!(target instanceof LivingEntity)) return false;
         if (caster.dimension.getId() != -512) {
             caster.dimension = DimensionType.getById(512);
-            if (caster instanceof PlayerEntity && world.isRemote) caster.sendMessage(new TranslationTextComponent("Mark Cleared"));
+            if (caster instanceof PlayerEntity && world.isRemote)
+                caster.sendMessage(new TranslationTextComponent("Mark Cleared"));
         } else {
 //            caster.setMark(target.posX, target.posY, target.posZ, caster.world.getDimension());
-            if (caster instanceof PlayerEntity && world.isRemote) caster.sendMessage(new TranslationTextComponent("Mark Set"));
+            if (caster instanceof PlayerEntity && world.isRemote)
+                caster.sendMessage(new TranslationTextComponent("Mark Set"));
         }
         return true;
     }
@@ -71,7 +79,7 @@ public class Mark extends SpellComponent {
 //        }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.NONE);
 //    }
@@ -84,7 +92,7 @@ public class Mark extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0;
 //    }

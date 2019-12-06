@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraftforge.eventbus.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.eventbus.api.Event;
 
 /**
  * @author Minecraftschurli
@@ -20,14 +20,6 @@ public class SpellCastEvent extends Event {
      */
     public final LivingEntity caster;
     /**
-     * The calculated mana cost of the spell
-     */
-    public float manaCost;
-    /**
-     * The calculated burnout of the spell
-     */
-    public float burnout;
-    /**
      * The itemstack representing the spell
      */
     public final ItemStack stack;
@@ -35,6 +27,14 @@ public class SpellCastEvent extends Event {
      * Is the spell channeled (maintained in any way, not the shape, so beam counts too)
      */
     public final boolean isChanneled;
+    /**
+     * The calculated mana cost of the spell
+     */
+    public float manaCost;
+    /**
+     * The calculated burnout of the spell
+     */
+    public float burnout;
     /**
      * The result to be returned after casting the spell
      */

@@ -1,18 +1,25 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import com.google.gson.*;
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.block.*;
-import net.minecraft.data.*;
-import net.minecraft.data.loot.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.world.storage.loot.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.block.Block;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DirectoryCache;
+import net.minecraft.data.IDataProvider;
+import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootParameterSets;
+import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.LootTableManager;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Minecraftschurli

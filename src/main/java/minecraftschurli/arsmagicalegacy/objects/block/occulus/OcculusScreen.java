@@ -1,32 +1,41 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import com.mojang.blaze3d.platform.*;
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.capabilities.research.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.network.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.screen.*;
-import net.minecraft.client.gui.widget.*;
-import net.minecraft.client.gui.widget.button.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillTreeRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
+import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.init.SpellParts;
+import minecraftschurli.arsmagicalegacy.network.LearnSkillPacket;
+import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-02
  */
-public class OcculusScreen extends Screen implements IHasContainer<OcculusContainer> {
+public class OcculusScreen extends Screen {
     int xSize = 210;
     int ySize = 210;
     SkillTree currentTree;
@@ -43,11 +52,9 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
 
     private Button nextPage;
     private Button prevPage;
-    private OcculusContainer container;
 
-    public OcculusScreen(ITextComponent name, OcculusContainer container, PlayerEntity player) {
+    public OcculusScreen(ITextComponent name, PlayerEntity player) {
         super(name);
-        this.container = container;
         this.player = player;
         currentTree = SkillTreeRegistry.SKILL_TREE_REGISTRY.get(0);
         currentTabId = 0;
@@ -100,11 +107,6 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
             offsetX = 568 / 2 - 82 + 8;
             offsetY = 0;
         }
-    }
-
-    @Override
-    public OcculusContainer getContainer() {
-        return this.container;
     }
 
     private int calcXOffset(int posX, Skill s) {
@@ -214,10 +216,10 @@ public class OcculusScreen extends Screen implements IHasContainer<OcculusContai
                     continue;
                 }
                 Minecraft.getInstance().getTextureManager().bindTexture(s.getIcon());
-                float minU=0.53125f*64;
-                float minV=0.15625f*32;
-                float maxU=0.546875f*64;
-                float maxV=0.1875f*32;
+                float minU = 0.53125f * 64;
+                float minV = 0.15625f * 32;
+                float maxU = 0.546875f * 64;
+                float maxV = 0.1875f * 32;
                 float spriteXSize = maxU - minU;
                 float spriteYSize = maxV - minV;
                 float xStartMod = 0;

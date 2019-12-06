@@ -1,9 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Minecraftschurli
@@ -13,8 +14,8 @@ public class SkillPointRegistry {
     public static final Map<Integer, SkillPoint> SKILL_POINT_REGISTRY = new HashMap<>();
 
     public static SkillPoint registerSkillPoint(int tier, SkillPoint skillPoint) {
-        if (SKILL_POINT_REGISTRY.containsKey(tier)){
-            ArsMagicaLegacy.LOGGER.error("Skill with tier "+tier+" already registered!");
+        if (SKILL_POINT_REGISTRY.containsKey(tier)) {
+            ArsMagicaLegacy.LOGGER.error("Skill with tier " + tier + " already registered!");
             return null;
         } else {
             SKILL_POINT_REGISTRY.put(tier, skillPoint);

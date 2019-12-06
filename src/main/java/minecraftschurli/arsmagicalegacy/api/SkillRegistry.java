@@ -1,13 +1,16 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import net.minecraft.util.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -22,7 +25,6 @@ public class SkillRegistry {
     }
 
     /**
-     *
      * @param id      the id of the new {@link Skill}
      * @param icon    the {@link ResourceLocation} used for the icon in the gui of the occulus
      * @param tier    the {@link SkillPoint} used to learn this {@link Skill}

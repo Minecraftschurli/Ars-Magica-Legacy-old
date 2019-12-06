@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.inventory.*;
-import net.minecraft.inventory.container.*;
-import net.minecraft.item.*;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * @author Minecraftschurli

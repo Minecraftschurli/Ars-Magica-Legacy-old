@@ -1,18 +1,27 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 
 public class Attract extends SpellComponent {
     public Attract() {
@@ -42,9 +51,12 @@ public class Attract extends SpellComponent {
             double y = -(movement.getY() * 0.75);
             double z = -(movement.getZ() * 0.75);
             target.addVelocity(x, y, z);
-            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2)) target.setMotion(x, target.getMotion().getY(), target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getY()) > Math.abs(x * 2)) target.setMotion(target.getMotion().getX(), y, target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getZ()) > Math.abs(x * 2)) target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z);
+            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2))
+                target.setMotion(x, target.getMotion().getY(), target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getY()) > Math.abs(x * 2))
+                target.setMotion(target.getMotion().getX(), y, target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getZ()) > Math.abs(x * 2))
+                target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z);
         }
         return true;
     }
@@ -93,7 +105,7 @@ public class Attract extends SpellComponent {
 //        }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.NONE);
 //    }
@@ -106,7 +118,7 @@ public class Attract extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 1;
 //    }

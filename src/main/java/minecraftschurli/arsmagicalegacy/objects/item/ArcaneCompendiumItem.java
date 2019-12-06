@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.*;
-import net.minecraft.item.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import net.minecraft.item.Item;
 
 /**
  * @author Minecraftschurli

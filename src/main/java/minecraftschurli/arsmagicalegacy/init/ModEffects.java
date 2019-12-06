@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.effect.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli
@@ -39,17 +40,11 @@ public final class ModEffects implements IInit {
     );
     public static final RegistryObject<Effect> INSTANT_MANA = POTIONS.register("instant_mana",
             () -> new AMInstantEffect(EffectType.NEUTRAL, 0)
-    );/*
-    public static final RegistryObject<Effect> LEVITATION = POTIONS.register("levitation",
-            () -> new AMEffect(EffectType.NEUTRAL, 0)
-    );*/
+    );
     public static final RegistryObject<Effect> MAGIC_SHIELD = POTIONS.register("magic_shield",
             () -> new AMEffect(EffectType.NEUTRAL, 0)
     );
     public static final RegistryObject<Effect> MANA_REGEN = POTIONS.register("mana_regen",
-            () -> new AMEffect(EffectType.NEUTRAL, 0)
-    );
-    public static final RegistryObject<Effect> REGENERATION = POTIONS.register("regeneration",
             () -> new AMEffect(EffectType.NEUTRAL, 0)
     );
     public static final RegistryObject<Effect> SCRAMBLE_SYNAPSES = POTIONS.register("scramble_synapses",
@@ -64,17 +59,12 @@ public final class ModEffects implements IInit {
     public static final RegistryObject<Effect> SILENCE = POTIONS.register("silence",
             () -> new AMEffect(EffectType.NEUTRAL, 0)
     );
-    public static final RegistryObject<Effect> SLOWFALL = POTIONS.register("slowfall",
-            () -> new AMEffect(EffectType.NEUTRAL, 0)
-    );
     public static final RegistryObject<Effect> SPELL_REFLECT = POTIONS.register("spell_reflect",
             () -> new AMEffect(EffectType.NEUTRAL, 0)
     );
-    public static final RegistryObject<Effect> SWIFT_SWIM = POTIONS.register("swift_swim",
-            () -> new AMEffect(EffectType.NEUTRAL, 0)
-    );
+    public static final RegistryObject<Effect> SWIFT_SWIM = POTIONS.register("swift_swim", SwiftSwimEffect::new);
     public static final RegistryObject<Effect> TEMPORAL_ANCHOR = POTIONS.register("temporal_anchor",
-            () -> new AMEffect(EffectType.NEUTRAL, 0)
+            () -> new AMEffect(EffectType.BENEFICIAL, 0xa2a2a2)
     );
     public static final RegistryObject<Effect> TRUE_SIGHT = POTIONS.register("true_sight",
             () -> new AMEffect(EffectType.NEUTRAL, 0)

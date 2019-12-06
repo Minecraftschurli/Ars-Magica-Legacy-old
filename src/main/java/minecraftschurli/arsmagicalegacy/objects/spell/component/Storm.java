@@ -1,19 +1,28 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.effect.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.LightningBoltEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 
 public class Storm extends SpellComponent {
     @Override
@@ -44,7 +53,8 @@ public class Storm extends SpellComponent {
                     int randPosZ = (int) caster.posZ + world.rand.nextInt(xzradius * 2) - xzradius;
                     int posY = (int) caster.posY;
                     while (!world.canBlockSeeSky(new BlockPos(randPosX, posY, randPosZ))) posY++;
-                    while (world.getBlockState(new BlockPos(randPosX, posY - 1, randPosZ)).getBlock().equals(Blocks.AIR)) posY--;
+                    while (world.getBlockState(new BlockPos(randPosX, posY - 1, randPosZ)).getBlock().equals(Blocks.AIR))
+                        posY--;
                     LightningBoltEntity bolt = new LightningBoltEntity(world, randPosX, posY, randPosZ, false);
                     world.addEntity(bolt);
                 } else if (random < 80) {
@@ -52,7 +62,8 @@ public class Storm extends SpellComponent {
                     if (entities.size() <= 0) return;
                     Entity target = entities.get(world.rand.nextInt(entities.size()));
                     if (target != null && world.canBlockSeeSky(target.getPosition())) {
-                        if (caster instanceof PlayerEntity) target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 1);
+                        if (caster instanceof PlayerEntity)
+                            target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 1);
                         LightningBoltEntity bolt = new LightningBoltEntity(world, target.posX, target.posY, target.posZ, false);
                         world.addEntity(bolt);
                     }
@@ -82,7 +93,7 @@ public class Storm extends SpellComponent {
 //        }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.LIGHTNING, Affinity.NATURE);
 //    }
@@ -96,7 +107,7 @@ public class Storm extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getAffinityShift(Affinity affinity) {
 //        return 0.00001f;
 //    }

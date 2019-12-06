@@ -1,24 +1,33 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.event.ForgeEventFactory;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class Appropriation extends SpellComponent {
@@ -47,7 +56,8 @@ public class Appropriation extends SpellComponent {
         ItemStack originalSpellStack = getOriginalSpellStack((PlayerEntity) caster);
         if (originalSpellStack == null) return false;
         if (!world.isRemote) {
-            if (originalSpellStack.getTag().get(storageKey) != null) restore((PlayerEntity) caster, world, originalSpellStack, target.getPosition(), target.posX, target.posY + target.getEyeHeight(), target.posZ);
+            if (originalSpellStack.getTag().get(storageKey) != null)
+                restore((PlayerEntity) caster, world, originalSpellStack, target.getPosition(), target.posX, target.posY + target.getEyeHeight(), target.posZ);
             else {
                 CompoundNBT data = new CompoundNBT();
                 data.putString("class", target.getClass().getName());
@@ -109,7 +119,8 @@ public class Appropriation extends SpellComponent {
                     Block block = Block.getStateById(blockID).getBlock();
                     if (block != null) world.setBlockState(pos, block.getDefaultState(), 2);
                     else {
-                        if (!player.world.isRemote) player.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.approError"));
+                        if (!player.world.isRemote)
+                            player.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.approError"));
                         stack.getTag().remove(storageKey);
                         return;
                     }
@@ -151,7 +162,7 @@ public class Appropriation extends SpellComponent {
 //        }
     }
 
-//    @Override
+    //    @Override
 //    public Set<Affinity> getAffinity() {
 //        return Sets.newHashSet(Affinity.WATER);
 //    }
@@ -209,12 +220,14 @@ public class Appropriation extends SpellComponent {
                     world.capturedBlockSnapshots.clear();
                 }
             } else {
-                if (block == null || block.getBlockHardness(world.getBlockState(blockPos), world, blockPos) == -1.0f) return false;
+                if (block == null || block.getBlockHardness(world.getBlockState(blockPos), world, blockPos) == -1.0f)
+                    return false;
                 CompoundNBT data = new CompoundNBT();
                 data.putString(storageType, "block");
                 data.putInt("blockID", Block.getStateId(block.getDefaultState()));
                 PlayerEntity casterPlayer = (PlayerEntity) caster;
-                if (!ForgeEventFactory.doPlayerHarvestCheck(casterPlayer, world.getBlockState(blockPos), true)) return false;
+                if (!ForgeEventFactory.doPlayerHarvestCheck(casterPlayer, world.getBlockState(blockPos), true))
+                    return false;
 //                int event = ForgeHooks.onBlockBreakEvent(world, casterPlayer.interactionManager.getGameType(), casterPlayer, blockPos);
 //                if (event == -1) return false;
                 TileEntity te = world.getTileEntity(blockPos);

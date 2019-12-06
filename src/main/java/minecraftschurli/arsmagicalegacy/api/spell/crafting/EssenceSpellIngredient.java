@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
 
 /**
  * @author Minecraftschurli

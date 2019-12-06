@@ -1,31 +1,43 @@
 package minecraftschurli.arsmagicalegacy;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
-import minecraftschurli.arsmagicalegacy.capabilities.magic.*;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
-import minecraftschurli.arsmagicalegacy.capabilities.research.*;
-import minecraftschurli.arsmagicalegacy.event.*;
-import minecraftschurli.arsmagicalegacy.handler.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
+import minecraftschurli.arsmagicalegacy.capabilities.magic.CapabilityMagic;
+import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
+import minecraftschurli.arsmagicalegacy.capabilities.research.CapabilityResearch;
+import minecraftschurli.arsmagicalegacy.event.TickHandler;
+import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.network.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import minecraftschurli.arsmagicalegacy.worldgen.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.fml.javafmlmod.*;
-import org.apache.logging.log4j.*;
+import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.IDyeableArmorItem;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Minecraftschurli
@@ -108,6 +120,11 @@ public final class ArsMagicaLegacy {
             MagicHelper.syncResearch(player);
             MagicHelper.syncMagic(player);
         }
+    }
+
+    @SubscribeEvent
+    public static void serverLoad(FMLServerStartingEvent event) {
+        ModCommands.register(event.getCommandDispatcher());
     }
 
     private void registerItemColorHandler(ColorHandlerEvent.Item event) {
