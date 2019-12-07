@@ -17,7 +17,7 @@ public class AMEffect extends Effect {
     }
 
     @Override
-    public boolean isReady(int p_76397_1_, int p_76397_2_) {
+    public boolean isReady(int duration, int amplifier) {
         return true;
     }
 

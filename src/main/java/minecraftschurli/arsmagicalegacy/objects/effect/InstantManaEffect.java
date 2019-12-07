@@ -17,6 +17,6 @@ public class InstantManaEffect extends AMInstantEffect {
 
     @Override
     public void performEffect(@Nonnull LivingEntity entityLivingBaseIn, int amplifier) {
-        MagicHelper.getManaCapability(entityLivingBaseIn).increase(10 + (10*amplifier));
+        MagicHelper.regenMana(entityLivingBaseIn, 10 + (10 * amplifier));
     }
 }

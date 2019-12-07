@@ -83,17 +83,17 @@ public class MagicHelper {
         );
     }
 
-    public static void regenMana(PlayerEntity player, float amount) {
-        if (player instanceof ServerPlayerEntity) {
-            player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.increase(amount));
-            syncMana((ServerPlayerEntity) player);
+    public static void regenMana(LivingEntity livingEntity, float amount) {
+        livingEntity.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.increase(amount));
+        if (livingEntity instanceof ServerPlayerEntity) {
+            syncMana((ServerPlayerEntity) livingEntity);
         }
     }
 
-    public static void regenBurnout(PlayerEntity player, float amount) {
-        if (player instanceof ServerPlayerEntity) {
-            player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.decrease(amount));
-            syncBurnout((ServerPlayerEntity) player);
+    public static void regenBurnout(LivingEntity livingEntity, float amount) {
+        livingEntity.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.decrease(amount));
+        if (livingEntity instanceof ServerPlayerEntity) {
+            syncBurnout((ServerPlayerEntity) livingEntity);
         }
     }
 

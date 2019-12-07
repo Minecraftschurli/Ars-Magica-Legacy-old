@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
+import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectType;
 
 /**
@@ -9,5 +11,20 @@ import net.minecraft.potion.EffectType;
 public class ManaRegenEffect extends AMEffect {
     public ManaRegenEffect() {
         super(EffectType.BENEFICIAL, 0x8bffff);
+    }
+
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        int k = 50 >> amplifier;
+        if (k > 0) {
+            return duration % k == 0;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void performEffect(LivingEntity livingEntity, int amplifier) {
+        MagicHelper.regenMana(livingEntity, 5 + (3.5f * amplifier));
     }
 }
