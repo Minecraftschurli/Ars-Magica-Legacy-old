@@ -11,8 +11,8 @@ import net.minecraft.potion.EffectType;
  * @version 2019-12-04
  */
 public class TemporalAnchorEffect extends AMEffect {
-    public TemporalAnchorEffect(EffectType type, int liquidColor) {
-        super(type, liquidColor);
+    public TemporalAnchorEffect() {
+        super(EffectType.BENEFICIAL, 0xa2a2a2);
     }
 
     @Override
