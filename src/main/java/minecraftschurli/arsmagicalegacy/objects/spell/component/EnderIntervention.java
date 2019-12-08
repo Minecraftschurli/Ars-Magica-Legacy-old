@@ -18,7 +18,7 @@ public class EnderIntervention extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (world.isRemote || !(target instanceof LivingEntity)) return true;
-        if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION)) {
+        if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
             if (target instanceof PlayerEntity) target.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noInterventionDistortion"));
             return true;
         }
