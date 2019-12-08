@@ -1,18 +1,14 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.TallBlockItem;
-import net.minecraft.item.WallOrFloorItem;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.block.*;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
+import net.minecraftforge.fml.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -110,6 +106,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
     public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
+    public static final RegistryObject<Item> MANA_CAKE = ITEMS.register("mana_cake", ()->new Item(ITEM_64.food(new Food.Builder().hunger(3).saturation(0.6f).effect(new EffectInstance(ModEffects.MANA_REGEN.get(), 600), 1).build())));
+    public static final RegistryObject<Item> MANA_MARTINI = ITEMS.register("mana_martini", ()->new Item(ITEM_64.food(new Food.Builder().hunger(0).saturation(0).effect(new EffectInstance(ModEffects.BURNOUT_REDUCTION.get(), 300), 1).build())));
 
     public static void register() {
     }
