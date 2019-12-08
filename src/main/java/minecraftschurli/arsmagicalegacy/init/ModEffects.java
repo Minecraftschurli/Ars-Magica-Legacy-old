@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.effect.*;
-import net.minecraft.potion.Effect;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.potion.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli
@@ -23,6 +23,7 @@ public final class ModEffects implements IInit {
     public static final RegistryObject<Effect> ILLUMINATION = POTIONS.register("illumination", IlluminationEffect::new);
     public static final RegistryObject<Effect> INSTANT_MANA = POTIONS.register("instant_mana", InstantManaEffect::new);
     public static final RegistryObject<Effect> MAGIC_SHIELD = POTIONS.register("magic_shield", MagicShieldEffect::new);
+    public static final RegistryObject<Effect> MANA_BOOST = POTIONS.register("mana_boost", ManaBoostEffect::new);
     public static final RegistryObject<Effect> MANA_REGEN = POTIONS.register("mana_regen", ManaRegenEffect::new);
     public static final RegistryObject<Effect> SCRAMBLE_SYNAPSES = POTIONS.register("scramble_synapses", ScrambleSynapsesEffect::new);
     public static final RegistryObject<Effect> SHIELD = POTIONS.register("shield", ShieldEffect::new);
@@ -33,11 +34,7 @@ public final class ModEffects implements IInit {
     public static final RegistryObject<Effect> TEMPORAL_ANCHOR = POTIONS.register("temporal_anchor", TemporalAnchorEffect::new);
     public static final RegistryObject<Effect> TRUE_SIGHT = POTIONS.register("true_sight", TrueSightEffect::new);
     public static final RegistryObject<Effect> WATERY_GRAVE = POTIONS.register("watery_grave", WateryGraveEffect::new);
-    public static final RegistryObject<Effect> MANA_BOOST = POTIONS.register("mana_boost", ManaBoostEffect::new);
     /*public static final RegistryObject<Effect> CHARME = POTIONS.register("charme",
-            () -> new AMEffect(EffectType.NEUTRAL, 0)
-    );*/
-    /*public static final RegistryObject<Effect> HASTE = POTIONS.register("haste",
             () -> new AMEffect(EffectType.NEUTRAL, 0)
     );*/
 
