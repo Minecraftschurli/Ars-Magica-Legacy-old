@@ -25,7 +25,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void init() {
         //noinspection RedundantCast
-        ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>)SpellBookScreen::new);
+        ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
     }
 
     @Override

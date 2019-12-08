@@ -1,6 +1,7 @@
 # TODO:
 - [x] port spell parts
 - [x] port occulus
-- [ ] port effects
+- [x] port effects
+- [x] add multi-block structure system
 - [ ] add spell creation system
 - [ ] add spell execution system

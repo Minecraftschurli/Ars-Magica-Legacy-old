@@ -1,18 +1,21 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class ScrambleSynapses extends SpellComponent {
     @Override
@@ -28,7 +31,8 @@ public class ScrambleSynapses extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.SCRAMBLE_SYNAPSES.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), 0));
+            if (!world.isRemote)
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.SCRAMBLE_SYNAPSES.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), 0));
             return true;
         }
         return false;

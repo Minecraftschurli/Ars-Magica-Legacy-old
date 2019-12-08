@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities.research;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -19,6 +17,7 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -36,13 +35,12 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                     @Override
                     public INBT writeNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side) {
                         CompoundNBT compoundNBT = new CompoundNBT();
-                        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+                        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
                             compoundNBT.putInt("skillpoint" + type.getTier(), instance.get(type.getTier()));
                         }
                         ListNBT learned = new ListNBT();
                         instance.getLearned()
                                 .stream()
-                                .map(Skill::getRegistryName)
                                 .map(ResourceLocation::toString)
                                 .map(StringNBT::new)
                                 .forEach(learned::add);
@@ -52,7 +50,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IResearchStorage> capability, IResearchStorage instance, Direction side, INBT nbt) {
-                        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+                        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
                             instance.set(type.getTier(), ((CompoundNBT) nbt).getInt("skillpoint" + type.getTier()));
                         }
                         ((CompoundNBT) nbt)
@@ -60,7 +58,6 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                                 .stream()
                                 .map(INBT::getString)
                                 .map(ResourceLocation::new)
-                                .map(ArsMagicaLegacyAPI.SKILL_REGISTRY::getValue)
                                 .forEach(instance::learn);
                     }
                 },

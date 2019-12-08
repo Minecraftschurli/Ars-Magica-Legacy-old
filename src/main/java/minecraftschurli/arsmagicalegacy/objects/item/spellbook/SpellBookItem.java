@@ -118,7 +118,8 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
                     .map(spellItem -> spellItem.onItemUse(context))
                     .orElse(ActionResultType.FAIL);
         }
-        return ActionResultType.FAIL;*/return ActionResultType.PASS;
+        return ActionResultType.FAIL;*/
+        return ActionResultType.PASS;
     }
 
 

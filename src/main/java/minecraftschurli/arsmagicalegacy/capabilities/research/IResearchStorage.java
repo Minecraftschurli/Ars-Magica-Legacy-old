@@ -3,8 +3,11 @@ package minecraftschurli.arsmagicalegacy.capabilities.research;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -28,22 +31,36 @@ public interface IResearchStorage {
     void set(int tier, int count);
 
     default void setFrom(IResearchStorage old) {
-        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
+        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
             this.set(type.getTier(), old.get(type.getTier()));
         }
         this.forgetAll();
-        old.getLearned().forEach(this::learn);
+        old.getLearnedSkills().forEach(this::learn);
     }
 
-    List<Skill> getLearned();
+    List<Skill> getLearnedSkills();
 
-    void learn(Skill location);
+    List<ResourceLocation> getLearned();
 
-    void forget(Skill location);
+    default void learn(@Nonnull Skill skill) {
+        this.learn(skill.getRegistryName());
+    }
+
+    default void forget(@Nonnull Skill skill) {
+        this.forget(skill.getRegistryName());
+    }
+
+    void learn(@Nonnull ResourceLocation location);
+
+    void forget(@Nonnull ResourceLocation location);
 
     void forgetAll();
 
-    boolean knows(Skill skill);
+    default boolean knows(Skill skill) {
+        return this.knows(skill.getRegistryName());
+    }
+
+    boolean knows(ResourceLocation skill);
 
     boolean canLearn(Skill skill);
 }

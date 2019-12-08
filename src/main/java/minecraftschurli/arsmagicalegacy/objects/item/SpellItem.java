@@ -1,11 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -34,5 +38,18 @@ public class SpellItem extends Item {
         if (context.getWorld().isRemote)
             return ActionResultType.FAIL;
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+        SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
+        if (!stack.hasTag()) return;
+        if (shape != null) {
+            if (!shape.isChanneled())
+                SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, Direction.UP, worldIn, true, true, 0);
+            /*if (worldIn.isRemote && shape.isChanneled()){
+                //SoundHelper.instance.stopSound(shape.getSoundForAffinity(SpellUtils.instance.mainAffinityFor(stack), stack, null));
+            }*/
+        }
     }
 }

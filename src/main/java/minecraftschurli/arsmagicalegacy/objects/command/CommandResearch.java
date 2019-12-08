@@ -21,7 +21,7 @@ import net.minecraft.util.text.TranslationTextComponent;
  * @version 2019-12-04
  */
 public class CommandResearch {
-    private static final SuggestionProvider<CommandSource> SUGGEST_RESEARCH = (context, builder) -> ISuggestionProvider.func_212476_a(ArsMagicaLegacyAPI.SKILL_REGISTRY.getValues().stream().map(Skill::getRegistryName), builder);
+    private static final SuggestionProvider<CommandSource> SUGGEST_RESEARCH = (context, builder) -> ISuggestionProvider.func_212476_a(ArsMagicaLegacyAPI.getSkillRegistry().getValues().stream().map(Skill::getRegistryName), builder);
     private static final String TARGET = "target";
 
     public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
@@ -31,7 +31,7 @@ public class CommandResearch {
                         .then(Commands.argument(TARGET, EntityArgument.player())
                                 .then(Commands.argument("id", ResourceLocationArgument.resourceLocation())
                                         .suggests(SUGGEST_RESEARCH)
-                                        .executes(context -> CommandResearch.learn(context, ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(ResourceLocationArgument.getResourceLocation(context, "id"))))
+                                        .executes(context -> CommandResearch.learn(context, ArsMagicaLegacyAPI.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"))))
                                 ).then(Commands.literal("*").executes(CommandResearch::learnAll))
                         )
                 ).then(Commands.literal("forget")
@@ -45,34 +45,34 @@ public class CommandResearch {
     }
 
     private static int forget(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        Skill skill = ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(ResourceLocationArgument.getResourceLocation(context, "id"));
+        Skill skill = ArsMagicaLegacyAPI.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"));
         if (skill == null) {
-            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID+".command.skillnotfound", skill.getName()), false);
+            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", skill.getName()), false);
             return 1;
         }
         MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).forget(skill);
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID+".command.forgot", skill.getName()), false);
+        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.forgot", skill.getName()), false);
         return 0;
     }
 
     private static int forgetAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
         MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).forgetAll();
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID+".command.forgotall"), false);
+        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.forgotall"), false);
         return 0;
     }
 
     private static int learn(CommandContext<CommandSource> context, Skill skill) throws CommandSyntaxException {
         if (skill == null) {
-            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID+".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);
+            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);
             return 1;
         }
         MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).learn(skill);
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID+".command.learned", skill.getName()), false);
+        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.learned", skill.getName()), false);
         return 0;
     }
 
     private static int learnAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        for (Skill skill : ArsMagicaLegacyAPI.SKILL_REGISTRY) {
+        for (Skill skill : ArsMagicaLegacyAPI.getSkillRegistry()) {
             CommandResearch.learn(context, skill);
         }
         return 0;

@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.effect.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.potion.Effect;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli
@@ -13,7 +13,8 @@ public final class ModEffects implements IInit {
 
     public static final RegistryObject<Effect> AGILITY = POTIONS.register("agility", AgilityEffect::new);
     public static final RegistryObject<Effect> ASTRAL_DISTORTION = POTIONS.register("astral_distortion", AstralDistortionEffect::new);
-    public static final RegistryObject<Effect> BURNOUT_REDUCTION = POTIONS.register("burnout_reduction", BurnoutReductionEffect::new);
+    public static final BurnoutReductionEffect burnout_reduction_effect = new BurnoutReductionEffect();
+    public static final RegistryObject<Effect> BURNOUT_REDUCTION = POTIONS.register("burnout_reduction", () -> burnout_reduction_effect);
     public static final RegistryObject<Effect> CLARITY = POTIONS.register("clarity", ClarityEffect::new);
     public static final RegistryObject<Effect> ENTANGLE = POTIONS.register("entangle", EntangleEffect::new);
     public static final RegistryObject<Effect> FLIGHT = POTIONS.register("flight", FlightEffect::new);
@@ -24,7 +25,8 @@ public final class ModEffects implements IInit {
     public static final RegistryObject<Effect> INSTANT_MANA = POTIONS.register("instant_mana", InstantManaEffect::new);
     public static final RegistryObject<Effect> MAGIC_SHIELD = POTIONS.register("magic_shield", MagicShieldEffect::new);
     public static final RegistryObject<Effect> MANA_BOOST = POTIONS.register("mana_boost", ManaBoostEffect::new);
-    public static final RegistryObject<Effect> MANA_REGEN = POTIONS.register("mana_regen", ManaRegenEffect::new);
+    public static final ManaRegenEffect mana_regen_effect = new ManaRegenEffect();
+    public static final RegistryObject<Effect> MANA_REGEN = POTIONS.register("mana_regen", () -> mana_regen_effect);
     public static final RegistryObject<Effect> SCRAMBLE_SYNAPSES = POTIONS.register("scramble_synapses", ScrambleSynapsesEffect::new);
     public static final RegistryObject<Effect> SHIELD = POTIONS.register("shield", ShieldEffect::new);
     public static final RegistryObject<Effect> SHRINK = POTIONS.register("shrink", ShrinkEffect::new);

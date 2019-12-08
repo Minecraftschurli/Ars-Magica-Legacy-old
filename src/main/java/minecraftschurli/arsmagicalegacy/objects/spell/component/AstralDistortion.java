@@ -1,20 +1,26 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class AstralDistortion extends SpellComponent {
     @Override
@@ -40,7 +46,8 @@ public class AstralDistortion extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ASTRAL_DISTORTION.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            if (!world.isRemote)
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ASTRAL_DISTORTION.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;

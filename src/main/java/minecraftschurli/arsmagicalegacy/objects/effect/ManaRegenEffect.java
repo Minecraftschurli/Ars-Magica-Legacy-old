@@ -25,6 +25,6 @@ public class ManaRegenEffect extends AMEffect {
 
     @Override
     public void performEffect(LivingEntity livingEntity, int amplifier) {
-        MagicHelper.regenMana(livingEntity, 5 + (3.5f * amplifier));
+        MagicHelper.increaseMana(livingEntity, 5 + (3.5f * amplifier));
     }
 }

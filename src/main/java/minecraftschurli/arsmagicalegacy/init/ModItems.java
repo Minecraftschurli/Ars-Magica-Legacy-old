@@ -1,14 +1,16 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import net.minecraft.block.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
+import net.minecraft.block.Block;
 import net.minecraft.item.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraftforge.fml.RegistryObject;
 
-import java.util.*;
+import java.util.Objects;
 
 /**
  * @author Minecraftschurli
@@ -106,8 +108,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
     public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
-    public static final RegistryObject<Item> MANA_CAKE = ITEMS.register("mana_cake", ()->new Item(ITEM_64.food(new Food.Builder().hunger(3).saturation(0.6f).effect(new EffectInstance(ModEffects.MANA_REGEN.get(), 600), 1).build())));
-    public static final RegistryObject<Item> MANA_MARTINI = ITEMS.register("mana_martini", ()->new Item(ITEM_64.food(new Food.Builder().hunger(0).saturation(0).effect(new EffectInstance(ModEffects.BURNOUT_REDUCTION.get(), 300), 1).build())));
+    public static final RegistryObject<Item> MANA_CAKE = stackableFoodItem64("mana_cake", new Food.Builder().hunger(3).saturation(0.6f).effect(new EffectInstance(ModEffects.mana_regen_effect, 600), 1).build());
+    public static final RegistryObject<Item> MANA_MARTINI = stackableFoodItem64("mana_martini", new Food.Builder().hunger(0).saturation(0).effect(new EffectInstance(ModEffects.burnout_reduction_effect, 300), 1).build());
 
     public static void register() {
     }
@@ -120,6 +122,12 @@ public final class ModItems implements IInit {
     private static RegistryObject<Item> stackableItem64(final String name) {
         Objects.requireNonNull(name);
         return ITEMS.register(name, ModItems::item64);
+    }
+
+    private static RegistryObject<Item> stackableFoodItem64(final String name, Food food) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(food);
+        return ITEMS.register(name, () -> new Item(new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64).food(food)));
     }
 
     private static Item item64() {

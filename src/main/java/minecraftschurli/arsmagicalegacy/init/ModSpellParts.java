@@ -22,7 +22,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @version 2019-11-16
  */
 @SuppressWarnings("unused")
-public final class SpellParts implements IInit {
+public final class ModSpellParts implements IInit {
     //DONE: skill trees and (x|y) positions
     //  [src/old/java/am2/defs/SpellDefs.java] am2.defs.SpellDefs
     //  [src/old/java/am2/defs/SkillDefs.java] am2.defs.SkillDefs
@@ -87,7 +87,7 @@ public final class SpellParts implements IInit {
     public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "projectile", SKILL_POINT_1, new Projectile(), OFFENSE, 300, 45);
     public static final RegistryObject<SpellShape> RUNE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "rune", SKILL_POINT_2, new Rune(), DEFENSE, 157, 315, "arsmagicalegacy:accelerate", "arsmagicalegacy:entangle");
     public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "self", SKILL_POINT_1, new Self(), DEFENSE, 267, 45);
-//    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "toggle", SKILL_POINT_3, new Toggle(), UTILITY, 315, 345, "arsmagicalegacy:channel");
+    //    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "toggle", SKILL_POINT_3, new Toggle(), UTILITY, 315, 345, "arsmagicalegacy:channel");
     public static final RegistryObject<SpellShape> TOUCH = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "touch", SKILL_POINT_1, new Touch(), UTILITY, 275, 75);
     public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wall", SKILL_POINT_2, new Wall(), DEFENSE, 87, 200, "arsmagicalegacy:repel");
     public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "wave", SKILL_POINT_3, new Wave(), OFFENSE, 367, 315, "arsmagicalegacy:beam", "arsmagicalegacy:fling");

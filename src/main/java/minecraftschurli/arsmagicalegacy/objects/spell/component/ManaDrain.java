@@ -28,7 +28,7 @@ public class ManaDrain extends SpellComponent {
         float mana = MagicHelper.getMana((LivingEntity) target);
         if (manaStolen > mana) manaStolen = mana;
         MagicHelper.getManaCapability((LivingEntity) target).setMana((float) (mana - manaStolen));
-        MagicHelper.getManaCapability(caster).increase((float) manaStolen);
+        MagicHelper.increaseMana(caster, (float) manaStolen);
         return true;
     }
 
@@ -49,7 +49,7 @@ public class ManaDrain extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; ++i) {
+        /*for (int i = 0; i < 15; ++i) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);
@@ -58,7 +58,7 @@ public class ManaDrain extends SpellComponent {
 //                particle.setRGBColorF(0, 0.4f, 1);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
 //            }
-        }
+        }*/
     }
 
     //    @Override

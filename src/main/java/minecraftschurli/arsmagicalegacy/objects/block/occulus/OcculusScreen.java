@@ -10,7 +10,7 @@ import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchStorage;
-import minecraftschurli.arsmagicalegacy.init.SpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.network.LearnSkillPacket;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
@@ -154,22 +154,20 @@ public class OcculusScreen extends Screen {
         float calcYOffest = ((float) offsetY / 568) * (1 - renderRatio);
         float calcXOffest = ((float) offsetX / 568) * (1 - renderRatio);
         int maxSize = 0;
-        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values()) {
-            if (!point.canRender()) continue;
+        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
             maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getSkillPoint(player, point)));
         }
         blitOffset = -1;
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
-        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
-            if (!point.canRender()) continue;
+        for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
             font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
             pointOffsetX += 10;
         }
         GlStateManager.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
-        if (currentTree != SpellParts.AFFINITY) {
+        if (currentTree != ModSpellParts.AFFINITY) {
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             blitOffset = 1;
@@ -180,7 +178,7 @@ public class OcculusScreen extends Screen {
                 for (String p : s.getParents()) {
                     if (p == null)
                         continue;
-                    Skill parent = ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(p));
+                    Skill parent = ArsMagicaLegacyAPI.getSkillRegistry().getValue(new ResourceLocation(p));
                     if (parent == null || !skills.contains(parent)) continue;
                     if (!parent.getPoint().canRender() && !data.knows(parent))
                         continue;
@@ -308,7 +306,7 @@ public class OcculusScreen extends Screen {
                         continue;
                     boolean hasPrereq = true;
                     for (String subParent : s.getParents()) {
-                        hasPrereq &= data.knows(ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(subParent)));
+                        hasPrereq &= data.knows(new ResourceLocation(subParent));
                     }
                     List<ITextComponent> list = new ArrayList<>();
                     list.add(s.getName().applyTextStyle(s.getPoint().getChatColor()));
@@ -433,11 +431,9 @@ public class OcculusScreen extends Screen {
         int w = width - 4;
         int h = height - 8;
         while (w > 0) {
-            int x = 0;
-            x = Math.min(w, 252);
+            int x = Math.min(w, 252);
             while (h > 0) {
-                int y = 0;
-                y = Math.min(h, 248);
+                int y = Math.min(h, 248);
                 blit(startX + posX + w - x, startY + posY + 4 + h - y, 4, 4, x, y);
                 h -= y;
             }
@@ -446,18 +442,13 @@ public class OcculusScreen extends Screen {
         w = width - 4;
         h = height - 8;
         while (w > 0) {
-            int x = 0;
-            x = Math.min(w, 252);
+            int x = Math.min(w, 252);
             blit(startX + posX + w - x, startY + posY, 4, 0, x, 4);
             blit(startX + posX + w - x, startY + posY + height - 4, 4, 252, x, 4);
             w -= x;
         }
         while (h > 0) {
-            int y = 0;
-            if (h > 248)
-                y = 248;
-            else
-                y = h;
+            int y = Math.min(h, 248);
             //blit(startX + posX, startY + posY + 4 + h - y, 0, 4, 4, y);
             blit(startX + posX + width - 4, startY + posY + 4 + h - y, 252, 4, 4, y);
             h -= y;

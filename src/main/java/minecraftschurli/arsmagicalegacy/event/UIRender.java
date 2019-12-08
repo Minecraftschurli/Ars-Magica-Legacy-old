@@ -54,7 +54,7 @@ public class UIRender {
     }
 
     private void renderSpellBook(PlayerEntity player, Hand hand) {
-        if (hand == Hand.MAIN_HAND){
+        if (hand == Hand.MAIN_HAND) {
 
         } else {
 
@@ -99,7 +99,7 @@ public class UIRender {
         drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
         GlStateManager.color4f(1, 1, 1, 1);
 
-        if (false){
+        if (false) {
             int i2 = getStringLength((int) value + "");
             drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
         }

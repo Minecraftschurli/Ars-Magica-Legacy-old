@@ -46,7 +46,7 @@ public class Dig extends SpellComponent {
         if (hardness != -1 && state.getBlock().getHarvestLevel(state) <= SpellUtils.getModifiedIntAdd(2, stack, caster, null, world, SpellModifiers.MINING_POWER)) {
             state.getBlock().harvestBlock(world, (PlayerEntity) caster, blockPos, state, null, stack);
             world.destroyBlock(blockPos, false);
-            MagicHelper.use((PlayerEntity) caster, hardness * 1.28f, 0);
+            MagicHelper.decreaseMana(caster, hardness * 1.28f);
         }
         return true;
     }

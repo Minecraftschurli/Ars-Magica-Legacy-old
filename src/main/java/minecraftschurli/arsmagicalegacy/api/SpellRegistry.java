@@ -46,7 +46,7 @@ public class SpellRegistry {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         SkillRegistry.registerSkill(id, getComponentIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.SPELL_PART_REGISTRY);
+        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSpellPartRegistry());
     }
 
     /**
@@ -79,7 +79,7 @@ public class SpellRegistry {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         SkillRegistry.registerSkill(id, getModifierIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.SPELL_PART_REGISTRY);
+        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSpellPartRegistry());
     }
 
     /**
@@ -112,7 +112,7 @@ public class SpellRegistry {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         SkillRegistry.registerSkill(id, getShapeIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.SPELL_PART_REGISTRY);
+        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSpellPartRegistry());
     }
 
     /**
@@ -144,7 +144,7 @@ public class SpellRegistry {
     }
 
     public static Skill getSkillFromPart(AbstractSpellPart part) {
-        return ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(part.getRegistryName());
+        return ArsMagicaLegacyAPI.getSkillRegistry().getValue(part.getRegistryName());
     }
 
     /*public static AbstractSpellPart getPartByRecipe(List<ItemStack> currentAddedItems) {
@@ -169,17 +169,17 @@ public class SpellRegistry {
     }*/
 
     public static SpellShape getShapeFromName(String shapeName) {
-        AbstractSpellPart part = ArsMagicaLegacyAPI.SPELL_PART_REGISTRY.getValue(new ResourceLocation(shapeName));
+        AbstractSpellPart part = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(shapeName));
         return part instanceof SpellShape ? (SpellShape) part : null;
     }
 
     public static SpellModifier getModifierFromName(String shapeName) {
-        AbstractSpellPart part = ArsMagicaLegacyAPI.SPELL_PART_REGISTRY.getValue(new ResourceLocation(shapeName));
+        AbstractSpellPart part = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(shapeName));
         return part instanceof SpellModifier ? (SpellModifier) part : null;
     }
 
     public static SpellComponent getComponentFromName(String shapeName) {
-        AbstractSpellPart part = ArsMagicaLegacyAPI.SPELL_PART_REGISTRY.getValue(new ResourceLocation(shapeName));
+        AbstractSpellPart part = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(shapeName));
         return part instanceof SpellComponent ? (SpellComponent) part : null;
     }
 }

@@ -5,6 +5,7 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -13,7 +14,7 @@ import java.util.*;
  */
 public class ResearchStorage implements IResearchStorage {
     private Map<Integer, Integer> points = new HashMap<>();
-    private Set<Skill> learned = new HashSet<>();
+    private Set<ResourceLocation> learned = new HashSet<>();
 
     @Override
     public int get(int tier) {
@@ -47,27 +48,32 @@ public class ResearchStorage implements IResearchStorage {
     }
 
     @Override
-    public boolean knows(Skill skill) {
+    public boolean knows(ResourceLocation skill) {
         return this.learned.contains(skill);
     }
 
     @Override
     public boolean canLearn(Skill skill) {
-        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).map(ArsMagicaLegacyAPI.SKILL_REGISTRY::getValue).allMatch(this::knows) && !knows(skill);
+        return Arrays.stream(skill.getParents()).map(ResourceLocation::new).allMatch(this::knows) && !knows(skill);
     }
 
     @Override
-    public List<Skill> getLearned() {
+    public List<Skill> getLearnedSkills() {
+        return this.learned.stream().filter(ArsMagicaLegacyAPI.getSkillRegistry()::containsKey).map(ArsMagicaLegacyAPI.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
+    }
+
+    @Override
+    public List<ResourceLocation> getLearned() {
         return ImmutableList.copyOf(this.learned);
     }
 
     @Override
-    public void learn(Skill location) {
+    public void learn(@Nonnull ResourceLocation location) {
         this.learned.add(location);
     }
 
     @Override
-    public void forget(Skill location) {
+    public void forget(@Nonnull ResourceLocation location) {
         this.learned.remove(location);
     }
 }

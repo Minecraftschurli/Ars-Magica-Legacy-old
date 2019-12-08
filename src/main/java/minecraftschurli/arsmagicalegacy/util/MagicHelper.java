@@ -16,7 +16,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.Objects;
@@ -26,17 +25,11 @@ import java.util.Objects;
  * @version 2019-11-20
  */
 public class MagicHelper {
-    public static boolean use(PlayerEntity player, float manaCost, float burnoutCost) {
-        if (player instanceof ServerPlayerEntity) {
-            LazyOptional<IManaStorage> manaStorage = player.getCapability(CapabilityMana.MANA);
-            LazyOptional<IBurnoutStorage> burnoutStorage = player.getCapability(CapabilityBurnout.BURNOUT);
-            if (manaStorage.map(IManaStorage::getMana).orElse(0.0f) >= manaCost && burnoutStorage.map(iBurnoutStorage -> iBurnoutStorage.getMaxBurnout() - iBurnoutStorage.getBurnout()).orElse(0.0f) >= burnoutCost) {
-                manaStorage.ifPresent(iManaStorage -> iManaStorage.decrease(manaCost));
-                burnoutStorage.ifPresent(iBurnoutStorage -> iBurnoutStorage.increase(burnoutCost));
-                syncMana((ServerPlayerEntity) player);
-                syncBurnout((ServerPlayerEntity) player);
-                return true;
-            }
+    public static boolean use(LivingEntity player, float manaCost, float burnoutCost) {
+        if (hasEnoughtMana(player, manaCost) && !isBurnedOut(player, burnoutCost)) {
+            decreaseMana(player, manaCost);
+            increaseBurnout(player, burnoutCost);
+            return true;
         }
         return false;
     }
@@ -83,14 +76,28 @@ public class MagicHelper {
         );
     }
 
-    public static void regenMana(LivingEntity livingEntity, float amount) {
+    public static void increaseMana(LivingEntity livingEntity, float amount) {
         livingEntity.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.increase(amount));
         if (livingEntity instanceof ServerPlayerEntity) {
             syncMana((ServerPlayerEntity) livingEntity);
         }
     }
 
-    public static void regenBurnout(LivingEntity livingEntity, float amount) {
+    public static void decreaseMana(LivingEntity livingEntity, float amount) {
+        livingEntity.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.decrease(amount));
+        if (livingEntity instanceof ServerPlayerEntity) {
+            syncMana((ServerPlayerEntity) livingEntity);
+        }
+    }
+
+    public static void increaseBurnout(LivingEntity livingEntity, float amount) {
+        livingEntity.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.increase(amount));
+        if (livingEntity instanceof ServerPlayerEntity) {
+            syncBurnout((ServerPlayerEntity) livingEntity);
+        }
+    }
+
+    public static void decreaseBurnout(LivingEntity livingEntity, float amount) {
         livingEntity.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.decrease(amount));
         if (livingEntity instanceof ServerPlayerEntity) {
             syncBurnout((ServerPlayerEntity) livingEntity);
@@ -146,7 +153,7 @@ public class MagicHelper {
     }
 
     public static void learnSkill(PlayerEntity player, String skillid) {
-        Skill skill = ArsMagicaLegacyAPI.SKILL_REGISTRY.getValue(new ResourceLocation(skillid));
+        Skill skill = ArsMagicaLegacyAPI.getSkillRegistry().getValue(new ResourceLocation(skillid));
         IResearchStorage research = getResearchCapability(player);
         if (!research.canLearn(skill) || skill == null || research.get(skill.getPoint().getTier()) <= 0)
             return;
@@ -163,5 +170,10 @@ public class MagicHelper {
         getResearchCapability(entity).add(tier);
         if (entity instanceof ServerPlayerEntity)
             syncResearch((ServerPlayerEntity) entity);
+    }
+
+    public static boolean isBurnedOut(LivingEntity caster, float burnoutCost) {
+        IBurnoutStorage storage = getBurnoutCapability(caster);
+        return storage.getBurnout() + burnoutCost > storage.getMaxBurnout();
     }
 }

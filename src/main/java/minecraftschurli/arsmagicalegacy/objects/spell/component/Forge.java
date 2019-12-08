@@ -94,7 +94,8 @@ public class Forge extends SpellComponent {
         if (!recipe.isPresent()) return false;
         ItemStack smelted = recipe.get().getRecipeOutput();
         if (!world.isRemote) {
-            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
+            if (smelted.getItem() instanceof BlockItem)
+                world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
             else {
                 ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5F, smelted.copy());
                 float f3 = 0.05F;

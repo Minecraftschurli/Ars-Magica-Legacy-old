@@ -36,7 +36,7 @@ public class SkillRegistry {
      */
     public static RegistryObject<Skill> registerSkill(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SkillTree tree, int posX, int posY, String... parents) {
         SKILLS.add(() -> new Skill(icon, tier, posX, posY, tree, parents).setRegistryName(id));
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.SKILL_REGISTRY);
+        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSkillRegistry());
     }
 
     /**
@@ -58,6 +58,6 @@ public class SkillRegistry {
     }
 
     public static List<Skill> getSkillsForTree(SkillTree tree) {
-        return ArsMagicaLegacyAPI.SKILL_REGISTRY.getValues().stream().filter(skill -> skill.getTree() == tree).collect(Collectors.toList());
+        return ArsMagicaLegacyAPI.getSkillRegistry().getValues().stream().filter(skill -> skill.getTree() == tree).collect(Collectors.toList());
     }
 }

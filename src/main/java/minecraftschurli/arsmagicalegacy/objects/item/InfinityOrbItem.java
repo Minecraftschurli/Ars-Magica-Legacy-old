@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.item;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.SpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +35,7 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putInt(TYPE_KEY, SpellParts.SILVER_POINT.getTier());
+        stack.getOrCreateTag().putInt(TYPE_KEY, ModSpellParts.SILVER_POINT.getTier());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class InfinityOrbItem extends Item {
     @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-        if (worldIn.isRemote) return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
+        if (worldIn.isRemote || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0) return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
     }
 
