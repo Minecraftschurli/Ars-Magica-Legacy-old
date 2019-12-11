@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.BlockOcculus;
 import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
 import net.minecraft.block.*;
@@ -68,6 +69,7 @@ public final class ModBlocks implements IInit {
 
     public static final RegistryObject<Block> OCCULUS = BLOCKS.register("occulus", BlockOcculus::new);
     public static final RegistryObject<Block> MANA_BATTERY = BLOCKS.register("mana_battery", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
+    public static final RegistryObject<InscriptionTableBlock> INSCRIPTION_TABLE = BLOCKS.register("inscription_table", InscriptionTableBlock::new);
 
     public static void register() {
     }

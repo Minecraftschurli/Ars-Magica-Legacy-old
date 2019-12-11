@@ -3,6 +3,8 @@ package minecraftschurli.arsmagicalegacy.proxy;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.event.UIRender;
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
 import net.minecraft.client.Minecraft;
@@ -26,6 +28,7 @@ public class ClientProxy implements IProxy {
     public void init() {
         //noinspection RedundantCast
         ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
+        ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
     }
 
     @Override

@@ -21,7 +21,8 @@ public final class ModItems implements IInit {
     public static final Item.Properties ITEM_1 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1);
     public static final RegistryObject<Item> ARCANE_COMPENDIUM = ITEMS.register("arcane_compendium", ArcaneCompendiumItem::new);
     public static final RegistryObject<Item> SPELL = ITEMS.register("spell", SpellItem::new);
-    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
+    public static SpellBookItem spell_book = new SpellBookItem();
+    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", () -> spell_book);
     public static final RegistryObject<Item> CHIMERITE_ORE = blockItem(ModBlocks.CHIMERITE_ORE);
     public static final RegistryObject<Item> CHIMERITE_BLOCK = blockItem(ModBlocks.CHIMERITE_BLOCK);
     public static final RegistryObject<Item> CHIMERITE = stackableItem64("chimerite");
@@ -82,7 +83,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> GREEN_RUNE = stackableItem64("green_rune");
     public static final RegistryObject<Item> RED_RUNE = stackableItem64("red_rune");
     public static final RegistryObject<Item> BLACK_RUNE = stackableItem64("black_rune");
-    public static final RegistryObject<Item> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrbItem::new);
+    public static final InfinityOrbItem infinity_orb = new InfinityOrbItem();
+    public static final RegistryObject<Item> INFINITY_ORB = ITEMS.register("infinity_orb", () -> infinity_orb);
     public static final RegistryObject<Item> PURIFIED_VINTEUM = stackableItem64("purified_vinteum");
     public static final RegistryObject<Item> ARCANE_ASH = stackableItem64("arcane_ash");
     public static final RegistryObject<Item> ARCANE_COMPOUND = stackableItem64("arcane_compound");
@@ -110,6 +112,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
     public static final RegistryObject<Item> MANA_CAKE = stackableFoodItem64("mana_cake", new Food.Builder().hunger(3).saturation(0.6f).effect(new EffectInstance(ModEffects.mana_regen_effect, 600), 1).build());
     public static final RegistryObject<Item> MANA_MARTINI = stackableFoodItem64("mana_martini", new Food.Builder().hunger(0).saturation(0).effect(new EffectInstance(ModEffects.burnout_reduction_effect, 300), 1).build());
+    public static final RegistryObject<Item> INSCRIPTION_UPGRADE = stackableItem64("inscription_upgrade");
 
     public static void register() {
     }

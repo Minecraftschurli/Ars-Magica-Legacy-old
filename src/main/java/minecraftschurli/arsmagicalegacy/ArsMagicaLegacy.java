@@ -83,6 +83,7 @@ public final class ArsMagicaLegacy {
         ModFluids.register();
         ModItems.register();
         ModEntities.register();
+        ModTileEntities.register();
         ModParticles.register();
         ModEffects.register();
         ModBiomes.register();
@@ -128,10 +129,11 @@ public final class ArsMagicaLegacy {
     }
 
     private void registerItemColorHandler(ColorHandlerEvent.Item event) {
+        LOGGER.debug("Item Colors");
         event.getItemColors()
                 .register(
                         (stack, tint) ->
-                                tint == 0 ?
+                                tint == 0 && stack.hasTag() ?
                                         SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor()
                                         : -1,
                         ModItems.INFINITY_ORB.get());

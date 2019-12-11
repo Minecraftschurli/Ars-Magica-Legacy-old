@@ -8,5 +8,6 @@
   "skill.arsmagicalegacy.gravity.name": "Gravity",
   "skill.arsmagicalegacy.gravity.occulusdesc": "Falling... Okay...",
   "skill.arsmagicalegacy.bounce.name": "Bounce",
-  "skill.arsmagicalegacy.bounce.occulusdesc": "Hey! Come back!"
+  "skill.arsmagicalegacy.bounce.occulusdesc": "Hey! Come back!",
+  "arsmagicalegacy.gui.inscriptiontable.search": "Search"
 }

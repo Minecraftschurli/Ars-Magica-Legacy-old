@@ -210,13 +210,13 @@ public class SpellUtils {
         }
     }
 
-    public static ItemStack createSpellStack(ArrayList<Pair<ArrayList<AbstractSpellPart>, CompoundNBT>> shapeGroups, ArrayList<AbstractSpellPart> spellDef, CompoundNBT encodedData) {
+    public static ItemStack createSpellStack(List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroups, List<AbstractSpellPart> spellDef, CompoundNBT encodedData) {
         ItemStack stack = new ItemStack(ModItems.SPELL.get());
         CompoundNBT tag = new CompoundNBT();
         CompoundNBT am2 = NBTUtils.getAM2Tag(tag);
         am2.put(SPELL_DATA, encodedData);
         ListNBT shapeGroupList = NBTUtils.addCompoundList(am2, "ShapeGroups");
-        for (Pair<ArrayList<AbstractSpellPart>, CompoundNBT> shapeGroup : shapeGroups) {
+        for (Pair<List<AbstractSpellPart>, CompoundNBT> shapeGroup : shapeGroups) {
             if (shapeGroup.getKey().isEmpty()) {
                 continue;
             }
@@ -849,7 +849,7 @@ public class SpellUtils {
         }
     }
 
-    public static ItemStack createSpellStack(ArrayList<Pair<ArrayList<AbstractSpellPart>, CompoundNBT>> shapeGroupSetup, Pair<ArrayList<AbstractSpellPart>, CompoundNBT> curRecipeSetup) {
+    public static ItemStack createSpellStack(List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroupSetup, Pair<List<AbstractSpellPart>, CompoundNBT> curRecipeSetup) {
         return createSpellStack(shapeGroupSetup, curRecipeSetup.getKey(), curRecipeSetup.getValue());
     }
 
