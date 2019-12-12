@@ -9,5 +9,7 @@
   "skill.arsmagicalegacy.gravity.occulusdesc": "Falling... Okay...",
   "skill.arsmagicalegacy.bounce.name": "Bounce",
   "skill.arsmagicalegacy.bounce.occulusdesc": "Hey! Come back!",
-  "arsmagicalegacy.gui.inscriptiontable.search": "Search"
+  "arsmagicalegacy.gui.inscriptiontable.search": "Search",
+  "arsmagicalegacy.occulus.prevent": "Mythical forces prevent you from using this device!",
+  "arsmagicalegacy.occulus.displayname": ""
 }

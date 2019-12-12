@@ -9,7 +9,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @version 2019-12-02
  */
 public class ModTileEntities implements IInit {
-    public static final RegistryObject<TileEntityType<InscriptionTableTileEntity>> INSCRIPTION_TABLE = TILE_ENTITIES.register("", () -> TileEntityType.Builder.<InscriptionTableTileEntity>create(() -> new InscriptionTableTileEntity(), ModBlocks.INSCRIPTION_TABLE.get()).build(null));
+    public static final RegistryObject<TileEntityType<InscriptionTableTileEntity>> INSCRIPTION_TABLE = TILE_ENTITIES.register("inscription_table", () -> TileEntityType.Builder.create(InscriptionTableTileEntity::new, ModBlocks.INSCRIPTION_TABLE.get()).build(null));
 
     public static void register() {
     }

@@ -13,6 +13,8 @@ import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.lore.Story;
+import minecraftschurli.arsmagicalegacy.network.InscriptionTablePacket;
+import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -370,6 +372,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void parseTagCompound(CompoundNBT nbt) {
+        ArsMagicaLegacy.LOGGER.debug("parse: {}",nbt);
         ItemStackHelper.loadAllItems(nbt, inscriptionTableItemStacks);
         shapeGroups.clear();
         ListNBT shapeGroups = nbt.getList(SHAPE_GROUPS_KEY, Constants.NBT.TAG_LIST);
@@ -649,7 +652,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         return SpellValidator.instance.spellDefIsValid(shapeGroups, segmented);
     }
 
-    public void HandleUpdatePacket(byte[] data) {
+    public void handleUpdatePacket(byte[] data) {
         /*if (this.world == null)
             return;
         AMDataReader rdr = new AMDataReader(data);
@@ -710,7 +713,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }*/
     }
 
-    private byte[] GetUpdatePacketForServer() {
+    private byte[] getUpdatePacketForServer() {
         /*AMDataWriter writer = new AMDataWriter();
         writer.add(FULL_UPDATE);
         writer.add(this.currentPlayerUsing == null);
@@ -738,13 +741,9 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void sendDataToServer() {
-        /*AMDataWriter writer = new AMDataWriter();
-        writer.add(getPos().getX());
-        writer.add(getPos().getY());
-        writer.add(getPos().getZ());
-        writer.add(GetUpdatePacketForServer());
-
-        AMNetHandler.INSTANCE.sendPacketToServer(AMPacketIDs.INSCRIPTION_TABLE_UPDATE, writer.generate());*/
+        CompoundNBT nbt = this.write(new CompoundNBT());
+        ArsMagicaLegacy.LOGGER.debug("send: {}",nbt);
+        NetworkHandler.INSTANCE.sendToServer(new InscriptionTablePacket(this.getPos(), nbt));
     }
 
     public void addSpellPartToStageGroup(int groupIndex, AbstractSpellPart part) {
