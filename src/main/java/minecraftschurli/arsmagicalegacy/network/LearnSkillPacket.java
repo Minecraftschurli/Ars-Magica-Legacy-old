@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author Minecraftschurli
  * @version 2019-12-02
  */
-public class LearnSkillPacket {
+public class LearnSkillPacket implements IPacket{
     private final String skillId;
 
     public LearnSkillPacket(String id) {
@@ -21,10 +21,12 @@ public class LearnSkillPacket {
         this.skillId = buf.readString(32767);
     }
 
+    @Override
     public void toBytes(PacketBuffer buf) {
         buf.writeString(skillId);
     }
 
+    @Override
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         MagicHelper.learnSkill(ctx.get().getSender(), this.skillId);
         ctx.get().setPacketHandled(true);

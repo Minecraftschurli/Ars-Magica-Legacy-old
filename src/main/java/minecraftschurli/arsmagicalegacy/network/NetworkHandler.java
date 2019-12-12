@@ -30,5 +30,6 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), SyncResearchPacket.class, SyncResearchPacket::toBytes, SyncResearchPacket::new, SyncResearchPacket::handle);
         INSTANCE.registerMessage(nextID(), LearnSkillPacket.class, LearnSkillPacket::toBytes, LearnSkillPacket::new, LearnSkillPacket::handle);
         INSTANCE.registerMessage(nextID(), SyncMagicPacket.class, SyncMagicPacket::toBytes, SyncMagicPacket::new, SyncMagicPacket::handle);
+        INSTANCE.registerMessage(nextID(), InscriptionTablePacket.class, InscriptionTablePacket::toBytes, InscriptionTablePacket::new, InscriptionTablePacket::handle);
     }
 }

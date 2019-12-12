@@ -13,6 +13,8 @@ import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.lore.Story;
+import minecraftschurli.arsmagicalegacy.network.InscriptionTablePacket;
+import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -370,6 +372,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void parseTagCompound(CompoundNBT nbt) {
+//        ArsMagicaLegacy.LOGGER.debug("parse: {}",nbt);
         ItemStackHelper.loadAllItems(nbt, inscriptionTableItemStacks);
         shapeGroups.clear();
         ListNBT shapeGroups = nbt.getList(SHAPE_GROUPS_KEY, Constants.NBT.TAG_LIST);
@@ -483,8 +486,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
     public ItemStack writeRecipeAndDataToBook(ItemStack bookstack, PlayerEntity player, String title) {
         this.world = player.world;
-        ArsMagicaLegacy.LOGGER.debug("world: {}", world != null ? world.isRemote : null);
-        ArsMagicaLegacy.LOGGER.debug(currentRecipe);
+//        ArsMagicaLegacy.LOGGER.debug("world: {}", world != null ? world.isRemote : null);
+//        ArsMagicaLegacy.LOGGER.debug(currentRecipe);
         if (bookstack.getItem() == Items.WRITTEN_BOOK && this.currentRecipe != null) {
             if (!currentRecipeIsValid().valid)
                 return bookstack;
@@ -532,6 +535,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             int sgCount = 0;
             String[][] shapeGroupCombos = new String[shapeGroups.size()][];
             for (List<AbstractSpellPart> shapeGroup : shapeGroups) {
+                if (shapeGroup.isEmpty()) continue;
                 sb.append("Shape Group ").append(++sgCount).append("\n\n");
                 Iterator<AbstractSpellPart> it = shapeGroup.iterator();
                 shapeGroupCombos[sgCount - 1] = spellPartListToStringBuilder(it, sb, " -");
@@ -545,14 +549,14 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             List<StringNBT> pages = Story.splitStoryPartIntoPages(sb.toString());
 
             sb = new StringBuilder();
-            sb.append("<newpage>Materials List:\n\n");
+            sb.append("Materials List:\n\n");
             sb.append(materialsList.stream()
                     .map(ISpellIngredient::getTooltip)
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.joining("\n")));
 
             pages.addAll(Story.splitStoryPartIntoPages(sb.toString()));
-            ArsMagicaLegacy.LOGGER.debug("before write: {}", pages);
+//            ArsMagicaLegacy.LOGGER.debug("before write: {}", pages);
 
             /*sb = new StringBuilder();
             sb.append("Affinity Breakdown:\n\n");
@@ -583,10 +587,10 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             }
             pages.addAll(Story.splitStoryPartIntoPages(sb.toString()));*/
             Story.writePartToNBT(bookstack.getTag(), pages);
-            ArsMagicaLegacy.LOGGER.debug("after write: {}", bookstack.getTag());
+//            ArsMagicaLegacy.LOGGER.debug("after write: {}", bookstack.getTag());
 
-            bookstack = Story.finalizeStory(bookstack, title, player.getName().getFormattedText());
-            ArsMagicaLegacy.LOGGER.debug("after finalize: {}", bookstack.getTag());
+            Story.finalizeStory(bookstack, title, player.getName().getFormattedText());
+//            ArsMagicaLegacy.LOGGER.debug("after finalize: {}", bookstack.getTag());
 
 
             bookstack.getTag().put("spell_combo", materialsList.serializeNBT());
@@ -612,7 +616,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             currentSpellName = "";
 
             bookstack.getTag().putBoolean("spellFinalized", true);
-            ArsMagicaLegacy.LOGGER.debug("fin: {}", bookstack.getTag());
+//            ArsMagicaLegacy.LOGGER.debug("fin: {}", bookstack.getTag());
 
 
             //world.playSound(getPos().getX(), getPos().getY(), getPos().getZ(), "arsmagica2:misc.inscriptiontable.takebook", 1.0f, 1.0f, true);
@@ -649,7 +653,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         return SpellValidator.instance.spellDefIsValid(shapeGroups, segmented);
     }
 
-    public void HandleUpdatePacket(byte[] data) {
+    public void handleUpdatePacket(byte[] data) {
         /*if (this.world == null)
             return;
         AMDataReader rdr = new AMDataReader(data);
@@ -710,7 +714,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }*/
     }
 
-    private byte[] GetUpdatePacketForServer() {
+    private byte[] getUpdatePacketForServer() {
         /*AMDataWriter writer = new AMDataWriter();
         writer.add(FULL_UPDATE);
         writer.add(this.currentPlayerUsing == null);
@@ -738,13 +742,9 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void sendDataToServer() {
-        /*AMDataWriter writer = new AMDataWriter();
-        writer.add(getPos().getX());
-        writer.add(getPos().getY());
-        writer.add(getPos().getZ());
-        writer.add(GetUpdatePacketForServer());
-
-        AMNetHandler.INSTANCE.sendPacketToServer(AMPacketIDs.INSCRIPTION_TABLE_UPDATE, writer.generate());*/
+        CompoundNBT nbt = this.write(new CompoundNBT());
+//        ArsMagicaLegacy.LOGGER.debug("send: {}",nbt);
+        NetworkHandler.INSTANCE.sendToServer(new InscriptionTablePacket(this.getPos(), nbt));
     }
 
     public void addSpellPartToStageGroup(int groupIndex, AbstractSpellPart part) {

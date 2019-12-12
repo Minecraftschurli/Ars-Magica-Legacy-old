@@ -12,6 +12,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.WritableBookItem;
+import net.minecraft.network.PacketBuffer;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
@@ -46,8 +47,8 @@ public class InscriptionTableContainer extends Container {
         }
     }
 
-    public InscriptionTableContainer(int id, PlayerInventory inventoryplayer) {
-        this(id, inventoryplayer, new InscriptionTableTileEntity(inventoryplayer.player.world));
+    public InscriptionTableContainer(int id, PlayerInventory inventoryplayer, PacketBuffer additionalData) {
+        this(id, inventoryplayer, (InscriptionTableTileEntity) inventoryplayer.player.world.getTileEntity(additionalData.readBlockPos()));
     }
 
     @Override
@@ -213,8 +214,9 @@ public class InscriptionTableContainer extends Container {
 
     public void resetSpellNameAndIcon() {
         ItemStack stack = this.inventorySlots.get(0).getStack();
-        if (!stack.isEmpty())
+        if (!stack.isEmpty()){
             table.resetSpellNameAndIcon(stack, inventoryPlayer.player);
+        }
         this.inventorySlots.get(0).onSlotChanged();
         detectAndSendChanges();
     }

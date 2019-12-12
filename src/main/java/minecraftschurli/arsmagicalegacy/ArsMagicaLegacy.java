@@ -142,8 +142,8 @@ public final class ArsMagicaLegacy {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
-        WorldGenerator.setupOregen();
         WorldGenerator.setupBiomeGen();
+        WorldGenerator.setupOregen();
         proxy.init();
         NetworkHandler.registerMessages();
 
