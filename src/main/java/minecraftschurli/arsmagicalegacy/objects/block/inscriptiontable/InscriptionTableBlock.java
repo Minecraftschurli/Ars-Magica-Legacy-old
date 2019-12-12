@@ -3,7 +3,10 @@ package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -24,6 +27,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -48,12 +53,62 @@ public class InscriptionTableBlock extends Block {
         builder.add(TIER, FACING, LEFT);
     }
 
+    public PushReaction getPushReaction(BlockState state) {
+        return PushReaction.BLOCK;
+    }
+
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos blockpos = pos.down();
+        BlockState blockstate = worldIn.getBlockState(blockpos);
+        if (!state.get(LEFT)) {
+            return blockstate.func_224755_d(worldIn, blockpos, Direction.UP);
+        } else {
+            return blockstate.getBlock() == this;
+        }
+    }
+
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        worldIn.setBlockState(pos.offset(state.get(FACING).rotateY()), state.with(LEFT, true), 3);
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        if (context.getPos().getY() < 255 && context.getWorld().getBlockState(context.getPos().offset(context.getPlayer().getHorizontalFacing().getOpposite().rotateAround(Direction.Axis.Y))).isReplaceable(context))
-            return getDefaultState().with(FACING, context.getPlayer().getHorizontalFacing().getOpposite());
+        if (context.getWorld().getBlockState(context.getPos().offset(context.getPlacementHorizontalFacing().getOpposite().rotateY())).isReplaceable(context))
+            return getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
         return null;
+    }
+
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        boolean doubleblockhalf = stateIn.get(LEFT);
+        if (facing.getAxis() == Direction.Axis.Y && (!doubleblockhalf) == (facing == Direction.UP)) {
+            return facingState.getBlock() == this && facingState.get(LEFT) != doubleblockhalf ? stateIn.with(FACING, facingState.get(FACING)) : Blocks.AIR.getDefaultState();
+        } else {
+            return !doubleblockhalf && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        }
+    }
+
+    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
+        super.harvestBlock(worldIn, player, pos, Blocks.AIR.getDefaultState(), te, stack);
+    }
+
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        boolean doubleblockhalf = state.get(LEFT);
+        BlockPos blockpos = !doubleblockhalf ? pos.offset(state.get(FACING).rotateY()) : pos.offset(state.get(FACING).rotateYCCW());
+        BlockState blockstate = worldIn.getBlockState(blockpos);
+        if (blockstate.getBlock() == this && blockstate.get(LEFT) != doubleblockhalf) {
+            worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 35);
+            worldIn.playEvent(player, 2001, blockpos, Block.getStateId(blockstate));
+            ItemStack itemstack = player.getHeldItemMainhand();
+            if (!worldIn.isRemote && !player.isCreative()) {
+                BlockPos tePos = state.get(LEFT) ? pos.offset(state.get(FACING).rotateY()) : pos;
+                InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
+                Block.spawnDrops(state, worldIn, pos, te, player, itemstack);
+                Block.spawnDrops(blockstate, worldIn, blockpos, te, player, itemstack);
+            }
+        }
+
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     @Override
@@ -76,8 +131,8 @@ public class InscriptionTableBlock extends Block {
         if (worldIn.isRemote) {
             return true;
         }
-
-        InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(pos);
+        BlockPos tePos = state.get(LEFT) ? pos.offset(state.get(FACING).rotateYCCW()) : pos;
+        InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
 
         if (te == null)
             return true;
@@ -106,7 +161,7 @@ public class InscriptionTableBlock extends Block {
             public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
                 return new InscriptionTableContainer(p_createMenu_1_, p_createMenu_2_, te);
             }
-        }, pos);
+        }, tePos);
 
         return true;
     }
