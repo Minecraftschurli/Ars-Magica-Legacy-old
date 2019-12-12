@@ -1,0 +1,119 @@
+{
+	"multipart": [
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right", "y":90}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 1}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left1", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 2}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right2", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 2}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left2", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 3}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right3", "y":90}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 3}, {"facing":"west"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left3", "y":90}
+	},
+	
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right", "y":270}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 1}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left1", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 2}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right2", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 2}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left2", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 3}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right3", "y":270}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 3}, {"facing":"east"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left3", "y":270}
+	},
+	
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right"}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left"}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 1}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left1"}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 2}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right2"}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 2}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left2"}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 3}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right3"}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 3}, {"facing":"south"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left3"}
+	},
+	
+	{
+		"when": { "AND": [{"left": "false"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right", "y": 180}
+	},
+	{
+		"when": { "AND": [{"left": "true"}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left", "y": 180}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 1}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left1", "y": 180}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 2}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right2", "y": 180}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 2}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left2", "y": 180}
+	},
+	{
+		"when": { "AND": [{"left":"false"}, {"tier": 3}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_right3", "y": 180}
+	},
+	{
+		"when": { "AND": [{"left":"true"}, {"tier": 3}, {"facing":"north"}]},
+		"apply": {"model":"arsmagicalegacy:block/inscription_table_left3", "y": 180}
+	}
+	]
+}
