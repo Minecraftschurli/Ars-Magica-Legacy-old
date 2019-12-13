@@ -14,7 +14,11 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.command.arguments.ResourceLocationArgument;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -41,7 +45,16 @@ public class CommandResearch {
                                         .executes(CommandResearch::forget)
                                 ).then(Commands.literal("*").executes(CommandResearch::forgetAll))
                         )
+                ).then(Commands.literal("list")
+                        .then(Commands.argument(TARGET, EntityArgument.player())
+                                .executes(CommandResearch::list)
+                        )
                 );
+    }
+
+    private static int list(CommandContext<CommandSource> context) throws CommandSyntaxException {
+        context.getSource().sendFeedback(new StringTextComponent(MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).getLearnedSkills().stream().map(Skill::getName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
+        return 0;
     }
 
     private static int forget(CommandContext<CommandSource> context) throws CommandSyntaxException {
