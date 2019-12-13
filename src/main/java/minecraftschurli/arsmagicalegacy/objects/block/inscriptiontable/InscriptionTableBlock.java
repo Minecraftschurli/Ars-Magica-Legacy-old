@@ -32,12 +32,16 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-09
  */
+@ParametersAreNonnullByDefault
+@SuppressWarnings("deprecation")
 public class InscriptionTableBlock extends Block {
     static final IntegerProperty TIER = IntegerProperty.create("tier", 1, 3);
     private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -53,6 +57,7 @@ public class InscriptionTableBlock extends Block {
         builder.add(TIER, FACING, LEFT);
     }
 
+    @Nonnull
     public PushReaction getPushReaction(BlockState state) {
         return PushReaction.BLOCK;
     }
@@ -67,7 +72,7 @@ public class InscriptionTableBlock extends Block {
         }
     }
 
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         worldIn.setBlockState(pos.offset(state.get(FACING).rotateY()), state.with(LEFT, true), 3);
     }
 
@@ -143,7 +148,7 @@ public class InscriptionTableBlock extends Block {
         }
 
         ItemStack curItem = player.getHeldItem(hand);
-        if (!curItem.isEmpty() && curItem.getItem() == ModItems.INSCRIPTION_UPGRADE.get()) {
+        if (!curItem.isEmpty() && curItem.getItem() == ModItems.INSCRIPTION_UPGRADE.get() && curItem.getTag() != null) {
             if (te.getUpgradeState() == curItem.getTag().getInt("tier")) {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
                 te.incrementUpgradeState();
@@ -152,6 +157,7 @@ public class InscriptionTableBlock extends Block {
             }
         }
         NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+            @Nonnull
             @Override
             public ITextComponent getDisplayName() {
                 return new StringTextComponent("");
@@ -166,6 +172,7 @@ public class InscriptionTableBlock extends Block {
         return true;
     }
 
+    @Nonnull
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
