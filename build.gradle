@@ -58,7 +58,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             ideaModule "${project.name}.main"
-
+            // environment 'MOD_CLASSES', "${project.file("build/resources").canonicalPath};${project.file("build/classes").canonicalPath}"
             mods {
                 arsmagicalegacy {
                     source sourceSets.main

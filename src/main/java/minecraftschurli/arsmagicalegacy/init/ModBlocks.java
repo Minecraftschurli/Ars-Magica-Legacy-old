@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.BlockOcculus;
 import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
@@ -37,7 +38,6 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> SUNSTONE_ORE = BLOCKS.register("sunstone_ore", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(2).hardnessAndResistance(3.0f, 3.0f).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> SUNSTONE_BLOCK = BLOCKS.register("sunstone_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5.0f, 6.0f).harvestTool(ToolType.PICKAXE)));
 
-    public static final RegistryObject<Block> ALTAR_CORE = BLOCKS.register("altar_core", () -> new Block(Block.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> MAGIC_WALL = BLOCKS.register("magic_wall", () -> new IceBlock(Block.Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).slipperiness(0.6f)));
 
     public static final RegistryObject<Block> WITCHWOOD_LOG = BLOCKS.register("witchwood_log", () -> new LogBlock(MaterialColor.PURPLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 3.0f).harvestTool(ToolType.AXE)));
@@ -70,6 +70,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> OCCULUS = BLOCKS.register("occulus", BlockOcculus::new);
     public static final RegistryObject<Block> MANA_BATTERY = BLOCKS.register("mana_battery", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<InscriptionTableBlock> INSCRIPTION_TABLE = BLOCKS.register("inscription_table", InscriptionTableBlock::new);
+    public static final RegistryObject<Block> ALTAR_CORE = BLOCKS.register("altar_core", CraftingAltarBlock::new);
 
     public static void register() {
     }
