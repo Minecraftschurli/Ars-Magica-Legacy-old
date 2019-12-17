@@ -1,28 +1,46 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.state.properties.Half;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-13
  */
-public class CraftingAltarTileEntity extends TileEntity {
+public class CraftingAltarTileEntity extends TileEntity implements ITickableTileEntity {
     private static final LinkedHashMap<Block, Integer> CAPS = new LinkedHashMap<>();
     private static final LinkedHashMap<Block, Integer> MAIN = new LinkedHashMap<>();
     private static final LinkedHashMap<Block, StairsBlock> STAIRS = new LinkedHashMap<>();
@@ -82,6 +100,10 @@ public class CraftingAltarTileEntity extends TileEntity {
                 .map(block -> (StairsBlock)block)
                 .map(stairsBlock -> stairsBlock)*/
     }
+
+    private SpellIngredientList recipe;
+    private ItemStack book;
+    private int currentStage;
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -188,4 +210,51 @@ public class CraftingAltarTileEntity extends TileEntity {
         else return null;
     }
 
+    @Override
+    public void tick() {
+        if (this.world == null || !checkMultiblock(this.world)){
+            this.book = ItemStack.EMPTY;
+            this.recipe = null;
+            this.currentStage = 0;
+            return;
+        } else {
+            Direction direction = getStructureDirection(world, pos);
+            if (direction != null){
+                TileEntity te = world.getTileEntity(pos.offset(direction.getOpposite(), 2).offset(direction.rotateY(),2).down(3));
+                if (te instanceof LecternTileEntity){
+                    LecternTileEntity lectern = (LecternTileEntity) te;
+                    this.book = lectern.getBook();
+                    this.recipe = readRecipe(book);
+                }
+            }
+        }
+        if (this.book != ItemStack.EMPTY && this.recipe != null){
+            craft();
+        }
+    }
+
+    private void craft() {
+        if (getWorld() == null)
+            return;
+        if (this.currentStage >= recipe.size()) {
+            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY()-2, getPos().getZ(), createSpellStack());
+            return;
+        }
+        if (recipe.get(this.currentStage).consume(getWorld(), getPos())) {
+            this.currentStage++;
+        }
+    }
+
+    private ItemStack createSpellStack() {//TODO save to spell
+        return new ItemStack(ModItems.SPELL.get());
+    }
+
+    private SpellIngredientList readRecipe(ItemStack stack) {
+        if (!stack.hasTag() || !stack.getTag().hasUniqueId("spell_combo"))
+            return null;
+        ListNBT materials = stack.getTag().getList("spell_combo", Constants.NBT.TAG_COMPOUND);
+        SpellIngredientList list = new SpellIngredientList();
+        list.deserializeNBT(materials);
+        return list;
+    }
 }

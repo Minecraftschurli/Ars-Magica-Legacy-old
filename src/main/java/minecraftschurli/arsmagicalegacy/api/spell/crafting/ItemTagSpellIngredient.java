@@ -1,12 +1,20 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * @author Minecraftschurli
@@ -58,5 +66,20 @@ public class ItemTagSpellIngredient implements ISpellIngredient {
     @Override
     public ITextComponent getTooltip() {
         return new StringTextComponent("#"+tag.getId().toString()+": "+amount);
+    }
+
+    @Override
+    public boolean consume(World world, BlockPos pos) {
+        List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos).grow(0.5, 1, 0.5).offset(0,-2,0));
+        if (items.isEmpty())
+            return false;
+        Predicate<ItemEntity> filter = entity -> tag.contains(entity.getItem().getItem());
+        Optional<ItemEntity> optional = items.stream().filter(filter).findFirst();
+        if (optional.isPresent()){
+            ItemEntity entity = optional.get();
+            entity.getItem().shrink(1);
+            return true;
+        }
+        return false;
     }
 }

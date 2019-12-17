@@ -2,8 +2,10 @@ package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
 /**
  * @author Minecraftschurli
@@ -55,5 +57,10 @@ public class EssenceSpellIngredient implements ISpellIngredient {
     @Override
     public ITextComponent getTooltip() {
         return new TranslationTextComponent(essenceType.getTranslationKey()).appendText(": "+amount);
+    }
+
+    @Override
+    public boolean consume(World world, BlockPos pos) {
+        return true;
     }
 }

@@ -550,8 +550,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
             sb = new StringBuilder();
             sb.append("Materials List:\n\n");
-            sb.append(materialsList.stream()
-                    .map(ISpellIngredient::getTooltip)
+            sb.append(materialsList.getTooltip().stream()
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.joining("\n")));
 

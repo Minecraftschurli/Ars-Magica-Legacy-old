@@ -1,7 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.INBTSerializable;
 
 /**
@@ -16,4 +18,6 @@ public interface ISpellIngredient extends INBTSerializable<CompoundNBT> {
     ISpellIngredient combine(ISpellIngredient other);
 
     ITextComponent getTooltip();
+
+    boolean consume(World world, BlockPos pos);
 }
