@@ -46,7 +46,7 @@ public class SpellItem extends Item {
         if (!stack.hasTag()) return;
         if (shape != null) {
             if (!shape.isChanneled())
-                SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, Direction.UP, worldIn, true, true, 0);
+                SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.getPositionVec().x, entityLiving.getPositionVec().y, entityLiving.getPositionVec().z, Direction.UP, worldIn, true, true, 0);
             /*if (worldIn.isRemote && shape.isChanneled()){
                 //SoundHelper.instance.stopSound(shape.getSoundForAffinity(SpellUtils.instance.mainAffinityFor(stack), stack, null));
             }*/

@@ -20,7 +20,7 @@ public class ManaBoostEffect extends AMEffect {
     public void startEffect(LivingEntity livingEntity) {
         if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaLegacy.MODID))
             livingEntity.getPersistentData().put(ArsMagicaLegacy.MODID, new CompoundNBT());
-        livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("mana_boost", new FloatNBT(MagicHelper.getMaxMana(livingEntity)));
+        livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("mana_boost", FloatNBT.func_229689_a_(MagicHelper.getMaxMana(livingEntity)));
     }
 
     @Override

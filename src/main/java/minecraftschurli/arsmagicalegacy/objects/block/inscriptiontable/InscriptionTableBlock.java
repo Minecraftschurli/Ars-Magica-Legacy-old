@@ -20,7 +20,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -130,21 +130,21 @@ public class InscriptionTableBlock extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+    public ActionResultType func_225533_a_(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 
-        super.onBlockActivated(state, worldIn, pos, player, hand, hit);
+        super.func_225533_a_(state, worldIn, pos, player, hand, hit);
         if (worldIn.isRemote) {
-            return true;
+            return ActionResultType.SUCCESS;
         }
         BlockPos tePos = state.get(LEFT) ? pos.offset(state.get(FACING).rotateYCCW()) : pos;
         InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
 
         if (te == null)
-            return true;
+            return ActionResultType.SUCCESS;
 
         if (te.isInUse(player)) {
             player.sendMessage(new StringTextComponent("Someone else is using this."));
-            return true;
+            return ActionResultType.SUCCESS;
         }
 
         ItemStack curItem = player.getHeldItem(hand);
@@ -153,7 +153,7 @@ public class InscriptionTableBlock extends Block {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
                 te.incrementUpgradeState();
                 te.incrementUpgradeState();
-                return true;
+                return ActionResultType.SUCCESS;
             }
         }
         NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
@@ -169,12 +169,12 @@ public class InscriptionTableBlock extends Block {
             }
         }, tePos);
 
-        return true;
+        return ActionResultType.SUCCESS;
     }
 
-    @Nonnull
+    /*@Nonnull
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
-    }
+    }*/
 }

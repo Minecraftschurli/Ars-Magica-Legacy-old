@@ -45,8 +45,9 @@ public class UIRender {
         PlayerEntity player = (PlayerEntity) renderViewEntity;
         if (player == null)
             return;
-        renderManaBar(player);
-        renderBurnoutBar(player);
+        //TODO
+        /*renderManaBar(player);
+        renderBurnoutBar(player);*/
         if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.MAIN_HAND);
         else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
@@ -61,7 +62,8 @@ public class UIRender {
         }
     }
 
-    private void renderBurnoutBar(PlayerEntity player) {
+    //TODO
+    /*private void renderBurnoutBar(PlayerEntity player) {
         int scaledWidth = mc.mainWindow.getScaledWidth();
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 - 181;
@@ -106,7 +108,7 @@ public class UIRender {
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
         mc.getProfiler().endSection();
-    }
+    }*/
 
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
         mc.ingameGUI.blit(x, y, textureX, textureY, width, height);

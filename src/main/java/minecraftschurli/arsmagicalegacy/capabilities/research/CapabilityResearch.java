@@ -42,7 +42,7 @@ public class CapabilityResearch implements ICapabilitySerializable<INBT> {
                         instance.getLearned()
                                 .stream()
                                 .map(ResourceLocation::toString)
-                                .map(StringNBT::new)
+                                .map(StringNBT::func_229705_a_)
                                 .forEach(learned::add);
                         compoundNBT.put("learned", learned);
                         return compoundNBT;

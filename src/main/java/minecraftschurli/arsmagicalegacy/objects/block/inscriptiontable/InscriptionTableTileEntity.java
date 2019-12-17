@@ -595,13 +595,13 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
             bookstack.getTag().put("spell_combo", materialsList.serializeNBT());
             ListNBT list = new ListNBT();
-            list.addAll(Arrays.stream(outputData).map(StringNBT::new).collect(Collectors.toList()));
+            list.addAll(Arrays.stream(outputData).map(StringNBT::func_229705_a_).collect(Collectors.toList()));
             bookstack.getTag().put("output_combo", list);
             bookstack.getTag().putInt("numShapeGroups", shapeGroupCombos.length);
             int i = 0;
             for (String[] sgArray : shapeGroupCombos) {
                 ListNBT nbt = new ListNBT();
-                nbt.addAll(Arrays.stream(sgArray).map(StringNBT::new).collect(Collectors.toList()));
+                nbt.addAll(Arrays.stream(sgArray).map(StringNBT::func_229705_a_).collect(Collectors.toList()));
                 bookstack.getTag().put("shapeGroupCombo_" + i++, nbt);
             }
             bookstack.getTag().putString("spell_mod_version", ArsMagicaLegacy.instance.getVersion());

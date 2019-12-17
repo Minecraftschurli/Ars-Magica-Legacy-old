@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
@@ -26,6 +27,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -124,7 +127,7 @@ public class OcculusScreen extends Screen {
         int posY = height / 2 - ySize / 2;
         float renderSize = 32F;
         float renderRatio = 0.29F;
-        this.blitOffset = -5;
+        this.setBlitOffset(-5);
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/overlay.png"));
         //Overlay
         blit(posX, posY, 0, 0, 210, 210);
@@ -135,7 +138,7 @@ public class OcculusScreen extends Screen {
             else
                 blit(posX + 7 + (((currentTabId % 16) - 8) * 24), posY + 203, 22, 210, 22, 7);
         }
-        this.blitOffset = -18;
+        this.setBlitOffset(-18);
         if (this.isDragging()) {
             int dx = lastMouseX - mouseX;
             int dy = lastMouseY - mouseY;
@@ -157,7 +160,7 @@ public class OcculusScreen extends Screen {
         for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
             maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getSkillPoint(player, point)));
         }
-        blitOffset = -1;
+        this.setBlitOffset(-1);
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
@@ -165,12 +168,12 @@ public class OcculusScreen extends Screen {
             font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
             pointOffsetX += 10;
         }
-        GlStateManager.color3f(1f, 1f, 1f);
+        GL11.glColor3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
         if (currentTree != ModSpellParts.AFFINITY) {
-            RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
+            RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
-            blitOffset = 1;
+            this.setBlitOffset(1);
             IResearchStorage data = MagicHelper.getResearchCapability(player);
             for (Skill s : skills) {
                 if (s.getPoint() == null || (!s.getPoint().canRender() && !data.knows(s)))
@@ -203,7 +206,7 @@ public class OcculusScreen extends Screen {
             for (Skill s : skills) {
                 if (s.getPoint() == null || (!s.getPoint().canRender() && !data.knows(s)))
                     continue;
-                GlStateManager.color4f(1, 1, 1, 1.0F);
+                GL11.glColor4f(1F, 1F, 1F, 1.0F);
                 IResearchStorage skillData = MagicHelper.getResearchCapability(player);
                 boolean hasPrereq = skillData.canLearn(s) || data.knows(s);
                 int offsetX = calcXOffset(posX, s);
@@ -236,9 +239,9 @@ public class OcculusScreen extends Screen {
                     yEndMod = renderSize - (posY + 203 - offsetY);
                 }
                 if (!hasPrereq)
-                    GlStateManager.color3f(0.5F, 0.5F, 0.5F);
+                    GL11.glColor3f(0.5F, 0.5F, 0.5F);
                 else if (!skillData.knows(s))
-                    GlStateManager.color3f(Math.max(RenderUtils.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
+                    GL11.glColor3f(Math.max(RenderUtils.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
 
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID()))
                     GlStateManager.color3f(0.3f, 0.3f, 0.3f);*/
@@ -252,7 +255,7 @@ public class OcculusScreen extends Screen {
                         minV + (yStartMod / renderSize * spriteYSize),
                         maxU - (xEndMod / renderSize * spriteXSize),
                         maxV - (yEndMod / renderSize * spriteYSize));
-                GlStateManager.color4f(1, 1, 1, 1.0F);
+                GL11.glColor4f(1, 1, 1, 1.0F);
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID())){
                     sprite = AMGuiIcons.padlock;
                     spriteXSize = maxU - minU;
@@ -296,7 +299,7 @@ public class OcculusScreen extends Screen {
 
             if (mouseX > posX && mouseX < posX + 210 && mouseY > posY && mouseY < posY + 210) {
                 boolean flag = false;
-                blitOffset = 0;
+                this.setBlitOffset(0);
                 for (Skill s : skills) {
                     if (!s.getPoint().canRender() && !data.knows(s))
                         continue;
@@ -322,7 +325,7 @@ public class OcculusScreen extends Screen {
                     flag = true;
                     hoverItem = s;
                     RenderHelper.disableStandardItemLighting();
-                    GlStateManager.color3f(1.0F, 1.0F, 1.0F);
+                    GL11.glColor3f(1.0F, 1.0F, 1.0F);
                 }
                 if (!flag) {
                     hoverItem = null;
@@ -331,7 +334,7 @@ public class OcculusScreen extends Screen {
 
         } else {
             //boolean isShiftDown = false;
-            RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, 0, 0, 1, 1);
+            RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), 0, 0, 1, 1);
             /*int affNum = ArsMagicaAPI.getAffinityRegistry().getValues().size() - 1;
             int portion = 360 / affNum;
             int currentID = 0;
@@ -411,7 +414,7 @@ public class OcculusScreen extends Screen {
             RenderHelper.disableStandardItemLighting();*/
         }
 
-        GlStateManager.color3f(1, 1, 1);
+        GL11.glColor3f(1, 1, 1);
 
         super.render(mouseX, mouseY, partialTicks);
     }

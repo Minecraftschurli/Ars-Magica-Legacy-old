@@ -12,7 +12,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -103,17 +103,17 @@ public class BlockOcculus extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (player.isSneaking())
-            return false;
+    public ActionResultType func_225533_a_(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (player.func_225608_bj_())
+            return ActionResultType.PASS;
         if (worldIn.isRemote) {
             if (MagicHelper.getCurrentLevel(player) == 0 && !player.isCreative()) {
                 player.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID+".occulus.prevent"));
-                return true;
+                return ActionResultType.SUCCESS;
             }
             Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaLegacy.MODID+".occulus.displayname"), player));
         }
-        return true;
+        return ActionResultType.SUCCESS;
     }
 
     @Override
@@ -126,8 +126,8 @@ public class BlockOcculus extends Block {
         return BlockRenderType.MODEL;
     }
 
-    @Override
+    /*@Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
-    }
+    }*/
 }

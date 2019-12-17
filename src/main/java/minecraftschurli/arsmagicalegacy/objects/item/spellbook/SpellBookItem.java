@@ -37,7 +37,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         final ItemStack stack = player.getHeldItem(hand);
-        if (player.isSneaking()) {
+        if (player.func_225608_bj_()) {
             if (!world.isRemote && player instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                     @Override
@@ -55,7 +55,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         } else {
             return getActiveScroll(stack)
                     .map(spellItem -> spellItem.onItemRightClick(world, player, hand))
-                    .orElse(ActionResult.newResult(ActionResultType.FAIL, stack));
+                    .orElse(new ActionResult<>(ActionResultType.FAIL, stack));
         }
     }
 

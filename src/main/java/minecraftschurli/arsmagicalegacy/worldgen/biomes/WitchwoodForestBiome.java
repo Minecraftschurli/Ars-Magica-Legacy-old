@@ -5,8 +5,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
@@ -31,8 +33,8 @@ public class WitchwoodForestBiome extends Biome {
                 .waterFogColor(0x092971)
                 .parent(null)
         );
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        /*this.addFeature(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
+        this.addFeature(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);*/
         DefaultBiomeFeatures.addCarvers(this);
         DefaultBiomeFeatures.addStructures(this);
         DefaultBiomeFeatures.addLakes(this);
@@ -45,21 +47,21 @@ public class WitchwoodForestBiome extends Biome {
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);
-        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(WitchwoodTree.WITCHWOOD_TREE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(10, 0.1F, 1)));
+//        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.NORMAL_TREE.func_225566_b_(WitchwoodTree.WITCHWOOD_TREE)Biome.(, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(10, 0.1F, 1)));
     }
 
     @Override
-    public int getSkyColorByTemp(float p_76731_1_) {
+    public int func_225529_c_() {
         return 0x6699ff;
     }
 
     @Override
-    public int getFoliageColor(BlockPos p_180625_1_) {
+    public int func_225528_a_(double p_225528_1_, double p_225528_3_) {
         return 0xdbe6e5;
     }
 
     @Override
-    public int getGrassColor(BlockPos p_180627_1_) {
+    public int func_225527_a_() {
         return 0xdbe6e5;
     }
 }

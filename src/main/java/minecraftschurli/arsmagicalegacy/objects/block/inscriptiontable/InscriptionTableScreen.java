@@ -338,7 +338,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
 
-        this.blitOffset = 0;
+        this.setBlitOffset(0);
 
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 
@@ -389,16 +389,17 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.WRITABLE_BOOK);
 
+        //TODO
         /*if (AMGuiHelper.instance.getFastTicker() < 20)
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
         else*///AMGuiHelper.DrawIconAtXY(icon, bookX, bookY, this.zLevel, 16, 16, true);
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
+        /*GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
 
         GlStateManager.matrixMode(GL11.GL_TEXTURE);
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        Minecraft.getInstance().getTextureManager().bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+        // Minecraft.getInstance().getTextureManager().bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
         Tessellator tessellator = Tessellator.getInstance();
 
@@ -424,7 +425,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         if (drawing)
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);*/
     }
 
     private boolean drawCurrentRecipe(List<String> labelText, int l, int i1) {
@@ -568,7 +569,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             GL11.glColor3f(1.0f, 0.7f, 0.7f);
         }
 
-        GlStateManager.matrixMode(GL11.GL_TEXTURE);
+        //TODO
+        /*GlStateManager.matrixMode(GL11.GL_TEXTURE);
         GlStateManager.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(part).getIcon());
 
@@ -598,7 +600,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 
         if (drawing)
-            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
+            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);*/
 
         if (!dragging) {
             if (lastMouseX > iconX && lastMouseX < iconX + 16) {
@@ -619,8 +621,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     private void drawDraggedItem() {
-
-        GlStateManager.matrixMode(GL11.GL_TEXTURE);
+        //TODO
+        /*GlStateManager.matrixMode(GL11.GL_TEXTURE);
         GlStateManager.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(hoveredItem).getIcon());
 
@@ -650,7 +652,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 
         if (drawing)
-            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
+            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);*/
     }
 
     @Override
@@ -686,7 +688,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 j1 = this.height - k1 - 6;
             }
 
-            this.blitOffset = 300;
+            this.setBlitOffset(300);
             int l1 = -267386864;
             this.fillGradient(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
             this.fillGradient(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
@@ -711,10 +713,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 j1 += 10;
             }
 
-            this.blitOffset = 0;
+            this.setBlitOffset(0);
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_DEPTH_TEST);
-            RenderHelper.enableStandardItemLighting();
+            RenderHelper.func_227780_a_();
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         }
     }
