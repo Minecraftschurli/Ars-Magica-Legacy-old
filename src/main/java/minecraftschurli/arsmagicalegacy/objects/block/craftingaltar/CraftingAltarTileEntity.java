@@ -27,10 +27,10 @@ public class CraftingAltarTileEntity extends TileEntity {
     private static final LinkedHashMap<Block, Integer> MAIN = new LinkedHashMap<>();
     private static final LinkedHashMap<Block, StairsBlock> STAIRS = new LinkedHashMap<>();
     private static final Supplier<BlockState> AIR = Blocks.AIR::getDefaultState;
-    private static final Supplier<BlockState> WALL = ModBlocks.MAGIC_WALL.lazyMap(Block::getDefaultState);
+    private static final Supplier<BlockState> WALL = () -> ModBlocks.MAGIC_WALL.lazyMap(Block::getDefaultState).get();
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
     private static final Supplier<BlockState> LEVER = Blocks.LEVER::getDefaultState;
-    private static final Supplier<BlockState> ALTAR = ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState);
+    private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
     private AtomicReference<BlockState> cap = new AtomicReference<>();
     private AtomicReference<BlockState> main = new AtomicReference<>();
     private Supplier<BlockState> stairBottom1 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
@@ -39,48 +39,48 @@ public class CraftingAltarTileEntity extends TileEntity {
     private Supplier<BlockState> stairBottom4 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
     private Supplier<BlockState> stairBottom5 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
     private Supplier<BlockState> stairBottom6 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
-    private final Structure STRUCTURE = new Structure(
-            new Supplier[][]{
-                    {main::get,main::get,main::get,main::get,main::get},
-                    {main::get,main::get,main::get,main::get,main::get},
-                    {main::get,main::get,cap::get,main::get,main::get},
-                    {main::get,main::get,main::get,main::get,main::get},
-                    {main::get,main::get,main::get,main::get,main::get}
-            },
-            new Supplier[][]{
-                    {AIR,AIR,AIR,AIR,AIR},
-                    {main::get,AIR,AIR,AIR,main::get},
-                    {WALL,AIR,AIR,AIR,WALL},
-                    {main::get,AIR,AIR,AIR,main::get},
-                    {AIR,AIR,AIR,AIR,LECTERN}
-            },
-            new Supplier[][]{
-                    {AIR,AIR,AIR,AIR,AIR},
-                    {main::get,AIR,AIR,AIR,main::get},
-                    {WALL,AIR,AIR,AIR,WALL},
-                    {main::get,AIR,AIR,AIR,main::get},
-                    {AIR,AIR,AIR,AIR,LEVER}
-            },
-            new Supplier[][]{
-                    {AIR,AIR,AIR,AIR,AIR},
-                    {main::get,stairBottom1,AIR,stairBottom2,main::get},
-                    {WALL,AIR,AIR,AIR,WALL},
-                    {main::get,stairBottom1,AIR,stairBottom2,main::get},
-                    {AIR,AIR,AIR,AIR,AIR}
-            },
-            new Supplier[][]{
-                    {AIR,AIR,AIR,AIR,AIR},
-                    {cap::get,stairBottom3,stairBottom3,stairBottom3,cap::get},
-                    {stairBottom6,main::get,ALTAR,main::get,stairBottom5},
-                    {cap::get,stairBottom4,stairBottom4,stairBottom4,cap::get},
-                    {AIR,AIR,AIR,AIR,AIR}
-            }
+    @SuppressWarnings("unchecked")
+    private final Structure STRUCTURE = new Structure(new Supplier[][][]{{
+                {    main::get,    main::get,    main::get,    main::get,    main::get},
+                {    main::get,    main::get,    main::get,    main::get,    main::get},
+                {    main::get,    main::get,     cap::get,    main::get,    main::get},
+                {    main::get,    main::get,    main::get,    main::get,    main::get},
+                {    main::get,    main::get,    main::get,    main::get,    main::get}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {         WALL,          AIR,          AIR,          AIR,         WALL},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {          AIR,          AIR,          AIR,          AIR,      LECTERN}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {         WALL,          AIR,          AIR,          AIR,         WALL},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {          AIR,          AIR,          AIR,          AIR,        LEVER}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
+                {         WALL,          AIR,          AIR,          AIR,         WALL},
+                {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
+                {          AIR,          AIR,          AIR,          AIR,          AIR}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {     cap::get, stairBottom3, stairBottom3, stairBottom3,     cap::get},
+                { stairBottom6,    main::get,        ALTAR,    main::get, stairBottom5},
+                {     cap::get, stairBottom4, stairBottom4, stairBottom4,     cap::get},
+                {          AIR,          AIR,          AIR,          AIR,          AIR}
+            }}
     );
 
     static {
         CAPS.put(ModBlocks.SUNSTONE_BLOCK.get(), 2);
         MAIN.put(Blocks.PURPUR_BLOCK, 2);
         STAIRS.put(Blocks.PURPUR_BLOCK, (StairsBlock) Blocks.PURPUR_STAIRS);
+        /*BlockTags.STAIRS.getAllElements().stream()
+                .filter(block -> block instanceof StairsBlock)
+                .map(block -> (StairsBlock)block)
+                .map(stairsBlock -> stairsBlock)*/
     }
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
