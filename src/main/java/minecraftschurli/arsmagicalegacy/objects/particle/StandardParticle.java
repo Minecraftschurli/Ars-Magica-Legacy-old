@@ -320,11 +320,10 @@ public class StandardParticle extends Particle implements IParticleData {
         return world;
     }
 
-    public void setParticleTextureByName(String name) {
-        if (name.equalsIgnoreCase("radiant")) this.isRadiant = true;
+//    public void setParticleTextureByName(String name) {
 //        this.particleTexture = AMParticleIcons.instance.getIconByName(name);
-    }
-
+//    }
+//
     public void setPosition(Entity entity) {
         setPosition(entity.posX, entity.posY, entity.posZ);
     }
