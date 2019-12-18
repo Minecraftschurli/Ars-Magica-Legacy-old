@@ -21,7 +21,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void preInit() {
         MinecraftForge.EVENT_BUS.register(new UIRender());
-        OBJLoader.INSTANCE.addDomain(ArsMagicaLegacy.MODID);
+//        OBJLoader.INSTANCE.addDomain(ArsMagicaLegacy.MODID);
     }
 
     @Override

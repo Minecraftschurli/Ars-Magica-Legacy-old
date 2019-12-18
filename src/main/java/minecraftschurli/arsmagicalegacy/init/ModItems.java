@@ -56,7 +56,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> WITCHWOOD_TRAPDOOR = blockItem(ModBlocks.WITCHWOOD_TRAPDOOR);
     public static final RegistryObject<Item> WITCHWOOD_BUTTON = blockItem(ModBlocks.WITCHWOOD_BUTTON);
     public static final RegistryObject<Item> WITCHWOOD_PRESSURE_PLATE = blockItem(ModBlocks.WITCHWOOD_PRESSURE_PLATE);
-    public static final RegistryObject<Item> WITCHWOOD_SAPLING = blockItem(ModBlocks.WITCHWOOD_SAPLING);
+//    public static final RegistryObject<Item> WITCHWOOD_SAPLING = blockItem(ModBlocks.WITCHWOOD_SAPLING);
     public static final RegistryObject<Item> AUM = blockItem(ModBlocks.AUM);
     public static final RegistryObject<Item> CERUBLOSSOM = blockItem(ModBlocks.CERUBLOSSOM);
     public static final RegistryObject<Item> DESERT_NOVA = blockItem(ModBlocks.DESERT_NOVA);

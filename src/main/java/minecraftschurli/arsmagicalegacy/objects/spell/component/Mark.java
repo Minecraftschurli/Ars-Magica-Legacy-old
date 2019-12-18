@@ -37,7 +37,7 @@ public class Mark extends SpellComponent {
             if (caster instanceof PlayerEntity && world.isRemote)
                 caster.sendMessage(new TranslationTextComponent("Mark Cleared"));
         } else {
-//            caster.setMark(target.posX, target.posY, target.posZ, caster.world.getDimension());
+//            caster.setMark(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z, caster.world.getDimension());
             if (caster instanceof PlayerEntity && world.isRemote)
                 caster.sendMessage(new TranslationTextComponent("Mark Set"));
         }
@@ -62,10 +62,10 @@ public class Mark extends SpellComponent {
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         int offset = 1;
-        setupParticle(world, caster.posX - 0.5f, caster.posY + offset, caster.posZ, 0.2, 0, colorModifier);
-        setupParticle(world, caster.posX + 0.5f, caster.posY + offset, caster.posZ, -0.2, 0, colorModifier);
-        setupParticle(world, caster.posX, caster.posY + offset, caster.posZ - 0.5f, 0, 0.2, colorModifier);
-        setupParticle(world, caster.posX, caster.posY + offset, caster.posZ + 0.5f, 0, -0.2, colorModifier);
+        setupParticle(world, caster.getPositionVec().x - 0.5f, caster.getPositionVec().y + offset, caster.getPositionVec().z, 0.2, 0, colorModifier);
+        setupParticle(world, caster.getPositionVec().x + 0.5f, caster.getPositionVec().y + offset, caster.getPositionVec().z, -0.2, 0, colorModifier);
+        setupParticle(world, caster.getPositionVec().x, caster.getPositionVec().y + offset, caster.getPositionVec().z - 0.5f, 0, 0.2, colorModifier);
+        setupParticle(world, caster.getPositionVec().x, caster.getPositionVec().y + offset, caster.getPositionVec().z + 0.5f, 0, -0.2, colorModifier);
     }
 
     private void setupParticle(World world, double x, double y, double z, double motionx, double motionz, int colorModifier) {

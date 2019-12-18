@@ -49,9 +49,9 @@ public class Storm extends SpellComponent {
                 int xzradius = 50;
                 int random = world.rand.nextInt(100);
                 if (random < 20) {
-                    int randPosX = (int) caster.posX + world.rand.nextInt(xzradius * 2) - xzradius;
-                    int randPosZ = (int) caster.posZ + world.rand.nextInt(xzradius * 2) - xzradius;
-                    int posY = (int) caster.posY;
+                    int randPosX = (int) caster.getPositionVec().x + world.rand.nextInt(xzradius * 2) - xzradius;
+                    int randPosZ = (int) caster.getPositionVec().z + world.rand.nextInt(xzradius * 2) - xzradius;
+                    int posY = (int) caster.getPositionVec().y;
                     while (!world.canBlockSeeSky(new BlockPos(randPosX, posY, randPosZ))) posY++;
                     while (world.getBlockState(new BlockPos(randPosX, posY - 1, randPosZ)).getBlock().equals(Blocks.AIR))
                         posY--;
@@ -64,7 +64,7 @@ public class Storm extends SpellComponent {
                     if (target != null && world.canBlockSeeSky(target.getPosition())) {
                         if (caster instanceof PlayerEntity)
                             target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 1);
-                        LightningBoltEntity bolt = new LightningBoltEntity(world, target.posX, target.posY, target.posZ, false);
+                        LightningBoltEntity bolt = new LightningBoltEntity(world, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z, false);
                         world.addEntity(bolt);
                     }
                 }

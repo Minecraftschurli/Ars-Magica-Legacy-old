@@ -80,7 +80,8 @@ public class Attract extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        doTKExtrapolated(stack, world, target.posX, target.posY, target.posZ, caster);
+        Vec3d pos = target.getPositionVec();
+        doTKExtrapolated(stack, world, pos.x, pos.y, pos.z, caster);
         return true;
     }
 

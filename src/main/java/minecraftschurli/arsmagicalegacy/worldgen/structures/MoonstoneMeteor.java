@@ -43,7 +43,7 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
             return true;
         BlockState state = worldIn.getBlockState(pos);
         Block block = state.getBlock();
-        return BlockTags.DIRT_LIKE.contains(block) ||
+        return Tags.Blocks.GRAVEL.contains(block) ||
                 BlockTags.SAND.contains(block) ||
                 Tags.Blocks.DIRT.contains(block) ||
                 Tags.Blocks.SAND.contains(block) ||

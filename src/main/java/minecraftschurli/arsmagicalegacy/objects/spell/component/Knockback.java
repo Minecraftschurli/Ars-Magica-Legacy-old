@@ -26,8 +26,8 @@ public class Knockback extends SpellComponent {
             speed = SpellUtils.getModifiedDoubleAdd(speed, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED);
             double vertSpeed = 0.325;
             LivingEntity curEntity = (LivingEntity) target;
-            double deltaZ = curEntity.posZ - caster.posZ;
-            double deltaX = curEntity.posX - caster.posX;
+            double deltaZ = curEntity.getPositionVec().z - caster.getPositionVec().z;
+            double deltaX = curEntity.getPositionVec().x - caster.getPositionVec().x;
             double angle = Math.atan2(deltaZ, deltaX);
             double radians = angle;
             /*if (curEntity instanceof PlayerEntity) AMNetHandler.INSTANCE.sendVelocityAddPacket(world, curEntity, speed * Math.cos(radians), vertSpeed, speed * Math.sin(radians));
@@ -55,19 +55,19 @@ public class Knockback extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
+        /*for (int i = 0; i < 25; ++i) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 2, 1);
-//                double dx = caster.posX - target.posX;
-//                double dz = caster.posZ - target.posZ;
+//                double dx = caster.getPositionVec().x - target.getPositionVec().x;
+//                double dz = caster.getPositionVec().z - target.getPositionVec().z;
 //                double angle = Math.toDegrees(Math.atan2(-dz, -dx));
 //                particle.AddParticleController(new ParticleMoveOnHeading(particle, angle, 0, 0.1 + rand.nextDouble() * 0.5, 1, false));
 //                particle.AddParticleController(new ParticleFadeOut(particle, 1, false).setFadeSpeed(0.05f));
 //                particle.setMaxAge(20);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
 //            }
-        }
+        }*/
     }
 
     //    @Override

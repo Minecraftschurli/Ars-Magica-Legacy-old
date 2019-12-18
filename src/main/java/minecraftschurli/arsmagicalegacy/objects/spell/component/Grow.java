@@ -18,6 +18,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -52,7 +53,7 @@ public class Grow extends SpellComponent {
         }
         if (block.getBlock() instanceof MushroomBlock) {
             if (!world.isRemote && world.rand.nextInt(10) < 1)
-                ((MushroomBlock) block.getBlock()).grow(world, world.rand, pos, block);
+                ((MushroomBlock) block.getBlock()).func_225535_a_((ServerWorld) world, world.rand, pos, block);
             return true;
         }
         if (block.getBlock() == Blocks.WATER) {
@@ -78,7 +79,7 @@ public class Grow extends SpellComponent {
             IGrowable igrowable = (IGrowable) block;
             if (igrowable.canGrow(world, pos, block, world.isRemote)) {
                 if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block))
-                    igrowable.grow(world, world.rand, pos, block);
+                    igrowable.func_225535_a_((ServerWorld) world, world.rand, pos, block);
                 return true;
             }
         }

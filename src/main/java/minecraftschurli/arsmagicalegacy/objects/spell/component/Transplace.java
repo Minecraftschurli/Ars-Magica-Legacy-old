@@ -38,12 +38,12 @@ public class Transplace extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!world.isRemote && target != null && target.isAlive()) {
-            double tPosX = target.posX;
-            double tPosY = target.posY;
-            double tPosZ = target.posZ;
-            double cPosX = caster.posX;
-            double cPosY = caster.posY;
-            double cPosZ = caster.posZ;
+            double tPosX = target.getPositionVec().x;
+            double tPosY = target.getPositionVec().y;
+            double tPosZ = target.getPositionVec().z;
+            double cPosX = caster.getPositionVec().x;
+            double cPosY = caster.getPositionVec().y;
+            double cPosZ = caster.getPositionVec().z;
             caster.setPositionAndUpdate(tPosX, tPosY, tPosZ);
             if (target instanceof LivingEntity) target.setPositionAndUpdate(cPosX, cPosY, cPosZ);
             else target.setPosition(cPosX, cPosY, cPosZ);
@@ -65,10 +65,10 @@ public class Transplace extends SpellComponent {
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         for (int i = 0; i < 15; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", caster.posX, caster.posY + caster.getEyeHeight(), caster.posZ);
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", caster.getPositionVec().x, caster.getPositionVec().y + caster.getEyeHeight(), caster.getPositionVec().z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleArcToPoint(particle, 1, target.posX, target.posY + target.getEyeHeight(), target.posZ, false).SetSpeed(0.05f).generateControlPoints());
+//                particle.AddParticleController(new ParticleArcToPoint(particle, 1, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, false).SetSpeed(0.05f).generateControlPoints());
 //                particle.setMaxAge(40);
 //                particle.setParticleScale(0.2f);
 //                particle.setRGBColorF(1, 0, 0);
@@ -76,10 +76,10 @@ public class Transplace extends SpellComponent {
 //            }
         }
         for (int i = 0; i < 15; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", target.posX, target.posY + target.getEyeHeight(), target.posZ);
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleArcToPoint(particle, 1, caster.posX, caster.posY + caster.getEyeHeight(), caster.posZ, false).SetSpeed(0.05f).generateControlPoints());
+//                particle.AddParticleController(new ParticleArcToPoint(particle, 1, caster.getPositionVec().x, caster.getPositionVec().y + caster.getEyeHeight(), caster.getPositionVec().z, false).SetSpeed(0.05f).generateControlPoints());
 //                particle.setMaxAge(40);
 //                particle.setParticleScale(0.2f);
 //                particle.setRGBColorF(0, 0, 1);

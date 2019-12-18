@@ -29,7 +29,7 @@ public class WizardsAutumn extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
+//                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.STICK)),
                 new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON)
         };
@@ -62,7 +62,7 @@ public class WizardsAutumn extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return applyEffectBlock(stack, world, target.getPosition(), null, target.posX, target.posY, target.posZ, caster);
+        return applyEffectBlock(stack, world, target.getPosition(), null, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z, caster);
     }
 
     @Override

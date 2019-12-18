@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.sun.javafx.geom.Vec3f;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -11,23 +11,24 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 
 import java.util.Random;
 
 public class RenderUtils {
 
     private static Random rand = new Random();
-
+// func_225582_a_ -> func_225582_a_
+// tex -> func_225583_a_
 
     public static void drawBox(float minX, float minY, float maxX, float maxY, float zLevel, float minU, float minV, float maxU, float maxV) {
         Tessellator t = Tessellator.getInstance();
         BufferBuilder wr = t.getBuffer();
         wr.begin(7, DefaultVertexFormats.POSITION_TEX);
-        wr.pos(minX, minY + maxY, zLevel).tex(minU, maxV).endVertex();
-        wr.pos(minX + maxX, minY + maxY, zLevel).tex(maxU, maxV).endVertex();
-        wr.pos(minX + maxX, minY, zLevel).tex(maxU, minV).endVertex();
-        wr.pos(minX, minY, zLevel).tex(minU, minV).endVertex();
+        wr.func_225582_a_(minX, minY + maxY, zLevel).func_225583_a_(minU, maxV).endVertex();
+        wr.func_225582_a_(minX + maxX, minY + maxY, zLevel).func_225583_a_(maxU, maxV).endVertex();
+        wr.func_225582_a_(minX + maxX, minY, zLevel).func_225583_a_(maxU, minV).endVertex();
+        wr.func_225582_a_(minX, minY, zLevel).func_225583_a_(minU, minV).endVertex();
         t.draw();
     }
 
@@ -44,7 +45,7 @@ public class RenderUtils {
     }
 
     public static void color(int color) {
-        GL11.glColor4f(getRed(color), getGreen(color), getBlue(color), 0.5F);
+        GL14.glColor4f(getRed(color), getGreen(color), getBlue(color), 0.5F);
     }
 
     public static int getColor(float r, float g, float b) {
@@ -55,33 +56,33 @@ public class RenderUtils {
     }
 
     public static void line2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GlStateManager.enableDepthTest();
-        GL11.glLineWidth(1f);
-        GL11.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex3f(xStart, yStart, zLevel);
-        GL11.glVertex3f(xEnd, yEnd, zLevel);
-        GL11.glEnd();
-        GL11.glColor3d(1.0f, 1.0f, 1.0f);
-        GlStateManager.disableDepthTest();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL14.glDisable(GL14.GL_TEXTURE_2D);
+        RenderSystem.enableDepthTest();
+        GL14.glLineWidth(1f);
+        GL14.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
+        GL14.glBegin(GL14.GL_LINES);
+        GL14.glVertex3f(xStart, yStart, zLevel);
+        GL14.glVertex3f(xEnd, yEnd, zLevel);
+        GL14.glEnd();
+        GL14.glColor3d(1.0f, 1.0f, 1.0f);
+        RenderSystem.disableDepthTest();
+        GL14.glEnable(GL14.GL_TEXTURE_2D);
     }
 
     public static void lineThick2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
-        GL11.glPushMatrix();
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GlStateManager.enableDepthTest();
-        GL11.glLineWidth(4f);
-        GL11.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex3f(xStart, yStart, zLevel);
-        GL11.glVertex3f(xEnd, yEnd, zLevel);
-        GL11.glEnd();
-        GL11.glColor3d(1.0f, 1.0f, 1.0f);
-        GlStateManager.disableDepthTest();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glPopMatrix();
+        GL14.glPushMatrix();
+        GL14.glDisable(GL14.GL_TEXTURE_2D);
+        RenderSystem.enableDepthTest();
+        GL14.glLineWidth(4f);
+        GL14.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
+        GL14.glBegin(GL14.GL_LINES);
+        GL14.glVertex3f(xStart, yStart, zLevel);
+        GL14.glVertex3f(xEnd, yEnd, zLevel);
+        GL14.glEnd();
+        GL14.glColor3d(1.0f, 1.0f, 1.0f);
+        RenderSystem.disableDepthTest();
+        GL14.glEnable(GL14.GL_TEXTURE_2D);
+        GL14.glPopMatrix();
     }
 
     public static void fractalLine2df(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color, float displace, float fractalDetail) {
@@ -105,54 +106,54 @@ public class RenderUtils {
         FontRenderer fontrenderer = Minecraft.getInstance().fontRenderer;
         float f = 1.6F;
         float f1 = 0.016666668F * f;
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float) x, (float) y, (float) z);
-        GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-Minecraft.getInstance().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(Minecraft.getInstance().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
-        GL11.glScalef(-f1, -f1, f1);
-        GL11.glScalef(0.5f, 0.5f, 0.5f);
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDepthMask(false);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL14.glPushMatrix();
+        GL14.glTranslatef((float) x, (float) y, (float) z);
+        GL14.glNormal3f(0.0F, 1.0F, 0.0F);
+//        GL14.glRotatef(-Minecraft.getInstance().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
+//        GL14.glRotatef(Minecraft.getInstance().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
+        GL14.glScalef(-f1, -f1, f1);
+        GL14.glScalef(0.5f, 0.5f, 0.5f);
+        GL14.glDisable(GL14.GL_LIGHTING);
+        GL14.glDepthMask(false);
+        GL14.glDisable(GL14.GL_DEPTH_TEST);
+        GL14.glEnable(GL14.GL_BLEND);
+        GL14.glBlendFunc(GL14.GL_SRC_ALPHA, GL14.GL_ONE_MINUS_SRC_ALPHA);
         Tessellator tessellator = Tessellator.getInstance();
         byte b0 = 0;
 
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL14.glDisable(GL14.GL_TEXTURE_2D);
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
         int j = fontrenderer.getStringWidth(text) / 2;
-        tessellator.getBuffer().pos(-j - 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
-        tessellator.getBuffer().pos(-j - 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
-        tessellator.getBuffer().pos(j + 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
-        tessellator.getBuffer().pos(j + 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
+        tessellator.getBuffer().func_225582_a_(-j - 1, -1 + b0, 0.0D).func_227885_a_(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
+        tessellator.getBuffer().func_225582_a_(-j - 1, 8 + b0, 0.0D).func_227885_a_(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
+        tessellator.getBuffer().func_225582_a_(j + 1, 8 + b0, 0.0D).func_227885_a_(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
+        tessellator.getBuffer().func_225582_a_(j + 1, -1 + b0, 0.0D).func_227885_a_(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
         tessellator.draw();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL14.glEnable(GL14.GL_TEXTURE_2D);
         fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, b0, 553648127);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(true);
+        GL14.glEnable(GL14.GL_DEPTH_TEST);
+        GL14.glDepthMask(true);
         fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, b0, -1);
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glPopMatrix();
+        GL14.glEnable(GL14.GL_LIGHTING);
+        GL14.glDisable(GL14.GL_BLEND);
+        GL14.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL14.glPopMatrix();
     }
 
     public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3f rotation) {
-        GlStateManager.pushMatrix();
+        RenderSystem.pushMatrix();
 
-        GlStateManager.rotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-        GlStateManager.rotatef(rotation.y, 1.0f, 1.0f, 0.0f);
-        GlStateManager.rotatef(rotation.z, 1.0f, 0.0f, 1.0f);
+        RenderSystem.rotatef(rotation.x, 1.0f, 0.0f, 0.0f);
+        RenderSystem.rotatef(rotation.y, 1.0f, 1.0f, 0.0f);
+        RenderSystem.rotatef(rotation.z, 1.0f, 0.0f, 1.0f);
         renderBlockModel(te, model, defaultState);
-        GlStateManager.popMatrix();
+        RenderSystem.popMatrix();
     }
 
     public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState) {
         try {
-            GlStateManager.pushMatrix();
-            GlStateManager.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
+            RenderSystem.pushMatrix();
+            RenderSystem.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
             Tessellator t = Tessellator.getInstance();
             BufferBuilder wr = t.getBuffer();
             wr.begin(7, DefaultVertexFormats.BLOCK);
@@ -162,9 +163,9 @@ public class RenderUtils {
             BlockState state = world.getBlockState(te.getPos());
             if (state.getBlock() != defaultState.getBlock())
                 state = defaultState;
-            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
+//            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
             t.draw();
-            GlStateManager.popMatrix();
+            RenderSystem.popMatrix();
         } catch (Throwable t) {
             t.printStackTrace();
         }

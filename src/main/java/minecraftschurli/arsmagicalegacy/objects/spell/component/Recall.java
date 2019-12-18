@@ -44,7 +44,7 @@ public class Recall extends SpellComponent {
                 caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.cantTeleport"));
             return false;
         }
-        if (!world.isRemote) target.setPositionAndUpdate(caster.posX, caster.posY, caster.posZ);
+        if (!world.isRemote) target.setPositionAndUpdate(caster.getPositionVec().x, caster.getPositionVec().y, caster.getPositionVec().z);
         return true;
     }
 

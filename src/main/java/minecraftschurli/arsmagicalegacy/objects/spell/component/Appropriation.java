@@ -20,6 +20,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
@@ -56,9 +57,10 @@ public class Appropriation extends SpellComponent {
         ItemStack originalSpellStack = getOriginalSpellStack((PlayerEntity) caster);
         if (originalSpellStack == null) return false;
         if (!world.isRemote) {
-            if (originalSpellStack.getTag().get(storageKey) != null)
-                restore((PlayerEntity) caster, world, originalSpellStack, target.getPosition(), target.posX, target.posY + target.getEyeHeight(), target.posZ);
-            else {
+            if (originalSpellStack.getTag().get(storageKey) != null) {
+                Vec3d pos = target.getPositionVec();
+                restore((PlayerEntity) caster, world, originalSpellStack, target.getPosition(), pos.x, pos.y + target.getEyeHeight(), pos.z);
+            } else {
                 CompoundNBT data = new CompoundNBT();
                 data.putString("class", target.getClass().getName());
                 data.putString(storageType, "ent");
@@ -128,8 +130,7 @@ public class Appropriation extends SpellComponent {
                         TileEntity te = world.getTileEntity(pos);
                         if (te != null) {
                             te.read(storageCompound.getCompound("tileEntity"));
-                            te.setPos(pos);
-                            te.setWorld(world);
+                            te.func_226984_a_(world, pos);
                         }
                     }
                 }

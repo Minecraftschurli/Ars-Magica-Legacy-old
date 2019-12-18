@@ -57,7 +57,7 @@ public class FireRain extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return spawnFireRain(stack, world, caster, target, target.posX, target.posY, target.posZ);
+        return spawnFireRain(stack, world, caster, target, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
     }
 
     @Override

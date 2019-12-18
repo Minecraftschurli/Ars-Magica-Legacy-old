@@ -32,7 +32,7 @@ public class Telekinesis extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return doTKExtrapolated(stack, world, target.posX, target.posY, target.posZ, caster);
+        return doTKExtrapolated(stack, world, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z, caster);
     }
 
     private boolean doTKExtrapolated(ItemStack stack, World world, double impactX, double impactY, double impactZ, LivingEntity caster) {
@@ -40,9 +40,9 @@ public class Telekinesis extends SpellComponent {
 //            double range = ((EntityExtension) EntityExtension.For(caster)).getTKDistance();
 //            RayTraceResult mop = ModItems.SPELL.getMovingObjectPosition(caster, world, range, false, false);
 //            if (mop == null) {
-//                impactX = caster.posX + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactZ = caster.posZ + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactY = caster.posY + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
+//                impactX = caster.getPositionVec().x + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
+//                impactZ = caster.getPositionVec().z + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
+//                impactY = caster.getPositionVec().y + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
 //            }
         }
         double distance = 16;
@@ -52,7 +52,7 @@ public class Telekinesis extends SpellComponent {
         entities.addAll(world.getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(impactX - distance, impactY - hDist, impactZ - distance, impactX + distance, impactY + hDist, impactZ + distance)));
         for (Entity e : entities) {
             if (e.ticksExisted < 20) continue;
-            Vec3d movement = new Vec3d(e.posX, e.posY, e.posZ).subtract(new Vec3d(impactX, impactY, impactZ)).normalize();
+            Vec3d movement = new Vec3d(e.getPositionVec().x, e.getPositionVec().y, e.getPositionVec().z).subtract(new Vec3d(impactX, impactY, impactZ)).normalize();
             if (!world.isRemote) {
                 float factor = 0.15f;
                 if (movement.getY() > 0) movement = new Vec3d(movement.getX(), 0, movement.getZ());
@@ -92,9 +92,9 @@ public class Telekinesis extends SpellComponent {
 //            double range = EntityExtension.For(caster).getTKDistance();
 //            RayTraceResult mop = ModItems.SPELL.getMovingObjectPosition(caster, world, range, false, false);
 //            if (mop == null) {
-//                x = caster.posX + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                z = caster.posZ + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                y = caster.posY + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
+//                x = caster.getPositionVec().x + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
+//                z = caster.getPositionVec().z + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
+//                y = caster.getPositionVec().y + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
 //            }
         }
 //        AMParticle effect = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x - 0.5 + rand.nextDouble(), y - 0.5 + rand.nextDouble(), z - 0.5 + rand.nextDouble());

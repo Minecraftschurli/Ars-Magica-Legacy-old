@@ -60,7 +60,7 @@ public class FallingStar extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return spawnStar(stack, caster, target, world, target.posX, target.posY + 50, target.posZ);
+        return spawnStar(stack, caster, target, world, target.getPositionVec().x, target.getPositionVec().y + 50, target.getPositionVec().z);
     }
 
     @Override

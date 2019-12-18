@@ -56,7 +56,7 @@ public class PlaceBlock extends SpellComponent {
             if (str.startsWith(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString()))
                 tagList.remove(i);
         }
-        tagList.add(new StringNBT(String.format(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString(), blockStack.getDisplayName().toString())));
+        tagList.add(StringNBT.func_229705_a_(String.format(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.placeBlockSpell").toString(), blockStack.getDisplayName().toString())));
         stack.getTag().put("Lore", tagList);
     }
 
@@ -73,7 +73,7 @@ public class PlaceBlock extends SpellComponent {
         if (spellStack.getItem() != ModItems.SPELL.get() || !SpellUtils.componentIsPresent(spellStack, PlaceBlock.class))
             return false;
         BlockState bd = getPlaceBlock(spellStack);
-        if (bd != null && !caster.isSneaking()) {
+        if (bd != null && !caster.func_226296_dJ_()) {
             if (world.isAirBlock(pos) || !world.getBlockState(pos).isSolid()) blockFace = null;
             if (blockFace != null) pos = pos.add(blockFace.getDirectionVec());
             if (world.isAirBlock(pos) || !world.getBlockState(pos).getMaterial().isSolid()) {
@@ -84,7 +84,7 @@ public class PlaceBlock extends SpellComponent {
                 }
                 return true;
             }
-        } else if (caster.isSneaking()) {
+        } else if (caster.func_226296_dJ_()) {
             if (!world.isRemote && !world.isAirBlock(pos)) setPlaceBlock(spellStack, world.getBlockState(pos));
             return true;
         }

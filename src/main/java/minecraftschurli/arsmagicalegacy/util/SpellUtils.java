@@ -763,7 +763,7 @@ public class SpellUtils {
                             }*/
                         }
                     }
-                    component.spawnParticles(world, target.posX, target.posY + target.getEyeHeight(), target.posZ, caster, target, world.rand, color);
+                    component.spawnParticles(world, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, caster, target, world.rand, color);
                 }
                 /*if (caster instanceof PlayerEntity) {
                     AffinityShiftUtils.doAffinityShift(caster, component, stageShape);

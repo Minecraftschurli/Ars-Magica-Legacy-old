@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
@@ -43,18 +44,19 @@ public class Blink extends SpellComponent {
         motionY = d1;
         motionZ = d2;
 //        ArrayList<Long> keystoneKeys = KeystoneUtilities.instance.GetKeysInInvenory((LivingEntity) target);
-        double newX = target.posX + motionX;
-        double newZ = target.posZ + motionZ;
-        double newY = target.posY + motionY;
+        Vec3d pos = target.getPositionVec().add(motionX,motionY,motionZ);
+        double newX = target.getPositionVec().getX() + motionX;
+        double newZ = target.getPositionVec().getZ() + motionZ;
+        double newY = target.getPositionVec().getY() + motionY;
         boolean coordsValid = false;
         boolean astralBarrierBlocked = false;
 //        TileEntityAstralBarrier finalBlocker = null;
         while (!coordsValid && distance > 0) {
             if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
                 coordsValid = true;
-                newX = caster.posX;
-                newY = caster.posY;
-                newZ = caster.posZ;
+                newX = caster.getPositionVec().getX();
+                newY = caster.getPositionVec().getY();
+                newZ = caster.getPositionVec().getZ();
             }
 //            TileEntityAstralBarrier blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            while (blocker != null) {
@@ -83,9 +85,9 @@ public class Blink extends SpellComponent {
 //                motionX = d;
 //                motionY = d1;
 //                motionZ = d2;
-//                newX = target.posX + motionX;
-//                newZ = target.posZ + motionZ;
-//                newY = target.posY + motionY;
+//                newX = target.getPositionVec().getX( + motionX;
+//                newZ = target.getPositionVec().getZ( + motionZ;
+//                newY = target.getPositionVec().getY( + motionY;
 //                blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            }
             if (distance < 0) {
@@ -109,9 +111,9 @@ public class Blink extends SpellComponent {
             motionX = d;
             motionY = d1;
             motionZ = d2;
-            newX = target.posX + motionX;
-            newZ = target.posZ + motionZ;
-            newY = target.posY + motionY;
+            newX = target.getPositionVec().getX() + motionX;
+            newZ = target.getPositionVec().getZ() + motionZ;
+            newY = target.getPositionVec().getY() + motionY;
         }
 //        if (world.isRemote && astralBarrierBlocked && coordsValid) {
 //            EntityExtension.For((LivingEntity) target).astralBarrierBlocked = true;

@@ -41,14 +41,14 @@ public class EntityUtils {
     public static Entity getPointedEntity(World world, LivingEntity entityplayer, double range, double collideRadius, boolean nonCollide, boolean targetWater) {
         Entity pointedEntity = null;
         double d = range;
-        Vec3d vec3d = new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
+        Vec3d vec3d = new Vec3d(entityplayer.getPositionVec().x, entityplayer.getPositionVec().y + entityplayer.getEyeHeight(), entityplayer.getPositionVec().z);
         Vec3d vec3d1 = entityplayer.getLookVec();
         Vec3d vec3d2 = vec3d.add(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d);
         double f1 = collideRadius;
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getBoundingBox().grow(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d).expand(f1, f1, f1));
         double d2 = 0.0D;
         for (Entity entity : list) {
-            RayTraceResult mop = null;//world.rayTraceBlocks(new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ), new Vec3d(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ), targetWater, !targetWater, false);
+            RayTraceResult mop = null;//world.rayTraceBlocks(new Vec3d(entityplayer.getPositionVec().x, entityplayer.getPositionVec().y + entityplayer.getEyeHeight(), entityplayer.getPositionVec().z), new Vec3d(entity.getPositionVec().x, entity.getPositionVec().y + entity.getEyeHeight(), entity.getPositionVec().z), targetWater, !targetWater, false);
             if ((entity.canBeCollidedWith() || nonCollide) && mop == null) {
                 float f2 = Math.max(0.8F, entity.getCollisionBorderSize());
                 AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(f2, f2, f2);
@@ -191,7 +191,7 @@ public class EntityUtils {
             Vec3d vec3d = damageSourceIn.getDamageLocation();
             if (vec3d != null) {
                 Vec3d vec3d1 = living.getLook(1.0F);
-                Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(living.posX, living.posY, living.posZ)).normalize();
+                Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(living.getPositionVec().x, living.getPositionVec().y, living.getPositionVec().z)).normalize();
                 vec3d2 = new Vec3d(vec3d2.getX(), 0.0D, vec3d2.getZ());
                 return vec3d2.dotProduct(vec3d1) < 0.0D;
             }

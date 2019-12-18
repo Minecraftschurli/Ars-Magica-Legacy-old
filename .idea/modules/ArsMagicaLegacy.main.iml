@@ -12,8 +12,8 @@
   </component>
   <component name="McpModuleSettings">
     <option name="mappingFile" value="C:\Users\georg\Documents\ModDev\ArsMagicaLegacy\build\createMcpToSrg\output.tsrg" />
-    <option name="mcpVersion" value="snapshot_20191216-1.14.3" />
-    <option name="minecraftVersion" value="1.15" />
+    <option name="mcpVersion" value="snapshot_20191217-1.14.3" />
+    <option name="minecraftVersion" value="1.15.1" />
     <option name="srgType" value="TSRG" />
   </component>
 </module>

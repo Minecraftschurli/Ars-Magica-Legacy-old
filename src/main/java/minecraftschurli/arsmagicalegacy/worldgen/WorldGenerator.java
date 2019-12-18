@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  */
 public class WorldGenerator {
     public static void setupOregen() {
-        Stream<OreBase> ores = OreBase.ORES.stream();
+        /*Stream<OreBase> ores = OreBase.ORES.stream();
 
         ores.forEach(ore -> {
                     Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
@@ -32,7 +32,7 @@ public class WorldGenerator {
                 }
         );
         Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
-        biomes.filter(WorldGenerator::isOverworld).forEach(biome -> biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new MoonstoneMeteor(NoFeatureConfig::deserialize), NoFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(1))));
+        biomes.filter(WorldGenerator::isOverworld).forEach(biome -> biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new MoonstoneMeteor(NoFeatureConfig::deserialize), NoFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(1))));*/
     }
 
     public static void setupBiomeGen() {

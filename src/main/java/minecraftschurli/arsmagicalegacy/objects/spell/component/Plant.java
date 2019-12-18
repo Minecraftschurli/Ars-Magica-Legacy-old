@@ -106,7 +106,7 @@ public class Plant extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
+//                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.WHEAT_SEEDS)),
                 new ItemStackSpellIngredient(new ItemStack(Items.WHEAT_SEEDS)),
         };
