@@ -163,7 +163,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             !world.getBlockState(pos.offset(d, 2)).equals(stair.with(StairsBlock.FACING, d.getOpposite())))
             return false;
 
-        // check stairs 2 Todo test
+        // check stairs 2
         Direction d2 = d.rotateY();
         BlockPos stairsPos1 = pos.offset(d2).offset(d);
         BlockPos stairsPos2 = pos.offset(d2.getOpposite()).offset(d);
@@ -179,10 +179,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 !world.getBlockState(pos.down().offset(d.getOpposite()).offset(d.rotateY())).equals(stair.with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, d)) ||
                 !world.getBlockState(pos.down().offset(d.getOpposite()).offset(d.rotateYCCW())).equals(stair.with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, d)))
             return false;*/
-
-        // Todo check walls
-
-
     }
 
     public void placeStructure(World world, Direction face) {
