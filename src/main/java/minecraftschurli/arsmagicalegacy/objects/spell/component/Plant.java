@@ -94,7 +94,7 @@ public class Plant extends SpellComponent {
         HashMap<Integer, ItemStack> seeds = new HashMap<Integer, ItemStack>();
         for (int i = 0; i < inventory.getSizeInventory(); ++i) {
             ItemStack slotStack = inventory.getStackInSlot(i);
-            if (slotStack == null) continue;
+            if (slotStack.isEmpty()) continue;
             Item item = slotStack.getItem();
             if (!(item instanceof IPlantable)) continue;
             seeds.put(i, slotStack);

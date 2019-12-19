@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
@@ -31,7 +31,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL12;
 
 import java.util.ArrayList;
@@ -307,7 +307,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         Minecraft.getInstance().getTextureManager().bindTexture(background);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL14.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
         blit(l, i1, 0, 0, xSize, 165);
@@ -317,11 +317,11 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         int offsetX = l + shapeGroupX;
         for (int sg = 0; sg < InscriptionTableTileEntity.MAX_STAGE_GROUPS; ++sg) {
             if (sg >= this.container.getNumStageGroups())
-                GL11.glColor3f(0.5f, 0.5f, 0.5f);
+                GL14.glColor3f(0.5f, 0.5f, 0.5f);
             blit(offsetX + (sg * (shapeGroupWidth + shapeGroupPadding)), i1 + shapeGroupY, 176, 165, 37, 37);
         }
 
-        GL11.glColor3f(1f, 1f, 1f);
+        GL14.glColor3f(1f, 1f, 1f);
 
         blit(l + 101, i1 + 73, 220, 0, 18, 18);
 
@@ -340,7 +340,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         this.setBlitOffset(0);
 
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL14.glEnable(GL14.GL_ALPHA_TEST);
 
         drawBookIcon();
         boolean hovering = false;
@@ -377,7 +377,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 hoveredItem = null;
             }
         } else {
-            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            GL14.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             drawDraggedItem();
         }
         super.renderHoveredToolTip(par1 - l, par2 - i1);
@@ -391,14 +391,14 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         //TODO
         /*if (AMGuiHelper.instance.getFastTicker() < 20)
-            GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
+            GL14.glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
         else*///AMGuiHelper.DrawIconAtXY(icon, bookX, bookY, this.zLevel, 16, 16, true);
-        /*GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
+        /*GL14.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
 
-        GlStateManager.matrixMode(GL11.GL_TEXTURE);
-        GlStateManager.pushMatrix();
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.matrixMode(GL14.GL_TEXTURE);
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(RenderSystem.SourceFactor.SRC_ALPHA, RenderSystem.DestFactor.ONE_MINUS_SRC_ALPHA);
         // Minecraft.getInstance().getTextureManager().bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
         Tessellator tessellator = Tessellator.getInstance();
@@ -419,13 +419,13 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         tessellator.draw();
 
-        GlStateManager.disableBlend();
-        GlStateManager.popMatrix();
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        RenderSystem.disableBlend();
+        RenderSystem.popMatrix();
+        RenderSystem.matrixMode(GL14.GL_MODELVIEW);
 
         if (drawing)
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);*/
+        GL14.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);*/
     }
 
     private boolean drawCurrentRecipe(List<String> labelText, int l, int i1) {
@@ -561,17 +561,17 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         if (!currentSpellDefIsReadOnly()) {
             if (!spellPartIsValidAddition(part) && allowDarken) {
-                GL11.glColor3f(0.3f, 0.3f, 0.3f);
+                GL14.glColor3f(0.3f, 0.3f, 0.3f);
             } else {
-                GL11.glColor3f(1.0f, 1.0f, 1.0f);
+                GL14.glColor3f(1.0f, 1.0f, 1.0f);
             }
         } else {
-            GL11.glColor3f(1.0f, 0.7f, 0.7f);
+            GL14.glColor3f(1.0f, 0.7f, 0.7f);
         }
 
         //TODO
-        /*GlStateManager.matrixMode(GL11.GL_TEXTURE);
-        GlStateManager.pushMatrix();
+        RenderSystem.matrixMode(GL14.GL_TEXTURE);
+        RenderSystem.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(part).getIcon());
 
         Tessellator tessellator = Tessellator.getInstance();
@@ -589,18 +589,18 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         float maxU = 0.546875f * 64;
         float maxV = 0.1875f * 32;
 
-        tessellator.getBuffer().pos(iconX, iconY + 16, blitOffset).tex(minU, maxV).endVertex();
-        tessellator.getBuffer().pos(iconX + 16, iconY + 16, blitOffset).tex(maxU, maxV).endVertex();
-        tessellator.getBuffer().pos(iconX + 16, iconY, blitOffset).tex(maxU, minV).endVertex();
-        tessellator.getBuffer().pos(iconX, iconY, blitOffset).tex(minU, minV).endVertex();
+        tessellator.getBuffer().func_225584_a_(iconX, iconY + 16, getBlitOffset()).func_225583_a_(minU, maxV).endVertex();
+        tessellator.getBuffer().func_225584_a_(iconX + 16, iconY + 16, getBlitOffset()).func_225583_a_(maxU, maxV).endVertex();
+        tessellator.getBuffer().func_225584_a_(iconX + 16, iconY, getBlitOffset()).func_225583_a_(maxU, minV).endVertex();
+        tessellator.getBuffer().func_225584_a_(iconX, iconY, getBlitOffset()).func_225583_a_(minU, minV).endVertex();
 
         tessellator.draw();
 
-        GlStateManager.popMatrix();
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        RenderSystem.popMatrix();
+        RenderSystem.matrixMode(GL14.GL_MODELVIEW);
 
         if (drawing)
-            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);*/
+            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
 
         if (!dragging) {
             if (lastMouseX > iconX && lastMouseX < iconX + 16) {
@@ -622,8 +622,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
     private void drawDraggedItem() {
         //TODO
-        /*GlStateManager.matrixMode(GL11.GL_TEXTURE);
-        GlStateManager.pushMatrix();
+        RenderSystem.matrixMode(GL14.GL_TEXTURE);
+        RenderSystem.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(hoveredItem).getIcon());
 
         Tessellator tessellator = Tessellator.getInstance();
@@ -641,27 +641,27 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         float maxU = 0.546875f * 64;
         float maxV = 0.1875f * 32;
 
-        tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8 + 16, blitOffset).tex(minU, maxV).endVertex();
-        tessellator.getBuffer().pos(lastMouseX - 8 + 16, lastMouseY - 8 + 16, blitOffset).tex(maxU, maxV).endVertex();
-        tessellator.getBuffer().pos(lastMouseX - 8 + 16, lastMouseY - 8, blitOffset).tex(maxU, minV).endVertex();
-        tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8, blitOffset).tex(minU, minV).endVertex();
+        tessellator.getBuffer().func_225584_a_(lastMouseX - 8, lastMouseY - 8 + 16, getBlitOffset()).func_225583_a_(minU, maxV).endVertex();
+        tessellator.getBuffer().func_225584_a_(lastMouseX - 8 + 16, lastMouseY - 8 + 16, getBlitOffset()).func_225583_a_(maxU, maxV).endVertex();
+        tessellator.getBuffer().func_225584_a_(lastMouseX - 8 + 16, lastMouseY - 8, getBlitOffset()).func_225583_a_(maxU, minV).endVertex();
+        tessellator.getBuffer().func_225584_a_(lastMouseX - 8, lastMouseY - 8, getBlitOffset()).func_225583_a_(minU, minV).endVertex();
 
         tessellator.draw();
 
-        GlStateManager.popMatrix();
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        RenderSystem.popMatrix();
+        RenderSystem.matrixMode(GL14.GL_MODELVIEW);
 
         if (drawing)
-            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);*/
+            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
     }
 
     @Override
     public void renderTooltip(List<String> tooltip, int x, int y, FontRenderer font) {
         if (!tooltip.isEmpty()) {
-            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            GL14.glDisable(GL12.GL_RESCALE_NORMAL);
             RenderHelper.disableStandardItemLighting();
-            GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            GL14.glDisable(GL14.GL_LIGHTING);
+            GL14.glDisable(GL14.GL_DEPTH_TEST);
             int k = 0;
 
             for (String s : tooltip) {
@@ -714,10 +714,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             }
 
             this.setBlitOffset(0);
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL14.glEnable(GL14.GL_LIGHTING);
+            GL14.glEnable(GL14.GL_DEPTH_TEST);
             RenderHelper.func_227780_a_();
-            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+            GL14.glEnable(GL12.GL_RESCALE_NORMAL);
         }
     }
 

@@ -1,14 +1,13 @@
 package minecraftschurli.arsmagicalegacy.worldgen.biomes;
 
 //import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
+import com.google.common.collect.ImmutableList;
+import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
@@ -33,8 +32,6 @@ public class WitchwoodForestBiome extends Biome {
                 .waterFogColor(0x092971)
                 .parent(null)
         );
-        /*this.addFeature(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addFeature(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);*/
         DefaultBiomeFeatures.addCarvers(this);
         DefaultBiomeFeatures.addStructures(this);
         DefaultBiomeFeatures.addLakes(this);
@@ -47,7 +44,7 @@ public class WitchwoodForestBiome extends Biome {
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);
-//        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.NORMAL_TREE.func_225566_b_(WitchwoodTree.WITCHWOOD_TREE)Biome.(, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(10, 0.1F, 1)));
+        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_SELECTOR.func_225566_b_(new MultipleRandomFeatureConfig(ImmutableList.of(WitchwoodTree.WITCHWOOD_TREE_FEATURE.func_225566_b_(WitchwoodTree.WITCHWOOD_TREE_FEATURE_CONFIG).func_227227_a_(0.2F)), WitchwoodTree.WITCHWOOD_TREE_FEATURE.func_225566_b_(WitchwoodTree.WITCHWOOD_TREE_FEATURE_CONFIG))).func_227228_a_(Placement.COUNT_EXTRA_HEIGHTMAP.func_227446_a_(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
     }
 
     @Override

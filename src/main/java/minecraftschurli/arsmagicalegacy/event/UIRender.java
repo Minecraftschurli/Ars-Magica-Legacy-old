@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
@@ -46,8 +46,8 @@ public class UIRender {
         if (player == null)
             return;
         //TODO
-        /*renderManaBar(player);
-        renderBurnoutBar(player);*/
+        renderManaBar(player);
+        renderBurnoutBar(player);
         if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.MAIN_HAND);
         else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
@@ -63,9 +63,9 @@ public class UIRender {
     }
 
     //TODO
-    /*private void renderBurnoutBar(PlayerEntity player) {
-        int scaledWidth = mc.mainWindow.getScaledWidth();
-        int scaledHeight = mc.mainWindow.getScaledHeight();
+    private void renderBurnoutBar(PlayerEntity player) {
+        int scaledWidth = mc.func_228018_at_().getScaledWidth();
+        int scaledHeight = mc.func_228018_at_().getScaledHeight();
         int xStart = scaledWidth / 2 - 181;
         int yStart = scaledHeight - 15;
         LazyOptional<IBurnoutStorage> burnoutStore = player.getCapability(CapabilityBurnout.BURNOUT, null);
@@ -75,8 +75,8 @@ public class UIRender {
     }
 
     private void renderManaBar(PlayerEntity player) {
-        int scaledWidth = mc.mainWindow.getScaledWidth();
-        int scaledHeight = mc.mainWindow.getScaledHeight();
+        int scaledWidth = mc.func_228018_at_().getScaledWidth();
+        int scaledHeight = mc.func_228018_at_().getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 15;
         LazyOptional<IManaStorage> manaStore = player.getCapability(CapabilityMana.MANA, null);
@@ -87,8 +87,8 @@ public class UIRender {
 
     private void renderBar(int x, int y, double value, double maxValue, int color, String name) {
         mc.getProfiler().startSection(name);
-        GlStateManager.pushMatrix();
-        GlStateManager.enableBlend();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
 
         mc.getTextureManager().bindTexture(BAR_TEXTURE);
 
@@ -97,18 +97,18 @@ public class UIRender {
         float r = (color >> 16 & 0xFF) / 255f;
         float g = (color >> 8 & 0xFF) / 255f;
         float b = (color & 0xFF) / 255f;
-        GlStateManager.color3f(r, g, b);
+        RenderSystem.color3f(r, g, b);
         drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
-        GlStateManager.color4f(1, 1, 1, 1);
+        RenderSystem.color4f(1, 1, 1, 1);
 
         if (false) {
             int i2 = getStringLength((int) value + "");
             drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
         }
-        GlStateManager.disableBlend();
-        GlStateManager.popMatrix();
+        RenderSystem.disableBlend();
+        RenderSystem.popMatrix();
         mc.getProfiler().endSection();
-    }*/
+    }
 
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
         mc.ingameGUI.blit(x, y, textureX, textureY, width, height);

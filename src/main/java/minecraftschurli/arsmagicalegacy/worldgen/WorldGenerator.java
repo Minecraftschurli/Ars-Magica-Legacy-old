@@ -22,17 +22,17 @@ import java.util.stream.Stream;
  */
 public class WorldGenerator {
     public static void setupOregen() {
-        /*Stream<OreBase> ores = OreBase.ORES.stream();
+        Stream<OreBase> ores = OreBase.ORES.stream();
 
         ores.forEach(ore -> {
                     Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
                     if (ore.hasBiomeFilter())
                         biomes = biomes.filter(ore.getBiomeFilter());
-                    biomes.forEach(biome -> biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(isNether(biome) ? OreFeatureConfig.FillerBlockType.NETHERRACK : OreFeatureConfig.FillerBlockType.NATURAL_STONE, ore.getDefaultState(), ore.getVeinSize()), Placement.COUNT_RANGE, new CountRangeConfig(ore.getChance(), ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()))));
+                    biomes.forEach(biome -> biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ore.getDefaultState(), ore.getVeinSize())).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(ore.getChance(), ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight())))));
                 }
         );
         Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
-        biomes.filter(WorldGenerator::isOverworld).forEach(biome -> biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new MoonstoneMeteor(NoFeatureConfig::deserialize), NoFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(1))));*/
+        // biomes.filter(WorldGenerator::isOverworld).forEach(biome -> biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new MoonstoneMeteor(NoFeatureConfig::deserialize), NoFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(1))));
     }
 
     public static void setupBiomeGen() {
