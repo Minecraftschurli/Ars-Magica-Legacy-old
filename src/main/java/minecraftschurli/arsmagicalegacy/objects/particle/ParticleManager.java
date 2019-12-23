@@ -7,21 +7,21 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 
 public final class ParticleManager {
-    public static void spawnParticle(World world, ResourceLocation location, double x, double y, double z, double targetX, double targetY, double targetZ) {
+    public static void spawnParticle(World world, String location, double x, double y, double z, double targetX, double targetY, double targetZ, boolean isVanilla) {
         if (!world.isRemote) {
             StandardParticle particle = new StandardParticle(world, x, y, z);
             particle.addMotion(targetX, targetY, targetZ);
-            particle.setTexture(location);
+            particle.setTexture(new ResourceLocation(isVanilla ? "minecraft:particle/" + location : ArsMagicaLegacy.MODID + ":particle/" + location));
             world.addParticle(particle, x, y, z, targetX, targetY, targetZ);
         }
     }
 
-    public static void spawnParticle(World world, ResourceLocation location, double x, double y, double z, Entity target) {
-        spawnParticle(world, location, x, y, z, target.posX, target.posY, target.posZ);
+    public static void spawnParticle(World world, String location, double x, double y, double z, Entity target, boolean isVanilla) {
+        spawnParticle(world, location, x, y, z, target.posX, target.posY, target.posZ, isVanilla);
     }
 
-    public static void spawnParticle(World world, ResourceLocation location, Entity source, Entity target) {
-        spawnParticle(world, location, source.posX, source.posY, source.posZ, target.posX, target.posY, target.posZ);
+    public static void spawnParticle(World world, String location, Entity source, Entity target, boolean isVanilla) {
+        spawnParticle(world, location, source.posX, source.posY, source.posZ, target.posX, target.posY, target.posZ, isVanilla);
     }
 
     public static void spawnBolt(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, int type, int color, int damage) {
