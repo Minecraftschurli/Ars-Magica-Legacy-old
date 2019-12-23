@@ -52,16 +52,14 @@ public class StandardParticle extends Particle implements IParticleData {
         this.age = age;
     }
 
-    public StandardParticle(World par1World, double par2, double par4, double par6){
-        super(par1World, 0, 0, 0, 0, 0, 0);
-        motionX = motionY = motionZ = 0;
+    public StandardParticle(World world, double x, double y, double z){
+        super(world, x, y, z, 0, 0, 0);
         particleRed = particleGreen = particleBlue = particleAlpha = 1.0F;
         scaleX = scaleY = scaleZ = 0.2f;
         this.ignoreMaxAge = this.isRadiant = this.isBreak = this.isAffectedByGravity = this.ignoreNoControllers = false;
         this.doVelocityUpdates = true;
         this.maxAge = 20 + rand.nextInt(20);
         this.particleGravity = 1;
-        this.setPosition(par2, par4, par6);
         this.setRandomScale(0.1f, 0.3f);
         this.controllers = new ArrayList<>();
         this.comparer = new ControllerComparator();
@@ -75,6 +73,12 @@ public class StandardParticle extends Particle implements IParticleData {
     public StandardParticle setNoControllers(){
         this.ignoreNoControllers = true;
         return this;
+    }
+    public void setTexture(ResourceLocation texture) {
+        this.particleTexture = texture;
+    }
+    public ResourceLocation getTexture() {
+        return this.particleTexture;
     }
 
     public void setNoVelocityUpdates(){
@@ -216,10 +220,6 @@ public class StandardParticle extends Particle implements IParticleData {
         }
         for (ParticleController pmc : remove) controllers.remove(pmc);
         if ((age++ > maxAge && !this.ignoreMaxAge) || (!ignoreNoControllers && controllers.size() == 0)) this.setExpired();
-    }
-
-    public int getFXLayer(){
-        return 2;
     }
 
     @Override

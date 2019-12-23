@@ -121,10 +121,6 @@ public class BeamParticle extends Particle implements IParticleData {
         handleAging();
     }
 
-    public int getFXLayer(){
-        return 2;
-    }
-
     @Override
     public void renderParticle(BufferBuilder tessellator, ActiveRenderInfo ent, float par2, float par3, float par4, float par5, float par6, float par7){
         GL11.glPushMatrix();
