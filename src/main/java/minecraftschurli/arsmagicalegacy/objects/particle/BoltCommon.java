@@ -20,19 +20,17 @@ public class BoltCommon {
     private int numsplits;
     private boolean finalized;
     private Random rand;
-    public long seed;
     public int particleAge;
     public int particleMaxAge;
     public int damage;
     public Entity wrapper;
 
-    public BoltCommon(World world, Vec3d jammervec, Vec3d targetvec, long seed){
+    public BoltCommon(World world, Vec3d jammervec, Vec3d targetvec){
         this.segments = new ArrayList<>();
         this.splitparents = new HashMap<>();
         this.start = jammervec;
         this.end = targetvec;
-        this.seed = seed;
-        this.rand = new Random(seed);
+        this.rand = new Random(world.getSeed());
         this.numsegments0 = 1;
         this.increment = 1;
         this.length = (float)this.end.subtract(this.start).length();
@@ -43,24 +41,24 @@ public class BoltCommon {
         this.segments.add(new Segment(this.start, this.end));
     }
 
-    public BoltCommon(World world, Entity detonator, Entity target, long seed){
-        this(world, detonator.getLookVec(), target.getLookVec(), seed);
+    public BoltCommon(World world, Entity detonator, Entity target){
+        this(world, detonator.getLookVec(), target.getLookVec());
     }
 
-    public BoltCommon(World world, Entity detonator, Entity target, long seed, int speed){
-        this(world, detonator.getLookVec(), new Vec3d(target.posX, target.posY + target.getEyeHeight() - 0.699999988079071D, target.posZ), seed);
+    public BoltCommon(World world, Entity detonator, Entity target, int speed){
+        this(world, detonator.getLookVec(), new Vec3d(target.posX, target.posY + target.getEyeHeight() - 0.699999988079071D, target.posZ));
         this.increment = speed;
         this.multiplier = 0.4F;
     }
 
-    public BoltCommon(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi){
-        this(world, new Vec3d(x1, y1, z1), new Vec3d(x, y, z), seed);
+    public BoltCommon(World world, double x1, double y1, double z1, double x, double y, double z, int duration, float multi){
+        this(world, new Vec3d(x1, y1, z1), new Vec3d(x, y, z));
         this.particleMaxAge = (duration + this.rand.nextInt(duration) - duration / 2);
         this.multiplier = multi;
     }
 
-    public BoltCommon(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi, int speed){
-        this(world, new Vec3d(x1, y1, z1), new Vec3d(x, y, z), seed);
+    public BoltCommon(World world, double x1, double y1, double z1, double x, double y, double z, int duration, float multi, int speed){
+        this(world, new Vec3d(x1, y1, z1), new Vec3d(x, y, z));
         this.particleMaxAge = (duration + this.rand.nextInt(duration) - duration / 2);
         this.multiplier = multi;
         this.increment = speed;

@@ -9,7 +9,6 @@ public abstract class ParticleController{
     private boolean finished;
     private boolean killParticleOnFinish;
     protected boolean firstTick = true;
-    public static String[] auraControllerOptions = new String[]{"fade", "float", "sink", "orbit", "arc", "flee", "forward", "pendulum", "grow"};
 
     public ParticleController(StandardParticle particleEffect, int priority, boolean exclusive){
         this.particle = particleEffect;

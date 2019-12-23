@@ -7,11 +7,13 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.renderer.vertex.*;
 import net.minecraft.entity.player.*;
+import net.minecraft.network.*;
+import net.minecraft.particles.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import org.lwjgl.opengl.*;
 
-public class BeamParticle extends Particle implements IBeamParticle {
+public class BeamParticle extends Particle implements IParticleData {
     int type;
     double dX, dY, dZ, updateX, updateY, updateZ;
     private float yaw, pitch, prevYaw, prevPitch;
@@ -103,17 +105,11 @@ public class BeamParticle extends Particle implements IBeamParticle {
         this.prevPitch = this.pitch;
     }
 
-    @Override
-    public void setFirstPersonPlayerCast(){
-        this.firstPerson = true;
-    }
-
     private void handleAging(){
         this.age++;
         if (this.age >= this.maxAge) this.setExpired();
     }
 
-    @Override
     public void setType(int type){
         this.type = type;
     }
@@ -217,14 +213,12 @@ public class BeamParticle extends Particle implements IBeamParticle {
         this.particleBlue = b;
     }
 
-    @Override
     public void setColor(int color){
         this.particleRed = ((color >> 16) & 0xFF) / 255.0F;
         this.particleGreen = ((color >> 8) & 0xFF) / 255.0F;
         this.particleBlue = (color & 0xFF) / 255.0F;
     }
 
-    @Override
     public void setColor(int r, int g, int b){
         this.particleRed = r / 255.0f;
         this.particleGreen = g / 255.0f;
@@ -241,5 +235,20 @@ public class BeamParticle extends Particle implements IBeamParticle {
 
     public double getPosZ() {
         return posZ;
+    }
+
+    @Override
+    public ParticleType<?> getType() {
+        return null;
+    }
+
+    @Override
+    public void write(PacketBuffer buffer) {
+
+    }
+
+    @Override
+    public String getParameters() {
+        return null;
     }
 }

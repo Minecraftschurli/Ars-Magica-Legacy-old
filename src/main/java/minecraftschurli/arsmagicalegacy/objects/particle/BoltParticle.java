@@ -8,50 +8,58 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
+import net.minecraft.network.*;
+import net.minecraft.particles.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import org.lwjgl.opengl.*;
 
 import java.util.*;
 
-public class BoltParticle extends Particle {
+public class BoltParticle extends Particle implements IParticleData {
     private int type = 0;
     private int overrideColor = -1;
     private BoltCommon main;
 
-    public BoltParticle(World world, Vec3d jammervec, Vec3d targetvec, long seed){
+    public BoltParticle(World world, Vec3d jammervec, Vec3d targetvec){
         super(world, 0, 0, 0, 0, 0, 0);
-        this.main = new BoltCommon(world, jammervec, targetvec, seed);
+        this.main = new BoltCommon(world, jammervec, targetvec);
         setupFromMain();
     }
 
-    public BoltParticle(World world, Entity detonator, Entity target, long seed){
+    public BoltParticle(World world, Entity detonator, Entity target){
         super(world, 0, 0, 0, 0, 0, 0);
-        this.main = new BoltCommon(world, detonator, target, seed);
+        this.main = new BoltCommon(world, detonator, target);
         setupFromMain();
     }
 
-    public BoltParticle(World world, Entity detonator, Entity target, long seed, int speed){
+    public BoltParticle(World world, Entity detonator, Entity target, int speed){
         super(world, 0, 0, 0, 0, 0, 0);
-        this.main = new BoltCommon(world, detonator, target, seed, speed);
+        this.main = new BoltCommon(world, detonator, target, speed);
         setupFromMain();
     }
 
-    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi){
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, int duration, float multi){
         super(world, 0, 0, 0, 0, 0, 0);
-        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, seed, duration, multi);
+        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, duration, multi);
         setupFromMain();
     }
 
-    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi, int speed){
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, int duration, float multi, int speed){
         super(world, 0, 0, 0, 0, 0, 0);
-        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, seed, duration, multi, speed);
+        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, duration, multi, speed);
         setupFromMain();
     }
 
-    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration){
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, int duration){
         super(world, 0, 0, 0, 0, 0, 0);
-        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, seed, duration, 1.0F);
+        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, duration, 1.0F);
+        setupFromMain();
+    }
+
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z){
+        super(world, 0, 0, 0, 0, 0, 0);
+        this.main = new BoltCommon(world, x1, y1, z1, x, y, z, 30, 1);
         setupFromMain();
     }
 
@@ -342,5 +350,38 @@ public class BoltParticle extends Particle {
 
     public int getRenderPass(){
         return 2;
+    }
+
+    @Override
+    public ParticleType<?> getType() {
+        return null;
+    }
+
+    @Override
+    public void write(PacketBuffer buffer) {
+
+    }
+
+    @Override
+    public String getParameters() {
+        return null;
+    }
+    public double getX() {
+        return posX;
+    }
+    public double getY() {
+        return posY;
+    }
+    public double getZ() {
+        return posZ;
+    }
+    public double getMotionX() {
+        return motionX;
+    }
+    public double getMotionY() {
+        return motionY;
+    }
+    public double getMotionZ() {
+        return motionZ;
     }
 }
