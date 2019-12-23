@@ -144,13 +144,7 @@ public class StandardParticle extends Particle implements IParticleData {
         this.age = 0;
     }
 
-    public void setColorF(float r, float g, float b){
-        this.particleRed = r;
-        this.particleGreen = g;
-        this.particleBlue = b;
-    }
-
-    public void setColorI(int color){
+    public void setColor(int color){
         this.particleRed = ((color >> 16) & 0xFF) / 255.0f;
         this.particleGreen = ((color >> 8) & 0xFF) / 255.0f;
         this.particleBlue = (color & 0xFF) / 255.0f;
