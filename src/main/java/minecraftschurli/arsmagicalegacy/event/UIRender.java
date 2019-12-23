@@ -1,21 +1,18 @@
 package minecraftschurli.arsmagicalegacy.event;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.CapabilityBurnout;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.CapabilityMana;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.IManaStorage;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import com.mojang.blaze3d.platform.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.eventbus.api.*;
 
 /**
  * @author Minecraftschurli

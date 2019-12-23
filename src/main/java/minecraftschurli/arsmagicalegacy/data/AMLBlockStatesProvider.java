@@ -1,8 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraft.data.*;
+import net.minecraftforge.client.model.generators.*;
 
 /**
  * @author Minecraftschurli

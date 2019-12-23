@@ -1,13 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli

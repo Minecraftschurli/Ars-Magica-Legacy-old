@@ -1,18 +1,15 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraft.entity.item.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.items.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli
@@ -57,17 +54,17 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
 
     @Override
     public ITextComponent getTooltip() {
-        return stack.getDisplayName().appendSibling(new StringTextComponent(": "+stack.getCount()));
+        return stack.getDisplayName().appendSibling(new StringTextComponent(": " + stack.getCount()));
     }
 
     @Override
     public boolean consume(World world, BlockPos pos) {
-        List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos).grow(0.5, 1, 0.5).offset(0,-2,0));
+        List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos).grow(0.5, 1, 0.5).offset(0, -2, 0));
         if (items.isEmpty())
             return false;
         Predicate<ItemEntity> filter = entity -> stack.equals(entity.getItem(), false);
         Optional<ItemEntity> optional = items.stream().filter(filter).findFirst();
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             ItemEntity entity = optional.get();
             entity.getItem().shrink(1);
             return true;

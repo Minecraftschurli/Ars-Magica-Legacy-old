@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
 
 /**
  * @author Minecraftschurli
@@ -51,12 +50,12 @@ public class EssenceSpellIngredient implements ISpellIngredient {
 
     @Override
     public ISpellIngredient combine(ISpellIngredient other) {
-        return new EssenceSpellIngredient(essenceType, amount + ((EssenceSpellIngredient)other).amount);
+        return new EssenceSpellIngredient(essenceType, amount + ((EssenceSpellIngredient) other).amount);
     }
 
     @Override
     public ITextComponent getTooltip() {
-        return new TranslationTextComponent(essenceType.getTranslationKey()).appendText(": "+amount);
+        return new TranslationTextComponent(essenceType.getTranslationKey()).appendText(": " + amount);
     }
 
     @Override

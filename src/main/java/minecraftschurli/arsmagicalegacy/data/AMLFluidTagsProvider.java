@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.init.ModFluids;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.FluidTagsProvider;
-import net.minecraft.tags.FluidTags;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.data.*;
+import net.minecraft.tags.*;
 
 /**
  * @author Minecraftschurli

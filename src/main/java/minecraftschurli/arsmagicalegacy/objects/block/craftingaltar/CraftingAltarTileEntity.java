@@ -1,40 +1,22 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.state.properties.Half;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LecternTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.items.ItemHandlerHelper;
+import minecraftschurli.arsmagicalegacy.api.multiblock.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.block.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.state.properties.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.util.*;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.concurrent.atomic.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli
@@ -49,47 +31,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
     private static final Supplier<BlockState> LEVER = Blocks.LEVER::getDefaultState;
     private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
-    private AtomicReference<BlockState> cap = new AtomicReference<>();
-    private AtomicReference<BlockState> main = new AtomicReference<>();
-    private Supplier<BlockState> stairBottom1 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
-    private Supplier<BlockState> stairBottom2 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
-    private Supplier<BlockState> stairBottom3 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
-    private Supplier<BlockState> stairBottom4 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
-    private Supplier<BlockState> stairBottom5 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
-    private Supplier<BlockState> stairBottom6 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
-    @SuppressWarnings("unchecked")
-    private final Structure STRUCTURE = new Structure(new Supplier[][][]{{
-                {    main::get,    main::get,    main::get,    main::get,    main::get},
-                {    main::get,    main::get,    main::get,    main::get,    main::get},
-                {    main::get,    main::get,     cap::get,    main::get,    main::get},
-                {    main::get,    main::get,    main::get,    main::get,    main::get},
-                {    main::get,    main::get,    main::get,    main::get,    main::get}
-            }, {
-                {          AIR,          AIR,          AIR,          AIR,          AIR},
-                {    main::get,          AIR,          AIR,          AIR,    main::get},
-                {         WALL,          AIR,          AIR,          AIR,         WALL},
-                {    main::get,          AIR,          AIR,          AIR,    main::get},
-                {          AIR,          AIR,          AIR,          AIR,      LECTERN}
-            }, {
-                {          AIR,          AIR,          AIR,          AIR,          AIR},
-                {    main::get,          AIR,          AIR,          AIR,    main::get},
-                {         WALL,          AIR,          AIR,          AIR,         WALL},
-                {    main::get,          AIR,          AIR,          AIR,    main::get},
-                {          AIR,          AIR,          AIR,          AIR,        LEVER}
-            }, {
-                {          AIR,          AIR,          AIR,          AIR,          AIR},
-                {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
-                {         WALL,          AIR,          AIR,          AIR,         WALL},
-                {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
-                {          AIR,          AIR,          AIR,          AIR,          AIR}
-            }, {
-                {          AIR,          AIR,          AIR,          AIR,          AIR},
-                {     cap::get, stairBottom3, stairBottom3, stairBottom3,     cap::get},
-                { stairBottom6,    main::get,        ALTAR,    main::get, stairBottom5},
-                {     cap::get, stairBottom4, stairBottom4, stairBottom4,     cap::get},
-                {          AIR,          AIR,          AIR,          AIR,          AIR}
-            }}
-    );
 
     static {
         CAPS.put(ModBlocks.SUNSTONE_BLOCK.get(), 2);
@@ -101,6 +42,47 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 .map(stairsBlock -> stairsBlock)*/
     }
 
+    private AtomicReference<BlockState> cap = new AtomicReference<>();
+    private AtomicReference<BlockState> main = new AtomicReference<>();
+    private Supplier<BlockState> stairBottom1 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
+    private Supplier<BlockState> stairBottom2 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
+    private Supplier<BlockState> stairBottom3 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
+    private Supplier<BlockState> stairBottom4 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
+    private Supplier<BlockState> stairBottom5 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
+    private Supplier<BlockState> stairBottom6 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
+    @SuppressWarnings("unchecked")
+    private final Structure STRUCTURE = new Structure(new Supplier[][][]{{
+            {main::get, main::get, main::get, main::get, main::get},
+            {main::get, main::get, main::get, main::get, main::get},
+            {main::get, main::get, cap::get, main::get, main::get},
+            {main::get, main::get, main::get, main::get, main::get},
+            {main::get, main::get, main::get, main::get, main::get}
+    }, {
+            {AIR, AIR, AIR, AIR, AIR},
+            {main::get, AIR, AIR, AIR, main::get},
+            {WALL, AIR, AIR, AIR, WALL},
+            {main::get, AIR, AIR, AIR, main::get},
+            {AIR, AIR, AIR, AIR, LECTERN}
+    }, {
+            {AIR, AIR, AIR, AIR, AIR},
+            {main::get, AIR, AIR, AIR, main::get},
+            {WALL, AIR, AIR, AIR, WALL},
+            {main::get, AIR, AIR, AIR, main::get},
+            {AIR, AIR, AIR, AIR, LEVER}
+    }, {
+            {AIR, AIR, AIR, AIR, AIR},
+            {main::get, stairBottom1, AIR, stairBottom2, main::get},
+            {WALL, AIR, AIR, AIR, WALL},
+            {main::get, stairBottom1, AIR, stairBottom2, main::get},
+            {AIR, AIR, AIR, AIR, AIR}
+    }, {
+            {AIR, AIR, AIR, AIR, AIR},
+            {cap::get, stairBottom3, stairBottom3, stairBottom3, cap::get},
+            {stairBottom6, main::get, ALTAR, main::get, stairBottom5},
+            {cap::get, stairBottom4, stairBottom4, stairBottom4, cap::get},
+            {AIR, AIR, AIR, AIR, AIR}
+    }}
+    );
     private SpellIngredientList recipe;
     private ItemStack book;
     private int currentStage;
@@ -115,7 +97,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         this(ModTileEntities.ALTAR_CORE.get());
     }
 
-    public boolean checkMultiblock(World world){
+    public boolean checkMultiblock(World world) {
         BlockPos pos = getPos();
         BlockPos basePos = pos.offset(Direction.DOWN, 4);
 
@@ -208,23 +190,23 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     @Override
     public void tick() {
-        if (this.world == null || !checkMultiblock(this.world)){
+        if (this.world == null || !checkMultiblock(this.world)) {
             this.book = ItemStack.EMPTY;
             this.recipe = null;
             this.currentStage = 0;
             return;
         } else {
             Direction direction = getStructureDirection(world, pos);
-            if (direction != null){
-                TileEntity te = world.getTileEntity(pos.offset(direction.getOpposite(), 2).offset(direction.rotateY(),2).down(3));
-                if (te instanceof LecternTileEntity){
+            if (direction != null) {
+                TileEntity te = world.getTileEntity(pos.offset(direction.getOpposite(), 2).offset(direction.rotateY(), 2).down(3));
+                if (te instanceof LecternTileEntity) {
                     LecternTileEntity lectern = (LecternTileEntity) te;
                     this.book = lectern.getBook();
                     this.recipe = readRecipe(book);
                 }
             }
         }
-        if (this.book != ItemStack.EMPTY && this.recipe != null){
+        if (this.book != ItemStack.EMPTY && this.recipe != null) {
             craft();
         }
     }
@@ -233,7 +215,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         if (getWorld() == null)
             return;
         if (this.currentStage >= recipe.size()) {
-            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY()-2, getPos().getZ(), createSpellStack());
+            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY() - 2, getPos().getZ(), createSpellStack());
             return;
         }
         if (recipe.get(this.currentStage).consume(getWorld(), getPos())) {

@@ -1,17 +1,14 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import net.minecraft.util.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 /**
  * @author Minecraftschurli

@@ -14,10 +14,10 @@ import net.minecraft.world.*;
 import java.util.*;
 
 public class StandardParticle extends Particle implements IParticleData {
-    private ResourceLocation particleTexture;
-    private boolean ignoreMaxAge;
     private final List<ParticleController> controllers;
     private final ControllerComparator comparer;
+    private ResourceLocation particleTexture;
+    private boolean ignoreMaxAge;
     private float scaleX;
     private float scaleY;
     private float scaleZ;
@@ -26,6 +26,19 @@ public class StandardParticle extends Particle implements IParticleData {
     private boolean isAffectedByGravity;
     private boolean ignoreNoControllers;
     private boolean doVelocityUpdates;
+
+    public StandardParticle(World world, double x, double y, double z) {
+        super(world, x, y, z, 0, 0, 0);
+        particleRed = particleGreen = particleBlue = particleAlpha = 1.0F;
+        scaleX = scaleY = scaleZ = 0.2f;
+        this.ignoreMaxAge = this.isRadiant = this.isBreak = this.isAffectedByGravity = this.ignoreNoControllers = false;
+        this.doVelocityUpdates = true;
+        this.maxAge = 20 + rand.nextInt(20);
+        this.particleGravity = 1;
+        this.setRandomScale(0.1f, 0.3f);
+        this.controllers = new ArrayList<>();
+        this.comparer = new ControllerComparator();
+    }
 
     @Override
     public ParticleType<?> getType() {
@@ -41,171 +54,153 @@ public class StandardParticle extends Particle implements IParticleData {
         return null;
     }
 
-    public class ControllerComparator implements Comparator<ParticleController> {
-        @Override
-        public int compare(ParticleController o1, ParticleController o2) {
-            return (o1.getPriority() > o2.getPriority() ? 1 : (o1 == o2 ? 0 : -1));
-        }
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public StandardParticle(World world, double x, double y, double z){
-        super(world, x, y, z, 0, 0, 0);
-        particleRed = particleGreen = particleBlue = particleAlpha = 1.0F;
-        scaleX = scaleY = scaleZ = 0.2f;
-        this.ignoreMaxAge = this.isRadiant = this.isBreak = this.isAffectedByGravity = this.ignoreNoControllers = false;
-        this.doVelocityUpdates = true;
-        this.maxAge = 20 + rand.nextInt(20);
-        this.particleGravity = 1;
-        this.setRandomScale(0.1f, 0.3f);
-        this.controllers = new ArrayList<>();
-        this.comparer = new ControllerComparator();
-    }
-
-    public StandardParticle setGravity(){
+    public StandardParticle setGravity() {
         this.isAffectedByGravity = true;
         return this;
     }
 
-    public StandardParticle setNoControllers(){
+    public StandardParticle setNoControllers() {
         this.ignoreNoControllers = true;
         return this;
     }
-    public void setTexture(ResourceLocation texture) {
-        this.particleTexture = texture;
-    }
+
     public ResourceLocation getTexture() {
         return this.particleTexture;
     }
 
-    public void setNoVelocityUpdates(){
+    public void setTexture(ResourceLocation texture) {
+        this.particleTexture = texture;
+    }
+
+    public void setNoVelocityUpdates() {
         this.doVelocityUpdates = false;
     }
 
-    public boolean isRadiant(){
+    public boolean isRadiant() {
         return isRadiant;
     }
 
-    public boolean isBlockTexture(){
+    public boolean isBlockTexture() {
         return isBreak;
     }
 
-    public void addOffset(double maxX, double maxY, double maxZ){
+    public void addOffset(double maxX, double maxY, double maxZ) {
         double newX = this.posX + rand.nextDouble() * maxX - maxX / 2;
         double newY = this.posY + rand.nextDouble() * maxY - maxY / 2;
         double newZ = this.posZ + rand.nextDouble() * maxZ - maxZ / 2;
         this.setPosition(newX, newY, newZ);
     }
 
-    public float getScaleX(){
+    public float getScaleX() {
         return this.scaleX;
     }
 
-    public float getScaleY(){
+    public float getScaleY() {
         return this.scaleY;
     }
 
-    public float getScaleZ(){
+    public float getScaleZ() {
         return this.scaleZ;
     }
 
-    public StandardParticle setRandomScale(float min, float max){
+    public StandardParticle setRandomScale(float min, float max) {
         this.setScale((rand.nextFloat() * (max - min)) + min);
         return this;
     }
 
-    public void setScale(float scale){
+    public void setScale(float scale) {
         setScale(scale, scale, scale);
     }
 
-    public void setScale(float scaleX, float scaleY, float scaleZ){
+    public void setScale(float scaleX, float scaleY, float scaleZ) {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
         this.scaleZ = scaleZ;
     }
 
-    public int getAge(){
+    public int getAge() {
         return this.age;
     }
 
-    public int getParticleMaxAge(){
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getParticleMaxAge() {
         return this.maxAge;
     }
 
-    public void setMaxAge(int age){
+    public void setMaxAge(int age) {
         this.maxAge = age;
     }
 
-    public void setIgnoreMaxAge(boolean ignore){
+    public void setIgnoreMaxAge(boolean ignore) {
         this.ignoreMaxAge = ignore;
         this.age = 0;
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         this.particleRed = ((color >> 16) & 0xFF) / 255.0f;
         this.particleGreen = ((color >> 8) & 0xFF) / 255.0f;
         this.particleBlue = (color & 0xFF) / 255.0f;
     }
 
-    public void setAlpha(float alpha){
-        this.particleAlpha = alpha;
-    }
-
-    public float getRed(){
+    public float getRed() {
         return this.particleRed;
     }
 
-    public float getGreen(){
+    public float getGreen() {
         return this.particleGreen;
     }
 
-    public float getBlue(){
+    public float getBlue() {
         return this.particleBlue;
     }
 
-    public float getAlpha(){
+    public float getAlpha() {
         return this.particleAlpha;
     }
 
-    public void addController(ParticleController controller){
+    public void setAlpha(float alpha) {
+        this.particleAlpha = alpha;
+    }
+
+    public void addController(ParticleController controller) {
         controllers.add(controller);
         Collections.sort(controllers, comparer);
     }
 
-    public void removeController(ParticleController controller){
+    public void removeController(ParticleController controller) {
         this.controllers.remove(controller);
     }
 
-    public void clearControllers(){
+    public void clearControllers() {
         this.controllers.clear();
     }
 
     @Override
-    public int getBrightnessForRender(float par1){
+    public int getBrightnessForRender(float par1) {
         float f = (age + par1) / maxAge;
         if (f < 0.0F) f = 0.0F;
         if (f > 1.0F) f = 1.0F;
         int i = super.getBrightnessForRender(par1);
         int j = i & 0xff;
         int k = i >> 16 & 0xff;
-        j += (int)(f * 15F * 16F);
+        j += (int) (f * 15F * 16F);
         if (j > 240) j = 240;
         return j | k << 16;
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         if (isAffectedByGravity) this.motionY -= 0.04D * this.particleGravity;
         if (doVelocityUpdates) this.move(this.motionX, this.motionY, this.motionZ);
         List<ParticleController> remove = new ArrayList<>();
-        for (ParticleController pmc : controllers){
-            if (pmc.getFinished()){
+        for (ParticleController pmc : controllers) {
+            if (pmc.getFinished()) {
                 remove.add(pmc);
                 continue;
             }
@@ -213,15 +208,16 @@ public class StandardParticle extends Particle implements IParticleData {
             if (pmc.getExclusive()) break;
         }
         for (ParticleController pmc : remove) controllers.remove(pmc);
-        if ((age++ > maxAge && !this.ignoreMaxAge) || (!ignoreNoControllers && controllers.size() == 0)) this.setExpired();
+        if ((age++ > maxAge && !this.ignoreMaxAge) || (!ignoreNoControllers && controllers.size() == 0))
+            this.setExpired();
     }
 
     @Override
     public void renderParticle(BufferBuilder tessellator, ActiveRenderInfo ent, float partialframe, float cosyaw, float cospitch, float sinyaw, float sinsinpitch, float cossinpitch) {
         if (!this.world.isRemote) return;
-        float f11 = (float)(this.prevPosX + (this.posX - this.prevPosX) * partialframe - interpPosX);
-        float f12 = (float)(this.prevPosY + (this.posY - this.prevPosY) * partialframe - interpPosY);
-        float f13 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * partialframe - interpPosZ);
+        float f11 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialframe - interpPosX);
+        float f12 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialframe - interpPosY);
+        float f13 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialframe - interpPosZ);
         if (this.isRadiant) renderRadiant(Tessellator.getInstance(), partialframe);
         else {
             if (this.particleTexture == null) return;
@@ -250,9 +246,9 @@ public class StandardParticle extends Particle implements IParticleData {
         float var5 = 0.0F;
         if (var4 > 0.8F) var5 = (var4 - 0.8F) / 0.2F;
         Random var6 = new Random(432L);
-        float f11 = (float)(this.prevPosX + (this.posX - this.prevPosX) * partialFrame - Minecraft.getInstance().renderViewEntity.posX);
-        float f12 = (float)(this.prevPosY + (this.posY - this.prevPosY) * partialFrame - Minecraft.getInstance().renderViewEntity.posY);
-        float f13 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * partialFrame - Minecraft.getInstance().renderViewEntity.posZ);
+        float f11 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialFrame - Minecraft.getInstance().renderViewEntity.posX);
+        float f12 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialFrame - Minecraft.getInstance().renderViewEntity.posY);
+        float f13 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialFrame - Minecraft.getInstance().renderViewEntity.posZ);
         GlStateManager.pushMatrix();
         GlStateManager.translated(f11, f12, f13);
         GlStateManager.scaled(getScaleX(), getScaleY(), getScaleZ());
@@ -314,7 +310,7 @@ public class StandardParticle extends Particle implements IParticleData {
         return world;
     }
 
-//    public void setParticleTextureByName(String name) {
+    //    public void setParticleTextureByName(String name) {
 //        this.particleTexture = AMParticleIcons.instance.getIconByName(name);
 //    }
 //
@@ -342,5 +338,12 @@ public class StandardParticle extends Particle implements IParticleData {
 
     public double getMotionZ() {
         return this.motionZ;
+    }
+
+    public class ControllerComparator implements Comparator<ParticleController> {
+        @Override
+        public int compare(ParticleController o1, ParticleController o2) {
+            return (o1.getPriority() > o2.getPriority() ? 1 : (o1 == o2 ? 0 : -1));
+        }
     }
 }

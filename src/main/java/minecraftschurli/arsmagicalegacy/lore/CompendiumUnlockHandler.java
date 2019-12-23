@@ -6,13 +6,30 @@ package minecraftschurli.arsmagicalegacy.lore;
  * If it is not possible, then all calls should use the static utility methods here.
  *
  * @author Mithion
+ * <p>
+ * This is a catch all method - it's genericized to attempt to unlock a compendium entry for anything AM2 based that the player picks up
+ * @param event
+ * <p>
+ * Any magic level based unlocks should go in here
+ * @param event
+ * <p>
+ * This should handle all mobs and the Astral Barrier
+ * @param event
+ * <p>
+ * Any skill-based unlocks should go in here
+ * @param event
+ * <p>
+ * Any spell-based unlocks should go here (eg, low mana based unlocks, affinity, etc.)
+ * @param event
+ * <p>
+ * This is another genericized method, which attempts to unlock any entry for something the player crafts
  */
 /*public class CompendiumUnlockHandler{
-	*//**
-	 * This is a catch all method - it's genericized to attempt to unlock a compendium entry for anything AM2 based that the player picks up
-	 *
-	 * @param event
-	 *//*
+ *//**
+ * This is a catch all method - it's genericized to attempt to unlock a compendium entry for anything AM2 based that the player picks up
+ *
+ * @param event
+ *//*
 	@SubscribeEvent
 	public void onPlayerPickupItem(EntityItemPickupEvent event){
 		IArcaneCompendium instance = ArcaneCompendium.For(event.getEntityPlayer());
@@ -20,10 +37,10 @@ package minecraftschurli.arsmagicalegacy.lore;
 	}
 
 	*//**
-	 * Any magic level based unlocks should go in here
-	 *
-	 * @param event
-	 *//*
+ * Any magic level based unlocks should go in here
+ *
+ * @param event
+ *//*
 	@SubscribeEvent
 	public void onPlayerMagicLevelChange(PlayerMagicLevelChangeEvent event){
 		if (event.getEntity().world.isRemote && event.getEntity() instanceof PlayerEntity){
@@ -62,10 +79,10 @@ package minecraftschurli.arsmagicalegacy.lore;
 	}
 
 	*//**
-	 * This should handle all mobs and the Astral Barrier
-	 *
-	 * @param event
-	 *//*
+ * This should handle all mobs and the Astral Barrier
+ *
+ * @param event
+ *//*
 	@SubscribeEvent
 	public void onEntityDeath(LivingDeathEvent event){
 		if (event.getEntityLiving().worldObj.isRemote && event.getSource().getEntity() instanceof EntityPlayer){
@@ -83,10 +100,10 @@ package minecraftschurli.arsmagicalegacy.lore;
 
 
 	*//**
-	 * Any skill-based unlocks should go in here
-	 *
-	 * @param event
-	 *//*
+ * Any skill-based unlocks should go in here
+ *
+ * @param event
+ *//*
 	@SubscribeEvent
 	public void onSkillLearned(SkillLearnedEvent event){
 		IArcaneCompendium instance = ArcaneCompendium.For(event.getEntityPlayer());
@@ -101,10 +118,10 @@ package minecraftschurli.arsmagicalegacy.lore;
 	}
 
 	*//**
-	 * Any spell-based unlocks should go here (eg, low mana based unlocks, affinity, etc.)
-	 *
-	 * @param event
-	 *//*
+ * Any spell-based unlocks should go here (eg, low mana based unlocks, affinity, etc.)
+ *
+ * @param event
+ *//*
 	@SubscribeEvent
 	public void onSpellCast(SpellCastEvent.Pre event){
 		if (event.entityLiving instanceof EntityPlayer){
@@ -117,8 +134,8 @@ package minecraftschurli.arsmagicalegacy.lore;
 	}
 
 	*//**
-	 * This is another genericized method, which attempts to unlock any entry for something the player crafts
-	 *//*
+ * This is another genericized method, which attempts to unlock any entry for something the player crafts
+ *//*
 	@SubscribeEvent
 	public void onCrafting(ItemCraftedEvent event){
 		if (event.player.worldObj.isRemote){

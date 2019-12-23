@@ -23,11 +23,11 @@ public class BeamParticle extends Particle implements IParticleData {
     private boolean positionChanged = false;
     private boolean firstPerson = false;
 
-    public BeamParticle(World world, double x, double y, double z, double destX, double destY, double destZ){
+    public BeamParticle(World world, double x, double y, double z, double destX, double destY, double destZ) {
         this(world, x, y, z, destX, destY, destZ, 0);
     }
 
-    public BeamParticle(World world, double x, double y, double z, double destX, double destY, double destZ, int color){
+    public BeamParticle(World world, double x, double y, double z, double destX, double destY, double destZ, int color) {
         super(world, x, y, z);
         this.type = 0;
         this.dX = destX;
@@ -45,26 +45,26 @@ public class BeamParticle extends Particle implements IParticleData {
         this.maxAge = 10;
     }
 
-    public BeamParticle setInstantSpawn(){
+    public BeamParticle setInstantSpawn() {
         this.maxLengthAge = 1;
         return this;
     }
 
-    public void setMaxAge(int maxAge){
+    public void setMaxAge(int maxAge) {
         this.maxAge = maxAge;
     }
 
-    private void calculateLengthAndRotation(){
-        float deltaX = (float)(this.posX - this.dX);
-        float deltaY = (float)(this.posY - this.dY);
-        float deltaZ = (float)(this.posZ - this.dZ);
+    private void calculateLengthAndRotation() {
+        float deltaX = (float) (this.posX - this.dX);
+        float deltaY = (float) (this.posY - this.dY);
+        float deltaZ = (float) (this.posZ - this.dZ);
         this.length = MathHelper.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
         double hDist = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-        this.yaw = ((float)(Math.atan2(deltaX, deltaZ) * 180.0D / 3.141592653589793D));
-        this.pitch = ((float)(Math.atan2(deltaY, hDist) * 180.0D / 3.141592653589793D));
+        this.yaw = ((float) (Math.atan2(deltaX, deltaZ) * 180.0D / 3.141592653589793D));
+        this.pitch = ((float) (Math.atan2(deltaY, hDist) * 180.0D / 3.141592653589793D));
     }
 
-    public void setBeamLocationAndTarget(double posX, double posY, double posZ, double targetX, double targetY, double targetZ){
+    public void setBeamLocationAndTarget(double posX, double posY, double posZ, double targetX, double targetY, double targetZ) {
         this.updateX = posX;
         this.updateY = posY;
         this.updateZ = posZ;
@@ -75,21 +75,21 @@ public class BeamParticle extends Particle implements IParticleData {
         positionChanged = true;
     }
 
-    private void storePrevInformation(){
+    private void storePrevInformation() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
-        if (this.positionChanged){
+        if (this.positionChanged) {
             this.posX = this.updateX;
             this.posY = this.updateY;
             this.posZ = this.updateZ;
-            if (this.firstPerson){
+            if (this.firstPerson) {
                 PlayerEntity player = Minecraft.getInstance().player;
-                if (player != null){
+                if (player != null) {
                     float yaw = player.rotationYaw;
-                    float rotationYaw = (float)(yaw * Math.PI / 180);
-                    float offsetX = (float)Math.cos(rotationYaw) * 0.06f;
-                    float offsetZ = (float)Math.sin(rotationYaw) * 0.06f;
+                    float rotationYaw = (float) (yaw * Math.PI / 180);
+                    float offsetX = (float) Math.cos(rotationYaw) * 0.06f;
+                    float offsetZ = (float) Math.sin(rotationYaw) * 0.06f;
                     this.posX -= offsetX;
                     this.posZ -= offsetZ;
                     this.posY += 0.06f;
@@ -105,31 +105,27 @@ public class BeamParticle extends Particle implements IParticleData {
         this.prevPitch = this.pitch;
     }
 
-    private void handleAging(){
+    private void handleAging() {
         this.age++;
         if (this.age >= this.maxAge) this.setExpired();
     }
 
-    public void setType(int type){
-        this.type = type;
-    }
-
     @Override
-    public void tick(){
+    public void tick() {
         storePrevInformation();
         calculateLengthAndRotation();
         handleAging();
     }
 
     @Override
-    public void renderParticle(BufferBuilder tessellator, ActiveRenderInfo ent, float par2, float par3, float par4, float par5, float par6, float par7){
+    public void renderParticle(BufferBuilder tessellator, ActiveRenderInfo ent, float par2, float par3, float par4, float par5, float par6, float par7) {
         GL11.glPushMatrix();
 //        Minecraft.getInstance().getRenderManager().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         float scaleFactor = 1.0F;
         float rot = this.world.getGameTime() % (360 / this.rotateSpeed) * this.rotateSpeed + this.rotateSpeed * par2;
-        float size = (float)this.age / (float)this.maxLengthAge;
+        float size = (float) this.age / (float) this.maxLengthAge;
         if (size > 1) size = 1;
         float op = 0.4F;
         float widthMod = 1.0f;
@@ -147,9 +143,9 @@ public class BeamParticle extends Particle implements IParticleData {
 //
         GL11.glTexParameterf(3553, 10242, 10497.0F);
         GL11.glTexParameterf(3553, 10243, 10497.0F);
-        float xx = (float)(this.prevPosX + (this.posX - this.prevPosX) * par2 - interpPosX);
-        float yy = (float)(this.prevPosY + (this.posY - this.prevPosY) * par2 - interpPosY);
-        float zz = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * par2 - interpPosZ);
+        float xx = (float) (this.prevPosX + (this.posX - this.prevPosX) * par2 - interpPosX);
+        float yy = (float) (this.prevPosY + (this.posY - this.prevPosY) * par2 - interpPosY);
+        float zz = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * par2 - interpPosZ);
         GL11.glTranslated(xx, yy, zz);
         if (firstPerson) widthMod = 0.3f;
         float deltaYaw = Math.abs(this.yaw) - Math.abs(this.prevYaw);
@@ -173,7 +169,7 @@ public class BeamParticle extends Particle implements IParticleData {
 //            i = 1;
 //            inc = 180;
 //        }
-        for (int t = 0; t < i; t++){
+        for (int t = 0; t < i; t++) {
             Tessellator.getInstance().draw();
             tessellator.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
             double l = this.length * size * scaleFactor;
@@ -187,10 +183,10 @@ public class BeamParticle extends Particle implements IParticleData {
             int b = this.getBrightnessForRender(par7);
             int j = b >> 16 & 65535;
             int k = b & 65535;
-            tessellator.pos(offset3, l, 0.0D).tex( br, mV).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
-            tessellator.pos(offset1, 0.0D, 0.0D).tex( br, mU).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
-            tessellator.pos(offset2, 0.0D, 0.0D).tex( tl, mU).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
-            tessellator.pos(offset4, l, 0.0D).tex( tl, mV).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
+            tessellator.pos(offset3, l, 0.0D).tex(br, mV).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
+            tessellator.pos(offset1, 0.0D, 0.0D).tex(br, mU).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
+            tessellator.pos(offset2, 0.0D, 0.0D).tex(tl, mU).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
+            tessellator.pos(offset4, l, 0.0D).tex(tl, mV).color(this.particleRed, this.particleGreen, this.particleBlue, op).lightmap(j, k).endVertex();
             Tessellator.getInstance().draw();
             tessellator.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
         }
@@ -203,19 +199,19 @@ public class BeamParticle extends Particle implements IParticleData {
     }
 
     @Override
-    public void setColor(float r, float g, float b){
+    public void setColor(float r, float g, float b) {
         this.particleGreen = g;
         this.particleRed = r;
         this.particleBlue = b;
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         this.particleRed = ((color >> 16) & 0xFF) / 255.0F;
         this.particleGreen = ((color >> 8) & 0xFF) / 255.0F;
         this.particleBlue = (color & 0xFF) / 255.0F;
     }
 
-    public void setColor(int r, int g, int b){
+    public void setColor(int r, int g, int b) {
         this.particleRed = r / 255.0f;
         this.particleGreen = g / 255.0f;
         this.particleBlue = b / 255.0f;
@@ -236,6 +232,10 @@ public class BeamParticle extends Particle implements IParticleData {
     @Override
     public ParticleType<?> getType() {
         return null;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override

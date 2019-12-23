@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.*;
 
 /**
  * @author Minecraftschurli
@@ -21,6 +21,6 @@ public enum EssenceType {
     }
 
     public String getTranslationKey() {
-        return ArsMagicaLegacy.MODID+".essence."+this.name().toLowerCase();
+        return ArsMagicaLegacy.MODID + ".essence." + this.name().toLowerCase();
     }
 }

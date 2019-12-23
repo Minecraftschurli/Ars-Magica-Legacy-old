@@ -1,6 +1,6 @@
 {
-    "parent": "block/template_rail_raised_sw",
-    "textures": {
-        "rail": "arsmagicalegacy:block/iron_inlay"
-    }
+  "parent": "block/template_rail_raised_sw",
+  "textures": {
+    "rail": "arsmagicalegacy:block/iron_inlay"
+  }
 }

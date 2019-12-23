@@ -1,17 +1,13 @@
 package minecraftschurli.arsmagicalegacy.worldgen.biomes;
 
-import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.structure.MineshaftConfig;
-import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import minecraftschurli.arsmagicalegacy.objects.tree.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.placement.*;
+import net.minecraft.world.gen.surfacebuilders.*;
 
 /**
  * @author Minecraftschurli

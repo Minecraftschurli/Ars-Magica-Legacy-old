@@ -1,16 +1,16 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.network.*;
+import net.minecraftforge.fml.network.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-02
  */
-public class LearnSkillPacket implements IPacket{
+public class LearnSkillPacket implements IPacket {
     private final String skillId;
 
     public LearnSkillPacket(String id) {

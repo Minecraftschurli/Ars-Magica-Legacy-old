@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 /**
  * @author Minecraftschurli
@@ -11,7 +11,7 @@ public class SerializedSpellIngredient {
     private int quantity;
     private ItemStack stack;
 
-    public SerializedSpellIngredient (String key, int quantity, ItemStack stack){
+    public SerializedSpellIngredient(String key, int quantity, ItemStack stack) {
         this.key = key;
         this.quantity = quantity;
         this.stack = stack;

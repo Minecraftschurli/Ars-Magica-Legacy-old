@@ -1,17 +1,11 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraft.nbt.*;
+import net.minecraft.util.text.*;
+import net.minecraftforge.common.util.*;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * @author Minecraftschurli
@@ -19,6 +13,11 @@ import java.util.stream.Collectors;
  */
 public class SpellIngredientList extends ArrayList<ISpellIngredient> implements INBTSerializable<ListNBT> {
     private boolean computed = false;
+
+    private static ISpellIngredient deserializeIngredient(INBT inbt) {
+        CompoundNBT nbt = (CompoundNBT) inbt;
+        return IngredientTypes.get(nbt.getString(ISpellIngredient.TYPE_KEY), nbt);
+    }
 
     @Override
     public boolean add(ISpellIngredient iSpellIngredient) {
@@ -46,7 +45,10 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
 
     @Override
     public ListNBT serializeNBT() {
-        return stream().map(INBTSerializable::serializeNBT).collect(Collector.of(ListNBT::new, AbstractList::add, (inbts, inbts2) -> {inbts.addAll(inbts2);return inbts;}));
+        return stream().map(INBTSerializable::serializeNBT).collect(Collector.of(ListNBT::new, AbstractList::add, (inbts, inbts2) -> {
+            inbts.addAll(inbts2);
+            return inbts;
+        }));
     }
 
     @Override
@@ -59,7 +61,7 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
         for (ISpellIngredient ingredient1 : this) {
             for (ISpellIngredient ingredient2 : this) {
                 if (ingredient1 == ingredient2) continue;
-                if (! canCombine(ingredient1, ingredient2)) continue;
+                if (!canCombine(ingredient1, ingredient2)) continue;
                 this.remove(ingredient1);
                 this.remove(ingredient2);
                 this.add(combine(ingredient1, ingredient2));
@@ -80,10 +82,5 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
 
     private boolean canCombine(ISpellIngredient ingredient1, ISpellIngredient ingredient2) {
         return ingredient1.canCombine(ingredient2) && ingredient2.canCombine(ingredient1);
-    }
-
-    private static ISpellIngredient deserializeIngredient(INBT inbt) {
-        CompoundNBT nbt = (CompoundNBT)inbt;
-        return IngredientTypes.get(nbt.getString(ISpellIngredient.TYPE_KEY), nbt);
     }
 }

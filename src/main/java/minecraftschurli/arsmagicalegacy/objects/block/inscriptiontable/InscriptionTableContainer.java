@@ -1,21 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModContainers;
-import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.WritableBookItem;
-import net.minecraft.network.PacketBuffer;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.*;
+import net.minecraft.item.*;
+import net.minecraft.network.*;
 
-import javax.annotation.Nonnull;
-import java.util.EnumSet;
+import javax.annotation.*;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -214,7 +208,7 @@ public class InscriptionTableContainer extends Container {
 
     public void resetSpellNameAndIcon() {
         ItemStack stack = this.inventorySlots.get(0).getStack();
-        if (!stack.isEmpty()){
+        if (!stack.isEmpty()) {
             table.resetSpellNameAndIcon(stack, inventoryPlayer.player);
         }
         this.inventorySlots.get(0).onSlotChanged();

@@ -1,50 +1,33 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import javafx.util.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
-import minecraftschurli.arsmagicalegacy.event.SpellRecipeItemsEvent;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.lore.Story;
-import minecraftschurli.arsmagicalegacy.network.InscriptionTablePacket;
-import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.Constants;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.event.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.lore.*;
+import minecraftschurli.arsmagicalegacy.network.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.common.util.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 /**
  * @author Minecraftschurli
@@ -81,7 +64,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         numStageGroups = 2;
     }
 
-    public InscriptionTableTileEntity(World world){
+    public InscriptionTableTileEntity(World world) {
         this();
         this.world = world;
     }

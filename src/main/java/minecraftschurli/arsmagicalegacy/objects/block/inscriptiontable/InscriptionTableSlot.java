@@ -1,16 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.text.TranslationTextComponent;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.inventory.container.*;
+import net.minecraft.item.*;
+import net.minecraft.util.text.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli

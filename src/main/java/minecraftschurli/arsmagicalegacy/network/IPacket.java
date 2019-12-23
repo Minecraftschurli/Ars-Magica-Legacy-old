@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.*;
+import net.minecraftforge.fml.network.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli
@@ -11,5 +11,6 @@ import java.util.function.Supplier;
  */
 public interface IPacket {
     void toBytes(PacketBuffer buf);
+
     void handle(Supplier<NetworkEvent.Context> ctx);
 }

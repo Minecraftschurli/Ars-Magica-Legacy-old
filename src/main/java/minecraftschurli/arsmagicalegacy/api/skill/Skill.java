@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
+import net.minecraftforge.registries.*;
 
 /**
  * @author Minecraftschurli

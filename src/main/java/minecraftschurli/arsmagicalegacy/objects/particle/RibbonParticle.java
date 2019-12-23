@@ -19,7 +19,8 @@ public class RibbonParticle extends Particle implements IParticleData {
     PerlinNoiseGenerator noise;
     RibbonCurve currentCurve;
     Vec3d ribbonTarget;
-    public RibbonParticle(World world, double x, double y, double z, float width, int color){
+
+    public RibbonParticle(World world, double x, double y, double z, float width, int color) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         this.setPosition(x, y, z);
         motionX = 0;
@@ -32,7 +33,7 @@ public class RibbonParticle extends Particle implements IParticleData {
         ribbonWidth = width;
         stepId = 0;
         ribbonTarget = new Vec3d(random(-movement, movement), random(-movement, movement), random(-movement, movement));
-        ribbonSeparation = lerp(-maxSeparation, maxSeparation, (float)noise.noiseAt(noisePos += noiseStep, 0, false));
+        ribbonSeparation = lerp(-maxSeparation, maxSeparation, (float) noise.noiseAt(noisePos += noiseStep, 0, false));
         pts.addElement(getRandPt());
         pts.addElement(getRandPt());
         pts.addElement(getRandPt());
@@ -42,7 +43,7 @@ public class RibbonParticle extends Particle implements IParticleData {
     }
 
     @Override
-    public void renderParticle(BufferBuilder par1Tessellator, ActiveRenderInfo ent, float partialframe, float cosyaw, float cospitch, float sinyaw, float sinsinpitch, float cossinpitch){
+    public void renderParticle(BufferBuilder par1Tessellator, ActiveRenderInfo ent, float partialframe, float cosyaw, float cospitch, float sinyaw, float sinsinpitch, float cossinpitch) {
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
@@ -63,16 +64,16 @@ public class RibbonParticle extends Particle implements IParticleData {
         return null;
     }
 
-    public int getFXLayer(){
+    public int getFXLayer() {
         return 2;
     }
 
-    void draw(){
+    void draw() {
         ribbonTarget = new Vec3d(random(-movement, movement), random(-movement, movement), random(-movement, movement));
         ribbonSeparation = lerp(-maxSeparation, maxSeparation, noise.noiseAt(noisePos += noiseStep, 0, false));
         currentCurve.addSegment();
         int size = curves.size();
-        if (size > curveCount - 1){
+        if (size > curveCount - 1) {
             RibbonCurve c = curves.get(0);
             c.removeSegment();
         }
@@ -81,15 +82,15 @@ public class RibbonParticle extends Particle implements IParticleData {
         for (RibbonCurve curve : curves) curve.draw();
     }
 
-    private float random(float min, float max){
-        return (float)((Math.random() * max) - min);
+    private float random(float min, float max) {
+        return (float) ((Math.random() * max) - min);
     }
 
-    private float lerp(float start, float stop, double amount){
-        return (float)(start + ((stop - start) * amount));
+    private float lerp(float start, float stop, double amount) {
+        return (float) (start + ((stop - start) * amount));
     }
 
-    void addRibbonCurve(){
+    void addRibbonCurve() {
         pts.addElement(getRandPt());
         Vec3d nextPt = pts.elementAt(pts.size() - 1);
         Vec3d curPt = pts.elementAt(pts.size() - 2);
@@ -103,7 +104,7 @@ public class RibbonParticle extends Particle implements IParticleData {
         stepId = 0;
     }
 
-    Vec3d getRandPt(){
+    Vec3d getRandPt() {
         return new Vec3d(ribbonTarget.getX() + random(-ribbonSeparation, ribbonSeparation), ribbonTarget.getY() + random(-ribbonSeparation, ribbonSeparation), ribbonTarget.getZ() + random(-ribbonSeparation, ribbonSeparation));
     }
 

@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

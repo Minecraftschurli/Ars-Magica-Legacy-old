@@ -1,18 +1,14 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.objects.item.ArcaneCompendiumItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.block.*;
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.potion.*;
+import net.minecraftforge.fml.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -23,8 +19,6 @@ public final class ModItems implements IInit {
     public static final Item.Properties ITEM_1 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1);
     public static final RegistryObject<Item> ARCANE_COMPENDIUM = ITEMS.register("arcane_compendium", ArcaneCompendiumItem::new);
     public static final RegistryObject<Item> SPELL = ITEMS.register("spell", SpellItem::new);
-    public static SpellBookItem spell_book = new SpellBookItem();
-    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", () -> spell_book);
     public static final RegistryObject<Item> CHIMERITE_ORE = blockItem(ModBlocks.CHIMERITE_ORE);
     public static final RegistryObject<Item> CHIMERITE_BLOCK = blockItem(ModBlocks.CHIMERITE_BLOCK);
     public static final RegistryObject<Item> CHIMERITE = stackableItem64("chimerite");
@@ -121,6 +115,8 @@ public final class ModItems implements IInit {
             return super.placeBlock(context, state);
         }
     });
+    public static SpellBookItem spell_book = new SpellBookItem();
+    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", () -> spell_book);
 
     public static void register() {
     }

@@ -2,35 +2,35 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import net.minecraft.world.*;
 
-public abstract class ParticleController{
+public abstract class ParticleController {
     protected StandardParticle particle;
     protected int priority;
     protected boolean exclusive;
+    protected boolean firstTick = true;
     private boolean finished;
     private boolean killParticleOnFinish;
-    protected boolean firstTick = true;
 
-    public ParticleController(StandardParticle particleEffect, int priority, boolean exclusive){
+    public ParticleController(StandardParticle particleEffect, int priority, boolean exclusive) {
         this.particle = particleEffect;
         this.priority = priority;
         this.exclusive = exclusive;
         this.killParticleOnFinish = false;
     }
 
-    protected ParticleController targetNewParticle(StandardParticle particle){
+    protected ParticleController targetNewParticle(StandardParticle particle) {
         if (this.particle != null) this.particle.removeController(this);
         particle.addController(this);
         this.particle = particle;
         return this;
     }
 
-    public ParticleController setKillParticleOnFinish(boolean kill){
-        this.killParticleOnFinish = kill;
-        return this;
+    public boolean getKillParticleOnFinish() {
+        return this.killParticleOnFinish;
     }
 
-    public boolean getKillParticleOnFinish(){
-        return this.killParticleOnFinish;
+    public ParticleController setKillParticleOnFinish(boolean kill) {
+        this.killParticleOnFinish = kill;
+        return this;
     }
 
     public abstract void doUpdate();
@@ -38,8 +38,8 @@ public abstract class ParticleController{
     @Override
     public abstract ParticleController clone();
 
-    public void onUpdate(World world){
-        if (!world.isRemote){
+    public void onUpdate(World world) {
+        if (!world.isRemote) {
             if (particle != null) particle.setExpired();
             return;
         }
@@ -47,20 +47,20 @@ public abstract class ParticleController{
         if (firstTick) firstTick = false;
     }
 
-    public int getPriority(){
+    public int getPriority() {
         return priority;
     }
 
-    protected void finish(){
+    protected void finish() {
         this.finished = true;
         if (killParticleOnFinish && particle != null) particle.setExpired();
     }
 
-    public boolean getExclusive(){
+    public boolean getExclusive() {
         return exclusive;
     }
 
-    public boolean getFinished(){
+    public boolean getFinished() {
         return finished;
     }
 }

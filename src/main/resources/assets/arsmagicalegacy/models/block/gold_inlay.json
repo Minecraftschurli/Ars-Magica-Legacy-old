@@ -1,6 +1,6 @@
 {
-    "parent": "block/rail_flat",
-    "textures": {
-        "rail": "arsmagicalegacy:block/gold_inlay"
-    }
+  "parent": "block/rail_flat",
+  "textures": {
+    "rail": "arsmagicalegacy:block/gold_inlay"
+  }
 }

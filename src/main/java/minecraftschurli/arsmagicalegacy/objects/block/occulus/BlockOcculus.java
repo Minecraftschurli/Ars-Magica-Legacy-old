@@ -1,34 +1,23 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.client.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.state.*;
+import net.minecraft.state.properties.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.shapes.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 public class BlockOcculus extends Block {
 
@@ -56,8 +45,17 @@ public class BlockOcculus extends Block {
             {6.5, 12, 8.5, 9.5, 14, 9.5},
     });
 
+    public BlockOcculus() {
+        super(Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).harvestLevel(-1).harvestTool(ToolType.PICKAXE));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    /*private static VoxelShape makeShape(VoxelShape... shapes) {
+        return Arrays.stream(shapes).reduce((voxelShape, voxelShape2) -> VoxelShapes.combine(voxelShape, voxelShape2, IBooleanFunction.OR)).get();
+    }*/
+
     private static VoxelShape[] makeRotatedShapes(double[][] shape) {
-        List<Integer> angles = Arrays.asList(0,90,180,270);
+        List<Integer> angles = Arrays.asList(0, 90, 180, 270);
         VoxelShape[] shapes = new VoxelShape[4];
         double centerX = 8;
         double centerZ = 8;
@@ -82,15 +80,6 @@ public class BlockOcculus extends Block {
         return shapes;
     }
 
-    /*private static VoxelShape makeShape(VoxelShape... shapes) {
-        return Arrays.stream(shapes).reduce((voxelShape, voxelShape2) -> VoxelShapes.combine(voxelShape, voxelShape2, IBooleanFunction.OR)).get();
-    }*/
-
-    public BlockOcculus() {
-        super(Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).harvestLevel(-1).harvestTool(ToolType.PICKAXE));
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
-    }
-
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
@@ -108,17 +97,17 @@ public class BlockOcculus extends Block {
             return false;
         if (worldIn.isRemote) {
             if (MagicHelper.getCurrentLevel(player) == 0 && !player.isCreative()) {
-                player.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID+".occulus.prevent"));
+                player.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.prevent"));
                 return true;
             }
-            Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaLegacy.MODID+".occulus.displayname"), player));
+            Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.displayname"), player));
         }
         return true;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return SHAPE[(state.get(FACING).getHorizontalIndex()+2)%4];
+        return SHAPE[(state.get(FACING).getHorizontalIndex() + 2) % 4];
     }
 
     @Override

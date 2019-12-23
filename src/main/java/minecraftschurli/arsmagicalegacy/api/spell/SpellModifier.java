@@ -1,12 +1,11 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

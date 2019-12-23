@@ -1,16 +1,15 @@
 package minecraftschurli.arsmagicalegacy.api.multiblock;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import com.google.common.collect.*;
+import net.minecraft.block.*;
+import net.minecraft.state.properties.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
-import java.util.function.Supplier;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

@@ -1,17 +1,15 @@
 package minecraftschurli.arsmagicalegacy.proxy;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.event.UIRender;
-import minecraftschurli.arsmagicalegacy.init.ModContainers;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.common.MinecraftForge;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.event.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.client.model.obj.*;
+import net.minecraftforge.common.*;
 
 /**
  * @author Minecraftschurli

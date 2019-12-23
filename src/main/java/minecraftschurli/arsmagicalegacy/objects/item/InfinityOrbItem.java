@@ -1,26 +1,19 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
 
-import javax.annotation.Nonnull;
-import java.util.Comparator;
-import java.util.stream.Collectors;
+import javax.annotation.*;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * @author IchHabeHunger54
@@ -53,7 +46,8 @@ public class InfinityOrbItem extends Item {
     @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-        if (worldIn.isRemote || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0) return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
+        if (worldIn.isRemote || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0)
+            return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
     }
 

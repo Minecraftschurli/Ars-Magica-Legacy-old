@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 
 /**
  * @author Minecraftschurli
