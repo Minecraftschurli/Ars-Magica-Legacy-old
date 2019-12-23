@@ -3,23 +3,25 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import minecraftschurli.arsmagicalegacy.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 
-public class ParticleManager {
-    public static void spawnParticle(World world, double x, double y, double z, double targetX, double targetY, double targetZ) {
+public final class ParticleManager {
+    public static void spawnParticle(World world, ResourceLocation location, double x, double y, double z, double targetX, double targetY, double targetZ) {
         if (!world.isRemote) {
             StandardParticle particle = new StandardParticle(world, x, y, z);
             particle.addMotion(targetX, targetY, targetZ);
+            particle.setTexture(location);
             world.addParticle(particle, x, y, z, targetX, targetY, targetZ);
         }
     }
 
-    public static void spawnParticle(World world, double x, double y, double z, Entity target) {
-        spawnParticle(world, x, y, z, target.posX, target.posY, target.posZ);
+    public static void spawnParticle(World world, ResourceLocation location, double x, double y, double z, Entity target) {
+        spawnParticle(world, location, x, y, z, target.posX, target.posY, target.posZ);
     }
 
-    public static void spawnParticle(World world, Entity source, Entity target) {
-        spawnParticle(world, source.posX, source.posY, source.posZ, target.posX, target.posY, target.posZ);
+    public static void spawnParticle(World world, ResourceLocation location, Entity source, Entity target) {
+        spawnParticle(world, location, source.posX, source.posY, source.posZ, target.posX, target.posY, target.posZ);
     }
 
     public static void spawnBolt(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, int type, int color, int damage) {
