@@ -30,26 +30,27 @@ public class ModParticles implements IInit {
     public static final RegistryObject<BasicParticleType> SPARKLE = PARTICLE_TYPES.register("sparkle", () -> new BasicParticleType(false));
     public static final RegistryObject<BasicParticleType> WATERBALL = PARTICLE_TYPES.register("waterball", () -> new BasicParticleType(false));
     public static final RegistryObject<BasicParticleType> WIND = PARTICLE_TYPES.register("wind", () -> new BasicParticleType(false));
+
     @SubscribeEvent
     public static void registerParticles(RegistryEvent.Register<ParticleType<?>> evt) {
         evt.getRegistry().registerAll(
-                ARCANE.get(),
-                CLOCK.get(),
-                EMBER.get(),
-                GHOST.get(),
-                HEART.get(),
-                IMPLOSION.get(),
-                LENS_FLARE.get(),
-                LIGHTS.get(),
-                PLANT.get(),
-                PULSE.get(),
-                ROCK.get(),
-                ROTATING_RINGS.get(),
-                SHINY.get(),
-                SMOKE.get(),
-                SPARKLE.get(),
-                WATERBALL.get(),
-                WIND.get()
+                ModParticles.ARCANE.get(),
+                ModParticles.CLOCK.get(),
+                ModParticles.EMBER.get(),
+                ModParticles.GHOST.get(),
+                ModParticles.HEART.get(),
+                ModParticles.IMPLOSION.get(),
+                ModParticles.LENS_FLARE.get(),
+                ModParticles.LIGHTS.get(),
+                ModParticles.PLANT.get(),
+                ModParticles.PULSE.get(),
+                ModParticles.ROCK.get(),
+                ModParticles.ROTATING_RINGS.get(),
+                ModParticles.SHINY.get(),
+                ModParticles.SMOKE.get(),
+                ModParticles.SPARKLE.get(),
+                ModParticles.WATERBALL.get(),
+                ModParticles.WIND.get()
 //                new BasicParticleType(false).setRegistryName(ArsMagicaLegacy.MODID, "arcane"),
 //                new BasicParticleType(false).setRegistryName(ArsMagicaLegacy.MODID, "clock"),
 //                new BasicParticleType(false).setRegistryName(ArsMagicaLegacy.MODID, "ember"),
