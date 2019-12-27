@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.nbt.*;
 import net.minecraft.util.text.*;
 import net.minecraftforge.common.util.*;
@@ -54,6 +55,7 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
     @Override
     public void deserializeNBT(ListNBT nbt) {
         this.clear();
+        ArsMagicaLegacy.LOGGER.debug(nbt);
         this.addAll(nbt.stream().map(SpellIngredientList::deserializeIngredient).collect(Collectors.toList()));
     }
 

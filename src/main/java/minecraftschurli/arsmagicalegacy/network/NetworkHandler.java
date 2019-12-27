@@ -31,5 +31,6 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), LearnSkillPacket.class, LearnSkillPacket::toBytes, LearnSkillPacket::new, LearnSkillPacket::handle);
         INSTANCE.registerMessage(nextID(), SyncMagicPacket.class, SyncMagicPacket::toBytes, SyncMagicPacket::new, SyncMagicPacket::handle);
         INSTANCE.registerMessage(nextID(), InscriptionTablePacket.class, InscriptionTablePacket::toBytes, InscriptionTablePacket::new, InscriptionTablePacket::handle);
+        INSTANCE.registerMessage(nextID(), TEClientSyncPacket.class, TEClientSyncPacket::toBytes, TEClientSyncPacket::new, TEClientSyncPacket::handle);
     }
 }

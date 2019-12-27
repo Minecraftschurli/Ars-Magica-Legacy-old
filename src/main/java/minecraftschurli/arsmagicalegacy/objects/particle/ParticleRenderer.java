@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.*;
 public class ParticleRenderer {
     @SubscribeEvent
     public static void registerFactories(ParticleFactoryRegisterEvent evt) {
-        Minecraft.getInstance().particles.registerFactory(ModParticles.ARCANE.get(), ParticleFactory::new);
+        /*Minecraft.getInstance().particles.registerFactory(ModParticles.ARCANE.get(), ParticleFactory::new);
         Minecraft.getInstance().particles.registerFactory(ModParticles.CLOCK.get(), ParticleFactory::new);
         Minecraft.getInstance().particles.registerFactory(ModParticles.EMBER.get(), ParticleFactory::new);
         Minecraft.getInstance().particles.registerFactory(ModParticles.GHOST.get(), ParticleFactory::new);
@@ -28,6 +28,6 @@ public class ParticleRenderer {
         Minecraft.getInstance().particles.registerFactory(ModParticles.SMOKE.get(), ParticleFactory::new);
         Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE.get(), ParticleFactory::new);
         Minecraft.getInstance().particles.registerFactory(ModParticles.WATERBALL.get(), ParticleFactory::new);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.WIND.get(), ParticleFactory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.WIND.get(), ParticleFactory::new);*/
     }
 }

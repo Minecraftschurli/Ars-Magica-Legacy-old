@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.*;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
@@ -140,6 +141,7 @@ public final class ArsMagicaLegacy {
         CapabilityBurnout.register();
         CapabilityResearch.register();
         CapabilityMagic.register();
+        IngredientTypes.registerDefault();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

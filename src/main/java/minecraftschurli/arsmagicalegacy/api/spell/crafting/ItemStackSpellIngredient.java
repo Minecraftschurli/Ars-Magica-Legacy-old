@@ -16,6 +16,7 @@ import java.util.function.*;
  * @version 2019-11-19
  */
 public class ItemStackSpellIngredient implements ISpellIngredient {
+    public static final String TYPE = "item_stack";
     private ItemStack stack;
 
     ItemStackSpellIngredient(CompoundNBT nbt) {
@@ -29,13 +30,13 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(TYPE_KEY, "item_stack");
+        nbt.putString(TYPE_KEY, TYPE);
         return this.stack.write(nbt);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        nbt.remove(TYPE_KEY);
+        //nbt.remove(TYPE_KEY);
         this.stack = ItemStack.read(nbt);
     }
 
@@ -70,5 +71,9 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
             return true;
         }
         return false;
+    }
+
+    public ItemStack getStack() {
+        return stack;
     }
 }

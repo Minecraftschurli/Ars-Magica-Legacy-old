@@ -1,22 +1,39 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import minecraftschurli.arsmagicalegacy.api.multiblock.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.block.*;
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.state.properties.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.util.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
+import minecraftschurli.arsmagicalegacy.network.TEClientSyncPacket;
+import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.state.properties.Half;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.LecternTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.network.PacketDistributor;
 
-import java.util.*;
-import java.util.concurrent.atomic.*;
-import java.util.function.*;
+import java.util.LinkedHashMap;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -31,6 +48,47 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
     private static final Supplier<BlockState> LEVER = Blocks.LEVER::getDefaultState;
     private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
+    private AtomicReference<BlockState> cap = new AtomicReference<>();
+    private AtomicReference<BlockState> main = new AtomicReference<>();
+    private Supplier<BlockState> stairBottom1 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
+    private Supplier<BlockState> stairBottom2 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
+    private Supplier<BlockState> stairBottom3 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
+    private Supplier<BlockState> stairBottom4 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
+    private Supplier<BlockState> stairBottom5 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
+    private Supplier<BlockState> stairBottom6 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
+    @SuppressWarnings("unchecked")
+    final Structure STRUCTURE = new CraftingAltarStructure(new Supplier[][][]{{
+                {    main::get,    main::get,    main::get,    main::get,    main::get},
+                {    main::get,    main::get,    main::get,    main::get,    main::get},
+                {    main::get,    main::get,     cap::get,    main::get,    main::get},
+                {    main::get,    main::get,    main::get,    main::get,    main::get},
+                {    main::get,    main::get,    main::get,    main::get,    main::get}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {         WALL,          AIR,          AIR,          AIR,         WALL},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {          AIR,          AIR,          AIR,          AIR,      LECTERN}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {         WALL,          AIR,          AIR,          AIR,         WALL},
+                {    main::get,          AIR,          AIR,          AIR,    main::get},
+                {          AIR,          AIR,          AIR,          AIR,        LEVER}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
+                {         WALL,          AIR,          AIR,          AIR,         WALL},
+                {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
+                {          AIR,          AIR,          AIR,          AIR,          AIR}
+            }, {
+                {          AIR,          AIR,          AIR,          AIR,          AIR},
+                {     cap::get, stairBottom3, stairBottom3, stairBottom3,     cap::get},
+                { stairBottom6,    main::get,        ALTAR,    main::get, stairBottom5},
+                {     cap::get, stairBottom4, stairBottom4, stairBottom4,     cap::get},
+                {          AIR,          AIR,          AIR,          AIR,          AIR}
+            }}
+    );
 
     static {
         CAPS.put(ModBlocks.SUNSTONE_BLOCK.get(), 2);
@@ -42,62 +100,29 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 .map(stairsBlock -> stairsBlock)*/
     }
 
-    private AtomicReference<BlockState> cap = new AtomicReference<>();
-    private AtomicReference<BlockState> main = new AtomicReference<>();
-    private Supplier<BlockState> stairBottom1 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
-    private Supplier<BlockState> stairBottom2 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
-    private Supplier<BlockState> stairBottom3 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
-    private Supplier<BlockState> stairBottom4 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
-    private Supplier<BlockState> stairBottom5 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
-    private Supplier<BlockState> stairBottom6 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
-    @SuppressWarnings("unchecked")
-    private final Structure STRUCTURE = new Structure(new Supplier[][][]{{
-            {main::get, main::get, main::get, main::get, main::get},
-            {main::get, main::get, main::get, main::get, main::get},
-            {main::get, main::get, cap::get, main::get, main::get},
-            {main::get, main::get, main::get, main::get, main::get},
-            {main::get, main::get, main::get, main::get, main::get}
-    }, {
-            {AIR, AIR, AIR, AIR, AIR},
-            {main::get, AIR, AIR, AIR, main::get},
-            {WALL, AIR, AIR, AIR, WALL},
-            {main::get, AIR, AIR, AIR, main::get},
-            {AIR, AIR, AIR, AIR, LECTERN}
-    }, {
-            {AIR, AIR, AIR, AIR, AIR},
-            {main::get, AIR, AIR, AIR, main::get},
-            {WALL, AIR, AIR, AIR, WALL},
-            {main::get, AIR, AIR, AIR, main::get},
-            {AIR, AIR, AIR, AIR, LEVER}
-    }, {
-            {AIR, AIR, AIR, AIR, AIR},
-            {main::get, stairBottom1, AIR, stairBottom2, main::get},
-            {WALL, AIR, AIR, AIR, WALL},
-            {main::get, stairBottom1, AIR, stairBottom2, main::get},
-            {AIR, AIR, AIR, AIR, AIR}
-    }, {
-            {AIR, AIR, AIR, AIR, AIR},
-            {cap::get, stairBottom3, stairBottom3, stairBottom3, cap::get},
-            {stairBottom6, main::get, ALTAR, main::get, stairBottom5},
-            {cap::get, stairBottom4, stairBottom4, stairBottom4, cap::get},
-            {AIR, AIR, AIR, AIR, AIR}
-    }}
-    );
+    int checkTimer = 0;
+    int tagTimer = 0;
+    Item tagCache = null;
+
     private SpellIngredientList recipe;
     private ItemStack book;
     private int currentStage;
+    boolean multiblockState;
+    private Vec3d lecternOffset;
+    private ResourceLocation camouflageRL;
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
         main.set(Blocks.PURPUR_BLOCK.getDefaultState());
         cap.set(ModBlocks.SUNSTONE_BLOCK.lazyMap(Block::getDefaultState).get());
+        invalidateMB();
     }
 
     public CraftingAltarTileEntity() {
         this(ModTileEntities.ALTAR_CORE.get());
     }
 
-    public boolean checkMultiblock(World world) {
+    public boolean checkMultiblock(World world){
         BlockPos pos = getPos();
         BlockPos basePos = pos.offset(Direction.DOWN, 4);
 
@@ -166,7 +191,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     public void placeStructure(World world, Direction face) {
         if (face.getAxis().isVertical())
             return;
-        STRUCTURE.place(world, getPos(), face);
+        STRUCTURE.place(world, getPos().down(4).offset(face, 2).offset(face.rotateYCCW(), 2), face);
     }
 
     private Direction getStructureDirection(World world, BlockPos pos) {
@@ -190,37 +215,90 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     @Override
     public void tick() {
-        if (this.world == null || !checkMultiblock(this.world)) {
-            this.book = ItemStack.EMPTY;
-            this.recipe = null;
-            this.currentStage = 0;
+        //ArsMagicaLegacy.LOGGER.debug("{}", world);
+        if (this.world == null){
             return;
-        } else {
-            Direction direction = getStructureDirection(world, pos);
-            if (direction != null) {
-                TileEntity te = world.getTileEntity(pos.offset(direction.getOpposite(), 2).offset(direction.rotateY(), 2).down(3));
-                if (te instanceof LecternTileEntity) {
-                    LecternTileEntity lectern = (LecternTileEntity) te;
-                    this.book = lectern.getBook();
-                    this.recipe = readRecipe(book);
-                }
-            }
         }
-        if (this.book != ItemStack.EMPTY && this.recipe != null) {
-            craft();
+        checkTimer++;
+        if (checkTimer < 5)
+            return;
+        checkTimer = 0;
+        boolean check = checkMultiblock(this.world);
+        if (check) {
+            Direction direction = getStructureDirection(world, pos);
+            //ArsMagicaLegacy.LOGGER.debug("{}", direction);
+            if (direction != null){
+                TileEntity te = world.getTileEntity(pos.offset(direction.getOpposite(), 2).offset(direction.rotateY(),2).down(3));
+                //ArsMagicaLegacy.LOGGER.debug("{}", te);
+                if (te instanceof LecternTileEntity){
+                    //ArsMagicaLegacy.LOGGER.debug("{}", lecternOffset);
+                    LecternTileEntity lectern = (LecternTileEntity) te;
+                    if (!this.world.isRemote) {
+                        if (book.isEmpty() || (!book.hasTag() || !book.getTag().contains("spell_combo") || (lectern.getBook().hasTag() && lectern.getBook().getTag().contains("spell_combo") && !book.getTag().get("spell_combo").equals(lectern.getBook().getTag().get("spell_combo"))))) {
+                            this.book = lectern.getBook();
+                            this.recipe = readRecipe(book);
+                            sync();
+                        } else if (lectern.getBook().isEmpty()) {
+                            this.book = ItemStack.EMPTY;
+                            this.recipe = null;
+                            sync();
+                        }
+                    }
+                    if (!multiblockState) {
+                        ArsMagicaLegacy.LOGGER.debug("valid");
+                        this.multiblockState = true;
+                        this.lecternOffset = new Vec3d(te.getPos().subtract(this.getPos()));
+                        this.camouflageRL = world.getBlockState(getPos().offset(direction.rotateY())).getBlock().getRegistryName();
+                    }
+                } else {
+                    invalidateMB();
+                    return;
+                }
+            } else {
+                invalidateMB();
+                return;
+            }
+        } else {
+            invalidateMB();
+            return;
+        }
+        if (this.book != ItemStack.EMPTY && this.recipe != null){
+            if (craft())
+                sync();
         }
     }
 
-    private void craft() {
+    private void sync() {
+        if (world != null && !world.isRemote)
+            NetworkHandler.INSTANCE.send(PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(getPos().getX(), getPos().getY(), getPos().getZ(), 96, world.dimension.getType())), new TEClientSyncPacket(this));
+    }
+
+    private void invalidateMB() {
+        ArsMagicaLegacy.LOGGER.debug("invalid");
+        this.multiblockState = false;
+        this.book = ItemStack.EMPTY;
+        this.recipe = null;
+        this.currentStage = 0;
+        this.lecternOffset = Vec3d.ZERO;
+        this.camouflageRL = ModBlocks.ALTAR_CORE.getId();
+        sync();
+    }
+
+    private boolean craft() {
         if (getWorld() == null)
-            return;
+            return false;
         if (this.currentStage >= recipe.size()) {
-            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY() - 2, getPos().getZ(), createSpellStack());
-            return;
+            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY()-2, getPos().getZ(), createSpellStack());
+            this.currentStage = 0;
+            return true;
         }
-        if (recipe.get(this.currentStage).consume(getWorld(), getPos())) {
+        //ArsMagicaLegacy.LOGGER.debug("{}", currentStage);
+        ISpellIngredient ingredient = recipe.get(this.currentStage);
+        if (ingredient.consume(getWorld(), getPos())) {
             this.currentStage++;
+            return true;
         }
+        return false;
     }
 
     private ItemStack createSpellStack() {//TODO save to spell
@@ -228,11 +306,47 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     private SpellIngredientList readRecipe(ItemStack stack) {
-        if (!stack.hasTag() || !stack.getTag().hasUniqueId("spell_combo"))
+        if (!stack.hasTag() || stack.getTag().get("spell_combo") == null)
             return null;
         ListNBT materials = stack.getTag().getList("spell_combo", Constants.NBT.TAG_COMPOUND);
         SpellIngredientList list = new SpellIngredientList();
         list.deserializeNBT(materials);
         return list;
+    }
+
+    ISpellIngredient getCurrentIngredient() {
+        if (this.recipe == null || currentStage >= this.recipe.size())
+            return null;
+        return this.recipe.get(currentStage);
+    }
+
+    Vec3d getLecternOffset() {
+        return lecternOffset;
+    }
+
+    ResourceLocation getCamouflageRL() {
+        return camouflageRL;
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        compound.putBoolean("has_recipe", recipe != null);
+        compound.put("recipe", recipe != null ? recipe.serializeNBT() : new ListNBT());
+        compound.putInt("craft_state", currentStage);
+        return compound;
+    }
+
+    @Override
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+        if (compound.getBoolean("has_recipe")){
+            if (this.recipe == null)
+                this.recipe = new SpellIngredientList();
+            this.recipe.deserializeNBT(compound.getList("recipe", Constants.NBT.TAG_COMPOUND));
+        } else {
+            this.recipe = null;
+        }
+        this.currentStage = compound.getInt("craft_state");
     }
 }

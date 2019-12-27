@@ -11,6 +11,7 @@ import net.minecraft.world.*;
  * @version 2019-11-19
  */
 public class EssenceSpellIngredient implements ISpellIngredient {
+    public static final String TYPE = "essence";
     private int amount;
     private EssenceType essenceType;
 
@@ -30,7 +31,7 @@ public class EssenceSpellIngredient implements ISpellIngredient {
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(TYPE_KEY, "essence");
+        nbt.putString(TYPE_KEY, TYPE);
         nbt.putString("essence", essenceType.name());
         nbt.putInt("amount", amount);
         return nbt;
@@ -38,7 +39,7 @@ public class EssenceSpellIngredient implements ISpellIngredient {
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        nbt.remove(TYPE_KEY);
+        //nbt.remove(TYPE_KEY);
         essenceType = EssenceType.valueOf(nbt.getString("essence"));
         amount = nbt.getInt("amount");
     }
