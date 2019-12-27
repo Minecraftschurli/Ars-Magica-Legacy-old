@@ -28,12 +28,14 @@ public class CraftingAltarTESR extends TileEntityRenderer<CraftingAltarTileEntit
             Vec3d offset = tileEntityIn.getLecternOffset();
             //bindTexture(tileEntityIn.getCamouflageRL());
             GlStateManager.translated(x + offset.x + 0.5,y + offset.y + 1.5,z + offset.z + 0.5);
+            setLightmapDisabled(true);
             drawNameplate(tileEntityIn, ingredient.getTooltip().getFormattedText(), x + offset.x,y + offset.y + 1.5,z + offset.z, 32);
             if (ingredient instanceof ItemStackSpellIngredient){
                 Minecraft.getInstance().getItemRenderer().renderItem(((ItemStackSpellIngredient)ingredient).getStack(), ItemCameraTransforms.TransformType.GROUND);
             } else if (ingredient instanceof ItemTagSpellIngredient) {
                 Minecraft.getInstance().getItemRenderer().renderItem(((ItemTagSpellIngredient)ingredient).getTag().getAllElements().stream().findFirst().map(ItemStack::new).orElse(ItemStack.EMPTY), ItemCameraTransforms.TransformType.GROUND);
             }
+            setLightmapDisabled(false);
             GlStateManager.popMatrix();
         }
     }
