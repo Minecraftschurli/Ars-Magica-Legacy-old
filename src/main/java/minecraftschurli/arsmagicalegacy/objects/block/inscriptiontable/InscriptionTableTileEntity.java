@@ -579,7 +579,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ListNBT list = new ListNBT();
             list.addAll(Arrays.stream(outputData).map(StringNBT::new).collect(Collectors.toList()));
             bookstack.getTag().put("output_combo", list);
-            bookstack.getTag().putInt("numShapeGroups", shapeGroupCombos.length);
+            bookstack.getTag().putInt("numShapeGroups", sgCount);
             int i = 0;
             for (String[] sgArray : shapeGroupCombos) {
                 if (sgArray == null) continue;

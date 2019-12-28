@@ -34,6 +34,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
+        ArsMagicaLegacy.LOGGER.debug(oldIs);
         if (oldIs == null || !oldIs.hasTag()) return ModSpellParts.MISSING_SHAPE.get();
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
@@ -45,7 +46,6 @@ public class SpellUtils {
                 break;
             }
         }
-
         return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ModSpellParts.MISSING_SHAPE.get();
     }
 

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
@@ -23,7 +24,7 @@ public class SpellItem extends Item {
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
         if (worldIn.isRemote)
-            return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
+            return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
         return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
@@ -31,12 +32,13 @@ public class SpellItem extends Item {
     @Nonnull
     public ActionResultType onItemUse(ItemUseContext context) {
         if (context.getWorld().isRemote)
-            return ActionResultType.FAIL;
+            return ActionResultType.PASS;
         return ActionResultType.SUCCESS;
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+        ArsMagicaLegacy.LOGGER.debug(stack);
         SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
         if (!stack.hasTag()) return;
         if (shape != null) {
@@ -46,5 +48,18 @@ public class SpellItem extends Item {
                 //SoundHelper.instance.stopSound(shape.getSoundForAffinity(SpellUtils.instance.mainAffinityFor(stack), stack, null));
             }*/
         }
+    }
+
+    @Override
+    public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
+        SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
+        if (shape.isChanneled())
+            SpellUtils.applyStackStage(stack, player, null, player.posX, player.posY, player.posZ, Direction.UP, player.world, true, true, count - 1);
+        super.onUsingTick(stack, player, count);
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack) {
+        return 72000;
     }
 }

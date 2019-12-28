@@ -1,7 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
+import com.google.common.collect.ImmutableList;
+import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
@@ -9,6 +14,8 @@ import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.network.TEClientSyncPacket;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableTileEntity;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,13 +24,16 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
 import net.minecraft.state.properties.Half;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -31,9 +41,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.PacketDistributor;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -302,7 +316,37 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     private ItemStack createSpellStack() {//TODO save to spell
-        return new ItemStack(ModItems.SPELL.get());
+        List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroups = new ArrayList<>(5);
+        for (int i = 0; i < InscriptionTableTileEntity.MAX_STAGE_GROUPS; i++) {
+            CompoundNBT tag = book.getOrCreateTag();
+            if (tag.contains("shapeGroupCombo_"+i)){
+                shapeGroups.add(
+                        new Pair<>(tag.getList("shapeGroupCombo_"+i, Constants.NBT.TAG_STRING)
+                                .stream()
+                                .map(INBT::getString)
+                                .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
+                                .map(ArsMagicaLegacyAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                                .collect(Collectors.toList()),
+                        new CompoundNBT())
+                );
+            } else {
+                shapeGroups.add(new Pair<>(new ArrayList<>(), new CompoundNBT()));
+            }
+        }
+        shapeGroups = ImmutableList.copyOf(shapeGroups);
+        ItemStack stack = SpellUtils.createSpellStack(
+                shapeGroups,
+                book.getTag()
+                        .getList("output_combo", Constants.NBT.TAG_STRING)
+                        .stream()
+                        .map(INBT::getString)
+                        .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
+                        .map(ArsMagicaLegacyAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                        .collect(Collectors.toList()),
+                new CompoundNBT()
+        );
+        stack.getOrCreateTag().putString("suggestedName", this.book.getDisplayName().getFormattedText());
+        return stack;
     }
 
     private SpellIngredientList readRecipe(ItemStack stack) {
