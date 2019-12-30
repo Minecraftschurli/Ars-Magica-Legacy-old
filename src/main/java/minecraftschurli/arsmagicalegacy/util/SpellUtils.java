@@ -270,7 +270,7 @@ public class SpellUtils {
         if (spellIn.getItem() != ModItems.SPELL.get()) {
             newStack = new ItemStack(ModItems.SPELL.get(), newStack.getCount(), newStack.getTag());
         }
-        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
+        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getOrCreateTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
         int stageNum = numStages(newStack);
         for (int i = 0; i < stageNum; i++) {
             ListNBT list = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), STAGE + i).copy();

@@ -28,7 +28,10 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             //bindTexture(tileEntityIn.getCamouflageRL());
             GlStateManager.translated(x + 0.5,y + 0.5,z + 0.5);
             setLightmapDisabled(true);
-            drawNameplate(tileEntityIn, ingredient.getTooltip().getFormattedText(), x,y + 0.3,z, 128);
+            GlStateManager.pushMatrix();
+            GlStateManager.scaled(0.55,0.55,0.55);
+            drawNameplate(tileEntityIn, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
+            GlStateManager.popMatrix();
             GlStateManager.rotatef(tileEntityIn.itemRotation, 0.0F, 1.0F, 0.0F);
             //GlStateManager.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
             if (ingredient instanceof ItemStackSpellIngredient){

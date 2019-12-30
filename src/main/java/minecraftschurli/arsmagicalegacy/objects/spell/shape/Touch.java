@@ -58,7 +58,6 @@ public class Touch extends SpellShape {
                 if (result != SpellCastResult.SUCCESS) return result;
                 return SpellUtils.applyStackStage(stack, caster, target, mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), null, world, true, giveXP, 0);
             } else {
-                ArsMagicaLegacy.LOGGER.debug(((BlockRayTraceResult) mop).getPos());
                 SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
                 return SpellUtils.applyStackStage(stack, caster, target, ((BlockRayTraceResult) mop).getPos().getX(), ((BlockRayTraceResult) mop).getPos().getY(), ((BlockRayTraceResult) mop).getPos().getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);

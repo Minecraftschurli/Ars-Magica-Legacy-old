@@ -25,8 +25,8 @@ public class CraftingAltarBlock extends Block {
 
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        //((CraftingAltarTileEntity)worldIn.getTileEntity(pos)).STRUCTURE.place(worldIn, pos, Direction.NORTH);
-        ArsMagicaLegacy.LOGGER.debug("{}", ((CraftingAltarTileEntity)worldIn.getTileEntity(pos)).checkMultiblock(worldIn));
+        if (player.abilities.isCreativeMode)
+            ((CraftingAltarTileEntity)worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
         return true;
     }
 
