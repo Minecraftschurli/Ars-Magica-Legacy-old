@@ -37,10 +37,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelProperty;
+import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.PacketDistributor;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -88,7 +94,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 {    main::get,          AIR,          AIR,          AIR,    main::get},
                 {         WALL,          AIR,          AIR,          AIR,         WALL},
                 {    main::get,          AIR,          AIR,          AIR,    main::get},
-                {          AIR,          AIR,          AIR,          AIR,        LEVER}
+                {        LEVER,          AIR,          AIR,          AIR,          AIR}
             }, {
                 {          AIR,          AIR,          AIR,          AIR,          AIR},
                 {    main::get, stairBottom1,          AIR, stairBottom2,    main::get},
@@ -115,8 +121,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     int checkTimer = 0;
-    int tagTimer = 0;
-    Item tagCache = null;
 
     private SpellIngredientList recipe;
     private ItemStack book;
@@ -259,21 +263,26 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                         }
                     }
                     if (!multiblockState) {
-                        ArsMagicaLegacy.LOGGER.debug("valid");
                         this.multiblockState = true;
                         this.lecternOffset = new Vec3d(te.getPos().subtract(this.getPos()));
                         this.camouflageRL = world.getBlockState(getPos().offset(direction.rotateY())).getBlock().getRegistryName();
+                        world.setBlockState(te.getPos().up(), ModBlocks.ALTAR_VIEW.map(Block::getDefaultState).orElse(Blocks.AIR.getDefaultState()));
+                        ((CraftingAltarViewTileEntity)world.getTileEntity(te.getPos().up())).setAltarPos(pos);
+                        ArsMagicaLegacy.LOGGER.debug(world.getBlockState(te.getPos().up()));
                     }
                 } else {
-                    invalidateMB();
+                    if (multiblockState)
+                        invalidateMB();
                     return;
                 }
             } else {
-                invalidateMB();
+                if (multiblockState)
+                    invalidateMB();
                 return;
             }
         } else {
-            invalidateMB();
+            if (multiblockState)
+                invalidateMB();
             return;
         }
         if (this.book != ItemStack.EMPTY && this.recipe != null){
@@ -288,7 +297,11 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     private void invalidateMB() {
-        ArsMagicaLegacy.LOGGER.debug("invalid");
+        if (world != null) {
+            BlockPos pos = new BlockPos(getPos().add(new BlockPos(lecternOffset)).up());
+            ArsMagicaLegacy.LOGGER.debug(world.getTileEntity(pos));
+            world.removeBlock(pos, false);
+        }
         this.multiblockState = false;
         this.book = ItemStack.EMPTY;
         this.recipe = null;
@@ -299,10 +312,10 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     private boolean craft() {
-        if (getWorld() == null)
+        if (world == null)
             return false;
-        if (this.currentStage >= recipe.size()) {
-            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY()-2, getPos().getZ(), createSpellStack());
+        if (!world.isRemote && this.currentStage >= recipe.size()) {
+            InventoryHelper.spawnItemStack(world, getPos().getX(), getPos().getY()-2, getPos().getZ(), createSpellStack());
             this.currentStage = 0;
             return true;
         }

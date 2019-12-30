@@ -34,7 +34,6 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        ArsMagicaLegacy.LOGGER.debug(oldIs);
         if (oldIs == null || !oldIs.hasTag()) return ModSpellParts.MISSING_SHAPE.get();
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
@@ -215,6 +214,7 @@ public class SpellUtils {
             int stage = 0;
             boolean lastWasShape = false;
             for (AbstractSpellPart part : shapeGroup.getKey()) {
+                ArsMagicaLegacy.LOGGER.debug(part);
                 ListNBT stageTag = NBTUtils.addCompoundList(group, STAGE + stage);
                 CompoundNBT tmp = new CompoundNBT();
                 String id = part.getRegistryName().toString();
@@ -417,9 +417,9 @@ public class SpellUtils {
 
         ItemStack stack2 = stack.copy();
         NBTUtils.getAM2Tag(stack2.getTag()).putInt("CurrentGroup", group + 1);
-        if (group == 0)
+        if (group == 0) {
             result = shape.beginStackStage((SpellItem) stack.getItem(), stack2, caster, target, world, x, y, z, side, giveXP, ticksUsed);
-        else {
+        } else {
             NBTUtils.getAM2Tag(stack.getTag()).putInt("CurrentGroup", group + 1);
             result = shape.beginStackStage((SpellItem) stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
         }

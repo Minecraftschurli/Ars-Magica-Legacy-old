@@ -2,6 +2,8 @@ package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.LeverBlock;
@@ -30,7 +32,7 @@ public class CraftingAltarStructure extends Structure {
             return world.getBlockState(pos).get(LecternBlock.FACING) == Direction.byHorizontalIndex((block.get(LecternBlock.FACING).getHorizontalIndex() + direction.getHorizontalIndex()));
         } else if (block.getBlock() instanceof LeverBlock) {
             return world.getBlockState(pos).equals(block.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex((block.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex())))) || world.getBlockState(pos).equals(block.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex((block.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex()))).with(LeverBlock.POWERED, true));
-        } else {
+        }  else {
             return super.checkState(block, world, pos, direction);
         }
     }

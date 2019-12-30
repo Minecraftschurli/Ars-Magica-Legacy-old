@@ -61,7 +61,7 @@ public class NBTUtils {
     public static CompoundNBT addTag(CompoundNBT upper, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
         CompoundNBT newTag = new CompoundNBT();
-        if (upper.hasUniqueId(name)) {
+        if (upper.contains(name)) {
             newTag = upper.getCompound(name);
         }
         upper.put(name, newTag);

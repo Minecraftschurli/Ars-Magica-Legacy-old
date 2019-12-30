@@ -55,27 +55,37 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
     @Override
     public void deserializeNBT(ListNBT nbt) {
         this.clear();
-        ArsMagicaLegacy.LOGGER.debug(nbt);
         this.addAll(nbt.stream().map(SpellIngredientList::deserializeIngredient).collect(Collectors.toList()));
     }
 
     public SpellIngredientList compute() {
-        for (ISpellIngredient ingredient1 : this) {
-            for (ISpellIngredient ingredient2 : this) {
-                if (ingredient1 == ingredient2) continue;
-                if (!canCombine(ingredient1, ingredient2)) continue;
-                this.remove(ingredient1);
-                this.remove(ingredient2);
-                this.add(combine(ingredient1, ingredient2));
+        SpellIngredientList copy = new SpellIngredientList();
+        copy.addAll(this);
+        boolean modified;
+        do {
+            modified = false;
+            inner:
+            for (int i = 0; i < copy.size(); i++) {
+                for (int j = 0; j < copy.size(); j++) {
+                    ISpellIngredient ingredient1 = copy.get(i);
+                    ISpellIngredient ingredient2 = copy.get(j);
+                    if (ingredient1 == ingredient2) continue;
+                    if (canCombine(ingredient1, ingredient2)) {
+                        copy.remove(ingredient1);
+                        copy.remove(ingredient2);
+                        copy.add(combine(ingredient1, ingredient2));
+                        modified = true;
+                        break inner;
+                    }
+                }
             }
-        }
-        computed = true;
-        return this;
+        } while (modified);
+        this.computed = true;
+        return copy;
     }
 
     public List<ITextComponent> getTooltip() {
-        if (!computed) compute();
-        return stream().map(ISpellIngredient::getTooltip).collect(Collectors.toList());
+        return (computed?this:compute()).stream().map(ISpellIngredient::getTooltip).collect(Collectors.toList());
     }
 
     private ISpellIngredient combine(ISpellIngredient ingredient1, ISpellIngredient ingredient2) {
