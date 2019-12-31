@@ -20,9 +20,9 @@ import java.util.*;
 public class SpellRegistry {
     private static final List<AbstractSpellPart> SPELL_PARTS = new ArrayList<>();
 
-
-    @SubscribeEvent
-    public static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event) {
+    static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event) {
+        if (event.getGenericType() != AbstractSpellPart.class)
+            return;
         event.getRegistry().registerAll(SPELL_PARTS.toArray(new AbstractSpellPart[0]));
     }
 
@@ -41,7 +41,7 @@ public class SpellRegistry {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         SkillRegistry.registerSkill(id, getComponentIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSpellPartRegistry());
+        return RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
     }
 
     /**
@@ -60,6 +60,21 @@ public class SpellRegistry {
     }
 
     /**
+     * Register a spell component
+     *
+     * @param name    : Name of this component
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Component, use new {@link SpellComponent}()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
+     * @param parents : Skills that need to be unlocked before this one (occulus only)
+     */
+    public static RegistryObject<SpellComponent> registerSpellComponent(String name, SkillPoint tier, SpellComponent part, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSpellComponent(ModLoadingContext.get().getActiveNamespace(), name, tier, part, tree, posX, posY, parents);
+    }
+
+    /**
      * Register a spell modifier
      *
      * @param id      : Name of this modifier
@@ -74,7 +89,7 @@ public class SpellRegistry {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         SkillRegistry.registerSkill(id, getModifierIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSpellPartRegistry());
+        return RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
     }
 
     /**
@@ -93,6 +108,21 @@ public class SpellRegistry {
     }
 
     /**
+     * Register a spell modifier
+     *
+     * @param name    : Name of this modifier
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Modifier, use new {@link SpellModifier}()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
+     * @param parents : Skills that need to be unlocked before this one (occulus only)
+     */
+    public static RegistryObject<SpellModifier> registerSpellModifier(String name, SkillPoint tier, SpellModifier part, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSpellModifier(ModLoadingContext.get().getActiveNamespace(), name, tier, part, tree, posX, posY, parents);
+    }
+
+    /**
      * Register a spell shape
      *
      * @param id      : Name of this shape
@@ -107,7 +137,7 @@ public class SpellRegistry {
         part.setRegistryName(id);
         SPELL_PARTS.add(part);
         SkillRegistry.registerSkill(id, getShapeIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSpellPartRegistry());
+        return RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
     }
 
     /**
@@ -125,6 +155,21 @@ public class SpellRegistry {
         return registerSpellShape(new ResourceLocation(modid, name), tier, part, tree, posX, posY, parents);
     }
 
+    /**
+     * Register a spell shape
+     *
+     * @param name    : Name of this shape
+     * @param tier    : Skill Point required to unlock
+     * @param part    : Actual Shape, use new {@link SpellShape}()
+     * @param tree    : Skill Tree
+     * @param posX    : Position in the tree
+     * @param posY    : Position in the tree
+     * @param parents : Skills that need to be unlocked before this one (occulus only)
+     */
+    public static RegistryObject<SpellShape> registerSpellShape(String name, SkillPoint tier, SpellShape part, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSpellShape(ModLoadingContext.get().getActiveNamespace(), name, tier, part, tree, posX, posY, parents);
+    }
+
     private static ResourceLocation getComponentIcon(ResourceLocation id) {
         return new ResourceLocation(id.getNamespace(), "textures/icon/spell/component/" + id.getPath() + ".png");
     }
@@ -139,7 +184,7 @@ public class SpellRegistry {
     }
 
     public static Skill getSkillFromPart(AbstractSpellPart part) {
-        return ArsMagicaLegacyAPI.getSkillRegistry().getValue(part.getRegistryName());
+        return ArsMagicaAPI.getSkillRegistry().getValue(part.getRegistryName());
     }
 
     /*public static AbstractSpellPart getPartByRecipe(List<ItemStack> currentAddedItems) {
@@ -165,19 +210,19 @@ public class SpellRegistry {
 
     public static SpellShape getShapeFromName(String shapeName) {
         ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
         return part instanceof SpellShape ? (SpellShape) part : null;
     }
 
     public static SpellModifier getModifierFromName(String shapeName) {
         ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
         return part instanceof SpellModifier ? (SpellModifier) part : null;
     }
 
     public static SpellComponent getComponentFromName(String shapeName) {
         ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
         return part instanceof SpellComponent ? (SpellComponent) part : null;
     }
 }

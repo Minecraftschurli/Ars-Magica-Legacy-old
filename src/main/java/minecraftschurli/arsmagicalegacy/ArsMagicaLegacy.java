@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
 import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.*;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
@@ -10,7 +8,6 @@ import minecraftschurli.arsmagicalegacy.event.*;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.network.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import minecraftschurli.arsmagicalegacy.worldgen.*;
 import net.minecraft.entity.*;
@@ -24,6 +21,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.*;
 import net.minecraftforge.fml.javafmlmod.*;
@@ -42,7 +40,7 @@ public final class ArsMagicaLegacy {
             return new ItemStack(ModItems.ARCANE_COMPENDIUM.get());
         }
     };
-    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final Logger LOGGER = LogManager.getLogger();
     @SuppressWarnings("Convert2MethodRef")
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
@@ -57,13 +55,15 @@ public final class ArsMagicaLegacy {
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(this::processIMC);
         modEventBus.addListener(this::registerItemColorHandler);
+        modEventBus.addListener(Config::reload);
 
-        modEventBus.register(SpellRegistry.class);
-        modEventBus.register(SkillRegistry.class);
-        modEventBus.register(ArsMagicaLegacyAPI.class);
+        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.setup();
+
         MinecraftForge.EVENT_BUS.register(ArsMagicaLegacy.class);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
 
         proxy.preInit();
 
@@ -120,18 +120,12 @@ public final class ArsMagicaLegacy {
 
     private void registerItemColorHandler(ColorHandlerEvent.Item event) {
         LOGGER.debug("Item Colors");
-        event.getItemColors()
-                .register(
-                        (stack, tint) ->
-                                tint == 0 && stack.hasTag() ?
-                                        SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor()
-                                        : -1,
-                        ModItems.INFINITY_ORB.get());
         event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
+        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.init();
         WorldGenerator.setupBiomeGen();
         WorldGenerator.setupOregen();
         proxy.init();
@@ -141,7 +135,6 @@ public final class ArsMagicaLegacy {
         CapabilityBurnout.register();
         CapabilityResearch.register();
         CapabilityMagic.register();
-        IngredientTypes.registerDefault();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

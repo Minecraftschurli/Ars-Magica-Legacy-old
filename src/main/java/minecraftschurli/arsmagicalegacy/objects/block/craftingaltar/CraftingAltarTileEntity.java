@@ -3,14 +3,12 @@ package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 import com.google.common.collect.ImmutableList;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.network.TEClientSyncPacket;
 import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
@@ -21,36 +19,24 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
 import net.minecraft.state.properties.Half;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
-import net.minecraftforge.client.model.data.ModelProperty;
-import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.PacketDistributor;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -60,9 +46,6 @@ import java.util.stream.Collectors;
  * @version 2019-12-13
  */
 public class CraftingAltarTileEntity extends TileEntity implements ITickableTileEntity {
-    private static final LinkedHashMap<Block, Integer> CAPS = new LinkedHashMap<>();
-    private static final LinkedHashMap<Block, Integer> MAIN = new LinkedHashMap<>();
-    private static final LinkedHashMap<Block, StairsBlock> STAIRS = new LinkedHashMap<>();
     private static final Supplier<BlockState> AIR = Blocks.AIR::getDefaultState;
     private static final Supplier<BlockState> WALL = () -> ModBlocks.MAGIC_WALL.lazyMap(Block::getDefaultState).get();
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
@@ -70,12 +53,12 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
     private AtomicReference<BlockState> cap = new AtomicReference<>();
     private AtomicReference<BlockState> main = new AtomicReference<>();
-    private Supplier<BlockState> stairBottom1 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
-    private Supplier<BlockState> stairBottom2 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
-    private Supplier<BlockState> stairBottom3 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
-    private Supplier<BlockState> stairBottom4 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
-    private Supplier<BlockState> stairBottom5 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
-    private Supplier<BlockState> stairBottom6 = () -> STAIRS.get(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
+    private Supplier<BlockState> stairBottom1 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
+    private Supplier<BlockState> stairBottom2 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
+    private Supplier<BlockState> stairBottom3 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
+    private Supplier<BlockState> stairBottom4 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
+    private Supplier<BlockState> stairBottom5 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
+    private Supplier<BlockState> stairBottom6 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
     @SuppressWarnings("unchecked")
     final Structure STRUCTURE = new CraftingAltarStructure(new Supplier[][][]{{
                 {    main::get,    main::get,    main::get,    main::get,    main::get},
@@ -110,15 +93,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             }}
     );
 
-    static {
-        CAPS.put(ModBlocks.SUNSTONE_BLOCK.get(), 2);
-        MAIN.put(Blocks.PURPUR_BLOCK, 2);
-        STAIRS.put(Blocks.PURPUR_BLOCK, (StairsBlock) Blocks.PURPUR_STAIRS);
-        /*BlockTags.STAIRS.getAllElements().stream()
-                .filter(block -> block instanceof StairsBlock)
-                .map(block -> (StairsBlock)block)
-                .map(stairsBlock -> stairsBlock)*/
-    }
+
 
     int checkTimer = 0;
 
@@ -146,64 +121,27 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
         // get and check cap block
         Block bottomCenter = world.getBlockState(basePos).getBlock();
-        if (!CAPS.containsKey(bottomCenter))
+        if (!CraftingAltarStructureMaterials.isValidCapMaterial(bottomCenter)){
+            //ArsMagicaLegacy.LOGGER.error("{} is not a valid material for the caps of the crafting altar structure",bottomCenter);
             return false;
+        }
         this.cap.set(bottomCenter.getDefaultState());
 
         // get and check main block
         Block firstMain = world.getBlockState(basePos.north()).getBlock();
-        if (!MAIN.containsKey(firstMain))
+        if (!CraftingAltarStructureMaterials.isValidMainMaterial(firstMain)){
+            //ArsMagicaLegacy.LOGGER.error("{} is not a valid material for the main body of the crafting altar structure",firstMain);
             return false;
+        }
+        if (CraftingAltarStructureMaterials.getStairForBlock(firstMain) == null){
+            //ArsMagicaLegacy.LOGGER.error("{} has no valid stair block for the main body of the crafting altar structure",firstMain);
+            return false;
+        }
         this.main.set(firstMain.getDefaultState());
 
         Direction direction = getStructureDirection(world, pos);
         if (direction == null) return false;
         return STRUCTURE.check(world, pos.down(4).offset(direction, 2).offset(direction.rotateYCCW(), 2), direction);
-        /*
-        // check base
-        BlockPos cornerPos = basePos.add(-2,0,-2);
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (i == 2 && j == 2)
-                    continue;
-                if(main != world.getBlockState(cornerPos.add(i,0,j)).getBlock())
-                    return false;
-            }
-        }
-
-        // get and check axis
-        Direction.Axis direction = getDrection(world);
-        if (direction == null)
-            return false;
-
-        // check blocks beside Altar Core
-        if (main != world.getBlockState(pos.offset(Direction.getFacingFromAxis(Direction.AxisDirection.POSITIVE, direction))).getBlock() ||
-            main != world.getBlockState(pos.offset(Direction.getFacingFromAxis(Direction.AxisDirection.NEGATIVE, direction))).getBlock())
-            return false;
-
-        // check stairs 1
-        BlockState stair = STAIRS.get(main).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.SHAPE, StairsShape.STRAIGHT);
-        Direction d = Direction.getFacingFromAxis(Direction.AxisDirection.POSITIVE, direction);
-        if (!world.getBlockState(pos.offset(d.getOpposite(), 2)).equals(stair.with(StairsBlock.FACING, d)) ||
-            !world.getBlockState(pos.offset(d, 2)).equals(stair.with(StairsBlock.FACING, d.getOpposite())))
-            return false;
-
-        // check stairs 2
-        Direction d2 = d.rotateY();
-        BlockPos stairsPos1 = pos.offset(d2).offset(d);
-        BlockPos stairsPos2 = pos.offset(d2.getOpposite()).offset(d);
-        for (int i = 0; i < 3; i++) {
-            if (!world.getBlockState(stairsPos1.offset(d.getOpposite(), i)).equals(stair.with(StairsBlock.FACING, d2.getOpposite())) ||
-                    !world.getBlockState(stairsPos2.offset(d.getOpposite(), i)).equals(stair.with(StairsBlock.FACING, d2)))
-                return false;
-        }
-
-        // check arch stairs
-        if (!world.getBlockState(pos.down().offset(d).offset(d.rotateY())).equals(stair.with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, d.getOpposite())) ||
-                !world.getBlockState(pos.down().offset(d).offset(d.rotateYCCW())).equals(stair.with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, d.getOpposite())) ||
-                !world.getBlockState(pos.down().offset(d.getOpposite()).offset(d.rotateY())).equals(stair.with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, d)) ||
-                !world.getBlockState(pos.down().offset(d.getOpposite()).offset(d.rotateYCCW())).equals(stair.with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, d)))
-            return false;*/
     }
 
     public void placeStructure(World world, Direction face) {
@@ -338,7 +276,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                                 .stream()
                                 .map(INBT::getString)
                                 .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
-                                .map(ArsMagicaLegacyAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                                .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
                                 .collect(Collectors.toList()),
                         new CompoundNBT())
                 );
@@ -354,7 +292,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                         .stream()
                         .map(INBT::getString)
                         .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
-                        .map(ArsMagicaLegacyAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                        .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
                         .collect(Collectors.toList()),
                 new CompoundNBT()
         );

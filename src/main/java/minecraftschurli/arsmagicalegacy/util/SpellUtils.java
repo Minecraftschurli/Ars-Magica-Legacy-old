@@ -644,7 +644,7 @@ public class SpellUtils {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
-                    mods.add(ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
+                    mods.add(ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
                 }
             }
             return mods;

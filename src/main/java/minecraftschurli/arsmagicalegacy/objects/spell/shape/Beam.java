@@ -54,7 +54,7 @@ public class Beam extends SpellShape {
         boolean shouldApplyEffectEntity = useCount % 10 == 0;
         double range = SpellUtils.getModifiedDoubleAdd(stack, caster, target, world, SpellModifiers.RANGE);
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
-        RayTraceResult mop = null;//item.getMovingObjectPosition(caster, world, range, true, targetWater);
+        RayTraceResult mop = item.getMovingObjectPosition(caster, world, range, true, targetWater);
         SpellCastResult result = null;
         Vec3d beamHitVec = null;
         Vec3d spellVec = null;
@@ -80,7 +80,7 @@ public class Beam extends SpellShape {
             beamHitVec = mop.getHitVec();
             spellVec = new Vec3d(((BlockRayTraceResult) mop).getPos());
         }
-        if (world.isRemote && beamHitVec != null) {
+        if (world.isRemote) {
 //            AMBeam beam = beams.get(caster.getEntityId());
             double startX = caster.posX;
             double startY = caster.posY + caster.getEyeHeight() - 0.2f;
@@ -115,7 +115,7 @@ public class Beam extends SpellShape {
 //                }
 //            }
         }
-        if (result != null && spellVec != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
+        if (result != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
 //            ItemStack newItemStack = SpellUtils.popStackStage(stack);
             return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), mop != null ? ((BlockRayTraceResult) mop).getFace() : null, world, true, giveXP, 0);
         } else return SpellCastResult.SUCCESS_REDUCE_MANA;

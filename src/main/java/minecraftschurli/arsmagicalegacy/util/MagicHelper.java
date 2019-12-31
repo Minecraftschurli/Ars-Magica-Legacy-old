@@ -147,7 +147,7 @@ public class MagicHelper {
     }
 
     public static void learnSkill(PlayerEntity player, String skillid) {
-        Skill skill = ArsMagicaLegacyAPI.getSkillRegistry().getValue(new ResourceLocation(skillid));
+        Skill skill = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(skillid));
         IResearchStorage research = getResearchCapability(player);
         if (!research.canLearn(skill) || skill == null || research.get(skill.getPoint().getTier()) <= 0)
             return;
@@ -169,5 +169,17 @@ public class MagicHelper {
     public static boolean isBurnedOut(LivingEntity caster, float burnoutCost) {
         IBurnoutStorage storage = getBurnoutCapability(caster);
         return storage.getBurnout() + burnoutCost > storage.getMaxBurnout();
+    }
+
+    public static int getManaRegenLevel(PlayerEntity player) {
+        return getResearchCapability(player)
+                .getLearnedSkills()
+                .stream()
+                .filter(skill -> skill.getID().contains("mana_regen"))
+                .map(Skill::getID)
+                .map(s -> s.replace("mana_regen", ""))
+                .mapToInt(Integer::parseInt)
+                .max()
+                .orElse(0);
     }
 }

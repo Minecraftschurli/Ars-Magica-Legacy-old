@@ -75,9 +75,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         dragging = false;
 
         List<ResourceLocation> skills = MagicHelper.getResearchCapability(usingPlayer).getLearned();
-        knownShapes = skills.stream().filter(skill -> ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(skill) instanceof SpellShape).collect(Collectors.toList());
-        knownComponents = skills.stream().filter(skill -> ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(skill) instanceof SpellComponent).collect(Collectors.toList());
-        knownModifiers = skills.stream().filter(skill -> ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(skill) instanceof SpellModifier).collect(Collectors.toList());
+        knownShapes = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellShape).collect(Collectors.toList());
+        knownComponents = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellComponent).collect(Collectors.toList());
+        knownModifiers = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellModifier).collect(Collectors.toList());
     }
 
     @Override
@@ -484,9 +484,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private boolean drawIconSet(List<ResourceLocation> ids, List<String> labelText) {
         boolean hovering = false;
         for (ResourceLocation i : ids) {
-            Skill part = ArsMagicaLegacyAPI.getSkillRegistry().getValue(i);
+            Skill part = ArsMagicaAPI.getSkillRegistry().getValue(i);
 
-            if (part == null || ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(part.getRegistryName()) == null)// && SkillTreeManager.instance.isSkillDisabled(part))
+            if (part == null || ArsMagicaAPI.getSpellPartRegistry().getValue(part.getRegistryName()) == null)// && SkillTreeManager.instance.isSkillDisabled(part))
                 continue;
 
             String name = part.getName().getFormattedText();
@@ -497,7 +497,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             }
 
             if (iconY < 0 || iconY > 42) return hovering;
-            if (drawIcon(ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(part.getRegistryName()))) {
+            if (drawIcon(ArsMagicaAPI.getSpellPartRegistry().getValue(part.getRegistryName()))) {
                 hovering = true;
                 labelText.add(name);
             }

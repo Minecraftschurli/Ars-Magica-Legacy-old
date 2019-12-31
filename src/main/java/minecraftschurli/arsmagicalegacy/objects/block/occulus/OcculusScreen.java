@@ -167,7 +167,7 @@ public class OcculusScreen extends Screen {
                 for (String p : s.getParents()) {
                     if (p == null)
                         continue;
-                    Skill parent = ArsMagicaLegacyAPI.getSkillRegistry().getValue(new ResourceLocation(p));
+                    Skill parent = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(p));
                     if (parent == null || !skills.contains(parent)) continue;
                     if (!parent.getPoint().canRender() && !data.knows(parent))
                         continue;

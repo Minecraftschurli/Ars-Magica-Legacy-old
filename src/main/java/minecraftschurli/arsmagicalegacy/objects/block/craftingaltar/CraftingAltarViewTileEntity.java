@@ -22,7 +22,7 @@ public class CraftingAltarViewTileEntity extends TileEntity {
     }
 
     public CraftingAltarViewTileEntity() {
-        super(ModTileEntities.ALTAR_VIEW.get());
+        this(ModTileEntities.ALTAR_VIEW.get());
     }
 
     void setAltarPos(BlockPos pos) {
@@ -45,14 +45,20 @@ public class CraftingAltarViewTileEntity extends TileEntity {
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        compound.putInt("X", altar.getX());
-        compound.putInt("Y", altar.getY());
-        compound.putInt("Z", altar.getZ());
+        super.write(compound);
+        compound.putBoolean("altar", altar != null);
+        if (altar != null) {
+            compound.putInt("X", altar.getX());
+            compound.putInt("Y", altar.getY());
+            compound.putInt("Z", altar.getZ());
+        }
         return compound;
     }
 
     @Override
     public void read(CompoundNBT compound) {
-        setAltarPos(new BlockPos(compound.getInt("X"), compound.getInt("Y"), compound.getInt("Z")));
+        super.read(compound);
+        if (compound.getBoolean("altar"))
+            setAltarPos(new BlockPos(compound.getInt("X"), compound.getInt("Y"), compound.getInt("Z")));
     }
 }

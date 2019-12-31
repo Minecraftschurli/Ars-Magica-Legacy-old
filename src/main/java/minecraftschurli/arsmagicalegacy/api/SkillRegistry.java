@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api;
 
 import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import net.minecraft.util.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.eventbus.api.*;
@@ -17,8 +18,9 @@ import java.util.stream.*;
 public class SkillRegistry {
     private static final List<Supplier<Skill>> SKILLS = new ArrayList<>();
 
-    @SubscribeEvent
-    public static void onSkillRegister(RegistryEvent.Register<Skill> event) {
+    static void onSkillRegister(RegistryEvent.Register<Skill> event) {
+        if (event.getGenericType() != Skill.class)
+            return;
         event.getRegistry().registerAll(SKILLS.stream().map(Supplier::get).toArray(Skill[]::new));
     }
 
@@ -33,7 +35,7 @@ public class SkillRegistry {
      */
     public static RegistryObject<Skill> registerSkill(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SkillTree tree, int posX, int posY, String... parents) {
         SKILLS.add(() -> new Skill(icon, tier, posX, posY, tree, parents).setRegistryName(id));
-        return RegistryObject.of(id, ArsMagicaLegacyAPI.getSkillRegistry());
+        return RegistryObject.of(id, ArsMagicaAPI.getSkillRegistry());
     }
 
     /**
@@ -50,11 +52,23 @@ public class SkillRegistry {
         return registerSkill(id, getSkillIcon(id), tier, tree, posX, posY, parents);
     }
 
+    /**
+     * @param name    the name for the new {@link Skill}
+     * @param tier    the {@link SkillPoint} used to learn this {@link Skill}
+     * @param tree    the {@link SkillTree} to display this skill on in the gui of the occulus
+     * @param posX    the x position of this {@link Skill} in the gui of the occulus
+     * @param posY    the y position of this {@link Skill} in the gui of the occulus
+     * @param parents the ids of the parents of this {@link Skill}
+     */
+    public static RegistryObject<Skill> registerSkill(String name, SkillPoint tier, SkillTree tree, int posX, int posY, String... parents) {
+        return registerSkill(ModLoadingContext.get().getActiveNamespace(), name, tier, tree, posX, posY, parents);
+    }
+
     private static ResourceLocation getSkillIcon(ResourceLocation id) {
         return new ResourceLocation(id.getNamespace(), "textures/icon/skill/" + id.getPath() + ".png");
     }
 
     public static List<Skill> getSkillsForTree(SkillTree tree) {
-        return ArsMagicaLegacyAPI.getSkillRegistry().getValues().stream().filter(skill -> skill.getTree() == tree).collect(Collectors.toList());
+        return ArsMagicaAPI.getSkillRegistry().getValues().stream().filter(skill -> skill.getTree() == tree).collect(Collectors.toList());
     }
 }
