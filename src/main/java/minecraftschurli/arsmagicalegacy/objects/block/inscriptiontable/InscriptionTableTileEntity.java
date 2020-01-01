@@ -364,7 +364,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ArrayList<AbstractSpellPart> parts = new ArrayList<>();
             for (int j = 0; j < tmplist.size(); j++) {
                 CompoundNBT tmp = tmplist.getCompound(j);
-                parts.add(tmp.getInt(SLOT_KEY), ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
+                parts.add(tmp.getInt(SLOT_KEY), ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
             }
             this.shapeGroups.add(parts);
         }
@@ -372,7 +372,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         ListNBT recipe = nbt.getList(CURRENT_RECIPE_KEY, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < recipe.size(); i++) {
             CompoundNBT tmp = recipe.getCompound(i);
-            currentRecipe.add(tmp.getInt(SLOT_KEY), ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
+            currentRecipe.add(tmp.getInt(SLOT_KEY), ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
         }
         this.numStageGroups = Math.max(nbt.getInt(NUM_SHAPE_GROUP_SLOTS_KEY), 2);
     }
@@ -579,9 +579,10 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ListNBT list = new ListNBT();
             list.addAll(Arrays.stream(outputData).map(StringNBT::new).collect(Collectors.toList()));
             bookstack.getTag().put("output_combo", list);
-            bookstack.getTag().putInt("numShapeGroups", shapeGroupCombos.length);
+            bookstack.getTag().putInt("numShapeGroups", sgCount);
             int i = 0;
             for (String[] sgArray : shapeGroupCombos) {
+                if (sgArray == null) continue;
                 ListNBT nbt = new ListNBT();
                 nbt.addAll(Arrays.stream(sgArray).map(StringNBT::new).collect(Collectors.toList()));
                 bookstack.getTag().put("shapeGroupCombo_" + i++, nbt);

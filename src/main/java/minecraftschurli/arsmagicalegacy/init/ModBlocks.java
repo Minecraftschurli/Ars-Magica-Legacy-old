@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
 import minecraftschurli.arsmagicalegacy.objects.block.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.*;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;
@@ -70,6 +71,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Block> MANA_BATTERY = BLOCKS.register("mana_battery", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<InscriptionTableBlock> INSCRIPTION_TABLE = BLOCKS.register("inscription_table", InscriptionTableBlock::new);
     public static final RegistryObject<Block> ALTAR_CORE = BLOCKS.register("altar_core", CraftingAltarBlock::new);
+    public static final RegistryObject<Block> ALTAR_VIEW = BLOCKS.register("altar_view", CraftingAltarViewBlock::new);
 
     public static void register() {
     }

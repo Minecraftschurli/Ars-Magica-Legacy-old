@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.nbt.*;
 
 import java.util.*;
@@ -16,13 +17,16 @@ public class IngredientTypes {
     }
 
     public static void registerDefault() {
-        register("essence", EssenceSpellIngredient::new);
-        register("item_stack", ItemStackSpellIngredient::new);
-        register("item_tag", ItemTagSpellIngredient::new);
+        register(EssenceSpellIngredient.TYPE, EssenceSpellIngredient::new);
+        register(ItemStackSpellIngredient.TYPE, ItemStackSpellIngredient::new);
+        register(ItemTagSpellIngredient.TYPE, ItemTagSpellIngredient::new);
     }
 
     public static ISpellIngredient get(String type, CompoundNBT nbt) {
-        return TYPES.get(type).create(nbt);
+        SpellIngredientFactory<?> factory = TYPES.get(type);
+        if (factory == null)
+            return null;
+        return factory.create(nbt);
     }
 
     @FunctionalInterface

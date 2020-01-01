@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
 import net.minecraft.client.util.*;
 import net.minecraft.entity.*;
@@ -140,7 +141,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
             newSlot++;
             if (newSlot > 7) newSlot = 0;
             setActiveSlot(itemStack, newSlot);
-        } while (getActiveScroll(itemStack) == null && newSlot != slot);
+        } while (!getActiveScroll(itemStack).isPresent() && newSlot != slot);
         return slot;
     }
 
@@ -152,7 +153,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
             newSlot--;
             if (newSlot < 0) newSlot = 7;
             setActiveSlot(itemStack, newSlot);
-        } while (getActiveScroll(itemStack) == null && newSlot != slot);
+        } while (!getActiveScroll(itemStack).isPresent() && newSlot != slot);
         return slot;
     }
 
@@ -205,5 +206,10 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     @Override
     public int getItemEnchantability() {
         return 1;
+    }
+
+    @Override
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+        getActiveScroll(stack).ifPresent(spellItem -> spellItem.onPlayerStoppedUsing(getActiveItemStack(stack), worldIn, entityLiving, timeLeft));
     }
 }

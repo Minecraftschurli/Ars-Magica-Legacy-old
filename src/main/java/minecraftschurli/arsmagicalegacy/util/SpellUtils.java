@@ -45,7 +45,6 @@ public class SpellUtils {
                 break;
             }
         }
-
         return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ModSpellParts.MISSING_SHAPE.get();
     }
 
@@ -215,6 +214,7 @@ public class SpellUtils {
             int stage = 0;
             boolean lastWasShape = false;
             for (AbstractSpellPart part : shapeGroup.getKey()) {
+                ArsMagicaLegacy.LOGGER.debug(part);
                 ListNBT stageTag = NBTUtils.addCompoundList(group, STAGE + stage);
                 CompoundNBT tmp = new CompoundNBT();
                 String id = part.getRegistryName().toString();
@@ -270,7 +270,7 @@ public class SpellUtils {
         if (spellIn.getItem() != ModItems.SPELL.get()) {
             newStack = new ItemStack(ModItems.SPELL.get(), newStack.getCount(), newStack.getTag());
         }
-        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
+        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getOrCreateTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
         int stageNum = numStages(newStack);
         for (int i = 0; i < stageNum; i++) {
             ListNBT list = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), STAGE + i).copy();
@@ -417,9 +417,9 @@ public class SpellUtils {
 
         ItemStack stack2 = stack.copy();
         NBTUtils.getAM2Tag(stack2.getTag()).putInt("CurrentGroup", group + 1);
-        if (group == 0)
+        if (group == 0) {
             result = shape.beginStackStage((SpellItem) stack.getItem(), stack2, caster, target, world, x, y, z, side, giveXP, ticksUsed);
-        else {
+        } else {
             NBTUtils.getAM2Tag(stack.getTag()).putInt("CurrentGroup", group + 1);
             result = shape.beginStackStage((SpellItem) stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
         }
@@ -644,7 +644,7 @@ public class SpellUtils {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
-                    mods.add(ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
+                    mods.add(ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
                 }
             }
             return mods;

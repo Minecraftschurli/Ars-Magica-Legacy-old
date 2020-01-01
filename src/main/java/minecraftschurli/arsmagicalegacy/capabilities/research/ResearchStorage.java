@@ -59,7 +59,7 @@ public class ResearchStorage implements IResearchStorage {
 
     @Override
     public List<Skill> getLearnedSkills() {
-        return this.learned.stream().filter(ArsMagicaLegacyAPI.getSkillRegistry()::containsKey).map(ArsMagicaLegacyAPI.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
+        return this.learned.stream().filter(ArsMagicaAPI.getSkillRegistry()::containsKey).map(ArsMagicaAPI.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
     }
 
     @Override
