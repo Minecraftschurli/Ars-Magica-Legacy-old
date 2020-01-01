@@ -1,6 +1,6 @@
 package am2.api.event;
 
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 public class SpellRecipeItemsEvent extends Event{
 	public final String registeredName;                //The registered name of the spell part.  Used to identify what spell shape/component/modifier we are working with

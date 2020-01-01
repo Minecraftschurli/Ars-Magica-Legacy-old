@@ -1,12 +1,10 @@
 package am2.buffs;
 
-import java.util.UUID;
+import am2.defs.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.*;
 
-import am2.defs.PotionEffectsDefs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import java.util.*;
 
 public class BuffEffectFrostSlowed extends BuffEffect{
 

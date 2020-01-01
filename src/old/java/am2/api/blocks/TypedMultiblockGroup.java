@@ -1,11 +1,10 @@
 package am2.api.blocks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import net.minecraft.block.state.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import java.util.*;
 
 public class TypedMultiblockGroup extends MultiblockGroup{
 	

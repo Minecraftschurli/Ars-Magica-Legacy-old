@@ -1,7 +1,7 @@
 package am2.api.compendium.pages;
 
-import am2.gui.AMGuiHelper;
-import net.minecraft.util.text.translation.I18n;
+import am2.gui.*;
+import net.minecraft.util.text.translation.*;
 
 @SuppressWarnings("deprecation")
 public class PageText extends CompendiumPage<String> {

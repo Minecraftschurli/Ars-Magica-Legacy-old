@@ -1,21 +1,17 @@
 package am2.api.extensions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.concurrent.Callable;
+import am2.api.*;
+import am2.api.skill.*;
+import am2.extensions.*;
+import am2.utils.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability.*;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
-import am2.api.SkillPointRegistry;
-import am2.api.skill.Skill;
-import am2.api.skill.SkillPoint;
-import am2.extensions.SkillData;
-import am2.utils.NBTUtils;
+import java.util.*;
+import java.util.Map.*;
+import java.util.concurrent.*;
 
 public interface ISkillData {
 	

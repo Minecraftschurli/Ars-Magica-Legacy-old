@@ -1,6 +1,6 @@
 package am2.api.flickers;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.*;
 
 public interface IFlickerController<T extends TileEntity>{
 	public byte[] getMetadata(AbstractFlickerFunctionality operator);

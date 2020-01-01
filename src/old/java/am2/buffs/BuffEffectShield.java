@@ -1,7 +1,7 @@
 package am2.buffs;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
+import net.minecraft.entity.*;
+import net.minecraft.potion.*;
 
 public class BuffEffectShield extends BuffEffect{
 

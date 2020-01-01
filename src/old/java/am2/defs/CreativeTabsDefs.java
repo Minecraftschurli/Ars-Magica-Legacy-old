@@ -1,7 +1,7 @@
 package am2.defs;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
 
 public class CreativeTabsDefs {
 	

@@ -1,37 +1,27 @@
 package am2.api.compendium.pages;
 
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
+import am2.api.*;
+import am2.api.blocks.*;
+import am2.api.compendium.wrapper.*;
+import am2.api.rituals.*;
+import am2.api.skill.*;
+import am2.api.spell.*;
+import am2.defs.*;
+import am2.power.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.util.text.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import am2.api.ArsMagicaAPI;
-import am2.api.blocks.MultiblockStructureDefinition;
-import am2.api.compendium.wrapper.StackMapWrapper;
-import am2.api.rituals.IRitualInteraction;
-import am2.api.skill.Skill;
-import am2.api.spell.AbstractSpellPart;
-import am2.defs.ItemDefs;
-import am2.power.PowerTypes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import java.io.*;
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.Map.*;
 
 @SuppressWarnings("deprecation")
 @SideOnly(Side.CLIENT)

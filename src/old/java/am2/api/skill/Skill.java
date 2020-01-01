@@ -1,10 +1,10 @@
 package am2.api.skill;
 
-import am2.api.ArsMagicaAPI;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import am2.api.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.fml.common.registry.*;
 
 @SuppressWarnings("deprecation")
 public class Skill extends IForgeRegistryEntry.Impl<Skill>{

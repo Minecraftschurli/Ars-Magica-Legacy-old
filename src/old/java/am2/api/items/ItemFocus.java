@@ -1,9 +1,9 @@
 package am2.api.items;
 
-import am2.defs.CreativeTabsDefs;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import am2.defs.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
 
 public abstract class ItemFocus extends Item{
 	

@@ -1,10 +1,10 @@
 package am2.gui.controls;
 
-import java.util.HashMap;
+import am2.api.math.*;
+import net.minecraft.client.*;
+import net.minecraft.util.*;
 
-import am2.api.math.AMVector2;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
+import java.util.*;
 
 public class GuiStatedImageButton extends GuiButtonVariableDims{
 

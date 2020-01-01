@@ -1,21 +1,15 @@
 package am2.api;
 
-import java.util.ArrayList;
+import am2.*;
+import am2.api.skill.*;
+import am2.api.spell.*;
+import am2.utils.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.oredict.*;
 
-import am2.LogHelper;
-import am2.api.skill.Skill;
-import am2.api.skill.SkillPoint;
-import am2.api.skill.SkillTree;
-import am2.api.spell.AbstractSpellPart;
-import am2.api.spell.SpellComponent;
-import am2.api.spell.SpellModifier;
-import am2.api.spell.SpellShape;
-import am2.utils.NBTUtils;
-import am2.utils.RecipeUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
+import java.util.*;
 
 /**
  * Contains all spell parts, used for both registration<BR>

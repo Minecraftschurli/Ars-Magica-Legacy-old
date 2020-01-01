@@ -1,7 +1,7 @@
 package am2.buffs;
 
-import net.minecraft.entity.EntityLivingBase;
-import am2.defs.PotionEffectsDefs;
+import am2.defs.*;
+import net.minecraft.entity.*;
 
 public class BuffEffectManaRegen extends BuffEffect{
 

@@ -1,17 +1,15 @@
 package am2.armor;
 
-import am2.api.items.armor.ArmorImbuement;
-import am2.api.items.armor.ImbuementTiers;
-import am2.armor.infusions.ImbuementRegistry;
-import am2.extensions.EntityExtension;
-import am2.utils.EntityUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.EntityEquipmentSlot.Type;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
+import am2.api.items.armor.*;
+import am2.armor.infusions.*;
+import am2.extensions.*;
+import am2.utils.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.inventory.EntityEquipmentSlot.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
 
 public class ArmorHelper{
 

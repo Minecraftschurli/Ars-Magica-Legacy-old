@@ -1,9 +1,9 @@
 package am2.api.event;
 
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 public class RenderingItemEvent extends Event {
 	

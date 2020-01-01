@@ -1,12 +1,11 @@
 package am2.api.blocks;
 
-import java.util.ArrayList;
+import com.google.common.collect.*;
+import net.minecraft.block.state.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
-import com.google.common.collect.ImmutableList;
+import java.util.*;
 
 public class MultiblockGroup {
 	

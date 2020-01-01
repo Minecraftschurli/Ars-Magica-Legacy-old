@@ -1,48 +1,31 @@
 package am2.gui;
 
-import static net.minecraft.client.renderer.texture.TextureMap.LOCATION_BLOCKS_TEXTURE;
+import am2.*;
+import am2.api.*;
+import am2.defs.*;
+import am2.extensions.*;
+import am2.items.*;
+import am2.particles.*;
+import am2.power.*;
+import am2.texture.*;
+import am2.utils.*;
+import net.minecraft.client.*;
+import net.minecraft.client.entity.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.entity.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.relauncher.*;
+import org.lwjgl.opengl.*;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.nio.*;
+import java.util.*;
 
-import org.lwjgl.opengl.EXTFramebufferObject;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
-
-import am2.LogHelper;
-import am2.api.ArsMagicaAPI;
-import am2.defs.ItemDefs;
-import am2.defs.PotionEffectsDefs;
-import am2.extensions.EntityExtension;
-import am2.items.ItemSpellComponent;
-import am2.particles.AMParticleIcons;
-import am2.power.PowerTypes;
-import am2.texture.SpellIconManager;
-import am2.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import static net.minecraft.client.renderer.texture.TextureMap.*;
 
 @SideOnly(Side.CLIENT)
 public class AMGuiHelper{

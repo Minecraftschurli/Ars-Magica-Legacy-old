@@ -1,6 +1,6 @@
 package am2.buffs;
 
-import am2.defs.PotionEffectsDefs;
+import am2.defs.*;
 
 public class BuffEffectTrueSight extends BuffEffectShield{
 

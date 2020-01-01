@@ -1,25 +1,21 @@
 package am2.defs;
 
-import org.lwjgl.input.Keyboard;
-
-import am2.ArsMagica2;
-import am2.extensions.AffinityData;
-import am2.gui.AuraCustomizationMenu;
-import am2.items.ItemSpellBook;
-import am2.packet.AMDataWriter;
-import am2.packet.AMNetHandler;
-import am2.packet.AMPacketIDs;
-import am2.utils.SpellUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import am2.*;
+import am2.extensions.*;
+import am2.gui.*;
+import am2.items.*;
+import am2.packet.*;
+import am2.utils.*;
+import net.minecraft.client.*;
+import net.minecraft.client.settings.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.client.*;
+import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.gameevent.InputEvent.*;
+import net.minecraftforge.fml.relauncher.*;
+import org.lwjgl.input.*;
 
 @SideOnly(Side.CLIENT)
 public class BindingsDefs {

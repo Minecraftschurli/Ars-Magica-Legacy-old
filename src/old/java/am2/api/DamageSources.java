@@ -1,19 +1,10 @@
 package am2.api;
 
-import am2.api.sources.DamageSourceDarkNexus;
-import am2.api.sources.DamageSourceFire;
-import am2.api.sources.DamageSourceFrost;
-import am2.api.sources.DamageSourceHoly;
-import am2.api.sources.DamageSourceLightning;
-import am2.api.sources.DamageSourceUnsummon;
-import am2.api.sources.DamageSourceWTFBoom;
-import am2.api.sources.DamageSourceWind;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import am2.api.sources.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class DamageSources{
 	public static DamageSourceUnsummon unsummon = new DamageSourceUnsummon();

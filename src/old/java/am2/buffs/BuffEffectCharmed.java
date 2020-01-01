@@ -1,14 +1,13 @@
 package am2.buffs;
 
-import java.util.UUID;
+import am2.defs.*;
+import am2.utils.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.nbt.*;
+import net.minecraftforge.fml.common.*;
 
-import am2.defs.PotionEffectsDefs;
-import am2.utils.EntityUtils;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import java.util.*;
 
 public class BuffEffectCharmed extends BuffEffect{
 

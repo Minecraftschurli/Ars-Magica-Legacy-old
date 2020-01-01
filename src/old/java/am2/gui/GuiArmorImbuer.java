@@ -1,28 +1,25 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import am2.api.items.armor.*;
+import am2.armor.*;
+import am2.armor.infusions.*;
+import am2.blocks.tileentity.*;
+import am2.container.*;
+import am2.packet.*;
+import am2.utils.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.api.items.armor.ArmorImbuement;
-import am2.api.items.armor.ImbuementTiers;
-import am2.armor.ArmorHelper;
-import am2.armor.infusions.ImbuementRegistry;
-import am2.blocks.tileentity.TileEntityArmorImbuer;
-import am2.container.ContainerArmorInfuser;
-import am2.packet.AMNetHandler;
-import am2.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class GuiArmorImbuer extends GuiContainer{

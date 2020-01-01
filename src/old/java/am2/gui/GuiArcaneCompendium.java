@@ -1,21 +1,17 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import am2.api.compendium.*;
+import am2.api.compendium.pages.*;
+import am2.gui.controls.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.api.compendium.CompendiumEntry;
-import am2.api.compendium.pages.CompendiumPage;
-import am2.gui.controls.GuiButtonCompendiumNext;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import java.io.*;
+import java.util.*;
 
 public class GuiArcaneCompendium extends GuiScreen {
 	

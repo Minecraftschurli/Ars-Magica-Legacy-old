@@ -1,24 +1,21 @@
 package am2.api.compendium.pages;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
+import am2.api.blocks.*;
+import am2.api.compendium.*;
+import am2.api.rituals.*;
+import am2.api.spell.*;
+import am2.gui.*;
+import am2.gui.controls.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.item.*;
+import net.minecraft.util.text.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.oredict.*;
 
-import am2.api.blocks.MultiblockStructureDefinition;
-import am2.api.compendium.CompendiumEntry;
-import am2.api.rituals.IRitualInteraction;
-import am2.api.spell.AbstractSpellPart;
-import am2.gui.AMGuiHelper;
-import am2.gui.GuiArcaneCompendium;
-import am2.gui.controls.GuiButtonTextOnly;
-import am2.gui.controls.GuiButtonVariableDims;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.oredict.OreDictionary;
+import java.io.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class PageRitual extends CompendiumPage<IRitualInteraction.Wrapper> {

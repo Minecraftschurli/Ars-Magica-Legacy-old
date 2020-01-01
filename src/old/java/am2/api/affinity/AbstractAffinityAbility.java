@@ -1,18 +1,16 @@
 package am2.api.affinity;
 
-import javax.annotation.Nullable;
+import am2.api.event.*;
+import am2.api.extensions.*;
+import am2.extensions.*;
+import net.minecraft.client.settings.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingEvent.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import am2.api.event.SpellCastEvent;
-import am2.api.extensions.IAffinityData;
-import am2.extensions.AffinityData;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import javax.annotation.*;
 
 public abstract class AbstractAffinityAbility extends IForgeRegistryEntry.Impl<AbstractAffinityAbility>{
 	

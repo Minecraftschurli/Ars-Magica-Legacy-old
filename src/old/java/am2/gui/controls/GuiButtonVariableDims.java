@@ -1,16 +1,11 @@
 package am2.gui.controls;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import am2.api.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import am2.api.math.AMVector2;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
+import java.util.*;
 
 public class GuiButtonVariableDims extends GuiButton{
 

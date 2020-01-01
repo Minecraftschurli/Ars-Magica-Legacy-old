@@ -1,6 +1,6 @@
 package am2.api.event;
 
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 public class GenerateCompendiumLoreEvent extends Event {
 	

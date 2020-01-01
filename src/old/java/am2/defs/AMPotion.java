@@ -1,12 +1,11 @@
 package am2.defs;
 
-import am2.ArsMagica2;
-import am2.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
+import am2.*;
+import am2.utils.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 
 public class AMPotion extends Potion {
 	

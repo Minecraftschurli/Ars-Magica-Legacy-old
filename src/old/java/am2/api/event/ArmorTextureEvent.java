@@ -1,7 +1,7 @@
 package am2.api.event;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraft.inventory.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 
 public class ArmorTextureEvent extends Event{

@@ -1,9 +1,8 @@
 package am2.api.event;
 
-import am2.api.affinity.Affinity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import am2.api.affinity.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 @Cancelable
 public class AffinityChangingEvent extends Event{

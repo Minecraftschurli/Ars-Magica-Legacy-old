@@ -1,13 +1,11 @@
 package am2.api.compendium.wrapper;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import net.minecraft.block.state.*;
+import net.minecraft.item.*;
+import net.minecraft.util.text.translation.*;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
+import java.util.*;
+import java.util.Map.*;
 
 @SuppressWarnings("deprecation")
 public class StackMapWrapper {

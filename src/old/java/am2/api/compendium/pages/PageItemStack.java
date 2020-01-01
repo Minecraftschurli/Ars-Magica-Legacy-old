@@ -1,30 +1,21 @@
 package am2.api.compendium.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Random;
+import am2.api.recipes.*;
+import am2.defs.*;
+import am2.gui.*;
+import am2.utils.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.oredict.*;
 
-import am2.api.recipes.RecipeArsMagica;
-import am2.api.recipes.RecipesEssenceRefiner;
-import am2.defs.ItemDefs;
-import am2.gui.AMGuiHelper;
-import am2.utils.RecipeUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import java.util.*;
+import java.util.Map.*;
 
 public class PageItemStack extends CompendiumPage<ItemStack> {
 	

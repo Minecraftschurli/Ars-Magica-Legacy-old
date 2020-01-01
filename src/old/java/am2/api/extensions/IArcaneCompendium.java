@@ -1,19 +1,16 @@
 package am2.api.extensions;
 
-import java.util.ArrayList;
-import java.util.concurrent.Callable;
+import am2.api.compendium.*;
+import am2.lore.*;
+import am2.utils.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability.*;
 
-import am2.api.compendium.CompendiumCategory;
-import am2.api.compendium.CompendiumEntry;
-import am2.lore.ArcaneCompendium;
-import am2.utils.NBTUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
+import java.util.*;
+import java.util.concurrent.*;
 
 public interface IArcaneCompendium {
 	

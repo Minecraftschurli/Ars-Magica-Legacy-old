@@ -1,6 +1,6 @@
 package am2.api.skill;
 
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.*;
 
 public class SkillPoint {
 	

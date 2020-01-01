@@ -1,9 +1,9 @@
 package am2.armor;
 
-import am2.armor.infusions.GenericImbuement;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
+import am2.armor.infusions.*;
+import net.minecraft.entity.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
 
 public class ItemMageHood extends AMArmor{
 

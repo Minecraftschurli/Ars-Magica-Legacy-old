@@ -1,13 +1,12 @@
 package am2.gui;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.blocks.tileentity.TileEntityAstralBarrier;
-import am2.container.ContainerAstralBarrier;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
+import am2.blocks.tileentity.*;
+import am2.container.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
 public class GuiAstralBarrier extends GuiContainer{
 

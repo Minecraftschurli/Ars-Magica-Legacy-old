@@ -1,28 +1,22 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import am2.blocks.tileentity.*;
+import am2.blocks.tileentity.TileEntityMagiciansWorkbench.*;
+import am2.container.*;
+import am2.gui.controls.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.input.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import am2.blocks.tileentity.TileEntityMagiciansWorkbench;
-import am2.blocks.tileentity.TileEntityMagiciansWorkbench.RememberedRecipe;
-import am2.container.ContainerMagiciansWorkbench;
-import am2.gui.controls.GuiButtonVariableDims;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class GuiMagiciansWorkbench extends GuiContainer{

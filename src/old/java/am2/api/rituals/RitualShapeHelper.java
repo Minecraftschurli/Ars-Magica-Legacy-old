@@ -1,26 +1,18 @@
 package am2.api.rituals;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import am2.*;
+import am2.api.blocks.*;
+import am2.defs.*;
+import com.google.common.collect.*;
+import net.minecraft.block.state.*;
+import net.minecraft.entity.item.*;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.oredict.*;
 
-import com.google.common.collect.Lists;
-
-import am2.LogHelper;
-import am2.api.blocks.MultiblockGroup;
-import am2.api.blocks.MultiblockStructureDefinition;
-import am2.api.blocks.TypedMultiblockGroup;
-import am2.defs.BlockDefs;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
+import java.util.*;
 
 public class RitualShapeHelper {
 	

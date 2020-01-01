@@ -1,9 +1,9 @@
 package am2.api.power;
 
-import java.util.List;
+import am2.power.*;
+import net.minecraft.tileentity.*;
 
-import am2.power.PowerTypes;
-import net.minecraft.tileentity.TileEntity;
+import java.util.*;
 
 /**
  * @author Mithion
