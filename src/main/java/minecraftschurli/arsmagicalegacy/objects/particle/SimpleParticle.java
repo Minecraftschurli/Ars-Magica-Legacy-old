@@ -5,22 +5,20 @@ import com.mojang.brigadier.exceptions.*;
 import net.minecraft.client.particle.*;
 import net.minecraft.network.*;
 import net.minecraft.particles.*;
-import net.minecraft.util.*;
 import net.minecraft.world.*;
 
 import java.util.*;
 
-public class SimpleParticle extends SpriteTexturedParticle implements IParticleData {
+public class SimpleParticle extends SimpleAnimatedParticle implements IParticleData {
     private static final Random rand = new Random();
     private float scaleX, scaleY, scaleZ;
     private int maxAge, age;
-    private ResourceLocation texture;
     public boolean hasGravity;
     public boolean hasMotion;
     public boolean radiant;
 
-    public SimpleParticle(World world, double x, double y, double z) {
-        super(world, x, y, z, 0, 0, 0);
+    public SimpleParticle(World world, double x, double y, double z, IAnimatedSprite sprite) {
+        super(world, x, y, z, sprite, 0);
         scaleX = scaleY = scaleZ = 0.2f;
         hasGravity = false;
         hasMotion = true;
@@ -62,11 +60,6 @@ public class SimpleParticle extends SpriteTexturedParticle implements IParticleD
 
     public SimpleParticle setAlpha(float a) {
         particleAlpha = a;
-        return this;
-    }
-
-    public SimpleParticle setTexture(ResourceLocation location) {
-        texture = location;
         return this;
     }
 
@@ -116,7 +109,7 @@ public class SimpleParticle extends SpriteTexturedParticle implements IParticleD
 
     @Override
     public IParticleRenderType getRenderType() {
-        return null;
+        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
     @Override
@@ -129,6 +122,8 @@ public class SimpleParticle extends SpriteTexturedParticle implements IParticleD
         buffer.writeDouble(posX);
         buffer.writeDouble(posY);
         buffer.writeDouble(posZ);
+        buffer.writeFloat(width);
+        buffer.writeFloat(height);
     }
 
     @Override
@@ -144,6 +139,18 @@ public class SimpleParticle extends SpriteTexturedParticle implements IParticleD
 
     public static final SimpleParticleType TYPE = new SimpleParticleType();
 
+    public static class Factory implements ParticleManager.IParticleMetaFactory<SimpleParticle> {
+        private IAnimatedSprite sprite;
+        public Factory(IAnimatedSprite sprites) {
+            sprite = sprites;
+        }
+
+        @Override
+        public IParticleFactory<SimpleParticle> create(IAnimatedSprite p_create_1_) {
+            return new SimpleParticle(sprite);
+        }
+    }
+
     public static final IDeserializer<SimpleParticle> DESERIALIZER = new IDeserializer<SimpleParticle>() {
         @Override
         public SimpleParticle deserialize(ParticleType particleTypeIn, StringReader reader) throws CommandSyntaxException {
@@ -153,12 +160,12 @@ public class SimpleParticle extends SpriteTexturedParticle implements IParticleD
             reader.expect(' ');
             double z = reader.readDouble();
             reader.expect(' ');
-            return new SimpleParticle(null, x, y, z);
+            return new SimpleParticle(null, x, y, z, null);
         }
 
         @Override
         public SimpleParticle read(ParticleType particleTypeIn, PacketBuffer buffer) {
-            return new SimpleParticle(null, buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
+            return new SimpleParticle(null, buffer.readDouble(), buffer.readDouble(), buffer.readDouble(), particleTypeIn);
         }
     };
 
@@ -166,23 +173,6 @@ public class SimpleParticle extends SpriteTexturedParticle implements IParticleD
         scaleX = scale;
         scaleY = scale;
         scaleZ = scale;
-        return this;
-    }
-
-    public SimpleParticle setColor(int color) {
-        this.particleRed = ((color >> 16) & 0xFF) / 255.0f;
-        this.particleGreen = ((color >> 8) & 0xFF) / 255.0f;
-        this.particleBlue = (color & 0xFF) / 255.0f;
-        return this;
-    }
-
-    public SimpleParticle setTexture(String tex) {
-        texture = new ResourceLocation(tex);
-        return this;
-    }
-
-    public SimpleParticle setTexture(String mod, String tex) {
-        texture = new ResourceLocation(mod, tex);
         return this;
     }
 }
