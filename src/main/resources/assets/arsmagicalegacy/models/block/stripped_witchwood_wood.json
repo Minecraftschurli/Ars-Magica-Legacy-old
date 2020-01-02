@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "arsmagicalegacy:block/stripped_witchwood_wood"
+    "all": "arsmagicalegacy:block/stripped_witchwood_log"
   }
 }
