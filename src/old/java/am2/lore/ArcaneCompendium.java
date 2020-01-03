@@ -1,26 +1,19 @@
 package am2.lore;
 
-import java.util.ArrayList;
+import am2.api.compendium.*;
+import am2.api.extensions.*;
+import am2.defs.*;
+import am2.extensions.*;
+import am2.extensions.datamanager.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
 
-import am2.api.compendium.CompendiumCategory;
-import am2.api.compendium.CompendiumEntry;
-import am2.api.extensions.IArcaneCompendium;
-import am2.api.extensions.IDataSyncExtension;
-import am2.defs.ItemDefs;
-import am2.extensions.DataDefinitions;
-import am2.extensions.datamanager.DataSyncExtension;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.stats.Achievement;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import java.util.*;
 
 public class ArcaneCompendium implements IArcaneCompendium, ICapabilityProvider, ICapabilitySerializable<NBTBase> {
 	

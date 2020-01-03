@@ -1,15 +1,12 @@
 package am2.api.compendium;
 
-import java.util.ArrayList;
+import am2.api.compendium.pages.*;
+import com.google.common.collect.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import javax.annotation.Nullable;
-
-import com.google.common.collect.ImmutableList;
-
-import am2.api.compendium.pages.CompendiumPage;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import javax.annotation.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class CompendiumEntry {

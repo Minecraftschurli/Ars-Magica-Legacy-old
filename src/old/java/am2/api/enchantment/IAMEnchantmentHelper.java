@@ -1,6 +1,6 @@
 package am2.api.enchantment;
 
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.*;
 
 public interface IAMEnchantmentHelper{
 	/**

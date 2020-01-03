@@ -1,19 +1,16 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.HashMap;
+import am2.*;
+import am2.api.math.*;
+import am2.gui.controls.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.input.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
-import am2.ArsMagica2;
-import am2.api.math.AMVector2;
-import am2.gui.controls.GuiButtonVariableDims;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class GuiHudCustomization extends GuiScreen{

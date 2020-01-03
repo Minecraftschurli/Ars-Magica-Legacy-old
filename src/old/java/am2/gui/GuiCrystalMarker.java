@@ -3,13 +3,12 @@
  */
 package am2.gui;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.blocks.tileentity.TileEntityCrystalMarker;
-import am2.container.ContainerCrystalMarker;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import am2.blocks.tileentity.*;
+import am2.container.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
 /**
  * @author Zero

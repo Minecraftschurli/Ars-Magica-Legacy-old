@@ -1,13 +1,11 @@
 package am2.gui.controls;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.gui.AMGuiIcons;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import am2.gui.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.renderer.vertex.*;
+import org.lwjgl.opengl.*;
 
 public class GuiSpellImageButton extends GuiButtonVariableDims{
 	/**

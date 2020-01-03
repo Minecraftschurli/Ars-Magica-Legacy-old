@@ -1,9 +1,9 @@
 package am2.api.flickers;
 
-import am2.api.affinity.Affinity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import am2.api.affinity.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.fml.common.registry.*;
 
 public abstract class AbstractFlickerFunctionality extends IForgeRegistryEntry.Impl<AbstractFlickerFunctionality> {
 	

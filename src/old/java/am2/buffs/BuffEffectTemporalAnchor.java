@@ -1,9 +1,9 @@
 package am2.buffs;
 
-import am2.defs.PotionEffectsDefs;
-import am2.extensions.EntityExtension;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
+import am2.defs.*;
+import am2.extensions.*;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.*;
 
 public class BuffEffectTemporalAnchor extends BuffEffect{
 

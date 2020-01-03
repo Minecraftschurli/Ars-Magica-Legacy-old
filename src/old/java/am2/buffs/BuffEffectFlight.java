@@ -1,9 +1,8 @@
 package am2.buffs;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import am2.defs.PotionEffectsDefs;
+import am2.defs.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
 
 public class BuffEffectFlight extends BuffEffect{
 	

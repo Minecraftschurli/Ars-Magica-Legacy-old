@@ -1,17 +1,15 @@
 package am2.armor.infusions;
 
-import java.util.ArrayList;
+import am2.*;
+import am2.api.*;
+import am2.api.items.armor.*;
+import am2.armor.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import am2.LogHelper;
-import am2.api.ArsMagicaAPI;
-import am2.api.items.armor.ArmorImbuement;
-import am2.api.items.armor.IImbuementRegistry;
-import am2.api.items.armor.ImbuementTiers;
-import am2.armor.ArmorHelper;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import java.util.*;
 
 public class ImbuementRegistry implements IImbuementRegistry{
 

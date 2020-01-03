@@ -1,8 +1,8 @@
 package am2.api.items.armor;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 
 
 public interface IImbuementRegistry{

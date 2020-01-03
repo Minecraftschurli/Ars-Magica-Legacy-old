@@ -1,7 +1,7 @@
 package am2.api.sources;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EntityDamageSource;
+import net.minecraft.entity.*;
+import net.minecraft.util.*;
 
 public class DamageSourceFire extends EntityDamageSource{
 	public DamageSourceFire(EntityLivingBase source){

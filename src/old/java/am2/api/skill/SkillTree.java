@@ -1,7 +1,7 @@
 package am2.api.skill;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
 
 @SuppressWarnings("deprecation")
 public class SkillTree {

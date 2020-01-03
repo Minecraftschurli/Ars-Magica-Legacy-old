@@ -1,12 +1,11 @@
 package am2.api.spell;
 
-import java.util.EnumSet;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.world.*;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
+import java.util.*;
 
 public abstract class SpellModifier extends AbstractSpellPart{
 	/**

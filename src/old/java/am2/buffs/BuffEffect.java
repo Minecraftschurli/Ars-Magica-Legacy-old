@@ -1,10 +1,9 @@
 package am2.buffs;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.text.translation.*;
 
 @SuppressWarnings("deprecation")
 public abstract class BuffEffect extends PotionEffect{

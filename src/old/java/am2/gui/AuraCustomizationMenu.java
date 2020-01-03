@@ -1,22 +1,15 @@
 package am2.gui;
 
-import java.io.IOException;
+import am2.*;
+import am2.gui.controls.*;
+import am2.packet.*;
+import am2.particles.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import am2.ArsMagica2;
-import am2.gui.controls.GuiButtonVariableDims;
-import am2.gui.controls.GuiSlideControl;
-import am2.packet.AMDataWriter;
-import am2.packet.AMNetHandler;
-import am2.packet.AMPacketIDs;
-import am2.particles.AMParticle;
-import am2.particles.ParticleController;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import java.io.*;
 
 @SuppressWarnings("deprecation")
 @SideOnly(Side.CLIENT)

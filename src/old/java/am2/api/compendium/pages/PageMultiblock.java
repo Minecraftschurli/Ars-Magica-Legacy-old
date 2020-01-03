@@ -1,34 +1,25 @@
 package am2.api.compendium.pages;
 
-import static net.minecraft.client.renderer.texture.TextureMap.LOCATION_BLOCKS_TEXTURE;
+import am2.api.blocks.*;
+import am2.gui.*;
+import am2.gui.controls.*;
+import net.minecraft.block.*;
+import net.minecraft.block.state.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.tileentity.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.opengl.*;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
+import java.io.*;
+import java.util.*;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.api.blocks.MultiblockGroup;
-import am2.api.blocks.MultiblockStructureDefinition;
-import am2.api.blocks.TypedMultiblockGroup;
-import am2.gui.AMGuiHelper;
-import am2.gui.GuiBlockAccess;
-import am2.gui.controls.GuiButtonCompendiumNext;
-import am2.gui.controls.GuiButtonVariableDims;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
+import static net.minecraft.client.renderer.texture.TextureMap.*;
 
 @SuppressWarnings("deprecation")
 public class PageMultiblock extends CompendiumPage<MultiblockStructureDefinition> {

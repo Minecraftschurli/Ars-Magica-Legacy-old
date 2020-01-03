@@ -1,6 +1,6 @@
 package am2.api.sources;
 
-import net.minecraft.util.DamageSource;
+import net.minecraft.util.*;
 
 public class DamageSourceWTFBoom extends DamageSource{
 

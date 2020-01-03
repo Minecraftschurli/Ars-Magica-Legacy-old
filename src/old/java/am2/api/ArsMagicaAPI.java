@@ -1,20 +1,16 @@
 package am2.api;
 
-import java.util.Map;
+import am2.api.affinity.*;
+import am2.api.flickers.*;
+import am2.api.items.armor.*;
+import am2.api.skill.*;
+import am2.api.spell.*;
+import com.google.common.collect.*;
+import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.*;
 
-import am2.api.affinity.AbstractAffinityAbility;
-import am2.api.affinity.Affinity;
-import am2.api.flickers.AbstractFlickerFunctionality;
-import am2.api.items.armor.ArmorImbuement;
-import am2.api.skill.Skill;
-import am2.api.spell.AbstractSpellPart;
-import com.google.common.collect.BiMap;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.registry.*;
+import java.util.*;
 
 public class ArsMagicaAPI {
 	

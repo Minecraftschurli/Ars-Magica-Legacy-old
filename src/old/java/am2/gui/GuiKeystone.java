@@ -1,29 +1,22 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import am2.container.*;
+import am2.defs.*;
+import am2.gui.controls.*;
+import am2.items.ItemKeystone.*;
+import am2.packet.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.container.ContainerKeystone;
-import am2.container.InventoryKeyStone;
-import am2.container.InventoryRuneBag;
-import am2.defs.ItemDefs;
-import am2.gui.controls.GuiSlideControl;
-import am2.gui.controls.GuiStatedImageButton;
-import am2.items.ItemKeystone.KeystoneCombination;
-import am2.packet.AMDataWriter;
-import am2.packet.AMNetHandler;
-import am2.packet.AMPacketIDs;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
+import java.util.*;
 
 
 @SuppressWarnings("deprecation")

@@ -1,7 +1,7 @@
 package am2.api;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
 
 public interface IBoundItem {
 	

@@ -1,7 +1,7 @@
 package am2.defs;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.util.*;
+import net.minecraft.world.storage.loot.*;
 
 public class LootTablesArsMagica {
 	

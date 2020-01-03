@@ -1,11 +1,10 @@
 package am2.api.flickers;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Random;
+import am2.*;
+import am2.api.affinity.*;
 
-import am2.LogHelper;
-import am2.api.affinity.Affinity;
+import java.util.*;
+import java.util.Map.*;
 
 /**
  * This class is used in the flicker lure, it manages the different flicker generation weights

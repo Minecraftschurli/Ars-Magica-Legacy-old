@@ -1,15 +1,10 @@
 package am2.defs;
 
-import am2.ArsMagica2;
-import am2.api.ArsMagicaAPI;
-import am2.api.SkillPointRegistry;
-import am2.api.SkillRegistry;
-import am2.api.SkillTreeRegistry;
-import am2.api.skill.Skill;
-import am2.api.skill.SkillPoint;
-import am2.api.skill.SkillTree;
-import am2.utils.ResourceUtils;
-import net.minecraft.util.ResourceLocation;
+import am2.*;
+import am2.api.*;
+import am2.api.skill.*;
+import am2.utils.*;
+import net.minecraft.util.*;
 
 public class SkillDefs {
 	

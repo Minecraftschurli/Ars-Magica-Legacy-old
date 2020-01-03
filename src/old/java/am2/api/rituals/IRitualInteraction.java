@@ -1,9 +1,8 @@
 package am2.api.rituals;
 
-import am2.api.blocks.MultiblockStructureDefinition;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import am2.api.blocks.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public interface IRitualInteraction {
 	

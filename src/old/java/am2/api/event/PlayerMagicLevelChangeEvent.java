@@ -1,7 +1,7 @@
 package am2.api.event;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.event.entity.player.*;
 
 public class PlayerMagicLevelChangeEvent extends PlayerEvent {
 

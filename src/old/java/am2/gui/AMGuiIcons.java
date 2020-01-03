@@ -1,8 +1,7 @@
 package am2.gui;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.util.*;
 
 
 public class AMGuiIcons{

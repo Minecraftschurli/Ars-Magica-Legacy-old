@@ -1,14 +1,13 @@
 package am2.gui;
-import java.io.IOException;
 
-import org.lwjgl.opengl.GL11;
+import am2.container.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
-import am2.container.ContainerEssenceBag;
-import am2.container.InventoryEssenceBag;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import java.io.*;
 
 public class GuiEssenceBag extends GuiContainer{
 

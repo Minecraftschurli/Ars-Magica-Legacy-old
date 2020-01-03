@@ -1,23 +1,20 @@
 package am2.gui;
 
-import java.io.IOException;
+import am2.*;
+import am2.container.*;
+import am2.gui.controls.*;
+import am2.models.*;
+import am2.network.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.ArsMagica2;
-import am2.container.ContainerSpellCustomization;
-import am2.gui.controls.GuiButtonVariableDims;
-import am2.gui.controls.GuiSpellImageButton;
-import am2.models.ArsMagicaModelLoader;
-import am2.network.SeventhSanctum;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
 
 @SuppressWarnings("deprecation")
 public class GuiSpellCustomization extends GuiContainer{

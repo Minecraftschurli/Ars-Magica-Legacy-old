@@ -1,45 +1,13 @@
 package am2.defs;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
+import am2.*;
+import am2.buffs.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import am2.LogHelper;
-import am2.buffs.BuffEffect;
-import am2.buffs.BuffEffectAgility;
-import am2.buffs.BuffEffectAstralDistortion;
-import am2.buffs.BuffEffectBurnoutReduction;
-import am2.buffs.BuffEffectCharmed;
-import am2.buffs.BuffEffectClarity;
-import am2.buffs.BuffEffectEntangled;
-import am2.buffs.BuffEffectFlight;
-import am2.buffs.BuffEffectFrostSlowed;
-import am2.buffs.BuffEffectFury;
-import am2.buffs.BuffEffectGravityWell;
-import am2.buffs.BuffEffectHaste;
-import am2.buffs.BuffEffectIllumination;
-import am2.buffs.BuffEffectInstantMana;
-import am2.buffs.BuffEffectLeap;
-import am2.buffs.BuffEffectLevitation;
-import am2.buffs.BuffEffectMagicShield;
-import am2.buffs.BuffEffectManaRegen;
-import am2.buffs.BuffEffectRegeneration;
-import am2.buffs.BuffEffectScrambleSynapses;
-import am2.buffs.BuffEffectShield;
-import am2.buffs.BuffEffectShrink;
-import am2.buffs.BuffEffectSilence;
-import am2.buffs.BuffEffectSlowfall;
-import am2.buffs.BuffEffectSpellReflect;
-import am2.buffs.BuffEffectSwiftSwim;
-import am2.buffs.BuffEffectTemporalAnchor;
-import am2.buffs.BuffEffectTrueSight;
-import am2.buffs.BuffEffectWaterBreathing;
-import am2.buffs.BuffEffectWateryGrave;
-import am2.buffs.BuffMaxManaIncrease;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import java.lang.reflect.*;
+import java.util.*;
 
 public class PotionEffectsDefs {
 	

@@ -1,11 +1,8 @@
 package am2.buffs;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import am2.defs.IDDefs;
-import am2.defs.PotionEffectsDefs;
+import am2.defs.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.*;
 
 public class BuffEffectHaste extends BuffEffect{
 

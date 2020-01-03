@@ -1,13 +1,13 @@
 package am2.armor;
 
-import java.util.List;
+import am2.extensions.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraft.world.*;
 
-import am2.extensions.EntityExtension;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.World;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class ItemEnderBoots extends AMArmor{

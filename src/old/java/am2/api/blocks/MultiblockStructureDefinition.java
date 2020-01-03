@@ -1,16 +1,12 @@
 package am2.api.blocks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import am2.gui.*;
+import com.google.common.collect.*;
+import net.minecraft.block.state.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import com.google.common.collect.Lists;
-
-import am2.gui.AMGuiHelper;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import java.util.*;
 
 public class MultiblockStructureDefinition {
 	

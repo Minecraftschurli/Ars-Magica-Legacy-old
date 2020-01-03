@@ -1,14 +1,11 @@
 package am2.asm;
 
-import java.io.File;
-import java.util.Map;
+import am2.*;
+import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.*;
 
-import am2.LogHelper;
-import net.minecraftforge.fml.common.DummyModContainer;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.DependsOn;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.Name;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
+import java.io.*;
+import java.util.*;
 
 @Name("ArsMagica2-Preloader")
 @DependsOn("arsmagica2")

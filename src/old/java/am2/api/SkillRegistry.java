@@ -1,12 +1,10 @@
 package am2.api;
 
-import java.util.ArrayList;
+import am2.api.skill.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import am2.api.skill.Skill;
-import am2.api.skill.SkillPoint;
-import am2.api.skill.SkillTree;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import java.util.*;
 
 public class SkillRegistry {
 	public static void registerSkill (String ID, ResourceLocation icon, SkillPoint tier, int posX, int posY, SkillTree tree, String... parents) {

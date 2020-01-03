@@ -1,23 +1,17 @@
 package am2.gui.controls;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import am2.api.compendium.*;
+import am2.gui.*;
+import am2.particles.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import am2.api.compendium.CompendiumCategory;
-import am2.gui.AMGuiHelper;
-import am2.particles.AMParticleIcons;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import java.util.*;
 
 public class GuiButtonCompendiumTab extends GuiButton{
 

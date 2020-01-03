@@ -1,10 +1,9 @@
 package am2.lore;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
+import am2.*;
 
-import am2.LogHelper;
+import java.io.*;
+import java.util.*;
 
 public class StoryManager{
 	private ArrayList<Story> stories;

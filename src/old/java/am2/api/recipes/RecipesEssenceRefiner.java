@@ -1,16 +1,13 @@
 package am2.api.recipes;
 
-import java.util.HashMap;
+import am2.api.*;
+import am2.api.affinity.*;
+import am2.defs.*;
+import am2.items.*;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 
-import am2.api.ArsMagicaAPI;
-import am2.api.affinity.Affinity;
-import am2.defs.BlockDefs;
-import am2.defs.ItemDefs;
-import am2.items.ItemCore;
-import am2.items.ItemOre;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import java.util.*;
 
 public class RecipesEssenceRefiner extends RecipesArsMagica{
 	private static final RecipesEssenceRefiner essenceExtractorRecipesBase = new RecipesEssenceRefiner();

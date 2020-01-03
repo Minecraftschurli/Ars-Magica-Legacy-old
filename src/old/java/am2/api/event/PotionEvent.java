@@ -1,10 +1,9 @@
 package am2.api.event;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraft.nbt.*;
+import net.minecraft.potion.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 public class PotionEvent extends Event{
 	

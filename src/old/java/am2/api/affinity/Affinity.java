@@ -1,16 +1,13 @@
 package am2.api.affinity;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import am2.api.*;
+import am2.utils.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import am2.api.ArsMagicaAPI;
-import am2.utils.NBTUtils;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import java.util.*;
 
 /**
  * Affinity :<BR>

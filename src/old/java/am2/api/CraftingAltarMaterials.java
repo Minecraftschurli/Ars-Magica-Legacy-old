@@ -1,16 +1,15 @@
 package am2.api;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
+import am2.blocks.*;
+import am2.defs.*;
+import am2.utils.*;
+import com.google.common.collect.*;
+import net.minecraft.block.*;
+import net.minecraft.block.state.*;
+import net.minecraft.init.*;
 
-import com.google.common.collect.ImmutableMap;
-
-import am2.blocks.BlockArsMagicaBlock;
-import am2.defs.BlockDefs;
-import am2.utils.KeyValuePair;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import java.util.*;
+import java.util.Map.*;
 
 public class CraftingAltarMaterials {
 	

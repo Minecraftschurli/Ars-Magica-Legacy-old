@@ -1,18 +1,13 @@
 package am2.buffs;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import am2.defs.*;
+import am2.utils.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.potion.*;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.potion.Potion;
-import am2.defs.IDDefs;
-import am2.defs.PotionEffectsDefs;
-import am2.utils.ResourceUtils;
+import java.util.*;
+import java.util.Map.*;
 
 public class BuffStatModifiers {
 	public static final BuffStatModifiers instance = new BuffStatModifiers();

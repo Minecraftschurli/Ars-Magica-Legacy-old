@@ -1,6 +1,6 @@
 package am2.api.power;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 public interface IObeliskFuelHelper{
 	/**

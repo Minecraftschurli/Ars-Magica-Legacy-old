@@ -1,19 +1,18 @@
 package am2.gui;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.api.ArsMagicaAPI;
-import am2.api.flickers.AbstractFlickerFunctionality;
-import am2.blocks.tileentity.TileEntityFlickerHabitat;
-import am2.container.ContainerFlickerHabitat;
-import am2.power.PowerNodeRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import am2.api.*;
+import am2.api.flickers.*;
+import am2.blocks.tileentity.*;
+import am2.container.*;
+import am2.power.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.opengl.*;
 
 /**
  * @author Zero, Mithion
