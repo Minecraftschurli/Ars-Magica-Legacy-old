@@ -11,7 +11,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @version 2019-11-28
  */
 public class ModParticles implements IInit {
-    public static final RegistryObject<ParticleType<SimpleParticle>> ARCANE = PARTICLE_TYPES.register("arcane", () -> SimpleParticle.TYPE);
+    public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> ARCANE = PARTICLE_TYPES.register("arcane", SimpleParticle.SimpleParticleType::new);
 
     public static void register() {
     }
