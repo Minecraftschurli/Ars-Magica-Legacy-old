@@ -62,11 +62,15 @@ public class Skill extends ForgeRegistryEntry<Skill> {
         return getID();
     }
 
+    public String getTranslationKey() {
+        return "skill." + getRegistryName().getNamespace() + "." + getRegistryName().getPath();
+    }
+
     public ITextComponent getName() {
-        return new TranslationTextComponent("skill." + getRegistryName().getNamespace() + "." + getRegistryName().getPath() + ".name");
+        return new TranslationTextComponent(getTranslationKey() + ".name");
     }
 
     public ITextComponent getOcculusDesc() {
-        return new TranslationTextComponent("skill." + getRegistryName().getNamespace() + "." + getRegistryName().getPath() + ".occulusdesc");
+        return new TranslationTextComponent(getTranslationKey() + ".occulusdesc");
     }
 }

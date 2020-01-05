@@ -79,8 +79,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> GREEN_RUNE = stackableItem64("green_rune");
     public static final RegistryObject<Item> RED_RUNE = stackableItem64("red_rune");
     public static final RegistryObject<Item> BLACK_RUNE = stackableItem64("black_rune");
-    public static final InfinityOrbItem infinity_orb = new InfinityOrbItem();
-    public static final RegistryObject<Item> INFINITY_ORB = ITEMS.register("infinity_orb", () -> infinity_orb);
+    public static final RegistryObject<Item> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrbItem::new);
     public static final RegistryObject<Item> PURIFIED_VINTEUM = stackableItem64("purified_vinteum");
     public static final RegistryObject<Item> ARCANE_ASH = stackableItem64("arcane_ash");
     public static final RegistryObject<Item> ARCANE_COMPOUND = stackableItem64("arcane_compound");
@@ -115,8 +114,7 @@ public final class ModItems implements IInit {
             return super.placeBlock(context, state);
         }
     });
-    public static SpellBookItem spell_book = new SpellBookItem();
-    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", () -> spell_book);
+    public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
 
     public static void register() {
     }

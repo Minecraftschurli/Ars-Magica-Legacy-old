@@ -28,7 +28,7 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putInt(TYPE_KEY, ModSpellParts.SILVER_POINT.getTier());
+        this.setSkillPoint(stack, ModSpellParts.SILVER_POINT);
     }
 
     @Override
@@ -51,6 +51,15 @@ public class InfinityOrbItem extends Item {
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
     }
 
+    public ItemStack setSkillPoint(ItemStack stack, SkillPoint point) {
+        stack.getOrCreateTag().putInt(TYPE_KEY, point.getTier());
+        return stack;
+    }
+
+    public SkillPoint getSkillPoint(ItemStack stack) {
+        return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
+    }
+
     /*@Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
         return useOrb(context.getPlayer(), stack).getType();
@@ -64,7 +73,7 @@ public class InfinityOrbItem extends Item {
 
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
-        return new TranslationTextComponent(this.getTranslationKey(stack), SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY)).getDisplayName());
+        return new TranslationTextComponent(this.getTranslationKey(stack), this.getSkillPoint(stack).getDisplayName());
     }
 
     /*@Override

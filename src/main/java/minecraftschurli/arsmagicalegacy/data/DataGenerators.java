@@ -28,8 +28,8 @@ public class DataGenerators {
         }
         if (event.includeClient()) {
             gen.addProvider(new AMLLanguageProvider(gen));
-            gen.addProvider(new AMLBlockStatesProvider(gen, helper));
-            gen.addProvider(new AMLItemModelsProvider(gen, helper));
+            gen.addProvider(new AMLBlockStateProvider(gen, helper));
+            gen.addProvider(new AMLItemModelProvider(gen, helper));
         }
     }
 }
