@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
 import minecraftschurli.arsmagicalegacy.objects.block.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.*;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;

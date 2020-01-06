@@ -1,18 +1,16 @@
 package minecraftschurli.arsmagicalegacy;
 
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarStructureMaterials;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.tuple.Pair;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.*;
+import net.minecraft.block.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.config.*;
+import net.minecraftforge.registries.*;
+import org.apache.commons.lang3.tuple.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -77,7 +75,7 @@ public class Config {
                     mainFromBlocks(Blocks.SANDSTONE, Blocks.SANDSTONE_STAIRS, 1),
                     mainFromBlocks(Blocks.BRICKS, Blocks.BRICK_STAIRS, 2),
                     mainFromBlocks(Blocks.RED_SANDSTONE, Blocks.RED_SANDSTONE_STAIRS, 2),
-                    mainFromRegistryObjects(ModBlocks.WITCHWOOD_PLANKS, ModBlocks.WITCHWOOD_STAIRS, 3),
+                    mainFromBlocks(ModBlocks.WITCHWOOD_PLANKS.get(), ModBlocks.WITCHWOOD_STAIRS.get(), 3),
                     mainFromBlocks(Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS, 3),
                     mainFromBlocks(Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_STAIRS, 3),
                     mainFromBlocks(Blocks.PURPUR_BLOCK, Blocks.PURPUR_STAIRS, 4)
