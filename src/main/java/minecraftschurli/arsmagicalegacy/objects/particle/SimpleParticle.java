@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.brigadier.*;
 import com.mojang.brigadier.exceptions.*;
 import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.network.*;
 import net.minecraft.particles.*;
@@ -13,7 +14,6 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class SimpleParticle extends SimpleAnimatedParticle {
-    private static final Random rand = new Random();
     private float scaleX, scaleY, scaleZ;
     private int maxAge, age;
     public boolean hasGravity;
@@ -29,6 +29,7 @@ public class SimpleParticle extends SimpleAnimatedParticle {
         particleRed = particleGreen = particleBlue = particleAlpha = 1;
         maxAge = 20 + rand.nextInt(20);
         particleGravity = 1;
+        selectSpriteWithAge(sprite);
     }
 
     public SimpleParticle setScaleX(float x) {
