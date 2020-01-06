@@ -16,10 +16,6 @@ import net.minecraftforge.fml.*;
  */
 @SuppressWarnings("unused")
 public final class ModSpellParts implements IInit {
-    //DONE: skill trees and (x|y) positions
-    //  [src/old/java/am2/defs/SpellDefs.java] am2.defs.SpellDefs
-    //  [src/old/java/am2/defs/SkillDefs.java] am2.defs.SkillDefs
-
     public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "null", null, new MissingShape(), null, 0, 0);
 
     //skill points
