@@ -25,9 +25,9 @@ import javax.annotation.*;
 @ParametersAreNonnullByDefault
 @SuppressWarnings("deprecation")
 public class InscriptionTableBlock extends Block {
-    static final IntegerProperty TIER = IntegerProperty.create("tier", 1, 3);
-    private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final BooleanProperty LEFT = BooleanProperty.create("left");
+    public static final IntegerProperty TIER = IntegerProperty.create("tier", 1, 3);
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty LEFT = BooleanProperty.create("left");
 
     public InscriptionTableBlock() {
         super(Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 2.0f).lightValue(1));

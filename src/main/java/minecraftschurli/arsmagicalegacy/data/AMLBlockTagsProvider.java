@@ -58,5 +58,7 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.STRIPPED_WITCHWOOD_WOOD.get()
         );
         getBuilder(BlockTags.LOGS).add(ModTags.Blocks.LOGS_WITCHWOOD);
+
+        getBuilder(BlockTags.SAPLINGS).add(ModBlocks.WITCHWOOD_SAPLING.get());
     }
 }
