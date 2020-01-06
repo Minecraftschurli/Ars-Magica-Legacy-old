@@ -39,7 +39,6 @@ public class EntityUtils {
         double d = range;
         Vec3d vec3d = new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
         Vec3d vec3d1 = entityplayer.getLookVec();
-        Vec3d vec3d2 = vec3d.add(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d);
         double f1 = collideRadius;
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getBoundingBox().grow(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d).expand(f1, f1, f1));
         double d2 = 0.0D;
@@ -48,19 +47,19 @@ public class EntityUtils {
             if ((entity.canBeCollidedWith() || nonCollide) && mop == null) {
                 float f2 = Math.max(0.8F, entity.getCollisionBorderSize());
                 AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(f2, f2, f2);
-//                RayTraceResult movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d2);
-//                if (axisalignedbb.contains(vec3d)) {
-//                    if ((0.0D < d2) || (d2 == 0.0D)) {
-//                        pointedEntity = entity;
-//                        d2 = 0.0D;
-//                    }
-//                } else if (movingobjectposition != null) {
-//                    double d3 = vec3d.distanceTo(movingobjectposition.getHitVec());
-//                    if ((d3 < d2) || (d2 == 0.0D)) {
-//                        pointedEntity = entity;
-//                        d2 = d3;
-//                    }
-//                }
+                RayTraceResult movingobjectposition = null;//axisalignedbb.calculateIntercept(vec3d, vec3d2);
+                if (axisalignedbb.contains(vec3d)) {
+                    if ((0.0D < d2) || (d2 == 0.0D)) {
+                        pointedEntity = entity;
+                        d2 = 0.0D;
+                    }
+                } else if (movingobjectposition != null) {
+                    double d3 = vec3d.distanceTo(movingobjectposition.getHitVec());
+                    if ((d3 < d2) || (d2 == 0.0D)) {
+                        pointedEntity = entity;
+                        d2 = d3;
+                    }
+                }
             }
         }
         return pointedEntity;
