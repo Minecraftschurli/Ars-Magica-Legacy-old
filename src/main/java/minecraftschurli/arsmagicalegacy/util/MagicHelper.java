@@ -175,9 +175,9 @@ public class MagicHelper {
         return getResearchCapability(player)
                 .getLearnedSkills()
                 .stream()
-                .filter(skill -> skill.getID().contains("mana_regen"))
-                .map(Skill::getID)
-                .map(s -> s.replace("mana_regen", ""))
+                .map(Skill::getRegistryName)
+                .filter(skill -> skill.getPath().contains("mana_regen"))
+                .map(skill -> skill.getPath().replace("mana_regen", ""))
                 .mapToInt(Integer::parseInt)
                 .max()
                 .orElse(0);

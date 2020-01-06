@@ -10,6 +10,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.datasync.*;
+import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -67,7 +68,8 @@ public class SpellProjectileEntity extends Entity {
 
     @Override
     public IPacket<?> createSpawnPacket() {
-        return null;
+        Entity entity = getShooter();
+        return new SSpawnObjectPacket(this, entity == null ? 0 : entity.getEntityId());
     }
 
     public void decreaseBounces() {

@@ -4,17 +4,15 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.objects.particle.*;
 import net.minecraft.particles.*;
 import net.minecraft.util.registry.*;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-28
  */
 public class ModParticles implements IInit {
-    public static final ParticleType<SimpleParticle> ARCANE = register("arcane");
-    public static void register() {
-    }
+    public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> ARCANE = PARTICLE_TYPES.register("arcane", SimpleParticle.SimpleParticleType::new);
 
-    public static ParticleType<SimpleParticle> register(String key) {
-        return Registry.<ParticleType<SimpleParticle>>register(Registry.PARTICLE_TYPE, ArsMagicaLegacy.MODID + ":" + key, SimpleParticle.TYPE);
+    public static void register() {
     }
 }

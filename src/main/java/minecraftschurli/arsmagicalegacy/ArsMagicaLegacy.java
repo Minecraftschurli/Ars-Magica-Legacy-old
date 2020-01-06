@@ -34,6 +34,8 @@ import org.apache.logging.log4j.*;
 @Mod(ArsMagicaLegacy.MODID)
 public final class ArsMagicaLegacy {
     public static final String MODID = "arsmagicalegacy";
+    public static final String MODNAME = "ArsMagicaLegacy";
+
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {

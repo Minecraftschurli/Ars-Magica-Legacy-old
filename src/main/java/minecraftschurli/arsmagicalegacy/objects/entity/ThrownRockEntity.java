@@ -10,6 +10,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.datasync.*;
+import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -24,7 +25,7 @@ public class ThrownRockEntity extends Entity {
     private static final DataParameter<Boolean> IS_MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<ItemStack> SPELL_STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
-    private LivingEntity throwingEntity;
+    private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.VARINT);
     private int maxTicksToExist;
     private Vec3d target = null;
     private float damage;
@@ -44,7 +45,7 @@ public class ThrownRockEntity extends Entity {
     public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed) {
         this(world);
         this.noClip = true;
-        throwingEntity = entityLiving;
+        setThrowingEntity(entityLiving);
         //setSize(0.25F, 0.25F);
         setLocationAndAngles(entityLiving.posX, entityLiving.posY + entityLiving.getEyeHeight(), entityLiving.posZ, entityLiving.rotationYaw, entityLiving.rotationPitch);
         posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
@@ -100,7 +101,7 @@ public class ThrownRockEntity extends Entity {
     }
 
     public void setThrowingEntity(LivingEntity thrower) {
-        this.throwingEntity = thrower;
+        this.dataManager.set(OWNER, thrower.getEntityId());
     }
 
     @Override
@@ -108,6 +109,7 @@ public class ThrownRockEntity extends Entity {
         this.dataManager.register(IS_MOONSTONE_METEOR, false);
         this.dataManager.register(IS_SHOOTING_STAR, false);
         this.dataManager.register(SPELL_STACK, new ItemStack(ModItems.SPELL.get()));
+        this.dataManager.register(OWNER, 0);
     }
 
     private ItemStack getSpellStack() {
@@ -121,7 +123,7 @@ public class ThrownRockEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.target != null && this.posY > this.target.y) {
+        if (this.target != null && this.posY > this.target.y){
             double deltaX = this.posX - target.x;
             double deltaY = this.posY - target.y;
             double deltaZ = this.posZ - target.z;
@@ -132,31 +134,31 @@ public class ThrownRockEntity extends Entity {
 
             double vAngle = Math.atan2(deltaY, hDist);
 
-            setMotion(-Math.cos(angle) * 0.2, -Math.sin(vAngle) * 2.5, -Math.sin(angle) * 0.2);
+            setMotion(-Math.cos(angle) * 0.2, -Math.sin(angle) * 0.2, -Math.sin(vAngle) * 2.5);
         }
 
-        if (!getIsMoonstoneMeteor() && !getIsShootingStar()) {
-            if (!world.isRemote && (throwingEntity == null || !throwingEntity.isAlive())) {
+        if (!getIsMoonstoneMeteor() && !getIsShootingStar()){
+            if (!world.isRemote && (world.getEntityByID(getDataManager().get(OWNER)) == null || !world.getEntityByID(getDataManager().get(OWNER)).isAlive())){
                 remove();
-            } else {
+            }else{
                 ticksExisted++;
                 int maxTicksToLive = maxTicksToExist > -1 ? maxTicksToExist : 100;
-                if (ticksExisted >= maxTicksToLive && !world.isRemote) {
+                if (ticksExisted >= maxTicksToLive && !world.isRemote){
                     remove();
                     return;
                 }
             }
         }
 
-        if (getIsShootingStar()) {
-            setMotion(getMotion().x, getMotion().y - 0.1f, getMotion().z);
+        if (getIsShootingStar()){
+            setMotion(getMotion().add(0,-0.1f,0));
             if (getMotion().y < -2f)
                 setMotion(getMotion().x, -2f, getMotion().z);
         }
 
-        if (world.isRemote) {
-            /*if (getIsMoonstoneMeteor()){
-                AMParticle fire = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "explosion_2", posX, posY, posZ);
+        /*if (worldObj.isRemote){
+            if (getIsMoonstoneMeteor()){
+                AMParticle fire = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "explosion_2", posX, posY, posZ);
                 if (fire != null){
                     fire.setMaxAge(20);
                     fire.setRGBColorF(1, 1, 1);
@@ -164,22 +166,22 @@ public class ThrownRockEntity extends Entity {
                     fire.AddParticleController(new ParticleHoldPosition(fire, 20, 1, false));
                     fire.AddParticleController(new ParticleColorShift(fire, 1, false).SetShiftSpeed(0.1f).SetColorTarget(0.01f, 0.01f, 0.01f).SetEndOnReachingTargetColor().setKillParticleOnFinish(false));
                 }
-            }else*/
-            if (getIsShootingStar()) {
+            } else if (getIsShootingStar()){
 
                 int color = -1;
-                getSpellStack();
-                if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, getSpellStack())) {
-                    List<SpellModifier> mods = SpellUtils.getModifiersForStage(getSpellStack(), -1);
-                    for (SpellModifier mod : mods) {
-                        if (mod instanceof Color) {
-                            color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, getSpellStack().getTag());
+                if (getSpellStack() != null){
+                    if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, getSpellStack())){
+                        List<SpellModifier> mods = SpellUtils.getModifiersForStage(getSpellStack(), -1);
+                        for (SpellModifier mod : mods){
+                            if (mod instanceof Color){
+                                color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, getSpellStack().getTagCompound());
+                            }
                         }
                     }
                 }
 
-                /*for (float i = 0; i < Math.abs(motionY); i += 0.1f){
-                    AMParticle star = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "ember", posX + motionX * i, posY + motionY * i, posZ + motionZ * i);
+                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f){
+                    AMParticle star = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "ember", posX + getMotion().x * i, posY + getMotion().y * i, posZ + getMotion().z * i);
                     if (star != null){
                         star.setMaxAge(22);
                         float clrMod = Minecraft.getMinecraft().theWorld.rand.nextFloat();
@@ -196,57 +198,53 @@ public class ThrownRockEntity extends Entity {
                         star.AddParticleController(new ParticleHoldPosition(star, 20, 1, false));
                         star.AddParticleController(new ParticleChangeSize(star, 0.5f, 0.05f, 20, 1, false));
                     }
-                }*/
+                }
             }
-        }
+        }*/
 
-        Vec3d vec3d = getPositionVec();
-        Vec3d vec3d1 = getPositionVec().add(getMotion());
+        Vec3d vec3d = new Vec3d(posX, posY, posZ);
+        Vec3d vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
         RayTraceResult movingobjectposition = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
-        vec3d = getPositionVec();
-        vec3d1 = getPositionVec().add(getMotion());
-        if (movingobjectposition != null) {
-            vec3d1 = movingobjectposition.getHitVec();
-        }
+        vec3d = new Vec3d(posX, posY, posZ);
+        vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
+        vec3d1 = new Vec3d(movingobjectposition.getHitVec().x, movingobjectposition.getHitVec().y, movingobjectposition.getHitVec().z);
         Entity entity = null;
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().grow(getMotion().x, getMotion().y, getMotion().z).expand(1.0D, 1.0D, 1.0D));
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1.0D, 1.0D, 1.0D));
         double d = 0.0D;
-        for (Entity entity1 : list) {
-            if (!entity1.canBeCollidedWith() || entity1.isEntityEqual(throwingEntity) && ticksExisted < 25) {
+        for (Entity value : list) {
+            if (!value.canBeCollidedWith() || value.isEntityEqual(world.getEntityByID(getDataManager().get(OWNER))) && ticksExisted < 25) {
                 continue;
             }
             float f2 = 0.3F;
-            AxisAlignedBB axisalignedbb = entity1.getBoundingBox().expand(f2, f2, f2);
-            RayTraceResult movingobjectposition1 = null;//axisalignedbb.calculateIntercept(vec3d, vec3d1);
+            AxisAlignedBB axisalignedbb = value.getBoundingBox().expand(f2, f2, f2);
+            RayTraceResult movingobjectposition1 = AxisAlignedBB.rayTrace(Collections.singletonList(axisalignedbb), vec3d, vec3d1, getPosition());
             if (movingobjectposition1 == null) {
                 continue;
             }
             double d1 = vec3d.distanceTo(movingobjectposition1.getHitVec());
             if (d1 < d || d == 0.0D) {
-                entity = entity1;
+                entity = value;
                 d = d1;
             }
         }
 
-        if (entity != null) {
+        if (entity != null){
             movingobjectposition = new EntityRayTraceResult(entity);
         }
-        if (movingobjectposition != null) {
-            hitObject(movingobjectposition);
-        }
+        hitObject(movingobjectposition);
 
         posX += getMotion().x;
         posY += getMotion().y;
         posZ += getMotion().z;
         float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
-        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
-        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+        rotationYaw = (float)((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
+        for (rotationPitch = (float)((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F){
         }
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {
+        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F){
         }
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {
+        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F){
         }
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {
+        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F){
         }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
@@ -265,19 +263,15 @@ public class ThrownRockEntity extends Entity {
             List<LivingEntity> ents = world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12));
             this.posY++;
             for (LivingEntity e : ents) {
-                if (e == throwingEntity) continue;
+                if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
                 if (this.getDistance(e) < 12)
-                    SpellUtils.attackTargetSpecial(null, e, DamageSource.causeIndirectMagicDamage(throwingEntity, this), damage);
+                    SpellUtils.attackTargetSpecial(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
             }
         } else {
-
-            ((EntityRayTraceResult) movingobjectposition).getEntity();
-            if (((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {
-                if (((EntityRayTraceResult) movingobjectposition).getEntity() == throwingEntity || throwingEntity == null)
+            if (movingobjectposition.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {
+                if (((EntityRayTraceResult) movingobjectposition).getEntity() == world.getEntityByID(getDataManager().get(OWNER)) || world.getEntityByID(getDataManager().get(OWNER)) == null)
                     return;
-                if (throwingEntity != null) {
-                    ((EntityRayTraceResult) movingobjectposition).getEntity().attackEntityFrom(DamageSource.causeMobDamage(throwingEntity), 10);
-                }
+                ((EntityRayTraceResult) movingobjectposition).getEntity().attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) world.getEntityByID(getDataManager().get(OWNER))), 10);
             } else if (movingobjectposition.getType() == RayTraceResult.Type.BLOCK) {
                 if (this.getIsMoonstoneMeteor()) {
 
@@ -351,6 +345,6 @@ public class ThrownRockEntity extends Entity {
 
     @Override
     public IPacket<?> createSpawnPacket() {
-        return null;
+        return new SSpawnObjectPacket(this, getDataManager().get(OWNER));
     }
 }

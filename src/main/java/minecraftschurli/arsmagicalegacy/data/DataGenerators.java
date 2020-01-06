@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.*;
 import net.minecraft.data.*;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -15,13 +16,20 @@ public class DataGenerators {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
+        DataGenerator gen = event.getGenerator();
+        ExistingFileHelper helper = event.getExistingFileHelper();
+
         if (event.includeServer()) {
-            generator.addProvider(new AMLItemTagsProvider(generator));
-            generator.addProvider(new AMLBlockTagsProvider(generator));
-            generator.addProvider(new AMLFluidTagsProvider(generator));
-            generator.addProvider(new AMLRecipeProvider(generator));
-            generator.addProvider(new AMLBlockLootTableProvider(generator));
+            gen.addProvider(new AMLRecipeProvider(gen));
+            gen.addProvider(new AMLBlockLootTableProvider(gen));
+            gen.addProvider(new AMLItemTagsProvider(gen));
+            gen.addProvider(new AMLBlockTagsProvider(gen));
+            gen.addProvider(new AMLFluidTagsProvider(gen));
+        }
+        if (event.includeClient()) {
+            gen.addProvider(new AMLLanguageProvider(gen));
+            gen.addProvider(new AMLBlockStateProvider(gen, helper));
+            gen.addProvider(new AMLItemModelProvider(gen, helper));
         }
     }
 }

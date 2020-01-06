@@ -2,14 +2,17 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import com.mojang.brigadier.*;
 import com.mojang.brigadier.exceptions.*;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
 import net.minecraft.client.particle.*;
 import net.minecraft.network.*;
 import net.minecraft.particles.*;
 import net.minecraft.world.*;
+import org.lwjgl.system.CallbackI;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
-public class SimpleParticle extends SimpleAnimatedParticle implements IParticleData {
+public class SimpleParticle extends SimpleAnimatedParticle {
     private static final Random rand = new Random();
     private float scaleX, scaleY, scaleZ;
     private int maxAge, age;
@@ -112,60 +115,51 @@ public class SimpleParticle extends SimpleAnimatedParticle implements IParticleD
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    @Override
-    public ParticleType<?> getType() {
-        return TYPE;
-    }
 
-    @Override
-    public void write(PacketBuffer buffer) {
-        buffer.writeDouble(posX);
-        buffer.writeDouble(posY);
-        buffer.writeDouble(posZ);
-        buffer.writeFloat(width);
-        buffer.writeFloat(height);
-    }
-
-    @Override
-    public String getParameters() {
-        return null;
-    }
-
-    public static class SimpleParticleType extends ParticleType<SimpleParticle> {
+    public static class SimpleParticleType extends ParticleType<SimpleParticleType> implements IParticleData {
         public SimpleParticleType() {
             super(false, SimpleParticle.DESERIALIZER);
         }
+
+        @Override
+        public ParticleType<?> getType() {
+            return this;
+        }
+
+        @Override
+        public void write(PacketBuffer buffer) {
+
+        }
+
+        @Override
+        public String getParameters() {
+            return getRegistryName().toString();
+        }
     }
 
-    public static final SimpleParticleType TYPE = new SimpleParticleType();
+    public static class Factory implements IParticleFactory<SimpleParticleType> {
+        private final IAnimatedSprite spriteSet;
 
-    public static class Factory implements ParticleManager.IParticleMetaFactory<SimpleParticle> {
-        private IAnimatedSprite sprite;
-        public Factory(IAnimatedSprite sprites) {
-            sprite = sprites;
+        public Factory(IAnimatedSprite p_i50607_1_) {
+            this.spriteSet = p_i50607_1_;
         }
 
+        @Nullable
         @Override
-        public IParticleFactory<SimpleParticle> create(IAnimatedSprite p_create_1_) {
-            return new SimpleParticle(sprite);
+        public Particle makeParticle(SimpleParticleType typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new SimpleParticle(worldIn, x, y, z, spriteSet);
         }
     }
 
-    public static final IDeserializer<SimpleParticle> DESERIALIZER = new IDeserializer<SimpleParticle>() {
+    public static final IParticleData.IDeserializer<SimpleParticleType> DESERIALIZER = new IParticleData.IDeserializer<SimpleParticleType>() {
         @Override
-        public SimpleParticle deserialize(ParticleType particleTypeIn, StringReader reader) throws CommandSyntaxException {
-            double x = reader.readDouble();
-            reader.expect(' ');
-            double y = reader.readDouble();
-            reader.expect(' ');
-            double z = reader.readDouble();
-            reader.expect(' ');
-            return new SimpleParticle(null, x, y, z, null);
+        public SimpleParticleType deserialize(ParticleType particleTypeIn, StringReader reader) {
+            return (SimpleParticleType) particleTypeIn;
         }
 
         @Override
-        public SimpleParticle read(ParticleType particleTypeIn, PacketBuffer buffer) {
-            return new SimpleParticle(null, buffer.readDouble(), buffer.readDouble(), buffer.readDouble(), particleTypeIn);
+        public SimpleParticleType read(ParticleType particleTypeIn, PacketBuffer buffer) {
+            return (SimpleParticleType) particleTypeIn;
         }
     };
 

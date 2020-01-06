@@ -43,7 +43,7 @@ public class SkillPoint {
     }
 
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("skillpoint." + tier);
+        return new TranslationTextComponent(getTranslationKey());
     }
 
     @Override
@@ -62,5 +62,9 @@ public class SkillPoint {
     public SkillPoint disableRender() {
         render = false;
         return this;
+    }
+
+    public String getTranslationKey() {
+        return "skillpoint." + getTier();
     }
 }
