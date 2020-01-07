@@ -72,7 +72,7 @@ public class Structure {
             return true;
         if (block.has(BlockStateProperties.HORIZONTAL_FACING)) {
             return world.getBlockState(pos).equals(block.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex((block.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex()))));
-        } else if (block.getBlock() instanceof AirBlock){
+        } else if (block.getBlock() instanceof AirBlock) {
             return world.getBlockState(pos).isAir(world, pos);
         } else {
             return block.equals(world.getBlockState(pos));

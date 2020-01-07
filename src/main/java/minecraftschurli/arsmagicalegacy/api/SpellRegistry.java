@@ -2,10 +2,9 @@ package minecraftschurli.arsmagicalegacy.api;
 
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.util.*;
 import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 
 import java.util.*;

@@ -8,7 +8,7 @@ import com.mojang.brigadier.suggestion.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.*;

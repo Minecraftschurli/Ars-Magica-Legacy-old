@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
@@ -10,7 +8,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.datasync.*;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
+import net.minecraft.network.play.server.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
@@ -123,7 +121,7 @@ public class ThrownRockEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.target != null && this.posY > this.target.y){
+        if (this.target != null && this.posY > this.target.y) {
             double deltaX = this.posX - target.x;
             double deltaY = this.posY - target.y;
             double deltaZ = this.posZ - target.z;
@@ -137,21 +135,21 @@ public class ThrownRockEntity extends Entity {
             setMotion(-Math.cos(angle) * 0.2, -Math.sin(angle) * 0.2, -Math.sin(vAngle) * 2.5);
         }
 
-        if (!getIsMoonstoneMeteor() && !getIsShootingStar()){
-            if (!world.isRemote && (world.getEntityByID(getDataManager().get(OWNER)) == null || !world.getEntityByID(getDataManager().get(OWNER)).isAlive())){
+        if (!getIsMoonstoneMeteor() && !getIsShootingStar()) {
+            if (!world.isRemote && (world.getEntityByID(getDataManager().get(OWNER)) == null || !world.getEntityByID(getDataManager().get(OWNER)).isAlive())) {
                 remove();
-            }else{
+            } else {
                 ticksExisted++;
                 int maxTicksToLive = maxTicksToExist > -1 ? maxTicksToExist : 100;
-                if (ticksExisted >= maxTicksToLive && !world.isRemote){
+                if (ticksExisted >= maxTicksToLive && !world.isRemote) {
                     remove();
                     return;
                 }
             }
         }
 
-        if (getIsShootingStar()){
-            setMotion(getMotion().add(0,-0.1f,0));
+        if (getIsShootingStar()) {
+            setMotion(getMotion().add(0, -0.1f, 0));
             if (getMotion().y < -2f)
                 setMotion(getMotion().x, -2f, getMotion().z);
         }
@@ -228,7 +226,7 @@ public class ThrownRockEntity extends Entity {
             }
         }
 
-        if (entity != null){
+        if (entity != null) {
             movingobjectposition = new EntityRayTraceResult(entity);
         }
         hitObject(movingobjectposition);
@@ -237,14 +235,14 @@ public class ThrownRockEntity extends Entity {
         posY += getMotion().y;
         posZ += getMotion().z;
         float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
-        rotationYaw = (float)((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
-        for (rotationPitch = (float)((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F){
+        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
+        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
         }
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F){
+        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {
         }
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F){
+        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {
         }
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F){
+        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {
         }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;

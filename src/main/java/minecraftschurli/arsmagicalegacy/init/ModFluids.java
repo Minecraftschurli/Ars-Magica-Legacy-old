@@ -24,6 +24,10 @@ public final class ModFluids implements IInit {
             .doesNotBlockMovement()
             .hardnessAndResistance(100.0F)
             .noDrops();
+    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE = FLUIDS.register(
+            "liquid_essence",
+            LiquidEssenceFluid.Source::new
+    );
     public static final RegistryObject<FlowingFluidBlock> LIQUID_ESSENCE_BLOCK = BLOCKS.register(
             "liquid_essence_block",
             () -> new FlowingFluidBlock(ModFluids.LIQUID_ESSENCE, FLUID_BLOCK_PROPERTIES)
@@ -31,6 +35,10 @@ public final class ModFluids implements IInit {
     public static final RegistryObject<Item> LIQUID_ESSENCE_BUCKET = ITEMS.register(
             "liquid_essence_bucket",
             () -> new BucketItem(ModFluids.LIQUID_ESSENCE, BUCKET_PROPERTIES)
+    );
+    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE_FLOWING = FLUIDS.register(
+            "liquid_essence_flowing",
+            LiquidEssenceFluid.Flowing::new
     );
     public static final ForgeFlowingFluid.Properties LIQUID_ESSENCE_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluids.LIQUID_ESSENCE,
@@ -44,14 +52,6 @@ public final class ModFluids implements IInit {
     )
             .bucket(ModFluids.LIQUID_ESSENCE_BUCKET)
             .block(LIQUID_ESSENCE_BLOCK);
-    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE = FLUIDS.register(
-            "liquid_essence",
-            LiquidEssenceFluid.Source::new
-    );
-    public static final RegistryObject<FlowingFluid> LIQUID_ESSENCE_FLOWING = FLUIDS.register(
-            "liquid_essence_flowing",
-            LiquidEssenceFluid.Flowing::new
-    );
 
     //TODO remove java.awt.Color
     public static void register() {

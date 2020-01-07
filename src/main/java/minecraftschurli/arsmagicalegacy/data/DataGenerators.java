@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.*;
 import net.minecraft.data.*;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;

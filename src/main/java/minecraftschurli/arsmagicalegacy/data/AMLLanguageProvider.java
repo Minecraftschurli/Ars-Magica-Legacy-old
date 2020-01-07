@@ -1,14 +1,9 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaLanguageProvider;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.component.Moonrise;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraft.data.*;
 
 /**
  * @author Minecraftschurli

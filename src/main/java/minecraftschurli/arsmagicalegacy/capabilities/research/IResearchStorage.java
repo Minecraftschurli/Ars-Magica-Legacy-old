@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.capabilities.research;
 
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.util.*;
 
 import javax.annotation.*;

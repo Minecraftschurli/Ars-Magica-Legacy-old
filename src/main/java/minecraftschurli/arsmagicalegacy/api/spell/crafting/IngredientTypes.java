@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.nbt.*;
 
 import java.util.*;

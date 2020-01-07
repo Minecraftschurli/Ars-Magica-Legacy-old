@@ -17,8 +17,29 @@ import java.util.*;
  * @version 2019-12-30
  */
 public class Config {
+    public static final Common COMMON;
+    static final ForgeConfigSpec commonSpec;
+
+    static {
+        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        commonSpec = specPair.getRight();
+        COMMON = specPair.getLeft();
+    }
+
+    static void reload(ModConfig.ModConfigEvent event) {
+        switch (event.getConfig().getType()) {
+            case CLIENT:
+                break;
+            case COMMON:
+                COMMON.parse();
+                break;
+            case SERVER:
+                break;
+        }
+    }
+
     public static class Common {
-        public static final String PREFIX = ArsMagicaLegacy.MODID+".config.";
+        public static final String PREFIX = ArsMagicaLegacy.MODID + ".config.";
         private static final String SPLIT_CHAR = "|";
         private static final String SPLIT_REGEX = "\\|";
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_MAIN_MAP;
@@ -29,12 +50,12 @@ public class Config {
             builder.push("common");
             CRAFTING_ALTAR_MAIN_MAP = builder
                     .comment("The blocks usable for the main body of the crafting altar structure")
-                    .translation(PREFIX+"main")
+                    .translation(PREFIX + "main")
                     .worldRestart()
                     .defineList("main", this::getMainDefault, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
             CRAFTING_ALTAR_CAPS_MAP = builder
                     .comment("The blocks usable for the caps of the crafting altar structure")
-                    .translation(PREFIX+"caps")
+                    .translation(PREFIX + "caps")
                     .worldRestart()
                     .defineList("caps", this::getCapsDefault, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
             builder.pop();
@@ -100,7 +121,8 @@ public class Config {
                     if (block == null)
                         return;
                     CraftingAltarStructureMaterials.addCapMaterial(block, Integer.parseInt(strings[1]));
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             });
             CRAFTING_ALTAR_MAIN_MAP.get().stream().map(s -> s.split(SPLIT_REGEX)).filter(strings -> strings.length == 3).forEach(strings -> {
                 try {
@@ -113,28 +135,9 @@ public class Config {
                     if (block == null || stair == null)
                         return;
                     CraftingAltarStructureMaterials.addMainMaterial(block, stair, Integer.parseInt(strings[2]));
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             });
-        }
-    }
-
-    static final ForgeConfigSpec commonSpec;
-    public static final Common COMMON;
-    static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        commonSpec = specPair.getRight();
-        COMMON = specPair.getLeft();
-    }
-
-    static void reload(ModConfig.ModConfigEvent event) {
-        switch (event.getConfig().getType()) {
-            case CLIENT:
-                break;
-            case COMMON:
-                COMMON.parse();
-                break;
-            case SERVER:
-                break;
         }
     }
 }

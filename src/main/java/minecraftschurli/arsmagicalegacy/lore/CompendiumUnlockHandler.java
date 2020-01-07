@@ -23,6 +23,23 @@ package minecraftschurli.arsmagicalegacy.lore;
  * @param event
  * <p>
  * This is another genericized method, which attempts to unlock any entry for something the player crafts
+ * <p>
+ * This is a catch all method - it's genericized to attempt to unlock a compendium entry for anything AM2 based that the player picks up
+ * @param event
+ * <p>
+ * Any magic level based unlocks should go in here
+ * @param event
+ * <p>
+ * This should handle all mobs and the Astral Barrier
+ * @param event
+ * <p>
+ * Any skill-based unlocks should go in here
+ * @param event
+ * <p>
+ * Any spell-based unlocks should go here (eg, low mana based unlocks, affinity, etc.)
+ * @param event
+ * <p>
+ * This is another genericized method, which attempts to unlock any entry for something the player crafts
  */
 /*public class CompendiumUnlockHandler{
  *//**

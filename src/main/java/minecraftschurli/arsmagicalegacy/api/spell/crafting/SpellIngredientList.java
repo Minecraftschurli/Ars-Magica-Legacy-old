@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.nbt.*;
 import net.minecraft.util.text.*;
 import net.minecraftforge.common.util.*;
@@ -85,7 +84,7 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
     }
 
     public List<ITextComponent> getTooltip() {
-        return (computed?this:compute()).stream().map(ISpellIngredient::getTooltip).collect(Collectors.toList());
+        return (computed ? this : compute()).stream().map(ISpellIngredient::getTooltip).collect(Collectors.toList());
     }
 
     private ISpellIngredient combine(ISpellIngredient ingredient1, ISpellIngredient ingredient2) {
