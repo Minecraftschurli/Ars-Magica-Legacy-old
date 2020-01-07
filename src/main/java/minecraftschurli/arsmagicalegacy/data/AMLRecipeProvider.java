@@ -32,48 +32,12 @@ public class AMLRecipeProvider extends RecipeProvider {
         RecipeHelper.addLargeDecompressRecipe(ModItems.VINTEUM.get(), ModTags.Items.STORAGE_BLOCKS_VINTEUM).build(consumer);
         RecipeHelper.addSlabRecipe(ModItems.WITCHWOOD_SLAB.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
         RecipeHelper.addStairRecipe(ModItems.WITCHWOOD_STAIRS.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        ShapedRecipeBuilder
-                .shapedRecipe(ModItems.WITCHWOOD_DOOR.get(), 3)
-                .patternLine("XX")
-                .patternLine("XX")
-                .patternLine("XX")
-                .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.WITCHWOOD_PLANKS.get()).build()))
-                .build(consumer);
-        ShapedRecipeBuilder
-                .shapedRecipe(ModItems.WITCHWOOD_TRAPDOOR.get(), 2)
-                .patternLine("XXX")
-                .patternLine("XXX")
-                .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.WITCHWOOD_PLANKS.get()).build()))
-                .build(consumer);
-        ShapedRecipeBuilder
-                .shapedRecipe(ModItems.WITCHWOOD_FENCE.get(), 3)
-                .patternLine("XSX")
-                .patternLine("XSX")
-                .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .key('S', Items.STICK)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.WITCHWOOD_PLANKS.get()).build()))
-                .build(consumer);
-        ShapedRecipeBuilder
-                .shapedRecipe(ModItems.WITCHWOOD_FENCE_GATE.get(), 3)
-                .patternLine("SXS")
-                .patternLine("SXS")
-                .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .key('S', Items.STICK)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.WITCHWOOD_PLANKS.get()).build()))
-                .build(consumer);
-        ShapedRecipeBuilder
-                .shapedRecipe(ModItems.WITCHWOOD_PRESSURE_PLATE.get())
-                .patternLine("XX")
-                .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.WITCHWOOD_PLANKS.get()).build()))
-                .build(consumer);
-        ShapelessRecipeBuilder
-                .shapelessRecipe(ModItems.WITCHWOOD_BUTTON.get())
-                .addIngredient(ModItems.WITCHWOOD_PLANKS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.WITCHWOOD_PLANKS.get()).build()))
-                .build(consumer);
+        RecipeHelper.addDoorRecipe(ModItems.WITCHWOOD_DOOR.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
+        RecipeHelper.addTrapdoorRecipe(ModItems.WITCHWOOD_TRAPDOOR.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
+        RecipeHelper.addFenceRecipe(ModItems.WITCHWOOD_FENCE.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
+        RecipeHelper.addFenceGateRecipe(ModItems.WITCHWOOD_FENCE_GATE.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
+        RecipeHelper.addPressurePlateRecipe(ModItems.WITCHWOOD_PRESSURE_PLATE.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
+        RecipeHelper.addButtonRecipe(ModItems.WITCHWOOD_BUTTON.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
         RecipeHelper.addSmallDecompressRecipe(ModItems.WITCHWOOD_PLANKS.get(), ModTags.Items.LOGS_WITCHWOOD).build(consumer);
         ShapedRecipeBuilder
                 .shapedRecipe(ModItems.ALTAR_CORE.get())

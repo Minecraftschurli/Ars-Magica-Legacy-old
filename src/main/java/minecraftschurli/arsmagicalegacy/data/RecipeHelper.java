@@ -110,6 +110,114 @@ public final class RecipeHelper {
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
     }
 
+    public static ShapedRecipeBuilder addDoorRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 3)
+                .patternLine("XX")
+                .patternLine("XX")
+                .patternLine("XX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addDoorRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 3)
+                .patternLine("XX")
+                .patternLine("XX")
+                .patternLine("XX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addTrapdoorRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 2)
+                .patternLine("XXX")
+                .patternLine("XXX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addTrapdoorRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 2)
+                .patternLine("XXX")
+                .patternLine("XXX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 3)
+                .patternLine("XSX")
+                .patternLine("XSX")
+                .key('X', item2)
+                .key('S', Items.STICK)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1, 3)
+                .patternLine("XSX")
+                .patternLine("XSX")
+                .key('X', item2)
+                .key('S', Items.STICK)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceGateRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1)
+                .patternLine("SXS")
+                .patternLine("SXS")
+                .key('X', item2)
+                .key('S', Items.STICK)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceGateRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1)
+                .patternLine("SXS")
+                .patternLine("SXS")
+                .key('X', item2)
+                .key('S', Items.STICK)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addPressurePlateRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1)
+                .patternLine("XX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addPressurePlateRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder
+                .shapedRecipe(item1)
+                .patternLine("XX")
+                .key('X', item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addButtonRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapelessRecipeBuilder
+                .shapelessRecipe(item1)
+                .addIngredient(item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addButtonRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapelessRecipeBuilder
+                .shapelessRecipe(item1)
+                .addIngredient(item2)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
     public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp) {
         return addSmeltingRecipe(output, input, exp, 200);
     }
