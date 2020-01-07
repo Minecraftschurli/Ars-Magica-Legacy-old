@@ -8,7 +8,6 @@ import net.minecraft.client.particle.*;
 import net.minecraft.network.*;
 import net.minecraft.particles.*;
 import net.minecraft.world.*;
-import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -138,20 +137,7 @@ public class SimpleParticle extends SimpleAnimatedParticle {
         }
     }
 
-    public static class Factory implements IParticleFactory<SimpleParticleType> {
-        private final IAnimatedSprite spriteSet;
-
-        public Factory(IAnimatedSprite p_i50607_1_) {
-            this.spriteSet = p_i50607_1_;
-        }
-
-        @Nullable
-        @Override
-        public Particle makeParticle(SimpleParticleType typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new SimpleParticle(worldIn, x, y, z, spriteSet);
-        }
-    }
-
+    public static final ParticleManager.IParticleMetaFactory<SimpleParticleType> FACTORY = (sprite) -> (typeIn, world, x, y, z, xSpeed, ySpeed, zSpeed) -> new SimpleParticle(world, x, y, z, sprite);
     public static final IParticleData.IDeserializer<SimpleParticleType> DESERIALIZER = new IParticleData.IDeserializer<SimpleParticleType>() {
         @Override
         public SimpleParticleType deserialize(ParticleType particleTypeIn, StringReader reader) {
