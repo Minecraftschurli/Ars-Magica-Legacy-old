@@ -265,6 +265,8 @@ public class AMLGermanLanguageProvider extends ArsMagicaLanguageProvider {
         add(ModSpellParts.SKILL_POINT_2, "Rot");
         add(ModSpellParts.SKILL_POINT_3, "Grün");
 
+        add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
+
         add("arsmagicalegacy.gui.inscriptiontable.search", "Suchen");
         add("arsmagicalegacy.occulus.prevent", "Mythische Kräfte hindern dich am Benutzen dieses Konstrukts!");
     }
