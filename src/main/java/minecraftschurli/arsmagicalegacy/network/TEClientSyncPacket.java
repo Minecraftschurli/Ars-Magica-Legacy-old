@@ -1,16 +1,13 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarTileEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.client.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.math.*;
+import net.minecraftforge.fml.network.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

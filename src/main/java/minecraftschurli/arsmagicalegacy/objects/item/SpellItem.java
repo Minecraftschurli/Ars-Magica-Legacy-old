@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
@@ -67,11 +66,11 @@ public class SpellItem extends Item {
         return 72000;
     }
 
-    public RayTraceResult getMovingObjectPosition(LivingEntity caster, World world, double range, boolean includeEntities, boolean targetWater){
+    public RayTraceResult getMovingObjectPosition(LivingEntity caster, World world, double range, boolean includeEntities, boolean targetWater) {
         RayTraceResult entityPos = null;
-        if (includeEntities){
+        if (includeEntities) {
             Entity pointedEntity = EntityUtils.getPointedEntity(world, caster, range, 1.0f, false, targetWater);
-            if (pointedEntity != null){
+            if (pointedEntity != null) {
                 entityPos = new EntityRayTraceResult(pointedEntity);
             }
         }
@@ -83,8 +82,8 @@ public class SpellItem extends Item {
         double interpPosY = caster.prevPosY + (caster.posY - caster.prevPosY) * factor + caster.getEyeHeight();
         double interpPosZ = caster.prevPosZ + (caster.posZ - caster.prevPosZ) * factor;
         Vec3d vec3 = new Vec3d(interpPosX, interpPosY, interpPosZ);
-        float offsetYawCos = MathHelper.cos(-interpYaw * 0.017453292F - (float)Math.PI);
-        float offsetYawSin = MathHelper.sin(-interpYaw * 0.017453292F - (float)Math.PI);
+        float offsetYawCos = MathHelper.cos(-interpYaw * 0.017453292F - (float) Math.PI);
+        float offsetYawSin = MathHelper.sin(-interpYaw * 0.017453292F - (float) Math.PI);
         float offsetPitchCos = -MathHelper.cos(-interpPitch * 0.017453292F);
         float offsetPitchSin = MathHelper.sin(-interpPitch * 0.017453292F);
         float finalXOffset = offsetYawSin * offsetPitchCos;
@@ -92,10 +91,10 @@ public class SpellItem extends Item {
         Vec3d targetVector = vec3.add(finalXOffset * range, offsetPitchSin * range, finalZOffset * range);
         RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(vec3, targetVector, RayTraceContext.BlockMode.OUTLINE, targetWater ? RayTraceContext.FluidMode.SOURCE_ONLY : RayTraceContext.FluidMode.NONE, caster));
 
-        if (entityPos != null){
-            if (mop.getHitVec().distanceTo(new EntityRayTraceResult(caster).getHitVec()) < entityPos.getHitVec().distanceTo(new EntityRayTraceResult(caster).getHitVec())){
+        if (entityPos != null) {
+            if (mop.getHitVec().distanceTo(new EntityRayTraceResult(caster).getHitVec()) < entityPos.getHitVec().distanceTo(new EntityRayTraceResult(caster).getHitVec())) {
                 return mop;
-            }else{
+            } else {
                 return entityPos;
             }
         }

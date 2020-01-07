@@ -3,14 +3,14 @@ package minecraftschurli.arsmagicalegacy.api;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
 import net.minecraft.util.*;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.javafmlmod.*;
 import net.minecraftforge.registries.*;
 
 /**

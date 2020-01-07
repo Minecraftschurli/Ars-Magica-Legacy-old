@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
 import net.minecraft.client.util.*;
 import net.minecraft.entity.*;

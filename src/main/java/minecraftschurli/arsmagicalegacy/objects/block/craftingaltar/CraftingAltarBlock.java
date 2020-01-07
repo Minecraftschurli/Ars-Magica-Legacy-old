@@ -1,15 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 
@@ -27,7 +24,7 @@ public class CraftingAltarBlock extends Block {
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player.abilities.isCreativeMode && player.getHeldItem(handIn).getItem() == Items.NETHER_STAR)
-            ((CraftingAltarTileEntity)worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
+            ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
         return true;
     }
 

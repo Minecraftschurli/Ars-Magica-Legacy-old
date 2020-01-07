@@ -1,12 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.block.*;
 
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

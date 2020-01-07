@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.config.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.*;
 import net.minecraftforge.fml.javafmlmod.*;

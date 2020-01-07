@@ -1,13 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.platform.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.tileentity.*;
+import net.minecraft.item.*;
 
 /**
  * @author Minecraftschurli
@@ -26,19 +24,19 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
                 return;
             GlStateManager.pushMatrix();
             //bindTexture(tileEntityIn.getCamouflageRL());
-            GlStateManager.translated(x + 0.5,y + 0.5,z + 0.5);
+            GlStateManager.translated(x + 0.5, y + 0.5, z + 0.5);
             setLightmapDisabled(true);
             GlStateManager.pushMatrix();
-            GlStateManager.scaled(0.55,0.55,0.55);
+            GlStateManager.scaled(0.55, 0.55, 0.55);
             drawNameplate(tileEntityIn, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
             GlStateManager.popMatrix();
             GlStateManager.rotatef(tileEntityIn.itemRotation, 0.0F, 1.0F, 0.0F);
             //GlStateManager.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
-            if (ingredient instanceof ItemStackSpellIngredient){
-                Minecraft.getInstance().getItemRenderer().renderItem(((ItemStackSpellIngredient)ingredient).getStack(), ItemCameraTransforms.TransformType.GROUND);
+            if (ingredient instanceof ItemStackSpellIngredient) {
+                Minecraft.getInstance().getItemRenderer().renderItem(((ItemStackSpellIngredient) ingredient).getStack(), ItemCameraTransforms.TransformType.GROUND);
             } else if (ingredient instanceof ItemTagSpellIngredient) {
-                if (tileEntityIn.itemRotation % 3 == 0){
-                    tileEntityIn.itemCache = ((ItemTagSpellIngredient)ingredient).getTag().getRandomElement(getWorld().rand);
+                if (tileEntityIn.itemRotation % 3 == 0) {
+                    tileEntityIn.itemCache = ((ItemTagSpellIngredient) ingredient).getTag().getRandomElement(getWorld().rand);
                 }
                 Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(tileEntityIn.itemCache), ItemCameraTransforms.TransformType.GROUND);
             }
