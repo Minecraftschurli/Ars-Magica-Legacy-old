@@ -1,11 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import com.mojang.blaze3d.platform.*;
 import com.mojang.brigadier.*;
-import net.minecraft.client.*;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.vertex.*;
 import net.minecraft.network.*;
 import net.minecraft.particles.*;
 import net.minecraft.world.*;
@@ -19,14 +16,12 @@ public class SimpleParticle extends SimpleAnimatedParticle {
     private int maxAge, age;
     public boolean hasGravity;
     public boolean hasMotion;
-    public boolean radiant;
 
     public SimpleParticle(World world, double x, double y, double z, IAnimatedSprite sprite) {
         super(world, x, y, z, sprite, 0);
         scaleX = scaleY = scaleZ = 0.2f;
         hasGravity = false;
         hasMotion = true;
-        radiant = false;
         particleRed = particleGreen = particleBlue = particleAlpha = 1;
         maxAge = 20 + rand.nextInt(20);
         particleGravity = 1;
@@ -185,56 +180,32 @@ public class SimpleParticle extends SimpleAnimatedParticle {
 
     @Override
     public void tick() {
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
-        if (hasGravity) motionY -= 0.04d * particleGravity;
-        move(motionX, motionY, motionZ);
-        if (age++ > maxAge) setExpired();
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
+        if (this.age++ >= this.maxAge) this.setExpired();
+        else {
+            this.selectSpriteWithAge(this.field_217584_C);
+            if (this.age > this.maxAge / 2) this.setAlphaF(1.0F - ((float)this.age - (float)(this.maxAge / 2)) / (float)this.maxAge);
+            this.motionY += this.particleGravity;
+            this.move(this.motionX, this.motionY, this.motionZ);
+            if (this.onGround) {
+                this.motionX *= 0.7F;
+                this.motionZ *= 0.7F;
+            }
+        }
     }
 
     @Override
     public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        if (!world.isRemote) return;
-        if (radiant) {
-            RenderHelper.disableStandardItemLighting();
-            float f0 = (age + partialTicks) / maxAge;
-            float f1 = 0;
-            if (f0 > 0.8f) f1 = (f0 - 0.8f) / 0.2f;
-            Random r = new Random(432);
-            float x = (float)(prevPosX + (posX - prevPosX) * partialTicks - Minecraft.getInstance().player.posX);
-            float y = (float)(prevPosY + (posY - prevPosY) * partialTicks - Minecraft.getInstance().player.posY);
-            float z = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - Minecraft.getInstance().player.posZ);
-            GlStateManager.pushMatrix();
-            GlStateManager.translated(x, y, z);
-            GlStateManager.scaled(scaleX, scaleY, scaleZ);
-            for (int i = 0; i < 50.0F; ++i){
-                GlStateManager.rotated(r.nextFloat() * 360, 1, 0, 0);
-                GlStateManager.rotated(r.nextFloat() * 360, 0, 1, 0);
-                GlStateManager.rotated(r.nextFloat() * 360, 0, 0, 1);
-                GlStateManager.rotated(r.nextFloat() * 360, 1, 0, 0);
-                GlStateManager.rotated(r.nextFloat() * 360, 0, 1, 0);
-                GlStateManager.rotated(r.nextFloat() * 360 + f0 * 90, 0, 0, 1);
-                buffer.begin(6, DefaultVertexFormats.POSITION_COLOR);
-                float f2 = r.nextFloat() * 2 + 2 + f1 * 0.5f;
-                float f3 = r.nextFloat() * 2 + 1 + f1 * 2;
-                buffer.pos(0, 0, 0).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
-                buffer.pos(-0.866 * f3, f2, -0.5f * f3).color(particleRed, particleGreen, particleBlue, 0).endVertex();
-                buffer.pos(0.866 * f3, f2, -0.5f * f3).color(particleRed, particleGreen, particleBlue, 0).endVertex();
-                buffer.pos(0, f2, 1 * f3).color(particleRed, particleGreen, particleBlue, 0).endVertex();
-                buffer.pos(-0.866d * f3, f2, -0.5f * f3).color(particleRed, particleGreen, particleBlue, 0).endVertex();
-                Tessellator.getInstance().draw();
-            }
-            GlStateManager.popMatrix();
-        } else {
-            if (sprite == null) return;
-            float x = (float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
-            float y = (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
-            float z = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
-            buffer.pos(x - rotationX * scaleX - rotationXY * scaleX, y - rotationXZ * scaleY, z - rotationZ * scaleZ - rotationYZ * scaleZ).tex(sprite.getMaxU(), sprite.getMaxV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
-            buffer.pos(x - rotationX * scaleX + rotationXY * scaleX, y + rotationXZ * scaleY, z - rotationZ * scaleZ + rotationYZ * scaleZ).tex(sprite.getMaxU(), sprite.getMinV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
-            buffer.pos(x + rotationX * scaleX + rotationXY * scaleX, y + rotationXZ * scaleY, z + rotationZ * scaleZ + rotationYZ * scaleZ).tex(sprite.getMinU(), sprite.getMinV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
-            buffer.pos(x + rotationX * scaleX - rotationXY * scaleX, y - rotationXZ * scaleY, z + rotationZ * scaleZ - rotationYZ * scaleZ).tex(sprite.getMinU(), sprite.getMaxV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
-        }
+        if(!world.isRemote || sprite == null) return;
+        double x = this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX;
+        double y = this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY;
+        double z = this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ;
+        buffer.pos(x - rotationYZ * scaleX - rotationX * scaleX, y - rotationXZ * scaleY, z - rotationXY * scaleZ - rotationZ * scaleZ).tex(getMaxU(), getMaxV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
+        buffer.pos(x - rotationYZ * scaleX + rotationX * scaleX, y + rotationXZ * scaleY, z - rotationXY * scaleZ + rotationZ * scaleZ).tex(getMaxU(), getMinV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
+        buffer.pos(x + rotationYZ * scaleX + rotationX * scaleX, y + rotationXZ * scaleY, z + rotationXY * scaleZ + rotationZ * scaleZ).tex(getMinU(), getMinV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
+        buffer.pos(x + rotationYZ * scaleX - rotationX * scaleX, y - rotationXZ * scaleY, z + rotationXY * scaleZ - rotationZ * scaleZ).tex(getMinU(), getMaxV()).color(particleRed, particleGreen, particleBlue, particleAlpha).endVertex();
+//        super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 }
