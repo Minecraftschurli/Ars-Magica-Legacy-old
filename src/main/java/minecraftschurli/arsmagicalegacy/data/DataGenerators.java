@@ -27,7 +27,8 @@ public class DataGenerators {
             gen.addProvider(new AMLFluidTagsProvider(gen));
         }
         if (event.includeClient()) {
-            gen.addProvider(new AMLLanguageProvider(gen));
+            gen.addProvider(new AMLEnglishLanguageProvider(gen));
+            //gen.addProvider(new AMLGermanLanguageProvider(gen));
             gen.addProvider(new AMLBlockStateProvider(gen, helper));
             gen.addProvider(new AMLItemModelProvider(gen, helper));
         }

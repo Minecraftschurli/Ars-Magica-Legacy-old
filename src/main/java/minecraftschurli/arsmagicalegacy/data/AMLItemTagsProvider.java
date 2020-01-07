@@ -28,7 +28,13 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
         );
 
         getBuilder(ModTags.Items.DUSTS_VINTEUM).add(ModItems.VINTEUM.get());
-        getBuilder(Tags.Items.DUSTS).add(ModTags.Items.DUSTS_VINTEUM);
+        getBuilder(Tags.Items.DUSTS)
+                .add(
+                        ModTags.Items.DUSTS_VINTEUM
+                ).add(
+                        ModItems.PURIFIED_VINTEUM.get(),
+                        ModItems.ARCANE_ASH.get()
+                );
 
         copy(ModTags.Blocks.ORES_CHIMERITE, ModTags.Items.ORES_CHIMERITE);
         copy(ModTags.Blocks.STORAGE_BLOCKS_CHIMERITE, ModTags.Items.STORAGE_BLOCKS_CHIMERITE);
@@ -54,5 +60,6 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
         copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
         copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
+        copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
     }
 }

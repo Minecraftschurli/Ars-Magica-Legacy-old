@@ -9,8 +9,8 @@ import net.minecraft.data.*;
  * @author Minecraftschurli
  * @version 2020-01-01
  */
-public class AMLLanguageProvider extends ArsMagicaLanguageProvider {
-    public AMLLanguageProvider(DataGenerator gen) {
+public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
+    public AMLEnglishLanguageProvider(DataGenerator gen) {
         super(gen, ArsMagicaLegacy.MODID, "en_us");
     }
 
