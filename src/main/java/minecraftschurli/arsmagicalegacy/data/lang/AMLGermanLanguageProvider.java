@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.data;
+package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.data.*;

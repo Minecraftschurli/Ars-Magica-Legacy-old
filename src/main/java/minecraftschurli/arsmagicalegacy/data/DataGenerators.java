@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.data.lang.*;
 import net.minecraft.data.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.eventbus.api.*;
