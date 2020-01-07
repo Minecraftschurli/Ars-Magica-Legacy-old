@@ -9,7 +9,7 @@ import net.minecraft.command.*;
  * @author Minecraftschurli
  * @version 2019-12-04
  */
-public class ModCommands {
+public final class ModCommands {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralCommandNode<CommandSource> command = dispatcher.register(
                 Commands.literal("arsmagica")

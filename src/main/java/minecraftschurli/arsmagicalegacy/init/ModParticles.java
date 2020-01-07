@@ -8,7 +8,7 @@ import net.minecraftforge.fml.*;
  * @author Minecraftschurli
  * @version 2019-11-28
  */
-public class ModParticles implements IInit {
+public final class ModParticles implements IInit {
     public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> ARCANE = PARTICLE_TYPES.register("arcane", SimpleParticle.SimpleParticleType::new);
     public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> CLOCK = PARTICLE_TYPES.register("clock", SimpleParticle.SimpleParticleType::new);
     public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> EMBER = PARTICLE_TYPES.register("ember", SimpleParticle.SimpleParticleType::new);
