@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
 import net.minecraft.item.*;
@@ -20,25 +21,27 @@ public class AMLRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        RecipeHelper.addLargeCompressRecipe(ModItems.CHIMERITE_BLOCK.get(), ModTags.Items.GEMS_CHIMERITE).build(consumer);
-        RecipeHelper.addLargeCompressRecipe(ModItems.TOPAZ_BLOCK.get(), ModTags.Items.GEMS_TOPAZ).build(consumer);
-        RecipeHelper.addLargeCompressRecipe(ModItems.VINTEUM_BLOCK.get(), ModTags.Items.DUSTS_VINTEUM).build(consumer);
-        RecipeHelper.addLargeCompressRecipe(ModItems.MOONSTONE_BLOCK.get(), ModTags.Items.GEMS_MOONSTONE).build(consumer);
-        RecipeHelper.addLargeCompressRecipe(ModItems.SUNSTONE_BLOCK.get(), ModTags.Items.GEMS_SUNSTONE).build(consumer);
-        RecipeHelper.addLargeDecompressRecipe(ModItems.CHIMERITE.get(), ModTags.Items.STORAGE_BLOCKS_CHIMERITE).build(consumer);
-        RecipeHelper.addLargeDecompressRecipe(ModItems.MOONSTONE.get(), ModTags.Items.STORAGE_BLOCKS_MOONSTONE).build(consumer);
-        RecipeHelper.addLargeDecompressRecipe(ModItems.SUNSTONE.get(), ModTags.Items.STORAGE_BLOCKS_SUNSTONE).build(consumer);
-        RecipeHelper.addLargeDecompressRecipe(ModItems.TOPAZ.get(), ModTags.Items.STORAGE_BLOCKS_TOPAZ).build(consumer);
-        RecipeHelper.addLargeDecompressRecipe(ModItems.VINTEUM.get(), ModTags.Items.STORAGE_BLOCKS_VINTEUM).build(consumer);
-        RecipeHelper.addSlabRecipe(ModItems.WITCHWOOD_SLAB.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addStairRecipe(ModItems.WITCHWOOD_STAIRS.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addDoorRecipe(ModItems.WITCHWOOD_DOOR.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addTrapdoorRecipe(ModItems.WITCHWOOD_TRAPDOOR.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addFenceRecipe(ModItems.WITCHWOOD_FENCE.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addFenceGateRecipe(ModItems.WITCHWOOD_FENCE_GATE.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addPressurePlateRecipe(ModItems.WITCHWOOD_PRESSURE_PLATE.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addButtonRecipe(ModItems.WITCHWOOD_BUTTON.get(), ModItems.WITCHWOOD_PLANKS.get()).build(consumer);
-        RecipeHelper.addSmallDecompressRecipe(ModItems.WITCHWOOD_PLANKS.get(), ModTags.Items.LOGS_WITCHWOOD).build(consumer);
+        RecipeUtils.addLargeCompressRecipe(consumer, ModItems.CHIMERITE_BLOCK.get(), ModTags.Items.GEMS_CHIMERITE);
+        RecipeUtils.addLargeCompressRecipe(consumer, ModItems.TOPAZ_BLOCK.get(), ModTags.Items.GEMS_TOPAZ);
+        RecipeUtils.addLargeCompressRecipe(consumer, ModItems.VINTEUM_BLOCK.get(), ModTags.Items.DUSTS_VINTEUM);
+        RecipeUtils.addLargeCompressRecipe(consumer, ModItems.MOONSTONE_BLOCK.get(), ModTags.Items.GEMS_MOONSTONE);
+        RecipeUtils.addLargeCompressRecipe(consumer, ModItems.SUNSTONE_BLOCK.get(), ModTags.Items.GEMS_SUNSTONE);
+        RecipeUtils.addLargeDecompressRecipe(consumer, ModItems.CHIMERITE.get(), ModTags.Items.STORAGE_BLOCKS_CHIMERITE);
+        RecipeUtils.addLargeDecompressRecipe(consumer, ModItems.MOONSTONE.get(), ModTags.Items.STORAGE_BLOCKS_MOONSTONE);
+        RecipeUtils.addLargeDecompressRecipe(consumer, ModItems.SUNSTONE.get(), ModTags.Items.STORAGE_BLOCKS_SUNSTONE);
+        RecipeUtils.addLargeDecompressRecipe(consumer, ModItems.TOPAZ.get(), ModTags.Items.STORAGE_BLOCKS_TOPAZ);
+        RecipeUtils.addLargeDecompressRecipe(consumer, ModItems.VINTEUM.get(), ModTags.Items.STORAGE_BLOCKS_VINTEUM);
+        RecipeUtils.addSlabRecipe(consumer, ModItems.WITCHWOOD_SLAB.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addStairRecipe(consumer, ModItems.WITCHWOOD_STAIRS.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addDoorRecipe(consumer, ModItems.WITCHWOOD_DOOR.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addTrapdoorRecipe(consumer, ModItems.WITCHWOOD_TRAPDOOR.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addFenceRecipe(consumer, ModItems.WITCHWOOD_FENCE.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addFenceGateRecipe(consumer, ModItems.WITCHWOOD_FENCE_GATE.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addPressurePlateRecipe(consumer, ModItems.WITCHWOOD_PRESSURE_PLATE.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addButtonRecipe(consumer, ModItems.WITCHWOOD_BUTTON.get(), ModItems.WITCHWOOD_PLANKS.get());
+        RecipeUtils.addSmallDecompressRecipe(consumer, ModItems.WITCHWOOD_PLANKS.get(), ModTags.Items.LOGS_WITCHWOOD);
+        RecipeUtils.addBlastingRecipe(consumer, ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
+        RecipeUtils.addSmeltingRecipe(consumer, ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
         ShapedRecipeBuilder
                 .shapedRecipe(ModItems.ALTAR_CORE.get())
                 .patternLine("V")
@@ -228,12 +231,12 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .patternLine("P")
                 .patternLine("W")
                 .patternLine("S")
-                .key('P', ModItems.WITCHWOOD_PLANKS.get())
-                .key('W', ModItems.WITCHWOOD_SLAB.get())
+                .key('P', ItemTags.PLANKS)
+                .key('W', ItemTags.WOODEN_SLABS)
                 .key('S', Items.STICK)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.STICK))
                 .build(consumer);
-        RecipeHelper.addBlastingRecipe(ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
+        RecipeUtils.addBlastingRecipe(consumer, ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
         ShapedRecipeBuilder.shapedRecipe(ModItems.LESSER_FOCUS.get())
                 .patternLine(" N ")
                 .patternLine("NGN")
