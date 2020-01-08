@@ -6,6 +6,7 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.*;
 
 import java.util.function.*;
 
@@ -172,5 +173,85 @@ public final class RecipeUtils {
 
     public static void addCampfireRecipe(Consumer<IFinishedRecipe> c, IItemProvider output, Tag<Item> input, float exp, int time) {
         CookingRecipeBuilder.cookingRecipe(Ingredient.fromTag(input), output, exp, time, IRecipeSerializer.CAMPFIRE_COOKING).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build())).build(c);
+    }
+
+    public static class ShapedRecipeHelper extends ShapedRecipeBuilder {
+        private boolean b;
+        private Consumer<IFinishedRecipe> c;
+        private ShapedRecipeHelper(Consumer<IFinishedRecipe> consumer, IItemProvider result, int count) {
+            super(result, count);
+            b = true;
+            c = consumer;
+        }
+
+        public static ShapedRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result, int count) {
+            return new ShapedRecipeHelper(consumer, result.get(), count);
+        }
+
+        public static ShapedRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result) {
+            return new ShapedRecipeHelper(consumer, result.get(), 1);
+        }
+
+        public ShapedRecipeHelper key(char c, Tag<Item> t) {
+            super.key(c, t);
+            if(b) {
+                addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(t).build()));
+                b = false;
+            }
+            return this;
+        }
+
+        public ShapedRecipeHelper key(char c, RegistryObject<Item> i) {
+            super.key(c, i.get());
+            if(b) {
+                addCriterion("item", InventoryChangeTrigger.Instance.forItems(i.get()));
+                b = false;
+            }
+            return this;
+        }
+
+        public void build() {
+            super.build(c);
+        }
+    }
+
+    public static class ShapelessRecipeHelper extends ShapelessRecipeBuilder {
+        private boolean b;
+        private Consumer<IFinishedRecipe> c;
+        private ShapelessRecipeHelper(Consumer<IFinishedRecipe> consumer, IItemProvider result, int count) {
+            super(result, count);
+            b = true;
+            c = consumer;
+        }
+
+        public static ShapelessRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result, int count) {
+            return new ShapelessRecipeHelper(consumer, result.get(), count);
+        }
+
+        public static ShapelessRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result) {
+            return new ShapelessRecipeHelper(consumer, result.get(), 1);
+        }
+
+        public ShapelessRecipeHelper add(char c, Tag<Item> t) {
+            super.addIngredient(t);
+            if(b) {
+                addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(t).build()));
+                b = false;
+            }
+            return this;
+        }
+
+        public ShapelessRecipeHelper add(char c, RegistryObject<Item> i) {
+            super.addIngredient(i.get());
+            if(b) {
+                addCriterion("item", InventoryChangeTrigger.Instance.forItems(i.get()));
+                b = false;
+            }
+            return this;
+        }
+
+        public void build() {
+            super.build(c);
+        }
     }
 }
