@@ -6,7 +6,6 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
-import net.minecraftforge.fml.*;
 
 import java.util.function.*;
 
@@ -184,12 +183,17 @@ public final class RecipeUtils {
             c = consumer;
         }
 
-        public static ShapedRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result, int count) {
-            return new ShapedRecipeHelper(consumer, result.get(), count);
+        public static ShapedRecipeHelper make(Consumer<IFinishedRecipe> consumer, IItemProvider result, int count) {
+            return new ShapedRecipeHelper(consumer, result, count);
         }
 
-        public static ShapedRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result) {
-            return new ShapedRecipeHelper(consumer, result.get(), 1);
+        public static ShapedRecipeHelper make(Consumer<IFinishedRecipe> consumer, IItemProvider result) {
+            return new ShapedRecipeHelper(consumer, result, 1);
+        }
+
+        public ShapedRecipeHelper line(String s) {
+            super.patternLine(s);
+            return this;
         }
 
         public ShapedRecipeHelper key(char c, Tag<Item> t) {
@@ -201,10 +205,10 @@ public final class RecipeUtils {
             return this;
         }
 
-        public ShapedRecipeHelper key(char c, RegistryObject<Item> i) {
-            super.key(c, i.get());
+        public ShapedRecipeHelper key(char c, IItemProvider i) {
+            super.key(c, i);
             if(b) {
-                addCriterion("item", InventoryChangeTrigger.Instance.forItems(i.get()));
+                addCriterion("item", InventoryChangeTrigger.Instance.forItems(i));
                 b = false;
             }
             return this;
@@ -224,15 +228,15 @@ public final class RecipeUtils {
             c = consumer;
         }
 
-        public static ShapelessRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result, int count) {
-            return new ShapelessRecipeHelper(consumer, result.get(), count);
+        public static ShapelessRecipeHelper make(Consumer<IFinishedRecipe> consumer, IItemProvider result, int count) {
+            return new ShapelessRecipeHelper(consumer, result, count);
         }
 
-        public static ShapelessRecipeHelper make(Consumer<IFinishedRecipe> consumer, RegistryObject<Item> result) {
-            return new ShapelessRecipeHelper(consumer, result.get(), 1);
+        public static ShapelessRecipeHelper make(Consumer<IFinishedRecipe> consumer, IItemProvider result) {
+            return new ShapelessRecipeHelper(consumer, result, 1);
         }
 
-        public ShapelessRecipeHelper add(char c, Tag<Item> t) {
+        public ShapelessRecipeHelper add(Tag<Item> t) {
             super.addIngredient(t);
             if(b) {
                 addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(t).build()));
@@ -241,10 +245,10 @@ public final class RecipeUtils {
             return this;
         }
 
-        public ShapelessRecipeHelper add(char c, RegistryObject<Item> i) {
-            super.addIngredient(i.get());
+        public ShapelessRecipeHelper add(IItemProvider i) {
+            super.addIngredient(i);
             if(b) {
-                addCriterion("item", InventoryChangeTrigger.Instance.forItems(i.get()));
+                addCriterion("item", InventoryChangeTrigger.Instance.forItems(i));
                 b = false;
             }
             return this;
