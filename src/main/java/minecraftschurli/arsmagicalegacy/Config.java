@@ -17,13 +17,24 @@ import java.util.*;
  * @version 2019-12-30
  */
 public class Config {
+    public static final String PREFIX = ArsMagicaLegacy.MODID + ".config.";
+    private static final String SPLIT_CHAR = "|";
+    private static final String SPLIT_REGEX = "\\|";
+
+    public static final Server SERVER;
+    static final ForgeConfigSpec serverSpec;
+
     public static final Common COMMON;
     static final ForgeConfigSpec commonSpec;
 
     static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        commonSpec = specPair.getRight();
-        COMMON = specPair.getLeft();
+        final Pair<Common, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        commonSpec = commonPair.getRight();
+        COMMON = commonPair.getLeft();
+
+        final Pair<Server, ForgeConfigSpec> serverPair = new ForgeConfigSpec.Builder().configure(Server::new);
+        serverSpec = serverPair.getRight();
+        SERVER = serverPair.getLeft();
     }
 
     static void reload(ModConfig.ModConfigEvent event) {
@@ -39,9 +50,6 @@ public class Config {
     }
 
     public static class Common {
-        public static final String PREFIX = ArsMagicaLegacy.MODID + ".config.";
-        private static final String SPLIT_CHAR = "|";
-        private static final String SPLIT_REGEX = "\\|";
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_MAIN_MAP;
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_CAPS_MAP;
 
@@ -50,12 +58,12 @@ public class Config {
             builder.push("common");
             CRAFTING_ALTAR_MAIN_MAP = builder
                     .comment("The blocks usable for the main body of the crafting altar structure")
-                    .translation(PREFIX + "main")
+                    .translation(PREFIX + "altarstructure.main")
                     .worldRestart()
                     .defineList("main", this::getMainDefault, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
             CRAFTING_ALTAR_CAPS_MAP = builder
                     .comment("The blocks usable for the caps of the crafting altar structure")
-                    .translation(PREFIX + "caps")
+                    .translation(PREFIX + "altarstructure.caps")
                     .worldRestart()
                     .defineList("caps", this::getCapsDefault, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
             builder.pop();
@@ -138,6 +146,26 @@ public class Config {
                 } catch (Exception ignored) {
                 }
             });
+        }
+    }
+
+    public static class Server {
+        public  final ForgeConfigSpec.IntValue DEFAULT_MAX_BURNOUT;
+        public final ForgeConfigSpec.IntValue DEFAULT_MAX_MANA;
+
+        Server(ForgeConfigSpec.Builder builder) {
+            builder.comment("Server configuration settings");
+            builder.push("server");
+            DEFAULT_MAX_MANA = builder
+                    .comment("The default maximum mana for the player")
+                    .translation(PREFIX + "maxmana")
+                    .worldRestart()
+                    .defineInRange("maxmana", 100, 0, 10000);
+            DEFAULT_MAX_BURNOUT = builder
+                    .comment("The default maximum burnout for the player")
+                    .translation(PREFIX + "maxburnout")
+                    .worldRestart()
+                    .defineInRange("maxburnout", 100, 0, 10000);
         }
     }
 }

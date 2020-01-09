@@ -16,16 +16,6 @@
     },
     {
       "when": {
-        "east": "true"
-      },
-      "apply": {
-        "model": "arsmagicalegacy:block/witchwood_fence_side",
-        "y": 90,
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
         "south": "true"
       },
       "apply": {
@@ -41,6 +31,16 @@
       "apply": {
         "model": "arsmagicalegacy:block/witchwood_fence_side",
         "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "arsmagicalegacy:block/witchwood_fence_side",
+        "y": 90,
         "uvlock": true
       }
     }

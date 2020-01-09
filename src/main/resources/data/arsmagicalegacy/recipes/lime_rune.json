@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/lime"
+    },
+    {
+      "item": "arsmagicalegacy:rune"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:lime_rune"
+  }
+}

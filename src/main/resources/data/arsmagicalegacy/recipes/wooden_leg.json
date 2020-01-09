@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "W",
+    "S"
+  ],
+  "key": {
+    "P": {
+      "item": "arsmagicalegacy:witchwood_planks"
+    },
+    "W": {
+      "item": "arsmagicalegacy:witchwood_slab"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:wooden_leg"
+  }
+}

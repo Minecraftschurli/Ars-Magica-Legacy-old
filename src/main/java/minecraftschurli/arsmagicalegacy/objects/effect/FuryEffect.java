@@ -13,7 +13,7 @@ public class FuryEffect extends AMEffect {
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!livingEntity.world.isRemote) {
             livingEntity.addPotionEffect(new EffectInstance(Effects.HUNGER, 200, 1));
             livingEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 1));

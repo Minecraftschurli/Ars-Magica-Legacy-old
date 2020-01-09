@@ -20,7 +20,6 @@ import net.minecraftforge.fml.client.registry.*;
 public class ClientProxy implements IProxy {
     @Override
     public void preInit() {
-        ClientRegistry.bindTileEntitySpecialRenderer(CraftingAltarViewTileEntity.class, new CraftingAltarViewTER());
         MinecraftForge.EVENT_BUS.register(new UIRender());
         OBJLoader.INSTANCE.addDomain(ArsMagicaLegacy.MODID);
     }

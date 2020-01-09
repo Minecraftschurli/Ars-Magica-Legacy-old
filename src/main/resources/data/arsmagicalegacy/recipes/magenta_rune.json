@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/magenta"
+    },
+    {
+      "item": "arsmagicalegacy:rune"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:magenta_rune"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "RFR",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "F": {
+      "item": "arsmagicalegacy:lesser_focus"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:standard_focus"
+  }
+}

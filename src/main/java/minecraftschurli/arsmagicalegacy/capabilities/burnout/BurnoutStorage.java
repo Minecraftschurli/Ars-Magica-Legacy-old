@@ -1,12 +1,14 @@
 package minecraftschurli.arsmagicalegacy.capabilities.burnout;
 
+import minecraftschurli.arsmagicalegacy.Config;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-08
  */
 public class BurnoutStorage implements IBurnoutStorage {
-    float burnout;
-    float maxBurnout;
+    private float maxBurnout = Config.SERVER.DEFAULT_MAX_BURNOUT.get();
+    private float burnout = 0;
 
     @Override
     public float getBurnout() {
@@ -20,8 +22,8 @@ public class BurnoutStorage implements IBurnoutStorage {
 
     @Override
     public void setMaxBurnout(float amount) {
-        if (amount > 0)
-            maxBurnout = amount;
+        if (amount >= 0)
+            maxBurnout = Math.max(amount, Config.SERVER.DEFAULT_MAX_BURNOUT.get());
     }
 
     @Override

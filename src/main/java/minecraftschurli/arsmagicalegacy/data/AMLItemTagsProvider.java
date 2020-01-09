@@ -36,6 +36,26 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
                         ModItems.ARCANE_ASH.get()
                 );
 
+        getBuilder(ModTags.Items.RUNES).add(
+                ModItems.RUNE.get(),
+                ModItems.WHITE_RUNE.get(),
+                ModItems.ORANGE_RUNE.get(),
+                ModItems.MAGENTA_RUNE.get(),
+                ModItems.LIGHT_BLUE_RUNE.get(),
+                ModItems.YELLOW_RUNE.get(),
+                ModItems.LIME_RUNE.get(),
+                ModItems.PINK_RUNE.get(),
+                ModItems.GRAY_RUNE.get(),
+                ModItems.LIGHT_GRAY_RUNE.get(),
+                ModItems.CYAN_RUNE.get(),
+                ModItems.PURPLE_RUNE.get(),
+                ModItems.BLUE_RUNE.get(),
+                ModItems.BROWN_RUNE.get(),
+                ModItems.GREEN_RUNE.get(),
+                ModItems.RED_RUNE.get(),
+                ModItems.BLACK_RUNE.get()
+        );
+
         copy(ModTags.Blocks.ORES_CHIMERITE, ModTags.Items.ORES_CHIMERITE);
         copy(ModTags.Blocks.STORAGE_BLOCKS_CHIMERITE, ModTags.Items.STORAGE_BLOCKS_CHIMERITE);
         copy(ModTags.Blocks.ORES_MOONSTONE, ModTags.Items.ORES_MOONSTONE);

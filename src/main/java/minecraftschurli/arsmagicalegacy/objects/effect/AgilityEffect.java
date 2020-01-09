@@ -16,13 +16,13 @@ public class AgilityEffect extends AMEffect {
     }
 
     @Override
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
         livingEntity.stepHeight = 1.0f;
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
         livingEntity.stepHeight = 0.6f;
         ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);

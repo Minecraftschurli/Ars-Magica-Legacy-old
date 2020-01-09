@@ -16,7 +16,7 @@ public class TemporalAnchorEffect extends AMEffect {
     }
 
     @Override
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putDouble("X", livingEntity.posX);
         nbt.putDouble("Y", livingEntity.posY);
@@ -32,7 +32,7 @@ public class TemporalAnchorEffect extends AMEffect {
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         try {
             CompoundNBT nbt = livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).getCompound("anchor");
             double x = nbt.getDouble("X");

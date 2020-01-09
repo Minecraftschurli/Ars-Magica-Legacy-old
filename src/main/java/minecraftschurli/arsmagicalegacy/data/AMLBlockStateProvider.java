@@ -35,7 +35,7 @@ public class AMLBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.MOONSTONE_ORE);
         //railFlat(ModBlocks.REDSTONE_INLAY);
         logBlock(ModBlocks.STRIPPED_WITCHWOOD_LOG);
-        barkBlock(ModBlocks.STRIPPED_WITCHWOOD_WOOD, "block/stripped_witchwood_log");
+        simpleBlock(ModBlocks.STRIPPED_WITCHWOOD_WOOD);
         simpleBlock(ModBlocks.SUNSTONE_BLOCK);
         simpleBlock(ModBlocks.SUNSTONE_ORE);
         flowerBlock(ModBlocks.TARMA_ROOT);
@@ -45,36 +45,28 @@ public class AMLBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.VINTEUM_ORE);
         flowerBlock(ModBlocks.WAKEBLOOM);
         doorBlock(ModBlocks.WITCHWOOD_DOOR, "witchwood");
-        fenceBlock(ModBlocks.WITCHWOOD_FENCE);
-        fenceGateBlock(ModBlocks.WITCHWOOD_FENCE_GATE);
         simpleBlock(ModBlocks.WITCHWOOD_LEAVES);
         logBlock(ModBlocks.WITCHWOOD_LOG);
         flowerBlock(ModBlocks.WITCHWOOD_SAPLING);
-        slabStairBlock(ModBlocks.WITCHWOOD_PLANKS, ModBlocks.WITCHWOOD_SLAB, ModBlocks.WITCHWOOD_STAIRS);
+        slabStairFenceBlock(ModBlocks.WITCHWOOD_PLANKS, ModBlocks.WITCHWOOD_SLAB, ModBlocks.WITCHWOOD_STAIRS, ModBlocks.WITCHWOOD_FENCE, ModBlocks.WITCHWOOD_FENCE_GATE);
         trapdoorBlock(ModBlocks.WITCHWOOD_TRAPDOOR);
-        barkBlock(ModBlocks.WITCHWOOD_WOOD, "block/witchwood_log");
+        simpleBlock(ModBlocks.WITCHWOOD_WOOD);
     }
 
     private void trapdoorBlock(Supplier<? extends TrapDoorBlock> block) {
         trapdoorBlock(block.get(), blockTexture(block.get()), true);
     }
 
-    protected void slabStairBlock(Supplier<? extends Block> block, Supplier<? extends SlabBlock> slab, Supplier<? extends StairsBlock> stairs) {
-        slabStairBlock(block.get(), slab.get(), stairs.get());
+    protected void slabStairFenceBlock(Supplier<? extends Block> block, Supplier<? extends SlabBlock> slab, Supplier<? extends StairsBlock> stairs, Supplier<? extends FenceBlock> fence, Supplier<? extends FenceGateBlock> gate) {
+        slabStairFenceBlock(block.get(), slab.get(), stairs.get(), fence.get(), gate.get());
     }
 
-    protected void slabStairBlock(Block block, SlabBlock slab, StairsBlock stairs) {
+    protected void slabStairFenceBlock(Block block, SlabBlock slab, StairsBlock stairs, FenceBlock fence, FenceGateBlock gate) {
         simpleBlock(block);
         slabBlock(slab, cubeAll(block).getLocation(), blockTexture(block));
         stairsBlock(stairs, blockTexture(block));
-    }
-
-    protected void fenceGateBlock(Supplier<? extends FenceGateBlock> block) {
-        fenceGateBlock(block.get(), blockTexture(block.get()));
-    }
-
-    protected void fenceBlock(Supplier<? extends FenceBlock> block) {
-        fenceBlock(block.get(), blockTexture(block.get()));
+        fenceBlock(fence, blockTexture(block));
+        fenceGateBlock(gate, blockTexture(block));
     }
 
     protected void doorBlock(Supplier<? extends DoorBlock> block, String name) {
@@ -83,10 +75,6 @@ public class AMLBlockStateProvider extends BlockStateProvider {
 
     protected void logBlock(Supplier<? extends LogBlock> block) {
         logBlock(block.get());
-    }
-
-    protected void barkBlock(Supplier<? extends Block> block, String logTexture) {
-        simpleBlock(block.get(), cubeAll(block.get().getRegistryName().getPath(), modLoc(logTexture)));
     }
 
     protected void simpleBlock(Supplier<? extends Block> block) {

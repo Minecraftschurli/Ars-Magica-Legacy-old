@@ -8,6 +8,8 @@ import minecraftschurli.arsmagicalegacy.event.*;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.network.*;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTileEntity;
 import minecraftschurli.arsmagicalegacy.util.*;
 import minecraftschurli.arsmagicalegacy.worldgen.*;
 import net.minecraft.entity.*;
@@ -20,6 +22,7 @@ import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.config.*;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -141,6 +144,7 @@ public final class ArsMagicaLegacy {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.debug("Client Setup");
+        ClientRegistry.bindTileEntitySpecialRenderer(CraftingAltarViewTileEntity.class, new CraftingAltarViewTER());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

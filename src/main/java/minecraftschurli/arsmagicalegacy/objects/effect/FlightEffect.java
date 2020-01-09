@@ -14,7 +14,7 @@ public class FlightEffect extends AMEffect {
     }
 
     @Override
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!(livingEntity instanceof ServerPlayerEntity)) return;
         if (((ServerPlayerEntity) livingEntity).isCreative()) return;
         ((ServerPlayerEntity) livingEntity).abilities.allowFlying = true;
@@ -22,7 +22,7 @@ public class FlightEffect extends AMEffect {
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!(livingEntity instanceof ServerPlayerEntity)) return;
         if (((ServerPlayerEntity) livingEntity).isCreative()) return;
         ((ServerPlayerEntity) livingEntity).abilities.allowFlying = false;

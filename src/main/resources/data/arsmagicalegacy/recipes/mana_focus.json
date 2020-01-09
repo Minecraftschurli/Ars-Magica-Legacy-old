@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V",
+    "F",
+    "V"
+  ],
+  "key": {
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    },
+    "F": {
+      "item": "arsmagicalegacy:standard_focus"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:mana_focus"
+  }
+}
