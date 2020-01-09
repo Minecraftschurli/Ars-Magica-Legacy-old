@@ -10,7 +10,5 @@ import net.minecraftforge.fml.*;
  */
 public final class ModBiomes implements IInit {
     public static final RegistryObject<Biome> WITCHWOOD_FOREST = BIOMES.register("witchwood_forest", WitchwoodForestBiome::new);
-
-    public static void register() {
-    }
+    public static void register() {}
 }

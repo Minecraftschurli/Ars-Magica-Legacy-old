@@ -25,7 +25,5 @@ public final class ModParticles implements IInit {
     public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> SPARKLE = PARTICLE_TYPES.register("sparkle", SimpleParticle.SimpleParticleType::new);
     public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> WATERBALL = PARTICLE_TYPES.register("waterball", SimpleParticle.SimpleParticleType::new);
     public static final RegistryObject<ParticleType<SimpleParticle.SimpleParticleType>> WIND = PARTICLE_TYPES.register("wind", SimpleParticle.SimpleParticleType::new);
-
-    public static void register() {
-    }
+    public static void register() {}
 }
