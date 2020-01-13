@@ -1,9 +1,11 @@
 package minecraftschurli.arsmagicalegacy.api;
 
 import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import net.minecraft.util.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.fml.*;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.*;
 import java.util.function.*;
@@ -14,12 +16,16 @@ import java.util.stream.*;
  * @version 2019-12-04
  */
 public class SkillRegistry {
-    private static final List<Supplier<Skill>> SKILLS = new ArrayList<>();
+    private static final Map<RegistryObject<Skill>, Supplier<? extends Skill>> skills = new LinkedHashMap<>();
 
     static void onSkillRegister(RegistryEvent.Register<Skill> event) {
         if (event.getGenericType() != Skill.class)
             return;
-        event.getRegistry().registerAll(SKILLS.stream().map(Supplier::get).toArray(Skill[]::new));
+        IForgeRegistry<Skill> reg = event.getRegistry();
+        for (Map.Entry<RegistryObject<Skill>, Supplier<? extends Skill>> e : skills.entrySet()) {
+            reg.register(e.getValue().get());
+            e.getKey().updateReference(reg);
+        }
     }
 
     /**
@@ -31,8 +37,11 @@ public class SkillRegistry {
      * @param posY    the y position of this {@link Skill} in the gui of the occulus
      * @param parents the ids of the parents of this {@link Skill}
      */
-    public static RegistryObject<Skill> registerSkill(ResourceLocation id, ResourceLocation icon, SkillPoint tier, SkillTree tree, int posX, int posY, String... parents) {
-        SKILLS.add(() -> new Skill(icon, tier, posX, posY, tree, parents).setRegistryName(id));
+    public static RegistryObject<Skill> registerSkill(ResourceLocation id, ResourceLocation icon, Supplier<SkillPoint> tier, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+        RegistryObject<Skill> ret = RegistryObject.of(id, ArsMagicaAPI.getSkillRegistry());
+        if (skills.putIfAbsent(ret, () -> new Skill(icon, tier.get(), posX, posY, tree.get(), parents).setRegistryName(id)) != null) {
+            throw new IllegalArgumentException("Duplicate registration " + id);
+        }
         return RegistryObject.of(id, ArsMagicaAPI.getSkillRegistry());
     }
 
@@ -45,7 +54,7 @@ public class SkillRegistry {
      * @param posY    the y position of this {@link Skill} in the gui of the occulus
      * @param parents the ids of the parents of this {@link Skill}
      */
-    public static RegistryObject<Skill> registerSkill(String modid, String name, SkillPoint tier, SkillTree tree, int posX, int posY, String... parents) {
+    public static RegistryObject<Skill> registerSkill(String modid, String name, Supplier<SkillPoint> tier, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
         ResourceLocation id = new ResourceLocation(modid, name);
         return registerSkill(id, getSkillIcon(id), tier, tree, posX, posY, parents);
     }
@@ -58,7 +67,7 @@ public class SkillRegistry {
      * @param posY    the y position of this {@link Skill} in the gui of the occulus
      * @param parents the ids of the parents of this {@link Skill}
      */
-    public static RegistryObject<Skill> registerSkill(String name, SkillPoint tier, SkillTree tree, int posX, int posY, String... parents) {
+    public static RegistryObject<Skill> registerSkill(String name, Supplier<SkillPoint> tier, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
         return registerSkill(ModLoadingContext.get().getActiveNamespace(), name, tier, tree, posX, posY, parents);
     }
 

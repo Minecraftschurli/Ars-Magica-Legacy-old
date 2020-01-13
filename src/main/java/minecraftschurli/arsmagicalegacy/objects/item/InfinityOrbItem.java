@@ -28,7 +28,6 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        this.setSkillPoint(stack, ModSpellParts.SILVER_POINT);
     }
 
     @Override
@@ -46,17 +45,18 @@ public class InfinityOrbItem extends Item {
     @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-        if (worldIn.isRemote || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0)
+        if (worldIn.isRemote || !playerIn.getHeldItem(handIn).hasTag() || !playerIn.getHeldItem(handIn).getTag().contains(TYPE_KEY) || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0)
             return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
     }
 
-    public ItemStack setSkillPoint(ItemStack stack, SkillPoint point) {
+    public ItemStack setSkillPoint(SkillPoint point) {
+        ItemStack stack = new ItemStack(this);
         stack.getOrCreateTag().putInt(TYPE_KEY, point.getTier());
         return stack;
     }
 
-    public SkillPoint getSkillPoint(ItemStack stack) {
+    public static SkillPoint getSkillPoint(ItemStack stack) {
         return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
     }
 
@@ -73,7 +73,7 @@ public class InfinityOrbItem extends Item {
 
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
-        return new TranslationTextComponent(this.getTranslationKey(stack), this.getSkillPoint(stack).getDisplayName());
+        return new TranslationTextComponent(this.getTranslationKey(stack), getSkillPoint(stack).getDisplayName());
     }
 
     /*@Override

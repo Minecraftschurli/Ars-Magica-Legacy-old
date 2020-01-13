@@ -6,7 +6,7 @@ import net.minecraft.util.text.*;
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-public class SkillPoint {
+public final class SkillPoint {
     private final int color, minEarnLevel, levelsForPoint;
     private final TextFormatting chatColor;
     private int tier = -2;

@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.data;
+package minecraftschurli.arsmagicalegacy.data.tags;
 
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.*;

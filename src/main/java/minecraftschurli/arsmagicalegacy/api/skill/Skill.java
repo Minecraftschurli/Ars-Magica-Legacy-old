@@ -9,7 +9,7 @@ import net.minecraftforge.registries.*;
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-public class Skill extends ForgeRegistryEntry<Skill> {
+public final class Skill extends ForgeRegistryEntry<Skill> {
     private int posX, posY;
     private SkillTree tree;
     private String[] parents;

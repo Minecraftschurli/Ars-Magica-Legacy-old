@@ -226,7 +226,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         if (this.numStageGroups > MAX_STAGE_GROUPS)
             this.numStageGroups = MAX_STAGE_GROUPS;
         if (!world.isRemote) {
-            this.world.setBlockState(pos, world.getBlockState(pos).with(InscriptionTableBlock.TIER, MathHelper.clamp(getUpgradeState(), 1, 3)), 2);
+            this.world.setBlockState(pos, world.getBlockState(pos).with(InscriptionTableBlock.TIER, MathHelper.clamp(getUpgradeState(), 0, 3)), 2);
         }
         this.markDirty();
     }

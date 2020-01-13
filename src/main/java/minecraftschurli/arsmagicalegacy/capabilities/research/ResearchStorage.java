@@ -34,7 +34,7 @@ public class ResearchStorage implements IResearchStorage {
 
     @Override
     public void add(int tier, int count) {
-        this.points.computeIfPresent(tier, (s, integer) -> integer + count);
+        this.points.compute(tier, (s, integer) -> (integer != null ? integer : 0) + count);
     }
 
     @Override

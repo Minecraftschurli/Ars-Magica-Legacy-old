@@ -15,6 +15,7 @@ import net.minecraftforge.fml.network.*;
 
 import javax.annotation.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static minecraftschurli.arsmagicalegacy.init.ModItems.*;
 
@@ -35,7 +36,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                     @Override
                     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-                        return new SpellBookContainer(id, playerInventory, new SpellBookInventory());
+                        return new SpellBookContainer(id, playerInventory, new SpellBookInventory(getInventory(stack)));
                     }
 
                     @Override
@@ -65,6 +66,10 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         return getActiveScroll(stack)
                 .map(spellItem -> spellItem.getUseDuration(stack))
                 .orElse(0);
+    }
+
+    public List<ItemStack> getActiveInventory(ItemStack itemStack) {
+        return getInventory(itemStack).stream().limit(8).collect(Collectors.toList());
     }
 
     private NonNullList<ItemStack> getInventory(ItemStack itemStack) {
@@ -196,10 +201,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        ItemStack scrollStack = getActiveItemStack(stack);
-        if (!scrollStack.isEmpty()) {
-            // TODO ItemsCommonProxy.spell.onUsingTick(scrollStack, player, count);
-        }
+        getActiveScroll(stack).ifPresent(spellItem -> spellItem.onUsingTick(getActiveItemStack(stack), player, count));
     }
 
     @Override

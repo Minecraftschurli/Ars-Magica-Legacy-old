@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.event;
+package minecraftschurli.arsmagicalegacy.handler;
 
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraftforge.event.*;

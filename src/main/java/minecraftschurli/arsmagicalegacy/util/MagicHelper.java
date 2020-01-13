@@ -19,10 +19,14 @@ import java.util.*;
  * @version 2019-11-20
  */
 public class MagicHelper {
-    public static boolean use(LivingEntity player, float manaCost, float burnoutCost) {
+    public static boolean use(LivingEntity player, float manaCost, float burnoutCost, int cooldown) {
         if (hasEnoughtMana(player, manaCost) && !isBurnedOut(player, burnoutCost)) {
-            decreaseMana(player, manaCost);
-            increaseBurnout(player, burnoutCost);
+            if (manaCost > 0)
+                decreaseMana(player, manaCost);
+            if (burnoutCost > 0)
+                increaseBurnout(player, burnoutCost);
+            if (cooldown > 0 && player instanceof PlayerEntity)
+                ((PlayerEntity) player).getCooldownTracker().setCooldown(player.getActiveItemStack().getItem(), cooldown);
             return true;
         }
         return false;
@@ -30,69 +34,68 @@ public class MagicHelper {
 
     public static void syncMana(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
-        player.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncManaPacket(
-                        iManaStorage.getMana(),
-                        iManaStorage.getMaxMana()
-                )
+        IManaStorage iManaStorage = getManaCapability(player);
+        NetworkHandler.INSTANCE.send(
+        PacketDistributor.PLAYER.with(() -> player),
+        new SyncManaPacket(
+                iManaStorage.getMana(),
+                iManaStorage.getMaxMana()
         ));
     }
 
     public static void syncBurnout(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
-        player.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> NetworkHandler.INSTANCE.send(
+        IBurnoutStorage iBurnoutStorage = getBurnoutCapability(player);
+        NetworkHandler.INSTANCE.send(
                 PacketDistributor.PLAYER.with(() -> player),
                 new SyncBurnoutPacket(
                         iBurnoutStorage.getBurnout(),
                         iBurnoutStorage.getMaxBurnout()
                 )
-        ));
+        );
     }
 
     public static void syncResearch(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
-        player.getCapability(CapabilityResearch.RESEARCH).ifPresent(iStorage ->
-                NetworkHandler.INSTANCE.send(
-                        PacketDistributor.PLAYER.with(() -> player),
-                        new SyncResearchPacket(iStorage)
-                )
+        IResearchStorage iStorage = getResearchCapability(player);
+        NetworkHandler.INSTANCE.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new SyncResearchPacket(iStorage)
         );
     }
 
     public static void syncMagic(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
-        player.getCapability(CapabilityMagic.MAGIC).ifPresent(iStorage ->
-                NetworkHandler.INSTANCE.send(
-                        PacketDistributor.PLAYER.with(() -> player),
-                        new SyncMagicPacket(iStorage.getCurrentLevel())
-                )
+        IMagicStorage iStorage = getMagicCapability(player);
+        NetworkHandler.INSTANCE.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new SyncMagicPacket(iStorage.getCurrentLevel())
         );
     }
 
     public static void increaseMana(LivingEntity livingEntity, float amount) {
-        livingEntity.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.increase(amount));
+        getManaCapability(livingEntity).increase(amount);
         if (livingEntity instanceof ServerPlayerEntity) {
             syncMana((ServerPlayerEntity) livingEntity);
         }
     }
 
     public static void decreaseMana(LivingEntity livingEntity, float amount) {
-        livingEntity.getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> iManaStorage.decrease(amount));
+        getManaCapability(livingEntity).decrease(amount);
         if (livingEntity instanceof ServerPlayerEntity) {
             syncMana((ServerPlayerEntity) livingEntity);
         }
     }
 
     public static void increaseBurnout(LivingEntity livingEntity, float amount) {
-        livingEntity.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.increase(amount));
+        getBurnoutCapability(livingEntity).increase(amount);
         if (livingEntity instanceof ServerPlayerEntity) {
             syncBurnout((ServerPlayerEntity) livingEntity);
         }
     }
 
     public static void decreaseBurnout(LivingEntity livingEntity, float amount) {
-        livingEntity.getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> iBurnoutStorage.decrease(amount));
+        getBurnoutCapability(livingEntity).decrease(amount);
         if (livingEntity instanceof ServerPlayerEntity) {
             syncBurnout((ServerPlayerEntity) livingEntity);
         }
@@ -176,10 +179,28 @@ public class MagicHelper {
                 .getLearnedSkills()
                 .stream()
                 .map(Skill::getRegistryName)
+                .filter(Objects::nonNull)
                 .filter(skill -> skill.getPath().contains("mana_regen"))
                 .map(skill -> skill.getPath().replace("mana_regen", ""))
                 .mapToInt(Integer::parseInt)
                 .max()
                 .orElse(0);
+    }
+
+    public static void levelUp(PlayerEntity player) {
+        IMagicStorage magic = getMagicCapability(player);
+        IResearchStorage research = getResearchCapability(player);
+        magic.levelUp();
+        SkillPointRegistry.SKILL_POINT_REGISTRY.forEach((tier, point) -> {
+            if (tier < 0)
+                return;
+            if (magic.getCurrentLevel() >= point.getMinEarnLevel() && ((magic.getCurrentLevel() - point.getMinEarnLevel()) % point.getLevelsForPoint()) == 0) {
+                research.add(tier);
+            }
+        });
+        if (player instanceof ServerPlayerEntity) {
+            syncMagic((ServerPlayerEntity) player);
+            syncResearch((ServerPlayerEntity) player);
+        }
     }
 }

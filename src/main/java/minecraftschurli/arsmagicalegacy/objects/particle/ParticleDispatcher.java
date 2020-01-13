@@ -13,21 +13,21 @@ import net.minecraftforge.fml.common.*;
 public class ParticleDispatcher {
     @SubscribeEvent
     public static void registerFactories(ParticleFactoryRegisterEvent e) {
-        Minecraft.getInstance().particles.registerFactory(ModParticles.ARCANE.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.CLOCK.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.EMBER.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.GHOST.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.IMPLOSION.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.LENS_FLARE.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.LIGHT.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.PLANT.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.PULSE.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.ROCK.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.ROTATING_RINGS.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.SHINY.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.SMOKE.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.WATERBALL.get(), SimpleParticle.FACTORY);
-        Minecraft.getInstance().particles.registerFactory(ModParticles.WIND.get(), SimpleParticle.FACTORY);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.ARCANE.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.CLOCK.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.EMBER.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.GHOST.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.IMPLOSION.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.LENS_FLARE.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.LIGHT.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.PLANT.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.PULSE.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.ROCK.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.ROTATING_RINGS.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.SHINY.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.SMOKE.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.WATERBALL.get(), SimpleParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticles.WIND.get(), SimpleParticle.Factory::new);
     }
 }

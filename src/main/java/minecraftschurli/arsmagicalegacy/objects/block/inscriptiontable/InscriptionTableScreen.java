@@ -5,7 +5,6 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.*;
@@ -427,7 +426,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         //main recipe
         for (int i = 0; i < this.container.getCurrentRecipeSize(); ++i) {
             AbstractSpellPart part = this.container.getRecipeItemAt(i);
-            if (part == ModSpellParts.MISSING_SHAPE.get())
+            if (part == ArsMagicaAPI.MISSING_SHAPE.get())
                 continue;
             String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
 

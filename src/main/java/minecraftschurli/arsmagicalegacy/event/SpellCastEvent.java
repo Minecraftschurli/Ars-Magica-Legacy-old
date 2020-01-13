@@ -36,30 +36,35 @@ public class SpellCastEvent extends Event {
      */
     public float burnout;
     /**
+     * The calculated cooldown of the spell
+     */
+    public int cooldown;
+    /**
      * The result to be returned after casting the spell
      */
     public SpellCastResult castResult;
 
-    public SpellCastEvent(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
+    public SpellCastEvent(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, int cooldown, boolean isChanneled) {
         this.caster = caster;
         this.spell = spell;
         this.manaCost = manaCost;
         this.burnout = burnout;
+        this.cooldown = cooldown;
         this.stack = stack;
         this.isChanneled = isChanneled;
     }
 
     public static class Pre extends SpellCastEvent {
 
-        public Pre(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
-            super(stack, spell, caster, manaCost, burnout, isChanneled);
+        public Pre(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, int cooldown, boolean isChanneled) {
+            super(stack, spell, caster, manaCost, burnout, cooldown, isChanneled);
         }
     }
 
     public static class Post extends SpellCastEvent {
 
-        public Post(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled, SpellCastResult castResult) {
-            super(stack, spell, caster, manaCost, burnout, isChanneled);
+        public Post(ItemStack stack, SpellItem spell, LivingEntity caster, float manaCost, float burnout, int cooldown, boolean isChanneled, SpellCastResult castResult) {
+            super(stack, spell, caster, manaCost, burnout, cooldown, isChanneled);
             this.castResult = castResult;
         }
     }

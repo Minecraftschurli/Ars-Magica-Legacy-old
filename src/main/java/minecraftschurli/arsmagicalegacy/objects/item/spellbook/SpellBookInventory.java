@@ -8,6 +8,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 
 import javax.annotation.*;
+import java.util.stream.IntStream;
 
 /**
  * @author Minecraftschurli
@@ -19,6 +20,11 @@ public class SpellBookInventory implements IInventory {
 
     public SpellBookInventory() {
         contents = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
+    }
+
+    public SpellBookInventory(NonNullList<ItemStack> inventory) {
+        contents = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
+        IntStream.range(0, Math.min(inventory.size(), inventorySize)).forEach(i -> contents.set(i, inventory.get(i)));
     }
 
     public void readNBT(CompoundNBT compound) {

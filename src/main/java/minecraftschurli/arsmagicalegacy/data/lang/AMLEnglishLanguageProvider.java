@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.*;
@@ -56,6 +57,20 @@ public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
         addBlock(ModBlocks.ALTAR_CORE, "Altar Core");
         addBlock(ModBlocks.INSCRIPTION_TABLE, "Inscription Table");
         addBlock(ModBlocks.OCCULUS, "Occulus");
+        addBlock(ModBlocks.MANA_BATTERY, "Mana Battery");
+
+        addBlock(ModBlocks.VINTEUM_TORCH, "Vinteum Torch");
+
+        addBlock(ModBlocks.MAGIC_WALL, "Magic Wall");
+        addBlock(ModBlocks.GOLD_INLAY, "Gold Inlay");
+        addBlock(ModBlocks.REDSTONE_INLAY, "Redstone Inlay");
+        addBlock(ModBlocks.IRON_INLAY, "Iron Inlay");
+
+        addBlock(ModBlocks.WAKEBLOOM, "Wakebloom");
+        addBlock(ModBlocks.TARMA_ROOT, "Tarma Root");
+        addBlock(ModBlocks.AUM, "Aum");
+        addBlock(ModBlocks.DESERT_NOVA, "Desert Nova");
+        addBlock(ModBlocks.CERUBLOSSOM, "Cerublossom");
 
         addItem(ModItems.RUNE, "Rune");
         addItem(ModItems.BLUE_RUNE, "Blue Rune");
@@ -86,11 +101,21 @@ public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
         addItem(ModItems.FIRE_ESSENCE, "Fire Essence");
         addItem(ModItems.WATER_ESSENCE, "Water Essence");
 
+        addItem(ModItems.MANA_CAKE, "Manacake");
+        addItem(ModItems.MANA_MARTINI, "Mana Martini");
+        addItem(ModItems.PIG_FAT, "Pig Fat");
         addItem(ModItems.ARCANE_ASH, "Arcane Ash");
+        addItem(ModItems.ARCANE_COMPOUND, "Arcane Compound");
+        addItem(ModItems.WOODEN_LEG, "Wooden Leg");
         addItem(ModItems.SPELL, "Spell");
         addItem(ModItems.INFINITY_ORB, "%s Infinity Orb");
         addItem(ModItems.SPELL_BOOK, "Spell Book");
         addItem(ModItems.ARCANE_COMPENDIUM, "Arcane Compendium");
+        addItem(ModItems.SPELL_PARCHMENT, "Spell Parchment");
+        addItem(ModFluids.LIQUID_ESSENCE_BUCKET, "Liquid Essence Bucket");
+        addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(0)), "Tier I Upgrade");
+        addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(1)), "Tier II Upgrade");
+        addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(2)), "Tier III Upgrade");
 
         addItem(ModItems.LESSER_FOCUS, "Lesser Focus");
         addItem(ModItems.STANDARD_FOCUS, "Standard Focus");
@@ -261,13 +286,17 @@ public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
         addSpellPart(ModSpellParts.ENDER_INTERVENTION, "Ender Intervention", "Well, I didn't know what hell looked like...");
         //addSpellPart(ModSpellParts.CONTINGENCY_DEATH, "Contingency: Death", "You're coming with me.");
 
-        add(ModSpellParts.SKILL_POINT_1, "Blue");
-        add(ModSpellParts.SKILL_POINT_2, "Red");
-        add(ModSpellParts.SKILL_POINT_3, "Green");
+        addSkillPoint(ArsMagicaAPI.SKILL_POINT_1, "Blue");
+        addSkillPoint(ArsMagicaAPI.SKILL_POINT_2, "Red");
+        addSkillPoint(ArsMagicaAPI.SKILL_POINT_3, "Green");
 
         add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
 
+        add("arsmagicalegacy.spell.manacost", "Mana Cost: %d");
+
         add("arsmagicalegacy.gui.inscriptiontable.search", "Search");
+        add("arsmagicalegacy.gui.inscriptiontable.name", "Name");
+
         add("arsmagicalegacy.occulus.prevent", "Mythical forces prevent you from using this device!");
     }
 

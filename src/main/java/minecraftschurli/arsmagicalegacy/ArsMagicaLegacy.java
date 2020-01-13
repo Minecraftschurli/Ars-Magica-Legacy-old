@@ -4,7 +4,6 @@ import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.*;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
 import minecraftschurli.arsmagicalegacy.capabilities.research.*;
-import minecraftschurli.arsmagicalegacy.event.*;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.network.*;

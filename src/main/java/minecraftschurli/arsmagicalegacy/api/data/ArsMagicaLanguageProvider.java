@@ -21,17 +21,21 @@ public abstract class ArsMagicaLanguageProvider extends LanguageProvider {
         add(part.get(), name, description);
     }
 
-    protected void addSkill(Supplier<? extends Skill> skill, String name, String description) {
-        add(skill.get(), name, description);
-    }
-
     protected void add(AbstractSpellPart part, String name, String description) {
         add(SpellRegistry.getSkillFromPart(part), name, description);
+    }
+
+    protected void addSkill(Supplier<? extends Skill> skill, String name, String description) {
+        add(skill.get(), name, description);
     }
 
     protected void add(Skill skill, String name, String description) {
         add(skill.getTranslationKey() + ".name", name);
         add(skill.getTranslationKey() + ".occulusdesc", description);
+    }
+
+    protected void addSkillPoint(Supplier<SkillPoint> point, String name) {
+        add(point.get(), name);
     }
 
     protected void add(SkillPoint point, String name) {

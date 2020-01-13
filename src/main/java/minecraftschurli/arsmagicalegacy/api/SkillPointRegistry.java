@@ -4,6 +4,7 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -12,18 +13,16 @@ import java.util.*;
 public class SkillPointRegistry {
     public static final Map<Integer, SkillPoint> SKILL_POINT_REGISTRY = new HashMap<>();
 
-    public static SkillPoint registerSkillPoint(int tier, SkillPoint skillPoint) {
+    public static Supplier<SkillPoint> registerSkillPoint(int tier, SkillPoint skillPoint) {
         if (SKILL_POINT_REGISTRY.containsKey(tier)) {
-            ArsMagicaLegacy.LOGGER.error("Skill with tier " + tier + " already registered!");
-            return null;
+            ArsMagicaLegacy.LOGGER.error("Skillpoint with tier " + tier + " already registered!");
         } else {
             SKILL_POINT_REGISTRY.put(tier, skillPoint);
             if (!skillPoint.setTier(tier)) {
                 ArsMagicaLegacy.LOGGER.error("Tier already set!");
-                return null;
             }
-            return skillPoint;
         }
+        return () -> SKILL_POINT_REGISTRY.get(tier);
     }
 
     public static SkillPoint getSkillPointFromTier(int tier) {

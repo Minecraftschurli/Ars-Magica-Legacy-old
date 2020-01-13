@@ -5,7 +5,6 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.capabilities.research.*;
-import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.network.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.*;
@@ -46,24 +45,23 @@ public class OcculusScreen extends Screen {
     public OcculusScreen(ITextComponent name, PlayerEntity player) {
         super(name);
         this.player = player;
-        currentTree = SkillTreeRegistry.SKILL_TREE_REGISTRY.get(0);
+        currentTree = ArsMagicaAPI.getSkillTreeRegistry().getValues().stream().min(Comparator.comparingInt(SkillTree::getOcculusIndex)).get();
         currentTabId = 0;
     }
 
     @Override
     protected void init() {
-        int tabId = 0;
         int posX = width / 2 - xSize / 2;
         int posY = height / 2 - ySize / 2;
-        for (SkillTree tree : SkillTreeRegistry.SKILL_TREE_REGISTRY) {
+        for (SkillTree tree : ArsMagicaAPI.getSkillTreeRegistry()) {
+            int tabId = tree.getOcculusIndex();
             if (tabId % 16 < 8) {
                 addButton(new GuiButtonSkillTree(tabId, posX + 7 + ((tabId % 16) * 24), posY - 22, tree, (int) Math.floor((float) tabId / 16F), false, this::actionPerformed));
             } else {
                 addButton(new GuiButtonSkillTree(tabId, posX + 7 + (((tabId % 16) - 8) * 24), posY + 210, tree, (int) Math.floor((float) tabId / 16F), true, this::actionPerformed));
             }
-            tabId++;
         }
-        maxPage = (int) Math.floor((float) (tabId - 1) / 16F);
+        maxPage = (int) Math.floor((float) (ArsMagicaAPI.getSkillTreeRegistry().getValues().size() - 1) / 16F);
         nextPage = new Button(posX + 212, posY - 21, 20, 20, ">", this::actionPerformed);
         prevPage = new Button(posX - 15, posY - 21, 20, 20, "<", this::actionPerformed);
         nextPage.active = page < maxPage;
@@ -156,7 +154,7 @@ public class OcculusScreen extends Screen {
         }
         GlStateManager.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
-        if (currentTree != ModSpellParts.AFFINITY) {
+        if (currentTree != ArsMagicaAPI.AFFINITY.get()) {
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             blitOffset = 1;

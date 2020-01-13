@@ -1,26 +1,21 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import com.mojang.brigadier.*;
-import com.mojang.brigadier.exceptions.*;
-import minecraftschurli.arsmagicalegacy.init.ModParticles;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
-import net.minecraft.network.*;
-import net.minecraft.particles.*;
 import net.minecraft.world.*;
 
 import javax.annotation.Nullable;
-import java.util.*;
 
-public class SimpleParticle extends SimpleAnimatedParticle {
+public class SimpleParticle extends SpriteTexturedParticle {
+    private final IAnimatedSprite animatedSprite;
     private float scaleX, scaleY, scaleZ;
     private int maxAge, age;
     public boolean hasGravity;
     public boolean hasMotion;
     public boolean radiant;
 
-    public SimpleParticle(World world, double x, double y, double z, IAnimatedSprite sprite) {
-        super(world, x, y, z, sprite, 0);
+    public SimpleParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SimpleParticleData data, IAnimatedSprite sprite) {
+        super(world, x, y, z, xSpeed, ySpeed, zSpeed);
+        this.animatedSprite = sprite;
         scaleX = scaleY = scaleZ = 0.2f;
         hasGravity = false;
         hasMotion = true;
@@ -28,7 +23,7 @@ public class SimpleParticle extends SimpleAnimatedParticle {
         particleRed = particleGreen = particleBlue = particleAlpha = 1;
         maxAge = 20 + rand.nextInt(20);
         particleGravity = 1;
-        selectSpriteWithAge(sprite);
+        selectSpriteWithAge(animatedSprite);
     }
 
     public SimpleParticle setScaleX(float x) {
@@ -115,45 +110,24 @@ public class SimpleParticle extends SimpleAnimatedParticle {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-
-    public static class SimpleParticleType extends ParticleType<SimpleParticleType> implements IParticleData {
-        public SimpleParticleType() {
-            super(false, SimpleParticle.DESERIALIZER);
-        }
-
-        @Override
-        public ParticleType<?> getType() {
-            return this;
-        }
-
-        @Override
-        public void write(PacketBuffer buffer) {
-
-        }
-
-        @Override
-        public String getParameters() {
-            return getRegistryName().toString();
-        }
-    }
-
-    public static final ParticleManager.IParticleMetaFactory<SimpleParticleType> FACTORY = (sprite) -> (typeIn, world, x, y, z, xSpeed, ySpeed, zSpeed) -> new SimpleParticle(world, x, y, z, sprite);
-    public static final IParticleData.IDeserializer<SimpleParticleType> DESERIALIZER = new IParticleData.IDeserializer<SimpleParticleType>() {
-        @Override
-        public SimpleParticleType deserialize(ParticleType particleTypeIn, StringReader reader) {
-            return (SimpleParticleType) particleTypeIn;
-        }
-
-        @Override
-        public SimpleParticleType read(ParticleType particleTypeIn, PacketBuffer buffer) {
-            return (SimpleParticleType) particleTypeIn;
-        }
-    };
-
     public SimpleParticle setScale(float scale) {
         scaleX = scale;
         scaleY = scale;
         scaleZ = scale;
         return this;
+    }
+
+    public static class Factory implements IParticleFactory<SimpleParticleData> {
+        private final IAnimatedSprite spriteSet;
+
+        public Factory(IAnimatedSprite p_i50477_1_) {
+            this.spriteSet = p_i50477_1_;
+        }
+
+        @Nullable
+        @Override
+        public Particle makeParticle(SimpleParticleData typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new SimpleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn, this.spriteSet);
+        }
     }
 }

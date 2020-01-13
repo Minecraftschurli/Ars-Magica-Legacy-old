@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.*;
 import net.minecraft.block.*;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
@@ -66,4 +67,16 @@ public final class ModTags {
             return new ItemTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
         }
     }
+
+    /*public static final class EntityTypes {
+        public static final Tag<EntityType<?>> MAGES = tag("mages");
+
+        private static Tag<EntityType<?>> forgeTag(String name) {
+            return new EntityTypeTags.Wrapper(new ResourceLocation("forge", name));
+        }
+
+        private static Tag<EntityType<?>> tag(String name) {
+            return new EntityTypeTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
+        }
+    }*/
 }

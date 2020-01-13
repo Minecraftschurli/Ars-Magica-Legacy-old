@@ -24,7 +24,7 @@ public class Touch extends SpellShape {
 
     @Override
     public float manaCostMultiplier(ItemStack spellStack) {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -40,10 +40,7 @@ public class Touch extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (target != null) {
-            Entity e = target;
-            if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon instanceof LivingEntity)
-                e = ((EnderDragonPartEntity) e).dragon;
-            return SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
+            return SpellUtils.applyStageToEntity(stack, caster, world, target, giveXP);
         }
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
         RayTraceResult mop = item.getMovingObjectPosition(caster, world, 2.5f, true, targetWater);
@@ -56,10 +53,12 @@ public class Touch extends SpellShape {
                 SpellCastResult result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
                 return SpellUtils.applyStackStage(stack, caster, target, mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), null, world, true, giveXP, 0);
-            } else {
+            } else if (mop.getType() == RayTraceResult.Type.BLOCK) {
                 SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
                 return SpellUtils.applyStackStage(stack, caster, target, ((BlockRayTraceResult) mop).getPos().getX(), ((BlockRayTraceResult) mop).getPos().getY(), ((BlockRayTraceResult) mop).getPos().getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
+            } else {
+                return SpellCastResult.EFFECT_FAILED;
             }
         }
     }

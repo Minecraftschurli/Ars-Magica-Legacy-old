@@ -2,46 +2,35 @@ package minecraftschurli.arsmagicalegacy.api.skill;
 
 import net.minecraft.util.*;
 import net.minecraft.util.text.*;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-public class SkillTree {
-    private final ResourceLocation id;
-    private ResourceLocation background;
-    private ResourceLocation icon;
+public class SkillTree extends ForgeRegistryEntry<SkillTree> {
     private boolean canRender = true;
     private String unlock = null;
+    private final int occulusIndex;
 
-    public SkillTree(ResourceLocation id) {
-        this.background = null;
-        this.icon = null;
-        this.id = id;
-    }
-
-    public SkillTree(ResourceLocation id, ResourceLocation background, ResourceLocation icon) {
-        this.background = background;
-        this.icon = icon;
-        this.id = id;
+    public SkillTree(int occulusIndex) {
+        this.occulusIndex = occulusIndex;
     }
 
     public ResourceLocation getBackground() {
-        if (background != null) return background;
-        return new ResourceLocation(id.getNamespace(), "textures/gui/occulus/" + id.getPath() + ".png");
+        return new ResourceLocation(getRegistryName().getNamespace(), "textures/gui/occulus/" + getRegistryName().getPath() + ".png");
     }
 
     public ResourceLocation getIcon() {
-        if (icon != null) return icon;
-        return new ResourceLocation(id.getNamespace(), "textures/icon/" + id.getPath() + ".png");
+        return new ResourceLocation(getRegistryName().getNamespace(), "textures/icon/" + getRegistryName().getPath() + ".png");
     }
 
-    public String getUnlocalizedName() {
-        return "skilltree." + id.getPath();
+    public String getTranslationKey() {
+        return "skilltree." + getRegistryName().getNamespace() + "." + getRegistryName().getPath();
     }
 
-    public String getLocalizedName() {
-        return new TranslationTextComponent(getUnlocalizedName()).toString();
+    public ITextComponent getDisplayName() {
+        return new TranslationTextComponent(getTranslationKey());
     }
 
     public SkillTree disableRender(String compendiumUnlock) {
@@ -56,5 +45,9 @@ public class SkillTree {
 
     public boolean canRender() {
         return canRender;
+    }
+
+    public int getOcculusIndex() {
+        return occulusIndex;
     }
 }

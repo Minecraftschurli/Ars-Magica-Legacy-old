@@ -1,15 +1,22 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.*;
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -45,8 +52,10 @@ public class SpellItem extends Item {
         SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
         if (!stack.hasTag()) return;
         if (shape != null) {
-            if (!shape.isChanneled())
-                SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, Direction.UP, worldIn, true, true, 0);
+            if (!shape.isChanneled()) {
+                SpellCastResult result = SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, Direction.UP, worldIn, true, true, 0);
+                ArsMagicaLegacy.LOGGER.debug(result);
+            }
             /*if (worldIn.isRemote && shape.isChanneled()){
                 //SoundHelper.instance.stopSound(shape.getSoundForAffinity(SpellUtils.instance.mainAffinityFor(stack), stack, null));
             }*/
@@ -101,5 +110,14 @@ public class SpellItem extends Item {
 
         return mop;
 
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (!stack.hasTag()) return;
+
+        float manaCost = SpellUtils.getManaCost(stack, ArsMagicaLegacy.proxy.getLocalPlayer());
+        tooltip.add(new TranslationTextComponent(ArsMagicaLegacy.MODID+".spell.manacost", manaCost));
     }
 }
