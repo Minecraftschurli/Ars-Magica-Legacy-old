@@ -18,6 +18,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.useNbtForSubtypes(ModItems.INFINITY_ORB.get());
+        registration.useNbtForSubtypes(ModItems.INSCRIPTION_UPGRADE.get());
     }
 
     @Override

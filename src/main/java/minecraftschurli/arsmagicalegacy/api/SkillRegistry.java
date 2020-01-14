@@ -38,8 +38,10 @@ public class SkillRegistry {
      * @param parents the ids of the parents of this {@link Skill}
      */
     public static RegistryObject<Skill> registerSkill(ResourceLocation id, ResourceLocation icon, Supplier<SkillPoint> tier, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
+        final Supplier<SkillPoint> _tier = tier == null ? () -> null : tier;
+        final Supplier<SkillTree> _tree = tree == null ? () -> null : tree;
         RegistryObject<Skill> ret = RegistryObject.of(id, ArsMagicaAPI.getSkillRegistry());
-        if (skills.putIfAbsent(ret, () -> new Skill(icon, tier.get(), posX, posY, tree.get(), parents).setRegistryName(id)) != null) {
+        if (skills.putIfAbsent(ret, () -> new Skill(icon, _tier.get(), posX, posY, _tree.get(), parents).setRegistryName(id)) != null) {
             throw new IllegalArgumentException("Duplicate registration " + id);
         }
         return RegistryObject.of(id, ArsMagicaAPI.getSkillRegistry());

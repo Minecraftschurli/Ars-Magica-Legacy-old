@@ -56,4 +56,11 @@ public abstract class SpellShape extends AbstractSpellPart {
      * @return The result of the spell cast.
      */
     public abstract SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount);
+
+    /**
+     * Gets the spell cooldown for this shape
+     * @param caster the caster of this spell
+     * @return the cooldown in ticks
+     */
+    public abstract int getCooldown(LivingEntity caster);
 }

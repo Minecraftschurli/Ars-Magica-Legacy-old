@@ -8,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.Config;
  */
 public class ManaStorage implements IManaStorage {
 
-    private float maxMana = Config.SERVER.DEFAULT_MAX_MANA.get();
+    private float maxMana = Config.COMMON.DEFAULT_MAX_MANA.get();
     private float mana = maxMana;
 
     @Override
@@ -23,7 +23,7 @@ public class ManaStorage implements IManaStorage {
 
     public void setMaxMana(float maxMana) {
         if (maxMana >= 0)
-            this.maxMana = Math.max(maxMana, Config.SERVER.DEFAULT_MAX_MANA.get());
+            this.maxMana = Math.max(maxMana, Config.COMMON.DEFAULT_MAX_MANA.get());
     }
 
     public boolean setMana(float mana) {

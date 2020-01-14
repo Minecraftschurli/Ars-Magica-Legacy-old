@@ -7,9 +7,10 @@ import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.*;
 
-import static minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.*;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -17,6 +18,22 @@ import static minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.*;
  */
 @SuppressWarnings("unused")
 public final class ModSpellParts implements IInit {
+
+    public static final Supplier<SkillPoint> SILVER_POINT = SkillPointRegistry.registerSkillPoint(-1, new SkillPoint(TextFormatting.GRAY, 0x999999, -1, -1).disableRender());
+    public static final Supplier<SkillPoint> SKILL_POINT_1 = SkillPointRegistry.registerSkillPoint(0, new SkillPoint(TextFormatting.BLUE, 0x0000ff, 0, 1));
+    public static final Supplier<SkillPoint> SKILL_POINT_2 = SkillPointRegistry.registerSkillPoint(1, new SkillPoint(TextFormatting.GREEN, 0x00ff00, 20, 2));
+    public static final Supplier<SkillPoint> SKILL_POINT_3 = SkillPointRegistry.registerSkillPoint(2, new SkillPoint(TextFormatting.RED, 0xff0000, 30, 2));
+    //public static final Supplier<SkillPoint> SKILL_POINT_4 = SpellRegistry.registerSkillPoint(new SkillPoint(4, TextFormatting.YELLOW, 0xffff00, 40, 3));
+    //public static final Supplier<SkillPoint> SKILL_POINT_5 = SpellRegistry.registerSkillPoint(new SkillPoint(5, TextFormatting.LIGHT_PURPLE, 0xff00ff, 50, 3));
+    //public static final Supplier<SkillPoint> SKILL_POINT_6 = SpellRegistry.registerSkillPoint(new SkillPoint(6, TextFormatting.AQUA, 0x00ffff, 60, 4));
+
+    public static final RegistryObject<SkillTree> OFFENSE = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "offense", 0);
+    public static final RegistryObject<SkillTree> DEFENSE = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "defense", 1);
+    public static final RegistryObject<SkillTree> UTILITY = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "utility", 2);
+    public static final RegistryObject<SkillTree> AFFINITY = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "affinity", 3);
+    public static final RegistryObject<SkillTree> TALENT = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "talent", 4);
+
+    public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "null", null, MissingShape::new, null, 0, 0);
 
     public static final RegistryObject<Skill> MANA_REGEN_1 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen1", SKILL_POINT_1, TALENT, 275, 75);
     public static final RegistryObject<Skill> MANA_REGEN_2 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen2", SKILL_POINT_2, TALENT, 275, 120, "arsmagicalegacy:mana_regen1");
@@ -135,5 +152,6 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> WATER_BREATHING = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "water_breathing", SKILL_POINT_1, WaterBreathing::new, UTILITY, 410, 345, "arsmagicalegacy:drought");
     public static final RegistryObject<SpellComponent> WATERY_GRAVE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "watery_grave", SKILL_POINT_2, WateryGrave::new, OFFENSE, 435, 245, "arsmagicalegacy:drown");
     public static final RegistryObject<SpellComponent> WIZARDS_AUTUMN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "wizards_autumn", SKILL_POINT_1, WizardsAutumn::new, UTILITY, 315, 120, "arsmagicalegacy:dig");
+
     public static void register() {}
 }

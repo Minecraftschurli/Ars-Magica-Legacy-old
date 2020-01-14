@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.api;
 
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.util.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.fml.*;
@@ -220,19 +221,19 @@ public class SpellRegistry {
 
     public static SpellShape getShapeFromName(String shapeName) {
         ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE.getId() : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
         return part instanceof SpellShape ? (SpellShape) part : null;
     }
 
     public static SpellModifier getModifierFromName(String shapeName) {
         ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE.getId() : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
         return part instanceof SpellModifier ? (SpellModifier) part : null;
     }
 
     public static SpellComponent getComponentFromName(String shapeName) {
         ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE.getId() : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ModSpellParts.MISSING_SHAPE.getId() : rl);
         return part instanceof SpellComponent ? (SpellComponent) part : null;
     }
 }

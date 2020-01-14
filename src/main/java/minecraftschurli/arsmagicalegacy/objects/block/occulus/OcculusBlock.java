@@ -19,7 +19,7 @@ import net.minecraftforge.common.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class BlockOcculus extends Block {
+public class OcculusBlock extends Block {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape[] SHAPE = makeRotatedShapes(new double[][]{
@@ -45,7 +45,7 @@ public class BlockOcculus extends Block {
             {6.5, 12, 8.5, 9.5, 14, 9.5},
     });
 
-    public BlockOcculus() {
+    public OcculusBlock() {
         super(Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).harvestLevel(-1).harvestTool(ToolType.PICKAXE));
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }

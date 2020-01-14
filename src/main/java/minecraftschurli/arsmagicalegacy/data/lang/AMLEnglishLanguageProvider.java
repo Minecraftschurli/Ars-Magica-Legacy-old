@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.*;
@@ -286,9 +285,9 @@ public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
         addSpellPart(ModSpellParts.ENDER_INTERVENTION, "Ender Intervention", "Well, I didn't know what hell looked like...");
         //addSpellPart(ModSpellParts.CONTINGENCY_DEATH, "Contingency: Death", "You're coming with me.");
 
-        addSkillPoint(ArsMagicaAPI.SKILL_POINT_1, "Blue");
-        addSkillPoint(ArsMagicaAPI.SKILL_POINT_2, "Red");
-        addSkillPoint(ArsMagicaAPI.SKILL_POINT_3, "Green");
+        addSkillPoint(ModSpellParts.SKILL_POINT_1, "Blue");
+        addSkillPoint(ModSpellParts.SKILL_POINT_2, "Red");
+        addSkillPoint(ModSpellParts.SKILL_POINT_3, "Green");
 
         add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
 

@@ -174,10 +174,10 @@ public class UIRender {
 
         Tessellator var9 = Tessellator.getInstance();
         var9.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        var9.getBuffer().pos(dst_x + 0, dst_y + dst_height, getBlitOffset()).tex((src_x + 0) * var7, (src_y + src_height) * var8).endVertex();
+        var9.getBuffer().pos(dst_x, dst_y + dst_height, getBlitOffset()).tex((src_x) * var7, (src_y + src_height) * var8).endVertex();
         var9.getBuffer().pos(dst_x + dst_width, dst_y + dst_height, getBlitOffset()).tex((src_x + src_width) * var7, (src_y + src_height) * var8).endVertex();
-        var9.getBuffer().pos(dst_x + dst_width, dst_y + 0, getBlitOffset()).tex((src_x + src_width) * var7, (src_y + 0) * var8).endVertex();
-        var9.getBuffer().pos(dst_x + 0, dst_y + 0, getBlitOffset()).tex((src_x + 0) * var7, (src_y + 0) * var8).endVertex();
+        var9.getBuffer().pos(dst_x + dst_width, dst_y, getBlitOffset()).tex((src_x + src_width) * var7, (src_y) * var8).endVertex();
+        var9.getBuffer().pos(dst_x, dst_y, getBlitOffset()).tex((src_x) * var7, (src_y) * var8).endVertex();
         var9.draw();
     }
 

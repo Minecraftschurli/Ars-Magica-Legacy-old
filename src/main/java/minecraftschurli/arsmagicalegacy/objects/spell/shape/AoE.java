@@ -90,6 +90,17 @@ public class AoE extends SpellShape {
         return SpellCastResult.EFFECT_FAILED;
     }
 
+    /**
+     * Gets the spell cooldown for this shape
+     *
+     * @param caster the caster of this spell
+     * @return the cooldown in ticks
+     */
+    @Override
+    public int getCooldown(LivingEntity caster) {
+        return 10;
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{

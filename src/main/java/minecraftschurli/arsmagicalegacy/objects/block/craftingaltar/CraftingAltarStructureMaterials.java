@@ -33,4 +33,12 @@ public class CraftingAltarStructureMaterials {
     public static boolean isValidMainMaterial(Block block) {
         return MAIN.containsKey(block);
     }
+
+    public static int getCapPower(Block block) {
+        return CAPS.get(block);
+    }
+
+    public static int getMainPower(Block block) {
+        return MAIN.get(block);
+    }
 }

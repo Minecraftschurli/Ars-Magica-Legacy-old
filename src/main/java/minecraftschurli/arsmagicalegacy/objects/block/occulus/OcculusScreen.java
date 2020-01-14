@@ -5,6 +5,7 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.capabilities.research.*;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.network.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.*;
@@ -56,9 +57,9 @@ public class OcculusScreen extends Screen {
         for (SkillTree tree : ArsMagicaAPI.getSkillTreeRegistry()) {
             int tabId = tree.getOcculusIndex();
             if (tabId % 16 < 8) {
-                addButton(new GuiButtonSkillTree(tabId, posX + 7 + ((tabId % 16) * 24), posY - 22, tree, (int) Math.floor((float) tabId / 16F), false, this::actionPerformed));
+                addButton(new SkillTreeGuiButton(tabId, posX + 7 + ((tabId % 16) * 24), posY - 22, tree, (int) Math.floor((float) tabId / 16F), false, this::actionPerformed));
             } else {
-                addButton(new GuiButtonSkillTree(tabId, posX + 7 + (((tabId % 16) - 8) * 24), posY + 210, tree, (int) Math.floor((float) tabId / 16F), true, this::actionPerformed));
+                addButton(new SkillTreeGuiButton(tabId, posX + 7 + (((tabId % 16) - 8) * 24), posY + 210, tree, (int) Math.floor((float) tabId / 16F), true, this::actionPerformed));
             }
         }
         maxPage = (int) Math.floor((float) (ArsMagicaAPI.getSkillTreeRegistry().getValues().size() - 1) / 16F);
@@ -67,8 +68,8 @@ public class OcculusScreen extends Screen {
         nextPage.active = page < maxPage;
         prevPage.active = page > 0;
         for (Widget button : buttons) {
-            if (button instanceof GuiButtonSkillTree) {
-                button.visible = (int) Math.floor((float) ((GuiButtonSkillTree) button).id / 16F) == page;
+            if (button instanceof SkillTreeGuiButton) {
+                button.visible = (int) Math.floor((float) ((SkillTreeGuiButton) button).id / 16F) == page;
             }
         }
         addButton(nextPage);
@@ -89,9 +90,9 @@ public class OcculusScreen extends Screen {
     }
 
     private void actionPerformed(Button button) {
-        if (button instanceof GuiButtonSkillTree) {
-            currentTree = ((GuiButtonSkillTree) button).getTree();
-            currentTabId = ((GuiButtonSkillTree) button).id;
+        if (button instanceof SkillTreeGuiButton) {
+            currentTree = ((SkillTreeGuiButton) button).getTree();
+            currentTabId = ((SkillTreeGuiButton) button).id;
             offsetX = 568 / 2 - 82 + 8;
             offsetY = 0;
         }
@@ -154,7 +155,7 @@ public class OcculusScreen extends Screen {
         }
         GlStateManager.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
-        if (currentTree != ArsMagicaAPI.AFFINITY.get()) {
+        if (currentTree != ModSpellParts.AFFINITY.get()) {
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             blitOffset = 1;

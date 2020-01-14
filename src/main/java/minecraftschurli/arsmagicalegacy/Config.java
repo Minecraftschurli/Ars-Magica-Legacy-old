@@ -21,9 +21,6 @@ public class Config {
     private static final String SPLIT_CHAR = "|";
     private static final String SPLIT_REGEX = "\\|";
 
-    public static final Server SERVER;
-    static final ForgeConfigSpec serverSpec;
-
     public static final Common COMMON;
     static final ForgeConfigSpec commonSpec;
 
@@ -31,45 +28,56 @@ public class Config {
         final Pair<Common, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(Common::new);
         commonSpec = commonPair.getRight();
         COMMON = commonPair.getLeft();
-
-        final Pair<Server, ForgeConfigSpec> serverPair = new ForgeConfigSpec.Builder().configure(Server::new);
-        serverSpec = serverPair.getRight();
-        SERVER = serverPair.getLeft();
     }
 
     static void reload(ModConfig.ModConfigEvent event) {
         switch (event.getConfig().getType()) {
-            case CLIENT:
-                break;
             case COMMON:
                 COMMON.parse();
                 break;
+            case CLIENT:
             case SERVER:
                 break;
         }
     }
 
     public static class Common {
+        public final ForgeConfigSpec.IntValue DEFAULT_MAX_BURNOUT;
+        public final ForgeConfigSpec.IntValue DEFAULT_MAX_MANA;
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_MAIN_MAP;
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_CAPS_MAP;
 
         Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Common configuration settings");
             builder.push("common");
+            builder.push("craftingaltar");
             CRAFTING_ALTAR_MAIN_MAP = builder
                     .comment("The blocks usable for the main body of the crafting altar structure")
                     .translation(PREFIX + "altarstructure.main")
                     .worldRestart()
-                    .defineList("main", this::getMainDefault, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
+                    .defineList("main", this::getDefaultMain, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
             CRAFTING_ALTAR_CAPS_MAP = builder
                     .comment("The blocks usable for the caps of the crafting altar structure")
                     .translation(PREFIX + "altarstructure.caps")
                     .worldRestart()
-                    .defineList("caps", this::getCapsDefault, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
+                    .defineList("caps", this::getDefaultCaps, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
+            builder.pop();
+            builder.push("magicvalues");
+            DEFAULT_MAX_MANA = builder
+                    .comment("The default maximum mana for the player")
+                    .translation(PREFIX + "maxmana")
+                    .worldRestart()
+                    .defineInRange("maxmana", 100, 0, 10000);
+            DEFAULT_MAX_BURNOUT = builder
+                    .comment("The default maximum burnout for the player")
+                    .translation(PREFIX + "maxburnout")
+                    .worldRestart()
+                    .defineInRange("maxburnout", 100, 0, 10000);
+            builder.pop();
             builder.pop();
         }
 
-        private List<String> getCapsDefault() {
+        private List<String> getDefaultCaps() {
             return Arrays.asList(
                     capFromBlock(Blocks.GLASS, 1),
                     capFromBlock(Blocks.COAL_BLOCK, 2),
@@ -92,7 +100,7 @@ public class Config {
             return block.getRegistryName().toString() + SPLIT_CHAR + value;
         }
 
-        private List<String> getMainDefault() {
+        private List<String> getDefaultMain() {
             return Arrays.asList(
                     mainFromBlocks(Blocks.OAK_PLANKS, Blocks.OAK_STAIRS, 1),
                     mainFromBlocks(Blocks.ACACIA_PLANKS, Blocks.ACACIA_STAIRS, 1),
@@ -146,26 +154,6 @@ public class Config {
                 } catch (Exception ignored) {
                 }
             });
-        }
-    }
-
-    public static class Server {
-        public  final ForgeConfigSpec.IntValue DEFAULT_MAX_BURNOUT;
-        public final ForgeConfigSpec.IntValue DEFAULT_MAX_MANA;
-
-        Server(ForgeConfigSpec.Builder builder) {
-            builder.comment("Server configuration settings");
-            builder.push("server");
-            DEFAULT_MAX_MANA = builder
-                    .comment("The default maximum mana for the player")
-                    .translation(PREFIX + "maxmana")
-                    .worldRestart()
-                    .defineInRange("maxmana", 100, 0, 10000);
-            DEFAULT_MAX_BURNOUT = builder
-                    .comment("The default maximum burnout for the player")
-                    .translation(PREFIX + "maxburnout")
-                    .worldRestart()
-                    .defineInRange("maxburnout", 100, 0, 10000);
         }
     }
 }

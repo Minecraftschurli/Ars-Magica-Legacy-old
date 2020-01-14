@@ -14,8 +14,8 @@ public class TickHandler {
     @SubscribeEvent
     public static void onTick(TickEvent.PlayerTickEvent event) {
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START) {
-            MagicHelper.increaseMana(event.player, 0.1f + 0.2f * MagicHelper.getManaRegenLevel(event.player));
-            MagicHelper.decreaseBurnout(event.player, 0.1f);
+            MagicHelper.increaseMana(event.player, 0.1f + 0.3f * MagicHelper.getManaRegenLevel(event.player));
+            MagicHelper.decreaseBurnout(event.player, 0.4f);
         }
     }
 }

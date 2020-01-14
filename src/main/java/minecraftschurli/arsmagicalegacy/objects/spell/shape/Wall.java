@@ -49,6 +49,17 @@ public class Wall extends SpellShape {
         return SpellCastResult.SUCCESS;
     }
 
+    /**
+     * Gets the spell cooldown for this shape
+     *
+     * @param caster the caster of this spell
+     * @return the cooldown in ticks
+     */
+    @Override
+    public int getCooldown(LivingEntity caster) {
+        return 4;
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{

@@ -8,6 +8,7 @@ import com.mojang.brigadier.suggestion.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.*;
@@ -70,7 +71,7 @@ public class CommandResearch {
     }
 
     private static int learn(CommandContext<CommandSource> context, Skill skill) throws CommandSyntaxException {
-        if (skill != SpellRegistry.getSkillFromPart(ArsMagicaAPI.MISSING_SHAPE.get()))
+        if (skill != SpellRegistry.getSkillFromPart(ModSpellParts.MISSING_SHAPE.get()))
             return 0;
         if (skill == null) {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);

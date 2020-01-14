@@ -66,7 +66,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Torch> VINTEUM_TORCH = BLOCKS.register("vinteum_torch", () -> new Torch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
     public static final RegistryObject<WallTorch> VINTEUM_WALL_TORCH = BLOCKS.register("vinteum_wall_torch", () -> new WallTorch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<BlockOcculus> OCCULUS = BLOCKS.register("occulus", BlockOcculus::new);
+    public static final RegistryObject<OcculusBlock> OCCULUS = BLOCKS.register("occulus", OcculusBlock::new);
     public static final RegistryObject<Block> MANA_BATTERY = BLOCKS.register("mana_battery", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<InscriptionTableBlock> INSCRIPTION_TABLE = BLOCKS.register("inscription_table", InscriptionTableBlock::new);
     public static final RegistryObject<CraftingAltarBlock> ALTAR_CORE = BLOCKS.register("altar_core", CraftingAltarBlock::new);

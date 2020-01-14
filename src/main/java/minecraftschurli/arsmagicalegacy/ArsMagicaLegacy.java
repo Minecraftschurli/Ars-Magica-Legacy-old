@@ -123,7 +123,6 @@ public final class ArsMagicaLegacy {
     }
 
     private void registerItemColorHandler(ColorHandlerEvent.Item event) {
-        LOGGER.debug("Item Colors");
         event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
     }
 

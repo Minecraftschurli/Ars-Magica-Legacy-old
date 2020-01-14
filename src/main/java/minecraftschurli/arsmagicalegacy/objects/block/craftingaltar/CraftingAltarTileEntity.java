@@ -38,8 +38,11 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
     private static final Supplier<BlockState> LEVER = Blocks.LEVER::getDefaultState;
     private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
+
     int checkTimer = 0;
     boolean multiblockState;
+    boolean powerFlag;
+
     private AtomicReference<BlockState> cap = new AtomicReference<>();
     private AtomicReference<BlockState> main = new AtomicReference<>();
     private Supplier<BlockState> stairBottom1 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
@@ -206,10 +209,40 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 invalidateMB();
             return;
         }
-        if (this.book != ItemStack.EMPTY && this.recipe != null) {
-            if (craft())
+        if (this.book != ItemStack.EMPTY && book.hasTag() && this.recipe != null) {
+            boolean flag = this.powerFlag;
+            this.powerFlag = checkAltarPower();
+            if (this.powerFlag){
+                if (craft())
+                    sync();
+            }
+            if (flag != this.powerFlag) {
                 sync();
+            }
         }
+    }
+
+    private boolean checkAltarPower() {
+        int count = 0;
+        for (int i = 0; i < InscriptionTableTileEntity.MAX_STAGE_GROUPS; i++) {
+            CompoundNBT tag = book.getTag();
+            if (tag.contains("shapeGroupCombo_" + i)) {
+                count += tag.getList("shapeGroupCombo_" + i, Constants.NBT.TAG_STRING)
+                        .stream()
+                        .map(INBT::getString)
+                        .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
+                        .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                        .count();
+            }
+        }
+        count += book.getTag().getList("output_combo", Constants.NBT.TAG_STRING)
+                .stream()
+                .map(INBT::getString)
+                .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
+                .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                .count();
+        int power = CraftingAltarStructureMaterials.getMainPower(main.get().getBlock()) + CraftingAltarStructureMaterials.getCapPower(cap.get().getBlock());
+        return count < power;
     }
 
     private void sync() {
@@ -249,7 +282,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         return false;
     }
 
-    private ItemStack createSpellStack() {//TODO save to spell
+    private ItemStack createSpellStack() {
         List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroups = new ArrayList<>(5);
         for (int i = 0; i < InscriptionTableTileEntity.MAX_STAGE_GROUPS; i++) {
             CompoundNBT tag = book.getOrCreateTag();
@@ -312,6 +345,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         compound.putBoolean("has_recipe", recipe != null);
         compound.put("recipe", recipe != null ? recipe.serializeNBT() : new ListNBT());
         compound.putInt("craft_state", currentStage);
+        compound.putBoolean("power_flag", powerFlag);
         return compound;
     }
 
@@ -326,5 +360,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             this.recipe = null;
         }
         this.currentStage = compound.getInt("craft_state");
+        this.powerFlag = compound.getBoolean("power_flag");
     }
 }
