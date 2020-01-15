@@ -4,6 +4,8 @@ import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.*;
+import net.minecraft.state.properties.RailShape;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 
 import javax.annotation.Nonnull;
@@ -27,13 +29,13 @@ public class AMLBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.CHIMERITE_BLOCK);
         simpleBlock(ModBlocks.CHIMERITE_ORE);
         flowerBlock(ModBlocks.DESERT_NOVA);
-        /*railFlat(ModBlocks.GOLD_INLAY);
-        railFlat(ModBlocks.IRON_INLAY);*/
+        railBlock(ModBlocks.GOLD_INLAY);
+        railBlock(ModBlocks.IRON_INLAY);
         simpleBlock(ModBlocks.MAGIC_WALL);
         simpleBlock(ModBlocks.MANA_BATTERY);
         simpleBlock(ModBlocks.MOONSTONE_BLOCK);
         simpleBlock(ModBlocks.MOONSTONE_ORE);
-        //railFlat(ModBlocks.REDSTONE_INLAY);
+        railBlock(ModBlocks.REDSTONE_INLAY);
         logBlock(ModBlocks.STRIPPED_WITCHWOOD_LOG);
         simpleBlock(ModBlocks.STRIPPED_WITCHWOOD_WOOD);
         simpleBlock(ModBlocks.SUNSTONE_BLOCK);
@@ -89,15 +91,43 @@ public class AMLBlockStateProvider extends BlockStateProvider {
         simpleBlock(block, getExistingFile(mcLoc("block/air")));
     }
 
-    /*protected void railFlat(Supplier<? extends Block> block) {
-        railFlat(block.get());
+    protected void railBlock(Supplier<? extends Block> block) {
+        railBlock(block.get());
     }
 
-    protected void railFlat(Block block) {
+    protected void railBlock(Block block) {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
-        builder.partialState().with(RailBlock.SHAPE, RailShape.NORTH_SOUTH).modelForState().modelFile().addModel();
-        simpleBlock(block, singleTexture(block.getRegistryName().getPath(), mcLoc("block/rail_flat"), "rail", blockTexture(block)));
-    }*/
+        ModelFile curved = withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", blockTexture(block));
+        ModelFile straight = withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTexture(block));
+        ModelFile raisedSW = withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTexture(block));
+        ModelFile raisedNE = withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTexture(block));
+        builder.forAllStates(state -> {
+            switch (state.get(RailBlock.SHAPE)) {
+                case NORTH_SOUTH:
+                    return ConfiguredModel.builder().modelFile(straight).build();
+                case EAST_WEST:
+                    return ConfiguredModel.builder().modelFile(straight).rotationY(90).build();
+                case SOUTH_EAST:
+                    return ConfiguredModel.builder().modelFile(curved).build();
+                case SOUTH_WEST:
+                    return ConfiguredModel.builder().modelFile(curved).rotationY(90).build();
+                case NORTH_WEST:
+                    return ConfiguredModel.builder().modelFile(curved).rotationY(180).build();
+                case NORTH_EAST:
+                    return ConfiguredModel.builder().modelFile(curved).rotationY(270).build();
+                case ASCENDING_NORTH:
+                    return ConfiguredModel.builder().modelFile(raisedNE).build();
+                case ASCENDING_EAST:
+                    return ConfiguredModel.builder().modelFile(raisedNE).rotationY(90).build();
+                case ASCENDING_SOUTH:
+                    return ConfiguredModel.builder().modelFile(raisedSW).build();
+                case ASCENDING_WEST:
+                    return ConfiguredModel.builder().modelFile(raisedSW).rotationY(90).build();
+                default:
+                    return null;
+            }
+        });
+    }
 
     protected void flowerBlock(Supplier<? extends Block> block) {
         flowerBlock(block.get());

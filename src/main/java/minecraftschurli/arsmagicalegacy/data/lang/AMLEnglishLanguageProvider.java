@@ -4,12 +4,13 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.*;
+import net.minecraftforge.common.data.LanguageProvider;
 
 /**
  * @author Minecraftschurli
  * @version 2020-01-01
  */
-public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
+public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsMagicaLanguagePlugin {
     public AMLEnglishLanguageProvider(DataGenerator gen) {
         super(gen, ArsMagicaLegacy.MODID, "en_us");
     }
@@ -300,7 +301,7 @@ public class AMLEnglishLanguageProvider extends ArsMagicaLanguageProvider {
     }
 
     @Override
-    public String getName() {
-        return ArsMagicaLegacy.MODNAME + " Language Provider";
+    public void add(String key, String value) {
+        super.add(key, value);
     }
 }

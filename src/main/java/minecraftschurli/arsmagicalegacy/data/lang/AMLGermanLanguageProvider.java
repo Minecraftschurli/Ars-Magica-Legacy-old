@@ -4,12 +4,13 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.*;
+import net.minecraftforge.common.data.LanguageProvider;
 
 /**
  * @author Minecraftschurli
  * @version 2020-01-06
  */
-public class AMLGermanLanguageProvider extends ArsMagicaLanguageProvider {
+public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMagicaLanguagePlugin {
     public AMLGermanLanguageProvider(DataGenerator gen) {
         super(gen, ArsMagicaLegacy.MODID, "de_de");
     }
@@ -269,5 +270,10 @@ public class AMLGermanLanguageProvider extends ArsMagicaLanguageProvider {
 
         add("arsmagicalegacy.gui.inscriptiontable.search", "Suchen");
         add("arsmagicalegacy.occulus.prevent", "Mythische Kräfte hindern dich am Benutzen dieses Konstrukts!");
+    }
+
+    @Override
+    public void add(String key, String value) {
+        super.add(key, value);
     }
 }

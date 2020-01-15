@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.data.lang.*;
+import minecraftschurli.arsmagicalegacy.data.loot.AMLLootTableProvider;
 import minecraftschurli.arsmagicalegacy.data.tags.AMLBlockTagsProvider;
 import minecraftschurli.arsmagicalegacy.data.tags.AMLFluidTagsProvider;
 import minecraftschurli.arsmagicalegacy.data.tags.AMLItemTagsProvider;
@@ -25,7 +26,7 @@ public class DataGenerators {
 
         if (event.includeServer()) {
             gen.addProvider(new AMLRecipeProvider(gen));
-            gen.addProvider(new AMLBlockLootTableProvider(gen));
+            gen.addProvider(new AMLLootTableProvider(gen));
             gen.addProvider(new AMLItemTagsProvider(gen));
             gen.addProvider(new AMLBlockTagsProvider(gen));
             gen.addProvider(new AMLFluidTagsProvider(gen));

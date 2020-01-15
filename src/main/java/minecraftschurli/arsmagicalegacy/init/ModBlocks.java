@@ -60,9 +60,9 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<FlowerBlock> DESERT_NOVA = BLOCKS.register("desert_nova", () -> new FlowerBlock(Effects.FIRE_RESISTANCE, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
     public static final RegistryObject<FlowerBlock> TARMA_ROOT = BLOCKS.register("tarma_root", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
     public static final RegistryObject<FlowerBlock> WAKEBLOOM = BLOCKS.register("wakebloom", () -> new FlowerBlock(Effects.WEAKNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0f).sound(SoundType.PLANT)));
-    public static final RegistryObject<Rail> REDSTONE_INLAY = BLOCKS.register("redstone_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
-    public static final RegistryObject<Rail> IRON_INLAY = BLOCKS.register("iron_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
-    public static final RegistryObject<Rail> GOLD_INLAY = BLOCKS.register("gold_inlay", () -> new Rail(Block.Properties.create(Material.MISCELLANEOUS)));
+    public static final RegistryObject<InlayBlock> REDSTONE_INLAY = BLOCKS.register("redstone_inlay", () -> new InlayBlock(Block.Properties.create(Material.MISCELLANEOUS)));
+    public static final RegistryObject<InlayBlock> IRON_INLAY = BLOCKS.register("iron_inlay", () -> new InlayBlock(Block.Properties.create(Material.MISCELLANEOUS)));
+    public static final RegistryObject<InlayBlock> GOLD_INLAY = BLOCKS.register("gold_inlay", () -> new InlayBlock(Block.Properties.create(Material.MISCELLANEOUS)));
     public static final RegistryObject<Torch> VINTEUM_TORCH = BLOCKS.register("vinteum_torch", () -> new Torch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
     public static final RegistryObject<WallTorch> VINTEUM_WALL_TORCH = BLOCKS.register("vinteum_wall_torch", () -> new WallTorch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.0f).lightValue(14).sound(SoundType.WOOD)));
 
