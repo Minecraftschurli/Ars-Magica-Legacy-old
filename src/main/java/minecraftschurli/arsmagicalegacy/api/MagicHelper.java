@@ -79,18 +79,18 @@ public class MagicHelper {
     }
 
     /**
-     *
-     * @param player
-     * @return
+     * Gets the maximum amount of magic-xp for the current level
+     * @param player the player
+     * @return the max magic-xp for the current level
      */
     public static float getMaxXP(PlayerEntity player) {
         return getMagicCapability(player).getMaxXP();
     }
 
     /**
-     *
-     * @param player
-     * @return
+     * Gets the current amount of magic-xp
+     * @param player the player
+     * @return the current amount of magic-xp
      */
     public static float getCurrentXP(PlayerEntity player) {
         return getMagicCapability(player).getXp();
@@ -98,8 +98,8 @@ public class MagicHelper {
 
     /**
      * Gets the players current level
-     * @param player
-     * @return
+     * @param player the player
+     * @return the current level
      */
     public static int getCurrentLevel(PlayerEntity player) {
         return getMagicCapability(player).getCurrentLevel();
@@ -110,28 +110,28 @@ public class MagicHelper {
     //region =========BURNOUT=========
 
     /**
-     *
-     * @param entity
-     * @return
+     * Gets the current burnout amount
+     * @param entity the entity
+     * @return the current burnout amount
      */
     public static float getBurnout(LivingEntity entity) {
         return getBurnoutCapability(entity).getBurnout();
     }
 
     /**
-     *
-     * @param entity
-     * @return
+     * Gets the current maximum burnout amount
+     * @param entity the entity
+     * @return the current maximum burnout amount
      */
     public static float getMaxBurnout(LivingEntity entity) {
         return getBurnoutCapability(entity).getMaxBurnout();
     }
 
     /**
-     *
-     * @param entity
-     * @param burnoutCost
-     * @return
+     * Checks if the entity is burned out (hasn't got enough capacity left)
+     * @param entity      the entity
+     * @param burnoutCost the burnout cost
+     * @return true if the current burnout + the burnout cost is greater than the current maximum burnout
      */
     public static boolean isBurnedOut(LivingEntity entity, float burnoutCost) {
         return getBurnout(entity) + burnoutCost > getMaxBurnout(entity);
@@ -166,7 +166,7 @@ public class MagicHelper {
     //region =========MANA=========
 
     /**
-     *
+     * Gets the current amount of mana
      * @param entity
      * @return
      */
@@ -180,6 +180,7 @@ public class MagicHelper {
      * @return
      */
     public static float getMaxMana(LivingEntity entity) {
+        //noinspection ConstantConditions
         EffectInstance potionEffect = entity.getActivePotionEffect(ModEffects.MANA_BOOST.get());
         float maxMana = getManaCapability(entity).getMaxMana();
         if (potionEffect != null)

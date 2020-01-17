@@ -20,7 +20,10 @@ public class SimpleParticle extends SpriteTexturedParticle {
         hasGravity = false;
         hasMotion = true;
         radiant = false;
-        particleRed = particleGreen = particleBlue = particleAlpha = 1;
+        particleRed = data.getRed();
+        particleGreen = data.getGreen();
+        particleBlue = data.getBlue();
+        particleAlpha = data.getAlpha();
         maxAge = 20 + rand.nextInt(20);
         particleGravity = 1;
         selectSpriteWithAge(animatedSprite);
@@ -103,6 +106,12 @@ public class SimpleParticle extends SpriteTexturedParticle {
 
     public int getAge() {
         return age;
+    }
+
+    @Override
+    public void tick() {
+        selectSpriteWithAge(animatedSprite);
+        super.tick();
     }
 
     @Override
