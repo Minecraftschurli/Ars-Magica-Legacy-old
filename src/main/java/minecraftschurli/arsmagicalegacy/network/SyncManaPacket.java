@@ -33,7 +33,7 @@ public class SyncManaPacket implements IPacket {
 
     @Override
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(CapabilityMana.MANA).ifPresent(iManaStorage -> {
+        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(ManaCapability.MANA).ifPresent(iManaStorage -> {
             iManaStorage.setMaxMana(this.maxMana);
             iManaStorage.setMana(this.mana);
         });

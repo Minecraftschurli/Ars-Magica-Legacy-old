@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -26,7 +26,7 @@ public class ManaShield extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         float consumed = MagicHelper.getMana(caster);
-        MagicHelper.getManaCapability(caster).setMana(0);
+        MagicHelper.decreaseMana(caster, consumed);
 //        EntityExtension.For((LivingEntity) target).addMagicShielding((consumed / 250) * SpellUtils.getModifiedIntAdd(1, stack, caster, target, world, SpellModifiers.BUFF_POWER));
         return true;
     }

@@ -1,7 +1,9 @@
 package minecraftschurli.arsmagicalegacy.network;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.capabilities.research.*;
+import minecraftschurli.arsmagicalegacy.capabilities.research.ResearchCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.research.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.capabilities.research.ResearchStorage;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraftforge.fml.network.*;
@@ -22,17 +24,17 @@ public class SyncResearchPacket implements IPacket {
 
     public SyncResearchPacket(PacketBuffer buf) {
         this.capability = new ResearchStorage();
-        CapabilityResearch.RESEARCH.readNBT(this.capability, null, buf.readCompoundTag());
+        ResearchCapability.RESEARCH.readNBT(this.capability, null, buf.readCompoundTag());
     }
 
     @Override
     public void toBytes(PacketBuffer buf) {
-        buf.writeCompoundTag((CompoundNBT) CapabilityResearch.RESEARCH.writeNBT(this.capability, null));
+        buf.writeCompoundTag((CompoundNBT) ResearchCapability.RESEARCH.writeNBT(this.capability, null));
     }
 
     @Override
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(CapabilityResearch.RESEARCH).ifPresent(iStorage -> iStorage.setFrom(capability));
+        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(ResearchCapability.RESEARCH).ifPresent(iStorage -> iStorage.setFrom(capability));
         ctx.get().setPacketHandled(true);
     }
 }

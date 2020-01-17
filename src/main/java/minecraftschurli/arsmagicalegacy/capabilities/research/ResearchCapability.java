@@ -14,7 +14,7 @@ import java.util.stream.*;
  * @author Minecraftschurli
  * @version 2019-11-14
  */
-public class CapabilityResearch implements ICapabilitySerializable<INBT> {
+public class ResearchCapability implements ICapabilitySerializable<INBT> {
 
     @CapabilityInject(IResearchStorage.class)
     public static Capability<IResearchStorage> RESEARCH = null;

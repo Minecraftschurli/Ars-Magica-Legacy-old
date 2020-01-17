@@ -42,17 +42,6 @@ public class Self extends SpellShape {
         return SpellUtils.applyStackStage(stack, caster, target, x, y, z, null, world, true, giveXP, 0);
     }
 
-    /**
-     * Gets the spell cooldown for this shape
-     *
-     * @param caster the caster of this spell
-     * @return the cooldown in ticks
-     */
-    @Override
-    public int getCooldown(LivingEntity caster) {
-        return 1;
-    }
-
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{

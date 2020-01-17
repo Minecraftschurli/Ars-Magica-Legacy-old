@@ -29,7 +29,7 @@ public class SyncMagicPacket implements IPacket {
 
     @Override
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(CapabilityMagic.MAGIC).ifPresent(iMagicStorage -> {
+        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(MagicCapability.MAGIC).ifPresent(iMagicStorage -> {
             iMagicStorage.setLevel(this.level);
         });
         ctx.get().setPacketHandled(true);

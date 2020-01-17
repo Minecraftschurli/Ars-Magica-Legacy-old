@@ -9,7 +9,6 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.*;
 import net.minecraft.util.text.*;
@@ -49,7 +48,7 @@ public class CommandResearch {
     }
 
     private static int list(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        context.getSource().sendFeedback(new StringTextComponent(MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).getLearnedSkills().stream().map(Skill::getName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
+        context.getSource().sendFeedback(new StringTextComponent(MagicHelper.getLearnedSkills(EntityArgument.getPlayer(context, TARGET)).stream().map(Skill::getName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
         return 0;
     }
 
@@ -59,13 +58,13 @@ public class CommandResearch {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", skill.getName()), false);
             return 1;
         }
-        MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).forget(skill);
+        MagicHelper.forget(EntityArgument.getPlayer(context, TARGET), skill);
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.forgot", skill.getName()), false);
         return 0;
     }
 
     private static int forgetAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).forgetAll();
+        MagicHelper.forgetAll(EntityArgument.getPlayer(context, TARGET));
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.forgotall"), false);
         return 0;
     }
@@ -77,8 +76,7 @@ public class CommandResearch {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);
             return 1;
         }
-        MagicHelper.getResearchCapability(EntityArgument.getPlayer(context, TARGET)).learn(skill);
-        MagicHelper.syncResearch(EntityArgument.getPlayer(context, TARGET));
+        MagicHelper.learn(EntityArgument.getPlayer(context, TARGET), skill);
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.learned", skill.getName()), false);
         return 0;
     }

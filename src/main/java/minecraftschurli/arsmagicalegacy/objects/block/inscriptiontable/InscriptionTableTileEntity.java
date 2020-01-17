@@ -5,7 +5,7 @@ import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.event.*;
+import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.lore.*;
 import minecraftschurli.arsmagicalegacy.network.*;

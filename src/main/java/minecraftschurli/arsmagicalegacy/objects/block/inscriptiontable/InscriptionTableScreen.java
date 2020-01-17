@@ -7,7 +7,6 @@ import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.spell.*;
-import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screen.inventory.*;
@@ -74,7 +73,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         ySize = 252;
         dragging = false;
 
-        List<ResourceLocation> skills = MagicHelper.getResearchCapability(usingPlayer).getLearned();
+        List<ResourceLocation> skills = MagicHelper.getLearned(usingPlayer);
         knownShapes = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellShape).collect(Collectors.toList());
         knownComponents = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellComponent).collect(Collectors.toList());
         knownModifiers = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellModifier).collect(Collectors.toList());

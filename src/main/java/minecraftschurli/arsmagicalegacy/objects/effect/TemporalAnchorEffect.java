@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.util.*;
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import net.minecraft.entity.*;
 import net.minecraft.nbt.*;
 import net.minecraft.potion.*;
@@ -46,7 +46,8 @@ public class TemporalAnchorEffect extends AMEffect {
 
             livingEntity.setPositionAndRotation(x, y, z, rotationYaw, rotationPitch);
             livingEntity.rotationYawHead = rotationYawHead;
-            MagicHelper.getManaCapability(livingEntity).setMana(mana);
+            MagicHelper.decreaseMana(livingEntity, MagicHelper.getMana(livingEntity));
+            MagicHelper.increaseMana(livingEntity, mana);
             livingEntity.setHealth(health);
             livingEntity.fallDistance = 0;
         } catch (Exception ignored) {

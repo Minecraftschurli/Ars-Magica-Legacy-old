@@ -23,7 +23,7 @@ public class ManaStorage implements IManaStorage {
 
     public void setMaxMana(float maxMana) {
         if (maxMana >= 0)
-            this.maxMana = Math.max(maxMana, Config.COMMON.DEFAULT_MAX_MANA.get());
+            this.maxMana = maxMana;
     }
 
     public boolean setMana(float mana) {

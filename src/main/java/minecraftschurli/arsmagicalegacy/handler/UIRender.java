@@ -2,19 +2,23 @@ package minecraftschurli.arsmagicalegacy.handler;
 
 import com.mojang.blaze3d.platform.*;
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.BurnoutCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.eventbus.api.*;
@@ -29,6 +33,7 @@ public class UIRender {
 
     public static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/bar.png");
     public static final ResourceLocation SPELL_BOOK_UI_TEXTURE = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spellbook_ui.png");
+    public static final ResourceLocation MC_TEXTURE = new ResourceLocation( "textures/gui/icons.png");
     private final Minecraft mc = Minecraft.getInstance();
     private float blitOffset;
 
@@ -57,6 +62,7 @@ public class UIRender {
             renderSpellBook(player, Hand.MAIN_HAND);
         else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.OFF_HAND);
+        renderMagicXp(player);
     }
 
     private void renderSpellBook(PlayerEntity player, Hand hand) {
@@ -108,12 +114,41 @@ public class UIRender {
         setBlitOffset(0);
     }
 
+    private void renderMagicXp(PlayerEntity player) {
+        if (MagicHelper.getCurrentLevel(player) > 0){
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            float x = 0;
+            float y = 0;
+            Vec2f position = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPBarPosition(), i, j);*/
+            Vec2f dimensions = new Vec2f(182, 5);
+            Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
+            GlStateManager.color4f(0.5f, 0.5f, 1.0f, 1.0f);
+
+            //base XP bar
+            drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
+
+            if (MagicHelper.getCurrentXP(player) > 0){
+                float pctXP = MagicHelper.getCurrentXP(player) / MagicHelper.getMaxXP(player);
+                if (pctXP > 1)
+                    pctXP = 1;
+                int width = (int)((dimensions.x + 1) * pctXP);
+                drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
+            }
+
+            String xpStr = new TranslationTextComponent(ArsMagicaLegacy.MODID+".gui.xp", MagicHelper.getCurrentXP(player), MagicHelper.getMaxXP(player)).getString();
+            Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
+            Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
+            GlStateManager.popMatrix();
+        }
+    }
+
     private void renderBurnoutBar(PlayerEntity player) {
         int scaledWidth = mc.mainWindow.getScaledWidth();
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 13;
-        LazyOptional<IBurnoutStorage> burnoutStore = player.getCapability(CapabilityBurnout.BURNOUT, null);
+        LazyOptional<IBurnoutStorage> burnoutStore = player.getCapability(BurnoutCapability.BURNOUT, null);
         double burnout = burnoutStore.map(IBurnoutStorage::getBurnout).orElse(0.0f);
         double maxBurnout = burnoutStore.map(IBurnoutStorage::getMaxBurnout).orElse(0.0f);
         renderBar(xStart, yStart, burnout, maxBurnout, 0x880000, "burnout");
@@ -124,7 +159,7 @@ public class UIRender {
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 23;
-        LazyOptional<IManaStorage> manaStore = player.getCapability(CapabilityMana.MANA, null);
+        LazyOptional<IManaStorage> manaStore = player.getCapability(ManaCapability.MANA, null);
         double mana = manaStore.map(IManaStorage::getMana).orElse(0.0f);
         double maxMana = manaStore.map(IManaStorage::getMaxMana).orElse(0.0f);
         renderBar(xStart, yStart, mana, maxMana, 0x99FFFF, "mana");

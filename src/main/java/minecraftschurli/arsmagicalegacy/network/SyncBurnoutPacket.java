@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.network;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.BurnoutCapability;
 import net.minecraft.network.*;
 import net.minecraftforge.fml.network.*;
 
@@ -33,7 +33,7 @@ public class SyncBurnoutPacket implements IPacket {
 
     @Override
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(CapabilityBurnout.BURNOUT).ifPresent(iBurnoutStorage -> {
+        ArsMagicaLegacy.proxy.getLocalPlayer().getCapability(BurnoutCapability.BURNOUT).ifPresent(iBurnoutStorage -> {
             iBurnoutStorage.setMaxBurnout(this.maxBurnout);
             iBurnoutStorage.setBurnout(this.burnout);
         });

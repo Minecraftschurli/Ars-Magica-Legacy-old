@@ -97,10 +97,10 @@ public class AMLBlockStateProvider extends BlockStateProvider {
 
     protected void railBlock(Block block) {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
-        ModelFile curved = withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", blockTexture(block));
         ModelFile straight = withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTexture(block));
-        ModelFile raisedSW = withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTexture(block));
+        ModelFile curved = withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", blockTexture(block));
         ModelFile raisedNE = withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTexture(block));
+        ModelFile raisedSW = withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTexture(block));
         builder.forAllStates(state -> {
             switch (state.get(RailBlock.SHAPE)) {
                 case NORTH_SOUTH:

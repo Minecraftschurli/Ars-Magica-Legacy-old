@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.event;
+package minecraftschurli.arsmagicalegacy.api.event;
 
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import net.minecraftforge.eventbus.api.*;

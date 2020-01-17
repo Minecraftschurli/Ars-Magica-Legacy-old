@@ -6,6 +6,7 @@ package minecraftschurli.arsmagicalegacy.capabilities.magic;
  */
 public class MagicStorage implements IMagicStorage {
     private int level;
+    private float xp;
 
     @Override
     public int getCurrentLevel() {
@@ -20,5 +21,15 @@ public class MagicStorage implements IMagicStorage {
     @Override
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    @Override
+    public void setXp(float xp) {
+        this.xp = xp;
+    }
+
+    @Override
+    public float getXp() {
+        return this.xp;
     }
 }

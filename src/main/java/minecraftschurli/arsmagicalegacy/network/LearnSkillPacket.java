@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.network;
 
-import minecraftschurli.arsmagicalegacy.util.*;
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import net.minecraft.network.*;
 import net.minecraftforge.fml.network.*;
 

@@ -27,33 +27,47 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             //bindTexture(tileEntityIn.getCamouflageRL());
             GlStateManager.translated(x + 0.5, y + 0.5, z + 0.5);
             setLightmapDisabled(true);
-            GlStateManager.pushMatrix();
-            GlStateManager.scaled(0.55, 0.55, 0.55);
-            if (!altar.powerFlag) {
-                drawNameplate(tileEntityIn, new TranslationTextComponent(ArsMagicaLegacy.MODID+".altar.lowpower").getFormattedText(), -0.5, -0.4, -0.5, 32);
-                GlStateManager.popMatrix();
-                GlStateManager.rotatef(tileEntityIn.itemRotation, 0.0F, 1.0F, 0.0F);
-                Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(Blocks.BARRIER), ItemCameraTransforms.TransformType.GROUND);
-            } else {
-                ISpellIngredient ingredient = altar.getCurrentIngredient();
-                if (ingredient == null)
-                    return;
-                drawNameplate(tileEntityIn, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
-                GlStateManager.popMatrix();
-                GlStateManager.rotatef(tileEntityIn.itemRotation, 0.0F, 1.0F, 0.0F);
-                //GlStateManager.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
-                if (ingredient instanceof ItemStackSpellIngredient) {
-                    Minecraft.getInstance().getItemRenderer().renderItem(((ItemStackSpellIngredient) ingredient).getStack(), ItemCameraTransforms.TransformType.GROUND);
-                } else if (ingredient instanceof ItemTagSpellIngredient) {
-                    if (tileEntityIn.itemRotation % 3 == 0) {
-                        tileEntityIn.itemCache = ((ItemTagSpellIngredient) ingredient).getTag().getRandomElement(getWorld().rand);
-                    }
-                    Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(tileEntityIn.itemCache), ItemCameraTransforms.TransformType.GROUND);
-                }
-            }
+
+            doRender(altar, tileEntityIn);
+
             setLightmapDisabled(false);
             GlStateManager.popMatrix();
         }
+    }
+
+    private void doRender(CraftingAltarTileEntity altar, CraftingAltarViewTileEntity view) {
+        GlStateManager.pushMatrix();
+        GlStateManager.scaled(0.55, 0.55, 0.55);
+        if (!altar.powerFlag) {
+            drawNameplate(view, new TranslationTextComponent(ArsMagicaLegacy.MODID+".altar.lowpower").getFormattedText(), -0.5, -0.4, -0.5, 32);
+        } else {
+            ISpellIngredient ingredient = altar.getCurrentIngredient();
+            if (ingredient == null)
+                return;
+            drawNameplate(view, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.rotatef(view.itemRotation, 0.0F, 1.0F, 0.0F);
+        //GlStateManager.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
+        ItemStack stack;
+        if (!altar.powerFlag) {
+            stack = new ItemStack(Blocks.BARRIER);
+        } else {
+            ISpellIngredient ingredient = altar.getCurrentIngredient();
+            if (ingredient == null)
+                return;
+            if (ingredient instanceof ItemStackSpellIngredient) {
+                stack = ((ItemStackSpellIngredient) ingredient).getStack();
+            } else if (ingredient instanceof ItemTagSpellIngredient) {
+                if (view.itemRotation % 36 == 0) {
+                    view.itemCache = ((ItemTagSpellIngredient) ingredient).getTag().getRandomElement(getWorld().rand);
+                }
+                stack = new ItemStack(view.itemCache);
+            } else {
+                return;
+            }
+        }
+        Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
     }
 
     /*@Override

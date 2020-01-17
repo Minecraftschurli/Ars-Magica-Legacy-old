@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.util.*;
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import net.minecraft.entity.*;
 import net.minecraft.potion.*;
 

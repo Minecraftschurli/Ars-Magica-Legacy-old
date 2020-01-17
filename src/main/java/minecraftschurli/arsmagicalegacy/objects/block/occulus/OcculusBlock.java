@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.util.*;
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.client.*;

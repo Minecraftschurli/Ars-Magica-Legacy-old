@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.capabilities.research.*;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.network.*;
 import minecraftschurli.arsmagicalegacy.util.*;
@@ -79,9 +78,8 @@ public class OcculusScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if (mouseButton == 0) {
-            if (hoverItem != null && !MagicHelper.getResearchCapability(player).knows(hoverItem)) {
-                IResearchStorage data = MagicHelper.getResearchCapability(player);
-                if (data.canLearn(hoverItem)) {
+            if (hoverItem != null && !MagicHelper.knows(player, hoverItem)) {
+                if (MagicHelper.canLearn(player, hoverItem)) {
                     NetworkHandler.INSTANCE.sendToServer(new LearnSkillPacket(hoverItem.getID()));
                 }
             } else setDragging(true);
@@ -150,7 +148,7 @@ public class OcculusScreen extends Screen {
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
         for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
-            font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getResearchCapability(player).get(point.getTier()), posX + 215, posY + pointOffsetX, point.getColor());
+            font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getSkillPoint(player, point), posX + 215, posY + pointOffsetX, point.getColor());
             pointOffsetX += 10;
         }
         GlStateManager.color3f(1f, 1f, 1f);
@@ -159,16 +157,15 @@ public class OcculusScreen extends Screen {
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, blitOffset, calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             blitOffset = 1;
-            IResearchStorage data = MagicHelper.getResearchCapability(player);
             for (Skill s : skills) {
-                if (s.getPoint() == null || (!s.getPoint().canRender() && !data.knows(s)))
+                if (s.getPoint() == null || (!s.getPoint().canRender() && !MagicHelper.knows(player, s)))
                     continue;
                 for (String p : s.getParents()) {
                     if (p == null)
                         continue;
                     Skill parent = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(p));
                     if (parent == null || !skills.contains(parent)) continue;
-                    if (!parent.getPoint().canRender() && !data.knows(parent))
+                    if (!parent.getPoint().canRender() && !MagicHelper.knows(player, parent))
                         continue;
                     int offsetX = calcXOffset(posX, s) + 16;
                     int offsetY = calcYOffset(posY, s) + 16;
@@ -178,8 +175,8 @@ public class OcculusScreen extends Screen {
                     offsetY = MathHelper.clamp(offsetY, posY + 7, posY + 203);
                     offsetX2 = MathHelper.clamp(offsetX2, posX + 7, posX + 203);
                     offsetY2 = MathHelper.clamp(offsetY2, posY + 7, posY + 203);
-                    boolean hasPrereq = data.canLearn(s) || data.knows(s);
-                    int color = (!data.knows(s) ? s.getPoint().getColor() & 0x999999 : 0x00ff00);
+                    boolean hasPrereq = MagicHelper.canLearn(player, s) || MagicHelper.knows(player, s);
+                    int color = (!MagicHelper.knows(player, s) ? s.getPoint().getColor() & 0x999999 : 0x00ff00);
                     if (!hasPrereq) color = 0x000000;
                     if (!(offsetX == posX + 7 || offsetX == posX + 203))
                         RenderUtils.lineThick2d(offsetX, offsetY, offsetX, offsetY2, hasPrereq ? 0 : -1, color);
@@ -189,11 +186,10 @@ public class OcculusScreen extends Screen {
             }
             //Minecraft.getInstance().getTextureManager().bindTexture();
             for (Skill s : skills) {
-                if (s.getPoint() == null || (!s.getPoint().canRender() && !data.knows(s)))
+                if (s.getPoint() == null || (!s.getPoint().canRender() && !MagicHelper.knows(player, s)))
                     continue;
                 GlStateManager.color4f(1, 1, 1, 1.0F);
-                IResearchStorage skillData = MagicHelper.getResearchCapability(player);
-                boolean hasPrereq = skillData.canLearn(s) || data.knows(s);
+                boolean hasPrereq = MagicHelper.canLearn(player, s) || MagicHelper.knows(player, s);
                 int offsetX = calcXOffset(posX, s);
                 int offsetY = calcYOffset(posY, s);
                 int tick = (player.ticksExisted % 80) >= 40 ? (player.ticksExisted % 40) - 20 : -(player.ticksExisted % 40) + 20;
@@ -225,7 +221,7 @@ public class OcculusScreen extends Screen {
                 }
                 if (!hasPrereq)
                     GlStateManager.color3f(0.5F, 0.5F, 0.5F);
-                else if (!skillData.knows(s))
+                else if (!MagicHelper.knows(player, s))
                     GlStateManager.color3f(Math.max(RenderUtils.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
 
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID()))
@@ -286,7 +282,7 @@ public class OcculusScreen extends Screen {
                 boolean flag = false;
                 blitOffset = 0;
                 for (Skill s : skills) {
-                    if (!s.getPoint().canRender() && !data.knows(s))
+                    if (!s.getPoint().canRender() && !MagicHelper.knows(player, s))
                         continue;
                     int offsetX = calcXOffset(posX, s);
                     int offsetY = calcYOffset(posY, s);
@@ -294,7 +290,7 @@ public class OcculusScreen extends Screen {
                         continue;
                     boolean hasPrereq = true;
                     for (String subParent : s.getParents()) {
-                        hasPrereq &= data.knows(new ResourceLocation(subParent));
+                        hasPrereq &= MagicHelper.knows(player, new ResourceLocation(subParent));
                     }
                     List<ITextComponent> list = new ArrayList<>();
                     list.add(s.getName().applyTextStyle(s.getPoint().getChatColor()));

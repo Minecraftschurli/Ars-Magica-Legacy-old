@@ -6,17 +6,12 @@ import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
 import net.minecraft.util.*;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.*;
 import net.minecraftforge.registries.*;
-
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -36,6 +31,8 @@ public class ArsMagicaAPI {
         modEventBus.addListener(SkillTreeRegistry::onSkillTreeRegister);
         modEventBus.addListener(ArsMagicaAPI::registerRegistries);
         modEventBus.addListener(ArsMagicaAPI::registerItemColorHandler);
+
+        MagicHelper.setup();
     }
 
     public static void init() {

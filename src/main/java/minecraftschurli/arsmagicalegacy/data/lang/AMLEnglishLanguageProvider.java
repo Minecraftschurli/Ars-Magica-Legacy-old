@@ -293,6 +293,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
 
         add("arsmagicalegacy.spell.manacost", "Mana Cost: %d");
+        add("arsmagicalegacy.altar.lowpower", "The Altar Powerlevel is too low!");
 
         add("arsmagicalegacy.gui.inscriptiontable.search", "Search");
         add("arsmagicalegacy.gui.inscriptiontable.name", "Name");

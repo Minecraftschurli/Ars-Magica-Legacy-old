@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import minecraftschurli.arsmagicalegacy.util.*;
+import minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import net.minecraftforge.event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;

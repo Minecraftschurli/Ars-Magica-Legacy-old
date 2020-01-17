@@ -5,7 +5,7 @@ import javafx.util.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.event.*;
+import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
@@ -64,9 +64,14 @@ public class SpellUtils {
     }
 
     public static float modifyDamage(LivingEntity caster, float damage) {
-        float factor = (float) (MagicHelper.getCurrentLevel(caster) < 20 ?
-                0.5 + (0.5 * (MagicHelper.getCurrentLevel(caster) / 19)) :
-                1.0 + (1.0 * (MagicHelper.getCurrentLevel(caster) - 20) / 79));
+        float factor;
+        if (caster instanceof PlayerEntity){
+            factor = (float) (MagicHelper.getCurrentLevel((PlayerEntity) caster) < 20 ?
+                0.5 + (0.5 * (MagicHelper.getCurrentLevel((PlayerEntity) caster) / 19)) :
+                1.0 + (1.0 * (MagicHelper.getCurrentLevel((PlayerEntity) caster) - 20) / 79));
+        } else {
+            factor = 1;
+        }
         return damage * factor;
     }
 
@@ -381,33 +386,6 @@ public class SpellUtils {
         }
     }
 
-    public static int getSpellCooldown(ItemStack stack, LivingEntity caster) {
-        if (stack.getTag() == null)
-            return 0;
-        ItemStack mergedStack = merge(stack);
-        try {
-            int cost = 0;
-            int num = 0;
-            for (int j = 0; j < NBTUtils.getAM2Tag(mergedStack.getTag()).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(mergedStack.getTag()), STAGE + j);
-                for (int i = 0; i < stageTag.size(); i++) {
-                    CompoundNBT tmp = stageTag.getCompound(i);
-                    String type = tmp.getString(TYPE);
-                    if (type.equalsIgnoreCase(TYPE_SHAPE)) {
-                        SpellShape shape = SpellRegistry.getShapeFromName(tmp.getString(ID));
-                        if (shape != null) {
-                            cost += shape.getCooldown(caster);
-                            num++;
-                        }
-                    }
-                }
-            }
-            return cost / num;
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
     public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, @Nullable Direction side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed) {
         if (caster.isPotionActive(ModEffects.SILENCE.get()))
             return SpellCastResult.SILENCED;
@@ -422,11 +400,10 @@ public class SpellUtils {
         if (shape instanceof MissingShape) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
-        SpellCastEvent.Pre pre = new SpellCastEvent.Pre(stack, (SpellItem) stack.getItem(), caster, getManaCost(stack, caster), getBurnoutCost(stack, caster), getSpellCooldown(stack, caster), shape == ModSpellParts.CHANNEL.get());
+        SpellCastEvent.Pre pre = new SpellCastEvent.Pre(stack, (SpellItem) stack.getItem(), caster, getManaCost(stack, caster), getBurnoutCost(stack, caster),shape == ModSpellParts.CHANNEL.get());
         MinecraftForge.EVENT_BUS.post(pre);
         float manaCost = pre.manaCost;
         float burnoutCost = pre.burnout;
-        int cooldown = pre.cooldown;
 
         SpellCastResult result = null;
 
@@ -453,12 +430,11 @@ public class SpellUtils {
             }
         }
 
-        SpellCastEvent.Post post = new SpellCastEvent.Post(stack, (SpellItem) stack.getItem(), caster, manaCost, burnoutCost, cooldown, shape == ModSpellParts.CHANNEL.get(), result);
+        SpellCastEvent.Post post = new SpellCastEvent.Post(stack, (SpellItem) stack.getItem(), caster, manaCost, burnoutCost, shape == ModSpellParts.CHANNEL.get(), result);
         MinecraftForge.EVENT_BUS.post(post);
 
         manaCost = post.manaCost;
         burnoutCost = post.burnout;
-        cooldown = post.cooldown;
         result = post.castResult;
 
         //SUCCESS is the default return
@@ -466,7 +442,7 @@ public class SpellUtils {
         //MALFORMED_SPELL_STACK means we reached the end of the spell
         if (consumeMBR && !((PlayerEntity) caster).isCreative()) {
             if (result == SpellCastResult.SUCCESS || result == SpellCastResult.SUCCESS_REDUCE_MANA || result == SpellCastResult.MALFORMED_SPELL_STACK) {
-                MagicHelper.use(caster, manaCost, burnoutCost, cooldown);
+                MagicHelper.use(caster, manaCost, burnoutCost);
                 consumeReagents(caster, stack);
             }
         }
@@ -759,9 +735,9 @@ public class SpellUtils {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
         if (stageShape == null) return SpellCastResult.MALFORMED_SPELL_STACK;
 
-//		if ((!AMCore.config.getAllowCreativeTargets()) && target instanceof PlayerEntityMP && ((PlayerEntityMP) target).capabilities.isCreativeMode) {
-//			return SpellCastResult.EFFECT_FAILED;
-//		}
+		if (/*(!AMCore.config.getAllowCreativeTargets()) &&*/ target instanceof ServerPlayerEntity && ((ServerPlayerEntity) target).abilities.isCreativeMode) {
+			return SpellCastResult.EFFECT_FAILED;
+		}
         int group = NBTUtils.getAM2Tag(stack.getTag()).getInt("CurrentGroup");
         List<SpellComponent> components = SpellUtils.getComponentsForStage(stack, group);
 

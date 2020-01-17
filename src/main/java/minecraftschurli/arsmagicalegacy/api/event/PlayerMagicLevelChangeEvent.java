@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.event;
+package minecraftschurli.arsmagicalegacy.api.event;
 
 import net.minecraft.entity.player.*;
 import net.minecraftforge.event.entity.player.*;

@@ -3,7 +3,6 @@ package minecraftschurli.arsmagicalegacy.objects.item;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
@@ -66,8 +65,10 @@ public class InfinityOrbItem extends Item {
     }*/
 
     private ActionResult<ItemStack> useOrb(LivingEntity entity, ItemStack heldItem) {
-        MagicHelper.addSkillPoint(entity, heldItem.getTag().getInt(TYPE_KEY));
-        heldItem.shrink(1);
+        if (entity instanceof PlayerEntity){
+            MagicHelper.addSkillPoint((PlayerEntity) entity, heldItem.getTag().getInt(TYPE_KEY));
+            heldItem.shrink(1);
+        }
         return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }
 

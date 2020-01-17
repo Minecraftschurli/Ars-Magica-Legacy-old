@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.event.*;
+import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.effect.*;
 import net.minecraft.client.entity.player.*;

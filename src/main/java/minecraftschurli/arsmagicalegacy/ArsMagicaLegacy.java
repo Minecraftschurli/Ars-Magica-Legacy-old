@@ -1,15 +1,14 @@
 package minecraftschurli.arsmagicalegacy;
 
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.*;
+import minecraftschurli.arsmagicalegacy.capabilities.burnout.BurnoutCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.research.ResearchCapability;
 import minecraftschurli.arsmagicalegacy.capabilities.magic.*;
 import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
-import minecraftschurli.arsmagicalegacy.capabilities.research.*;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.network.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTileEntity;
-import minecraftschurli.arsmagicalegacy.util.*;
 import minecraftschurli.arsmagicalegacy.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
@@ -18,7 +17,6 @@ import net.minecraft.util.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -87,33 +85,10 @@ public final class ArsMagicaLegacy {
     @SubscribeEvent
     public static void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
-            event.addCapability(new ResourceLocation(MODID, "mana"), new CapabilityMana());
-            event.addCapability(new ResourceLocation(MODID, "burnout"), new CapabilityBurnout());
-            event.addCapability(new ResourceLocation(MODID, "research"), new CapabilityResearch());
-            event.addCapability(new ResourceLocation(MODID, "magic"), new CapabilityMagic());
-        }
-    }
-
-    @SubscribeEvent
-    public static void playerClone(final PlayerEvent.Clone event) {
-        if (event.isWasDeath()) {
-            PlayerEntity newPlayer = event.getPlayer();
-            PlayerEntity oldPlayer = event.getOriginal();
-            MagicHelper.getManaCapability(newPlayer).setFrom(MagicHelper.getManaCapability(oldPlayer));
-            MagicHelper.getBurnoutCapability(newPlayer).setFrom(MagicHelper.getBurnoutCapability(oldPlayer));
-            MagicHelper.getResearchCapability(newPlayer).setFrom(MagicHelper.getResearchCapability(oldPlayer));
-            MagicHelper.getMagicCapability(newPlayer).setFrom(MagicHelper.getMagicCapability(oldPlayer));
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer() instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-            MagicHelper.syncMana(player);
-            MagicHelper.syncBurnout(player);
-            MagicHelper.syncResearch(player);
-            MagicHelper.syncMagic(player);
+            event.addCapability(new ResourceLocation(MODID, "mana"), new ManaCapability());
+            event.addCapability(new ResourceLocation(MODID, "burnout"), new BurnoutCapability());
+            event.addCapability(new ResourceLocation(MODID, "research"), new ResearchCapability());
+            event.addCapability(new ResourceLocation(MODID, "magic"), new MagicCapability());
         }
     }
 
@@ -134,10 +109,10 @@ public final class ArsMagicaLegacy {
         proxy.init();
         NetworkHandler.registerMessages();
 
-        CapabilityMana.register();
-        CapabilityBurnout.register();
-        CapabilityResearch.register();
-        CapabilityMagic.register();
+        ManaCapability.register();
+        BurnoutCapability.register();
+        ResearchCapability.register();
+        MagicCapability.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

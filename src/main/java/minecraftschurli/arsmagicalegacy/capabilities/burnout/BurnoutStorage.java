@@ -23,7 +23,7 @@ public class BurnoutStorage implements IBurnoutStorage {
     @Override
     public void setMaxBurnout(float amount) {
         if (amount >= 0)
-            maxBurnout = Math.max(amount, Config.COMMON.DEFAULT_MAX_BURNOUT.get());
+            maxBurnout = amount;
     }
 
     @Override
