@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import net.minecraft.client.particle.*;
 import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class SimpleParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite animatedSprite;
@@ -11,7 +11,6 @@ public class SimpleParticle extends SpriteTexturedParticle {
     private int maxAge, age;
     public boolean hasGravity;
     public boolean hasMotion;
-    public boolean radiant;
 
     public SimpleParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SimpleParticleData data, IAnimatedSprite sprite) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
@@ -19,7 +18,6 @@ public class SimpleParticle extends SpriteTexturedParticle {
         scaleX = scaleY = scaleZ = 0.2f;
         hasGravity = false;
         hasMotion = true;
-        radiant = false;
         particleRed = data.getRed();
         particleGreen = data.getGreen();
         particleBlue = data.getBlue();
@@ -138,5 +136,17 @@ public class SimpleParticle extends SpriteTexturedParticle {
         public Particle makeParticle(SimpleParticleData typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new SimpleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn, this.spriteSet);
         }
+    }
+
+    public void setColor(int color){
+        particleRed = ((color >> 16) & 0xFF) / 255.0f;
+        particleGreen = ((color >> 8) & 0xFF) / 255.0f;
+        particleBlue = (color & 0xFF) / 255.0f;
+    }
+
+    public void setColor(float r, float g, float b) {
+        particleRed = r;
+        particleGreen = g;
+        particleBlue = b;
     }
 }
