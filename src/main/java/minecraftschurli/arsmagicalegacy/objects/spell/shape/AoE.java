@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.entity.*;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.boss.dragon.*;
@@ -110,28 +111,16 @@ public class AoE extends SpellShape {
     }
 
     private void spawnAoEParticles(ItemStack stack, LivingEntity caster, World world, double x, double y, double z, int radius) {
-//        String pfxName = AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(stack));
-//        float speed = 0.08f * radius;
-//        int color = 0xFFFFFF;
-//        if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
-//            List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
-//            for (SpellModifier mod : mods) if (mod instanceof Colour) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTagCompound());
-//        }
-//        for (int i = 0; i < 360; i += ArsMagica2.config.FullGFX() ? 20 : ArsMagica2.config.LowGFX() ? 40 : 60) {
-//            AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, pfxName, x, y + 1.5f, z);
-//            if (effect != null) {
-//                effect.setIgnoreMaxAge(true);
-//                effect.AddParticleController(new ParticleMoveOnHeading(effect, i, 0, speed, 1, false));
-//                effect.setRGBColorI(color);
-//                effect.AddParticleController(new ParticleFadeOut(effect, 1, false).setFadeSpeed(0.05f).setKillParticleOnFinish(true));
-//                effect.AddParticleController(
-//                        new ParticleLeaveParticleTrail(effect, pfxName, false, 5, 1, false)
-//                                .addControllerToParticleList(new ParticleFadeOut(effect, 1, false).setFadeSpeed(0.1f).setKillParticleOnFinish(true))
-//                                .setParticleRGB_I(color)
-//                                .addRandomOffset(0.2f, 0.2f, 0.2f)
-//                );
-//            }
-//        }
+        float speed = 0.08f * radius;
+        int color = 0xFFFFFF;
+        if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
+            List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
+            for (SpellModifier mod : mods) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
+        }
+        for (int i = 0; i < 360; i += /*ArsMagica2.config.FullGFX() ? 20 : ArsMagica2.config.LowGFX() ? 40 : */60) {
+                //TODO @Minecraftschurli fix this
+//                world.addParticle(new SimpleParticle().setColor(color), x, y + 1.5f, z, 0, 0, 0);
+        }
     }
 
     private SpellCastResult applyStageHorizontal(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, int gravityMagnitude, boolean giveXP) {
