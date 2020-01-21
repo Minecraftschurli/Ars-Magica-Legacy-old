@@ -65,27 +65,27 @@ public class AoE extends SpellShape {
                 case UP:
                 case DOWN:
                     if (world.isRemote)
-                        spawnAoEParticles(stack, caster, world, x + 0.5f, y + ((side.equals(Direction.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2.0f)), z + 0.5f, (int) radius);
+                        spawnAoEParticles(stack, world, x + 0.5f, y + ((side.equals(Direction.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2.0f)), z + 0.5f);
                     int gravityMagnitude = SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack);
                     return applyStageHorizontal(stack, caster, world, pos, side, (int) Math.floor(radius), gravityMagnitude, giveXP);
                 case NORTH:
                 case SOUTH:
                     if (world.isRemote)
-                        spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int) radius);
+                        spawnAoEParticles(stack, world, x + 0.5f, y - 1, z + 0.5f);
                     return applyStageVerticalZ(stack, caster, world, pos, side, (int) Math.floor(radius), giveXP);
                 case EAST:
                 case WEST:
                     if (world.isRemote)
-                        spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int) radius);
+                        spawnAoEParticles(stack, world, x + 0.5f, y - 1, z + 0.5f);
                     return applyStageVerticalX(stack, caster, world, pos, side, (int) Math.floor(radius), giveXP);
             }
         } else {
-            if (world.isRemote) spawnAoEParticles(stack, caster, world, x, y - 1, z, (int) radius);
+            if (world.isRemote) spawnAoEParticles(stack, world, x, y - 1, z);
             int gravityMagnitude = SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack);
             return applyStageHorizontal(stack, caster, world, pos, null, (int) Math.floor(radius), gravityMagnitude, giveXP);
         }
         if (appliedToAtLeastOneEntity) {
-            if (world.isRemote) spawnAoEParticles(stack, caster, world, x, y + 1, z, (int) radius);
+            if (world.isRemote) spawnAoEParticles(stack, world, x, y + 1, z);
             return SpellCastResult.SUCCESS;
         }
         return SpellCastResult.EFFECT_FAILED;
@@ -110,8 +110,7 @@ public class AoE extends SpellShape {
         return EnumSet.of(SpellModifiers.RADIUS, SpellModifiers.GRAVITY);
     }
 
-    private void spawnAoEParticles(ItemStack stack, LivingEntity caster, World world, double x, double y, double z, int radius) {
-        float speed = 0.08f * radius;
+    private void spawnAoEParticles(ItemStack stack, World world, double x, double y, double z) {
         int color = 0xFFFFFF;
         if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
