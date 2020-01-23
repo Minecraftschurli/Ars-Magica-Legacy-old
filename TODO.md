@@ -2,6 +2,9 @@
 - [x] port spell parts
 - [x] port occulus
 - [x] port effects
-- [ ] add multi-block structure system
-- [ ] add spell creation system
-- [ ] add spell execution system
+- [x] add multi-block structure system
+- [x] add spell creation system
+- [x] add spell execution system
+- [ ] implement all spell parts
+- [ ] add particles to all spell parts
+- [ ] finish documenting the API
