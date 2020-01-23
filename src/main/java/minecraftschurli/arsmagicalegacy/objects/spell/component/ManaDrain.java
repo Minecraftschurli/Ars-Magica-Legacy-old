@@ -1,28 +1,34 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 
-import minecraftschurli.arsmagicalegacy.api.MagicHelper;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Random;
 
 public class ManaDrain extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
         float manaStolen = 250;
-        float mana = MagicHelper.getMana((LivingEntity) target);
+        float mana = CapabilityHelper.getMana((LivingEntity) target);
         if (manaStolen > mana) manaStolen = mana;
-        MagicHelper.decreaseMana((LivingEntity) target, manaStolen);
-        MagicHelper.increaseMana(caster, manaStolen);
+        CapabilityHelper.decreaseMana((LivingEntity) target, manaStolen);
+        CapabilityHelper.increaseMana(caster, manaStolen);
         return true;
     }
 

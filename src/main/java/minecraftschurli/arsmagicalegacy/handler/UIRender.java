@@ -1,27 +1,28 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import com.mojang.blaze3d.platform.*;
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.MagicHelper;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.BurnoutCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.burnout.IBurnoutStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.mana.*;
-import minecraftschurli.arsmagicalegacy.init.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.capability.IBurnoutStorage;
+import minecraftschurli.arsmagicalegacy.api.capability.IManaStorage;
+import minecraftschurli.arsmagicalegacy.capabilities.BurnoutCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.ManaCapability;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
 
@@ -115,7 +116,7 @@ public class UIRender {
     }
 
     private void renderMagicXp(PlayerEntity player) {
-        if (MagicHelper.getCurrentLevel(player) > 0){
+        if (CapabilityHelper.getCurrentLevel(player) > 0){
             GlStateManager.pushMatrix();
             GlStateManager.enableBlend();
             float x = 0;
@@ -128,15 +129,15 @@ public class UIRender {
             //base XP bar
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
 
-            if (MagicHelper.getCurrentXP(player) > 0){
-                float pctXP = MagicHelper.getCurrentXP(player) / MagicHelper.getMaxXP(player);
+            if (CapabilityHelper.getCurrentXP(player) > 0){
+                float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
                 if (pctXP > 1)
                     pctXP = 1;
                 int width = (int)((dimensions.x + 1) * pctXP);
                 drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
             }
 
-            String xpStr = new TranslationTextComponent(ArsMagicaLegacy.MODID+".gui.xp", MagicHelper.getCurrentXP(player), MagicHelper.getMaxXP(player)).getString();
+            String xpStr = new TranslationTextComponent(ArsMagicaLegacy.MODID+".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
             Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
             Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
             GlStateManager.popMatrix();
@@ -148,9 +149,8 @@ public class UIRender {
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 13;
-        LazyOptional<IBurnoutStorage> burnoutStore = player.getCapability(BurnoutCapability.BURNOUT, null);
-        double burnout = burnoutStore.map(IBurnoutStorage::getBurnout).orElse(0.0f);
-        double maxBurnout = burnoutStore.map(IBurnoutStorage::getMaxBurnout).orElse(0.0f);
+        double burnout = CapabilityHelper.getBurnout(player);
+        double maxBurnout = CapabilityHelper.getMaxBurnout(player);
         renderBar(xStart, yStart, burnout, maxBurnout, 0x880000, "burnout");
     }
 
@@ -159,9 +159,8 @@ public class UIRender {
         int scaledHeight = mc.mainWindow.getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 23;
-        LazyOptional<IManaStorage> manaStore = player.getCapability(ManaCapability.MANA, null);
-        double mana = manaStore.map(IManaStorage::getMana).orElse(0.0f);
-        double maxMana = manaStore.map(IManaStorage::getMaxMana).orElse(0.0f);
+        double mana = CapabilityHelper.getMana(player);
+        double maxMana = CapabilityHelper.getMaxMana(player);
         renderBar(xStart, yStart, mana, maxMana, 0x99FFFF, "mana");
     }
 

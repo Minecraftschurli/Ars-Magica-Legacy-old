@@ -325,16 +325,6 @@ public class ThrownRockEntity extends Entity {
             this.setMoonstoneMeteor();
     }
 
-    /**
-     * Writes this entity to NBT, unless it has been removed. Also writes this entity's passengers, and the entity type
-     * ID (so the produced NBT is sufficient to recreate the entity).
-     * <p>
-     * Generally, {@link #writeUnlessPassenger} or {@link #writeWithoutTypeId} should be used instead of this method.
-     *
-     * @param compound
-     * @return True if the entity was written (and the passed compound should be saved); false if the entity was not
-     * written.
-     */
     @Override
     public void writeAdditional(CompoundNBT compound) {
         compound.putFloat("star_damage", damage);

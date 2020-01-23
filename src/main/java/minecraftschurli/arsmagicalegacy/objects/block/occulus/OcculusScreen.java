@@ -1,24 +1,34 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import com.mojang.blaze3d.platform.*;
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.network.LearnSkillPacket;
+import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.network.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.screen.*;
-import net.minecraft.client.gui.widget.*;
-import net.minecraft.client.gui.widget.button.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -78,8 +88,8 @@ public class OcculusScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if (mouseButton == 0) {
-            if (hoverItem != null && !MagicHelper.knows(player, hoverItem)) {
-                if (MagicHelper.canLearn(player, hoverItem)) {
+            if (hoverItem != null && !CapabilityHelper.knows(player, hoverItem)) {
+                if (CapabilityHelper.canLearn(player, hoverItem)) {
                     NetworkHandler.INSTANCE.sendToServer(new LearnSkillPacket(hoverItem.getID()));
                 }
             } else setDragging(true);
@@ -141,14 +151,14 @@ public class OcculusScreen extends Screen {
         float calcXOffest = ((float) offsetX / 568) * (1 - renderRatio);
         int maxSize = 0;
         for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
-            maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getSkillPoint(player, point)));
+            maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName().getFormattedText() + " : " + CapabilityHelper.getSkillPoint(player, point)));
         }
         blitOffset = -1;
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
         for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
-            font.drawString(point.getDisplayName().getFormattedText() + " : " + MagicHelper.getSkillPoint(player, point), posX + 215, posY + pointOffsetX, point.getColor());
+            font.drawString(point.getDisplayName().getFormattedText() + " : " + CapabilityHelper.getSkillPoint(player, point), posX + 215, posY + pointOffsetX, point.getColor());
             pointOffsetX += 10;
         }
         GlStateManager.color3f(1f, 1f, 1f);
@@ -158,14 +168,14 @@ public class OcculusScreen extends Screen {
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             blitOffset = 1;
             for (Skill s : skills) {
-                if (s.getPoint() == null || (!s.getPoint().canRender() && !MagicHelper.knows(player, s)))
+                if (s.getPoint() == null || (!s.getPoint().canRender() && !CapabilityHelper.knows(player, s)))
                     continue;
                 for (String p : s.getParents()) {
                     if (p == null)
                         continue;
                     Skill parent = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(p));
                     if (parent == null || !skills.contains(parent)) continue;
-                    if (!parent.getPoint().canRender() && !MagicHelper.knows(player, parent))
+                    if (!parent.getPoint().canRender() && !CapabilityHelper.knows(player, parent))
                         continue;
                     int offsetX = calcXOffset(posX, s) + 16;
                     int offsetY = calcYOffset(posY, s) + 16;
@@ -175,8 +185,8 @@ public class OcculusScreen extends Screen {
                     offsetY = MathHelper.clamp(offsetY, posY + 7, posY + 203);
                     offsetX2 = MathHelper.clamp(offsetX2, posX + 7, posX + 203);
                     offsetY2 = MathHelper.clamp(offsetY2, posY + 7, posY + 203);
-                    boolean hasPrereq = MagicHelper.canLearn(player, s) || MagicHelper.knows(player, s);
-                    int color = (!MagicHelper.knows(player, s) ? s.getPoint().getColor() & 0x999999 : 0x00ff00);
+                    boolean hasPrereq = CapabilityHelper.canLearn(player, s) || CapabilityHelper.knows(player, s);
+                    int color = (!CapabilityHelper.knows(player, s) ? s.getPoint().getColor() & 0x999999 : 0x00ff00);
                     if (!hasPrereq) color = 0x000000;
                     if (!(offsetX == posX + 7 || offsetX == posX + 203))
                         RenderUtils.lineThick2d(offsetX, offsetY, offsetX, offsetY2, hasPrereq ? 0 : -1, color);
@@ -186,10 +196,10 @@ public class OcculusScreen extends Screen {
             }
             //Minecraft.getInstance().getTextureManager().bindTexture();
             for (Skill s : skills) {
-                if (s.getPoint() == null || (!s.getPoint().canRender() && !MagicHelper.knows(player, s)))
+                if (s.getPoint() == null || (!s.getPoint().canRender() && !CapabilityHelper.knows(player, s)))
                     continue;
                 GlStateManager.color4f(1, 1, 1, 1.0F);
-                boolean hasPrereq = MagicHelper.canLearn(player, s) || MagicHelper.knows(player, s);
+                boolean hasPrereq = CapabilityHelper.canLearn(player, s) || CapabilityHelper.knows(player, s);
                 int offsetX = calcXOffset(posX, s);
                 int offsetY = calcYOffset(posY, s);
                 int tick = (player.ticksExisted % 80) >= 40 ? (player.ticksExisted % 40) - 20 : -(player.ticksExisted % 40) + 20;
@@ -221,7 +231,7 @@ public class OcculusScreen extends Screen {
                 }
                 if (!hasPrereq)
                     GlStateManager.color3f(0.5F, 0.5F, 0.5F);
-                else if (!MagicHelper.knows(player, s))
+                else if (!CapabilityHelper.knows(player, s))
                     GlStateManager.color3f(Math.max(RenderUtils.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
 
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID()))
@@ -282,7 +292,7 @@ public class OcculusScreen extends Screen {
                 boolean flag = false;
                 blitOffset = 0;
                 for (Skill s : skills) {
-                    if (!s.getPoint().canRender() && !MagicHelper.knows(player, s))
+                    if (!s.getPoint().canRender() && !CapabilityHelper.knows(player, s))
                         continue;
                     int offsetX = calcXOffset(posX, s);
                     int offsetY = calcYOffset(posY, s);
@@ -290,7 +300,7 @@ public class OcculusScreen extends Screen {
                         continue;
                     boolean hasPrereq = true;
                     for (String subParent : s.getParents()) {
-                        hasPrereq &= MagicHelper.knows(player, new ResourceLocation(subParent));
+                        hasPrereq &= CapabilityHelper.knows(player, new ResourceLocation(subParent));
                     }
                     List<ITextComponent> list = new ArrayList<>();
                     list.add(s.getName().applyTextStyle(s.getPoint().getChatColor()));

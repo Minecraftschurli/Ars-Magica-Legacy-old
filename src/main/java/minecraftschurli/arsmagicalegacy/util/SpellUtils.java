@@ -1,27 +1,38 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.google.common.collect.*;
-import javafx.util.*;
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.*;
+import com.google.common.collect.Lists;
+import javafx.util.Pair;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.event.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
-import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpellUtils {
 
@@ -35,7 +46,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        if (oldIs == null || !oldIs.hasTag()) return ModSpellParts.MISSING_SHAPE.get();
+        if (oldIs == null || !oldIs.hasTag()) return ArsMagicaAPI.MISSING_SHAPE.get();
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
         ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
@@ -46,7 +57,7 @@ public class SpellUtils {
                 break;
             }
         }
-        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ModSpellParts.MISSING_SHAPE.get();
+        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ArsMagicaAPI.MISSING_SHAPE.get();
     }
 
     public static void changeEnchantmentsForShapeGroup(ItemStack stack) {
@@ -66,9 +77,9 @@ public class SpellUtils {
     public static float modifyDamage(LivingEntity caster, float damage) {
         float factor;
         if (caster instanceof PlayerEntity){
-            factor = (float) (MagicHelper.getCurrentLevel((PlayerEntity) caster) < 20 ?
-                0.5 + (0.5 * (MagicHelper.getCurrentLevel((PlayerEntity) caster) / 19)) :
-                1.0 + (1.0 * (MagicHelper.getCurrentLevel((PlayerEntity) caster) - 20) / 79));
+            factor = (float) (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) < 20 ?
+                0.5 + (0.5 * (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) / 19)) :
+                1.0 + (1.0 * (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) - 20) / 79));
         } else {
             factor = 1;
         }
@@ -408,9 +419,9 @@ public class SpellUtils {
         SpellCastResult result = null;
 
         if (consumeMBR && !((PlayerEntity) caster).isCreative()) {
-            if (!MagicHelper.hasEnoughtMana(caster, manaCost)) {
+            if (!CapabilityHelper.hasEnoughtMana(caster, manaCost)) {
                 result =  SpellCastResult.NOT_ENOUGH_MANA;
-            } else if (MagicHelper.isBurnedOut(caster, burnoutCost)) {
+            } else if (CapabilityHelper.isBurnedOut(caster, burnoutCost)) {
                 result =  SpellCastResult.BURNED_OUT;
             } else if (!casterHasAllReagents(caster, stack)) {
                 if (world.isRemote)
@@ -442,7 +453,7 @@ public class SpellUtils {
         //MALFORMED_SPELL_STACK means we reached the end of the spell
         if (consumeMBR && !((PlayerEntity) caster).isCreative()) {
             if (result == SpellCastResult.SUCCESS || result == SpellCastResult.SUCCESS_REDUCE_MANA || result == SpellCastResult.MALFORMED_SPELL_STACK) {
-                MagicHelper.use(caster, manaCost, burnoutCost);
+                CapabilityHelper.use(caster, manaCost, burnoutCost);
                 consumeReagents(caster, stack);
             }
         }
@@ -700,7 +711,7 @@ public class SpellUtils {
 
     public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
-        if (stageShape == null || stageShape == ModSpellParts.MISSING_SHAPE.get()) {
+        if (stageShape == null || stageShape == ArsMagicaAPI.MISSING_SHAPE.get()) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
         boolean isPlayer = caster instanceof PlayerEntity;

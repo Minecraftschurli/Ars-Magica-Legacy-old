@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.api.MagicHelper;
-import net.minecraft.entity.*;
-import net.minecraft.potion.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectType;
 
 /**
  * @author Minecraftschurli
@@ -25,6 +25,6 @@ public class ManaRegenEffect extends AMEffect {
 
     @Override
     public void performEffect(LivingEntity livingEntity, int amplifier) {
-        MagicHelper.increaseMana(livingEntity, 5 + (3.5f * amplifier));
+        CapabilityHelper.increaseMana(livingEntity, 5 + (3.5f * amplifier));
     }
 }

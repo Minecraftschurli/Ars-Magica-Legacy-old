@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import minecraftschurli.arsmagicalegacy.api.MagicHelper;
-import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 
 /**
  * @author Minecraftschurli
@@ -14,8 +14,8 @@ public class TickHandler {
     @SubscribeEvent
     public static void onTick(TickEvent.PlayerTickEvent event) {
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START) {
-            MagicHelper.increaseMana(event.player, 0.1f + 0.3f * MagicHelper.getManaRegenLevel(event.player));
-            MagicHelper.decreaseBurnout(event.player, 0.4f);
+            CapabilityHelper.increaseMana(event.player, 0.1f + 0.3f * CapabilityHelper.getManaRegenLevel(event.player));
+            CapabilityHelper.decreaseBurnout(event.player, 0.4f);
         }
     }
 }

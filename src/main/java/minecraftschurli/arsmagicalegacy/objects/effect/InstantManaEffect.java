@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.api.MagicHelper;
-import net.minecraft.entity.*;
-import net.minecraft.potion.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectType;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli
@@ -17,6 +17,6 @@ public class InstantManaEffect extends AMInstantEffect {
 
     @Override
     public void performEffect(@Nonnull LivingEntity entityLivingBaseIn, int amplifier) {
-        MagicHelper.increaseMana(entityLivingBaseIn, 10 + (10 * amplifier));
+        CapabilityHelper.increaseMana(entityLivingBaseIn, 10 + (10 * amplifier));
     }
 }

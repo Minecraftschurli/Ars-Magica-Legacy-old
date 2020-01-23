@@ -1,19 +1,22 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.merchant.villager.*;
-import net.minecraft.fluid.*;
-import net.minecraft.inventory.container.*;
-import net.minecraft.item.*;
-import net.minecraft.particles.*;
-import net.minecraft.potion.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.village.*;
-import net.minecraft.world.biome.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.potion.Effect;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.village.PointOfInterestType;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * @author Minecraftschurli
@@ -32,6 +35,9 @@ public interface IInit {
     DeferredRegister<VillagerProfession> PROFESSIONS = new DeferredRegister<>(ForgeRegistries.PROFESSIONS, ArsMagicaLegacy.MODID);
     DeferredRegister<PointOfInterestType> POI_TYPES = new DeferredRegister<>(ForgeRegistries.POI_TYPES, ArsMagicaLegacy.MODID);
 
+    DeferredRegister<WorldCarver<?>> WORLD_CARVERS = new DeferredRegister<>(ForgeRegistries.WORLD_CARVERS, ArsMagicaLegacy.MODID);
+    DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, ArsMagicaLegacy.MODID);
+
     static void setEventBus(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
         FLUIDS.register(modEventBus);
@@ -44,5 +50,8 @@ public interface IInit {
         CONTAINERS.register(modEventBus);
         PROFESSIONS.register(modEventBus);
         POI_TYPES.register(modEventBus);
+
+        WORLD_CARVERS.register(modEventBus);
+        FEATURES.register(modEventBus);
     }
 }

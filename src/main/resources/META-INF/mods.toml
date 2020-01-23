@@ -5,10 +5,18 @@ loaderVersion="[28,)"
     modId="arsmagicalegacy"
     version="${file.jarVersion}"
     displayName="Ars Magica Legacy"
-    authors="Minecraftschurli"
+    authors="Minecraftschurli, IchHabeHunger54"
     description='''
     Legacy version of Ars Magica
     '''
+
+[[dependencies.arsmagicalegacy]]
+    modId="simpleorelib"
+    mandatory=true
+    versionRange="[1,)"
+    ordering="NONE"
+    side="BOTH"
+
 [[dependencies.arsmagicalegacy]]
     modId="minecraft"
     mandatory=true

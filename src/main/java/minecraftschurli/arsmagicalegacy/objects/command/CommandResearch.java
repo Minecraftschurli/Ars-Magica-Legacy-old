@@ -1,19 +1,25 @@
 package minecraftschurli.arsmagicalegacy.objects.command;
 
-import com.mojang.brigadier.*;
-import com.mojang.brigadier.builder.*;
-import com.mojang.brigadier.context.*;
-import com.mojang.brigadier.exceptions.*;
-import com.mojang.brigadier.suggestion.*;
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import net.minecraft.command.*;
-import net.minecraft.command.arguments.*;
-import net.minecraft.util.text.*;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.ISuggestionProvider;
+import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.command.arguments.ResourceLocationArgument;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -48,7 +54,7 @@ public class CommandResearch {
     }
 
     private static int list(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        context.getSource().sendFeedback(new StringTextComponent(MagicHelper.getLearnedSkills(EntityArgument.getPlayer(context, TARGET)).stream().map(Skill::getName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
+        context.getSource().sendFeedback(new StringTextComponent(CapabilityHelper.getLearnedSkills(EntityArgument.getPlayer(context, TARGET)).stream().map(Skill::getName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
         return 0;
     }
 
@@ -58,25 +64,25 @@ public class CommandResearch {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", skill.getName()), false);
             return 1;
         }
-        MagicHelper.forget(EntityArgument.getPlayer(context, TARGET), skill);
+        CapabilityHelper.forget(EntityArgument.getPlayer(context, TARGET), skill);
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.forgot", skill.getName()), false);
         return 0;
     }
 
     private static int forgetAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        MagicHelper.forgetAll(EntityArgument.getPlayer(context, TARGET));
+        CapabilityHelper.forgetAll(EntityArgument.getPlayer(context, TARGET));
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.forgotall"), false);
         return 0;
     }
 
     private static int learn(CommandContext<CommandSource> context, Skill skill) throws CommandSyntaxException {
-        if (skill != SpellRegistry.getSkillFromPart(ModSpellParts.MISSING_SHAPE.get()))
+        if (skill != SpellRegistry.getSkillFromPart(ArsMagicaAPI.MISSING_SHAPE.get()))
             return 0;
         if (skill == null) {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);
             return 1;
         }
-        MagicHelper.learn(EntityArgument.getPlayer(context, TARGET), skill);
+        CapabilityHelper.learn(EntityArgument.getPlayer(context, TARGET), skill);
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.learned", skill.getName()), false);
         return 0;
     }
