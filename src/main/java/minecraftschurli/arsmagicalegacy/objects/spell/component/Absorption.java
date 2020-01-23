@@ -43,12 +43,11 @@ public class Absorption extends SpellComponent {
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         for (int i = 0; i < 15; ++i) {
-//            StandardParticle particle = ParticleManager.spawnParticle(world, "lens_flare", x, y, z, target, false);
-//            if (particle != null) {
-//                particle.setMaxAge(25 + rand.nextInt(10));
-//                particle.setColor(244, 200, 60);
-//                if (colorModifier > -1) particle.setColor(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
-//            }
+//            world.addParticle((IParticleData) ModParticles.LENS_FLARE.get(), x, y, z, 0, 0, 0);
+//            SimpleParticle particle = new SimpleParticle(world, x, y, z);
+//            particle.setMaxAge(25 + rand.nextInt(10));
+//            particle.setColor(244, 200, 60);
+//            if (colorModifier > -1) particle.setColor(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
         }
     }
 
@@ -80,7 +79,7 @@ public class Absorption extends SpellComponent {
         return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
     }
 
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

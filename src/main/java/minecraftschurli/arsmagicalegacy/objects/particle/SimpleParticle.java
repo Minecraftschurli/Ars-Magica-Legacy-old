@@ -5,6 +5,8 @@ import net.minecraft.world.*;
 
 import javax.annotation.*;
 
+import static minecraftschurli.arsmagicalegacy.util.ParticleUtils.*;
+
 public class SimpleParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite animatedSprite;
     private float scaleX, scaleY, scaleZ;
@@ -139,9 +141,9 @@ public class SimpleParticle extends SpriteTexturedParticle {
     }
 
     public void setColor(int color){
-        particleRed = ((color >> 16) & 0xFF) / 255.0f;
-        particleGreen = ((color >> 8) & 0xFF) / 255.0f;
-        particleBlue = (color & 0xFF) / 255.0f;
+        particleRed = redFromColor(color);
+        particleGreen = greenFromColor(color);
+        particleBlue = blueFromColor(color);
     }
 
     public void setColor(float r, float g, float b) {
