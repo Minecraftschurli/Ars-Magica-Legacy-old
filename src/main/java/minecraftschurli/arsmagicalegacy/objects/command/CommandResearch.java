@@ -76,7 +76,7 @@ public class CommandResearch {
     }
 
     private static int learn(CommandContext<CommandSource> context, Skill skill) throws CommandSyntaxException {
-        if (skill != SpellRegistry.getSkillFromPart(ArsMagicaAPI.MISSING_SHAPE.get()))
+        if (skill != SpellRegistry.getSkillFromPart(ArsMagicaAPI.getMissingShape().get()))
             return 0;
         if (skill == null) {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);

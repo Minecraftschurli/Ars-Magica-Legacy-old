@@ -46,7 +46,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        if (oldIs == null || !oldIs.hasTag()) return ArsMagicaAPI.MISSING_SHAPE.get();
+        if (oldIs == null || !oldIs.hasTag()) return ArsMagicaAPI.getMissingShape().get();
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
         ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
@@ -57,7 +57,7 @@ public class SpellUtils {
                 break;
             }
         }
-        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ArsMagicaAPI.MISSING_SHAPE.get();
+        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ArsMagicaAPI.getMissingShape().get();
     }
 
     public static void changeEnchantmentsForShapeGroup(ItemStack stack) {
@@ -711,7 +711,7 @@ public class SpellUtils {
 
     public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
-        if (stageShape == null || stageShape == ArsMagicaAPI.MISSING_SHAPE.get()) {
+        if (stageShape == null || stageShape == ArsMagicaAPI.getMissingShape().get()) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
         boolean isPlayer = caster instanceof PlayerEntity;

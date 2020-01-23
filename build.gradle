@@ -183,3 +183,17 @@ artifacts {
     archives sourcesJar
     archives apiJar
 }
+
+task("uploadJars", dependsOn: "build") {
+    description = "uploads JARs"
+    apply plugin: "maven"
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "http://minecraftschurli.ddns.net/archiva/repository/internal/"){
+                    authentication(userName: mcs_maven_user, password: mcs_maven_pass)
+                }
+            }
+        }
+    }
+}

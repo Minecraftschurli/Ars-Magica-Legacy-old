@@ -437,7 +437,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         //main recipe
         for (int i = 0; i < this.container.getCurrentRecipeSize(); ++i) {
             AbstractSpellPart part = this.container.getRecipeItemAt(i);
-            if (part == ArsMagicaAPI.MISSING_SHAPE.get())
+            if (part == ArsMagicaAPI.getMissingShape().get())
                 continue;
             String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
 
