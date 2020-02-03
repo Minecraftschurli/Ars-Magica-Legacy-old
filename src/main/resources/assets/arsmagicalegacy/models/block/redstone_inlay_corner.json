@@ -1,6 +1,6 @@
 {
   "parent": "block/rail_curved",
   "textures": {
-    "rail": "arsmagicalegacy:block/redstone_inlay_corner"
+    "rail": "arsmagicalegacy:block/redstone_inlay"
   }
 }

@@ -89,7 +89,7 @@ public class OcculusScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if (mouseButton == 0) {
             if (hoverItem != null && !CapabilityHelper.knows(player, hoverItem)) {
-                if (CapabilityHelper.canLearn(player, hoverItem)) {
+                if (CapabilityHelper.canLearn(player, hoverItem) || player.isCreative()) {
                     NetworkHandler.INSTANCE.sendToServer(new LearnSkillPacket(hoverItem.getID()));
                 }
             } else setDragging(true);

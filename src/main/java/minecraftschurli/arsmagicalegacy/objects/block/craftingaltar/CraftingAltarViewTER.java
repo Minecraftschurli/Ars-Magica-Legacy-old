@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import com.mojang.blaze3d.platform.*;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.*;
@@ -22,9 +21,8 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         if (tileEntityIn.itemRotation == 360)
             tileEntityIn.itemRotation = 0;
         CraftingAltarTileEntity altar = tileEntityIn.getAltar();
-        if (altar != null && altar.multiblockState) {
+        if (altar != null && altar.isMultiblockFormed()) {
             GlStateManager.pushMatrix();
-            //bindTexture(tileEntityIn.getCamouflageRL());
             GlStateManager.translated(x + 0.5, y + 0.5, z + 0.5);
             setLightmapDisabled(true);
 
@@ -36,9 +34,13 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
     }
 
     private void doRender(CraftingAltarTileEntity altar, CraftingAltarViewTileEntity view) {
+        ItemStack book = altar.getBook();
+        SpellIngredientList recipe = altar.getRecipe();
+        if (book.isEmpty() || recipe == null)
+            return;
         GlStateManager.pushMatrix();
         GlStateManager.scaled(0.55, 0.55, 0.55);
-        if (!altar.powerFlag) {
+        if (!altar.hasEnoughPower()) {
             drawNameplate(view, new TranslationTextComponent(ArsMagicaLegacy.MODID+".altar.lowpower").getFormattedText(), -0.5, -0.4, -0.5, 32);
         } else {
             ISpellIngredient ingredient = altar.getCurrentIngredient();
@@ -50,7 +52,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         GlStateManager.rotatef(view.itemRotation, 0.0F, 1.0F, 0.0F);
         //GlStateManager.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
         ItemStack stack;
-        if (!altar.powerFlag) {
+        if (!altar.hasEnoughPower()) {
             stack = new ItemStack(Blocks.BARRIER);
         } else {
             ISpellIngredient ingredient = altar.getCurrentIngredient();
@@ -64,14 +66,11 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
                 }
                 stack = new ItemStack(view.itemCache);
             } else {
+                ingredient.render();
                 return;
             }
         }
+        //noinspection deprecation
         Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
     }
-
-    /*@Override
-    public boolean isGlobalRenderer(CraftingAltarViewTileEntity te) {
-        return true;
-    }*/
 }

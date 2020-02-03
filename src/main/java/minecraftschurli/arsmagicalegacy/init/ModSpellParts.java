@@ -40,6 +40,8 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SkillTree> AFFINITY = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "affinity", 3);
     public static final RegistryObject<SkillTree> TALENT = SkillTreeRegistry.registerSkillTree(ArsMagicaLegacy.MODID, "talent", 4);
 
+    public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "null", null, MissingShape::new, null, 0, 0);
+
     public static final RegistryObject<Skill> MANA_REGEN_1 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen1", SKILL_POINT_1, TALENT, 275, 75);
     public static final RegistryObject<Skill> MANA_REGEN_2 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen2", SKILL_POINT_2, TALENT, 275, 120, "arsmagicalegacy:mana_regen1");
     public static final RegistryObject<Skill> MANA_REGEN_3 = SkillRegistry.registerSkill(ArsMagicaLegacy.MODID, "mana_regen3", SKILL_POINT_3, TALENT, 275, 165, "arsmagicalegacy:mana_regen2");

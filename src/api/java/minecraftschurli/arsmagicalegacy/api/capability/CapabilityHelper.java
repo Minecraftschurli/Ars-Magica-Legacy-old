@@ -252,11 +252,18 @@ public class CapabilityHelper {
      */
     public static void learnSkill(PlayerEntity player, String skillid) {
         Skill skill = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(skillid));
-        IResearchStorage research = getResearchCapability(player);
-        if (!research.canLearn(skill) || skill == null || research.get(skill.getPoint().getTier()) <= 0)
+        if (skill == null) {
             return;
+        }
+        IResearchStorage research = getResearchCapability(player);
+        if (!player.isCreative()) {
+            if (!research.canLearn(skill) || research.get(skill.getPoint().getTier()) <= 0) {
+                return;
+            }
+        }
         research.learn(skill);
-        research.use(skill.getPoint().getTier());
+        if (!player.isCreative())
+            research.use(skill.getPoint().getTier());
         if (player instanceof ServerPlayerEntity)
             syncResearch((ServerPlayerEntity) player);
     }

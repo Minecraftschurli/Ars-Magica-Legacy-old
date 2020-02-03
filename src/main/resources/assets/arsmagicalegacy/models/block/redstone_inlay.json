@@ -1,5 +1,5 @@
 {
-  "parent": "block/rail_flat",
+  "parent": "block/rail",
   "textures": {
     "rail": "arsmagicalegacy:block/redstone_inlay"
   }

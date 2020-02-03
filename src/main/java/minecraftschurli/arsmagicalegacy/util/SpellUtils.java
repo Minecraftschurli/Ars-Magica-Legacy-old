@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.NBTUtils;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
@@ -33,6 +34,7 @@ import net.minecraftforge.common.MinecraftForge;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SpellUtils {
 
@@ -46,7 +48,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        if (oldIs == null || !oldIs.hasTag()) return ArsMagicaAPI.getMissingShape().get();
+        if (oldIs == null || !oldIs.hasTag()) return (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(ArsMagicaAPI.MISSING_SHAPE);
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
         ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
@@ -57,7 +59,7 @@ public class SpellUtils {
                 break;
             }
         }
-        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ArsMagicaAPI.getMissingShape().get();
+        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(ArsMagicaAPI.MISSING_SHAPE);
     }
 
     public static void changeEnchantmentsForShapeGroup(ItemStack stack) {
@@ -711,7 +713,7 @@ public class SpellUtils {
 
     public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
-        if (stageShape == null || stageShape == ArsMagicaAPI.getMissingShape().get()) {
+        if (stageShape == null || Objects.equals(stageShape.getRegistryName(), ArsMagicaAPI.MISSING_SHAPE)) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
         boolean isPlayer = caster instanceof PlayerEntity;

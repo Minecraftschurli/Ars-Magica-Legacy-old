@@ -1,15 +1,26 @@
 package minecraftschurli.arsmagicalegacy.data.loot;
 
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.block.*;
 import net.minecraft.data.loot.*;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.LootTables;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-12
  */
 public class AMLBlockLootTables extends BlockLootTables {
+    private final Map<ResourceLocation, LootTable.Builder> lootTables = Maps.newHashMap();
 
     protected void addTables() {
         registerDropSelfLootTable(ModBlocks.CHIMERITE_BLOCK.get());
@@ -29,5 +40,26 @@ public class AMLBlockLootTables extends BlockLootTables {
 
     public void registerGemDropLootTable(Block block, Item gem) {
         this.registerLootTable(block, droppingItemWithFortune(block, gem));
+    }
+
+    @Override
+    public void accept(BiConsumer<ResourceLocation, LootTable.Builder> p_accept_1_) {
+        Set<ResourceLocation> set = Sets.newHashSet();
+
+        for(Block block : getKnownBlocks()) {
+            ResourceLocation resourcelocation = block.getLootTable();
+            if (resourcelocation != LootTables.EMPTY && set.add(resourcelocation)) {
+                LootTable.Builder loottable$builder = this.lootTables.remove(resourcelocation);
+                if (loottable$builder == null) {
+                    continue;
+                }
+
+                p_accept_1_.accept(resourcelocation, loottable$builder);
+            }
+        }
+    }
+
+    protected void registerLootTable(Block blockIn, LootTable.Builder table) {
+        this.lootTables.put(blockIn.getLootTable(), table);
     }
 }

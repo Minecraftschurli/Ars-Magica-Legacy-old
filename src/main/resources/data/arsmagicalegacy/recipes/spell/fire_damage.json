@@ -1,0 +1,19 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:red_rune",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/vinteum"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:flint_and_steel",
+      "Count": 1
+    }
+  ]
+}

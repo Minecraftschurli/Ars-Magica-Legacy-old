@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
+import minecraftschurli.arsmagicalegacy.api.NBTUtils;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;

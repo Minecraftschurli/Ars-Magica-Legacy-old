@@ -16,7 +16,7 @@ public class SpellIngredientList extends ArrayList<ISpellIngredient> implements 
 
     private static ISpellIngredient deserializeIngredient(INBT inbt) {
         CompoundNBT nbt = (CompoundNBT) inbt;
-        return IngredientTypes.get(nbt.getString(ISpellIngredient.TYPE_KEY), nbt);
+        return IngredientTypes.deserialize(nbt);
     }
 
     @Override

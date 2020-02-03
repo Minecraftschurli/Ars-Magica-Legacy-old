@@ -35,6 +35,7 @@ import org.lwjgl.opengl.GL12;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -437,7 +438,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         //main recipe
         for (int i = 0; i < this.container.getCurrentRecipeSize(); ++i) {
             AbstractSpellPart part = this.container.getRecipeItemAt(i);
-            if (part == ArsMagicaAPI.getMissingShape().get())
+            if (Objects.equals(part.getRegistryName(), ArsMagicaAPI.MISSING_SHAPE))
                 continue;
             String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
 

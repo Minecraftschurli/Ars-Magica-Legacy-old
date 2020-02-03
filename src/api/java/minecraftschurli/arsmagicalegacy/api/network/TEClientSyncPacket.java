@@ -35,6 +35,7 @@ public class TEClientSyncPacket implements IPacket {
 
     @Override
     public void handle(Supplier<NetworkEvent.Context> ctx) {
+        //noinspection ConstantConditions
         ctx.get().enqueueWork(() -> Minecraft.getInstance().world.getTileEntity(pos).read(data));
         ctx.get().setPacketHandled(true);
     }

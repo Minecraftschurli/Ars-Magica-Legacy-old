@@ -8,9 +8,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootParameterSet;
 import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.ValidationResults;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -28,5 +30,10 @@ public class AMLLootTableProvider extends LootTableProvider {
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
         return ImmutableList.of(new Pair<>(AMLBlockLootTables::new, LootParameterSets.BLOCK));
+    }
+
+    @Override
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationResults validationresults) {
+        //super.validate(map, validationresults);
     }
 }

@@ -30,11 +30,16 @@ public class SyncResearchPacket implements IPacket {
     public SyncResearchPacket(PacketBuffer buf) {
         points = new HashMap<>();
         skills = new ArrayList<>();
-        for (int i = 0; i < buf.readInt(); i++){
-            points.put(buf.readInt(), buf.readInt());
+        int pointsSize = buf.readInt();
+        for (int i = 0; i < pointsSize; i++){
+            int tier = buf.readInt();
+            int count = buf.readInt();
+            points.put(tier, count);
         }
-        for (int i = 0; i < buf.readInt(); i++) {
-            skills.add(buf.readResourceLocation());
+        int skillsSize = buf.readInt();
+        for (int i = 0; i < skillsSize; i++) {
+            ResourceLocation rl = buf.readResourceLocation();
+            skills.add(rl);
         }
     }
 

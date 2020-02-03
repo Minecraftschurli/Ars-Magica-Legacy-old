@@ -200,6 +200,12 @@ public class SpellRegistry {
         return new ResourceLocation(id.getNamespace(), "textures/icon/spell/shape/" + id.getPath() + ".png");
     }
 
+    /**
+     * Gets the Skill associated with this Part
+     *
+     * @param part : the Part to get the Skill for
+     * @return the associated Skill for the given Part
+     */
     public static Skill getSkillFromPart(AbstractSpellPart part) {
         return ArsMagicaAPI.getSkillRegistry().getValue(part.getRegistryName());
     }
@@ -225,21 +231,39 @@ public class SpellRegistry {
         return null;
     }*/
 
-    public static SpellShape getShapeFromName(String shapeName) {
-        ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.getMissingShape().getId() : rl);
+    /**
+     * Gets the {@link SpellShape} for the given registry name
+     *
+     * @param name : The String representation of a {@link ResourceLocation}
+     * @return null if the spell shape doesn't exist
+     */
+    public static SpellShape getShapeFromName(String name) {
+        ResourceLocation rl = ResourceLocation.tryCreate(name);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE : rl);
         return part instanceof SpellShape ? (SpellShape) part : null;
     }
 
-    public static SpellModifier getModifierFromName(String shapeName) {
-        ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.getMissingShape().getId() : rl);
+    /**
+     * Gets the {@link SpellModifier} for the given registry name
+     *
+     * @param name : The String representation of a {@link ResourceLocation}
+     * @return null if the spell modifier doesn't exist
+     */
+    public static SpellModifier getModifierFromName(String name) {
+        ResourceLocation rl = ResourceLocation.tryCreate(name);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE : rl);
         return part instanceof SpellModifier ? (SpellModifier) part : null;
     }
 
-    public static SpellComponent getComponentFromName(String shapeName) {
-        ResourceLocation rl = ResourceLocation.tryCreate(shapeName);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.getMissingShape().getId() : rl);
+    /**
+     * Gets the {@link SpellComponent} for the given registry name
+     *
+     * @param name : The String representation of a {@link ResourceLocation}
+     * @return null if the spell component doesn't exist
+     */
+    public static SpellComponent getComponentFromName(String name) {
+        ResourceLocation rl = ResourceLocation.tryCreate(name);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE : rl);
         return part instanceof SpellComponent ? (SpellComponent) part : null;
     }
 }

@@ -513,17 +513,17 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             for (AbstractSpellPart part : allRecipeItems) {
 
                 if (part == null) {
-                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book.  Recipe part is null!");
+                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe part is null!");
                     return bookstack;
                 }
 
-                ISpellIngredient[] recipeItems = part.getRecipe();
+                ISpellIngredient[] recipeItems = ArsMagicaLegacy.getSpellRecipeManager().getRecipe(part.getRegistryName());
                 SpellRecipeItemsEvent event = new SpellRecipeItemsEvent(SpellRegistry.getSkillFromPart(part).getID(), recipeItems);
                 MinecraftForge.EVENT_BUS.post(event);
                 recipeItems = event.recipeItems;
 
                 if (recipeItems == null) {
-                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book.  Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getName());
+                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getName().getUnformattedComponentText());
                     return bookstack;
                 }
                 materialsList.addAll(Arrays.asList(recipeItems));

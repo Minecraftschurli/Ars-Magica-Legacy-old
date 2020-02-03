@@ -1,0 +1,14 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:ingots/gold"
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:ingots/gold"
+    }
+  ]
+}

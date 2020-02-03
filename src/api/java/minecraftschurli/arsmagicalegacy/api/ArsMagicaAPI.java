@@ -28,12 +28,11 @@ public class ArsMagicaAPI {
     public static final String MODID = "arsmagicalegacy";
 
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final ResourceLocation MISSING_SHAPE = new ResourceLocation(MODID, "null");
 
     private static IForgeRegistry<SkillTree> SKILL_TREE_REGISTRY = null;
     private static IForgeRegistry<AbstractSpellPart> SPELL_PART_REGISTRY = null;
     private static IForgeRegistry<Skill> SKILL_REGISTRY = null;
-
-    private static final LazyOptional<RegistryObject<SpellShape>> MISSING_SHAPE = LazyOptional.of(() -> RegistryObject.of(new ResourceLocation(MODID, "null"), () -> AbstractSpellPart.class));
 
     public static void setup() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -71,9 +70,5 @@ public class ArsMagicaAPI {
 
     public static PlayerEntity getLocalPlayer() {
         return DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> net.minecraft.client.Minecraft.getInstance().player);
-    }
-
-    public static RegistryObject<SpellShape> getMissingShape() {
-        return MISSING_SHAPE.orElseThrow(NullPointerException::new);
     }
 }

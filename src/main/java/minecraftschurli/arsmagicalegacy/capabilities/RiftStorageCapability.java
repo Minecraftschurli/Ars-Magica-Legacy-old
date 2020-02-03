@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
  * @version 2020-01-20
  */
 public class RiftStorageCapability implements ICapabilitySerializable<INBT> {
-    private LazyOptional<IRiftStorage> riftInstance = LazyOptional.of(CapabilityHelper.getRiftStorageCapability()::getDefaultInstance);
+    private LazyOptional<IRiftStorage> riftInstance = LazyOptional.of(() -> CapabilityHelper.getRiftStorageCapability().getDefaultInstance());
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IRiftStorage.class, new Capability.IStorage<IRiftStorage>() {

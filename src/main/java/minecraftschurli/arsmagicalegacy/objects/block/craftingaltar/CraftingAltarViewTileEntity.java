@@ -7,6 +7,8 @@ import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Minecraftschurli
  * @version 2019-12-29
@@ -42,6 +44,7 @@ public class CraftingAltarViewTileEntity extends TileEntity {
         super.remove();
     }
 
+    @Nonnull
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);

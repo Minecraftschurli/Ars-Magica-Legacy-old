@@ -1,0 +1,14 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:orange_rune",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:flint_and_steel",
+      "Count": 1
+    }
+  ]
+}

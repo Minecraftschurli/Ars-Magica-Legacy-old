@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.boss.dragon.*;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
@@ -125,8 +126,8 @@ public class SpellProjectileEntity extends Entity {
         try {
             if (ticksExisted > 200)
                 this.remove();
-            RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(getPositionVec(), this.getPositionVec().add(getMotion()), RayTraceContext.BlockMode.COLLIDER, targetWater() ? RayTraceContext.FluidMode.ANY : RayTraceContext.FluidMode.NONE, this));
-            if (mop != null && mop.getType().equals(RayTraceResult.Type.BLOCK)) {
+            RayTraceResult mop = ProjectileHelper.rayTrace(this, true, false, getShooter(), RayTraceContext.BlockMode.COLLIDER);
+            if (mop.getType().equals(RayTraceResult.Type.BLOCK)) {
                 if (world.getBlockState(((BlockRayTraceResult) mop).getPos()).isSolid() || targetWater()) {
                     world.getBlockState(((BlockRayTraceResult) mop).getPos()).onEntityCollision(world, ((BlockRayTraceResult) mop).getPos(), this);
                     if (getBounces() > 0) {
@@ -149,8 +150,6 @@ public class SpellProjectileEntity extends Entity {
                             effSize--;
                             continue;
                         }
-                        if (entity instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) entity).dragon instanceof LivingEntity)
-                            entity = ((EnderDragonPartEntity) entity).dragon;
                         SpellUtils.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
                         SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.posX, entity.posY, entity.posZ, null, world, false, true, 0);
                         break;

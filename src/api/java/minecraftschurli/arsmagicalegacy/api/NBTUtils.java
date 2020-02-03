@@ -1,8 +1,11 @@
-package minecraftschurli.arsmagicalegacy.util;
+package minecraftschurli.arsmagicalegacy.api;
 
+import com.google.gson.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.math.*;
+
+import java.util.Map;
 
 /**
  * @author Minecraftschurli
@@ -14,7 +17,7 @@ public class NBTUtils {
         return addTag(baseTag, "AM2");
     }
 
-    public static CompoundNBT getEssenceTag(CompoundNBT baseTag) {
+    /*public static CompoundNBT getEssenceTag(CompoundNBT baseTag) {
         return addTag(getAM2Tag(baseTag), "Essence");
     }
 
@@ -56,7 +59,7 @@ public class NBTUtils {
             default:
                 return null;
         }
-    }
+    }*/
 
     public static CompoundNBT addTag(CompoundNBT upper, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
@@ -77,9 +80,8 @@ public class NBTUtils {
     public static ListNBT addList(CompoundNBT upper, int type, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
         ListNBT newTag = new ListNBT();
-        if (upper.getList(name, type) != null) {
-            newTag = upper.getList(name, type);
-        }
+        upper.getList(name, type);
+        newTag = upper.getList(name, type);
         upper.put(name, newTag);
         return newTag;
     }
@@ -108,25 +110,71 @@ public class NBTUtils {
         return match;
     }
 
-    public static ItemStack[] getItemStackArray(CompoundNBT tagCompound, String string) {
-        ListNBT list = addCompoundList(tagCompound, string);
-        ItemStack[] array = new ItemStack[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            CompoundNBT tmp = list.getCompound(i);
-            array[tmp.getInt("ID")] = ItemStack.read(tmp);
+    public static INBT jsonToNBT(JsonElement json) {
+        if (json.isJsonArray()) {
+            ListNBT list = new ListNBT();
+            for (JsonElement e : json.getAsJsonArray()) {
+                list.add(jsonToNBT(e));
+            }
+            return list;
         }
-        return array;
+        if (json.isJsonNull()) {
+            return new StringNBT("null");
+        }
+        if (json.isJsonObject()) {
+            CompoundNBT compound = new CompoundNBT();
+            for (Map.Entry<String, JsonElement> jsonEntry : json.getAsJsonObject().entrySet()) {
+                compound.put(jsonEntry.getKey(), jsonToNBT(jsonEntry.getValue()));
+            }
+            return compound;
+        }
+        if (json.isJsonPrimitive()) {
+            JsonPrimitive primitive = json.getAsJsonPrimitive();
+            if (primitive.isBoolean())
+                return new ByteNBT((byte) (primitive.getAsBoolean() ? 1 : 0));
+            if (primitive.isString())
+                return new StringNBT(primitive.getAsString());
+            if (primitive.isNumber()) {
+                Number number = primitive.getAsNumber();
+                if (number instanceof Byte)
+                    return new ByteNBT(number.byteValue());
+                if (number instanceof Short)
+                    return new ShortNBT(number.shortValue());
+                if (number instanceof Integer)
+                    return new IntNBT(number.intValue());
+                if (number instanceof Long)
+                    return new LongNBT(number.longValue());
+                if (number instanceof Float)
+                    return new FloatNBT(number.floatValue());
+                if (number instanceof Double)
+                    return new DoubleNBT(number.doubleValue());
+            }
+        }
+        return new CompoundNBT();
     }
 
-    public static void setItemStackArray(CompoundNBT tagCompound, String string, ItemStack[] recipeData) {
-        ListNBT list = addCompoundList(tagCompound, string);
-        for (int i = 0; i < recipeData.length; i++) {
-            CompoundNBT tmp = new CompoundNBT();
-            tmp.putInt("ID", i);
-            recipeData[i].write(tmp);
-            list.add(tmp);
+    public static JsonElement NBTToJson(INBT inbt) {
+        if (inbt instanceof NumberNBT)
+            return new JsonPrimitive(((NumberNBT) inbt).getAsNumber());
+        if (inbt instanceof StringNBT) {
+            if (inbt.getString().equals("null"))
+                return JsonNull.INSTANCE;
+            return new JsonPrimitive(inbt.getString());
         }
-        tagCompound.put(string, list);
+        if (inbt instanceof CompoundNBT) {
+            JsonObject object = new JsonObject();
+            for (String s : ((CompoundNBT) inbt).keySet()) {
+                object.add(s, NBTToJson(((CompoundNBT) inbt).get(s)));
+            }
+            return object;
+        }
+        if (inbt instanceof CollectionNBT) {
+            JsonArray array = new JsonArray();
+            for (INBT o : ((CollectionNBT<? extends INBT>) inbt)) {
+                array.add(NBTToJson(o));
+            }
+            return array;
+        }
+        return JsonNull.INSTANCE;
     }
-
 }

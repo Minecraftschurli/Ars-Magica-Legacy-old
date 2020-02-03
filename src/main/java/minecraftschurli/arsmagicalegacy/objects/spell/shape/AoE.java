@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -48,7 +49,7 @@ public class AoE extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         double radius = SpellUtils.getModifiedDoubleAdd(1, stack, caster, target, world, SpellModifiers.RADIUS);
         List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius));
         boolean appliedToAtLeastOneEntity = false;

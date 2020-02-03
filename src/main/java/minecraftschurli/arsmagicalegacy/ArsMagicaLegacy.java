@@ -4,6 +4,7 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.objects.spell.SpellRecipeManager;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
 import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.handler.TickHandler;
@@ -60,8 +61,11 @@ public final class ArsMagicaLegacy {
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
 
+    private final SpellRecipeManager spellRecipeManager;
+
     public ArsMagicaLegacy() {
         instance = this;
+        spellRecipeManager = new SpellRecipeManager();
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -86,6 +90,20 @@ public final class ArsMagicaLegacy {
         IInit.setEventBus(modEventBus);
     }
 
+    public static SpellRecipeManager getSpellRecipeManager() {
+        return instance.spellRecipeManager;
+    }
+
+    public IModInfo getModInfo() {
+        return ModList.get().getModContainerById(MODID).map(ModContainer::getModInfo).get();
+    }
+
+    public String getVersion() {
+        return getModInfo().getVersion().getQualifier();
+    }
+
+    //region =========EVENTS=========
+
     private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(MODID, "mana"), new ManaCapability());
@@ -98,10 +116,12 @@ public final class ArsMagicaLegacy {
 
     private void onServerLoad(final FMLServerStartingEvent event) {
         ModCommands.register(event.getCommandDispatcher());
+        event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
     }
 
     private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
         event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
+        //noinspection ConstantConditions
         event.getItemColors().register(
                 (stack, tint) -> tint == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1,
                 ModItems.INFINITY_ORB.get()
@@ -122,13 +142,7 @@ public final class ArsMagicaLegacy {
         ModSpellParts.register();
     }
 
-    public IModInfo getModInfo() {
-        return ModList.get().getModContainerById(MODID).map(ModContainer::getModInfo).get();
-    }
-
-    public String getVersion() {
-        return getModInfo().getVersion().getQualifier();
-    }
+    //endregion
 
     //region =========LIFECYCLE=========
 
@@ -144,6 +158,7 @@ public final class ArsMagicaLegacy {
         BurnoutCapability.register();
         ResearchCapability.register();
         MagicCapability.register();
+        RiftStorageCapability.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

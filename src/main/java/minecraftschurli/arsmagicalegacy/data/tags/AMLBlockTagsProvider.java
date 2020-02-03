@@ -44,6 +44,7 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
 
         getBuilder(BlockTags.WOODEN_DOORS).add(ModBlocks.WITCHWOOD_DOOR.get());
         getBuilder(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.WITCHWOOD_TRAPDOOR.get());
+        getBuilder(BlockTags.WOODEN_FENCES).add(ModBlocks.WITCHWOOD_FENCE.get());
         getBuilder(Tags.Blocks.FENCES_WOODEN).add(ModBlocks.WITCHWOOD_FENCE.get());
         getBuilder(Tags.Blocks.FENCE_GATES_WOODEN).add(ModBlocks.WITCHWOOD_FENCE_GATE.get());
         getBuilder(BlockTags.WOODEN_BUTTONS).add(ModBlocks.WITCHWOOD_BUTTON.get());

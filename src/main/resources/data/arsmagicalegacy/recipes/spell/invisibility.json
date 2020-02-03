@@ -1,0 +1,22 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:black_rune",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/chimerite"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:potion",
+      "Count": 1,
+      "tag": {
+        "Potion": "minecraft:invisibility"
+      }
+    }
+  ]
+}

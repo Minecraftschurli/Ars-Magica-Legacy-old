@@ -19,6 +19,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -76,12 +77,12 @@ public class CommandResearch {
     }
 
     private static int learn(CommandContext<CommandSource> context, Skill skill) throws CommandSyntaxException {
-        if (skill != SpellRegistry.getSkillFromPart(ArsMagicaAPI.getMissingShape().get()))
-            return 0;
         if (skill == null) {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);
             return 1;
         }
+        if (Objects.equals(skill.getRegistryName(), ArsMagicaAPI.MISSING_SHAPE))
+            return 0;
         CapabilityHelper.learn(EntityArgument.getPlayer(context, TARGET), skill);
         context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".command.learned", skill.getName()), false);
         return 0;

@@ -13,6 +13,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -40,6 +41,7 @@ public class ThrownRockEntity extends Entity {
         this.noClip = true;
     }
 
+    @SuppressWarnings("unused")
     public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed) {
         this(world);
         this.noClip = true;
@@ -69,6 +71,7 @@ public class ThrownRockEntity extends Entity {
         this.damage = damage;
     }
 
+    @SuppressWarnings("unused")
     public void setMoonstoneMeteorTarget(Vec3d target) {
         this.target = target;
     }
@@ -110,6 +113,7 @@ public class ThrownRockEntity extends Entity {
         this.dataManager.register(OWNER, 0);
     }
 
+    @SuppressWarnings("unused")
     private ItemStack getSpellStack() {
         return this.dataManager.get(SPELL_STACK);
     }
@@ -136,6 +140,7 @@ public class ThrownRockEntity extends Entity {
         }
 
         if (!getIsMoonstoneMeteor() && !getIsShootingStar()) {
+            //noinspection ConstantConditions
             if (!world.isRemote && (world.getEntityByID(getDataManager().get(OWNER)) == null || !world.getEntityByID(getDataManager().get(OWNER)).isAlive())) {
                 remove();
             } else {
@@ -152,7 +157,7 @@ public class ThrownRockEntity extends Entity {
             setMotion(getMotion().add(0, -0.1f, 0));
             if (getMotion().y < -2f)
                 setMotion(getMotion().x, -2f, getMotion().z);
-        }
+        }//TODO: @IchHabeHunger54
 
         /*if (worldObj.isRemote){
             if (getIsMoonstoneMeteor()){
@@ -204,7 +209,7 @@ public class ThrownRockEntity extends Entity {
         Vec3d vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
         RayTraceResult movingobjectposition = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
         vec3d = new Vec3d(posX, posY, posZ);
-        vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
+        //vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
         vec3d1 = new Vec3d(movingobjectposition.getHitVec().x, movingobjectposition.getHitVec().y, movingobjectposition.getHitVec().z);
         Entity entity = null;
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1.0D, 1.0D, 1.0D));
@@ -236,14 +241,14 @@ public class ThrownRockEntity extends Entity {
         posZ += getMotion().z;
         float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
         rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
-        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
-        }
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {
-        }
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {
-        }
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {
-        }
+        //noinspection StatementWithEmptyBody
+        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {}
+        //noinspection StatementWithEmptyBody
+        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {}
+        //noinspection StatementWithEmptyBody
+        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {}
+        //noinspection StatementWithEmptyBody
+        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {}
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         setPosition(posX, posY, posZ);
@@ -263,12 +268,14 @@ public class ThrownRockEntity extends Entity {
             for (LivingEntity e : ents) {
                 if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
                 if (this.getDistance(e) < 12)
+                    //noinspection ConstantConditions
                     SpellUtils.attackTargetSpecial(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
             }
         } else {
             if (movingobjectposition.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {
                 if (((EntityRayTraceResult) movingobjectposition).getEntity() == world.getEntityByID(getDataManager().get(OWNER)) || world.getEntityByID(getDataManager().get(OWNER)) == null)
                     return;
+                //noinspection ConstantConditions
                 ((EntityRayTraceResult) movingobjectposition).getEntity().attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) world.getEntityByID(getDataManager().get(OWNER))), 10);
             } else if (movingobjectposition.getType() == RayTraceResult.Type.BLOCK) {
                 if (this.getIsMoonstoneMeteor()) {
@@ -303,21 +310,17 @@ public class ThrownRockEntity extends Entity {
             pos = pos.up();
 
         if (rand.nextInt(4) < 2 || force)
+            //noinspection ConstantConditions
             world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());
         else
             world.setBlockState(pos, Blocks.STONE.getDefaultState());
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+    public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
         return false;
     }
 
-    /**
-     * Reads the entity from NBT (calls an abstract helper method to read specialized data)
-     *
-     * @param compound
-     */
     @Override
     public void readAdditional(CompoundNBT compound) {
         this.damage = compound.getFloat("star_damage");
@@ -331,6 +334,7 @@ public class ThrownRockEntity extends Entity {
         compound.putBoolean("MoonstoneMeteor", getIsMoonstoneMeteor());
     }
 
+    @Nonnull
     @Override
     public IPacket<?> createSpawnPacket() {
         return new SSpawnObjectPacket(this, getDataManager().get(OWNER));

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -39,13 +40,14 @@ public class Chain extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        RayTraceResult mop = null;//item.getMovingObjectPosition(caster, world, 8.0f, true, false);
+    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+        RayTraceResult mop = item.getMovingObjectPosition(caster, world, 8.0f, true, false);
         double range = SpellUtils.getModifiedDoubleMul(8, stack, caster, target, world, SpellModifiers.RANGE);
         int num_targets = SpellUtils.getModifiedIntAdd(3, stack, caster, target, world, SpellModifiers.PROCS);
         ArrayList<LivingEntity> targets = new ArrayList<>();
         if (target != null) mop = new EntityRayTraceResult(target);
-        if (mop != null && mop.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult)mop).getEntity() != null) {
+        if (mop != null && mop.getType() == RayTraceResult.Type.ENTITY) {
+            ((EntityRayTraceResult) mop).getEntity();
             Entity e = ((EntityRayTraceResult) mop).getEntity();
             if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                 e = ((EnderDragonPartEntity) e).dragon;

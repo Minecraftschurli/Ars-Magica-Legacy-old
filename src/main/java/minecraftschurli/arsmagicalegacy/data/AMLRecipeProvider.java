@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.data;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaRecipePlugin;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
@@ -13,13 +16,16 @@ import java.util.function.*;
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-public class AMLRecipeProvider extends RecipeProvider {
+public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipePlugin {
     public AMLRecipeProvider(DataGenerator generator) {
         super(generator);
     }
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        for (AbstractSpellPart part : ArsMagicaAPI.getSpellPartRegistry()) {
+            addSpellRecipe(part.getRegistryName(), part.getRecipe(), consumer);
+        }
         RecipeHelper.addLargeCompressRecipe(ModItems.CHIMERITE_BLOCK.get(), ModTags.Items.GEMS_CHIMERITE).build(consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.TOPAZ_BLOCK.get(), ModTags.Items.GEMS_TOPAZ).build(consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.VINTEUM_BLOCK.get(), ModTags.Items.DUSTS_VINTEUM).build(consumer);
