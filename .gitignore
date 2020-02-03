@@ -5,8 +5,7 @@ gradlew.bat
 /build/
 /build/classes/java/main/
 /run/
-/src/generated/
 /.idea/
-/src/old/
 /src/main/resources/rename.py
 /out/
+/src/generated/resources/.cache/

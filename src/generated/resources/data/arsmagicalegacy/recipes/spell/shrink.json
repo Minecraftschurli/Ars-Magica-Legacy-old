@@ -1,0 +1,29 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:bone",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:brown_mushroom",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:nuggets/gold"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:spider_eye",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:stone_button",
+      "Count": 1
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:ice_essence",
+      "Count": 2
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:topaz",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:ice",
+      "Count": 1
+    }
+  ]
+}

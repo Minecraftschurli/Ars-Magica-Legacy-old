@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:yellow_rune",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/vinteum"
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:ingots/iron"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:stick",
+      "Count": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/chimerite"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:purified_vinteum",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:cerublossom",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:monster_focus",
+      "Count": 1
+    },
+    {
+      "amount": 1500,
+      "essence": "DARK",
+      "ingredient_type": "essence"
+    }
+  ]
+}

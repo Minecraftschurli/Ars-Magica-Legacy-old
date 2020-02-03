@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    "VFV",
+    "A A"
+  ],
+  "key": {
+    "F": {
+      "item": "arsmagicalegacy:standard_focus"
+    },
+    "V": {
+      "item": "arsmagicalegacy:purified_vinteum"
+    },
+    "A": {
+      "item": "arsmagicalegacy:arcane_ash"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:greater_focus"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SXS",
+    "SXS"
+  ],
+  "key": {
+    "X": {
+      "item": "arsmagicalegacy:witchwood_planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:witchwood_fence_gate",
+    "count": 3
+  }
+}

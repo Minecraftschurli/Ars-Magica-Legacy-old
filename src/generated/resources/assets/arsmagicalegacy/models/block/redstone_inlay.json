@@ -1,0 +1,6 @@
+{
+  "parent": "block/rail",
+  "textures": {
+    "rail": "arsmagicalegacy:block/redstone_inlay"
+  }
+}
