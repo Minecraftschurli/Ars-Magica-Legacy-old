@@ -8,6 +8,11 @@
 - [ ] add spell entities
 - [ ] implement all potion effects
 - [ ] implement all spell parts
+- [ ] first alpha release [_non survival ready version_] (~ March)
 - [ ] add particles to all spell parts
+- [ ] add temporary Villager Profession to trade Infinityorbs
+- [ ] add documentation (Patchouli?)
 - [ ] finish documenting the API
-- [ ] prepare for first release
+- [ ] first beta release (~ April)
+- [ ] add entities and bosses
+- [ ] first release (~ June/July)
