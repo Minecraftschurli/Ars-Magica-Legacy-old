@@ -1,6 +1,6 @@
 {
-    "parent": "block/button_pressed",
-    "textures": {
-        "texture": "arsmagicalegacy:block/witchwood_planks"
-    }
+  "parent": "block/button_pressed",
+  "textures": {
+    "texture": "arsmagicalegacy:block/witchwood_planks"
+  }
 }

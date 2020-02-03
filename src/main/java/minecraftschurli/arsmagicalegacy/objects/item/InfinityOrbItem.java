@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -35,7 +34,6 @@ public class InfinityOrbItem extends Item {
     @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putInt(TYPE_KEY, ModSpellParts.SILVER_POINT.getTier());
     }
 
     @Override
@@ -53,8 +51,19 @@ public class InfinityOrbItem extends Item {
     @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-        if (worldIn.isRemote || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0) return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
+        if (worldIn.isRemote || !playerIn.getHeldItem(handIn).hasTag() || !playerIn.getHeldItem(handIn).getTag().contains(TYPE_KEY) || playerIn.getHeldItem(handIn).getTag().getInt(TYPE_KEY) < 0)
+            return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
+    }
+
+    public ItemStack setSkillPoint(SkillPoint point) {
+        ItemStack stack = new ItemStack(this);
+        stack.getOrCreateTag().putInt(TYPE_KEY, point.getTier());
+        return stack;
+    }
+
+    public static SkillPoint getSkillPoint(ItemStack stack) {
+        return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
     }
 
     /*@Override
@@ -63,14 +72,16 @@ public class InfinityOrbItem extends Item {
     }*/
 
     private ActionResult<ItemStack> useOrb(LivingEntity entity, ItemStack heldItem) {
-        MagicHelper.addSkillPoint(entity, heldItem.getTag().getInt(TYPE_KEY));
-        heldItem.shrink(1);
-        return new ActionResult<>(ActionResultType.SUCCESS, heldItem);
+        if (entity instanceof PlayerEntity){
+            CapabilityHelper.addSkillPoint((PlayerEntity) entity, heldItem.getTag().getInt(TYPE_KEY));
+            heldItem.shrink(1);
+        }
+        return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
     }
 
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
-        return new TranslationTextComponent(this.getTranslationKey(stack), SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY)).getDisplayName());
+        return new TranslationTextComponent(this.getTranslationKey(stack), getSkillPoint(stack).getDisplayName());
     }
 
     /*@Override

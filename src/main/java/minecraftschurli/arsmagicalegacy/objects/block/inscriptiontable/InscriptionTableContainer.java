@@ -214,7 +214,7 @@ public class InscriptionTableContainer extends Container {
 
     public void resetSpellNameAndIcon() {
         ItemStack stack = this.inventorySlots.get(0).getStack();
-        if (!stack.isEmpty()){
+        if (!stack.isEmpty()) {
             table.resetSpellNameAndIcon(stack, inventoryPlayer.player);
         }
         this.inventorySlots.get(0).onSlotChanged();

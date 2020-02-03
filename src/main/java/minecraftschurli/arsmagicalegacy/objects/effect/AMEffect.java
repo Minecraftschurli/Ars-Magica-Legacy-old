@@ -1,11 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.entity.*;
+import net.minecraft.potion.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli
@@ -30,9 +28,9 @@ public class AMEffect extends Effect {
     public void performEffect(LivingEntity livingEntity, int amplifier) {
     }
 
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
     }
 
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
     }
 }

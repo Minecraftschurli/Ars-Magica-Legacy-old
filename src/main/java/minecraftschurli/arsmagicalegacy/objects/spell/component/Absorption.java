@@ -1,25 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class Absorption extends SpellComponent {
     @Override
@@ -50,13 +43,11 @@ public class Absorption extends SpellComponent {
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         for (int i = 0; i < 15; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "lens_flare", x, y, z);
-//            if (particle != null) {
-//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.1f, 1, false).SetTargetDistance(rand.nextDouble() + 0.5));
-//                particle.setMaxAge(25 + rand.nextInt(10));
-//                particle.setRGBColorF(244, 200, 60);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
-//            }
+//            world.addParticle((IParticleData) ModParticles.LENS_FLARE.get(), x, y, z, 0, 0, 0);
+//            SimpleParticle particle = new SimpleParticle(world, x, y, z);
+//            particle.setMaxAge(25 + rand.nextInt(10));
+//            particle.setColor(244, 200, 60);
+//            if (colorModifier > -1) particle.setColor(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
         }
     }
 
@@ -88,7 +79,7 @@ public class Absorption extends SpellComponent {
         return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
     }
 
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

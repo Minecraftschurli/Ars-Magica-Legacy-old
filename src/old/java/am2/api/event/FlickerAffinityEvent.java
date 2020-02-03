@@ -1,11 +1,11 @@
 package am2.api.event;
 
-import java.util.ArrayList;
+import am2.api.affinity.*;
+import am2.entity.*;
+import net.minecraft.world.biome.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
-import am2.api.affinity.Affinity;
-import am2.entity.EntityFlicker;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import java.util.*;
 
 public class FlickerAffinityEvent extends Event {
 	

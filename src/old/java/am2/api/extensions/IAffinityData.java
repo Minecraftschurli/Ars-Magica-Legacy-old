@@ -1,21 +1,17 @@
 package am2.api.extensions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.Callable;
+import am2.api.affinity.*;
+import am2.extensions.*;
+import am2.utils.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability.*;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
-import am2.api.affinity.Affinity;
-import am2.extensions.AffinityData;
-import am2.utils.NBTUtils;
+import java.util.*;
+import java.util.Map.*;
+import java.util.concurrent.*;
 
 public interface IAffinityData {	
 

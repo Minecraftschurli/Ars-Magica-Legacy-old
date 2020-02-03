@@ -1,41 +1,29 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import am2.api.*;
+import am2.api.math.*;
+import am2.api.skill.*;
+import am2.api.spell.*;
+import am2.blocks.tileentity.*;
+import am2.container.*;
+import am2.extensions.*;
+import am2.gui.controls.*;
+import am2.spell.SpellValidator.*;
+import am2.spell.shape.*;
+import am2.texture.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.init.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import am2.api.ArsMagicaAPI;
-import am2.api.SkillRegistry;
-import am2.api.SpellRegistry;
-import am2.api.math.AMVector2;
-import am2.api.skill.Skill;
-import am2.api.spell.AbstractSpellPart;
-import am2.api.spell.SpellComponent;
-import am2.api.spell.SpellModifier;
-import am2.api.spell.SpellShape;
-import am2.blocks.tileentity.TileEntityInscriptionTable;
-import am2.container.ContainerInscriptionTable;
-import am2.extensions.SkillData;
-import am2.gui.controls.GuiButtonVariableDims;
-import am2.spell.SpellValidator.ValidationResult;
-import am2.spell.shape.MissingShape;
-import am2.texture.SpellIconManager;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class GuiInscriptionTable extends GuiContainer{

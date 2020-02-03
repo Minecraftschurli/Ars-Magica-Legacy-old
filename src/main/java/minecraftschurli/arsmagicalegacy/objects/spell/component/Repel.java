@@ -1,23 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Repel extends SpellComponent {
     @Override
@@ -40,8 +33,8 @@ public class Repel extends SpellComponent {
     }
 
     private void performRepel(World world, LivingEntity caster, Entity target) {
-        Vec3d casterPos = new Vec3d(caster.getPositionVec().x, caster.getPositionVec().y, caster.getPositionVec().z);
-        Vec3d targetPos = new Vec3d(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+        Vec3d casterPos = new Vec3d(caster.posX, caster.posY, caster.posZ);
+        Vec3d targetPos = new Vec3d(target.posX, target.posY, target.posZ);
         double distance = casterPos.distanceTo(targetPos) + 0.1D;
         Vec3d delta = new Vec3d(targetPos.getX() - casterPos.getX(), targetPos.getY() - casterPos.getY(), targetPos.getZ() - casterPos.getZ());
         double dX = delta.getX() / 2.5D / distance;

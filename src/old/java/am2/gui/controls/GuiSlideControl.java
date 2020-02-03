@@ -1,13 +1,10 @@
 package am2.gui.controls;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
+import org.lwjgl.opengl.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiSlideControl extends GuiButton{

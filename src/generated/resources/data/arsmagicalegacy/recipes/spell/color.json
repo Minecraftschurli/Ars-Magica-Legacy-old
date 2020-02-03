@@ -1,0 +1,14 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/chimerite"
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dyes"
+    }
+  ]
+}

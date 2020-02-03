@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.potion.EffectType;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.potion.*;
 
 /**
  * @author Minecraftschurli
@@ -14,7 +14,7 @@ public class FlightEffect extends AMEffect {
     }
 
     @Override
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!(livingEntity instanceof ServerPlayerEntity)) return;
         if (((ServerPlayerEntity) livingEntity).isCreative()) return;
         ((ServerPlayerEntity) livingEntity).abilities.allowFlying = true;
@@ -22,7 +22,7 @@ public class FlightEffect extends AMEffect {
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!(livingEntity instanceof ServerPlayerEntity)) return;
         if (((ServerPlayerEntity) livingEntity).isCreative()) return;
         ((ServerPlayerEntity) livingEntity).abilities.allowFlying = false;

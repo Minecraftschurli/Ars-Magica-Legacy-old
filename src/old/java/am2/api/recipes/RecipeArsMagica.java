@@ -1,7 +1,7 @@
 package am2.api.recipes;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.item.*;
+import net.minecraftforge.oredict.*;
 
 public class RecipeArsMagica{
 	private ItemStack[] craftingComponents;

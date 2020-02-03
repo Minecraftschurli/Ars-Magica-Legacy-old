@@ -1,36 +1,26 @@
 package am2.defs;
 
-import java.util.List;
+import am2.*;
+import am2.api.*;
+import am2.api.affinity.*;
+import am2.api.flickers.*;
+import am2.blocks.BlockArsMagicaBlock.*;
+import am2.blocks.BlockArsMagicaOre.*;
+import am2.blocks.*;
+import am2.items.*;
+import am2.utils.*;
+import net.minecraft.block.*;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.*;
+import net.minecraft.potion.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.common.brewing.*;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.oredict.*;
 
-import am2.LogHelper;
-import am2.ObeliskFuelHelper;
-import am2.api.ArsMagicaAPI;
-import am2.api.affinity.Affinity;
-import am2.api.flickers.AbstractFlickerFunctionality;
-import am2.blocks.BlockArsMagicaBlock.EnumBlockType;
-import am2.blocks.BlockArsMagicaOre.EnumOreType;
-import am2.blocks.BlockCrystalMarker;
-import am2.items.ItemBindingCatalyst;
-import am2.items.ItemCore;
-import am2.items.ItemKeystoneDoor;
-import am2.items.ItemOre;
-import am2.utils.RecipeUtils;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.potion.PotionUtils;
-import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.fluids.UniversalBucket;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import java.util.*;
 
 public class AMRecipes {
 	public static void addRecipes() {

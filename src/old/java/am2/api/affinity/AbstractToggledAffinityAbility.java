@@ -1,7 +1,7 @@
 package am2.api.affinity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
 
 public abstract class AbstractToggledAffinityAbility extends AbstractAffinityAbility{
 

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -35,7 +36,7 @@ public class MissingShape extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         return null;
     }
 

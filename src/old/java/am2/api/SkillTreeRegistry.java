@@ -1,11 +1,10 @@
 package am2.api;
 
-import java.util.ArrayList;
+import am2.api.skill.*;
+import com.google.common.collect.*;
+import net.minecraft.util.*;
 
-import com.google.common.collect.ImmutableList;
-
-import am2.api.skill.SkillTree;
-import net.minecraft.util.ResourceLocation;
+import java.util.*;
 
 public class SkillTreeRegistry {
 	

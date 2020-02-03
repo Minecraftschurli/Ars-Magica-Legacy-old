@@ -1,30 +1,20 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
+import am2.api.compendium.*;
+import am2.api.extensions.*;
+import am2.extensions.*;
+import am2.gui.controls.*;
+import am2.lore.*;
+import com.google.common.collect.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-
-import am2.api.compendium.CompendiumCategory;
-import am2.api.compendium.CompendiumEntry;
-import am2.api.extensions.ISkillData;
-import am2.extensions.SkillData;
-import am2.gui.controls.GuiButtonCompendiumLink;
-import am2.gui.controls.GuiButtonCompendiumNext;
-import am2.gui.controls.GuiButtonCompendiumTab;
-import am2.gui.controls.GuiSpellImageButton;
-import am2.lore.ArcaneCompendium;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import java.io.*;
+import java.util.*;
 
 public class GuiCompendiumIndex extends GuiScreen{
 	private CompendiumCategory currentCategory;

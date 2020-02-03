@@ -1,16 +1,14 @@
 package am2.api.spell;
 
-import java.util.Random;
-import java.util.Set;
+import am2.api.affinity.*;
+import am2.config.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import am2.api.affinity.Affinity;
-import am2.config.AMConfig;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import java.util.*;
 
 public abstract class SpellComponent extends AbstractSpellPart{
 	/**

@@ -1,17 +1,14 @@
 package am2.api.extensions;
 
-import java.util.concurrent.Callable;
+import am2.extensions.datamanager.*;
+import am2.packet.*;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability.*;
 
-import am2.extensions.datamanager.DataSyncExtension;
-import am2.extensions.datamanager.SavedObject;
-import am2.packet.AMDataReader;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import java.util.concurrent.*;
 
 public interface IDataSyncExtension extends ICapabilityProvider{
 	

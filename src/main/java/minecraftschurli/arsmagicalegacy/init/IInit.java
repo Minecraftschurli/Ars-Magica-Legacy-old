@@ -12,6 +12,8 @@ import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -33,6 +35,9 @@ public interface IInit {
     DeferredRegister<VillagerProfession> PROFESSIONS = new DeferredRegister<>(ForgeRegistries.PROFESSIONS, ArsMagicaLegacy.MODID);
     DeferredRegister<PointOfInterestType> POI_TYPES = new DeferredRegister<>(ForgeRegistries.POI_TYPES, ArsMagicaLegacy.MODID);
 
+    DeferredRegister<WorldCarver<?>> WORLD_CARVERS = new DeferredRegister<>(ForgeRegistries.WORLD_CARVERS, ArsMagicaLegacy.MODID);
+    DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, ArsMagicaLegacy.MODID);
+
     static void setEventBus(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
         FLUIDS.register(modEventBus);
@@ -45,5 +50,8 @@ public interface IInit {
         CONTAINERS.register(modEventBus);
         PROFESSIONS.register(modEventBus);
         POI_TYPES.register(modEventBus);
+
+        WORLD_CARVERS.register(modEventBus);
+        FEATURES.register(modEventBus);
     }
 }

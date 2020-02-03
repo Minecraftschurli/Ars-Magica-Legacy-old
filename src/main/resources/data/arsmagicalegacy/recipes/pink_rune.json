@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/pink"
+    },
+    {
+      "item": "arsmagicalegacy:rune"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:pink_rune"
+  }
+}

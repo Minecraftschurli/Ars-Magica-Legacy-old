@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/light_gray"
+    },
+    {
+      "item": "arsmagicalegacy:rune"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:light_gray_rune"
+  }
+}

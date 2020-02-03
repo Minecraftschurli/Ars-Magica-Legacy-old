@@ -1,0 +1,28 @@
+package minecraftschurli.arsmagicalegacy.api.spell;
+
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraft.nbt.*;
+import net.minecraftforge.registries.*;
+
+import java.util.*;
+
+/**
+ * @author Minecraftschurli
+ * @version 2019-11-16
+ */
+public abstract class AbstractSpellPart extends ForgeRegistryEntry<AbstractSpellPart> {
+    /**
+     *
+     * @return
+     */
+    public abstract ISpellIngredient[] getRecipe();
+
+    public abstract void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe);
+
+    /**
+     * What modifier affect this spell part?
+     *
+     * @return
+     */
+    public abstract EnumSet<SpellModifiers> getModifiers();
+}

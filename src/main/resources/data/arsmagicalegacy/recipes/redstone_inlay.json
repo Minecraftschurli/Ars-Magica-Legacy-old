@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MVM",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "tag": "forge:dusts/redstone"
+    },
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:redstone_inlay",
+    "count": 4
+  }
+}

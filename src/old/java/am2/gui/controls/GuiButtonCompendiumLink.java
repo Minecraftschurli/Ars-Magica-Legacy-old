@@ -1,15 +1,11 @@
 package am2.gui.controls;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.api.compendium.CompendiumCategory;
-import am2.api.compendium.CompendiumEntry;
-import am2.gui.AMGuiHelper;
-import am2.gui.AMGuiIcons;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
+import am2.api.compendium.*;
+import am2.gui.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import org.lwjgl.opengl.*;
 
 public class GuiButtonCompendiumLink extends GuiButton{
 	private final FontRenderer fontRenderer;

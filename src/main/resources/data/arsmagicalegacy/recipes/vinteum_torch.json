@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V",
+    "S"
+  ],
+  "key": {
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:vinteum_torch",
+    "count": 4
+  }
+}

@@ -1,6 +1,6 @@
 package am2.defs;
 
-import java.util.UUID;
+import java.util.*;
 
 public class IDDefs {
 	public static final UUID frostSlowID = UUID.fromString("03B0A79B-9569-43AE-BFE3-820D993D4A64");

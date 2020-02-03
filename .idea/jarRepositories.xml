@@ -41,5 +41,40 @@
       <option name="name" value="ModMaven" />
       <option name="url" value="https://modmaven.k-4u.nl" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="BintrayJCenter" />
+      <option name="name" value="BintrayJCenter" />
+      <option name="url" value="https://jcenter.bintray.com/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="MavenLocal" />
+      <option name="name" value="MavenLocal" />
+      <option name="url" value="file:/$MAVEN_REPOSITORY$/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="CurseForge" />
+      <option name="name" value="CurseForge" />
+      <option name="url" value="https://minecraft.curseforge.com/api/maven/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Minecraftschurli maven" />
+      <option name="name" value="Minecraftschurli maven" />
+      <option name="url" value="http://minecraftschurli.ddns.net/archiva" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Minecraftschurli maven" />
+      <option name="name" value="Minecraftschurli maven" />
+      <option name="url" value="http://minecraftschurli.ddns.net/repository/internal/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Minecraftschurli maven" />
+      <option name="name" value="Minecraftschurli maven" />
+      <option name="url" value="http://minecraftschurli.ddns.net/archiva/repository/internal/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven" />
+      <option name="name" value="maven" />
+      <option name="url" value="https://files.minecraftforge.net/maven" />
+    </remote-repository>
   </component>
 </project>

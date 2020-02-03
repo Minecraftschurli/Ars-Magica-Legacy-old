@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.RailBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 
 public class Rail extends RailBlock {
     public Rail(Block.Properties properties) {

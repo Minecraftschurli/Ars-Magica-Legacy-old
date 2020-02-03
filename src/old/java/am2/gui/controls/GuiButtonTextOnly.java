@@ -1,7 +1,7 @@
 package am2.gui.controls;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
 
 public class GuiButtonTextOnly extends GuiButtonVariableDims {
 

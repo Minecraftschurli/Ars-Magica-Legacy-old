@@ -1,24 +1,19 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraft.world.dimension.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class Mark extends SpellComponent {
     @Override
@@ -37,7 +32,7 @@ public class Mark extends SpellComponent {
             if (caster instanceof PlayerEntity && world.isRemote)
                 caster.sendMessage(new TranslationTextComponent("Mark Cleared"));
         } else {
-//            caster.setMark(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z, caster.world.getDimension());
+//            caster.setMark(target.posX, target.posY, target.posZ, caster.world.getDimension());
             if (caster instanceof PlayerEntity && world.isRemote)
                 caster.sendMessage(new TranslationTextComponent("Mark Set"));
         }
@@ -62,10 +57,10 @@ public class Mark extends SpellComponent {
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         int offset = 1;
-        setupParticle(world, caster.getPositionVec().x - 0.5f, caster.getPositionVec().y + offset, caster.getPositionVec().z, 0.2, 0, colorModifier);
-        setupParticle(world, caster.getPositionVec().x + 0.5f, caster.getPositionVec().y + offset, caster.getPositionVec().z, -0.2, 0, colorModifier);
-        setupParticle(world, caster.getPositionVec().x, caster.getPositionVec().y + offset, caster.getPositionVec().z - 0.5f, 0, 0.2, colorModifier);
-        setupParticle(world, caster.getPositionVec().x, caster.getPositionVec().y + offset, caster.getPositionVec().z + 0.5f, 0, -0.2, colorModifier);
+        setupParticle(world, caster.posX - 0.5f, caster.posY + offset, caster.posZ, 0.2, 0, colorModifier);
+        setupParticle(world, caster.posX + 0.5f, caster.posY + offset, caster.posZ, -0.2, 0, colorModifier);
+        setupParticle(world, caster.posX, caster.posY + offset, caster.posZ - 0.5f, 0, 0.2, colorModifier);
+        setupParticle(world, caster.posX, caster.posY + offset, caster.posZ + 0.5f, 0, -0.2, colorModifier);
     }
 
     private void setupParticle(World world, double x, double y, double z, double motionx, double motionz, int colorModifier) {

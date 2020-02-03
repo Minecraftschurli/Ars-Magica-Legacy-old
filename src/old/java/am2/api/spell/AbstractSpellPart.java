@@ -1,9 +1,9 @@
 package am2.api.spell;
 
-import java.util.EnumSet;
+import net.minecraft.nbt.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import java.util.*;
 
 
 public abstract class AbstractSpellPart extends IForgeRegistryEntry.Impl<AbstractSpellPart> {

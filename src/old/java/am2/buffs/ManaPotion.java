@@ -1,10 +1,9 @@
 package am2.buffs;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import am2.api.extensions.IEntityExtension;
-import am2.defs.AMPotion;
-import am2.extensions.EntityExtension;
+import am2.api.extensions.*;
+import am2.defs.*;
+import am2.extensions.*;
+import net.minecraft.entity.*;
 
 public class ManaPotion extends AMPotion{
 	

@@ -1,17 +1,16 @@
 package am2.api.items.armor;
 
-import java.util.EnumSet;
+import am2.extensions.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingEvent.*;
+import net.minecraftforge.event.entity.player.PlayerEvent.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import am2.extensions.AffinityData;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import java.util.*;
 
 public abstract class ArmorImbuement extends IForgeRegistryEntry.Impl<ArmorImbuement>{
 	

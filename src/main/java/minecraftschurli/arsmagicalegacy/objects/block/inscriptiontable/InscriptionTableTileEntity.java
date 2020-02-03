@@ -2,19 +2,19 @@ package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.event.SpellRecipeItemsEvent;
+import minecraftschurli.arsmagicalegacy.api.network.InscriptionTablePacket;
+import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
-import minecraftschurli.arsmagicalegacy.event.SpellRecipeItemsEvent;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.lore.Story;
-import minecraftschurli.arsmagicalegacy.network.InscriptionTablePacket;
-import minecraftschurli.arsmagicalegacy.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -81,7 +81,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         numStageGroups = 2;
     }
 
-    public InscriptionTableTileEntity(World world){
+    public InscriptionTableTileEntity(World world) {
         this();
         this.world = world;
     }
@@ -243,7 +243,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         if (this.numStageGroups > MAX_STAGE_GROUPS)
             this.numStageGroups = MAX_STAGE_GROUPS;
         if (!world.isRemote) {
-            this.world.setBlockState(pos, world.getBlockState(pos).with(InscriptionTableBlock.TIER, MathHelper.clamp(getUpgradeState(), 1, 3)), 2);
+            this.world.setBlockState(pos, world.getBlockState(pos).with(InscriptionTableBlock.TIER, MathHelper.clamp(getUpgradeState(), 0, 3)), 2);
         }
         this.markDirty();
     }
@@ -381,7 +381,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ArrayList<AbstractSpellPart> parts = new ArrayList<>();
             for (int j = 0; j < tmplist.size(); j++) {
                 CompoundNBT tmp = tmplist.getCompound(j);
-                parts.add(tmp.getInt(SLOT_KEY), ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
+                parts.add(tmp.getInt(SLOT_KEY), ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
             }
             this.shapeGroups.add(parts);
         }
@@ -389,7 +389,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         ListNBT recipe = nbt.getList(CURRENT_RECIPE_KEY, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < recipe.size(); i++) {
             CompoundNBT tmp = recipe.getCompound(i);
-            currentRecipe.add(tmp.getInt(SLOT_KEY), ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
+            currentRecipe.add(tmp.getInt(SLOT_KEY), ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
         }
         this.numStageGroups = Math.max(nbt.getInt(NUM_SHAPE_GROUP_SLOTS_KEY), 2);
     }
@@ -513,17 +513,17 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             for (AbstractSpellPart part : allRecipeItems) {
 
                 if (part == null) {
-                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book.  Recipe part is null!");
+                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe part is null!");
                     return bookstack;
                 }
 
-                ISpellIngredient[] recipeItems = part.getRecipe();
+                ISpellIngredient[] recipeItems = ArsMagicaLegacy.getSpellRecipeManager().getRecipe(part.getRegistryName());
                 SpellRecipeItemsEvent event = new SpellRecipeItemsEvent(SpellRegistry.getSkillFromPart(part).getID(), recipeItems);
                 MinecraftForge.EVENT_BUS.post(event);
                 recipeItems = event.recipeItems;
 
                 if (recipeItems == null) {
-                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book.  Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getName());
+                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getName().getUnformattedComponentText());
                     return bookstack;
                 }
                 materialsList.addAll(Arrays.asList(recipeItems));
@@ -550,8 +550,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
             sb = new StringBuilder();
             sb.append("Materials List:\n\n");
-            sb.append(materialsList.stream()
-                    .map(ISpellIngredient::getTooltip)
+            sb.append(materialsList.getTooltip().stream()
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.joining("\n")));
 
@@ -597,9 +596,10 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ListNBT list = new ListNBT();
             list.addAll(Arrays.stream(outputData).map(StringNBT::func_229705_a_).collect(Collectors.toList()));
             bookstack.getTag().put("output_combo", list);
-            bookstack.getTag().putInt("numShapeGroups", shapeGroupCombos.length);
+            bookstack.getTag().putInt("numShapeGroups", sgCount);
             int i = 0;
             for (String[] sgArray : shapeGroupCombos) {
+                if (sgArray == null) continue;
                 ListNBT nbt = new ListNBT();
                 nbt.addAll(Arrays.stream(sgArray).map(StringNBT::func_229705_a_).collect(Collectors.toList()));
                 bookstack.getTag().put("shapeGroupCombo_" + i++, nbt);

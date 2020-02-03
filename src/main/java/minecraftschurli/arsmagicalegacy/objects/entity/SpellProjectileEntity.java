@@ -1,27 +1,22 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.boss.dragon.*;
+import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.network.datasync.*;
+import net.minecraft.network.play.server.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -74,7 +69,8 @@ public class SpellProjectileEntity extends Entity {
 
     @Override
     public IPacket<?> createSpawnPacket() {
-        return null;
+        Entity entity = getShooter();
+        return new SSpawnObjectPacket(this, entity == null ? 0 : entity.getEntityId());
     }
 
     public void decreaseBounces() {
@@ -130,14 +126,14 @@ public class SpellProjectileEntity extends Entity {
         try {
             if (ticksExisted > 200)
                 this.remove();
-            RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(getPositionVec(), this.getPositionVec().add(getMotion()), RayTraceContext.BlockMode.COLLIDER, targetWater() ? RayTraceContext.FluidMode.ANY : RayTraceContext.FluidMode.NONE, this));
-            if (mop != null && mop.getType().equals(RayTraceResult.Type.BLOCK)) {
+            RayTraceResult mop = ProjectileHelper.rayTrace(this, true, false, getShooter(), RayTraceContext.BlockMode.COLLIDER);
+            if (mop.getType().equals(RayTraceResult.Type.BLOCK)) {
                 if (world.getBlockState(((BlockRayTraceResult) mop).getPos()).isSolid() || targetWater()) {
                     world.getBlockState(((BlockRayTraceResult) mop).getPos()).onEntityCollision(world, ((BlockRayTraceResult) mop).getPos(), this);
                     if (getBounces() > 0) {
                         bounce(((BlockRayTraceResult) mop).getFace());
                     } else {
-                        SpellUtils.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPositionVec().x, getPositionVec().y, getPositionVec().z, true);
+                        SpellUtils.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), posX, posY, posZ, true);
                         SpellUtils.applyStackStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
                         if (this.getPierces() == 1 || !SpellUtils.modifierIsPresent(SpellModifiers.PIERCING, this.getSpell()))
                             this.remove();
@@ -154,10 +150,8 @@ public class SpellProjectileEntity extends Entity {
                             effSize--;
                             continue;
                         }
-                        if (entity instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) entity).dragon instanceof LivingEntity)
-                            entity = ((EnderDragonPartEntity) entity).dragon;
                         SpellUtils.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
-                        SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPositionVec().x, entity.getPositionVec().y, entity.getPositionVec().z, null, world, false, true, 0);
+                        SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.posX, entity.posY, entity.posZ, null, world, false, true, 0);
                         break;
                     } else {
                         effSize--;
@@ -226,12 +220,12 @@ public class SpellProjectileEntity extends Entity {
 
     public void selectHomingTarget() {
         List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getCollisionBoundingBox().expand(10.0F, 10.0F, 10.0F));
-        Vec3d pos = getPositionVec();
+        Vec3d pos = new Vec3d(posX, posY, posZ);
         LivingEntity target = null;
         double dist = 900;
         for (Entity entity : entities) {
             if (entity instanceof LivingEntity && !entity.equals(getShooter())) {
-                Vec3d ePos = new Vec3d(entity.getPositionVec().x, entity.getPositionVec().y, entity.getPositionVec().z);
+                Vec3d ePos = new Vec3d(entity.posX, entity.posY, entity.posZ);
                 double eDist = pos.distanceTo(ePos);
                 if (eDist < dist) {
                     dist = eDist;

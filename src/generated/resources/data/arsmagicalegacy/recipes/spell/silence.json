@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:arcane_ash",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:jukebox",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:white_wool",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:white_wool",
+      "Count": 1
+    }
+  ]
+}

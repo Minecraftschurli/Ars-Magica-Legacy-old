@@ -1,0 +1,26 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "arsmagicalegacy:item/inscription_upgrade0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "tier": 0
+      },
+      "model": "arsmagicalegacy:item/inscription_upgrade0"
+    },
+    {
+      "predicate": {
+        "tier": 1
+      },
+      "model": "arsmagicalegacy:item/inscription_upgrade1"
+    },
+    {
+      "predicate": {
+        "tier": 2
+      },
+      "model": "arsmagicalegacy:item/inscription_upgrade2"
+    }
+  ]
+}

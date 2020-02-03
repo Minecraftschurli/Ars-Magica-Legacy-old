@@ -1,25 +1,21 @@
 package am2.armor;
 
-import java.util.List;
+import am2.defs.*;
+import am2.proxy.gui.*;
+import net.minecraft.client.model.*;
+import net.minecraft.creativetab.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.init.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraft.world.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import am2.defs.ItemDefs;
-import am2.proxy.gui.ModelLibrary;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class ItemFireGuardianEars extends AMArmor{

@@ -1,17 +1,14 @@
 package am2.armor.infusions;
 
-import java.util.EnumSet;
+import am2.api.items.armor.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
+import net.minecraftforge.event.entity.living.*;
 
-import am2.api.items.armor.ArmorImbuement;
-import am2.api.items.armor.ImbuementApplicationTypes;
-import am2.api.items.armor.ImbuementTiers;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import java.util.*;
 
 public class Recoil extends ArmorImbuement{
 

@@ -1,6 +1,6 @@
 package am2.api.items;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.*;
 
 public abstract class ItemFilterFocus extends ItemFocus{
 

@@ -1,18 +1,14 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.entity.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.lang.reflect.Method;
-import java.util.List;
+import java.lang.reflect.*;
+import java.util.*;
 
 public class EntityUtils {
     //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
@@ -41,30 +37,29 @@ public class EntityUtils {
     public static Entity getPointedEntity(World world, LivingEntity entityplayer, double range, double collideRadius, boolean nonCollide, boolean targetWater) {
         Entity pointedEntity = null;
         double d = range;
-        Vec3d vec3d = new Vec3d(entityplayer.getPositionVec().x, entityplayer.getPositionVec().y + entityplayer.getEyeHeight(), entityplayer.getPositionVec().z);
+        Vec3d vec3d = new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
         Vec3d vec3d1 = entityplayer.getLookVec();
-        Vec3d vec3d2 = vec3d.add(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d);
         double f1 = collideRadius;
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getBoundingBox().grow(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d).expand(f1, f1, f1));
         double d2 = 0.0D;
         for (Entity entity : list) {
-            RayTraceResult mop = null;//world.rayTraceBlocks(new Vec3d(entityplayer.getPositionVec().x, entityplayer.getPositionVec().y + entityplayer.getEyeHeight(), entityplayer.getPositionVec().z), new Vec3d(entity.getPositionVec().x, entity.getPositionVec().y + entity.getEyeHeight(), entity.getPositionVec().z), targetWater, !targetWater, false);
+            RayTraceResult mop = null;//world.rayTraceBlocks(new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ), new Vec3d(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ), targetWater, !targetWater, false);
             if ((entity.canBeCollidedWith() || nonCollide) && mop == null) {
                 float f2 = Math.max(0.8F, entity.getCollisionBorderSize());
                 AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(f2, f2, f2);
-//                RayTraceResult movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d2);
-//                if (axisalignedbb.contains(vec3d)) {
-//                    if ((0.0D < d2) || (d2 == 0.0D)) {
-//                        pointedEntity = entity;
-//                        d2 = 0.0D;
-//                    }
-//                } else if (movingobjectposition != null) {
-//                    double d3 = vec3d.distanceTo(movingobjectposition.getHitVec());
-//                    if ((d3 < d2) || (d2 == 0.0D)) {
-//                        pointedEntity = entity;
-//                        d2 = d3;
-//                    }
-//                }
+                RayTraceResult movingobjectposition = null;//axisalignedbb.calculateIntercept(vec3d, vec3d2);
+                if (axisalignedbb.contains(vec3d)) {
+                    if ((0.0D < d2) || (d2 == 0.0D)) {
+                        pointedEntity = entity;
+                        d2 = 0.0D;
+                    }
+                } else if (movingobjectposition != null) {
+                    double d3 = vec3d.distanceTo(movingobjectposition.getHitVec());
+                    if ((d3 < d2) || (d2 == 0.0D)) {
+                        pointedEntity = entity;
+                        d2 = d3;
+                    }
+                }
             }
         }
         return pointedEntity;
@@ -191,7 +186,7 @@ public class EntityUtils {
             Vec3d vec3d = damageSourceIn.getDamageLocation();
             if (vec3d != null) {
                 Vec3d vec3d1 = living.getLook(1.0F);
-                Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(living.getPositionVec().x, living.getPositionVec().y, living.getPositionVec().z)).normalize();
+                Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(living.posX, living.posY, living.posZ)).normalize();
                 vec3d2 = new Vec3d(vec3d2.getX(), 0.0D, vec3d2.getZ());
                 return vec3d2.dotProduct(vec3d1) < 0.0D;
             }

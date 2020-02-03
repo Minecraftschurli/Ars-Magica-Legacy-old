@@ -1,9 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
-import net.minecraft.potion.Effects;
+import net.minecraft.entity.*;
+import net.minecraft.potion.*;
 
 /**
  * @author Minecraftschurli
@@ -15,7 +13,7 @@ public class FuryEffect extends AMEffect {
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!livingEntity.world.isRemote) {
             livingEntity.addPotionEffect(new EffectInstance(Effects.HUNGER, 200, 1));
             livingEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 1));

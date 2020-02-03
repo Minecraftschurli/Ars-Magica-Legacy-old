@@ -1,0 +1,19 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:yellow_rune",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/redstone"
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/glowstone"
+    }
+  ]
+}

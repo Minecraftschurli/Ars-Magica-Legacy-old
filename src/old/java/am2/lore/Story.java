@@ -1,21 +1,13 @@
 package am2.lore;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import am2.*;
+import am2.utils.*;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
 
-import am2.ArsMagica2;
-import am2.LogHelper;
-import am2.utils.InventoryUtilities;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
+import java.io.*;
+import java.util.*;
 
 
 public class Story{

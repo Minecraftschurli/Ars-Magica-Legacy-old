@@ -1,17 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
 import minecraftschurli.arsmagicalegacy.util.MathUtils;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
@@ -62,12 +59,12 @@ public class Beam extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         boolean shouldApplyEffectBlock = useCount % 5 == 0;
         boolean shouldApplyEffectEntity = useCount % 10 == 0;
         double range = SpellUtils.getModifiedDoubleAdd(stack, caster, target, world, SpellModifiers.RANGE);
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
-        RayTraceResult mop = null;//item.getMovingObjectPosition(caster, world, range, true, targetWater);
+        RayTraceResult mop = item.getMovingObjectPosition(caster, world, range, true, targetWater);
         SpellCastResult result = null;
         Vec3d beamHitVec = null;
         Vec3d spellVec = null;
@@ -82,7 +79,7 @@ public class Beam extends SpellShape {
                 result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
-            float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.getPositionVec().x, caster.getPositionVec().y, caster.getPositionVec().z));
+            float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.posX, caster.posY, caster.posZ));
             beamHitVec = MathUtils.extrapolateEntityLook(caster, rng);
             spellVec = beamHitVec;
         } else {
@@ -93,11 +90,11 @@ public class Beam extends SpellShape {
             beamHitVec = mop.getHitVec();
             spellVec = new Vec3d(((BlockRayTraceResult) mop).getPos());
         }
-        if (world.isRemote && beamHitVec != null) {
+        if (world.isRemote) {
 //            AMBeam beam = beams.get(caster.getEntityId());
-            double startX = caster.getPositionVec().x;
-            double startY = caster.getPositionVec().y + caster.getEyeHeight() - 0.2f;
-            double startZ = caster.getPositionVec().z;
+            double startX = caster.posX;
+            double startY = caster.posY + caster.getEyeHeight() - 0.2f;
+            double startZ = caster.posZ;
 //            Affinity affinity = AffinityShiftUtils.getMainShiftForStack(stack);
             int color = -1;
             if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
@@ -128,7 +125,7 @@ public class Beam extends SpellShape {
 //                }
 //            }
         }
-        if (result != null && spellVec != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
+        if (result != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
 //            ItemStack newItemStack = SpellUtils.popStackStage(stack);
             return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), mop != null ? ((BlockRayTraceResult) mop).getFace() : null, world, true, giveXP, 0);
         } else return SpellCastResult.SUCCESS_REDUCE_MANA;

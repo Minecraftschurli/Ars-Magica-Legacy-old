@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:purple_rune",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:arcane_ash",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:topaz",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:milk_bucket",
+      "Count": 1
+    }
+  ]
+}

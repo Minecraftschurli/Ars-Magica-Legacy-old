@@ -1,27 +1,24 @@
 package minecraftschurli.arsmagicalegacy.compat;
 
-/*import mezz.jei.api.IModPlugin;
-import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.IRecipeTransferRegistration;
-import mezz.jei.api.registration.ISubtypeRegistration;*/
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.util.ResourceLocation;
+import mezz.jei.api.*;
+import mezz.jei.api.registration.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.util.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-09
  */
-//@JeiPlugin
-public class JEIPlugin/* implements IModPlugin*/ {
+@JeiPlugin
+public class JEIPlugin implements IModPlugin {
 
-    /*@Override
+    @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.useNbtForSubtypes(ModItems.INFINITY_ORB.get());
+        registration.useNbtForSubtypes(ModItems.INSCRIPTION_UPGRADE.get());
     }
 
     @Override
@@ -43,5 +40,5 @@ public class JEIPlugin/* implements IModPlugin*/ {
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(ArsMagicaLegacy.MODID, ArsMagicaLegacy.MODID);
-    }*/
+    }
 }

@@ -1,8 +1,7 @@
 package am2.defs;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
 
 public class AMSounds {
 	

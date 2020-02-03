@@ -1,6 +1,6 @@
 package am2.armor;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.*;
 
 public enum ArsMagicaArmorMaterial{
 	//{900, 1700, 6400, 4000}

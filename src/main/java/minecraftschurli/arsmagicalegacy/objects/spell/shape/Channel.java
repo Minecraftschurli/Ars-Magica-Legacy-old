@@ -1,14 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceType;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.spell.EssenceType;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Attract;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Repel;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Telekinesis;
@@ -43,7 +44,7 @@ public class Channel extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (useCount % 10 == 0 || SpellUtils.componentIsPresent(stack, Telekinesis.class) || SpellUtils.componentIsPresent(stack, Attract.class) || SpellUtils.componentIsPresent(stack, Repel.class))
             return SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
         return SpellCastResult.SUCCESS;

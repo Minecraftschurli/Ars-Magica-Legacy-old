@@ -1,21 +1,19 @@
 package am2.lore;
 
-import am2.ArsMagica2;
-import am2.api.SkillRegistry;
-import am2.api.event.PlayerMagicLevelChangeEvent;
-import am2.api.event.SkillLearnedEvent;
-import am2.api.event.SpellCastEvent;
-import am2.api.extensions.IArcaneCompendium;
-import am2.api.skill.SkillPoint;
-import am2.extensions.EntityExtension;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
+import am2.*;
+import am2.api.*;
+import am2.api.event.*;
+import am2.api.extensions.*;
+import am2.api.skill.*;
+import am2.extensions.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.*;
+import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.EntityRegistry.*;
 
 /**
  * This class should handle compendium unlocks wherever possible through events.

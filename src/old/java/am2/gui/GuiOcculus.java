@@ -1,48 +1,31 @@
 package am2.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
+import am2.*;
+import am2.api.*;
+import am2.api.affinity.*;
+import am2.api.extensions.*;
+import am2.api.skill.*;
+import am2.defs.*;
+import am2.extensions.*;
+import am2.gui.controls.*;
+import am2.packet.*;
+import am2.texture.*;
+import am2.utils.*;
+import com.google.common.collect.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.util.text.translation.*;
+import org.lwjgl.input.*;
 
-import org.lwjgl.input.Keyboard;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-
-import am2.ArsMagica2;
-import am2.api.ArsMagicaAPI;
-import am2.api.SkillPointRegistry;
-import am2.api.SkillRegistry;
-import am2.api.SkillTreeRegistry;
-import am2.api.affinity.AbstractAffinityAbility;
-import am2.api.affinity.Affinity;
-import am2.api.extensions.ISkillData;
-import am2.api.skill.Skill;
-import am2.api.skill.SkillPoint;
-import am2.api.skill.SkillTree;
-import am2.defs.ItemDefs;
-import am2.defs.SkillDefs;
-import am2.extensions.AffinityData;
-import am2.extensions.SkillData;
-import am2.gui.controls.GuiButtonSkillTree;
-import am2.packet.AMDataWriter;
-import am2.packet.AMNetHandler;
-import am2.packet.AMPacketIDs;
-import am2.texture.SpellIconManager;
-import am2.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import java.io.*;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class GuiOcculus extends GuiScreen {

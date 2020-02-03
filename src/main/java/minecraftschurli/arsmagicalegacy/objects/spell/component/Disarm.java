@@ -1,28 +1,21 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.item.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class Disarm extends SpellComponent {
     @Override
@@ -30,57 +23,57 @@ public class Disarm extends SpellComponent {
         Random rnd = new Random();
         double damage = SpellUtils.getModifiedIntMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
 //        if (target instanceof EntityLightMage) return false;
-        /*if (*//*target instanceof EntityDarkMage && *//*!world.isRemote) {
-            ItemEntity item = new ItemEntity(world, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+        if (/*target instanceof EntityDarkMage && */!world.isRemote) {
+            ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
             ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
             if (dropstack.getMaxDamage() > 0)
                 dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
             item.setItem(dropstack);
-            item.setPosition(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+            item.setPosition(target.posX, target.posY, target.posZ);
             item.setPickupDelay(15);
             world.addEntity(item);
 //            ((EntityDarkMage) target).setItemStackToSlot(MobEntity.getSlotForItemStack(stack), null);
 //            ((EntityDarkMage) target).disarm();
             return true;
-        }*/
+        }
 //        if (target instanceof PlayerEntity && (!ArsMagica2.config.getDisarmAffectsPlayers() || (!world.isRemote && !FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))) return false;
-        if (target instanceof PlayerEntity && !((PlayerEntity) target).getHeldItemOffhand().isEmpty() && !target.world.isRemote && (rnd.nextInt(9) + 1 <= damage) /*&& EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((PlayerEntity) target).getHeldItemOffhand()) <= 0*/) {
-            ItemEntity item = new ItemEntity(world, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+        if (target instanceof PlayerEntity && ((PlayerEntity) target).getHeldItemOffhand() != null && !target.world.isRemote && (rnd.nextInt(9) + 1 <= damage) /*&& EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((PlayerEntity) target).getHeldItemOffhand()) <= 0*/) {
+            ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
             ItemStack dropstack = ((PlayerEntity) target).getHeldItemOffhand().copy();
             item.setItem(dropstack);
-            item.setPosition(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+            item.setPosition(target.posX, target.posY, target.posZ);
             item.setDefaultPickupDelay();
             world.addEntity(item);
-            ((PlayerEntity) target).setHeldItem(Hand.OFF_HAND, ItemStack.EMPTY);
+            ((PlayerEntity) target).setHeldItem(Hand.OFF_HAND, null);
         }
-        if (target instanceof PlayerEntity && !((PlayerEntity) target).getHeldItemMainhand().isEmpty() && !target.world.isRemote) {
+        if (target instanceof PlayerEntity && ((PlayerEntity) target).getHeldItemMainhand() != null && !target.world.isRemote) {
 //            if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((PlayerEntity) target).getHeldItemMainhand()) > 0) return true;
-            ((PlayerEntity) target).dropItem(((PlayerEntity) target).getHeldItemMainhand(), true);
+            ((PlayerEntity) target).dropItem(true);
             return true;
         } else if (target instanceof EndermanEntity) {
             BlockState blockID = ((EndermanEntity) target).getHeldBlockState();
             if (blockID != null) {
                 ((EndermanEntity) target).setHeldBlockState(null);
                 ItemStack dropstack = new ItemStack(blockID.getBlock());
-                ItemEntity item = new ItemEntity(world, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+                ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
                 item.setItem(dropstack);
-                item.setPosition(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+                item.setPosition(target.posX, target.posY, target.posZ);
                 world.addEntity(item);
             }
             ((MobEntity) target).setAttackTarget(caster);
-        } else if (target instanceof MobEntity && !((MobEntity) target).getHeldItemMainhand().isEmpty()) {
+        } else if (target instanceof MobEntity && ((MobEntity) target).getHeldItemMainhand() != null) {
 //            if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((MobEntity) target).getActiveItemStack()) > 0) return true;
             if (!world.isRemote) {
-                ItemEntity item = new ItemEntity(world, target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+                ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
                 ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
                 if (dropstack.getMaxDamage() > 0)
                     dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
                 item.setItem(dropstack);
-                item.setPosition(target.getPositionVec().x, target.getPositionVec().y, target.getPositionVec().z);
+                item.setPosition(target.posX, target.posY, target.posZ);
                 item.setDefaultPickupDelay();
                 world.addEntity(item);
             }
-            target.setItemStackToSlot(MobEntity.getSlotForItemStack(stack), ItemStack.EMPTY);
+            target.setItemStackToSlot(MobEntity.getSlotForItemStack(stack), null);
             ((MobEntity) target).setAttackTarget(caster);
         }
         return false;
@@ -103,7 +96,7 @@ public class Disarm extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        /*for (int i = 0; i < 25; ++i) {
+        for (int i = 0; i < 25; ++i) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 2, 1);
@@ -116,7 +109,7 @@ public class Disarm extends SpellComponent {
 //                particle.setParticleScale(0.1f);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
 //            }
-        }*/
+        }
     }
 
     //    @Override

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "arsmagicalegacy:cerublossom"
+    },
+    {
+      "item": "arsmagicalegacy:desert_nova"
+    },
+    {
+      "item": "arsmagicalegacy:vinteum"
+    },
+    {
+      "item": "arsmagicalegacy:arcane_ash"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:purified_vinteum"
+  }
+}

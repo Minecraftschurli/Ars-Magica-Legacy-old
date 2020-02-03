@@ -1,20 +1,17 @@
 package am2.api.compendium.pages;
 
-import static net.minecraft.client.renderer.texture.TextureMap.LOCATION_BLOCKS_TEXTURE;
+import am2.api.*;
+import am2.api.skill.*;
+import am2.defs.*;
+import am2.gui.*;
+import am2.texture.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 
-import am2.api.ArsMagicaAPI;
-import am2.api.skill.Skill;
-import am2.defs.ItemDefs;
-import am2.gui.AMGuiHelper;
-import am2.texture.SpellIconManager;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import static net.minecraft.client.renderer.texture.TextureMap.*;
 
 public class PageSkill extends CompendiumPage<Skill> {
 

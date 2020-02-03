@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I",
+    "F",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_sword"
+    },
+    "F": {
+      "item": "arsmagicalegacy:standard_focus"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:monster_focus"
+  }
+}

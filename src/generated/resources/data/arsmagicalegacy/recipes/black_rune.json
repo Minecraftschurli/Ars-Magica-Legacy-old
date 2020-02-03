@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/black"
+    },
+    {
+      "item": "arsmagicalegacy:rune"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:black_rune"
+  }
+}

@@ -1,12 +1,11 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
+import minecraftschurli.arsmagicalegacy.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
 
 /**
  * @author Minecraftschurli
@@ -26,7 +25,7 @@ public final class ModTags {
         public static final Tag<Block> ORES_SUNSTONE = forgeTag("ores/sunstone");
         public static final Tag<Block> ORES_VINTEUM = forgeTag("ores/vinteum");
 
-        public static final Tag<Block> LOGS_WITCHWOOD = tag("witchwood_logs");
+        public static final Tag<Block> LOGS_WITCHWOOD = tag("logs/witchwood");
 
         private static Tag<Block> forgeTag(String name) {
             return new BlockTags.Wrapper(new ResourceLocation("forge", name));
@@ -58,6 +57,7 @@ public final class ModTags {
         public static final Tag<Item> ORES_VINTEUM = forgeTag("ores/vinteum");
 
         public static final Tag<Item> LOGS_WITCHWOOD = tag("logs/witchwood");
+        public static final Tag<Item> RUNES = tag("runes");
 
         private static Tag<Item> forgeTag(String name) {
             return new ItemTags.Wrapper(new ResourceLocation("forge", name));
@@ -67,4 +67,16 @@ public final class ModTags {
             return new ItemTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
         }
     }
+
+    /*public static final class EntityTypes {
+        public static final Tag<EntityType<?>> MAGES = tag("mages");
+
+        private static Tag<EntityType<?>> forgeTag(String name) {
+            return new EntityTypeTags.Wrapper(new ResourceLocation("forge", name));
+        }
+
+        private static Tag<EntityType<?>> tag(String name) {
+            return new EntityTypeTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
+        }
+    }*/
 }

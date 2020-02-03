@@ -1,19 +1,16 @@
 package am2.api.extensions;
 
-import java.util.concurrent.Callable;
+import am2.extensions.*;
+import am2.spell.*;
+import am2.utils.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability.*;
 
-import am2.extensions.EntityExtension;
-import am2.spell.ContingencyType;
-import am2.utils.NBTUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
+import java.util.concurrent.*;
 
 public interface IEntityExtension {
 

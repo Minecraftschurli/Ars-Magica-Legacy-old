@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MVM",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "tag": "forge:ingots/iron"
+    },
+    "V": {
+      "item": "arsmagicalegacy:arcane_ash"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:iron_inlay",
+    "count": 4
+  }
+}

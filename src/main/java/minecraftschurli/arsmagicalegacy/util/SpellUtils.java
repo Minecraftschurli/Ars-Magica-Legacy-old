@@ -3,14 +3,17 @@ package minecraftschurli.arsmagicalegacy.util;
 import com.google.common.collect.Lists;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaLegacyAPI;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.NBTUtils;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -31,6 +34,7 @@ import net.minecraftforge.common.MinecraftForge;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SpellUtils {
 
@@ -44,7 +48,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        if (oldIs == null || !oldIs.hasTag()) return ModSpellParts.MISSING_SHAPE.get();
+        if (oldIs == null || !oldIs.hasTag()) return (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(ArsMagicaAPI.MISSING_SHAPE);
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
         ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
@@ -55,8 +59,7 @@ public class SpellUtils {
                 break;
             }
         }
-
-        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : ModSpellParts.MISSING_SHAPE.get();
+        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(ArsMagicaAPI.MISSING_SHAPE);
     }
 
     public static void changeEnchantmentsForShapeGroup(ItemStack stack) {
@@ -74,9 +77,14 @@ public class SpellUtils {
     }
 
     public static float modifyDamage(LivingEntity caster, float damage) {
-        float factor = (float) (MagicHelper.getCurrentLevel(caster) < 20 ?
-                0.5 + (0.5 * (MagicHelper.getCurrentLevel(caster) / 19)) :
-                1.0 + (1.0 * (MagicHelper.getCurrentLevel(caster) - 20) / 79));
+        float factor;
+        if (caster instanceof PlayerEntity){
+            factor = (float) (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) < 20 ?
+                0.5 + (0.5 * (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) / 19)) :
+                1.0 + (1.0 * (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) - 20) / 79));
+        } else {
+            factor = 1;
+        }
         return damage * factor;
     }
 
@@ -225,6 +233,7 @@ public class SpellUtils {
             int stage = 0;
             boolean lastWasShape = false;
             for (AbstractSpellPart part : shapeGroup.getKey()) {
+                ArsMagicaLegacy.LOGGER.debug(part);
                 ListNBT stageTag = NBTUtils.addCompoundList(group, STAGE + stage);
                 CompoundNBT tmp = new CompoundNBT();
                 String id = part.getRegistryName().toString();
@@ -280,7 +289,7 @@ public class SpellUtils {
         if (spellIn.getItem() != ModItems.SPELL.get()) {
             newStack = new ItemStack(ModItems.SPELL.get(), newStack.getCount(), newStack.getTag());
         }
-        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
+        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getOrCreateTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
         int stageNum = numStages(newStack);
         for (int i = 0; i < stageNum; i++) {
             ListNBT list = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), STAGE + i).copy();
@@ -330,7 +339,7 @@ public class SpellUtils {
                     String type = tmp.getString(TYPE);
                     if (type.equalsIgnoreCase(TYPE_COMPONENT)) {
                         SpellComponent component = SpellRegistry.getComponentFromName(tmp.getString(ID));
-                        cost += component.getManaCost(ArsMagicaLegacy.proxy.getLocalPlayer());
+                        if (component != null) cost += component.getManaCost(caster);
                         /*if (caster instanceof PlayerEntity) {
                             for (Affinity aff : affinities) {
                                 for (Affinity aff2 : component.getAffinity()) {
@@ -346,11 +355,11 @@ public class SpellUtils {
                     }
                     if (type.equalsIgnoreCase(TYPE_MODIFIER)) {
                         SpellModifier mod = SpellRegistry.getModifierFromName(tmp.getString(ID));
-                        modMultiplier *= mod.getManaCostMultiplier(mergedStack, j, 1);
+                        if (mod != null) modMultiplier *= mod.getManaCostMultiplier(mergedStack, j, 1);
                     }
                     if (type.equalsIgnoreCase(TYPE_SHAPE)) {
                         SpellShape shape = SpellRegistry.getShapeFromName(tmp.getString(ID));
-                        modMultiplier *= shape.manaCostMultiplier(mergedStack);
+                        if (shape != null) modMultiplier *= shape.manaCostMultiplier(mergedStack);
                     }
                 }
             }
@@ -380,7 +389,7 @@ public class SpellUtils {
                     String type = tmp.getString(TYPE);
                     if (type.equalsIgnoreCase(TYPE_COMPONENT)) {
                         SpellComponent component = SpellRegistry.getComponentFromName(tmp.getString(ID));
-                        cost += component.getBurnout(ArsMagicaLegacy.proxy.getLocalPlayer());
+                        if (component != null) cost += component.getBurnout(caster);
                     }
                 }
             }
@@ -404,44 +413,53 @@ public class SpellUtils {
         if (shape instanceof MissingShape) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
-        SpellCastEvent.Pre pre = new SpellCastEvent.Pre(stack, (SpellItem) stack.getItem(), caster, getManaCost(stack, caster), getBurnoutCost(stack, caster), shape == ModSpellParts.CHANNEL.get());
+        SpellCastEvent.Pre pre = new SpellCastEvent.Pre(stack, (SpellItem) stack.getItem(), caster, getManaCost(stack, caster), getBurnoutCost(stack, caster),shape == ModSpellParts.CHANNEL.get());
         MinecraftForge.EVENT_BUS.post(pre);
         float manaCost = pre.manaCost;
         float burnoutCost = pre.burnout;
 
-        if (consumeMBR) {
-            if (!MagicHelper.hasEnoughtMana(caster, manaCost) && !((PlayerEntity) caster).isCreative()) {
-                return SpellCastResult.NOT_ENOUGH_MANA;
-            }
-            if (!MagicHelper.isBurnedOut(caster, burnoutCost) && !((PlayerEntity) caster).isCreative()) {
-                return SpellCastResult.BURNED_OUT;
-            }
-            if (!casterHasAllReagents(caster, stack)) {
+        SpellCastResult result = null;
+
+        if (consumeMBR && !((PlayerEntity) caster).isCreative()) {
+            if (!CapabilityHelper.hasEnoughtMana(caster, manaCost)) {
+                result =  SpellCastResult.NOT_ENOUGH_MANA;
+            } else if (CapabilityHelper.isBurnedOut(caster, burnoutCost)) {
+                result =  SpellCastResult.BURNED_OUT;
+            } else if (!casterHasAllReagents(caster, stack)) {
                 if (world.isRemote)
                     caster.sendMessage(new StringTextComponent(getMissingReagents(caster, stack)));
-                return SpellCastResult.REAGENTS_MISSING;
+                result =  SpellCastResult.REAGENTS_MISSING;
             }
         }
 
-        SpellCastResult result;
-
-        ItemStack stack2 = stack.copy();
-        NBTUtils.getAM2Tag(stack2.getTag()).putInt("CurrentGroup", group + 1);
-        if (group == 0)
-            result = shape.beginStackStage((SpellItem) stack.getItem(), stack2, caster, target, world, x, y, z, side, giveXP, ticksUsed);
-        else {
-            NBTUtils.getAM2Tag(stack.getTag()).putInt("CurrentGroup", group + 1);
-            result = shape.beginStackStage((SpellItem) stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
+        if (result == null) {
+            ItemStack stack2 = stack.copy();
+            NBTUtils.getAM2Tag(stack2.getTag()).putInt("CurrentGroup", group + 1);
+            if (group == 0) {
+                result = shape.beginStackStage((SpellItem) stack.getItem(), stack2, caster, target, world, x, y, z, side, giveXP, ticksUsed);
+            } else {
+                NBTUtils.getAM2Tag(stack.getTag()).putInt("CurrentGroup", group + 1);
+                result = shape.beginStackStage((SpellItem) stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
+            }
         }
+
+        SpellCastEvent.Post post = new SpellCastEvent.Post(stack, (SpellItem) stack.getItem(), caster, manaCost, burnoutCost, shape == ModSpellParts.CHANNEL.get(), result);
+        MinecraftForge.EVENT_BUS.post(post);
+
+        manaCost = post.manaCost;
+        burnoutCost = post.burnout;
+        result = post.castResult;
+
         //SUCCESS is the default return
         //SUCCESS_REDUCE_MANA is basically there because i don't know where to
         //MALFORMED_SPELL_STACK means we reached the end of the spell
-        if (consumeMBR && !((PlayerEntity) caster).isCreative() && (result == SpellCastResult.SUCCESS || result == SpellCastResult.SUCCESS_REDUCE_MANA || result == SpellCastResult.MALFORMED_SPELL_STACK)) {
-            MagicHelper.use(caster, manaCost, burnoutCost);
-            consumeReagents(caster, stack);
+        if (consumeMBR && !((PlayerEntity) caster).isCreative()) {
+            if (result == SpellCastResult.SUCCESS || result == SpellCastResult.SUCCESS_REDUCE_MANA || result == SpellCastResult.MALFORMED_SPELL_STACK) {
+                CapabilityHelper.use(caster, manaCost, burnoutCost);
+                consumeReagents(caster, stack);
+            }
         }
-
-        return SpellCastResult.SUCCESS;
+        return result;
     }
 
     public static boolean casterHasAllReagents(LivingEntity caster, ItemStack spellStack) {
@@ -654,7 +672,7 @@ public class SpellUtils {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
-                    mods.add(ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
+                    mods.add(ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
                 }
             }
             return mods;
@@ -695,7 +713,7 @@ public class SpellUtils {
 
     public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
-        if (stageShape == null || stageShape == ModSpellParts.MISSING_SHAPE.get()) {
+        if (stageShape == null || Objects.equals(stageShape.getRegistryName(), ArsMagicaAPI.MISSING_SHAPE)) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
         boolean isPlayer = caster instanceof PlayerEntity;
@@ -713,10 +731,9 @@ public class SpellUtils {
                     if (modifierIsPresent(SpellModifiers.COLOR, stack)) {
                         List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
                         for (SpellModifier mod : mods) {
-                            //TODO @minecraftschurli
-                            /*if (mod instanceof Color){
-                                color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, NBTUtils.getAM2Tag(stack.getTag()));
-                            }*/
+                            if (mod instanceof Color){
+                                color = (int)mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtils.getAM2Tag(stack.getTag()));
+                            }
                         }
                     }
                     component.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), caster, caster, world.rand, color);
@@ -731,9 +748,9 @@ public class SpellUtils {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
         if (stageShape == null) return SpellCastResult.MALFORMED_SPELL_STACK;
 
-//		if ((!AMCore.config.getAllowCreativeTargets()) && target instanceof PlayerEntityMP && ((PlayerEntityMP) target).capabilities.isCreativeMode) {
-//			return SpellCastResult.EFFECT_FAILED;
-//		}
+		if (/*(!AMCore.config.getAllowCreativeTargets()) &&*/ target instanceof ServerPlayerEntity && ((ServerPlayerEntity) target).abilities.isCreativeMode) {
+			return SpellCastResult.EFFECT_FAILED;
+		}
         int group = NBTUtils.getAM2Tag(stack.getTag()).getInt("CurrentGroup");
         List<SpellComponent> components = SpellUtils.getComponentsForStage(stack, group);
 
@@ -757,10 +774,9 @@ public class SpellUtils {
                     if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
                         List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
                         for (SpellModifier mod : mods) {
-                            //TODO @minecraftschurli
-                            /*if (mod instanceof Color){
-                                color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, NBTUtils.getAM2Tag(stack.getTag()));
-                            }*/
+                            if (mod instanceof Color){
+                                color = (int)mod.getModifier(SpellModifiers.COLOR, caster, target, world, NBTUtils.getAM2Tag(stack.getTag()));
+                            }
                         }
                     }
                     component.spawnParticles(world, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, caster, target, world.rand, color);

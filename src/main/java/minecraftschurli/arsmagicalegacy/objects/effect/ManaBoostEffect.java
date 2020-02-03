@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.FloatNBT;
-import net.minecraft.potion.EffectType;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.*;
+import net.minecraft.potion.*;
 
 /**
  * @author Minecraftschurli
@@ -16,15 +15,18 @@ public class ManaBoostEffect extends AMEffect {
         super(EffectType.BENEFICIAL, 0x0093ff);
     }
 
-    @Override
-    public void startEffect(LivingEntity livingEntity) {
+    /*@Override
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaLegacy.MODID))
             livingEntity.getPersistentData().put(ArsMagicaLegacy.MODID, new CompoundNBT());
-        livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("mana_boost", FloatNBT.func_229689_a_(MagicHelper.getMaxMana(livingEntity)));
+        float maxMana = MagicHelper.getMaxMana(livingEntity);
+        livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("mana_boost", new FloatNBT(maxMana));
+
+        MagicHelper.getManaCapability(livingEntity).setMaxMana(maxMana * 1 + (0.25f * (potionEffect.getAmplifier() + 1)));
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         MagicHelper.getManaCapability(livingEntity).setMaxMana(livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).getFloat("mana_boost"));
-    }
+    }*/
 }

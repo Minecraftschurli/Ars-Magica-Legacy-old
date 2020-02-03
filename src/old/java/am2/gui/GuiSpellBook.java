@@ -1,17 +1,15 @@
 package am2.gui;
 
-import java.io.IOException;
+import am2.container.*;
+import am2.items.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
-import org.lwjgl.opengl.GL11;
-
-import am2.container.ContainerSpellBook;
-import am2.container.InventorySpellBook;
-import am2.items.ItemSpellBook;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import java.io.*;
 
 
 public class GuiSpellBook extends GuiContainer{

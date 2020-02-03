@@ -1,8 +1,7 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.*;
+import net.minecraft.util.math.*;
 
 public final class MathUtils {
     public static double normalizeRotation(double yaw) {
@@ -14,9 +13,9 @@ public final class MathUtils {
     public static Vec3d extrapolateEntityLook(LivingEntity entity, double range) {
         float pitch = entity.rotationPitch;
         float yaw = entity.rotationYaw;
-        double x = entity.getPositionVec().x;
-        double y = entity.getPositionVec().y + 1.6 - entity.getYOffset();
-        double z = entity.getPositionVec().z;
+        double x = entity.posX;
+        double y = entity.posY + 1.6 - entity.getYOffset();
+        double z = entity.posZ;
         Vec3d vec = new Vec3d(x, y, z);
         float f1 = MathHelper.cos(-yaw * 0.017453292f - (float) Math.PI);
         float f2 = MathHelper.sin(-yaw * 0.017453292f - (float) Math.PI);

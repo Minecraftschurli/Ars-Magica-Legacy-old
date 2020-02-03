@@ -1,0 +1,19 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:fire_essence",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/glowstone"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:tnt",
+      "Count": 1
+    }
+  ]
+}

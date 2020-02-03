@@ -1,17 +1,15 @@
 package am2.gui;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import am2.blocks.tileentity.TileEntityEssenceRefiner;
-import am2.container.ContainerEssenceRefiner;
-import am2.power.PowerNodeRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
+import am2.blocks.tileentity.*;
+import am2.container.*;
+import am2.power.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
 
 public class GuiEssenceRefiner extends GuiContainer{

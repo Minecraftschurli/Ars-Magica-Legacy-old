@@ -1,28 +1,19 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.BonemealEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.eventbus.api.*;
 
 import java.util.*;
 
@@ -53,7 +44,7 @@ public class Grow extends SpellComponent {
         }
         if (block.getBlock() instanceof MushroomBlock) {
             if (!world.isRemote && world.rand.nextInt(10) < 1)
-                ((MushroomBlock) block.getBlock()).func_225535_a_((ServerWorld) world, world.rand, pos, block);
+                ((MushroomBlock) block.getBlock()).grow(world, world.rand, pos, block);
             return true;
         }
         if (block.getBlock() == Blocks.WATER) {
@@ -79,7 +70,7 @@ public class Grow extends SpellComponent {
             IGrowable igrowable = (IGrowable) block;
             if (igrowable.canGrow(world, pos, block, world.isRemote)) {
                 if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block))
-                    igrowable.func_225535_a_((ServerWorld) world, world.rand, pos, block);
+                    igrowable.grow(world, world.rand, pos, block);
                 return true;
             }
         }

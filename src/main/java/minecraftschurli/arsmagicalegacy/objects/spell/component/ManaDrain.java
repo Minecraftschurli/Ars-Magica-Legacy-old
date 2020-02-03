@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -8,7 +9,6 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -24,11 +24,11 @@ public class ManaDrain extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        double manaStolen = 250;
-        float mana = MagicHelper.getMana((LivingEntity) target);
+        float manaStolen = 250;
+        float mana = CapabilityHelper.getMana((LivingEntity) target);
         if (manaStolen > mana) manaStolen = mana;
-        MagicHelper.getManaCapability((LivingEntity) target).setMana((float) (mana - manaStolen));
-        MagicHelper.increaseMana(caster, (float) manaStolen);
+        CapabilityHelper.decreaseMana((LivingEntity) target, manaStolen);
+        CapabilityHelper.increaseMana(caster, manaStolen);
         return true;
     }
 

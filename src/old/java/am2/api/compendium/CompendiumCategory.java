@@ -1,16 +1,13 @@
 package am2.api.compendium;
 
-import java.util.ArrayList;
+import com.google.common.collect.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import com.google.common.collect.ImmutableList;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public final class CompendiumCategory {

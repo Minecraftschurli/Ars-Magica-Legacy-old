@@ -1,35 +1,25 @@
 package am2.api.compendium.pages;
 
-import static net.minecraft.client.renderer.texture.TextureMap.LOCATION_BLOCKS_TEXTURE;
+import am2.api.*;
+import am2.api.event.*;
+import am2.api.spell.*;
+import am2.defs.*;
+import am2.gui.*;
+import am2.texture.*;
+import am2.utils.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.translation.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.oredict.*;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-import am2.api.ArsMagicaAPI;
-import am2.api.event.SpellRecipeItemsEvent;
-import am2.api.spell.AbstractSpellPart;
-import am2.api.spell.SpellComponent;
-import am2.api.spell.SpellModifier;
-import am2.api.spell.SpellModifiers;
-import am2.defs.ItemDefs;
-import am2.gui.AMGuiHelper;
-import am2.texture.SpellIconManager;
-import am2.utils.RecipeUtils;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
+import static net.minecraft.client.renderer.texture.TextureMap.*;
 
 @SuppressWarnings("deprecation")
 public class PageSpellComponent extends CompendiumPage<AbstractSpellPart> {

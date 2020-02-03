@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 
 /**
@@ -17,15 +17,15 @@ public class TemporalAnchorEffect extends AMEffect {
     }
 
     @Override
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putDouble("X", livingEntity.getPositionVec().x);
-        nbt.putDouble("Y", livingEntity.getPositionVec().y);
-        nbt.putDouble("Z", livingEntity.getPositionVec().z);
+        nbt.putDouble("X", livingEntity.posX);
+        nbt.putDouble("Y", livingEntity.posY);
+        nbt.putDouble("Z", livingEntity.posZ);
         nbt.putFloat("RotationPitch", livingEntity.rotationPitch);
         nbt.putFloat("RotationYaw", livingEntity.rotationYaw);
         nbt.putFloat("RotationYawHead", livingEntity.rotationYawHead);
-        nbt.putFloat("Mana", MagicHelper.getMana(livingEntity));
+        nbt.putFloat("Mana", CapabilityHelper.getMana(livingEntity));
         nbt.putFloat("Health", livingEntity.getHealth());
         if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaLegacy.MODID))
             livingEntity.getPersistentData().put(ArsMagicaLegacy.MODID, new CompoundNBT());
@@ -33,7 +33,7 @@ public class TemporalAnchorEffect extends AMEffect {
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         try {
             CompoundNBT nbt = livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).getCompound("anchor");
             double x = nbt.getDouble("X");
@@ -47,7 +47,8 @@ public class TemporalAnchorEffect extends AMEffect {
 
             livingEntity.setPositionAndRotation(x, y, z, rotationYaw, rotationPitch);
             livingEntity.rotationYawHead = rotationYawHead;
-            MagicHelper.getManaCapability(livingEntity).setMana(mana);
+            CapabilityHelper.decreaseMana(livingEntity, CapabilityHelper.getMana(livingEntity));
+            CapabilityHelper.increaseMana(livingEntity, mana);
             livingEntity.setHealth(health);
             livingEntity.fallDistance = 0;
         } catch (Exception ignored) {

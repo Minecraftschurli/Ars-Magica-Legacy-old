@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -41,13 +42,13 @@ public class Projectile extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(SpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote) {
             double projectileSpeed = SpellUtils.getModifiedDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
             float projectileGravity = (float) SpellUtils.getModifiedDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY);
             int projectileBounce = SpellUtils.getModifiedIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE);
             SpellProjectileEntity projectile = new SpellProjectileEntity(world);
-            projectile.setPosition(caster.getPositionVec().x, caster.getEyeHeight() + caster.getPositionVec().y, caster.getPositionVec().z);
+            projectile.setPosition(caster.posX, caster.getEyeHeight() + caster.posY, caster.posZ);
             projectile.setMotion(caster.getLookVec().getX() * projectileSpeed, caster.getLookVec().getY() * projectileSpeed, caster.getLookVec().getZ() * projectileSpeed);
             if (SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) projectile.setTargetWater();
             projectile.setGravity(projectileGravity);

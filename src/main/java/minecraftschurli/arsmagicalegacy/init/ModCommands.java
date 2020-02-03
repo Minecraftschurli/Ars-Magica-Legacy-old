@@ -1,16 +1,15 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.tree.LiteralCommandNode;
-import minecraftschurli.arsmagicalegacy.objects.command.CommandResearch;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import com.mojang.brigadier.*;
+import com.mojang.brigadier.tree.*;
+import minecraftschurli.arsmagicalegacy.objects.command.*;
+import net.minecraft.command.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-04
  */
-public class ModCommands {
+public final class ModCommands {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralCommandNode<CommandSource> command = dispatcher.register(
                 Commands.literal("arsmagica")

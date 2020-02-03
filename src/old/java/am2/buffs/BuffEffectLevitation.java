@@ -1,8 +1,8 @@
 package am2.buffs;
 
-import am2.defs.PotionEffectsDefs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import am2.defs.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
 
 public class BuffEffectLevitation extends BuffEffect{
 

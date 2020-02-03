@@ -1,27 +1,31 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaRecipePlugin;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
-import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
-import net.minecraftforge.common.Tags;
+import net.minecraft.item.*;
+import net.minecraft.tags.*;
+import net.minecraftforge.common.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-public class AMLRecipeProvider extends RecipeProvider {
+public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipePlugin {
     public AMLRecipeProvider(DataGenerator generator) {
         super(generator);
     }
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        for (AbstractSpellPart part : ArsMagicaAPI.getSpellPartRegistry()) {
+            addSpellRecipe(part.getRegistryName(), part.getRecipe(), consumer);
+        }
         RecipeHelper.addLargeCompressRecipe(ModItems.CHIMERITE_BLOCK.get(), ModTags.Items.GEMS_CHIMERITE).build(consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.TOPAZ_BLOCK.get(), ModTags.Items.GEMS_TOPAZ).build(consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.VINTEUM_BLOCK.get(), ModTags.Items.DUSTS_VINTEUM).build(consumer);
@@ -278,7 +282,7 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .patternLine(" N ")
                 .key('N', Tags.Items.NUGGETS_GOLD)
                 .key('G', Tags.Items.GLASS)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.NUGGETS_GOLD).build()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.NUGGETS_GOLD).build(), ItemPredicate.Builder.create().tag(Tags.Items.GLASS).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.STANDARD_FOCUS.get())
                 .patternLine(" R ")
@@ -286,7 +290,7 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .patternLine(" R ")
                 .key('R', Tags.Items.DUSTS_REDSTONE)
                 .key('F', ModItems.LESSER_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.DUSTS_REDSTONE).build()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.LESSER_FOCUS.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.GREATER_FOCUS.get())
                 .patternLine("A A")
@@ -295,7 +299,7 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .key('F', ModItems.STANDARD_FOCUS.get())
                 .key('V', ModItems.PURIFIED_VINTEUM.get())
                 .key('A', ModItems.ARCANE_ASH.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.ARCANE_ASH.get()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_FOCUS.get())
                 .patternLine("V")
@@ -303,16 +307,16 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .patternLine("V")
                 .key('V', ModTags.Items.DUSTS_VINTEUM)
                 .key('F', ModItems.STANDARD_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.PLAYER_FOCUS.get())
                 .patternLine("E")
                 .patternLine("F")
                 .key('E', ModItems.LIFE_ESSENCE.get())
                 .key('F', ModItems.STANDARD_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.LIFE_ESSENCE.get()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.LESSER_FOCUS.get())
+        ShapedRecipeBuilder.shapedRecipe(ModItems.CREATURE_FOCUS.get())
                 .patternLine("P ")
                 .patternLine("SF")
                 .patternLine("W ")
@@ -320,30 +324,30 @@ public class AMLRecipeProvider extends RecipeProvider {
                 .key('S', ModItems.STANDARD_FOCUS.get())
                 .key('F', Items.FEATHER)
                 .key('W', ItemTags.WOOL)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.FEATHER))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_FOCUS.get())
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MONSTER_FOCUS.get())
                 .patternLine("I")
                 .patternLine("F")
                 .patternLine("I")
                 .key('I', Items.IRON_SWORD)
                 .key('F', ModItems.STANDARD_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.IRON_SWORD))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_FOCUS.get())
+        ShapedRecipeBuilder.shapedRecipe(ModItems.CHARGE_FOCUS.get())
                 .patternLine("GFG")
                 .key('G', Tags.Items.GLASS)
                 .key('F', ModItems.STANDARD_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GLASS).build()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_FOCUS.get())
+        /*ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_FOCUS.get())
                 .patternLine("C")
                 .patternLine("F")
                 .patternLine("W")
                 .key('C', Items.COBBLESTONE)
                 .key('F', ModItems.STANDARD_FOCUS.get())
                 .key('W', Items.CRAFTING_TABLE)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.CRAFTING_TABLE))
-                .build(consumer);
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
+                .build(consumer);*/
     }
 }

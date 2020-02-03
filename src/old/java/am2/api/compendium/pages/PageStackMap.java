@@ -1,14 +1,14 @@
 package am2.api.compendium.pages;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map.Entry;
+import am2.api.compendium.wrapper.*;
+import am2.gui.controls.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.item.*;
 
-import am2.api.compendium.wrapper.StackMapWrapper;
-import am2.gui.controls.GuiButtonCompendiumNext;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.ItemStack;
+import java.io.*;
+import java.util.*;
+import java.util.Map.*;
 
 public class PageStackMap extends CompendiumPage<StackMapWrapper> {
 	

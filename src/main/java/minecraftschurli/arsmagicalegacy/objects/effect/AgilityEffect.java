@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.potion.EffectType;
+import minecraftschurli.arsmagicalegacy.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.potion.*;
 
 /**
  * @author Minecraftschurli
@@ -17,13 +16,13 @@ public class AgilityEffect extends AMEffect {
     }
 
     @Override
-    public void startEffect(LivingEntity livingEntity) {
+    public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
         livingEntity.stepHeight = 1.0f;
     }
 
     @Override
-    public void stopEffect(LivingEntity livingEntity) {
+    public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
         livingEntity.stepHeight = 0.6f;
         ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);

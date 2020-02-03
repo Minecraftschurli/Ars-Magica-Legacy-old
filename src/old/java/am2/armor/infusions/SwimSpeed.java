@@ -1,17 +1,15 @@
 package am2.armor.infusions;
 
-import java.util.EnumSet;
+import am2.api.items.armor.*;
+import am2.buffs.*;
+import am2.defs.*;
+import net.minecraft.block.material.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
 
-import am2.api.items.armor.ArmorImbuement;
-import am2.api.items.armor.ImbuementApplicationTypes;
-import am2.api.items.armor.ImbuementTiers;
-import am2.buffs.BuffEffectSwiftSwim;
-import am2.defs.PotionEffectsDefs;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import java.util.*;
 
 public class SwimSpeed extends ArmorImbuement{
 

@@ -1,9 +1,9 @@
 package am2.api;
 
-import java.util.HashMap;
-import java.util.logging.Logger;
+import am2.api.skill.*;
 
-import am2.api.skill.SkillPoint;
+import java.util.*;
+import java.util.logging.*;
 
 public class SkillPointRegistry {
 	

@@ -1,12 +1,11 @@
 package am2.gui.controls;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
 public class GuiButtonCompendiumNext extends GuiButton{
 	/**

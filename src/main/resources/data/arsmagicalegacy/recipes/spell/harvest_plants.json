@@ -1,0 +1,14 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:green_rune",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:shears",
+      "Count": 1
+    }
+  ]
+}

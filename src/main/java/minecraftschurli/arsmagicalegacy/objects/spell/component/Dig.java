@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.util.MagicHelper;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -46,7 +46,7 @@ public class Dig extends SpellComponent {
         if (hardness != -1 && state.getBlock().getHarvestLevel(state) <= SpellUtils.getModifiedIntAdd(2, stack, caster, null, world, SpellModifiers.MINING_POWER)) {
             state.getBlock().harvestBlock(world, (PlayerEntity) caster, blockPos, state, null, stack);
             world.destroyBlock(blockPos, false);
-            MagicHelper.decreaseMana(caster, hardness * 1.28f);
+            CapabilityHelper.decreaseMana(caster, hardness * 1.28f);
         }
         return true;
     }

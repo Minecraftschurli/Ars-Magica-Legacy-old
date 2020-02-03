@@ -1,10 +1,10 @@
 package am2.gui.controls;
 
-import am2.api.skill.SkillTree;
-import am2.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ResourceLocation;
+import am2.api.skill.*;
+import am2.utils.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.util.*;
 
 public class GuiButtonSkillTree extends GuiButton{
 	

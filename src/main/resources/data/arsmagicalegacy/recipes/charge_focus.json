@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GFG"
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:glass"
+    },
+    "F": {
+      "item": "arsmagicalegacy:standard_focus"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:charge_focus"
+  }
+}

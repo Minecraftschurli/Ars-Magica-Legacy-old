@@ -1,13 +1,11 @@
 package am2.api.recipes;
 
-import java.util.ArrayList;
-import java.util.Map;
+import am2.blocks.*;
+import com.google.common.collect.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
 
-import com.google.common.collect.Lists;
-
-import am2.blocks.CraftingEssenceExtractor;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import java.util.*;
 
 public abstract class RecipesArsMagica{
 

@@ -1,27 +1,19 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class Blink extends SpellComponent {
     @Override
@@ -44,19 +36,18 @@ public class Blink extends SpellComponent {
         motionY = d1;
         motionZ = d2;
 //        ArrayList<Long> keystoneKeys = KeystoneUtilities.instance.GetKeysInInvenory((LivingEntity) target);
-        Vec3d pos = target.getPositionVec().add(motionX,motionY,motionZ);
-        double newX = target.getPositionVec().getX() + motionX;
-        double newZ = target.getPositionVec().getZ() + motionZ;
-        double newY = target.getPositionVec().getY() + motionY;
+        double newX = target.posX + motionX;
+        double newZ = target.posZ + motionZ;
+        double newY = target.posY + motionY;
         boolean coordsValid = false;
         boolean astralBarrierBlocked = false;
 //        TileEntityAstralBarrier finalBlocker = null;
         while (!coordsValid && distance > 0) {
             if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
                 coordsValid = true;
-                newX = caster.getPositionVec().getX();
-                newY = caster.getPositionVec().getY();
-                newZ = caster.getPositionVec().getZ();
+                newX = caster.posX;
+                newY = caster.posY;
+                newZ = caster.posZ;
             }
 //            TileEntityAstralBarrier blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            while (blocker != null) {
@@ -85,9 +76,9 @@ public class Blink extends SpellComponent {
 //                motionX = d;
 //                motionY = d1;
 //                motionZ = d2;
-//                newX = target.getPositionVec().getX( + motionX;
-//                newZ = target.getPositionVec().getZ( + motionZ;
-//                newY = target.getPositionVec().getY( + motionY;
+//                newX = target.posX + motionX;
+//                newZ = target.posZ + motionZ;
+//                newY = target.posY + motionY;
 //                blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            }
             if (distance < 0) {
@@ -111,9 +102,9 @@ public class Blink extends SpellComponent {
             motionX = d;
             motionY = d1;
             motionZ = d2;
-            newX = target.getPositionVec().getX() + motionX;
-            newZ = target.getPositionVec().getZ() + motionZ;
-            newY = target.getPositionVec().getY() + motionY;
+            newX = target.posX + motionX;
+            newZ = target.posZ + motionZ;
+            newY = target.posY + motionY;
         }
 //        if (world.isRemote && astralBarrierBlocked && coordsValid) {
 //            EntityExtension.For((LivingEntity) target).astralBarrierBlocked = true;

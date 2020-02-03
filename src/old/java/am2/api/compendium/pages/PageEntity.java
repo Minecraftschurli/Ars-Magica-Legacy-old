@@ -1,16 +1,15 @@
 package am2.api.compendium.pages;
 
-import java.io.IOException;
+import am2.bosses.*;
+import am2.entity.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.*;
+import net.minecraft.world.*;
 
-import am2.bosses.AM2Boss;
-import am2.entity.EntityFlicker;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
+import java.io.*;
 
 public class PageEntity extends CompendiumPage<Entity> {
 	

@@ -1,28 +1,20 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.IPlantable;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Plant extends SpellComponent {
     @Override
@@ -94,7 +86,7 @@ public class Plant extends SpellComponent {
         HashMap<Integer, ItemStack> seeds = new HashMap<Integer, ItemStack>();
         for (int i = 0; i < inventory.getSizeInventory(); ++i) {
             ItemStack slotStack = inventory.getStackInSlot(i);
-            if (slotStack.isEmpty()) continue;
+            if (slotStack == null) continue;
             Item item = slotStack.getItem();
             if (!(item instanceof IPlantable)) continue;
             seeds.put(i, slotStack);
@@ -106,7 +98,7 @@ public class Plant extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.WHEAT_SEEDS)),
                 new ItemStackSpellIngredient(new ItemStack(Items.WHEAT_SEEDS)),
         };
