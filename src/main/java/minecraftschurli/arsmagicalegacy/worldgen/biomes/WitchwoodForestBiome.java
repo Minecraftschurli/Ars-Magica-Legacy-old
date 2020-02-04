@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.worldgen.biomes;
 
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModFeatures;
 import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.util.math.BlockPos;
@@ -47,7 +48,10 @@ public class WitchwoodForestBiome extends Biome {
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);
-        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, WitchwoodTree.WITCHWOOD_TREE.func_227228_a_(Placement.COUNT_EXTRA_HEIGHTMAP.func_227446_a_(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
+    }
+
+    public void init() {
+        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.WITCHWOOD_TREE.get().withConfiguration(ModFeatures.WITCHWOOD_TREE_CONFIG.get()).func_227228_a_(Placement.COUNT_EXTRA_HEIGHTMAP.func_227446_a_(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
     }
 
     @Override

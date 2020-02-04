@@ -23,7 +23,7 @@ repositories {
     }
     maven {
         name = "MinecraftschurliMaven"
-        url "http://minecraftschurli.ddns.net/archiva/repository/internal/"
+        url = mcs_maven_url
     }
 }
 

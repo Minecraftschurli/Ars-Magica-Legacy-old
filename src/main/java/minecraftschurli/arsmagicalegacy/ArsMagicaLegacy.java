@@ -138,9 +138,9 @@ public final class ArsMagicaLegacy {
         ModTileEntities.register();
         ModParticles.register();
         ModEffects.register();
-        ModBiomes.register();
         ModContainers.register();
         ModFeatures.register();
+        ModBiomes.register();
         ModSpellParts.register();
     }
 
@@ -161,13 +161,23 @@ public final class ArsMagicaLegacy {
         ResearchCapability.register();
         MagicCapability.register();
         RiftStorageCapability.register();
+
+        ModBiomes.WITCHWOOD_FOREST.get().init();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.debug("Client Setup");
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.OCCULUS.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.INSCRIPTION_TABLE.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.INSCRIPTION_TABLE.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_DOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_TRAPDOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.MAGIC_WALL.get(), RenderType.translucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.REDSTONE_INLAY.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.IRON_INLAY.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GOLD_INLAY.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.cutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

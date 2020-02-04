@@ -31,7 +31,7 @@ public class InscriptionTableBlock extends Block {
     public static final BooleanProperty LEFT = BooleanProperty.create("left");
 
     public InscriptionTableBlock() {
-        super(Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 2.0f).lightValue(1));
+        super(Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 2.0f).lightValue(1).notSolid());
         setDefaultState(getDefaultState().with(TIER, 0).with(FACING, Direction.NORTH).with(LEFT, false));
     }
 
@@ -122,7 +122,7 @@ public class InscriptionTableBlock extends Block {
 
         super.onBlockActivated(state, worldIn, pos, player, hand, hit);
         if (worldIn.isRemote) {
-            return ActionResultType.PASS;
+            return ActionResultType.SUCCESS;
         }
         boolean left = state.get(LEFT);
         BlockPos tePos = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos;

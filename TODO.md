@@ -6,6 +6,7 @@
 - [x] add spell creation system
 - [x] add spell execution system
 - [x] update to 1.15.2
+- [ ] fix InlayBlock
 - [ ] add spell entities
 - [ ] implement all potion effects
 - [ ] implement all spell parts
