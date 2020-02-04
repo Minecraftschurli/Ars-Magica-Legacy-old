@@ -76,7 +76,7 @@ public class InfinityOrbItem extends Item {
             CapabilityHelper.addSkillPoint((PlayerEntity) entity, heldItem.getTag().getInt(TYPE_KEY));
             heldItem.shrink(1);
         }
-        return ActionResult.newResult(ActionResultType.SUCCESS, heldItem);
+        return new ActionResult<>(ActionResultType.SUCCESS, heldItem);
     }
 
     @Override

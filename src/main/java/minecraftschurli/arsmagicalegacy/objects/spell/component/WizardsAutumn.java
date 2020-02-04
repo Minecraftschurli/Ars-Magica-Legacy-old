@@ -54,7 +54,7 @@ public class WizardsAutumn extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return applyEffectBlock(stack, world, target.getPosition(), null, target.posX, target.posY, target.posZ, caster);
+        return applyEffectBlock(stack, world, target.getPosition(), null, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
     }
 
     @Override

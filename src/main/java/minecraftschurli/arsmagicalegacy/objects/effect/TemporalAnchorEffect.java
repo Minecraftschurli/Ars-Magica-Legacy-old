@@ -4,6 +4,7 @@ import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 
@@ -19,9 +20,9 @@ public class TemporalAnchorEffect extends AMEffect {
     @Override
     public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putDouble("X", livingEntity.posX);
-        nbt.putDouble("Y", livingEntity.posY);
-        nbt.putDouble("Z", livingEntity.posZ);
+        nbt.putDouble("X", livingEntity.getPosX());
+        nbt.putDouble("Y", livingEntity.getPosY());
+        nbt.putDouble("Z", livingEntity.getPosZ());
         nbt.putFloat("RotationPitch", livingEntity.rotationPitch);
         nbt.putFloat("RotationYaw", livingEntity.rotationYaw);
         nbt.putFloat("RotationYawHead", livingEntity.rotationYawHead);

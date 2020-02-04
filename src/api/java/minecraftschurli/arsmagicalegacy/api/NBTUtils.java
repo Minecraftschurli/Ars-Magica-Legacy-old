@@ -119,7 +119,7 @@ public class NBTUtils {
             return list;
         }
         if (json.isJsonNull()) {
-            return new StringNBT("null");
+            return StringNBT.valueOf("null");
         }
         if (json.isJsonObject()) {
             CompoundNBT compound = new CompoundNBT();
@@ -131,23 +131,23 @@ public class NBTUtils {
         if (json.isJsonPrimitive()) {
             JsonPrimitive primitive = json.getAsJsonPrimitive();
             if (primitive.isBoolean())
-                return new ByteNBT((byte) (primitive.getAsBoolean() ? 1 : 0));
+                return ByteNBT.valueOf(primitive.getAsBoolean());
             if (primitive.isString())
-                return new StringNBT(primitive.getAsString());
+                return StringNBT.valueOf(primitive.getAsString());
             if (primitive.isNumber()) {
                 Number number = primitive.getAsNumber();
                 if (number instanceof Byte)
-                    return new ByteNBT(number.byteValue());
+                    return ByteNBT.valueOf(number.byteValue());
                 if (number instanceof Short)
-                    return new ShortNBT(number.shortValue());
+                    return ShortNBT.valueOf(number.shortValue());
                 if (number instanceof Integer)
-                    return new IntNBT(number.intValue());
+                    return IntNBT.valueOf(number.intValue());
                 if (number instanceof Long)
-                    return new LongNBT(number.longValue());
+                    return LongNBT.valueOf(number.longValue());
                 if (number instanceof Float)
-                    return new FloatNBT(number.floatValue());
+                    return FloatNBT.valueOf(number.floatValue());
                 if (number instanceof Double)
-                    return new DoubleNBT(number.doubleValue());
+                    return DoubleNBT.valueOf(number.doubleValue());
             }
         }
         return new CompoundNBT();

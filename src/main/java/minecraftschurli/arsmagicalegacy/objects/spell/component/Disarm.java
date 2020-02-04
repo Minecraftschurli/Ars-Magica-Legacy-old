@@ -24,12 +24,12 @@ public class Disarm extends SpellComponent {
         double damage = SpellUtils.getModifiedIntMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
 //        if (target instanceof EntityLightMage) return false;
         if (/*target instanceof EntityDarkMage && */!world.isRemote) {
-            ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
+            ItemEntity item = new ItemEntity(world, target.getPosX(), target.getPosY(), target.getPosZ());
             ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
             if (dropstack.getMaxDamage() > 0)
                 dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
             item.setItem(dropstack);
-            item.setPosition(target.posX, target.posY, target.posZ);
+            item.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
             item.setPickupDelay(15);
             world.addEntity(item);
 //            ((EntityDarkMage) target).setItemStackToSlot(MobEntity.getSlotForItemStack(stack), null);
@@ -37,39 +37,39 @@ public class Disarm extends SpellComponent {
             return true;
         }
 //        if (target instanceof PlayerEntity && (!ArsMagica2.config.getDisarmAffectsPlayers() || (!world.isRemote && !FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))) return false;
-        if (target instanceof PlayerEntity && ((PlayerEntity) target).getHeldItemOffhand() != null && !target.world.isRemote && (rnd.nextInt(9) + 1 <= damage) /*&& EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((PlayerEntity) target).getHeldItemOffhand()) <= 0*/) {
-            ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
+        if (target instanceof PlayerEntity && !((PlayerEntity) target).getHeldItemOffhand().isEmpty() && !target.world.isRemote && (rnd.nextInt(9) + 1 <= damage) /*&& EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((PlayerEntity) target).getHeldItemOffhand()) <= 0*/) {
+            ItemEntity item = new ItemEntity(world, target.getPosX(), target.getPosY(), target.getPosZ());
             ItemStack dropstack = ((PlayerEntity) target).getHeldItemOffhand().copy();
             item.setItem(dropstack);
-            item.setPosition(target.posX, target.posY, target.posZ);
+            item.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
             item.setDefaultPickupDelay();
             world.addEntity(item);
             ((PlayerEntity) target).setHeldItem(Hand.OFF_HAND, null);
         }
-        if (target instanceof PlayerEntity && ((PlayerEntity) target).getHeldItemMainhand() != null && !target.world.isRemote) {
+        if (target instanceof PlayerEntity && !((PlayerEntity) target).getHeldItemMainhand().isEmpty() && !target.world.isRemote) {
 //            if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((PlayerEntity) target).getHeldItemMainhand()) > 0) return true;
-            ((PlayerEntity) target).dropItem(true);
+            ((PlayerEntity) target).dropItem(((PlayerEntity) target).getHeldItemMainhand(), true);
             return true;
         } else if (target instanceof EndermanEntity) {
             BlockState blockID = ((EndermanEntity) target).getHeldBlockState();
             if (blockID != null) {
                 ((EndermanEntity) target).setHeldBlockState(null);
                 ItemStack dropstack = new ItemStack(blockID.getBlock());
-                ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
+                ItemEntity item = new ItemEntity(world, target.getPosX(), target.getPosY(), target.getPosZ());
                 item.setItem(dropstack);
-                item.setPosition(target.posX, target.posY, target.posZ);
+                item.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
                 world.addEntity(item);
             }
             ((MobEntity) target).setAttackTarget(caster);
         } else if (target instanceof MobEntity && ((MobEntity) target).getHeldItemMainhand() != null) {
 //            if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound, ((MobEntity) target).getActiveItemStack()) > 0) return true;
             if (!world.isRemote) {
-                ItemEntity item = new ItemEntity(world, target.posX, target.posY, target.posZ);
+                ItemEntity item = new ItemEntity(world, target.getPosX(), target.getPosY(), target.getPosZ());
                 ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
                 if (dropstack.getMaxDamage() > 0)
                     dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
                 item.setItem(dropstack);
-                item.setPosition(target.posX, target.posY, target.posZ);
+                item.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
                 item.setDefaultPickupDelay();
                 world.addEntity(item);
             }

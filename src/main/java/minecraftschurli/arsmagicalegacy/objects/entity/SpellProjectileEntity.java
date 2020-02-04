@@ -133,7 +133,7 @@ public class SpellProjectileEntity extends Entity {
                     if (getBounces() > 0) {
                         bounce(((BlockRayTraceResult) mop).getFace());
                     } else {
-                        SpellUtils.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), posX, posY, posZ, true);
+                        SpellUtils.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
                         SpellUtils.applyStackStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
                         if (this.getPierces() == 1 || !SpellUtils.modifierIsPresent(SpellModifiers.PIERCING, this.getSpell()))
                             this.remove();
@@ -151,7 +151,7 @@ public class SpellProjectileEntity extends Entity {
                             continue;
                         }
                         SpellUtils.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
-                        SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.posX, entity.posY, entity.posZ, null, world, false, true, 0);
+                        SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
                         break;
                     } else {
                         effSize--;
@@ -220,12 +220,12 @@ public class SpellProjectileEntity extends Entity {
 
     public void selectHomingTarget() {
         List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getCollisionBoundingBox().expand(10.0F, 10.0F, 10.0F));
-        Vec3d pos = new Vec3d(posX, posY, posZ);
+        Vec3d pos = new Vec3d(getPosX(), getPosY(), getPosZ());
         LivingEntity target = null;
         double dist = 900;
         for (Entity entity : entities) {
             if (entity instanceof LivingEntity && !entity.equals(getShooter())) {
-                Vec3d ePos = new Vec3d(entity.posX, entity.posY, entity.posZ);
+                Vec3d ePos = new Vec3d(entity.getPosX(), entity.getPosY(), entity.getPosZ());
                 double eDist = pos.distanceTo(ePos);
                 if (eDist < dist) {
                     dist = eDist;

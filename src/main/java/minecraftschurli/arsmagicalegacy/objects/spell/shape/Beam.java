@@ -79,7 +79,7 @@ public class Beam extends SpellShape {
                 result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
-            float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.posX, caster.posY, caster.posZ));
+            float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ()));
             beamHitVec = MathUtils.extrapolateEntityLook(caster, rng);
             spellVec = beamHitVec;
         } else {
@@ -92,9 +92,9 @@ public class Beam extends SpellShape {
         }
         if (world.isRemote) {
 //            AMBeam beam = beams.get(caster.getEntityId());
-            double startX = caster.posX;
-            double startY = caster.posY + caster.getEyeHeight() - 0.2f;
-            double startZ = caster.posZ;
+            double startX = caster.getPosX();
+            double startY = caster.getPosY() + caster.getEyeHeight() - 0.2f;
+            double startZ = caster.getPosZ();
 //            Affinity affinity = AffinityShiftUtils.getMainShiftForStack(stack);
             int color = -1;
             if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {

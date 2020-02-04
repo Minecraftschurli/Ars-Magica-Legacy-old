@@ -48,7 +48,7 @@ public class Appropriation extends SpellComponent {
         if (originalSpellStack == null) return false;
         if (!world.isRemote) {
             if (originalSpellStack.getTag().get(storageKey) != null)
-                restore((PlayerEntity) caster, world, originalSpellStack, target.getPosition(), target.posX, target.posY + target.getEyeHeight(), target.posZ);
+                restore((PlayerEntity) caster, world, originalSpellStack, target.getPosition(), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ());
             else {
                 CompoundNBT data = new CompoundNBT();
                 data.putString("class", target.getClass().getName());
@@ -119,8 +119,7 @@ public class Appropriation extends SpellComponent {
                         TileEntity te = world.getTileEntity(pos);
                         if (te != null) {
                             te.read(storageCompound.getCompound("tileEntity"));
-                            te.setPos(pos);
-                            te.setWorld(world);
+                            te.setWorldAndPos(world, pos);
                         }
                     }
                 }

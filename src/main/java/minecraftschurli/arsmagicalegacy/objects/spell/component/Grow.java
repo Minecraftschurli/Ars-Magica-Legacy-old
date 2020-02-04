@@ -11,6 +11,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
@@ -44,7 +45,7 @@ public class Grow extends SpellComponent {
         }
         if (block.getBlock() instanceof MushroomBlock) {
             if (!world.isRemote && world.rand.nextInt(10) < 1)
-                ((MushroomBlock) block.getBlock()).grow(world, world.rand, pos, block);
+                ((MushroomBlock) block.getBlock()).grow((ServerWorld) world, world.rand, pos, block);
             return true;
         }
         if (block.getBlock() == Blocks.WATER) {
@@ -70,7 +71,7 @@ public class Grow extends SpellComponent {
             IGrowable igrowable = (IGrowable) block;
             if (igrowable.canGrow(world, pos, block, world.isRemote)) {
                 if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block))
-                    igrowable.grow(world, world.rand, pos, block);
+                    igrowable.grow((ServerWorld) world, world.rand, pos, block);
                 return true;
             }
         }

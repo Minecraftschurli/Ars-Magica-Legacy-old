@@ -29,7 +29,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
 import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL12;
 
@@ -119,9 +118,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 ""));
         nameBar.setMaxStringLength(64);
 
-        createSpellButton = new GuiButtonExt(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.inscriptiontable.makeSpell").getFormattedText(), this::actionPerformed);
+        createSpellButton = new Button(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.inscriptiontable.makeSpell").getFormattedText(), this::actionPerformed);
 
-        resetSpellButton = new GuiButtonExt(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.inscriptiontable.resetSpell").getFormattedText(), this::actionPerformed);
+        resetSpellButton = new Button(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.inscriptiontable.resetSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton.visible = false;
 
         if (usingPlayer.abilities.isCreativeMode) {
@@ -589,10 +588,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         float maxU = 0.546875f * 64;
         float maxV = 0.1875f * 32;
 
-        tessellator.getBuffer().func_225584_a_(iconX, iconY + 16, getBlitOffset()).func_225583_a_(minU, maxV).endVertex();
-        tessellator.getBuffer().func_225584_a_(iconX + 16, iconY + 16, getBlitOffset()).func_225583_a_(maxU, maxV).endVertex();
-        tessellator.getBuffer().func_225584_a_(iconX + 16, iconY, getBlitOffset()).func_225583_a_(maxU, minV).endVertex();
-        tessellator.getBuffer().func_225584_a_(iconX, iconY, getBlitOffset()).func_225583_a_(minU, minV).endVertex();
+        tessellator.getBuffer().pos(iconX, iconY + 16, getBlitOffset()).tex(minU, maxV).endVertex();
+        tessellator.getBuffer().pos(iconX + 16, iconY + 16, getBlitOffset()).tex(maxU, maxV).endVertex();
+        tessellator.getBuffer().pos(iconX + 16, iconY, getBlitOffset()).tex(maxU, minV).endVertex();
+        tessellator.getBuffer().pos(iconX, iconY, getBlitOffset()).tex(minU, minV).endVertex();
 
         tessellator.draw();
 
@@ -641,10 +640,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         float maxU = 0.546875f * 64;
         float maxV = 0.1875f * 32;
 
-        tessellator.getBuffer().func_225584_a_(lastMouseX - 8, lastMouseY - 8 + 16, getBlitOffset()).func_225583_a_(minU, maxV).endVertex();
-        tessellator.getBuffer().func_225584_a_(lastMouseX - 8 + 16, lastMouseY - 8 + 16, getBlitOffset()).func_225583_a_(maxU, maxV).endVertex();
-        tessellator.getBuffer().func_225584_a_(lastMouseX - 8 + 16, lastMouseY - 8, getBlitOffset()).func_225583_a_(maxU, minV).endVertex();
-        tessellator.getBuffer().func_225584_a_(lastMouseX - 8, lastMouseY - 8, getBlitOffset()).func_225583_a_(minU, minV).endVertex();
+        tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8 + 16, getBlitOffset()).tex(minU, maxV).endVertex();
+        tessellator.getBuffer().pos(lastMouseX - 8 + 16, lastMouseY - 8 + 16, getBlitOffset()).tex(maxU, maxV).endVertex();
+        tessellator.getBuffer().pos(lastMouseX - 8 + 16, lastMouseY - 8, getBlitOffset()).tex(maxU, minV).endVertex();
+        tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8, getBlitOffset()).tex(minU, minV).endVertex();
 
         tessellator.draw();
 
@@ -658,6 +657,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     public void renderTooltip(List<String> tooltip, int x, int y, FontRenderer font) {
         if (!tooltip.isEmpty()) {
+            RenderSystem.pushMatrix();
             GL14.glDisable(GL12.GL_RESCALE_NORMAL);
             RenderHelper.disableStandardItemLighting();
             GL14.glDisable(GL14.GL_LIGHTING);
@@ -716,8 +716,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             this.setBlitOffset(0);
             GL14.glEnable(GL14.GL_LIGHTING);
             GL14.glEnable(GL14.GL_DEPTH_TEST);
-            RenderHelper.func_227780_a_();
+            RenderHelper.enableStandardItemLighting();
             GL14.glEnable(GL12.GL_RESCALE_NORMAL);
+            RenderSystem.popMatrix();
         }
     }
 

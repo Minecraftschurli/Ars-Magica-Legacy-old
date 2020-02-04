@@ -63,7 +63,7 @@ public class SpellItem extends Item implements ISpellItem {
         if (!stack.hasTag()) return;
         if (shape != null) {
             if (!shape.isChanneled()) {
-                SpellCastResult result = SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, Direction.UP, worldIn, true, true, 0);
+                SpellCastResult result = SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), Direction.UP, worldIn, true, true, 0);
                 ArsMagicaLegacy.LOGGER.debug(result);
             }
             /*if (worldIn.isRemote && shape.isChanneled()){
@@ -76,7 +76,7 @@ public class SpellItem extends Item implements ISpellItem {
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
         if (shape.isChanneled())
-            SpellUtils.applyStackStage(stack, player, null, player.posX, player.posY, player.posZ, Direction.UP, player.world, true, true, count - 1);
+            SpellUtils.applyStackStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);
         super.onUsingTick(stack, player, count);
     }
 
@@ -98,9 +98,9 @@ public class SpellItem extends Item implements ISpellItem {
         float factor = 1.0F;
         float interpPitch = caster.prevRotationPitch + (caster.rotationPitch - caster.prevRotationPitch) * factor;
         float interpYaw = caster.prevRotationYaw + (caster.rotationYaw - caster.prevRotationYaw) * factor;
-        double interpPosX = caster.prevPosX + (caster.posX - caster.prevPosX) * factor;
-        double interpPosY = caster.prevPosY + (caster.posY - caster.prevPosY) * factor + caster.getEyeHeight();
-        double interpPosZ = caster.prevPosZ + (caster.posZ - caster.prevPosZ) * factor;
+        double interpPosX = caster.prevPosX + (caster.getPosX() - caster.prevPosX) * factor;
+        double interpPosY = caster.prevPosY + (caster.getPosY() - caster.prevPosY) * factor + caster.getEyeHeight();
+        double interpPosZ = caster.prevPosZ + (caster.getPosZ() - caster.prevPosZ) * factor;
         Vec3d vec3 = new Vec3d(interpPosX, interpPosY, interpPosZ);
         float offsetYawCos = MathHelper.cos(-interpYaw * 0.017453292F - (float) Math.PI);
         float offsetYawSin = MathHelper.sin(-interpYaw * 0.017453292F - (float) Math.PI);

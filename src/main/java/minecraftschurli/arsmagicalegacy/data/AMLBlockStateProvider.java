@@ -88,7 +88,7 @@ public class AMLBlockStateProvider extends BlockStateProvider {
     }
 
     protected void airBlock(Block block) {
-        simpleBlock(block, getExistingFile(mcLoc("block/air")));
+        simpleBlock(block, models().getExistingFile(mcLoc("block/air")));
     }
 
     protected void railBlock(Supplier<? extends Block> block) {
@@ -97,10 +97,10 @@ public class AMLBlockStateProvider extends BlockStateProvider {
 
     protected void railBlock(Block block) {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
-        ModelFile straight = withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTexture(block));
-        ModelFile curved = withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", blockTexture(block));
-        ModelFile raisedNE = withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTexture(block));
-        ModelFile raisedSW = withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTexture(block));
+        ModelFile straight = models().withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTexture(block));
+        ModelFile curved = models().withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", blockTexture(block));
+        ModelFile raisedNE = models().withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTexture(block));
+        ModelFile raisedSW = models().withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTexture(block));
         builder.forAllStates(state -> {
             switch (state.get(RailBlock.SHAPE)) {
                 case NORTH_SOUTH:
@@ -134,7 +134,7 @@ public class AMLBlockStateProvider extends BlockStateProvider {
     }
 
     protected void flowerBlock(Block block) {
-        simpleBlock(block, cross(block.getRegistryName().getPath(), blockTexture(block)));
+        simpleBlock(block, models().cross(block.getRegistryName().getPath(), blockTexture(block)));
     }
 
     @Nonnull

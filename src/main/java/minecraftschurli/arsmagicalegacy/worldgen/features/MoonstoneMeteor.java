@@ -43,8 +43,7 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
     private boolean canReplace(IWorld worldIn, BlockPos pos) {
         BlockState state = worldIn.getBlockState(pos);
         Block block = state.getBlock();
-        return BlockTags.DIRT_LIKE.contains(block) ||
-                BlockTags.SAND.contains(block) ||
+        return BlockTags.SAND.contains(block) ||
                 Tags.Blocks.DIRT.contains(block) ||
                 Tags.Blocks.SAND.contains(block) ||
                 Tags.Blocks.STONE.contains(block) ||

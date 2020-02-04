@@ -1,10 +1,13 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.*;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.tileentity.*;
 import net.minecraft.item.*;
@@ -15,22 +18,8 @@ import net.minecraft.util.text.TranslationTextComponent;
  * @version 2019-12-20
  */
 public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTileEntity> {
-    @Override
-    public void render(CraftingAltarViewTileEntity tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage) {
-        tileEntityIn.itemRotation += 1;
-        if (tileEntityIn.itemRotation == 360)
-            tileEntityIn.itemRotation = 0;
-        CraftingAltarTileEntity altar = tileEntityIn.getAltar();
-        if (altar != null && altar.isMultiblockFormed()) {
-            GlStateManager.pushMatrix();
-            GlStateManager.translated(x + 0.5, y + 0.5, z + 0.5);
-            setLightmapDisabled(true);
-
-            doRender(altar, tileEntityIn);
-
-            setLightmapDisabled(false);
-            GlStateManager.popMatrix();
-        }
+    public CraftingAltarViewTER(TileEntityRendererDispatcher rendererDispatcherIn) {
+        super(rendererDispatcherIn);
     }
 
     private void doRender(CraftingAltarTileEntity altar, CraftingAltarViewTileEntity view) {
@@ -38,19 +27,19 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         SpellIngredientList recipe = altar.getRecipe();
         if (book.isEmpty() || recipe == null)
             return;
-        GlStateManager.pushMatrix();
-        GlStateManager.scaled(0.55, 0.55, 0.55);
+        RenderSystem.pushMatrix();
+        RenderSystem.scaled(0.55, 0.55, 0.55);
         if (!altar.hasEnoughPower()) {
-            drawNameplate(view, new TranslationTextComponent(ArsMagicaLegacy.MODID+".altar.lowpower").getFormattedText(), -0.5, -0.4, -0.5, 32);
+            //drawNameplate(view, new TranslationTextComponent(ArsMagicaLegacy.MODID+".altar.lowpower").getFormattedText(), -0.5, -0.4, -0.5, 32);
         } else {
             ISpellIngredient ingredient = altar.getCurrentIngredient();
             if (ingredient == null)
                 return;
-            drawNameplate(view, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
+            //drawNameplate(view, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
         }
-        GlStateManager.popMatrix();
-        GlStateManager.rotatef(view.itemRotation, 0.0F, 1.0F, 0.0F);
-        //GlStateManager.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
+        RenderSystem.popMatrix();
+        RenderSystem.rotatef(view.itemRotation, 0.0F, 1.0F, 0.0F);
+        //RenderSystem.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
         ItemStack stack;
         if (!altar.hasEnoughPower()) {
             stack = new ItemStack(Blocks.BARRIER);
@@ -62,7 +51,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
                 stack = ((ItemStackSpellIngredient) ingredient).getStack();
             } else if (ingredient instanceof ItemTagSpellIngredient) {
                 if (view.itemRotation % 36 == 0) {
-                    view.itemCache = ((ItemTagSpellIngredient) ingredient).getTag().getRandomElement(getWorld().rand);
+                    view.itemCache = ((ItemTagSpellIngredient) ingredient).getTag().getRandomElement(altar.getWorld().rand);
                 }
                 stack = new ItemStack(view.itemCache);
             } else {
@@ -71,6 +60,24 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             }
         }
         //noinspection deprecation
-        Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+        //Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+    }
+
+    @Override
+    public void render(CraftingAltarViewTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        tileEntityIn.itemRotation += 1;
+        if (tileEntityIn.itemRotation == 360)
+            tileEntityIn.itemRotation = 0;
+        CraftingAltarTileEntity altar = tileEntityIn.getAltar();
+        if (altar != null && altar.isMultiblockFormed()) {
+            RenderSystem.pushMatrix();
+            RenderSystem.translated(0.5, 0.5, 0.5);
+            //setLightmapDisabled(true);
+
+            doRender(altar, tileEntityIn);
+
+            //setLightmapDisabled(false);
+            RenderSystem.popMatrix();
+        }
     }
 }

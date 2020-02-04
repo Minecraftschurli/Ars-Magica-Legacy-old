@@ -33,8 +33,8 @@ public class Repel extends SpellComponent {
     }
 
     private void performRepel(World world, LivingEntity caster, Entity target) {
-        Vec3d casterPos = new Vec3d(caster.posX, caster.posY, caster.posZ);
-        Vec3d targetPos = new Vec3d(target.posX, target.posY, target.posZ);
+        Vec3d casterPos = new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ());
+        Vec3d targetPos = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ());
         double distance = casterPos.distanceTo(targetPos) + 0.1D;
         Vec3d delta = new Vec3d(targetPos.getX() - casterPos.getX(), targetPos.getY() - casterPos.getY(), targetPos.getZ() - casterPos.getZ());
         double dX = delta.getX() / 2.5D / distance;

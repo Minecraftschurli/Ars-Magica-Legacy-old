@@ -51,7 +51,7 @@ public class InscriptionTableBlock extends Block {
         BlockPos blockpos = pos.down();
         BlockState blockstate = worldIn.getBlockState(blockpos);
         if (!state.get(LEFT)) {
-            return blockstate.func_224755_d(worldIn, blockpos, Direction.UP);
+            return blockstate.isSolidSide(worldIn, blockpos, Direction.UP);
         } else {
             return blockstate.getBlock() == this;
         }
@@ -118,22 +118,22 @@ public class InscriptionTableBlock extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 
         super.onBlockActivated(state, worldIn, pos, player, hand, hit);
         if (worldIn.isRemote) {
-            return true;
+            return ActionResultType.PASS;
         }
         boolean left = state.get(LEFT);
         BlockPos tePos = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos;
         InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
 
         if (te == null)
-            return true;
+            return ActionResultType.FAIL;
 
         if (te.isInUse(player)) {
             player.sendMessage(new StringTextComponent("Someone else is using this."));
-            return true;
+            return ActionResultType.FAIL;
         }
 
         ItemStack curItem = player.getHeldItem(hand);
@@ -145,7 +145,7 @@ public class InscriptionTableBlock extends Block {
                 BlockPos other = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos.offset(state.get(FACING).rotateY());
                 worldIn.setBlockState(other, worldIn.getBlockState(other).with(TIER, tier+1), 2);
                 te.incrementUpgradeState();
-                return true;
+                return ActionResultType.SUCCESS;
             }
         } else {
             NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
@@ -162,12 +162,6 @@ public class InscriptionTableBlock extends Block {
             }, tePos);
         }
 
-        return true;
-    }
-
-    @Nonnull
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
+        return ActionResultType.SUCCESS;
     }
 }

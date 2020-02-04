@@ -70,7 +70,7 @@ public class Chain extends SpellShape {
         for (LivingEntity e : targets) {
             if (e == caster) continue;
             result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
-            SpellUtils.applyStackStage(stack, caster, e, e.posX, e.posY, e.posZ, null, world, true, giveXP, 0);
+            SpellUtils.applyStackStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
             if (world.isRemote) {
 //                if (prevEntity == null) spawnChainParticles(world, x, y, z, e.posX, e.posY + e.getEyeHeight(), e.posZ, stack);
 //                else spawnChainParticles(world, prevEntity.posX, prevEntity.posY + e.getEyeHeight(), prevEntity.posZ, e.posX, e.posY + e.getEyeHeight(), e.posZ, stack);

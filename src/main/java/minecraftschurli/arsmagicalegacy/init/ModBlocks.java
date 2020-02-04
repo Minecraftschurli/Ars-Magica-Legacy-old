@@ -5,7 +5,7 @@ import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAlta
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
-import minecraftschurli.arsmagicalegacy.objects.tree.WitchwoodTree;
+import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import minecraftschurli.simpleorelib.Ore;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

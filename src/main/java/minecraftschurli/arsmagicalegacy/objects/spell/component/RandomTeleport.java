@@ -25,7 +25,7 @@ public class RandomTeleport extends SpellComponent {
     }
 
     private Vec3d getRandomTeleportLocation(World world, ItemStack stack, LivingEntity caster, Entity target) {
-        Vec3d origin = new Vec3d(target.posX, target.posY, target.posZ);
+        Vec3d origin = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ());
         float maxDist = 9;
         maxDist = (float) SpellUtils.getModifiedDoubleMul(maxDist, stack, caster, target, world, SpellModifiers.RANGE);
         origin = origin.add(new Vec3d((world.rand.nextDouble() - 0.5) * maxDist, (world.rand.nextDouble() - 0.5) * maxDist, (world.rand.nextDouble() - 0.5) * maxDist));
@@ -45,12 +45,10 @@ public class RandomTeleport extends SpellComponent {
             par3 = event.getTargetY();
             par5 = event.getTargetZ();
         }
-        double d3 = target.posX;
-        double d4 = target.posY;
-        double d5 = target.posZ;
-        target.posX = par1;
-        target.posY = par3;
-        target.posZ = par5;
+        double d3 = target.getPosX();
+        double d4 = target.getPosY();
+        double d5 = target.getPosZ();
+        target.setPosition(par1, par3, par5);
         boolean locationValid = false;
         BlockPos pos = target.getPosition();
         Block l;
@@ -61,13 +59,13 @@ public class RandomTeleport extends SpellComponent {
             if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos))
                 targetBlockIsSolid = true;
             else {
-                --target.posY;
+                target.setPosition(target.getPosX(), target.getPosY()-1, target.getPosZ());
                 pos = pos.down();
             }
         }
         if (targetBlockIsSolid) {
-            target.setPosition(target.posX, target.posY, target.posZ);
-            if (target.world.getCollisionShapes(target, target.getBoundingBox()).toArray().length == 0)
+            target.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
+            if (target.world.getEmptyCollisionShapes(target, target.getBoundingBox(), new HashSet<>()).toArray().length == 0)
                 locationValid = true;
         }
         if (!locationValid) {
@@ -89,7 +87,7 @@ public class RandomTeleport extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        world.addParticle(ParticleTypes.PORTAL, target.posX + (rand.nextDouble() - 0.5D) * target.getWidth(), target.posY + rand.nextDouble() * target.getHeight() - 0.25D, target.posZ + (rand.nextDouble() - 0.5D) * target.getWidth(), (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+        world.addParticle(ParticleTypes.PORTAL, target.getPosX() + (rand.nextDouble() - 0.5D) * target.getWidth(), target.getPosY() + rand.nextDouble() * target.getHeight() - 0.25D, target.getPosZ() + (rand.nextDouble() - 0.5D) * target.getWidth(), (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
     }
 
     //    @Override

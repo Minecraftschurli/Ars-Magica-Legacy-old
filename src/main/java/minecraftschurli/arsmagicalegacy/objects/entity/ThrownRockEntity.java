@@ -47,11 +47,11 @@ public class ThrownRockEntity extends Entity {
         this.noClip = true;
         setThrowingEntity(entityLiving);
         //setSize(0.25F, 0.25F);
-        setLocationAndAngles(entityLiving.posX, entityLiving.posY + entityLiving.getEyeHeight(), entityLiving.posZ, entityLiving.rotationYaw, entityLiving.rotationPitch);
-        posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
-        posY -= 0.10000000149011612D;
-        posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
-        setPosition(posX, posY, posZ);
+        setLocationAndAngles(entityLiving.getPosX(), entityLiving.getPosY() + entityLiving.getEyeHeight(), entityLiving.getPosZ(), entityLiving.rotationYaw, entityLiving.rotationPitch);
+        double tmpX = getPosX() - MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
+        double tmpY = getPosY() - 0.10000000149011612D;
+        double tmpZ = getPosZ() - MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
+        setPosition(tmpX, tmpY, tmpZ);
         float f = 0.05F;
         setMotion(
                 -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F) * f,
@@ -125,10 +125,10 @@ public class ThrownRockEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.target != null && this.posY > this.target.y) {
-            double deltaX = this.posX - target.x;
-            double deltaY = this.posY - target.y;
-            double deltaZ = this.posZ - target.z;
+        if (this.target != null && this.getPosY() > this.target.y) {
+            double deltaX = this.getPosX() - target.x;
+            double deltaY = this.getPosY() - target.y;
+            double deltaZ = this.getPosZ() - target.z;
 
             double angle = Math.atan2(deltaZ, deltaX);
 
@@ -161,7 +161,7 @@ public class ThrownRockEntity extends Entity {
 
         /*if (worldObj.isRemote){
             if (getIsMoonstoneMeteor()){
-                AMParticle fire = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "explosion_2", posX, posY, posZ);
+                AMParticle fire = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "explosion_2", getPosX(), getPosY(), getPosZ());
                 if (fire != null){
                     fire.setMaxAge(20);
                     fire.setRGBColorF(1, 1, 1);
@@ -184,7 +184,7 @@ public class ThrownRockEntity extends Entity {
                 }
 
                 for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f){
-                    AMParticle star = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "ember", posX + getMotion().x * i, posY + getMotion().y * i, posZ + getMotion().z * i);
+                    AMParticle star = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "ember", getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
                     if (star != null){
                         star.setMaxAge(22);
                         float clrMod = Minecraft.getMinecraft().theWorld.rand.nextFloat();
@@ -205,11 +205,11 @@ public class ThrownRockEntity extends Entity {
             }
         }*/
 
-        Vec3d vec3d = new Vec3d(posX, posY, posZ);
-        Vec3d vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
+        Vec3d vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
+        Vec3d vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
         RayTraceResult movingobjectposition = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
-        vec3d = new Vec3d(posX, posY, posZ);
-        //vec3d1 = new Vec3d(posX + getMotion().x, posY + getMotion().y, posZ + getMotion().z);
+        vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
+        //vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
         vec3d1 = new Vec3d(movingobjectposition.getHitVec().x, movingobjectposition.getHitVec().y, movingobjectposition.getHitVec().z);
         Entity entity = null;
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1.0D, 1.0D, 1.0D));
@@ -236,9 +236,10 @@ public class ThrownRockEntity extends Entity {
         }
         hitObject(movingobjectposition);
 
-        posX += getMotion().x;
-        posY += getMotion().y;
-        posZ += getMotion().z;
+        double tmpX = getPosX() + getMotion().x;
+        double tmpY = getPosY() + getMotion().y;
+        double tmpZ = getPosZ() + getMotion().z;
+        this.setPosition(tmpX, tmpY, tmpZ);
         float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
         rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
         //noinspection StatementWithEmptyBody
@@ -251,7 +252,7 @@ public class ThrownRockEntity extends Entity {
         for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {}
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
-        setPosition(posX, posY, posZ);
+        setPosition(getPosX(), getPosY(), getPosZ());
     }
 
 
@@ -262,9 +263,9 @@ public class ThrownRockEntity extends Entity {
 
 
         if (getIsShootingStar()) {
-            //AMNetHandler.INSTANCE.sendStarImpactToClients(posX, posY + ((movingobjectposition.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)movingobjectposition).getEntity().getEyeHeight() : 1.5f), posZ, world, this.getSpellStack());
+            //AMNetHandler.INSTANCE.sendStarImpactToClients(getPosX(), getPosY() + ((movingobjectposition.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)movingobjectposition).getEntity().getEyeHeight() : 1.5f), getPosZ(), world, this.getSpellStack());
             List<LivingEntity> ents = world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12));
-            this.posY++;
+            this.setPosition(getPosX(), getPosY()+1, getPosZ());
             for (LivingEntity e : ents) {
                 if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
                 if (this.getDistance(e) < 12)

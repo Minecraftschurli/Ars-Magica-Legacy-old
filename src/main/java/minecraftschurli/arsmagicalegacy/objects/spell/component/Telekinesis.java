@@ -22,7 +22,7 @@ public class Telekinesis extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return doTKExtrapolated(stack, world, target.posX, target.posY, target.posZ, caster);
+        return doTKExtrapolated(stack, world, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
     }
 
     private boolean doTKExtrapolated(ItemStack stack, World world, double impactX, double impactY, double impactZ, LivingEntity caster) {
@@ -42,7 +42,7 @@ public class Telekinesis extends SpellComponent {
         entities.addAll(world.getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(impactX - distance, impactY - hDist, impactZ - distance, impactX + distance, impactY + hDist, impactZ + distance)));
         for (Entity e : entities) {
             if (e.ticksExisted < 20) continue;
-            Vec3d movement = new Vec3d(e.posX, e.posY, e.posZ).subtract(new Vec3d(impactX, impactY, impactZ)).normalize();
+            Vec3d movement = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ()).subtract(new Vec3d(impactX, impactY, impactZ)).normalize();
             if (!world.isRemote) {
                 float factor = 0.15f;
                 if (movement.getY() > 0) movement = new Vec3d(movement.getX(), 0, movement.getZ());

@@ -31,7 +31,7 @@ public class Story {
         //pages
         ListNBT pages = new ListNBT();
         for (StringNBT page : storyData) {
-            StringNBT newPage = new StringNBT("{\"text\":\"" + page.getString() + "\"}");
+            StringNBT newPage = StringNBT.valueOf("{\"text\":\"" + page.getString() + "\"}");
             pages.add(newPage);
         }
         compound.put("pages", pages);
@@ -39,8 +39,8 @@ public class Story {
 
     public static ItemStack finalizeStory(ItemStack stack, String title, String author) {
         if (stack.getTag() == null) return stack;
-        stack.getTag().put("title", new StringNBT(title));
-        stack.getTag().put("author", new StringNBT(author));
+        stack.getTag().put("title", StringNBT.valueOf(title));
+        stack.getTag().put("author", StringNBT.valueOf(author));
         //stack = InventoryUtilities.replaceItem(stack, Items.WRITTEN_BOOK);
         return stack;
     }
@@ -59,12 +59,12 @@ public class Story {
                 String postNewPage = word.substring(idx + "<newpage>".length());
                 while (preNewPage.endsWith("\n")) preNewPage = preNewPage.substring(0, preNewPage.lastIndexOf('\n'));
                 if (getStringOverallLength(currentPage + preNewPage) > 256) {
-                    parts.add(new StringNBT(currentPage));
+                    parts.add(StringNBT.valueOf(currentPage));
                     currentPage = preNewPage.trim();
                 } else {
                     currentPage += " " + preNewPage.trim();
                 }
-                parts.add(new StringNBT(currentPage));
+                parts.add(StringNBT.valueOf(currentPage));
                 while (postNewPage.startsWith("\n")) postNewPage = postNewPage.replaceFirst("\n", "");
                 currentPage = postNewPage.trim();
                 continue;
@@ -72,11 +72,11 @@ public class Story {
 
             //length limit
             if (getStringOverallLength(currentPage + word) > 256) {
-                parts.add(new StringNBT(currentPage));
+                parts.add(StringNBT.valueOf(currentPage));
                 currentPage = word;
                 if (getStringOverallLength(currentPage) > 256) {
                     currentPage = currentPage.substring(0, getStringSplitIndex(currentPage, 255));
-                    parts.add(new StringNBT(currentPage));
+                    parts.add(StringNBT.valueOf(currentPage));
                     currentPage = "";
                 }
                 continue;
@@ -88,7 +88,7 @@ public class Story {
                 currentPage += " " + word;
             }
         }
-        parts.add(new StringNBT(currentPage));
+        parts.add(StringNBT.valueOf(currentPage));
 
         return parts;
     }
@@ -227,11 +227,11 @@ public class Story {
         compound.putInt("story_part", part);
 
         //title
-        StringNBT title = new StringNBT(this.title);
+        StringNBT title = StringNBT.valueOf(this.title);
         compound.put("title", title);
 
         //author
-        StringNBT author = new StringNBT(this.author);
+        StringNBT author = StringNBT.valueOf(this.author);
         compound.put("author", author);
 
         //pages
@@ -242,11 +242,11 @@ public class Story {
 
     public void writeMultiplePartsToNBT(CompoundNBT compound, List<Short> parts) {
         //title
-        StringNBT title = new StringNBT(this.title);
+        StringNBT title = StringNBT.valueOf(this.title);
         compound.put("title", title);
 
         //author
-        StringNBT author = new StringNBT(this.author);
+        StringNBT author = StringNBT.valueOf(this.author);
         compound.put("author", author);
 
         Collections.sort(parts);

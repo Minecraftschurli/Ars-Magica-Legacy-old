@@ -50,7 +50,7 @@ public class Blizzard extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return spawnBlizzard(stack, world, caster, target, target.posX, target.posY, target.posZ);
+        return spawnBlizzard(stack, world, caster, target, target.getPosX(), target.getPosY(), target.getPosZ());
     }
 
     @Override

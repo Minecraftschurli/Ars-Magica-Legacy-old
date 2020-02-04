@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.util;
 
 import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.sun.javafx.geom.*;
 import net.minecraft.block.*;
 import net.minecraft.client.*;
@@ -55,7 +56,7 @@ public class RenderUtils {
 
     public static void line2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GlStateManager.enableDepthTest();
+        RenderSystem.enableDepthTest();
         GL11.glLineWidth(1f);
         GL11.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
         GL11.glBegin(GL11.GL_LINES);
@@ -63,14 +64,14 @@ public class RenderUtils {
         GL11.glVertex3f(xEnd, yEnd, zLevel);
         GL11.glEnd();
         GL11.glColor3d(1.0f, 1.0f, 1.0f);
-        GlStateManager.disableDepthTest();
+        RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
     public static void lineThick2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GlStateManager.enableDepthTest();
+        RenderSystem.enableDepthTest();
         GL11.glLineWidth(4f);
         GL11.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
         GL11.glBegin(GL11.GL_LINES);
@@ -78,7 +79,7 @@ public class RenderUtils {
         GL11.glVertex3f(xEnd, yEnd, zLevel);
         GL11.glEnd();
         GL11.glColor3d(1.0f, 1.0f, 1.0f);
-        GlStateManager.disableDepthTest();
+        RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glPopMatrix();
     }
@@ -107,8 +108,8 @@ public class RenderUtils {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);
         GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-Minecraft.getInstance().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(Minecraft.getInstance().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(-Minecraft.getInstance().getRenderManager().getCameraOrientation().getY(), 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(Minecraft.getInstance().getRenderManager().getCameraOrientation().getX(), 1.0F, 0.0F, 0.0F);
         GL11.glScalef(-f1, -f1, f1);
         GL11.glScalef(0.5f, 0.5f, 0.5f);
         GL11.glDisable(GL11.GL_LIGHTING);
@@ -139,19 +140,19 @@ public class RenderUtils {
     }
 
     public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3f rotation) {
-        GlStateManager.pushMatrix();
+        RenderSystem.pushMatrix();
 
-        GlStateManager.rotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-        GlStateManager.rotatef(rotation.y, 1.0f, 1.0f, 0.0f);
-        GlStateManager.rotatef(rotation.z, 1.0f, 0.0f, 1.0f);
+        RenderSystem.rotatef(rotation.x, 1.0f, 0.0f, 0.0f);
+        RenderSystem.rotatef(rotation.y, 1.0f, 1.0f, 0.0f);
+        RenderSystem.rotatef(rotation.z, 1.0f, 0.0f, 1.0f);
         renderBlockModel(te, model, defaultState);
-        GlStateManager.popMatrix();
+        RenderSystem.popMatrix();
     }
 
     public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState) {
         try {
-            GlStateManager.pushMatrix();
-            GlStateManager.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
+            RenderSystem.pushMatrix();
+            RenderSystem.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
             Tessellator t = Tessellator.getInstance();
             BufferBuilder wr = t.getBuffer();
             wr.begin(7, DefaultVertexFormats.BLOCK);
@@ -161,9 +162,9 @@ public class RenderUtils {
             BlockState state = world.getBlockState(te.getPos());
             if (state.getBlock() != defaultState.getBlock())
                 state = defaultState;
-            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
+            //Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
             t.draw();
-            GlStateManager.popMatrix();
+            RenderSystem.popMatrix();
         } catch (Throwable t) {
             t.printStackTrace();
         }

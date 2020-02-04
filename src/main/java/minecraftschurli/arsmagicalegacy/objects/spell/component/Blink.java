@@ -36,18 +36,18 @@ public class Blink extends SpellComponent {
         motionY = d1;
         motionZ = d2;
 //        ArrayList<Long> keystoneKeys = KeystoneUtilities.instance.GetKeysInInvenory((LivingEntity) target);
-        double newX = target.posX + motionX;
-        double newZ = target.posZ + motionZ;
-        double newY = target.posY + motionY;
+        double newX = target.getPosX() + motionX;
+        double newZ = target.getPosZ() + motionZ;
+        double newY = target.getPosY() + motionY;
         boolean coordsValid = false;
         boolean astralBarrierBlocked = false;
 //        TileEntityAstralBarrier finalBlocker = null;
         while (!coordsValid && distance > 0) {
             if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
                 coordsValid = true;
-                newX = caster.posX;
-                newY = caster.posY;
-                newZ = caster.posZ;
+                newX = caster.getPosX();
+                newY = caster.getPosY();
+                newZ = caster.getPosZ();
             }
 //            TileEntityAstralBarrier blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            while (blocker != null) {
@@ -76,9 +76,9 @@ public class Blink extends SpellComponent {
 //                motionX = d;
 //                motionY = d1;
 //                motionZ = d2;
-//                newX = target.posX + motionX;
-//                newZ = target.posZ + motionZ;
-//                newY = target.posY + motionY;
+//                newX = target.getPosX() + motionX;
+//                newZ = target.getPosZ() + motionZ;
+//                newY = target.getPosY() + motionY;
 //                blocker = DimensionUtilities.GetBlockingAstralBarrier(world, new BlockPos(newX, newY, newZ), keystoneKeys);
 //            }
             if (distance < 0) {
@@ -102,9 +102,9 @@ public class Blink extends SpellComponent {
             motionX = d;
             motionY = d1;
             motionZ = d2;
-            newX = target.posX + motionX;
-            newZ = target.posZ + motionZ;
-            newY = target.posY + motionY;
+            newX = target.getPosX() + motionX;
+            newZ = target.getPosZ() + motionZ;
+            newY = target.getPosY() + motionY;
         }
 //        if (world.isRemote && astralBarrierBlocked && coordsValid) {
 //            EntityExtension.For((LivingEntity) target).astralBarrierBlocked = true;

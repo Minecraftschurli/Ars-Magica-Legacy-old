@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.capability.IBurnoutStorage;
@@ -67,8 +67,8 @@ public class UIRender {
     }
 
     private void renderSpellBook(PlayerEntity player, Hand hand) {
-        double scaledWidth = mc.mainWindow.getScaledWidth();
-        int scaledHeight = mc.mainWindow.getScaledHeight();
+        double scaledWidth = mc.getMainWindow().getScaledWidth();
+        int scaledHeight = mc.getMainWindow().getScaledHeight();
         int spellBookUIWidth = 148;
         int spellBookUIHeight = 22;
         int spellBookUIX = (int)Math.round(0.5 * scaledWidth - 230);
@@ -82,7 +82,7 @@ public class UIRender {
 
         mc.getTextureManager().bindTexture(SPELL_BOOK_UI_TEXTURE);
 
-        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
 
         /*if (hand == Hand.MAIN_HAND) {
             int slot = player.inventory.getSlotFor(player.getHeldItem(hand));
@@ -103,11 +103,11 @@ public class UIRender {
             if (stackItem == null){
                 continue;
             }
-            GlStateManager.pushMatrix();
-            GlStateManager.translatef(iconX, spellBookUIY + 1.5f, getBlitOffset());
-            GlStateManager.scalef(12f / 16f, 12f / 16f, 12f / 16f);
+            RenderSystem.pushMatrix();
+            RenderSystem.translatef(iconX, spellBookUIY + 1.5f, getBlitOffset());
+            RenderSystem.scalef(12f / 16f, 12f / 16f, 12f / 16f);
             mc.getItemRenderer().renderItemIntoGUI(stackItem, 0, 0);
-            GlStateManager.popMatrix();
+            RenderSystem.popMatrix();
         }
         mc.getTextureManager().bindTexture(SPELL_BOOK_UI_TEXTURE);
         setBlitOffset(1000);
@@ -117,14 +117,14 @@ public class UIRender {
 
     private void renderMagicXp(PlayerEntity player) {
         if (CapabilityHelper.getCurrentLevel(player) > 0){
-            GlStateManager.pushMatrix();
-            GlStateManager.enableBlend();
+            RenderSystem.pushMatrix();
+            RenderSystem.enableBlend();
             float x = 0;
             float y = 0;
             Vec2f position = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPBarPosition(), i, j);*/
             Vec2f dimensions = new Vec2f(182, 5);
             Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
-            GlStateManager.color4f(0.5f, 0.5f, 1.0f, 1.0f);
+            RenderSystem.color4f(0.5f, 0.5f, 1.0f, 1.0f);
 
             //base XP bar
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
@@ -140,13 +140,13 @@ public class UIRender {
             String xpStr = new TranslationTextComponent(ArsMagicaLegacy.MODID+".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
             Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
             Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
-            GlStateManager.popMatrix();
+            RenderSystem.popMatrix();
         }
     }
 
     private void renderBurnoutBar(PlayerEntity player) {
-        int scaledWidth = mc.mainWindow.getScaledWidth();
-        int scaledHeight = mc.mainWindow.getScaledHeight();
+        int scaledWidth = mc.getMainWindow().getScaledWidth();
+        int scaledHeight = mc.getMainWindow().getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 13;
         double burnout = CapabilityHelper.getBurnout(player);
@@ -155,8 +155,8 @@ public class UIRender {
     }
 
     private void renderManaBar(PlayerEntity player) {
-        int scaledWidth = mc.mainWindow.getScaledWidth();
-        int scaledHeight = mc.mainWindow.getScaledHeight();
+        int scaledWidth = mc.getMainWindow().getScaledWidth();
+        int scaledHeight = mc.getMainWindow().getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
         int yStart = scaledHeight - 23;
         double mana = CapabilityHelper.getMana(player);
@@ -166,8 +166,8 @@ public class UIRender {
 
     private void renderBar(int x, int y, double value, double maxValue, int color, String name) {
         mc.getProfiler().startSection(name);
-        GlStateManager.pushMatrix();
-        GlStateManager.enableBlend();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
 
         mc.getTextureManager().bindTexture(BAR_TEXTURE);
 
@@ -176,16 +176,16 @@ public class UIRender {
         float r = (color >> 16 & 0xFF) / 255f;
         float g = (color >> 8 & 0xFF) / 255f;
         float b = (color & 0xFF) / 255f;
-        GlStateManager.color3f(r, g, b);
+        RenderSystem.color3f(r, g, b);
         drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
-        GlStateManager.color4f(1, 1, 1, 1);
+        RenderSystem.color4f(1, 1, 1, 1);
 
         if (false) {
             int i2 = getStringLength((int) value + "");
             drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
         }
-        GlStateManager.disableBlend();
-        GlStateManager.popMatrix();
+        RenderSystem.disableBlend();
+        RenderSystem.popMatrix();
         mc.getProfiler().endSection();
     }
 

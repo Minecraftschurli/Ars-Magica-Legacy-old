@@ -29,9 +29,9 @@ public class Attract extends SpellComponent {
 //            double range = EntityExtension.For(caster).getTKDistance();
 //            RayTraceResult mop = null;//((SpellItem) ModItems.SPELL).getMovingObjectPosition(caster, world, range, false, false);
 //            if (mop == null) {
-//                impactX = caster.posX + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactZ = caster.posZ + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactY = caster.posY + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
+//                impactX = caster.getPosX() + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
+//                impactZ = caster.getPosZ() + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
+//                impactY = caster.getPosY() + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
 //            }
         }
         LivingEntity target = getClosestEntityToPointWithin(caster, world, new Vec3i(impactX, impactY, impactZ), 16);
@@ -71,7 +71,7 @@ public class Attract extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        doTKExtrapolated(stack, world, target.posX, target.posY, target.posZ, caster);
+        doTKExtrapolated(stack, world, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
         return true;
     }
 

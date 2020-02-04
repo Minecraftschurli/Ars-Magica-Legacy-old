@@ -13,9 +13,9 @@ public final class MathUtils {
     public static Vec3d extrapolateEntityLook(LivingEntity entity, double range) {
         float pitch = entity.rotationPitch;
         float yaw = entity.rotationYaw;
-        double x = entity.posX;
-        double y = entity.posY + 1.6 - entity.getYOffset();
-        double z = entity.posZ;
+        double x = entity.getPosX();
+        double y = entity.getPosY() + 1.6 - entity.getYOffset();
+        double z = entity.getPosZ();
         Vec3d vec = new Vec3d(x, y, z);
         float f1 = MathHelper.cos(-yaw * 0.017453292f - (float) Math.PI);
         float f2 = MathHelper.sin(-yaw * 0.017453292f - (float) Math.PI);

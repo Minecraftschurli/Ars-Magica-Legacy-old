@@ -5,6 +5,7 @@
 - [x] add multi-block structure system
 - [x] add spell creation system
 - [x] add spell execution system
+- [x] update to 1.15.2
 - [ ] add spell entities
 - [ ] implement all potion effects
 - [ ] implement all spell parts

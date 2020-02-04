@@ -38,7 +38,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         final ItemStack stack = player.getHeldItem(hand);
-        if (player.func_225608_bj_()) {
+        if (player.func_226563_dT_()) {
             if (!world.isRemote && player instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                     @Override
