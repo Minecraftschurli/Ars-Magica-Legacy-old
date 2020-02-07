@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.data.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaLanguagePlugin;
 import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.data.*;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
 /**

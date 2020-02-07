@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * @author Minecraftschurli

@@ -1,9 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api;
 
 import com.google.gson.*;
-import net.minecraft.item.*;
 import net.minecraft.nbt.*;
-import net.minecraft.util.math.*;
 
 import java.util.Map;
 

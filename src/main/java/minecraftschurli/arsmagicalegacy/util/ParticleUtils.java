@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import minecraftschurli.arsmagicalegacy.objects.particle.*;
-import net.minecraft.particles.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.RegistryObject;
 
 public class ParticleUtils {
     public static float redFromColor(int color) {

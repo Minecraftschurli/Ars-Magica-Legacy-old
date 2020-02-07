@@ -1,21 +1,29 @@
 package minecraftschurli.arsmagicalegacy.objects.fluid;
 
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.block.*;
-import net.minecraft.fluid.*;
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
-import net.minecraft.state.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fluids.*;
+import minecraftschurli.arsmagicalegacy.init.ModFluids;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LecternBlock;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.IFluidState;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.LecternTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction8;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 import java.util.*;
-import java.util.concurrent.atomic.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @author Minecraftschurli

@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.capabilities.ResearchStorage;
-import minecraftschurli.arsmagicalegacy.worldgen.features.AMFlowerFeature;
-import minecraftschurli.arsmagicalegacy.worldgen.features.DesertNova;
 import minecraftschurli.arsmagicalegacy.worldgen.features.MoonstoneMeteor;
 import minecraftschurli.arsmagicalegacy.worldgen.features.SunstoneOre;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;

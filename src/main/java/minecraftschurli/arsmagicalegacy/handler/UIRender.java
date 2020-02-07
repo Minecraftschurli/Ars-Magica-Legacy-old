@@ -3,10 +3,6 @@ package minecraftschurli.arsmagicalegacy.handler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.api.capability.IBurnoutStorage;
-import minecraftschurli.arsmagicalegacy.api.capability.IManaStorage;
-import minecraftschurli.arsmagicalegacy.capabilities.BurnoutCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.ManaCapability;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.client.Minecraft;
@@ -21,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;

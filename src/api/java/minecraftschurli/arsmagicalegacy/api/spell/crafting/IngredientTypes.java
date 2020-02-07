@@ -1,9 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundNBT;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Registry for all {@link ISpellIngredient} deserializers

@@ -3,9 +3,7 @@ package minecraftschurli.arsmagicalegacy.data;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.*;
-import net.minecraft.data.*;
-import net.minecraft.state.properties.RailShape;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.*;
 
 import javax.annotation.Nonnull;

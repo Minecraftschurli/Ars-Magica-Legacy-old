@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.fluid.*;
-import net.minecraft.block.*;
-import net.minecraft.block.material.*;
-import net.minecraft.fluid.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraftforge.fluids.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.objects.fluid.LiquidEssenceFluid;
+import net.minecraft.block.Block;
+import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.block.material.Material;
+import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.*;
 

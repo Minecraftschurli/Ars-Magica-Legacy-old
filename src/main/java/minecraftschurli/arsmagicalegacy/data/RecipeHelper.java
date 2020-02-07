@@ -1,11 +1,15 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import net.minecraft.advancements.criterion.*;
-import net.minecraft.data.*;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.*;
-import net.minecraft.tags.*;
-import net.minecraft.util.*;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.data.CookingRecipeBuilder;
+import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.IItemProvider;
 
 /**
  * @author Minecraftschurli

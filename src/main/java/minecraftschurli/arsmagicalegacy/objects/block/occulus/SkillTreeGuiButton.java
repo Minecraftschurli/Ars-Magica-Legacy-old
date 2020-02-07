@@ -1,11 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.client.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
 
 public class SkillTreeGuiButton extends Button {
 

@@ -2,12 +2,12 @@ package minecraftschurli.arsmagicalegacy.data.loot;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.block.*;
-import net.minecraft.data.loot.*;
-import net.minecraft.item.*;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.block.Block;
+import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTables;
 

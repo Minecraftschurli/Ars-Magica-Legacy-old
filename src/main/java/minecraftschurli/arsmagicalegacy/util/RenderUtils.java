@@ -1,19 +1,19 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sun.javafx.geom.*;
-import net.minecraft.block.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.vertex.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.world.*;
-import org.lwjgl.opengl.*;
+import com.sun.javafx.geom.Vec3f;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.Random;
 
 public class RenderUtils {
 

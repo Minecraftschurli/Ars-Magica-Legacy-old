@@ -1,16 +1,17 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.data.lang.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.data.lang.AMLEnglishLanguageProvider;
+import minecraftschurli.arsmagicalegacy.data.lang.AMLGermanLanguageProvider;
 import minecraftschurli.arsmagicalegacy.data.loot.AMLLootTableProvider;
 import minecraftschurli.arsmagicalegacy.data.tags.AMLBlockTagsProvider;
 import minecraftschurli.arsmagicalegacy.data.tags.AMLFluidTagsProvider;
 import minecraftschurli.arsmagicalegacy.data.tags.AMLItemTagsProvider;
-import net.minecraft.data.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 /**
  * @author Minecraftschurli

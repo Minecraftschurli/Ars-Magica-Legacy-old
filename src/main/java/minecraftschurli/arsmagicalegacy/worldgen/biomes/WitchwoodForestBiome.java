@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.worldgen.biomes;
 
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModFeatures;
-import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;

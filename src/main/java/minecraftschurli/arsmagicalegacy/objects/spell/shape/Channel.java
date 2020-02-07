@@ -9,7 +9,6 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceType;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Attract;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Repel;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Telekinesis;
