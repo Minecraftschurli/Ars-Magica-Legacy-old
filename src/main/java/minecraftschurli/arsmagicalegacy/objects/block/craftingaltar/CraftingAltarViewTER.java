@@ -8,6 +8,9 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.tileentity.*;
 import net.minecraft.item.*;
@@ -22,13 +25,13 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         super(rendererDispatcherIn);
     }
 
-    private void doRender(CraftingAltarTileEntity altar, CraftingAltarViewTileEntity view) {
+    private void doRender(CraftingAltarTileEntity altar, CraftingAltarViewTileEntity view, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn) {
         ItemStack book = altar.getBook();
         SpellIngredientList recipe = altar.getRecipe();
         if (book.isEmpty() || recipe == null)
             return;
-        RenderSystem.pushMatrix();
-        RenderSystem.scaled(0.55, 0.55, 0.55);
+        matrixStackIn.push();
+        matrixStackIn.scale(0.55f, 0.55f, 0.55f);
         if (!altar.hasEnoughPower()) {
             //drawNameplate(view, new TranslationTextComponent(ArsMagicaLegacy.MODID+".altar.lowpower").getFormattedText(), -0.5, -0.4, -0.5, 32);
         } else {
@@ -37,8 +40,8 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
                 return;
             //drawNameplate(view, ingredient.getTooltip().getFormattedText(), -0.5, -0.4, -0.5, 32);
         }
-        RenderSystem.popMatrix();
-        RenderSystem.rotatef(view.itemRotation, 0.0F, 1.0F, 0.0F);
+        matrixStackIn.pop();
+        matrixStackIn.rotate(new Quaternion(new Vector3f(0,1,0), view.itemRotation, true));
         //RenderSystem.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
         ItemStack stack;
         if (!altar.hasEnoughPower()) {
@@ -60,7 +63,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             }
         }
         //noinspection deprecation
-        //Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+        Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, 0,0, matrixStackIn, bufferIn);
     }
 
     @Override
@@ -70,14 +73,14 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             tileEntityIn.itemRotation = 0;
         CraftingAltarTileEntity altar = tileEntityIn.getAltar();
         if (altar != null && altar.isMultiblockFormed()) {
-            RenderSystem.pushMatrix();
-            RenderSystem.translated(0.5, 0.5, 0.5);
+            matrixStackIn.push();
+            matrixStackIn.translate(0.5, 0.5, 0.5);
             //setLightmapDisabled(true);
 
-            doRender(altar, tileEntityIn);
+            doRender(altar, tileEntityIn, matrixStackIn, bufferIn);
 
             //setLightmapDisabled(false);
-            RenderSystem.popMatrix();
+            matrixStackIn.pop();
         }
     }
 }
