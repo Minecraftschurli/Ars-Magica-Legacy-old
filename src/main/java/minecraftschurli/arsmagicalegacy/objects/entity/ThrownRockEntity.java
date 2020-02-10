@@ -1,28 +1,20 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
-import net.minecraft.util.DamageSource;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.network.datasync.*;
+import net.minecraft.network.play.server.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -220,8 +212,8 @@ public class ThrownRockEntity extends Entity {
         //vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
         vec3d1 = new Vec3d(movingobjectposition.getHitVec().x, movingobjectposition.getHitVec().y, movingobjectposition.getHitVec().z);
         Entity entity = null;
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1.0D, 1.0D, 1.0D));
-        double d = 0.0D;
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1, 1, 1));
+        double d = 0;
         for (Entity value : list) {
             if (!value.canBeCollidedWith() || value.isEntityEqual(world.getEntityByID(getDataManager().get(OWNER))) && ticksExisted < 25) {
                 continue;
@@ -233,7 +225,7 @@ public class ThrownRockEntity extends Entity {
                 continue;
             }
             double d1 = vec3d.distanceTo(movingobjectposition1.getHitVec());
-            if (d1 < d || d == 0.0D) {
+            if (d1 < d || d == 0) {
                 entity = value;
                 d = d1;
             }

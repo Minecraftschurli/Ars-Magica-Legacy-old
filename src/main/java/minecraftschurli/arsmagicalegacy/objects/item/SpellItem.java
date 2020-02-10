@@ -1,32 +1,21 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.util.EntityUtils;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.client.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.api.distmarker.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -95,7 +84,7 @@ public class SpellItem extends Item implements ISpellItem {
             }
         }
 
-        float factor = 1.0F;
+        float factor = 1;
         float interpPitch = caster.prevRotationPitch + (caster.rotationPitch - caster.prevRotationPitch) * factor;
         float interpYaw = caster.prevRotationYaw + (caster.rotationYaw - caster.prevRotationYaw) * factor;
         double interpPosX = caster.prevPosX + (caster.getPosX() - caster.prevPosX) * factor;

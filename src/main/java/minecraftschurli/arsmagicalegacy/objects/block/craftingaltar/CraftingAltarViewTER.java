@@ -1,19 +1,13 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Quaternion;
-import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.matrix.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraft.block.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.tileentity.*;
+import net.minecraft.item.*;
 
 /**
  * @author Minecraftschurli
@@ -41,7 +35,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         }
         matrixStackIn.pop();
         matrixStackIn.rotate(new Quaternion(new Vector3f(0,1,0), view.itemRotation, true));
-        //RenderSystem.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1.0F, 0.0F, 0.0F);
+        //RenderSystem.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1, 0, 0);
         ItemStack stack;
         if (!altar.hasEnoughPower()) {
             stack = new ItemStack(Blocks.BARRIER);

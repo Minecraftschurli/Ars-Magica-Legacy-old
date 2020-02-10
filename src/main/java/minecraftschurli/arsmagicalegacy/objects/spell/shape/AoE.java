@@ -1,31 +1,21 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModParticles;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
-import minecraftschurli.arsmagicalegacy.util.ParticleUtils;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.entity.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.boss.dragon.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 public class AoE extends SpellShape {
     @Override
@@ -125,7 +115,7 @@ public class AoE extends SpellShape {
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
             for (SpellModifier mod : mods) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
         }
-        for (int i = 0; i < 360; i += /*ArsMagica2.config.FullGFX() ? 20 : ArsMagica2.config.LowGFX() ? 40 : */60) ParticleUtils.addParticle(world, ModParticles.LENS_FLARE, color, x, y, z);
+        for (int i = 0; i < 360; i += /*ArsMagica2.config.FullGFX() ? 20 : ArsMagica2.config.LowGFX() ? 40 : */60) RenderUtils.addParticle(world, ModParticles.LENS_FLARE, color, x, y, z);
     }
 
     private SpellCastResult applyStageHorizontal(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, int gravityMagnitude, boolean giveXP) {

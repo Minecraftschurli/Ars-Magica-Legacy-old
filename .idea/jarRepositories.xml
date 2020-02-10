@@ -81,5 +81,10 @@
       <option name="name" value="MinecraftschurliMaven" />
       <option name="url" value="http://84.112.21.159/archiva/repository/internal/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="MinecraftschurliMaven" />
+      <option name="name" value="MinecraftschurliMaven" />
+      <option name="url" value="http://minecraftschurli.ddns.net/archiva/repository/internal" />
+    </remote-repository>
   </component>
 </project>

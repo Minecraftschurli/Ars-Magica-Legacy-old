@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import org.lwjgl.opengl.GL11;
+import minecraftschurli.arsmagicalegacy.*;
+import net.minecraft.client.gui.screen.inventory.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
+import org.lwjgl.opengl.*;
 
 /**
  * @author Minecraftschurli
@@ -41,7 +41,7 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         minecraft.getTextureManager().bindTexture(background);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glColor4f(1, 1, 1, 1);
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
         blit(l, i1, 0, 0, xSize, ySize);
@@ -74,7 +74,7 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
         int x = 16;
         int y = 3 + bookActiveSlot * 18;
         minecraft.getTextureManager().bindTexture(extras);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glColor4f(1, 1, 1, 1);
         blit(x, y, 0, 0, 20, 20);
 
         //special slot
@@ -83,7 +83,7 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
         y = 229;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+        GL11.glColor4f(1, 1, 1, 0.5F);
         blit(x, y, 0, 20, 16, 16);
         GL11.glDisable(GL11.GL_BLEND);
     }

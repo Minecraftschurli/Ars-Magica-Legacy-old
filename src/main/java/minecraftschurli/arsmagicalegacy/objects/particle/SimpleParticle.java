@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
+import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.particle.*;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
-
-import static minecraftschurli.arsmagicalegacy.util.ParticleUtils.*;
+import javax.annotation.*;
 
 public class SimpleParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite animatedSprite;
@@ -141,9 +140,9 @@ public class SimpleParticle extends SpriteTexturedParticle {
     }
 
     public void setColor(int color){
-        particleRed = redFromColor(color);
-        particleGreen = greenFromColor(color);
-        particleBlue = blueFromColor(color);
+        particleRed = RenderUtils.getRed(color);
+        particleGreen = RenderUtils.getGreen(color);
+        particleBlue = RenderUtils.getBlue(color);
     }
 
     public void setColor(float r, float g, float b) {
