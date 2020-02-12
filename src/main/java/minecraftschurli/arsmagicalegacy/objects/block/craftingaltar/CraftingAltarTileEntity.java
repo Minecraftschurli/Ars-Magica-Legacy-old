@@ -362,24 +362,24 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
-        compound.putBoolean("has_lectern", lecternPos != null);
         if (lecternPos != null) 
             compound.put("lectern", NBTUtil.writeBlockPos(lecternPos));
         compound.putInt("craft_state", currentStage);
         compound.putBoolean("power_flag", hasEnoughPower());
-        compound.put("book", book.write(new CompoundNBT()));
+        if (book != null)
+            compound.put("book", book.write(new CompoundNBT()));
         return compound;
     }
 
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
-        if (compound.getBoolean("has_lectern")) {
+        if (compound.contains("lectern"))
             lecternPos = NBTUtil.readBlockPos(compound.getCompound("lectern"));
-        }
         this.currentStage = compound.getInt("craft_state");
         this.powerFlag = compound.getBoolean("power_flag");
-        this.book = ItemStack.read(compound.getCompound("book"));
+        if (compound.contains("book"))
+            this.book = ItemStack.read(compound.getCompound("book"));
     }
 
     @Nonnull
