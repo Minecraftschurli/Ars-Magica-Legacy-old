@@ -1,21 +1,38 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.sun.javafx.geom.Vec3f;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import org.lwjgl.opengl.GL11;
+import com.mojang.blaze3d.systems.*;
+import com.sun.javafx.geom.*;
+import minecraftschurli.arsmagicalegacy.objects.particle.*;
+import net.minecraft.block.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.particles.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.world.*;
+import net.minecraftforge.fml.*;
+import org.lwjgl.opengl.*;
 
-import java.util.Random;
+import java.util.*;
 
 public class RenderUtils {
+    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
+        world.addParticle(new SimpleParticleData(type.get(), r, g, b, 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
+    }
+
+    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, int color, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
+        world.addParticle(new SimpleParticleData(type.get(), getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
+    }
+
+    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z) {
+        world.addParticle(new SimpleParticleData(type.get(), r, g, b, 1), x, y + 1.5, z, 0, 0, 0);
+    }
+
+    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, int color, double x, double y, double z) {
+        world.addParticle(new SimpleParticleData(type.get(), getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
+    }
 
     private static Random rand = new Random();
 
@@ -103,14 +120,13 @@ public class RenderUtils {
 
     public static void drawTextInWorldAtOffset(String text, double x, double y, double z, int color) {
         FontRenderer fontrenderer = Minecraft.getInstance().fontRenderer;
-        float f = 1.6F;
-        float f1 = 0.016666668F * f;
+        float f = 0.0104166675f;
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);
-        GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-Minecraft.getInstance().getRenderManager().getCameraOrientation().getY(), 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(Minecraft.getInstance().getRenderManager().getCameraOrientation().getX(), 1.0F, 0.0F, 0.0F);
-        GL11.glScalef(-f1, -f1, f1);
+        GL11.glNormal3f(0, 1, 0);
+        GL11.glRotatef(-Minecraft.getInstance().getRenderManager().getCameraOrientation().getY(), 0, 1, 0);
+        GL11.glRotatef(Minecraft.getInstance().getRenderManager().getCameraOrientation().getX(), 1, 0, 0);
+        GL11.glScalef(-f, -f, f);
         GL11.glScalef(0.5f, 0.5f, 0.5f);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDepthMask(false);
@@ -123,10 +139,10 @@ public class RenderUtils {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
         int j = fontrenderer.getStringWidth(text) / 2;
-        tessellator.getBuffer().pos(-j - 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
-        tessellator.getBuffer().pos(-j - 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
-        tessellator.getBuffer().pos(j + 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
-        tessellator.getBuffer().pos(j + 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.75F).endVertex();
+        tessellator.getBuffer().pos(-j - 1, -1 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(-j - 1, 8 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(j + 1, 8 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(j + 1, -1 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
         tessellator.draw();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, b0, 553648127);
@@ -135,7 +151,7 @@ public class RenderUtils {
         fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, b0, -1);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glColor4f(1, 1, 1, 1);
         GL11.glPopMatrix();
     }
 

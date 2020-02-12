@@ -1,40 +1,29 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.google.common.collect.Lists;
-import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.NBTUtils;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
+import com.google.common.collect.*;
+import javafx.util.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.capability.*;
+import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
-import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import javax.annotation.*;
+import java.util.*;
 
 public class SpellUtils {
 
@@ -70,7 +59,6 @@ public class SpellUtils {
             looting += countModifiers(SpellModifiers.FORTUNE_LEVEL, constructed);
             silkTouch += countModifiers(SpellModifiers.SILKTOUCH_LEVEL, constructed);
         }
-
         /*AMEnchantmentHelper.fortuneStack(stack, looting);
         AMEnchantmentHelper.lootingStack(stack, looting);
         AMEnchantmentHelper.silkTouchStack(stack, silkTouch);*/
@@ -82,9 +70,7 @@ public class SpellUtils {
             factor = (float) (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) < 20 ?
                 0.5 + (0.5 * (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) / 19)) :
                 1.0 + (1.0 * (CapabilityHelper.getCurrentLevel((PlayerEntity) caster) - 20) / 79));
-        } else {
-            factor = 1;
-        }
+        } else factor = 1;
         return damage * factor;
     }
 
@@ -122,19 +108,16 @@ public class SpellUtils {
         if (damagesource.getTrueSource() != null) {
             if (damagesource.getTrueSource() instanceof LivingEntity) {
                 LivingEntity source = (LivingEntity) damagesource.getTrueSource();
-                /*if ((source instanceof EntityLightMage || source instanceof EntityDarkMage) && target.getClass() == EntityCreeper.class){
+                if (/*(source instanceof EntityLightMage || source instanceof EntityDarkMage) && */target.getClass() == CreeperEntity.class){
                     return false;
-                }else if (source instanceof EntityLightMage && target instanceof EntityLightMage){
-                    return false;
-                }else if (source instanceof EntityDarkMage && target instanceof EntityDarkMage){
-                    return false;
-                }else*/
-                if (source instanceof PlayerEntity && target instanceof PlayerEntity && !target.world.isRemote && (!((ServerPlayerEntity) target).server.isPVPEnabled() || ((PlayerEntity) target).isCreative())) {
-                    return false;
-                }
-
-                /*if (source.isPotionActive(ModEffects.FURY))
-                    magnitude += 4;*/
+//                }else if (source instanceof EntityLightMage && target instanceof EntityLightMage){
+//                    return false;
+//                }else if (source instanceof EntityDarkMage && target instanceof EntityDarkMage){
+//                    return false;
+                }else
+                if (source instanceof PlayerEntity && target instanceof PlayerEntity && !target.world.isRemote && (!((ServerPlayerEntity) target).server.isPVPEnabled() || ((PlayerEntity) target).isCreative())) return false;
+                if (source.isPotionActive(ModEffects.FURY.get()))
+                    magnitude += 4;
             }
 //TODO @minecraftschurli
             /*if (damagesource.getTrueSource() instanceof PlayerEntity){
@@ -162,9 +145,6 @@ public class SpellUtils {
         }*/
 //TODO @minecraftschurli
         //magnitude *= ArsMagica2.config.getDamageMultiplier();
-
-//		ItemStack oldItemStack = null;
-
         return target.attackEntityFrom(damagesource, magnitude);
     }
 
@@ -282,22 +262,16 @@ public class SpellUtils {
 
         if (spellIn.getTag() == null)
             return spellIn;
-        if (NBTUtils.getAM2Tag(spellIn.getTag()).getInt("CurrentShapeGroup") == -1) {
-            return spellIn;
-        }
+        if (NBTUtils.getAM2Tag(spellIn.getTag()).getInt("CurrentShapeGroup") == -1) return spellIn;
         ItemStack newStack = spellIn.copy();
-        if (spellIn.getItem() != ModItems.SPELL.get()) {
-            newStack = new ItemStack(ModItems.SPELL.get(), newStack.getCount(), newStack.getTag());
-        }
+        if (spellIn.getItem() != ModItems.SPELL.get()) newStack = new ItemStack(ModItems.SPELL.get(), newStack.getCount(), newStack.getTag());
         CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getOrCreateTag()), "ShapeGroups").getCompound(NBTUtils.getAM2Tag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
         int stageNum = numStages(newStack);
         for (int i = 0; i < stageNum; i++) {
             ListNBT list = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(newStack.getTag()), STAGE + i).copy();
             if (i == 0 && !group.getBoolean("LastWasShape")) {
                 ListNBT newList = NBTUtils.addCompoundList(group, "Stage_" + group.getInt("StageNum")).copy();
-                for (int j = 0; j < list.size(); j++) {
-                    newList.add(list.getCompound(j));
-                }
+                for (int j = 0; j < list.size(); j++) newList.add(list.getCompound(j));
                 list = newList;
             }
             // (group.getBoolean("LastWasShape") ? -1 : 0) +
@@ -331,7 +305,7 @@ public class SpellUtils {
         }*/
         try {
             float cost = 0;
-            float modMultiplier = 1.0F;
+            float modMultiplier = 1;
             for (int j = 0; j < NBTUtils.getAM2Tag(mergedStack.getTag()).getInt("StageNum"); j++) {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(mergedStack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
@@ -450,9 +424,6 @@ public class SpellUtils {
         burnoutCost = post.burnout;
         result = post.castResult;
 
-        //SUCCESS is the default return
-        //SUCCESS_REDUCE_MANA is basically there because i don't know where to
-        //MALFORMED_SPELL_STACK means we reached the end of the spell
         if (consumeMBR && !((PlayerEntity) caster).isCreative()) {
             if (result == SpellCastResult.SUCCESS || result == SpellCastResult.SUCCESS_REDUCE_MANA || result == SpellCastResult.MALFORMED_SPELL_STACK) {
                 CapabilityHelper.use(caster, manaCost, burnoutCost);
@@ -759,7 +730,7 @@ public class SpellUtils {
 
         for (SpellComponent component : components) {
 
-//			if (SkillTreeManager.instance.isSkillDisabled(component))
+//			if (StoryManager.INSTANCE.isSkillDisabled(component))
 //				continue;
 
             if (component.applyEffectEntity(stack, world, caster, target)) {

@@ -1,24 +1,20 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.entity.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.lang.reflect.Method;
-import java.util.List;
+import java.lang.reflect.*;
+import java.util.*;
 
-public class EntityUtils {
-    //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
+public final class EntityUtils {
+//    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
 //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedAITasks = new HashMap<>();
     private static final String isSummonKey = "AM2_Entity_Is_Made_Summon";
-    //	private static final String summonEntityIDs = "AM2_Summon_Entity_IDs";
+    private static final String summonEntityIDs = "AM2_Summon_Entity_IDs";
     private static final String summonDurationKey = "AM2_Summon_Duration";
     private static final String summonOwnerKey = "AM2_Summon_Owner";
     private static final String summonTileXKey = "AM2_Summon_Tile_X";
@@ -41,27 +37,24 @@ public class EntityUtils {
     public static Entity getPointedEntity(World world, LivingEntity entityplayer, double range, double collideRadius, boolean nonCollide, boolean targetWater) {
         Entity pointedEntity = null;
         double d = range;
-        Vec3d vec3d = new Vec3d(entityplayer.getPosX(), entityplayer.getPosY() + entityplayer.getEyeHeight(), entityplayer.getPosZ());
-        Vec3d vec3d1 = entityplayer.getLookVec();
-        double f1 = collideRadius;
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getBoundingBox().grow(vec3d1.getX() * d, vec3d1.getY() * d, vec3d1.getZ() * d).expand(f1, f1, f1));
-        double d2 = 0.0D;
+        Vec3d vec = new Vec3d(entityplayer.getPosX(), entityplayer.getPosY() + entityplayer.getEyeHeight(), entityplayer.getPosZ());
+        Vec3d lookVec = entityplayer.getLookVec();
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getBoundingBox().grow(lookVec.getX() * d, lookVec.getY() * d, lookVec.getZ() * d).expand(collideRadius, collideRadius, collideRadius));
+        double d0 = 0;
         for (Entity entity : list) {
             RayTraceResult mop = null;//world.rayTraceBlocks(new Vec3d(entityplayer.getPosX(), entityplayer.getPosY() + entityplayer.getEyeHeight(), entityplayer.getPosZ()), new Vec3d(entity.getPosX(), entity.getPosY() + entity.getEyeHeight(), entity.getPosZ()), targetWater, !targetWater, false);
             if ((entity.canBeCollidedWith() || nonCollide) && mop == null) {
                 float f2 = Math.max(0.8F, entity.getCollisionBorderSize());
                 AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(f2, f2, f2);
-                RayTraceResult movingobjectposition = null;//axisalignedbb.calculateIntercept(vec3d, vec3d2);
-                if (axisalignedbb.contains(vec3d)) {
-                    if ((0.0D < d2) || (d2 == 0.0D)) {
-                        pointedEntity = entity;
-                        d2 = 0.0D;
-                    }
+                RayTraceResult movingobjectposition = null;//axisalignedbb.calculateIntercept(vec, vec3d2);
+                if (axisalignedbb.contains(vec)) {
+                    pointedEntity = entity;
+                    d0 = 0;
                 } else if (movingobjectposition != null) {
-                    double d3 = vec3d.distanceTo(movingobjectposition.getHitVec());
-                    if ((d3 < d2) || (d2 == 0.0D)) {
+                    double d3 = vec.distanceTo(movingobjectposition.getHitVec());
+                    if ((d3 < d0) || (d0 == 0)) {
                         pointedEntity = entity;
-                        d2 = d3;
+                        d0 = d3;
                     }
                 }
             }
@@ -189,10 +182,10 @@ public class EntityUtils {
         if (!damageSourceIn.isUnblockable()) {
             Vec3d vec3d = damageSourceIn.getDamageLocation();
             if (vec3d != null) {
-                Vec3d vec3d1 = living.getLook(1.0F);
+                Vec3d vec3d1 = living.getLook(1);
                 Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(living.getPosX(), living.getPosY(), living.getPosZ())).normalize();
-                vec3d2 = new Vec3d(vec3d2.getX(), 0.0D, vec3d2.getZ());
-                return vec3d2.dotProduct(vec3d1) < 0.0D;
+                vec3d2 = new Vec3d(vec3d2.getX(), 0, vec3d2.getZ());
+                return vec3d2.dotProduct(vec3d1) < 0;
             }
         }
         return false;
@@ -201,7 +194,7 @@ public class EntityUtils {
     public static void setSize(LivingEntity entityliving, float width, float height) {
         if (entityliving.getWidth() == width && entityliving.getHeight() == height) return;
         if (ptrSetSize == null) try {
-//            ptrSetSize = ReflectionHelper.findMethod(Entity.class, entityliving, new String[]{"func_70105_a", "setSize"}, Float.TYPE, Float.TYPE);
+//            ptrSetSize = ObfuscationReflectionHelper.findMethod(Entity.class, entityliving, new String[]{"func_70105_a", "setSize"});
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -222,27 +215,27 @@ public class EntityUtils {
         float curHeight = floatIn;
 //        if (entityIn instanceof PlayerEntity && EntityExtension.For((LivingEntity) entityIn).isInverted()) {
 //            PlayerEntity player = (PlayerEntity) entityIn;
-//            curHeight = player.height - floatIn - 0.1f;
+//            curHeight = player.getHeight() - floatIn - 0.1f;
 //        }
 //        if (entityIn instanceof LivingEntity && EntityExtension.For((LivingEntity) entityIn).shrinkAmount != 0) curHeight *= EntityExtension.For((LivingEntity) entityIn).shrinkAmount;
         return curHeight;
     }
 
-    public static boolean correctMouvement(float strafe, float forward, float friction, Entity entityIn) {
-//        if (entityIn instanceof PlayerEntity && EntityExtension.For((LivingEntity) entityIn).isInverted()) {
-//            float f = strafe * strafe + forward * forward;
-//            if (f >= 1.0E-4F) {
-//                f = MathHelper.sqrt(f);
-//                if (f < 1.0F) f = 1.0F;
-//                f = friction / f;
-//                strafe = strafe * f;
-//                forward = forward * f;
-//                float f1 = MathHelper.sin(-entityIn.rotationYaw * 0.017453292F);
-//                float f2 = MathHelper.cos(-entityIn.rotationYaw * 0.017453292F);
-//                entityIn.setMotion(entityIn.getMotion().getX() + strafe * f2 - forward * f1, entityIn.getMotion().getY(), entityIn.getMotion().getZ() + forward * f2 + strafe * f1);
-//            }
-//            return true;
-//        }
+    public static boolean correctMovement(float strafe, float forward, float friction, Entity entityIn) {
+        if (entityIn instanceof PlayerEntity/* && EntityExtension.For((LivingEntity) entityIn).isInverted()*/) {
+            float f = strafe * strafe + forward * forward;
+            if (f >= 1.0E-4F) {
+                f = MathHelper.sqrt(f);
+                if (f < 1) f = 1;
+                f = friction / f;
+                strafe = strafe * f;
+                forward = forward * f;
+                float f1 = MathHelper.sin(-entityIn.rotationYaw * 0.017453292F);
+                float f2 = MathHelper.cos(-entityIn.rotationYaw * 0.017453292F);
+                entityIn.setMotion(entityIn.getMotion().getX() + strafe * f2 - forward * f1, entityIn.getMotion().getY(), entityIn.getMotion().getZ() + forward * f2 + strafe * f1);
+            }
+            return true;
+        }
         return false;
     }
 

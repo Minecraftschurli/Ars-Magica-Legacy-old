@@ -1,34 +1,25 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
-import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.api.network.LearnSkillPacket;
-import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import com.mojang.blaze3d.systems.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.capability.*;
+import minecraftschurli.arsmagicalegacy.api.network.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.screen.*;
+import net.minecraft.client.gui.widget.*;
+import net.minecraft.client.gui.widget.button.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * @author Minecraftschurli
@@ -198,7 +189,7 @@ public class OcculusScreen extends Screen {
             for (Skill s : skills) {
                 if (s.getPoint() == null || (!s.getPoint().canRender() && !CapabilityHelper.knows(player, s)))
                     continue;
-                RenderSystem.color4f(1, 1, 1, 1.0F);
+                RenderSystem.color4f(1, 1, 1, 1);
                 boolean hasPrereq = CapabilityHelper.canLearn(player, s) || CapabilityHelper.knows(player, s);
                 int offsetX = calcXOffset(posX, s);
                 int offsetY = calcYOffset(posY, s);
@@ -246,7 +237,7 @@ public class OcculusScreen extends Screen {
                         minV + (yStartMod / renderSize * spriteYSize),
                         maxU - (xEndMod / renderSize * spriteXSize),
                         maxV - (yEndMod / renderSize * spriteYSize));
-                RenderSystem.color4f(1, 1, 1, 1.0F);
+                RenderSystem.color4f(1, 1, 1, 1);
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID())){
                     sprite = AMGuiIcons.padlock;
                     spriteXSize = maxU - minU;
@@ -281,7 +272,7 @@ public class OcculusScreen extends Screen {
                             minV + (yStartMod / 16 * spriteYSize),
                             maxU - (xEndMod / 16 * spriteXSize),
                             maxV - (yEndMod / 16 * spriteYSize));
-                    RenderSystem.color4f(1, 1, 1, 1.0F);
+                    RenderSystem.color4f(1, 1, 1, 1);
                 }*/
 
             }
@@ -316,7 +307,7 @@ public class OcculusScreen extends Screen {
                     flag = true;
                     hoverItem = s;
                     RenderHelper.disableStandardItemLighting();
-                    RenderSystem.color3f(1.0F, 1.0F, 1.0F);
+                    RenderSystem.color3f(1, 1, 1);
                 }
                 if (!flag) {
                     hoverItem = null;
