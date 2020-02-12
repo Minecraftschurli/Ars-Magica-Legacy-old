@@ -1,29 +1,20 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.MathUtils;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.boss.dragon.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 public class Beam extends SpellShape {
 //    private final HashMap<Integer, AMBeam> beams;
@@ -65,10 +56,10 @@ public class Beam extends SpellShape {
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
         RayTraceResult mop = item.getMovingObjectPosition(caster, world, range, true, targetWater);
         SpellCastResult result = null;
-        Vec3d beamHitVec = null;
-        Vec3d spellVec = null;
+        Vec3d beamHitVec;
+        Vec3d spellVec;
         if (mop == null) {
-            beamHitVec = MathUtils.extrapolateEntityLook(caster, range);
+            beamHitVec = EntityUtils.extrapolateEntityLook(caster, range);
             spellVec = beamHitVec;
         } else if (mop.getType() == RayTraceResult.Type.ENTITY) {
             if (shouldApplyEffectEntity && !world.isRemote) {
@@ -79,7 +70,7 @@ public class Beam extends SpellShape {
                 if (result != SpellCastResult.SUCCESS) return result;
             }
             float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ()));
-            beamHitVec = MathUtils.extrapolateEntityLook(caster, rng);
+            beamHitVec = EntityUtils.extrapolateEntityLook(caster, rng);
             spellVec = beamHitVec;
         } else {
             if (shouldApplyEffectBlock && !world.isRemote) {
@@ -98,7 +89,7 @@ public class Beam extends SpellShape {
             int color = -1;
             if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
                 List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
-//                for (SpellModifier mod : mods) if (mod instanceof Colour) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTagCompound());
+                for (SpellModifier mod : mods) if (mod instanceof Color) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
             }
 //            if (beam != null){
 //                if (!beam.isAlive() || caster.getDistanceSq(beam.getPosX(), beam.getPosY(), beam.getPosZ()) > 4) beams.remove(caster.getEntityId());
