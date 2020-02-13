@@ -21,6 +21,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -130,6 +132,7 @@ public final class ArsMagicaLegacy {
                 (stack, tint) -> tint == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1,
                 ModItems.INFINITY_ORB.get()
         );
+        event.getItemColors().register((stack, tint) -> tint > 0 ? -1 : PotionUtils.getColor(stack), ModItems.POTION_BUNDLE.get());
     }
 
     private void onRegistrySetupFinish(final RegistryEvent.NewRegistry event) {
