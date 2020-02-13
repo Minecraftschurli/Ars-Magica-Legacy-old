@@ -1,39 +1,66 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.*;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nonnull;
 
 public class PotionBundleItem extends Item {
-    private Potion potion;
-    public static final String KEY = "uses";
+    public static final String USES_KEY = "uses";
+    public static final String POTION_KEY = "potion";
 
-    public PotionBundleItem(Properties properties, Potion potion) {
+    public PotionBundleItem(Properties properties) {
         super(properties);
-        this.potion = potion;
     }
 
     @Override
-    public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
-        stack.getTag().putInt(KEY, 3);
+    public void onCreated(@Nonnull ItemStack stack, @Nonnull World worldIn, @Nonnull PlayerEntity playerIn) {
+        stack.getOrCreateTag().putInt(USES_KEY, 3);
     }
 
+    @Nonnull
     @Override
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAction(@Nonnull ItemStack stack) {
         return UseAction.DRINK;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if(worldIn.isRemote || !playerIn.getHeldItem(handIn).hasTag() || !playerIn.getHeldItem(handIn).getTag().contains(KEY)) return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
-        else {
-            for(EffectInstance effect : potion.getEffects()) playerIn.addPotionEffect(effect);
-            playerIn.getHeldItem(handIn).getTag().putInt(KEY, playerIn.getHeldItem(handIn).getTag().getInt(KEY) - 1);
-            if(playerIn.getHeldItem(handIn).getTag().getInt(KEY) == 0) playerIn.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
-            else if(!playerIn.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE))) playerIn.dropItem(new ItemStack(Items.GLASS_BOTTLE), true);
-        }
+    public int getUseDuration(@Nonnull ItemStack stack) {
+        return 32;
+    }
+
+    @Nonnull
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, @Nonnull PlayerEntity playerIn, @Nonnull Hand handIn) {
+        playerIn.setActiveHand(handIn);
         return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull LivingEntity entity) {
+        //noinspection ConstantConditions
+        if(world.isRemote || !(entity instanceof PlayerEntity) || !entity.getActiveItemStack().hasTag() || !entity.getActiveItemStack().getTag().contains(USES_KEY))
+            return stack;
+        CompoundNBT tag = entity.getActiveItemStack().getTag();
+        Potion potion = ForgeRegistries.POTION_TYPES.getValue(ResourceLocation.tryCreate(tag.getString(POTION_KEY)));
+        if (potion == null)
+            return stack;
+        for(EffectInstance effect : potion.getEffects()) {
+            entity.addPotionEffect(effect);
+        }
+        tag.putInt(USES_KEY, tag.getInt(USES_KEY) - 1);
+        if(!((PlayerEntity) entity).addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE)))
+            InventoryHelper.spawnItemStack(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), new ItemStack(Items.GLASS_BOTTLE));
+        if(tag.getInt(USES_KEY) == 0)
+            return new ItemStack(Items.GLASS_BOTTLE);
+        return stack;
     }
 }

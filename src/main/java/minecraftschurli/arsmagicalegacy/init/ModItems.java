@@ -11,12 +11,14 @@ import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraftforge.fml.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
+@SuppressWarnings("unused")
 public final class ModItems implements IInit {
     public static final Item.Properties ITEM_64 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64);
     public static final Item.Properties ITEM_1 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1);
@@ -120,7 +122,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MANA_MARTINI = stackableFoodItem64("mana_martini", new Food.Builder().hunger(0).saturation(0).effect(new EffectInstance(ModEffects.burnout_reduction_effect, 300), 1).build());
     public static final RegistryObject<InscriptionTableUpgradeItem> INSCRIPTION_UPGRADE = ITEMS.register("inscription_upgrade", InscriptionTableUpgradeItem::new);
     public static final RegistryObject<Item> INSCRIPTION_TABLE = ITEMS.register("inscription_table", () -> new BlockItem(ModBlocks.INSCRIPTION_TABLE.get(), ITEM_1) {
-        protected boolean placeBlock(BlockItemUseContext context, BlockState state) {
+        protected boolean placeBlock(BlockItemUseContext context, @Nonnull BlockState state) {
             context.getWorld().setBlockState(context.getPos().offset(context.getPlacementHorizontalFacing().rotateYCCW()), Blocks.AIR.getDefaultState(), 27);
             return super.placeBlock(context, state);
         }
@@ -136,20 +138,18 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = ITEMS.register("battlemage_chestplate", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = ITEMS.register("battlemage_leggings", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_BOOTS = ITEMS.register("battlemage_boots", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
-    public static final RegistryObject<Item> LESSER_MANA_POTION_BUNDLE = ITEMS.register("lesser_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
-    public static final RegistryObject<Item> MANA_POTION_BUNDLE = ITEMS.register("mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
-    public static final RegistryObject<Item> GREATER_MANA_POTION_BUNDLE = ITEMS.register("greater_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
-    public static final RegistryObject<Item> EPIC_MANA_POTION_BUNDLE = ITEMS.register("epic_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
-    public static final RegistryObject<Item> LEGENDARY_MANA_POTION_BUNDLE = ITEMS.register("legendary_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
+    public static final RegistryObject<Item> POTION_BUNDLE = ITEMS.register("potion_bundle", () -> new PotionBundleItem(new Item.Properties().maxStackSize(1).group(ItemGroup.BREWING)));
 
     public static void register() {
     }
 
+    @SuppressWarnings("unchecked")
     private static RegistryObject<Item> stackableBlockItem64(final RegistryObject<? extends Block> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), block.lazyMap(b -> new BlockItem(b, ITEM_64)));
     }
 
+    @SuppressWarnings({"unchecked", "SameParameterValue"})
     private static RegistryObject<Item> blockItem(final RegistryObject<? extends Block> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), block.lazyMap(b -> new BlockItem(b, ITEM_1)));
