@@ -46,6 +46,7 @@ public interface IInit {
         ITEMS.register(modEventBus);
         POTIONS.register(modEventBus);
         BIOMES.register(modEventBus);
+        POTION_TYPES.register(modEventBus);
         ENTITIES.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
         PARTICLE_TYPES.register(modEventBus);
