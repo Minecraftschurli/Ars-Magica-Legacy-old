@@ -12,35 +12,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-public class PotionBundleItem extends Item {
-    public static final String USES_KEY = "uses";
-    public static final String POTION_KEY = "potion";
+public class PotionBundleItem extends PotionItem {
+    public static final String USES_KEY = "Uses";
+    public static final String POTION_KEY = "Potion";
 
     public PotionBundleItem(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public void onCreated(@Nonnull ItemStack stack, @Nonnull World worldIn, @Nonnull PlayerEntity playerIn) {
-        stack.getOrCreateTag().putInt(USES_KEY, 3);
-    }
-
-    @Nonnull
-    @Override
-    public UseAction getUseAction(@Nonnull ItemStack stack) {
-        return UseAction.DRINK;
-    }
-
-    @Override
-    public int getUseDuration(@Nonnull ItemStack stack) {
-        return 32;
-    }
-
-    @Nonnull
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, @Nonnull PlayerEntity playerIn, @Nonnull Hand handIn) {
-        playerIn.setActiveHand(handIn);
-        return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
     @Nonnull
@@ -62,5 +39,18 @@ public class PotionBundleItem extends Item {
         if(tag.getInt(USES_KEY) == 0)
             return new ItemStack(Items.GLASS_BOTTLE);
         return stack;
+    }
+
+    @Override
+    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
+        if (this.isInGroup(group)) {
+            for (Potion potion : ForgeRegistries.POTION_TYPES) {
+                if (potion == Potions.EMPTY)
+                    continue;
+                ItemStack stack = PotionUtils.addPotionToItemStack(new ItemStack(this), potion);
+                stack.getOrCreateTag().putInt(USES_KEY, 3);
+                items.add(stack);
+            }
+        }
     }
 }

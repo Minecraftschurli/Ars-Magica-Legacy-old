@@ -7,9 +7,12 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.tags.*;
 import net.minecraftforge.common.*;
 
+import javax.annotation.Nonnull;
 import java.util.function.*;
 
 /**
@@ -22,7 +25,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
         for (AbstractSpellPart part : ArsMagicaAPI.getSpellPartRegistry()) {
             addSpellRecipe(part.getRegistryName(), part.getRecipe(), consumer);
         }
@@ -361,7 +364,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .addIngredient(Items.POTATO)
                 .addIngredient(Items.SUGAR)
                 .addIngredient(Items.STICK)
-                .addIngredient(Items.GLASS_BOTTLE) //TODO @IchHabeHunger54 change to standard mana potion
+                .addIngredient(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.MANA_POTION.get())))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.POTATO))
                 .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.INSCRIPTION_UPGRADE.get())
