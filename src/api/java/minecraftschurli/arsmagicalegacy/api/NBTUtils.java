@@ -146,6 +146,7 @@ public class NBTUtils {
                     return FloatNBT.valueOf(number.floatValue());
                 if (number instanceof Double)
                     return DoubleNBT.valueOf(number.doubleValue());
+                return IntNBT.valueOf(number.intValue());
             }
         }
         return new CompoundNBT();

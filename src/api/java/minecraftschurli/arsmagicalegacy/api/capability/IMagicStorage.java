@@ -21,5 +21,6 @@ public interface IMagicStorage {
 
     default void setFrom(IMagicStorage old) {
         this.setLevel(old.getCurrentLevel());
+        this.setXp(old.getXp());
     }
 }

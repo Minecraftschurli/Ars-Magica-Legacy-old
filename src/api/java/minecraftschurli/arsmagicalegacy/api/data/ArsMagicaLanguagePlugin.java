@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.api.data;
 
 
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
@@ -70,6 +71,24 @@ public interface ArsMagicaLanguagePlugin {
      */
     default void add(SkillPoint point, String name) {
         add(point.getTranslationKey(), name);
+    }
+
+    /**
+     * Adds an affinities point translation
+     * @param affinity the skill point supplier to add the translation for
+     * @param name     the name for the skill point
+     */
+    default void addAffinity(Supplier<SkillPoint> affinity, String name) {
+        add(affinity.get(), name);
+    }
+
+    /**
+     * Adds an affinities point translation
+     * @param affinity the skill point to add the translation for
+     * @param name     the name for the skill point
+     */
+    default void add(Affinity affinity, String name) {
+        add(affinity.getTranslationKey(), name);
     }
 
     void add(String key, String value);

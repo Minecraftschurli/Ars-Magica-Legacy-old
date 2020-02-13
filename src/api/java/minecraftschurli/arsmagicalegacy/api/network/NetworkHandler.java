@@ -28,8 +28,9 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), SyncManaPacket.class, SyncManaPacket::toBytes, SyncManaPacket::new, SyncManaPacket::handle);
         INSTANCE.registerMessage(nextID(), SyncBurnoutPacket.class, SyncBurnoutPacket::toBytes, SyncBurnoutPacket::new, SyncBurnoutPacket::handle);
         INSTANCE.registerMessage(nextID(), SyncResearchPacket.class, SyncResearchPacket::toBytes, SyncResearchPacket::new, SyncResearchPacket::handle);
-        INSTANCE.registerMessage(nextID(), LearnSkillPacket.class, LearnSkillPacket::toBytes, LearnSkillPacket::new, LearnSkillPacket::handle);
         INSTANCE.registerMessage(nextID(), SyncMagicPacket.class, SyncMagicPacket::toBytes, SyncMagicPacket::new, SyncMagicPacket::handle);
+        INSTANCE.registerMessage(nextID(), SyncAffinityPacket.class, SyncAffinityPacket::toBytes, SyncAffinityPacket::new, SyncAffinityPacket::handle);
+        INSTANCE.registerMessage(nextID(), LearnSkillPacket.class, LearnSkillPacket::toBytes, LearnSkillPacket::new, LearnSkillPacket::handle);
         INSTANCE.registerMessage(nextID(), InscriptionTablePacket.class, InscriptionTablePacket::toBytes, InscriptionTablePacket::new, InscriptionTablePacket::handle);
         INSTANCE.registerMessage(nextID(), TEClientSyncPacket.class, TEClientSyncPacket::toBytes, TEClientSyncPacket::new, TEClientSyncPacket::handle);
     }

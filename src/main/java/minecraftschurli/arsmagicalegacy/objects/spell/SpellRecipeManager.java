@@ -42,7 +42,7 @@ public class SpellRecipeManager extends JsonReloadListener {
     protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
         this.recipes = splashList.entrySet().stream().map(entry -> {
             List<ISpellIngredient> ingredients = new ArrayList<>();
-            for (JsonElement e : entry.getValue().getAsJsonArray()) {
+            for (JsonElement e : entry.getValue().getAsJsonArray("ingredients")) {
                 ingredients.add(IngredientTypes.deserialize((CompoundNBT) NBTUtils.jsonToNBT(e)));
             }
             return new Pair<>(entry.getKey(), ingredients.toArray(new ISpellIngredient[0]));

@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.api.capability;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
 import minecraftschurli.arsmagicalegacy.api.network.*;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
@@ -382,6 +383,75 @@ public class CapabilityHelper {
 
     //endregion
 
+    //region =========AFFINITY=========
+
+    public static final float MAX_DEPTH = 100F;
+    private static final float ADJACENT_FACTOR = 0.25f;
+    private static final float MINOR_OPPOSING_FACTOR = 0.5f;
+    private static final float MAJOR_OPPOSING_FACTOR = 0.75f;
+
+    public static double getAffinityDepth(LivingEntity livingEntity, ResourceLocation affinity) {
+        return getAffinityCapability(livingEntity).getAffinityDepth(affinity);
+    }
+
+    public static double getAffinityDepth(LivingEntity livingEntity, Affinity affinity) {
+        return getAffinityCapability(livingEntity).getAffinityDepth(affinity);
+    }
+
+    public static void incrementAffinity(LivingEntity livingEntity, Affinity affinity, float amt) {
+        if (affinity.getRegistryName() == Affinity.NONE) return;
+        IAffinityStorage iAffinityStorage = getAffinityCapability(livingEntity);
+
+        float adjacentDecrement = amt * ADJACENT_FACTOR;
+        float minorOppositeDecrement = amt * MINOR_OPPOSING_FACTOR;
+        float majorOppositeDecrement = amt * MAJOR_OPPOSING_FACTOR;
+
+        addToAffinity(livingEntity, affinity, amt);
+
+        if (iAffinityStorage.getAffinityDepth(affinity) * MAX_DEPTH == MAX_DEPTH){
+            iAffinityStorage.setLocked(true);
+        }
+
+        for (Affinity adjacent : affinity.getAdjacentAffinities()){
+            subtractFromAffinity(livingEntity, adjacent, adjacentDecrement);
+        }
+
+        for (Affinity minorOpposite : affinity.getMinorOpposingAffinities()){
+            subtractFromAffinity(livingEntity, minorOpposite, minorOppositeDecrement);
+        }
+
+        for (Affinity majorOpposite : affinity.getMajorOpposingAffinities()){
+            subtractFromAffinity(livingEntity, majorOpposite, majorOppositeDecrement);
+        }
+
+        Affinity directOpposite = affinity.getOpposingAffinity();
+        if (directOpposite != null){
+            subtractFromAffinity(livingEntity, directOpposite, amt);
+        }
+        if (livingEntity instanceof ServerPlayerEntity)
+            syncAffinity((ServerPlayerEntity) livingEntity);
+    }
+
+    private static void modifyAffinity(LivingEntity livingEntity, Affinity affinity, float amt){
+        if (Objects.equals(affinity.getRegistryName(), Affinity.NONE)) return;
+        IAffinityStorage iAffinityStorage = getAffinityCapability(livingEntity);
+        double existingAmt = iAffinityStorage.getAffinityDepth(affinity)  * MAX_DEPTH;
+        existingAmt += amt;
+        if (existingAmt > MAX_DEPTH) existingAmt = MAX_DEPTH;
+        else if (existingAmt < 0) existingAmt = 0;
+        iAffinityStorage.setAffinityDepth(affinity, existingAmt);
+    }
+
+    private static void addToAffinity(LivingEntity livingEntity, Affinity affinity, float amt){
+        modifyAffinity(livingEntity, affinity, amt);
+    }
+
+    private static void subtractFromAffinity(LivingEntity livingEntity, Affinity affinity, float amt){
+        modifyAffinity(livingEntity, affinity, -amt);
+    }
+
+    //endregion
+
     //region =========EVENT=========
 
     private static void onPlayerLevelUp(final PlayerMagicLevelChangeEvent event) {
@@ -420,6 +490,7 @@ public class CapabilityHelper {
             CapabilityHelper.getBurnoutCapability(newPlayer).setFrom(CapabilityHelper.getBurnoutCapability(oldPlayer));
             CapabilityHelper.getResearchCapability(newPlayer).setFrom(CapabilityHelper.getResearchCapability(oldPlayer));
             CapabilityHelper.getMagicCapability(newPlayer).setFrom(CapabilityHelper.getMagicCapability(oldPlayer));
+            CapabilityHelper.getAffinityCapability(newPlayer).setFrom(CapabilityHelper.getAffinityCapability(oldPlayer));
         }
     }
 
@@ -430,6 +501,7 @@ public class CapabilityHelper {
             CapabilityHelper.syncBurnout(player);
             CapabilityHelper.syncResearch(player);
             CapabilityHelper.syncMagic(player);
+            CapabilityHelper.syncAffinity(player);
         }
     }
 
@@ -447,6 +519,8 @@ public class CapabilityHelper {
     static Capability<IMagicStorage> MAGIC = null;
     @CapabilityInject(IBurnoutStorage.class)
     static Capability<IBurnoutStorage> BURNOUT = null;
+    @CapabilityInject(IAffinityStorage.class)
+    static Capability<IAffinityStorage> AFFINITY = null;
 
     public static Capability<IRiftStorage> getRiftStorageCapability() {
         return RIFT_STORAGE;
@@ -466,6 +540,10 @@ public class CapabilityHelper {
 
     public static Capability<IBurnoutStorage> getBurnoutCapability() {
         return BURNOUT;
+    }
+
+    public static Capability<IAffinityStorage> getAffinityCapability() {
+        return AFFINITY;
     }
 
     private static IManaStorage getManaCapability(LivingEntity entity) {
@@ -496,6 +574,12 @@ public class CapabilityHelper {
         Objects.requireNonNull(entity);
         return entity.getCapability(RIFT_STORAGE)
                 .orElseThrow(() -> new IllegalStateException("No Rift Storage Capability present!"));
+    }
+
+    private static IAffinityStorage getAffinityCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
+        return entity.getCapability(AFFINITY)
+                .orElseThrow(() -> new IllegalStateException("No Affinity Capability present!"));
     }
 
     private static void syncMana(ServerPlayerEntity player) {
@@ -535,8 +619,16 @@ public class CapabilityHelper {
         IMagicStorage iStorage = getMagicCapability(player);
         NetworkHandler.INSTANCE.send(
                 PacketDistributor.PLAYER.with(() -> player),
-                new SyncMagicPacket(iStorage.getCurrentLevel())
+                new SyncMagicPacket(iStorage.getCurrentLevel(), iStorage.getXp())
         );
+    }
+
+    private static void syncAffinity(ServerPlayerEntity player) {
+        Objects.requireNonNull(player);
+        IAffinityStorage iAffinityStorage = getAffinityCapability(player);
+        NetworkHandler.INSTANCE.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new SyncAffinityPacket(iAffinityStorage.getAffinitiesInternal()));
     }
 
     //endregion

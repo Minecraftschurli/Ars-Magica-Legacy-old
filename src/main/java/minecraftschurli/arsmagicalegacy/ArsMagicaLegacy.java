@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy;
 
-import com.google.common.base.Predicates;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
@@ -13,7 +12,6 @@ import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAlta
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellRecipeManager;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
-import minecraftschurli.arsmagicalegacy.worldgen.biomes.ICustomFeatureBiome;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -21,7 +19,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -42,7 +39,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -117,6 +113,7 @@ public final class ArsMagicaLegacy {
             event.addCapability(new ResourceLocation(MODID, "research"), new ResearchCapability());
             event.addCapability(new ResourceLocation(MODID, "magic"), new MagicCapability());
             event.addCapability(new ResourceLocation(MODID, "rift_storage"), new RiftStorageCapability());
+            event.addCapability(new ResourceLocation(MODID, "affinity"), new AffinityCapability());
         }
     }
 
@@ -166,6 +163,7 @@ public final class ArsMagicaLegacy {
         ResearchCapability.register();
         MagicCapability.register();
         RiftStorageCapability.register();
+        AffinityCapability.register();
 
         /*ForgeRegistries.BIOMES.getValues()
                 .stream()

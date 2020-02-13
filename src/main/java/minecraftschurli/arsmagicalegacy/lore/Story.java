@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,13 +46,16 @@ public class Story {
         compound.put("pages", pages);
     }
 
-    public static ItemStack finalizeStory(ItemStack stack, String title, String author) {
+    public static ItemStack finalizeStory(ItemStack stack, ITextComponent title, String author) {
         if (stack.getTag() == null) return stack;
-        stack.getTag().put("title", StringNBT.valueOf(title));
+        stack.getTag().put("title", StringNBT.valueOf(title.getUnformattedComponentText()));
+        stack.setDisplayName(title);
         stack.getTag().put("author", StringNBT.valueOf(author));
         //stack = InventoryUtilities.replaceItem(stack, Items.WRITTEN_BOOK);
         return stack;
     }
+
+    public static final String NEWPAGE = "<newpage>";
 
     public static List<StringNBT> splitStoryPartIntoPages(String storyPart) {
         ArrayList<StringNBT> parts = new ArrayList<>();
@@ -60,10 +65,10 @@ public class Story {
 
         for (String word : words) {
             //special commands
-            if (word.contains("<newpage>")) {
-                int idx = word.indexOf("<newpage>");
+            if (word.contains(NEWPAGE)) {
+                int idx = word.indexOf(NEWPAGE);
                 String preNewPage = word.substring(0, idx);
-                String postNewPage = word.substring(idx + "<newpage>".length());
+                String postNewPage = word.substring(idx + NEWPAGE.length());
                 while (preNewPage.endsWith("\n")) preNewPage = preNewPage.substring(0, preNewPage.lastIndexOf('\n'));
                 if (getStringOverallLength(currentPage + preNewPage) > 256) {
                     parts.add(StringNBT.valueOf(currentPage));
