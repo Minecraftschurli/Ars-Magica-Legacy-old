@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ORO",
+    "GEG",
+    "O O"
+  ],
+  "key": {
+    "O": {
+      "tag": "forge:obsidian"
+    },
+    "G": {
+      "item": "arsmagicalegacy:gold_inlay"
+    },
+    "R": {
+      "item": "arsmagicalegacy:red_rune"
+    },
+    "E": {
+      "item": "arsmagicalegacy:fire_essence"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:battlemage_leggings"
+  }
+}

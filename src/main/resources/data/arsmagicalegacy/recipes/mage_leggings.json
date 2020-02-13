@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WLW",
+    "WGW",
+    "R R"
+  ],
+  "key": {
+    "R": {
+      "item": "arsmagicalegacy:yellow_rune"
+    },
+    "G": {
+      "tag": "forge:gunpowder"
+    },
+    "W": {
+      "item": "minecraft:brown_wool"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:mage_leggings"
+  }
+}

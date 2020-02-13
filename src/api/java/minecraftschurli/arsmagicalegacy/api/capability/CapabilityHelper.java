@@ -4,13 +4,18 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
 import minecraftschurli.arsmagicalegacy.api.network.*;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,7 +26,9 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Minecraftschurli
@@ -396,6 +403,64 @@ public class CapabilityHelper {
 
     public static double getAffinityDepth(LivingEntity livingEntity, Affinity affinity) {
         return getAffinityCapability(livingEntity).getAffinityDepth(affinity);
+    }
+
+    public static Affinity[] getHighestAffinities(LivingEntity caster) {
+        double max1 = 0;
+        double max2 = 0;
+        ResourceLocation maxAff1 = Affinity.NONE;
+        ResourceLocation maxAff2 = Affinity.NONE;
+        for (Map.Entry<ResourceLocation, Double> entry : getAffinityCapability(caster).getAffinitiesInternal().entrySet()) {
+            if (!ArsMagicaAPI.getAffinityRegistry().containsKey(entry.getKey()))
+                continue;
+            if (entry.getValue() > max1) {
+                max2 = max1;
+                maxAff2 = maxAff1;
+                max1 = entry.getValue();
+                maxAff1 = entry.getKey();
+            } else if (entry.getValue() > max2) {
+                max2 = entry.getValue();
+                maxAff2 = entry.getKey();
+            }
+        }
+        return new Affinity[] {
+                ArsMagicaAPI.getAffinityRegistry().getValue(maxAff1),
+                ArsMagicaAPI.getAffinityRegistry().getValue(maxAff2)
+        };
+    }
+
+    public static void doAffinityShift(LivingEntity caster, SpellComponent component, SpellShape governingShape){
+        if (!(caster instanceof PlayerEntity)) return;
+        //IAffinityStorage aff = getAffinityCapability(caster);
+        Set<Affinity> affList = component.getAffinity();
+        for (Affinity affinity : affList){
+            float shift = component.getAffinityShift(affinity) /* * aff.getDiminishingReturnsFactor()*/ * 5;
+            float xp = 0.05f /* * aff.getDiminishingReturnsFactor()*/;
+            if (governingShape.isChanneled()){
+                shift /= 4;
+                xp /= 4;
+            }
+
+            if (knows((PlayerEntity) caster, new ResourceLocation(ArsMagicaAPI.MODID, "affinity_gains"))){
+                shift *= 1.1f;
+                xp *= 0.9f;
+            }
+            ItemStack chestArmor = ((PlayerEntity)caster).getItemStackFromSlot(EquipmentSlotType.CHEST);
+            /*if (chestArmor != null && ArmorHelper.isInfusionPreset(chestArmor, GenericImbuement.magicXP))
+                xp *= 1.25f;*/
+
+            if (shift > 0){
+                AffinityChangingEvent event = new AffinityChangingEvent((PlayerEntity)caster, affinity, shift);
+                MinecraftForge.EVENT_BUS.post(event);
+                if (!event.isCanceled())
+                    incrementAffinity(caster, affinity, event.amount);
+            }
+            if (xp > 0){
+                //xp *= caster.getAttributeMap().getAttributeInstance(ArsMagicaAPI.xpGainModifier).getAttributeValue();
+                addXP((PlayerEntity) caster, xp);
+            }
+        }
+        //aff.addDiminishingReturns(governingShape.isChanneled());
     }
 
     public static void incrementAffinity(LivingEntity livingEntity, Affinity affinity, float amt) {

@@ -613,6 +613,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         RenderSystem.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(hoveredItem).getIcon());
 
+        RenderSystem.enableBlend();
         Tessellator tessellator = Tessellator.getInstance();
 
         boolean drawing = false;
@@ -634,7 +635,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8, getBlitOffset()).tex(minU, minV).endVertex();
 
         tessellator.draw();
-
+        RenderSystem.disableBlend();
         RenderSystem.popMatrix();
         RenderSystem.matrixMode(GL14.GL_MODELVIEW);
 

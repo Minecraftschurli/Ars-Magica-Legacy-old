@@ -19,12 +19,23 @@ import java.util.stream.Collectors;
  * @version 2020-02-13
  */
 public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable<Affinity> {
+    public static final ResourceLocation NONE = new ResourceLocation(ArsMagicaAPI.MODID, "none");
+    public static final ResourceLocation ARCANE = new ResourceLocation(ArsMagicaAPI.MODID, "arcane");
+    public static final ResourceLocation WATER = new ResourceLocation(ArsMagicaAPI.MODID, "water");
+    public static final ResourceLocation FIRE = new ResourceLocation(ArsMagicaAPI.MODID, "fire");
+    public static final ResourceLocation EARTH = new ResourceLocation(ArsMagicaAPI.MODID, "earth");
+    public static final ResourceLocation AIR = new ResourceLocation(ArsMagicaAPI.MODID, "air");
+    public static final ResourceLocation LIGHTNING = new ResourceLocation(ArsMagicaAPI.MODID, "lightning");
+    public static final ResourceLocation ICE = new ResourceLocation(ArsMagicaAPI.MODID, "ice");
+    public static final ResourceLocation NATURE = new ResourceLocation(ArsMagicaAPI.MODID, "nature");
+    public static final ResourceLocation LIFE = new ResourceLocation(ArsMagicaAPI.MODID, "life");
+    public static final ResourceLocation ENDER = new ResourceLocation(ArsMagicaAPI.MODID, "ender");
+
     private int color;
     private ResourceLocation directOpposite;
-    private List<ResourceLocation> majorOpposites = new ArrayList<>();
-    private List<ResourceLocation> minorOpposites = new ArrayList<>();
+    private Set<ResourceLocation> majorOpposites = new HashSet<>();
+    private Set<ResourceLocation> minorOpposites = new HashSet<>();
     private IItemProvider essence = Items.AIR;
-    public static final ResourceLocation NONE = new ResourceLocation(ArsMagicaAPI.MODID, "none");
 
     public Affinity(int color) {
         this.color = color;
@@ -48,29 +59,29 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return color;
     }
 
-    public List<Affinity> getMinorOpposingAffinities() {
+    public Set<Affinity> getMinorOpposingAffinities() {
         return minorOpposites
                 .stream()
                 .filter(location -> !location.equals(NONE))
                 .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    public List<Affinity> getMajorOpposingAffinities() {
+    public Set<Affinity> getMajorOpposingAffinities() {
         return majorOpposites
                 .stream()
                 .filter(location -> !location.equals(NONE))
                 .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    public List<Affinity> getAdjacentAffinities() {
+    public Set<Affinity> getAdjacentAffinities() {
         return ArsMagicaAPI.getAffinityRegistry()
                 .getKeys()
                 .stream()
                 .filter(rl -> !(Objects.equals(rl, NONE) || majorOpposites.contains(rl) || minorOpposites.contains(rl) || Objects.equals(directOpposite, rl) || Objects.equals(getRegistryName(), rl)))
                 .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     public Affinity getOpposingAffinity() {
@@ -82,13 +93,31 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return this;
     }
 
-    public Affinity addMajorOpposite(ResourceLocation... rls) {
-        this.majorOpposites.addAll(Arrays.asList(rls));
+    public Affinity addMajorOpposite(Collection<ResourceLocation> rls) {
+        this.majorOpposites.addAll(rls);
         return this;
     }
 
+    public Affinity addMinorOpposite(Collection<ResourceLocation> rls) {
+        this.minorOpposites.addAll(rls);
+        return this;
+    }
+
+    public Affinity addMajorOpposite(ResourceLocation... rls) {
+        return addMajorOpposite(Arrays.asList(rls));
+    }
+
     public Affinity addMinorOpposite(ResourceLocation... rls) {
-        this.minorOpposites.addAll(Arrays.asList(rls));
+        return addMinorOpposite(Arrays.asList(rls));
+    }
+
+    public Affinity addMajorOpposite(ResourceLocation rl) {
+        this.majorOpposites.add(rl);
+        return this;
+    }
+
+    public Affinity addMinorOpposite(ResourceLocation rl) {
+        this.minorOpposites.add(rl);
         return this;
     }
 

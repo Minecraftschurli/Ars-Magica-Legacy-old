@@ -7,10 +7,10 @@
   ],
   "key": {
     "P": {
-      "item": "arsmagicalegacy:witchwood_planks"
+      "tag": "minecraft:planks"
     },
     "W": {
-      "item": "arsmagicalegacy:witchwood_slab"
+      "tag": "minecraft:wooden_slabs"
     },
     "S": {
       "item": "minecraft:stick"

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "arsmagicalegacy:cerublossom"
+    },
+    {
+      "item": "arsmagicalegacy:aum"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:mana_cake",
+    "count": 3
+  }
+}

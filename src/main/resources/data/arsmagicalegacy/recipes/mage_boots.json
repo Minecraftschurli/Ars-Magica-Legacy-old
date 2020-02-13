@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R R",
+    "L L",
+    "WFW"
+  ],
+  "key": {
+    "R": {
+      "item": "arsmagicalegacy:black_rune"
+    },
+    "F": {
+      "tag": "forge:feathers"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:mage_boots"
+  }
+}

@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import javafx.util.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
@@ -297,12 +298,10 @@ public class SpellUtils {
         if (stack.getTag() == null)
             return 0;
         ItemStack mergedStack = merge(stack);
-        /*AffinityData pAffinity = null;
         Affinity[] affinities = null;
         if (caster instanceof PlayerEntity) {
-            pAffinity = AffinityData.For((LivingEntity) caster);
-            affinities = pAffinity.getHighestAffinities();
-        }*/
+            affinities = CapabilityHelper.getHighestAffinities(caster);
+        }
         try {
             float cost = 0;
             float modMultiplier = 1;
@@ -314,18 +313,18 @@ public class SpellUtils {
                     if (type.equalsIgnoreCase(TYPE_COMPONENT)) {
                         SpellComponent component = SpellRegistry.getComponentFromName(tmp.getString(ID));
                         if (component != null) cost += component.getManaCost(caster);
-                        /*if (caster instanceof PlayerEntity) {
+                        if (caster instanceof PlayerEntity) {
                             for (Affinity aff : affinities) {
                                 for (Affinity aff2 : component.getAffinity()) {
-                                    if (aff == aff2 && pAffinity.getAffinityDepth(aff) > 0) {
-                                        cost = cost - (float) (cost * (0.5f * AffinityData.For((LivingEntity) caster).getAffinityDepth(aff)));
+                                    if (aff == aff2 && CapabilityHelper.getAffinityDepth(caster, aff) > 0) {
+                                        cost = cost - (float) (cost * (0.5f * CapabilityHelper.getAffinityDepth(caster, aff)));
                                         break;
                                     } else {
-                                        cost = cost + (float) (cost * (0.10f));
+                                        cost = cost + (cost * (0.10f));
                                     }
                                 }
                             }
-                        }*/
+                        }
                     }
                     if (type.equalsIgnoreCase(TYPE_MODIFIER)) {
                         SpellModifier mod = SpellRegistry.getModifierFromName(tmp.getString(ID));
@@ -338,12 +337,12 @@ public class SpellUtils {
                 }
             }
             cost *= modMultiplier;
-            /*if (caster instanceof PlayerEntity) {
-                if (pAffinity.getAffinityDepth(Affinity.ARCANE) > 0.5f) {
-                    float reduction = (float) (1 - (0.5 * pAffinity.getAffinityDepth(Affinity.ARCANE)));
+            if (caster instanceof PlayerEntity) {
+                if (CapabilityHelper.getAffinityDepth(caster, Affinity.ARCANE) > 0.5f) {
+                    float reduction = (float) (1 - (0.5 * CapabilityHelper.getAffinityDepth(caster, Affinity.ARCANE)));
                     cost *= reduction;
                 }
-            }*/
+            }
             return cost;
         } catch (Exception e) {
             return 0;
@@ -692,11 +691,11 @@ public class SpellUtils {
         List<SpellComponent> components = SpellUtils.getComponentsForStage(stack, group);
         for (SpellComponent component : components) {
             if (component.applyEffectBlock(stack, world, pos, blockFace, impactX, impactY, impactZ, caster)) {
-                /*if (isPlayer && !world.isRemote) {
+                if (isPlayer && !world.isRemote) {
                     if (component.getAffinity() != null) {
-                        AffinityShiftUtils.doAffinityShift(caster, component, stageShape);
+                        CapabilityHelper.doAffinityShift(caster, component, stageShape);
                     }
-                }*/
+                }
                 if (world.isRemote) {
                     int color = -1;
                     if (modifierIsPresent(SpellModifiers.COLOR, stack)) {
@@ -734,11 +733,11 @@ public class SpellUtils {
 //				continue;
 
             if (component.applyEffectEntity(stack, world, caster, target)) {
-                /*if (isPlayer && !world.isRemote) {
+                if (isPlayer && !world.isRemote) {
                     if (component.getAffinity() != null) {
-                        AffinityShiftUtils.doAffinityShift(caster, component, stageShape);
+                        CapabilityHelper.doAffinityShift(caster, component, stageShape);
                     }
-                }*/
+                }
                 appliedOneComponent = true;
                 if (world.isRemote) {
                     int color = -1;
@@ -752,9 +751,9 @@ public class SpellUtils {
                     }
                     component.spawnParticles(world, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, caster, target, world.rand, color);
                 }
-                /*if (caster instanceof PlayerEntity) {
-                    AffinityShiftUtils.doAffinityShift(caster, component, stageShape);
-                }*/
+                if (caster instanceof PlayerEntity) {
+                    CapabilityHelper.doAffinityShift(caster, component, stageShape);
+                }
             }
         }
 
@@ -844,9 +843,9 @@ public class SpellUtils {
         return getShapeForStage(stack, currentStage(stack));
     }
 
-    /*public static HashMap<Affinity, Float> AffinityFor(ItemStack stack) {
-        HashMap<Affinity, Float> customDepthMap = new HashMap<>();
-        ArrayList<SpellComponent> components = SpellUtils.getComponentsForStage(stack, -1);
+    public static Map<Affinity, Float> affinityFor(ItemStack stack) {
+        Map<Affinity, Float> customDepthMap = new HashMap<>();
+        List<SpellComponent> components = SpellUtils.getComponentsForStage(stack, -1);
         for (SpellComponent component : components) {
             for (Affinity aff1 : component.getAffinity()) {
                 if (customDepthMap.get(aff1) != null) {
@@ -857,7 +856,7 @@ public class SpellUtils {
             }
         }
         return customDepthMap;
-    }*/
+    }
 
     public static SpellCastResult applyStackStageOnUsing(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, World world, boolean consumeMBR, boolean giveXP, int ticks) {
         if (SpellUtils.numStages(stack) == 0) {

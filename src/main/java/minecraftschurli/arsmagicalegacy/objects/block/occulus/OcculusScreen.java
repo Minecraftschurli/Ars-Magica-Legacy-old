@@ -232,6 +232,7 @@ public class OcculusScreen extends Screen {
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID()))
                     RenderSystem.color3f(0.3f, 0.3f, 0.3f);*/
                 //blit((int) (offsetX + xStartMod), (int) (offsetY + yStartMod), 0, 0, 0, (int) renderSize, (int) renderSize, (int) renderSize, (int) renderSize);
+                RenderSystem.enableBlend();
                 RenderUtils.drawBox(offsetX + xStartMod,
                         offsetY + yStartMod,
                         renderSize - xStartMod - xEndMod,
@@ -241,6 +242,7 @@ public class OcculusScreen extends Screen {
                         minV + (yStartMod / renderSize * spriteYSize),
                         maxU - (xEndMod / renderSize * spriteXSize),
                         maxV - (yEndMod / renderSize * spriteYSize));
+                RenderSystem.disableBlend();
                 RenderSystem.color4f(1, 1, 1, 1);
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID())){
                     sprite = AMGuiIcons.padlock;
