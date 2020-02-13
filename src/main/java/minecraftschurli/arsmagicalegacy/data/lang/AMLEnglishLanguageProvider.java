@@ -127,6 +127,15 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.ITEM_FOCUS, "Item Focus");
         addItem(ModItems.CHARGE_FOCUS, "Charge Focus");
 
+        addItem(ModItems.MAGE_HELMET, "Mage Helmet");
+        addItem(ModItems.MAGE_CHESTPLATE, "Mage Chestplate");
+        addItem(ModItems.MAGE_LEGGINGS, "Mage Leggings");
+        addItem(ModItems.MAGE_BOOTS, "Mage Boots");
+        addItem(ModItems.BATTLEMAGE_HELMET, "Battlemage Helmet");
+        addItem(ModItems.BATTLEMAGE_CHESTPLATE, "Battlemage Chestplate");
+        addItem(ModItems.BATTLEMAGE_LEGGINGS, "Battlemage Leggings");
+        addItem(ModItems.BATTLEMAGE_BOOTS, "Battlemage Boots");
+
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Witchwood Forest");
 
         addEntityType(ModEntities.SPELL_PROJECTILE, "Spell Projectile");
