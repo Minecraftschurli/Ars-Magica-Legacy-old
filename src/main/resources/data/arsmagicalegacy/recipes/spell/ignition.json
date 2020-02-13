@@ -8,7 +8,10 @@
     {
       "ingredient_type": "item_stack",
       "id": "minecraft:flint_and_steel",
-      "Count": 1
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
     }
   ]
 }

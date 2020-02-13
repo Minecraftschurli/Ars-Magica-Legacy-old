@@ -18,7 +18,10 @@
     {
       "ingredient_type": "item_stack",
       "id": "minecraft:stone_sword",
-      "Count": 1
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
     }
   ]
 }
