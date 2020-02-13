@@ -128,22 +128,16 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
     public static final ArmorMaterial MAGE_ARMOR = new minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial("mage", 33, new int[]{2, 6, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.5f);
     public static final ArmorMaterial BATTLEMAGE_ARMOR = new minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial("battlemage", 48, new int[]{3, 8, 6, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1);
-    public static final RegistryObject<Item> MAGE_HELMET = item("mage_helmet", new ArmorItem(MAGE_ARMOR, EquipmentSlotType.HEAD, ITEM_1));
-    public static final RegistryObject<Item> MAGE_CHESTPLATE = item("mage_chestplate", new ArmorItem(MAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
-    public static final RegistryObject<Item> MAGE_LEGGINGS = item("mage_leggings", new ArmorItem(MAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
-    public static final RegistryObject<Item> MAGE_BOOTS = item("mage_boots", new ArmorItem(MAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
-    public static final RegistryObject<Item> BATTLEMAGE_HELMET = item("battlemage_helmet", new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.HEAD, ITEM_1));
-    public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = item("battlemage_chestplate", new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
-    public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = item("battlemage_leggings", new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
-    public static final RegistryObject<Item> BATTLEMAGE_BOOTS = item("battlemage_boots", new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
+    public static final RegistryObject<Item> MAGE_HELMET = ITEMS.register("mage_helmet", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.HEAD, ITEM_1));
+    public static final RegistryObject<Item> MAGE_CHESTPLATE = ITEMS.register("mage_chestplate", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
+    public static final RegistryObject<Item> MAGE_LEGGINGS = ITEMS.register("mage_leggings", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
+    public static final RegistryObject<Item> MAGE_BOOTS = ITEMS.register("mage_boots", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
+    public static final RegistryObject<Item> BATTLEMAGE_HELMET = ITEMS.register("battlemage_helmet", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.HEAD, ITEM_1));
+    public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = ITEMS.register("battlemage_chestplate", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
+    public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = ITEMS.register("battlemage_leggings", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
+    public static final RegistryObject<Item> BATTLEMAGE_BOOTS = ITEMS.register("battlemage_boots", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
 
     public static void register() {
-    }
-
-    private static RegistryObject<Item> item(final String name, final Item item) {
-        Objects.requireNonNull(name);
-        Objects.requireNonNull(item);
-        return ITEMS.register(name, () -> item);
     }
 
     private static RegistryObject<Item> stackableBlockItem64(final RegistryObject<? extends Block> block) {
