@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
+import com.google.common.collect.ImmutableSet;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -8,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author Minecraftschurli
@@ -61,7 +64,9 @@ public abstract class SpellComponent extends AbstractSpellPart {
     /**
      * Gets the affinity of the spell
      */
-    /*public abstract Set<Affinity> getAffinity();*/
+    public Set<Affinity> getAffinity() {
+        return ImmutableSet.of();
+    }
 
     /**
      * Gets the burnout of the spell
@@ -76,5 +81,7 @@ public abstract class SpellComponent extends AbstractSpellPart {
      *
      * @param affinity The affinity being shifted
      */
-    /*public abstract float getAffinityShift(Affinity affinity);*/
+    public float getAffinityShift(Affinity affinity) {
+        return 0;
+    }
 }

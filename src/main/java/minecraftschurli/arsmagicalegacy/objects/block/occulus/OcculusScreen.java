@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 import com.mojang.blaze3d.systems.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import minecraftschurli.arsmagicalegacy.api.network.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.widget.*;
 import net.minecraft.client.gui.widget.button.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.entity.player.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.text.*;
@@ -25,6 +27,7 @@ import java.util.stream.*;
  * @author Minecraftschurli
  * @version 2019-12-02
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class OcculusScreen extends Screen {
     int xSize = 210;
     int ySize = 210;
@@ -46,6 +49,7 @@ public class OcculusScreen extends Screen {
     public OcculusScreen(ITextComponent name, PlayerEntity player) {
         super(name);
         this.player = player;
+        //noinspection OptionalGetWithoutIsPresent
         currentTree = ArsMagicaAPI.getSkillTreeRegistry().getValues().stream().min(Comparator.comparingInt(SkillTree::getOcculusIndex)).get();
         currentTabId = 0;
     }
@@ -315,42 +319,46 @@ public class OcculusScreen extends Screen {
             }
 
         } else {
-            //boolean isShiftDown = false;
+            boolean isShiftDown = player.func_226563_dT_();
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), 0, 0, 1, 1);
-            /*int affNum = ArsMagicaAPI.getAffinityRegistry().getValues().size() - 1;
+            int affNum = ArsMagicaAPI.getAffinityRegistry().getValues().size() - 1;
             int portion = 360 / affNum;
             int currentID = 0;
             int cX = posX + xSize/2;
             int cY = posY + ySize/2;
             //float finalPercentage = AffinityData.For(player).getAffinityDepth(SkillDefs.NONE) * 100;
-            ArrayList<String> drawString = new ArrayList<>();
+            List<ITextComponent> drawString = new ArrayList<>();
             for (Affinity aff : ArsMagicaAPI.getAffinityRegistry().getValues()) {
-                if (aff == Affinity.NONE)
+                if (Objects.equals(aff.getRegistryName(), Affinity.NONE))
                     continue;
-                double depth = AffinityData.For(player).getAffinityDepth(aff);
-                double affEndX = Math.cos(Math.toRadians(portion*currentID)) * 10F + Math.cos(Math.toRadians(portion*currentID)) * depth * 60F;
-                double affEndY = Math.sin(Math.toRadians(portion*currentID)) * 10F + (Math.sin(Math.toRadians(portion*currentID))) * depth * 60F;
-                double affStartX1 = Math.cos(Math.toRadians(portion*currentID - portion/2)) * 10F;
-                double affStartY1 = Math.sin(Math.toRadians(portion*currentID - portion/2)) * 10F;
-                double affStartX2 = Math.cos(Math.toRadians(portion*currentID + portion/2)) * 10F;
-                double affStartY2 = Math.sin(Math.toRadians(portion*currentID + portion/2)) * 10F;
-                double affDrawTextX =  Math.cos(Math.toRadians(portion*currentID)) * 80F - 7;
-                double affDrawTextY =  Math.sin(Math.toRadians(portion*currentID)) * 80F - 7;
+                double depth = CapabilityHelper.getAffinityDepth(player, aff);
+                double var1 = Math.cos(Math.toRadians(portion * currentID));
+                double var2 = Math.sin(Math.toRadians(portion * currentID));
+                double var3 = Math.toRadians(portion * currentID - portion / 2.);
+                double var4 = Math.toRadians(portion * currentID + portion / 2.);
+                double affEndX = var1 * 10F + var1 * depth * 60F;
+                double affEndY = var2 * 10F + var2 * depth * 60F;
+                double affStartX1 = Math.cos(var3) * 10F;
+                double affStartY1 = Math.sin(var3) * 10F;
+                double affStartX2 = Math.cos(var4) * 10F;
+                double affStartY2 = Math.sin(var4) * 10F;
+                double affDrawTextX =  var1 * 80F - 7;
+                double affDrawTextY =  var2 * 80F - 7;
                 currentID++;
 
                 int displace = (int)((Math.max(affStartX1, affStartX2) - Math.min(affStartX1, affStartX2) + Math.max(affStartY1, affStartY2) - Math.min(affStartY1, affStartY2)) / 2);
                 if (depth > 0.01F) {
-                    RenderUtils.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, zLevel, aff.getColor(), displace, 0.8F);
-                    RenderUtils.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, zLevel, aff.getColor(), displace, 0.8F);
+                    RenderUtils.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 0.8F);
+                    RenderUtils.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 0.8F);
 
-                    RenderUtils.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, zLevel, aff.getColor(), displace, 1.1F);
-                    RenderUtils.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, zLevel, aff.getColor(), displace, 1.1F);
+                    RenderUtils.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 1.1F);
+                    RenderUtils.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 1.1F);
                 } else {
-                    RenderUtils.line2d((float)affStartX1 + cX, (float)affStartY1 + cY, (float)affEndX + cX, (float)affEndY + cY, zLevel, aff.getColor());
-                    RenderUtils.line2d((float)affStartX2 + cX, (float)affStartY2 + cY, (float)affEndX + cX, (float)affEndY + cY, zLevel, aff.getColor());
+                    RenderUtils.line2d((float)affStartX1 + cX, (float)affStartY1 + cY, (float)affEndX + cX, (float)affEndY + cY, getBlitOffset(), aff.getColor());
+                    RenderUtils.line2d((float)affStartX2 + cX, (float)affStartY2 + cY, (float)affEndX + cX, (float)affEndY + cY, getBlitOffset(), aff.getColor());
                 }
 
-                Minecraft.getInstance().fontRendererObj.drawString("" + (float)Math.round(depth * 10000) / 100F, (int)((affDrawTextX *0.9) + cX), (int)((affDrawTextY*0.9) + cY), aff.getColor());
+                this.getMinecraft().fontRenderer.drawString("" + (float)Math.round(depth * 10000) / 100F, (int)((affDrawTextX *0.9) + cX), (int)((affDrawTextY*0.9) + cY), aff.getColor());
                 //Minecraft.getInstance().fontRendererObj.drawString("" + (float)Math.round(depth * 10000) / 100F, , aff.getColor());
                 int xMovement = affDrawTextX > 0 ? 5 : -5;
                 xMovement = affDrawTextX == 0 ? 0 : xMovement;
@@ -358,20 +366,20 @@ public class OcculusScreen extends Screen {
                 yMovement = affDrawTextY == 0 ? 0 : yMovement;
                 int drawX = (int)((affDrawTextX * 1.1) + cX + xMovement);
                 int drawY = (int)((affDrawTextY * 1.1) + cY + yMovement);
-                this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(ItemDefs.essence, 1, ArsMagicaAPI.getAffinityRegistry().getId(aff)) , drawX, drawY);
+                this.getMinecraft().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(aff.getEssence()), drawX, drawY);
                 if (mouseX > drawX && mouseX < drawX + 16 && mouseY > drawY && mouseY < drawY + 16) {
-                    drawString.add(TextFormatting.RESET.toString() + aff.getLocalizedName());
-                    ArrayList<AbstractAffinityAbility> abilites = Lists.newArrayList(ArsMagicaAPI.getAffinityAbilityRegistry().getValues());
-                    abilites.sort(new Comparator<AbstractAffinityAbility>() {
+                    drawString.add(aff.getName());
+                    //List<AbstractAffinityAbility> abilites = Lists.newArrayList(ArsMagicaAPI.getAffinityAbilityRegistry().getValues());
+                    /*abilites.sort(new Comparator<AbstractAffinityAbility>() {
 
                         @Override
                         public int compare(AbstractAffinityAbility o1, AbstractAffinityAbility o2) {
                             return (int) ((o1.getMinimumDepth() * 100) - (o2.getMinimumDepth() * 100));
                         }
-                    });
+                    });*/
 
 
-                    for (AbstractAffinityAbility ability : abilites) {
+                    /*for (AbstractAffinityAbility ability : abilites) {
                         if (ability.getAffinity() == aff) {
                             String advancedTooltip = "";
                             if (isShiftDown) {
@@ -384,16 +392,16 @@ public class OcculusScreen extends Screen {
                                     + ability.getRegistryName().toString().replaceAll("arsmagica2:", "")
                                     + ".name") + advancedTooltip);
                         }
-                    }
+                    }*/
                 }
             }
             if (!drawString.isEmpty()) {
                 if (!isShiftDown)
-                    drawString.add(TextFormatting.GRAY.toString() + I18n.translateToLocal("am2.tooltip.shiftForDetails"));
-                drawHoveringText(drawString, mouseX, mouseY);
+                    drawString.add(new TranslationTextComponent(ArsMagicaLegacy.MODID+".tooltip.shiftForDetails").applyTextStyle(TextFormatting.GRAY));
+                renderTooltip(drawString.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY);
             }
-            RenderSystem.color(1, 1, 1);
-            RenderHelper.disableStandardItemLighting();*/
+            RenderSystem.color3f(1, 1, 1);
+            RenderHelper.disableStandardItemLighting();
         }
 
         RenderSystem.color3f(1, 1, 1);
@@ -406,7 +414,7 @@ public class OcculusScreen extends Screen {
         return false;
     }
 
-    private void drawSkillPointBackground(int startX, int startY, int width, int height) {
+    private void drawSkillPointBackground(int startX, int startY, int width, @SuppressWarnings("SameParameterValue") int height) {
         int posX = 210;
         int posY = 0;
         //blit(startX + posX, startY + posY, 0, 0, 4, 4);

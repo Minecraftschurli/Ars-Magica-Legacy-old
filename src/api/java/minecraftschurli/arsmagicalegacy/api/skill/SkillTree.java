@@ -1,6 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -27,7 +29,7 @@ public class SkillTree extends ForgeRegistryEntry<SkillTree> {
     }
 
     public String getTranslationKey() {
-        return "skilltree." + getRegistryName().getNamespace() + "." + getRegistryName().getPath();
+        return Util.makeTranslationKey("skilltree", ArsMagicaAPI.getSkillTreeRegistry().getKey(this));
     }
 
     public ITextComponent getDisplayName() {
