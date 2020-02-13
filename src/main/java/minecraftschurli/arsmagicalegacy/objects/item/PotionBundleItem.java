@@ -18,6 +18,11 @@ public class PotionBundleItem extends PotionItem {
 
     public PotionBundleItem(Properties properties) {
         super(properties);
+        this.addPropertyOverride(new ResourceLocation("uses"), (stack, world, entity) -> {
+            if (!stack.hasTag() || !stack.getTag().contains(USES_KEY))
+                return 0;
+            return stack.getTag().getInt(USES_KEY);
+        });
     }
 
     @Nonnull
