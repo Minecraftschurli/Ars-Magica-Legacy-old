@@ -34,10 +34,10 @@ public class PotionBundleItem extends PotionItem {
             entity.addPotionEffect(effect);
         }
         tag.putInt(USES_KEY, tag.getInt(USES_KEY) - 1);
-        if(!((PlayerEntity) entity).addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE)))
-            InventoryHelper.spawnItemStack(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), new ItemStack(Items.GLASS_BOTTLE));
         if(tag.getInt(USES_KEY) == 0)
             return new ItemStack(Items.GLASS_BOTTLE);
+        if(!((PlayerEntity) entity).addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE)))
+            InventoryHelper.spawnItemStack(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), new ItemStack(Items.GLASS_BOTTLE));
         return stack;
     }
 

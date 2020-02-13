@@ -8,6 +8,7 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -23,6 +24,7 @@ public class JEIPlugin implements IModPlugin {
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.useNbtForSubtypes(ModItems.INFINITY_ORB.get());
         registration.useNbtForSubtypes(ModItems.INSCRIPTION_UPGRADE.get());
+        registration.registerSubtypeInterpreter(ModItems.POTION_BUNDLE.get(), itemStack -> PotionUtils.getPotionFromItem(itemStack).getRegistryName().toString());
     }
 
     @Override
