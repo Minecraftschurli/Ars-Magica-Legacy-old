@@ -41,6 +41,7 @@ public class ArsMagicaAPI {
         modEventBus.addListener(SpellRegistry::onSpellPartRegister);
         modEventBus.addListener(SkillRegistry::onSkillRegister);
         modEventBus.addListener(SkillTreeRegistry::onSkillTreeRegister);
+        modEventBus.addListener(AffinityRegistry::onAffinityRegister);
         modEventBus.addListener(ArsMagicaAPI::registerRegistries);
 
         CapabilityHelper.setup();

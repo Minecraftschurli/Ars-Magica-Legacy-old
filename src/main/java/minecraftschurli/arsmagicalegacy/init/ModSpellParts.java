@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import com.google.common.collect.ImmutableSet;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
-import minecraftschurli.arsmagicalegacy.api.SkillTreeRegistry;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
@@ -14,9 +13,12 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
+import org.apache.commons.io.filefilter.AbstractFileFilter;
 
+import java.util.HashSet;
 import java.util.function.Supplier;
 
 /**
@@ -159,6 +161,30 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> WATER_BREATHING = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "water_breathing", SKILL_POINT_1, WaterBreathing::new, UTILITY, 410, 345, "arsmagicalegacy:drought");
     public static final RegistryObject<SpellComponent> WATERY_GRAVE = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "watery_grave", SKILL_POINT_2, WateryGrave::new, OFFENSE, 435, 245, "arsmagicalegacy:drown");
     public static final RegistryObject<SpellComponent> WIZARDS_AUTUMN = SpellRegistry.registerSpellComponent(ArsMagicaLegacy.MODID, "wizards_autumn", SKILL_POINT_1, WizardsAutumn::new, UTILITY, 315, 120, "arsmagicalegacy:dig");
+
+    private static final ResourceLocation _NONE = new ResourceLocation(ArsMagicaLegacy.MODID, "none");
+    private static final ResourceLocation _ARCANE = new ResourceLocation(ArsMagicaLegacy.MODID, "arcane");
+    private static final ResourceLocation _WATER = new ResourceLocation(ArsMagicaLegacy.MODID, "water");
+    private static final ResourceLocation _FIRE = new ResourceLocation(ArsMagicaLegacy.MODID, "fire");
+    private static final ResourceLocation _EARTH = new ResourceLocation(ArsMagicaLegacy.MODID, "earth");
+    private static final ResourceLocation _AIR = new ResourceLocation(ArsMagicaLegacy.MODID, "air");
+    private static final ResourceLocation _LIGHTNING = new ResourceLocation(ArsMagicaLegacy.MODID, "lightning");
+    private static final ResourceLocation _ICE = new ResourceLocation(ArsMagicaLegacy.MODID, "ice");
+    private static final ResourceLocation _NATURE = new ResourceLocation(ArsMagicaLegacy.MODID, "nature");
+    private static final ResourceLocation _LIFE = new ResourceLocation(ArsMagicaLegacy.MODID, "life");
+    private static final ResourceLocation _ENDER = new ResourceLocation(ArsMagicaLegacy.MODID, "ender");
+
+    public static final RegistryObject<Affinity> NONE = AffinityRegistry.registerAffinity(Affinity.NONE, 0xFFFFFF, Affinity.NONE, ImmutableSet.of(), ImmutableSet.of());
+    public static final RegistryObject<Affinity> ARCANE = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"arcane", 0xb935cd, _NATURE, ImmutableSet.of(_LIFE, _EARTH, _WATER, _ICE), ImmutableSet.of(_AIR, _ENDER));
+    public static final RegistryObject<Affinity> WATER = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID, "water", 0x0b5cef, _FIRE, ImmutableSet.of(_LIGHTNING, _EARTH, _ARCANE, _ENDER), ImmutableSet.of(_AIR, _ICE));
+    public static final RegistryObject<Affinity> FIRE = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"fire", 0xef260b, _WATER, ImmutableSet.of(_AIR, _ICE, _NATURE, _LIFE), ImmutableSet.of(_EARTH, _LIGHTNING));
+    public static final RegistryObject<Affinity> EARTH = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"earth", 0x61330b, _AIR, ImmutableSet.of(_WATER, _ARCANE, _LIFE, _LIGHTNING), ImmutableSet.of(_NATURE, _FIRE));
+    public static final RegistryObject<Affinity> AIR = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"air", 0x777777, _EARTH, ImmutableSet.of(_NATURE, _FIRE, _ICE, _ENDER), ImmutableSet.of(_WATER, _ARCANE));
+    public static final RegistryObject<Affinity> LIGHTNING = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"lightning", 0xdece19, _ICE, ImmutableSet.of(_WATER, _ENDER, _NATURE, _EARTH), ImmutableSet.of(_LIFE, _FIRE));
+    public static final RegistryObject<Affinity> ICE = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"ice", 0xd3e8fc, _LIGHTNING, ImmutableSet.of(_LIFE, _FIRE, _AIR, _ARCANE), ImmutableSet.of(_WATER, _ENDER));
+    public static final RegistryObject<Affinity> NATURE = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"nature", 0x228718, _ARCANE, ImmutableSet.of(_AIR, _ENDER, _LIGHTNING, _FIRE), ImmutableSet.of(_LIFE, _EARTH));
+    public static final RegistryObject<Affinity> LIFE = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"life", 0x34e122, _ENDER, ImmutableSet.of(_ARCANE, _ICE, _FIRE, _EARTH), ImmutableSet.of(_NATURE, _LIGHTNING));
+    public static final RegistryObject<Affinity> ENDER = AffinityRegistry.registerAffinity(ArsMagicaLegacy.MODID,"ender", 0x3f043d, _LIFE, ImmutableSet.of(_NATURE, _LIGHTNING, _WATER, _AIR), ImmutableSet.of(_ARCANE, _ICE));
 
     public static void register() {}
 }

@@ -12,22 +12,27 @@ import java.util.Map;
  * @version 2020-02-13
  */
 public class AffinityStorage implements IAffinityStorage {
-    private Map<ResourceLocation, Double> store = new HashMap<>();
-    private boolean locked = false;
+    private Map<ResourceLocation, Double> store;
+    private boolean locked;
+
+    public AffinityStorage() {
+        this.store = new HashMap<>();
+        this.locked = false;
+    }
 
     @Override
     public double getAffinityDepth(ResourceLocation affinity) {
-        return store.get(affinity);
+        return this.store.containsKey(affinity) ? this.store.get(affinity) : 0;
     }
 
     @Override
     public void setAffinityDepth(ResourceLocation affinity, double depth) {
-        store.put(affinity, depth);
+        this.store.put(affinity, depth);
     }
 
     @Override
     public Map<ResourceLocation, Double> getAffinitiesInternal() {
-        return ImmutableMap.copyOf(store);
+        return ImmutableMap.copyOf(this.store);
     }
 
     @Override

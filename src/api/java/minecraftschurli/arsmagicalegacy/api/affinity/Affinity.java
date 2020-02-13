@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable<Affinity> {
     private int color;
     private ResourceLocation directOpposite;
-    private List<ResourceLocation> majorOpposites = new ArrayList<>();
-    private List<ResourceLocation> minorOpposites = new ArrayList<>();
+    private Set<ResourceLocation> majorOpposites = new HashSet<>();
+    private Set<ResourceLocation> minorOpposites = new HashSet<>();
     private IItemProvider essence = Items.AIR;
     public static final ResourceLocation NONE = new ResourceLocation(ArsMagicaAPI.MODID, "none");
 
@@ -48,29 +48,29 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return color;
     }
 
-    public List<Affinity> getMinorOpposingAffinities() {
+    public Set<Affinity> getMinorOpposingAffinities() {
         return minorOpposites
                 .stream()
                 .filter(location -> !location.equals(NONE))
                 .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    public List<Affinity> getMajorOpposingAffinities() {
+    public Set<Affinity> getMajorOpposingAffinities() {
         return majorOpposites
                 .stream()
                 .filter(location -> !location.equals(NONE))
                 .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    public List<Affinity> getAdjacentAffinities() {
+    public Set<Affinity> getAdjacentAffinities() {
         return ArsMagicaAPI.getAffinityRegistry()
                 .getKeys()
                 .stream()
                 .filter(rl -> !(Objects.equals(rl, NONE) || majorOpposites.contains(rl) || minorOpposites.contains(rl) || Objects.equals(directOpposite, rl) || Objects.equals(getRegistryName(), rl)))
                 .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     public Affinity getOpposingAffinity() {
@@ -82,13 +82,31 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return this;
     }
 
-    public Affinity addMajorOpposite(ResourceLocation... rls) {
-        this.majorOpposites.addAll(Arrays.asList(rls));
+    public Affinity addMajorOpposite(Collection<ResourceLocation> rls) {
+        this.majorOpposites.addAll(rls);
         return this;
     }
 
+    public Affinity addMinorOpposite(Collection<ResourceLocation> rls) {
+        this.minorOpposites.addAll(rls);
+        return this;
+    }
+
+    public Affinity addMajorOpposite(ResourceLocation... rls) {
+        return addMajorOpposite(Arrays.asList(rls));
+    }
+
     public Affinity addMinorOpposite(ResourceLocation... rls) {
-        this.minorOpposites.addAll(Arrays.asList(rls));
+        return addMinorOpposite(Arrays.asList(rls));
+    }
+
+    public Affinity addMajorOpposite(ResourceLocation rl) {
+        this.majorOpposites.add(rl);
+        return this;
+    }
+
+    public Affinity addMinorOpposite(ResourceLocation rl) {
+        this.minorOpposites.add(rl);
         return this;
     }
 
