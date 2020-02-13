@@ -1,0 +1,23 @@
+{
+  "parent": "item/generated",
+  "overrides": [
+    {
+      "predicate": {
+        "uses": 1
+      },
+      "model": "arsmagicalegacy:item/potion_bundle_1"
+    },
+    {
+      "predicate": {
+        "uses": 2
+      },
+      "model": "arsmagicalegacy:item/potion_bundle_2"
+    },
+    {
+      "predicate": {
+        "uses": 3
+      },
+      "model": "arsmagicalegacy:item/potion_bundle_3"
+    }
+  ]
+}

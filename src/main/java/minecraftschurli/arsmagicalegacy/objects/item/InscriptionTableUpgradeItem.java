@@ -1,10 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 
 /**
  * @author Minecraftschurli
@@ -13,6 +11,11 @@ import net.minecraft.util.NonNullList;
 public class InscriptionTableUpgradeItem extends Item {
     public InscriptionTableUpgradeItem() {
         super(ModItems.ITEM_1);
+        this.addPropertyOverride(new ResourceLocation("tier"), (stack, world, entity) -> {
+            if (!stack.hasTag() || !stack.getTag().contains("tier"))
+                return 0;
+            return stack.getTag().getInt("tier");
+        });
     }
 
     @Override
