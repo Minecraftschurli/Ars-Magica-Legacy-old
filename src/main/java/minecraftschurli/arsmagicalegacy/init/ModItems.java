@@ -136,6 +136,11 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = ITEMS.register("battlemage_chestplate", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = ITEMS.register("battlemage_leggings", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_BOOTS = ITEMS.register("battlemage_boots", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
+    public static final RegistryObject<Item> LESSER_MANA_POTION_BUNDLE = ITEMS.register("lesser_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
+    public static final RegistryObject<Item> MANA_POTION_BUNDLE = ITEMS.register("mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
+    public static final RegistryObject<Item> GREATER_MANA_POTION_BUNDLE = ITEMS.register("greater_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
+    public static final RegistryObject<Item> EPIC_MANA_POTION_BUNDLE = ITEMS.register("epic_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
+    public static final RegistryObject<Item> LEGENDARY_MANA_POTION_BUNDLE = ITEMS.register("legendary_mana_potion_bundle", () -> new PotionBundleItem(ITEM_1, ModEffects.LESSER_MANA_POTION.get()));
 
     public static void register() {
     }
