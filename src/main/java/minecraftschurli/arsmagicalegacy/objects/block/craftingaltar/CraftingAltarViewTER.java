@@ -74,7 +74,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         matrixStackIn.translate(-0.5, -0.4, -0.5);
         matrixStackIn.rotate(this.renderDispatcher.renderInfo.getRotation());
         matrixStackIn.scale(-0.025F, -0.025F, 0.025F);
-        Matrix4f matrix4f = matrixStackIn.getLast().getPositionMatrix();
+        Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
         float f1 = Minecraft.getInstance().gameSettings.getTextBackgroundOpacity(0.25F);
         int j = (int)(f1 * 255.0F) << 24;
         FontRenderer fontrenderer = this.renderDispatcher.fontRenderer;
