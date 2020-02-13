@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WLW",
+    "WRW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:brown_wool"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "R": {
+      "item": "arsmagicalegacy:purple_rune"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:mage_helmet"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "WLW",
+    "WWW"
+  ],
+  "key": {
+    "R": {
+      "item": "arsmagicalegacy:white_rune"
+    },
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "W": {
+      "item": "minecraft:brown_wool"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:mage_chestplate"
+  }
+}
