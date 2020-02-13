@@ -8,10 +8,9 @@ import net.minecraft.block.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.potion.*;
-import net.minecraft.util.*;
 import net.minecraftforge.fml.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 import java.util.*;
 
 /**
@@ -128,8 +127,8 @@ public final class ModItems implements IInit {
         }
     });
     public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
-    public static final ArmorMaterial MAGE_ARMOR = new minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial("mage", 33, new int[]{2, 6, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.5f);
-    public static final ArmorMaterial BATTLEMAGE_ARMOR = new minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial("battlemage", 48, new int[]{3, 8, 6, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1);
+    public static final ArmorMaterial MAGE_ARMOR = new minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial("mage", 33, 2, 6, 4, 2, 15, 0.5f, RUNE);
+    public static final ArmorMaterial BATTLEMAGE_ARMOR = new minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial("battlemage", 48, 3, 6, 8, 3, 10, 1, GOLD_INLAY);
     public static final RegistryObject<Item> MAGE_HELMET = ITEMS.register("mage_helmet", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGE_CHESTPLATE = ITEMS.register("mage_chestplate", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
     public static final RegistryObject<Item> MAGE_LEGGINGS = ITEMS.register("mage_leggings", () -> new ArmorItem(MAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));

@@ -6,22 +6,24 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
 
+import java.util.function.*;
+
 public class ArmorMaterial implements IArmorMaterial {
     private static final int[] MAX_DAMAGE = new int[]{13, 15, 16, 11};
     private final String name;
     private final int maxDamage;
     private final int[] armorValues;
     private final int enchantability;
-    private final SoundEvent soundEvent;
     private final float toughness;
+    private final LazyValue<Ingredient> repair;
 
-    public ArmorMaterial(String name, int maxDamage, int[] armor, int enchantability, SoundEvent sound, float toughness) {
+    public ArmorMaterial(String name, int maxDamage, int head, int chest, int legs, int feet, int enchantability, float toughness, Supplier<Item> repairItem) {
         this.name = name;
         this.maxDamage = maxDamage;
-        this.armorValues = armor;
+        this.armorValues = new int[]{head, chest, legs, feet};
         this.enchantability = enchantability;
-        this.soundEvent = sound;
         this.toughness = toughness;
+        this.repair = new LazyValue<>(() -> Ingredient.fromItems(repairItem.get()));
     }
 
     public int getDurability(EquipmentSlotType slotIn) {
@@ -37,12 +39,12 @@ public class ArmorMaterial implements IArmorMaterial {
     }
 
     public SoundEvent getSoundEvent() {
-        return this.soundEvent;
+        return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
     }
 
     @Override
     public Ingredient getRepairMaterial() {
-        return null;
+        return this.repair.getValue();
     }
 
     @OnlyIn(Dist.CLIENT)
