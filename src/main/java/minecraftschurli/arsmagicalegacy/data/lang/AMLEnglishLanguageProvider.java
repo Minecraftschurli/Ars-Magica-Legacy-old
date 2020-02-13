@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaLanguagePlugin;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraft.data.*;
+import net.minecraftforge.common.data.*;
 
 /**
  * @author Minecraftschurli
@@ -101,7 +101,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.FIRE_ESSENCE, "Fire Essence");
         addItem(ModItems.WATER_ESSENCE, "Water Essence");
 
-        addItem(ModItems.MANA_CAKE, "Manacake");
+        addItem(ModItems.MANA_CAKE, "Mana Cake");
         addItem(ModItems.MANA_MARTINI, "Mana Martini");
         addItem(ModItems.PIG_FAT, "Pig Fat");
         addItem(ModItems.ARCANE_ASH, "Arcane Ash");
@@ -126,6 +126,15 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.CREATURE_FOCUS, "Creature Focus");
         addItem(ModItems.ITEM_FOCUS, "Item Focus");
         addItem(ModItems.CHARGE_FOCUS, "Charge Focus");
+
+        addItem(ModItems.MAGE_HELMET, "Mage Helmet");
+        addItem(ModItems.MAGE_CHESTPLATE, "Mage Chestplate");
+        addItem(ModItems.MAGE_LEGGINGS, "Mage Leggings");
+        addItem(ModItems.MAGE_BOOTS, "Mage Boots");
+        addItem(ModItems.BATTLEMAGE_HELMET, "Battlemage Helmet");
+        addItem(ModItems.BATTLEMAGE_CHESTPLATE, "Battlemage Chestplate");
+        addItem(ModItems.BATTLEMAGE_LEGGINGS, "Battlemage Leggings");
+        addItem(ModItems.BATTLEMAGE_BOOTS, "Battlemage Boots");
 
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Witchwood Forest");
 
@@ -293,7 +302,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
 
         add("arsmagicalegacy.spell.manacost", "Mana Cost: %d");
-        add("arsmagicalegacy.altar.lowpower", "The Altar Powerlevel is too low!");
+        add("arsmagicalegacy.altar.lowpower", "The Altar Power Level is too low!");
 
         add("arsmagicalegacy.gui.inscriptiontable.search", "Search");
         add("arsmagicalegacy.gui.inscriptiontable.name", "Name");

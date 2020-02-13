@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaLanguagePlugin;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraft.data.*;
+import net.minecraftforge.common.data.*;
 
 /**
  * @author Minecraftschurli
@@ -102,6 +102,15 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.CREATURE_FOCUS, "Kreaturfokus");
         addItem(ModItems.ITEM_FOCUS, "Itemfokus");
         addItem(ModItems.CHARGE_FOCUS, "Aufgeladener Focus");
+
+        addItem(ModItems.MAGE_HELMET, "Magierhelm");
+        addItem(ModItems.MAGE_CHESTPLATE, "Magierbrustplatte");
+        addItem(ModItems.MAGE_LEGGINGS, "Magierhose");
+        addItem(ModItems.MAGE_BOOTS, "Magierstiefel");
+        addItem(ModItems.BATTLEMAGE_HELMET, "Kampfmagierhelm");
+        addItem(ModItems.BATTLEMAGE_CHESTPLATE, "Kampfmagierbrustplatte");
+        addItem(ModItems.BATTLEMAGE_LEGGINGS, "Kampfmagierhose");
+        addItem(ModItems.BATTLEMAGE_BOOTS, "Kampfmagierstiefel");
 
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Hexenwald");
 

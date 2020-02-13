@@ -1,53 +1,34 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import com.google.common.collect.ImmutableList;
-import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.CraftingAltarStructureMaterials;
-import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
-import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.api.network.TEClientSyncPacket;
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableTileEntity;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.state.properties.Half;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LecternTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
-import net.minecraftforge.client.model.data.ModelProperty;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.PacketDistributor;
+import com.google.common.collect.*;
+import javafx.util.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.multiblock.*;
+import minecraftschurli.arsmagicalegacy.api.network.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.block.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.state.properties.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.client.model.data.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.fml.network.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import javax.annotation.*;
+import java.util.*;
+import java.util.concurrent.atomic.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 /**
  * @author Minecraftschurli
@@ -398,6 +379,8 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     @Nonnull
     public ItemStack getBook() {
+        if (this.book == null)
+            this.book = ItemStack.EMPTY;
         if (this.book.isEmpty() && getWorld() != null) {
             LecternTileEntity lectern = getLectern();
             if (lectern != null)

@@ -1,18 +1,16 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.data.ArsMagicaRecipePlugin;
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.data.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
-import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
-import net.minecraftforge.common.Tags;
+import net.minecraft.item.*;
+import net.minecraft.tags.*;
+import net.minecraftforge.common.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli
@@ -272,8 +270,8 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .patternLine("P")
                 .patternLine("W")
                 .patternLine("S")
-                .key('P', ModItems.WITCHWOOD_PLANKS.get())
-                .key('W', ModItems.WITCHWOOD_SLAB.get())
+                .key('P', ItemTags.PLANKS)
+                .key('W', ItemTags.WOODEN_SLABS)
                 .key('S', Items.STICK)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.STICK))
                 .build(consumer);
@@ -342,7 +340,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .key('F', ModItems.STANDARD_FOCUS.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
-        /*ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_FOCUS.get())
+        ShapedRecipeBuilder.shapedRecipe(ModItems.ITEM_FOCUS.get())
                 .patternLine("C")
                 .patternLine("F")
                 .patternLine("W")
@@ -350,6 +348,127 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .key('F', ModItems.STANDARD_FOCUS.get())
                 .key('W', Items.CRAFTING_TABLE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.STANDARD_FOCUS.get()))
-                .build(consumer);*/
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.MANA_CAKE.get(), 3)
+                .addIngredient(ModItems.CERUBLOSSOM.get())
+                .addIngredient(ModItems.AUM.get())
+                .addIngredient(Items.SUGAR)
+                .addIngredient(Items.WHEAT)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.WHEAT))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.MANA_MARTINI.get())
+                .addIngredient(Items.ICE)
+                .addIngredient(Items.POTATO)
+                .addIngredient(Items.SUGAR)
+                .addIngredient(Items.STICK)
+                .addIngredient(Items.GLASS_BOTTLE) //TODO @IchHabeHunger54 change to standard mana potion
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.POTATO))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.INSCRIPTION_UPGRADE.get())
+                .addIngredient(Items.BOOK)
+                .addIngredient(Tags.Items.STRING)
+                .addIngredient(Tags.Items.FEATHERS)
+                .addIngredient(Items.INK_SAC)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.BOOK))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.OCCULUS.get())
+                .patternLine("SGS")
+                .patternLine(" S ")
+                .patternLine("CTC")
+                .key('S', Items.STONE_BRICKS)
+                .key('G', Tags.Items.GLASS)
+                .key('C', ItemTags.COALS)
+                .key('T', ModTags.Items.GEMS_TOPAZ)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.INSCRIPTION_TABLE.get())
+                .patternLine("TXF")
+                .patternLine("SSS")
+                .patternLine("P P")
+                .key('T', Items.TORCH)
+                .key('X', ModItems.SPELL_PARCHMENT.get())
+                .key('F', Tags.Items.FEATHERS)
+                .key('S', ItemTags.WOODEN_SLABS)
+                .key('P', ItemTags.PLANKS)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ItemTags.PLANKS).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGE_HELMET.get())
+                .patternLine("WLW")
+                .patternLine("WRW")
+                .key('W', Items.BROWN_WOOL)
+                .key('L', Items.LEATHER)
+                .key('R', ModItems.PURPLE_RUNE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGE_CHESTPLATE.get())
+                .patternLine("RCR")
+                .patternLine("WLW")
+                .patternLine("WWW")
+                .key('R', ModItems.WHITE_RUNE.get())
+                .key('C', ItemTags.COALS)
+                .key('W', Items.BROWN_WOOL)
+                .key('L', Items.LEATHER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGE_LEGGINGS.get())
+                .patternLine("WLW")
+                .patternLine("WGW")
+                .patternLine("R R")
+                .key('R', ModItems.YELLOW_RUNE.get())
+                .key('G', Tags.Items.GUNPOWDER)
+                .key('W', Items.BROWN_WOOL)
+                .key('L', Items.LEATHER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGE_BOOTS.get())
+                .patternLine("R R")
+                .patternLine("L L")
+                .patternLine("WFW")
+                .key('R', ModItems.BLACK_RUNE.get())
+                .key('F', Tags.Items.FEATHERS)
+                .key('W', ItemTags.WOOL)
+                .key('L', Items.LEATHER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_HELMET.get())
+                .patternLine("OGO")
+                .patternLine("ORO")
+                .patternLine(" E ")
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('G', ModItems.GOLD_INLAY.get())
+                .key('R', ModItems.RED_RUNE.get())
+                .key('E', ModItems.WATER_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_CHESTPLATE.get())
+                .patternLine("RER")
+                .patternLine("OGO")
+                .patternLine("OOO")
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('G', ModItems.GOLD_INLAY.get())
+                .key('R', ModItems.RED_RUNE.get())
+                .key('E', ModItems.EARTH_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_LEGGINGS.get())
+                .patternLine("ORO")
+                .patternLine("GEG")
+                .patternLine("O O")
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('G', ModItems.GOLD_INLAY.get())
+                .key('R', ModItems.RED_RUNE.get())
+                .key('E', ModItems.FIRE_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_BOOTS.get())
+                .patternLine("R R")
+                .patternLine("OEO")
+                .patternLine("OGO")
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('G', ModItems.GOLD_INLAY.get())
+                .key('R', ModItems.RED_RUNE.get())
+                .key('E', ModItems.AIR_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
+                .build(consumer);
     }
 }
