@@ -13,7 +13,10 @@
     {
       "ingredient_type": "item_stack",
       "id": "minecraft:fishing_rod",
-      "Count": 1
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
     }
   ]
 }

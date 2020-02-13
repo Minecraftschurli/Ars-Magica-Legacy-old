@@ -1,4 +1,10 @@
 {
   "replace": false,
-  "values": []
+  "values": [
+    "#forge:storage_blocks/chimerite",
+    "#forge:storage_blocks/sunstone",
+    "#forge:storage_blocks/moonstone",
+    "#forge:storage_blocks/topaz",
+    "#forge:storage_blocks/vinteum"
+  ]
 }

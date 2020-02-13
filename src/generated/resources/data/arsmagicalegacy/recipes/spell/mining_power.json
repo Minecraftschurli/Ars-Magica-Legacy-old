@@ -8,7 +8,10 @@
     {
       "ingredient_type": "item_stack",
       "id": "minecraft:diamond_pickaxe",
-      "Count": 1
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
     }
   ]
 }

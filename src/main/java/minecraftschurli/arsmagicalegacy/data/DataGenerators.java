@@ -28,8 +28,8 @@ public class DataGenerators {
         if (event.includeServer()) {
             gen.addProvider(new AMLRecipeProvider(gen));
             gen.addProvider(new AMLLootTableProvider(gen));
-            gen.addProvider(new AMLItemTagsProvider(gen));
             gen.addProvider(new AMLBlockTagsProvider(gen));
+            gen.addProvider(new AMLItemTagsProvider(gen));
             gen.addProvider(new AMLFluidTagsProvider(gen));
         }
         if (event.includeClient()) {

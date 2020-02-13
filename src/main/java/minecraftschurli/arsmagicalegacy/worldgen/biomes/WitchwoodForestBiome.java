@@ -16,7 +16,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
  * @author Minecraftschurli
  * @version 2019-11-22
  */
-public class WitchwoodForestBiome extends Biome {
+public class WitchwoodForestBiome extends Biome implements ICustomFeatureBiome {
     public WitchwoodForestBiome() {
         super(new Builder()
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
@@ -47,7 +47,7 @@ public class WitchwoodForestBiome extends Biome {
     }
 
     public void init() {
-        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.WITCHWOOD_TREE.get().withConfiguration(ModFeatures.WITCHWOOD_TREE_CONFIG.get()).func_227228_a_(Placement.COUNT_EXTRA_HEIGHTMAP.func_227446_a_(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
+        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.WITCHWOOD_TREE.get().withConfiguration(ModFeatures.WITCHWOOD_TREE_CONFIG.get()).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
     }
 
     @Override

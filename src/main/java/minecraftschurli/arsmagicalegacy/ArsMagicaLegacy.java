@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy;
 
+import com.google.common.base.Predicates;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
 import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
@@ -12,6 +13,7 @@ import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAlta
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellRecipeManager;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
+import minecraftschurli.arsmagicalegacy.worldgen.biomes.ICustomFeatureBiome;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -38,6 +40,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -161,6 +164,11 @@ public final class ArsMagicaLegacy {
         MagicCapability.register();
         RiftStorageCapability.register();
 
+        /*ForgeRegistries.BIOMES.getValues()
+                .stream()
+                .filter(Predicates.instanceOf(ICustomFeatureBiome.class))
+                .map(ICustomFeatureBiome.class::cast)
+                .forEach(ICustomFeatureBiome::init);*/
         ModBiomes.WITCHWOOD_FOREST.get().init();
     }
 

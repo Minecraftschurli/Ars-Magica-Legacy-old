@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.data.tags;
 
+import javafx.util.Pair;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.data.DataGenerator;
@@ -7,6 +10,8 @@ import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
+
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
