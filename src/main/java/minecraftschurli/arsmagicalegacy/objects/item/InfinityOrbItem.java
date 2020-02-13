@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -32,8 +33,8 @@ public class InfinityOrbItem extends Item {
     }
 
     @Override
-    public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
-        super.onCreated(stack, worldIn, playerIn);
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.EAT;
     }
 
     @Override
@@ -41,9 +42,7 @@ public class InfinityOrbItem extends Item {
         if (this.isInGroup(group)) {
             for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
                 if (!type.canRender()) continue;
-                ItemStack stack = new ItemStack(this);
-                stack.getOrCreateTag().putInt(TYPE_KEY, type.getTier());
-                items.add(stack);
+                items.add(setSkillPoint(new ItemStack(this), type));
             }
         }
     }
@@ -56,8 +55,9 @@ public class InfinityOrbItem extends Item {
         return useOrb(playerIn, playerIn.getHeldItem(handIn));
     }
 
-    public ItemStack setSkillPoint(SkillPoint point) {
-        ItemStack stack = new ItemStack(this);
+    public ItemStack setSkillPoint(ItemStack stack, SkillPoint point) {
+        if (!(stack.getItem() instanceof InfinityOrbItem))
+            return stack;
         stack.getOrCreateTag().putInt(TYPE_KEY, point.getTier());
         return stack;
     }
@@ -65,11 +65,6 @@ public class InfinityOrbItem extends Item {
     public static SkillPoint getSkillPoint(ItemStack stack) {
         return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
     }
-
-    /*@Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        return useOrb(context.getPlayer(), stack).getType();
-    }*/
 
     private ActionResult<ItemStack> useOrb(LivingEntity entity, ItemStack heldItem) {
         if (entity instanceof PlayerEntity){
@@ -83,11 +78,4 @@ public class InfinityOrbItem extends Item {
     public ITextComponent getDisplayName(ItemStack stack) {
         return new TranslationTextComponent(this.getTranslationKey(stack), getSkillPoint(stack).getDisplayName());
     }
-
-    /*@Override
-    @Nonnull
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (context.getPlayer() == null) return ActionResultType.FAIL;
-        return this.useOrb(context.getPlayer(), context.getItem()).getType();
-    }*/
 }
