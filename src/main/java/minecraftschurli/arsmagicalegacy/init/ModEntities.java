@@ -1,11 +1,8 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
-import minecraftschurli.arsmagicalegacy.objects.entity.ThrownRockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.objects.entity.*;
+import net.minecraft.entity.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli

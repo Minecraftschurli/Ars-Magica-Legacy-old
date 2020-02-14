@@ -1,16 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
-import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.*;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.*;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 public class PotionBundleItem extends PotionItem {
     public static final String USES_KEY = "Uses";

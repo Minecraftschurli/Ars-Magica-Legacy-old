@@ -1,17 +1,14 @@
 package minecraftschurli.arsmagicalegacy.worldgen.features;
 
-import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.fluid.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.feature.*;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
+import javax.annotation.*;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

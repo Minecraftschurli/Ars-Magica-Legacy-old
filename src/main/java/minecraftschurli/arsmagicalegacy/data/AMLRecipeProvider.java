@@ -7,12 +7,12 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.PotionUtils;
+import net.minecraft.item.crafting.*;
+import net.minecraft.potion.*;
 import net.minecraft.tags.*;
 import net.minecraftforge.common.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 import java.util.function.*;
 
 /**
@@ -394,6 +394,15 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .key('S', ItemTags.WOODEN_SLABS)
                 .key('P', ItemTags.PLANKS)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ItemTags.PLANKS).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MANA_BATTERY.get())
+                .patternLine("CVC")
+                .patternLine("VAV")
+                .patternLine("CVC")
+                .key('C', ModTags.Items.GEMS_CHIMERITE)
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .key('A', ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.ARCANE_ASH.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.MAGE_HELMET.get())
                 .patternLine("WLW")

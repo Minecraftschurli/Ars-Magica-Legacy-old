@@ -1,19 +1,15 @@
 package minecraftschurli.arsmagicalegacy.data.loot;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.data.loot.BlockLootTables;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.LootTables;
+import com.google.common.collect.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.block.*;
+import net.minecraft.data.loot.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.storage.loot.*;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

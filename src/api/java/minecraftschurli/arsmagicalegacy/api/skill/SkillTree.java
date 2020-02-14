@@ -1,11 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import minecraftschurli.arsmagicalegacy.api.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
+import net.minecraftforge.registries.*;
 
 /**
  * @author Minecraftschurli

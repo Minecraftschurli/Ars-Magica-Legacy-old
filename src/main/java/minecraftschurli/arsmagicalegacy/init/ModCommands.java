@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.tree.LiteralCommandNode;
-import minecraftschurli.arsmagicalegacy.objects.command.CommandResearch;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import com.mojang.brigadier.*;
+import com.mojang.brigadier.tree.*;
+import minecraftschurli.arsmagicalegacy.objects.command.*;
+import net.minecraft.command.*;
 
 /**
  * @author Minecraftschurli

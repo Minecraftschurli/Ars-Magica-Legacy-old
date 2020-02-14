@@ -71,7 +71,7 @@ public class Mark extends SpellComponent {
 //            effect.setMaxAge(40);
 //            effect.setIgnoreMaxAge(false);
 //            effect.setParticleScale(0.1f);
-//            if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
+//            if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //        }
     }
 

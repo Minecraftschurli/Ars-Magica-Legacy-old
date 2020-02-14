@@ -141,7 +141,7 @@ public class SpellUtils {
 
         /*if (target instanceof LivingEntity){
             if (EntityUtils.isSummon((LivingEntity)target) && damagesource.damageType.equals("magic")){
-                magnitude *= 3.0f;
+                magnitude *= 3;
             }
         }*/
 //TODO @minecraftschurli

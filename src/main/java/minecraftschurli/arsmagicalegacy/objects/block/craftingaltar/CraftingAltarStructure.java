@@ -1,16 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LecternBlock;
-import net.minecraft.block.LeverBlock;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.multiblock.*;
+import net.minecraft.block.*;
+import net.minecraft.state.properties.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
+import javax.annotation.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

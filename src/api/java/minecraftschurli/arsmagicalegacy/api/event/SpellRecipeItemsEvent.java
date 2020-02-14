@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.event;
 
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import net.minecraftforge.eventbus.api.Event;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraftforge.eventbus.api.*;
 
 /**
  * @author Minecraftschurli

@@ -1,25 +1,24 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import com.mojang.blaze3d.systems.*;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.capability.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -77,7 +76,7 @@ public class UIRender {
 
         mc.getTextureManager().bindTexture(SPELL_BOOK_UI_TEXTURE);
 
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.color4f(1, 1, 1, 1);
 
         /*if (hand == Hand.MAIN_HAND) {
             int slot = player.inventory.getSlotFor(player.getHeldItem(hand));
@@ -119,7 +118,7 @@ public class UIRender {
             Vec2f position = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPBarPosition(), i, j);*/
             Vec2f dimensions = new Vec2f(182, 5);
             Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
-            RenderSystem.color4f(0.5f, 0.5f, 1.0f, 1.0f);
+            RenderSystem.color4f(0.5f, 0.5f, 1, 1);
 
             //base XP bar
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);

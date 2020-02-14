@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
-import minecraftschurli.arsmagicalegacy.api.Config;
-import minecraftschurli.arsmagicalegacy.api.capability.IBurnoutStorage;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.capability.*;
 
 /**
  * @author Minecraftschurli

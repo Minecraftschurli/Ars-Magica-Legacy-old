@@ -1,34 +1,24 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.Config;
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
-import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
-import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.*;
+import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.api.network.*;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistries;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.fml.network.*;
+import net.minecraftforge.registries.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

@@ -1,13 +1,12 @@
 package minecraftschurli.arsmagicalegacy.api.data;
 
 
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

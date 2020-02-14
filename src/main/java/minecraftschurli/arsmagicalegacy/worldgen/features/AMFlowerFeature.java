@@ -14,7 +14,7 @@ public class AMFlowerFeature /*extends FlowersFeature*/ {
     @Nonnull
     @Override
     public BlockState getRandomFlower(@Nonnull Random random, BlockPos pos) {
-        double d0 = MathHelper.clamp((1 + Biome.INFO_NOISE.getValue((double)pos.getX() / 48.0D, (double)pos.getZ() / 48.0D)) / 2.0D, 0, 0.9999D);
+        double d0 = MathHelper.clamp((1 + Biome.INFO_NOISE.getValue((double)pos.getX() / 48, (double)pos.getZ() / 48)) / 2, 0, 0.9999D);
         Block block = FLOWERS.get((int)(d0 * (double)FLOWERS.size())).orElse((FlowerBlock)Blocks.POPPY);
         return block.getDefaultState();
     }*/

@@ -78,7 +78,7 @@ public class SpellItem extends Item implements ISpellItem {
     public RayTraceResult getMovingObjectPosition(LivingEntity caster, World world, double range, boolean includeEntities, boolean targetWater) {
         RayTraceResult entityPos = null;
         if (includeEntities) {
-            Entity pointedEntity = EntityUtils.getPointedEntity(world, caster, range, 1.0f, false, targetWater);
+            Entity pointedEntity = EntityUtils.getPointedEntity(world, caster, range, 1, false, targetWater);
             if (pointedEntity != null) {
                 entityPos = new EntityRayTraceResult(pointedEntity);
             }

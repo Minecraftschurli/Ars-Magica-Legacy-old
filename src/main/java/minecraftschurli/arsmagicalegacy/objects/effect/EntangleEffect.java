@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectType;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.math.*;
 
 /**
  * @author Minecraftschurli

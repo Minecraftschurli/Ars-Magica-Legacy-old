@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
-import minecraftschurli.arsmagicalegacy.util.SlotOneItemClassOnly;
-import net.minecraft.inventory.IInventory;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.inventory.*;
 
 /**
  * @author Minecraftschurli

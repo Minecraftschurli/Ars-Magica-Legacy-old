@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarTileEntity;
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTileEntity;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.*;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;
+import net.minecraft.tileentity.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli

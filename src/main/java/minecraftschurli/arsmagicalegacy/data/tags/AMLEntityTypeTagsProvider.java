@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data.tags;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.EntityTypeTagsProvider;
+import net.minecraft.data.*;
 
 /**
  * @author Minecraftschurli

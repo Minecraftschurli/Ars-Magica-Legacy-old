@@ -211,7 +211,7 @@ public class Appropriation extends SpellComponent {
                     world.capturedBlockSnapshots.clear();
                 }
             } else {
-                if (block == null || block.getBlockHardness(world.getBlockState(blockPos), world, blockPos) == -1.0f)
+                if (block == null || block.getBlockHardness(world.getBlockState(blockPos), world, blockPos) == -1)
                     return false;
                 CompoundNBT data = new CompoundNBT();
                 data.putString(storageType, "block");
