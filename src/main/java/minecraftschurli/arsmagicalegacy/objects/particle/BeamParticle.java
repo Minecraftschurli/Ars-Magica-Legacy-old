@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.*;
@@ -123,50 +124,34 @@ public class BeamParticle extends SpriteTexturedParticle {
 
     @Override
     public void renderParticle(IVertexBuilder iVertexBuilder, ActiveRenderInfo activeRenderInfo, float v) {
-        GL11.glPushMatrix();
-        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param);
-        float rot = (world.getDayTime() % (360 / rotate) + 1) * rotate;
-        float size = age / maxLengthAge;
-        if (size > 1) size = 1;
-        float op = 0.4F;
-        float widthMod = 1.0f;
-        TextureAtlasSprite beamIcon = sprite;
-        GL11.glTexParameterf(3553, 10242, 10497);
-        GL11.glTexParameterf(3553, 10243, 10497);
-        GL11.glTranslated(prevPosX + (posX - prevPosX) * v - posX, prevPosY + (posY - prevPosY) * v - posY, prevPosZ + (posZ - prevPosZ) * v - posZ);
-        if (fppc) widthMod = 0.3f;
-        GL11.glRotatef(90, 1, 0, 0);
-        GL11.glRotatef(180 + prevYaw + Math.abs(yaw) - Math.abs(prevYaw), 0, 0, -1);
-        GL11.glRotatef(pitch, 1, 0, 0);
-        double offset1 = (-0.15D * widthMod) * size;
-        double offset2 = (0.15D * widthMod) * size;
-        GL11.glRotatef(rot, 0, 1, 0);
-        int i = 5;
-        float inc = 45;
-//        if (ArsMagicaLegacy.config.LowGFX()){
-//            i = 3;
-//            inc = 90;
-//        }else if (ArsMagicaLegacy.config.NoGFX()){
-//            i = 1;
-//            inc = 180;
-//        }
-        for (int t = 0; t < i; t++){
+        RenderSystem.pushMatrix();
+        RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param);
+        RenderSystem.texParameter(3553, 10242, 10497);
+        RenderSystem.texParameter(3553, 10243, 10497);
+        RenderSystem.translated(prevPosX + (posX - prevPosX) * v - posX, prevPosY + (posY - prevPosY) * v - posY, prevPosZ + (posZ - prevPosZ) * v - posZ);
+        RenderSystem.rotatef(90, 1, 0, 0);
+        RenderSystem.rotatef(180 + prevYaw + Math.abs(yaw) - Math.abs(prevYaw), 0, 0, -1);
+        RenderSystem.rotatef(pitch, 1, 0, 0);
+        float size = Math.min(age / maxLengthAge, 1);
+        double offset = fppc ? 0.15d * size * 0.3f : 0.15d * size;
+        RenderSystem.rotatef((world.getDayTime() % (360 / rotate) + 1) * rotate, 0, 1, 0);
+        for (int t = 0; t < 5; t++){
             Tessellator.getInstance().draw();
             iVertexBuilder.lightmap(7);
             double l = length * size * particleScale;
-            GL11.glRotatef(inc, 0.0F, 1.0F, 0.0F);
-            GlStateManager.clearCurrentColor();
-			if (t % 2 == 0) GL11.glColor4f(particleRed, particleGreen, particleBlue, op);
-			else GL11.glColor4f(1, 1, 1, 0.4f);
-            iVertexBuilder.pos(offset1, l, 0).tex(beamIcon.getMaxU(), beamIcon.getMinV()).color(particleRed, particleGreen, particleBlue, op).endVertex();
-            iVertexBuilder.pos(offset1, 0, 0).tex(beamIcon.getMaxU(), beamIcon.getMaxV()).color(particleRed, particleGreen, particleBlue, op).endVertex();
-            iVertexBuilder.pos(offset2, 0, 0).tex(beamIcon.getMinU(), beamIcon.getMaxV()).color(particleRed, particleGreen, particleBlue, op).endVertex();
-            iVertexBuilder.pos(offset2, l, 0).tex(beamIcon.getMinU(), beamIcon.getMinV()).color(particleRed, particleGreen, particleBlue, op).endVertex();
+            RenderSystem.rotatef(45, 0, 1, 0);
+            RenderSystem.clearCurrentColor();
+			if (t % 2 == 0) RenderSystem.color4f(particleRed, particleGreen, particleBlue, 0.4f);
+			else RenderSystem.color4f(1, 1, 1, 0.4f);
+            iVertexBuilder.pos(-offset, l, 0).tex(sprite.getMaxU(), sprite.getMinV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
+            iVertexBuilder.pos(-offset, 0, 0).tex(sprite.getMaxU(), sprite.getMaxV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
+            iVertexBuilder.pos(offset, 0, 0).tex(sprite.getMinU(), sprite.getMaxV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
+            iVertexBuilder.pos(offset, l, 0).tex(sprite.getMinU(), sprite.getMinV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
             Tessellator.getInstance().draw();
             iVertexBuilder.lightmap(7);
         }
-        GL11.glPopMatrix();
+        RenderSystem.popMatrix();
     }
 
     @Override
