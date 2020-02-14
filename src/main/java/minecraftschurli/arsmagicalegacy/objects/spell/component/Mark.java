@@ -1,31 +1,27 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraft.world.dimension.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class Mark extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
 //        EntityExtension.For(caster).setMark(impactX, impactY, impactZ, caster.world.getDimension());
         if (caster instanceof PlayerEntity && world.isRemote)
-            caster.sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.markSet"));
+            caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.markSet"));
         return true;
     }
 
@@ -35,11 +31,11 @@ public class Mark extends SpellComponent {
         if (caster.dimension.getId() != -512) {
             caster.dimension = DimensionType.getById(512);
             if (caster instanceof PlayerEntity && world.isRemote)
-                caster.sendMessage(new TranslationTextComponent("Mark Cleared"));
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.markClear"));
         } else {
 //            caster.setMark(target.getPosX(), target.getPosY(), target.getPosZ(), caster.world.getDimension());
             if (caster instanceof PlayerEntity && world.isRemote)
-                caster.sendMessage(new TranslationTextComponent("Mark Set"));
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.markSet"));
         }
         return true;
     }

@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 import com.mojang.blaze3d.systems.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import minecraftschurli.arsmagicalegacy.api.network.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
@@ -15,7 +15,7 @@ import net.minecraft.client.gui.widget.*;
 import net.minecraft.client.gui.widget.button.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.entity.player.*;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.text.*;
@@ -302,12 +302,12 @@ public class OcculusScreen extends Screen {
                     List<ITextComponent> list = new ArrayList<>();
                     list.add(s.getName().applyTextStyle(s.getPoint().getChatColor()));
                     /*if (ArsMagica2.disabledSkills.isSkillDisabled(s.getID()))
-                        list.add(new TranslationTextComponent(".gui.occulus.disabled").setStyle(new Style().setColor(TextFormatting.DARK_RED)));
+                        list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.disabled").setStyle(new Style().setColor(TextFormatting.DARK_RED)));
                     else*/
                     if (hasPrereq)
                         list.add(s.getOcculusDesc().applyTextStyle(TextFormatting.DARK_GRAY));
                     else
-                        list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".gui.occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
+                        list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
 
                     renderTooltip(list.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY, font);
                     flag = true;

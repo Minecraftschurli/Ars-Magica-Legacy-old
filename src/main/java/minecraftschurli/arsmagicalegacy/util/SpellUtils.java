@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import javafx.util.*;
 import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
@@ -463,7 +463,7 @@ public class SpellUtils {
         if (caster instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) caster;
             if (player.isCreative()) return "";
-            StringBuilder string = new StringBuilder(new TranslationTextComponent("am2.tooltip.missingReagents").toString());
+            StringBuilder string = new StringBuilder(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.missingReagents").toString());
             boolean first = true;
             for (SpellComponent part : getComponentsForStage(spellStack, -1)) {
                 if (part.getReagents(caster) == null) continue;

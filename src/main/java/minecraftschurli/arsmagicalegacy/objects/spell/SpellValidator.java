@@ -1,15 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.spell;
 
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.objects.spell.component.Summon;
-import net.minecraft.util.text.TranslationTextComponent;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.component.*;
+import net.minecraft.util.text.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SpellValidator {
     public static final SpellValidator instance = new SpellValidator();
@@ -76,11 +73,11 @@ public class SpellValidator {
             StageValidations result = validateStage(segmented.get(i), i == segmented.size() - 1);
 
             if (result == StageValidations.NOT_VALID) {
-                return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent("am2.spell.validate.compMiss").getFormattedText());
+                return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent(ArsMagicaLegacy.MODID + ".spell.validate.invalid").getFormattedText());
             } else if (result == StageValidations.PRINCIPUM && i == segmented.size() - 1) {
-                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent("am2.spell.validate.principum").getFormattedText()));
+                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaLegacy.MODID + "spell.validate.principum").getFormattedText()));
             } else if (result == StageValidations.TERMINUS && i < segmented.size() - 1) {
-                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent("am2.spell.validate.terminus").getFormattedText()));
+                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaLegacy.MODID + "spell.validate.terminus").getFormattedText()));
             }
         }
 

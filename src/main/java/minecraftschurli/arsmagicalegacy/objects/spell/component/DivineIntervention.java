@@ -1,27 +1,22 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
+import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class DivineIntervention extends SpellComponent {
     @Override
@@ -29,12 +24,12 @@ public class DivineIntervention extends SpellComponent {
         if (world.isRemote || !(target instanceof LivingEntity)) return true;
         if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
             if (target instanceof PlayerEntity)
-                ((PlayerEntity) target).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noTeleportDistortion"));
+                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noTeleportDistortion"));
             return true;
         }
         if (target.dimension.getId() == 1) {
             if (target instanceof PlayerEntity)
-                ((PlayerEntity) target).sendMessage(new TranslationTextComponent("minecraftschurli.arsmagicalegacy.tooltip.noTeleport"));
+                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noTeleport"));
             return true;
         } else if (target.dimension.getId() == 0) {
             BlockPos coords = target instanceof PlayerEntity ? ((PlayerEntity) target).getBedLocation(target.dimension) : null;
