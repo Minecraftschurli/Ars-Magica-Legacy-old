@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
-import minecraftschurli.arsmagicalegacy.api.capability.IMagicStorage;
+import minecraftschurli.arsmagicalegacy.api.capability.*;
 
 /**
  * @author Minecraftschurli

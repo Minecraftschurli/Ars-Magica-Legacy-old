@@ -63,7 +63,7 @@ public class EnderIntervention extends SpellComponent {
 //                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.1f, 1, false));
 //                particle.setMaxAge(25 + rand.nextInt(10));
 //                particle.setRGBColorF(0.7f, 0.2f, 0.2f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
         }
     }

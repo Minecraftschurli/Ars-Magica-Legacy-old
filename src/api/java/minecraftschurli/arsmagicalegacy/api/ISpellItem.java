@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.entity.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
 /**
  * @author Minecraftschurli

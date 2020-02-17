@@ -1,24 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
 
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
 
 public class LifeDrain extends SpellComponent {
     @Override
@@ -59,7 +52,7 @@ public class LifeDrain extends SpellComponent {
 //                particle.AddParticleController(new ParticleArcToEntity(particle, 1, caster, false).SetSpeed(0.03f).generateControlPoints());
 //                particle.setRGBColorF(1, 0.2f, 0.2f);
 //                particle.SetParticleAlpha(0.5f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255.0f, ((colorModifier >> 8) & 0xFF) / 255.0f, (colorModifier & 0xFF) / 255.0f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
         }
     }

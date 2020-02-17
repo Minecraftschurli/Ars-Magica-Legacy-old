@@ -165,7 +165,7 @@ public class ThrownRockEntity extends Entity {
                 if (fire != null){
                     fire.setMaxAge(20);
                     fire.setRGBColorF(1, 1, 1);
-                    fire.setParticleScale(2.0f);
+                    fire.setParticleScale(2);
                     fire.AddParticleController(new ParticleHoldPosition(fire, 20, 1, false));
                     fire.AddParticleController(new ParticleColorShift(fire, 1, false).SetShiftSpeed(0.1f).SetColorTarget(0.01f, 0.01f, 0.01f).SetEndOnReachingTargetColor().setKillParticleOnFinish(false));
                 }

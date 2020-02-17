@@ -1,23 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.api.NBTUtils;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import com.google.common.collect.*;
+import com.google.gson.*;
+import javafx.util.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraft.client.resources.*;
+import net.minecraft.nbt.*;
+import net.minecraft.profiler.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Minecraftschurli

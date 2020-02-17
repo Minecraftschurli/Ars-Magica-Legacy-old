@@ -1,20 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli
@@ -22,7 +18,7 @@ import javax.annotation.Nullable;
  */
 public class CraftingAltarBlock extends Block {
     public CraftingAltarBlock() {
-        super(Block.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE));
+        super(Block.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3).harvestTool(ToolType.PICKAXE));
     }
 
     @Override

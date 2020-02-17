@@ -64,7 +64,7 @@ public class AoE extends SpellShape {
                 case UP:
                 case DOWN:
                     if (world.isRemote)
-                        spawnAoEParticles(stack, world, x + 0.5f, y + ((side.equals(Direction.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2.0f)), z + 0.5f);
+                        spawnAoEParticles(stack, world, x + 0.5f, y + ((side.equals(Direction.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2)), z + 0.5f);
                     int gravityMagnitude = SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack);
                     return applyStageHorizontal(stack, caster, world, pos, side, (int) Math.floor(radius), gravityMagnitude, giveXP);
                 case NORTH:

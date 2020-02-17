@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

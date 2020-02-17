@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.event;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.event.entity.player.*;
 
 /**
  * @author Minecraftschurli

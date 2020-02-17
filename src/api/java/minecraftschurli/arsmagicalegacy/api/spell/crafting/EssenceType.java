@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.*;
 
 /**
  * @author Minecraftschurli

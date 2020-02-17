@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
-import com.google.common.collect.ImmutableList;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import net.minecraft.util.ResourceLocation;
+import com.google.common.collect.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.capability.*;
+import minecraftschurli.arsmagicalegacy.api.skill.*;
+import net.minecraft.util.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 import java.util.*;
 
 /**

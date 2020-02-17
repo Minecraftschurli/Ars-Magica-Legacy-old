@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.worldgen.biomes.WitchwoodForestBiome;
-import net.minecraftforge.fml.RegistryObject;
+import minecraftschurli.arsmagicalegacy.worldgen.biomes.*;
+import net.minecraftforge.fml.*;
 
 /**
  * @author Minecraftschurli

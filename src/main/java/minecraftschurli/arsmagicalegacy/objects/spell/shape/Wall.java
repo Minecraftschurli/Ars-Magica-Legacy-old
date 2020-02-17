@@ -1,21 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
+import minecraftschurli.arsmagicalegacy.init.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 public class Wall extends SpellShape {
     @Override

@@ -1,17 +1,16 @@
 package minecraftschurli.arsmagicalegacy.api.data;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import minecraftschurli.arsmagicalegacy.api.NBTUtils;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.INBTSerializable;
+import com.google.gson.*;
+import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import net.minecraft.data.*;
+import net.minecraft.item.crafting.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.util.*;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.function.Consumer;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Minecraftschurli

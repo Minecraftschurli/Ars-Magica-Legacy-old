@@ -1,16 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.mojang.brigadier.*;
+import com.mojang.brigadier.exceptions.*;
+import net.minecraft.network.*;
+import net.minecraft.particles.*;
+import net.minecraft.util.math.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.registries.*;
 
-import java.util.Locale;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -44,7 +42,7 @@ public class SimpleParticleData implements IParticleData {
         this.red = red;
         this.green = green;
         this.blue = blue;
-        this.alpha = MathHelper.clamp(alpha, 0.01F, 4.0F);
+        this.alpha = MathHelper.clamp(alpha, 0.01F, 4);
         this.type = particleTypeIn;
     }
 

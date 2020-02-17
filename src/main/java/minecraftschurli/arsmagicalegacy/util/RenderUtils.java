@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
 import com.mojang.blaze3d.systems.*;
-import com.sun.javafx.geom.*;
 import minecraftschurli.arsmagicalegacy.objects.particle.*;
 import net.minecraft.block.*;
 import net.minecraft.client.*;
@@ -11,6 +10,7 @@ import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.vertex.*;
 import net.minecraft.particles.*;
 import net.minecraft.tileentity.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.*;
 import org.lwjgl.opengl.*;
@@ -18,6 +18,10 @@ import org.lwjgl.opengl.*;
 import java.util.*;
 
 public class RenderUtils {
+    public static Vec3d copyVec(Vec3d vec) {
+        return new Vec3d(vec.x, vec.y, vec.z);
+    }
+
     public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
         world.addParticle(new SimpleParticleData(type.get(), r, g, b, 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
@@ -36,7 +40,6 @@ public class RenderUtils {
 
     private static Random rand = new Random();
 
-
     public static void drawBox(float minX, float minY, float maxX, float maxY, float zLevel, float minU, float minV, float maxU, float maxV) {
         Tessellator t = Tessellator.getInstance();
         BufferBuilder wr = t.getBuffer();
@@ -49,15 +52,15 @@ public class RenderUtils {
     }
 
     public static float getRed(int color) {
-        return ((color & 0xFF0000) >> 16) / 255.0f;
+        return ((color & 0xFF0000) >> 16) / 255;
     }
 
     public static float getGreen(int color) {
-        return ((color & 0x00FF00) >> 8) / 255.0f;
+        return ((color & 0x00FF00) >> 8) / 255;
     }
 
     public static float getBlue(int color) {
-        return (color & 0x0000FF) / 255.0f;
+        return (color & 0x0000FF) / 255;
     }
 
     public static void color(int color) {
@@ -75,12 +78,12 @@ public class RenderUtils {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         RenderSystem.enableDepthTest();
         GL11.glLineWidth(1f);
-        GL11.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
+        GL11.glColor3d(getRed(color), getGreen(color), getBlue(color));
         GL11.glBegin(GL11.GL_LINES);
         GL11.glVertex3f(xStart, yStart, zLevel);
         GL11.glVertex3f(xEnd, yEnd, zLevel);
         GL11.glEnd();
-        GL11.glColor3d(1.0f, 1.0f, 1.0f);
+        GL11.glColor3d(1, 1, 1);
         RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
@@ -90,21 +93,20 @@ public class RenderUtils {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         RenderSystem.enableDepthTest();
         GL11.glLineWidth(4f);
-        GL11.glColor3d(((color & 0xFF0000) >> 16) / 255.0d, ((color & 0x00FF00) >> 8) / 255.0f, (color & 0x0000FF) / 255.0f);
+        GL11.glColor3d(((color & 0xFF0000) >> 16) / 255, ((color & 0x00FF00) >> 8) / 255, (color & 0x0000FF) / 255);
         GL11.glBegin(GL11.GL_LINES);
         GL11.glVertex3f(xStart, yStart, zLevel);
         GL11.glVertex3f(xEnd, yEnd, zLevel);
         GL11.glEnd();
-        GL11.glColor3d(1.0f, 1.0f, 1.0f);
+        GL11.glColor3d(1, 1, 1);
         RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glPopMatrix();
     }
 
     public static void fractalLine2df(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color, float displace, float fractalDetail) {
-        if (displace < fractalDetail) {
-            line2d(xStart, yStart, xEnd, yEnd, zLevel, color);
-        } else {
+        if (displace < fractalDetail) line2d(xStart, yStart, xEnd, yEnd, zLevel, color);
+        else {
             int mid_x = (int) ((xEnd + xStart) / 2);
             int mid_y = (int) ((yEnd + yStart) / 2);
             mid_x += (rand.nextFloat() - 0.5) * displace;
@@ -135,7 +137,6 @@ public class RenderUtils {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         Tessellator tessellator = Tessellator.getInstance();
         byte b0 = 0;
-
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
         int j = fontrenderer.getStringWidth(text) / 2;
@@ -155,12 +156,11 @@ public class RenderUtils {
         GL11.glPopMatrix();
     }
 
-    public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3f rotation) {
+    public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
         RenderSystem.pushMatrix();
-
-        RenderSystem.rotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-        RenderSystem.rotatef(rotation.y, 1.0f, 1.0f, 0.0f);
-        RenderSystem.rotatef(rotation.z, 1.0f, 0.0f, 1.0f);
+        RenderSystem.rotatef((float)rotation.x, 1, 0, 0);
+        RenderSystem.rotatef((float)rotation.y, 1, 1, 0);
+        RenderSystem.rotatef((float)rotation.z, 1, 0, 1);
         renderBlockModel(te, model, defaultState);
         RenderSystem.popMatrix();
     }
@@ -175,10 +175,10 @@ public class RenderUtils {
             World world = te.getWorld();
             if (world == null)
                 world = Minecraft.getInstance().world;
-            BlockState state = world.getBlockState(te.getPos());
-            if (state.getBlock() != defaultState.getBlock())
-                state = defaultState;
-            //Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
+            BlockState state = null;
+            if (world != null) state = world.getBlockState(te.getPos());
+            if (state.getBlock() != defaultState.getBlock()) state = defaultState;
+//            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
             t.draw();
             RenderSystem.popMatrix();
         } catch (Throwable t) {

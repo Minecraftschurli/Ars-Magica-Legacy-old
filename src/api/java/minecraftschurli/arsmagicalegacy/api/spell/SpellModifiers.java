@@ -5,16 +5,16 @@ package minecraftschurli.arsmagicalegacy.api.spell;
  * @version 2019-11-26
  */
 public enum SpellModifiers {
-    SPEED(1.0D),
+    SPEED(1),
     GRAVITY(0),
     BOUNCE(0),
-    DAMAGE(4.0D),
-    HEALING(1.0D),
-    VELOCITY_ADDED(0.0D),
-    RADIUS(1.0D),
-    DURATION(1.0D),
+    DAMAGE(4),
+    HEALING(1),
+    VELOCITY_ADDED(0),
+    RADIUS(1),
+    DURATION(1),
     PROCS(1),
-    RANGE(8.0D),
+    RANGE(8),
     TARGET_NONSOLID_BLOCKS(0),
     PIERCING(2),
     COLOR(0xFFFFFF),

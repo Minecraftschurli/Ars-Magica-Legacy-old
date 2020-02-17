@@ -38,7 +38,7 @@ public class BeamParticleData implements IParticleData {
         this.red = red;
         this.green = green;
         this.blue = blue;
-        this.alpha = MathHelper.clamp(alpha, 0.01F, 4.0F);
+        this.alpha = MathHelper.clamp(alpha, 0.01F, 4);
         this.type = particleTypeIn;
     }
 

@@ -1,12 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.entity.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
+import minecraftschurli.arsmagicalegacy.objects.entity.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.util.*;
 
 /**
  * @author Minecraftschurli

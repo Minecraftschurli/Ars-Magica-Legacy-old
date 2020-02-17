@@ -128,7 +128,7 @@ public class PotionEffectHandler {
 			/*entity.getWidth() = width;
 			entity.height = height;*/
 
-            double halfWidth = width / 2.0D;
+            double halfWidth = width / 2;
             if (entity.getWidth() < oldWidth) {
                 entity.setBoundingBox(new AxisAlignedBB(
                         entity.getPosX() - halfWidth,

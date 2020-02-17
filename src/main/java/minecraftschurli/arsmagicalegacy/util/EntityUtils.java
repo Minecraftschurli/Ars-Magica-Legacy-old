@@ -92,7 +92,7 @@ public final class EntityUtils {
 //            if (storeForRevert) storedAITasks.put(entityliving.getEntityId(), toRemove);
         if (addMeleeAttack) {
             float speed = entityliving.getAIMoveSpeed();
-            if (speed <= 0) speed = 1.0f;
+            if (speed <= 0) speed = 1;
 //                entityliving.tasks.addTask(3, new EntityAIAttackMelee(entityliving, speed, true));
         }
 //            entityliving.targetTasks.taskEntries.clear();
@@ -134,7 +134,7 @@ public final class EntityUtils {
         entityliving.getPersistentData().putInt(summonOwnerKey, owner.getEntityId());
         if (entityliving instanceof CreatureEntity) {
             float speed = entityliving.getAIMoveSpeed();
-            if (speed <= 0) speed = 1.0f;
+            if (speed <= 0) speed = 1;
 //            ((CreatureEntity)entityliving).tasks.addTask(1, new EntityAISummonFollowOwner((CreatureEntity)entityliving, speed, 10, 20));
         }
     }
@@ -247,7 +247,7 @@ public final class EntityUtils {
 
     public static void setGuardSpawnLocation(CreatureEntity entity, double x, double y, double z) {
         float speed = entity.getAIMoveSpeed();
-        if (speed <= 0) speed = 1.0f;
+        if (speed <= 0) speed = 1;
 //        entity.tasks.addTask(1, new EntityAIGuardSpawnLocation(entity, speed, 3, 16, new Vec3d(x, y, z)));
     }
 

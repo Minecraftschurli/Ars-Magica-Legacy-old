@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.*;
 
 import java.util.*;
 

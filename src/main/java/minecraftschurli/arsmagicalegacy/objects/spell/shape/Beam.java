@@ -33,7 +33,7 @@ public class Beam extends SpellShape {
         for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i) {
             SpellShape shape = SpellUtils.getShapeForStage(spellStack, i);
             if (!shape.equals(this)) continue;
-            if (shape.getClass() == Beam.class) return 1.0f;
+            if (shape.getClass() == Beam.class) return 1;
         }
         return 0.2f;
     }

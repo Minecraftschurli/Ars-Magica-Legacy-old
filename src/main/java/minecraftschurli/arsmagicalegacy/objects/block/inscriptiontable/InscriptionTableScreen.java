@@ -364,7 +364,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 hoveredItem = null;
             }
         } else {
-            GL14.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            GL14.glColor4f(1, 1, 1, 1);
             drawDraggedItem();
         }
         super.renderHoveredToolTip(par1 - l, par2 - i1);
@@ -378,9 +378,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         //TODO
         /*if (AMGuiHelper.instance.getFastTicker() < 20)
-            GL14.glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
+            GL14.glColor4f(1, 1, 1, 0.4f);
         else*///AMGuiHelper.DrawIconAtXY(icon, bookX, bookY, this.zLevel, 16, 16, true);
-        /*GL14.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
+        /*GL14.glColor4f(1, 1, 1, 0.7f);
 
         RenderSystem.matrixMode(GL14.GL_TEXTURE);
         RenderSystem.pushMatrix();
@@ -412,7 +412,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
         if (drawing)
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        GL14.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);*/
+        GL14.glColor4f(1, 1, 1, 1);*/
     }
 
     private boolean drawCurrentRecipe(List<String> labelText, int l, int i1) {
@@ -550,10 +550,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             if (!spellPartIsValidAddition(part) && allowDarken) {
                 GL14.glColor3f(0.3f, 0.3f, 0.3f);
             } else {
-                GL14.glColor3f(1.0f, 1.0f, 1.0f);
+                GL14.glColor3f(1, 1, 1);
             }
         } else {
-            GL14.glColor3f(1.0f, 0.7f, 0.7f);
+            GL14.glColor3f(1, 0.7f, 0.7f);
         }
 
         //TODO

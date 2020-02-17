@@ -1,40 +1,22 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.*;
+import net.minecraft.item.*;
+import net.minecraft.state.*;
+import net.minecraft.state.properties.*;
+import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.text.*;
+import net.minecraft.world.*;
+import net.minecraftforge.fml.network.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.*;
 
 /**
  * @author Minecraftschurli
@@ -48,7 +30,7 @@ public class InscriptionTableBlock extends Block {
     public static final BooleanProperty LEFT = BooleanProperty.create("left");
 
     public InscriptionTableBlock() {
-        super(Properties.create(Material.WOOD).hardnessAndResistance(2.0f, 2.0f).lightValue(1).notSolid());
+        super(Properties.create(Material.WOOD).hardnessAndResistance(2, 2).lightValue(1).notSolid());
         setDefaultState(getDefaultState().with(TIER, 0).with(FACING, Direction.NORTH).with(LEFT, false));
     }
 

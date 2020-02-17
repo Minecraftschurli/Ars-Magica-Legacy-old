@@ -1,23 +1,13 @@
 package minecraftschurli.arsmagicalegacy.worldgen;
 
-import minecraftschurli.arsmagicalegacy.init.ModBiomes;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModFeatures;
-import minecraftschurli.arsmagicalegacy.init.ModFluids;
-import minecraftschurli.simpleorelib.BiomeFilter;
-import minecraftschurli.simpleorelib.SimpleOreLib;
-import net.minecraft.block.Block;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.registries.ForgeRegistries;
+import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.simpleorelib.*;
+import net.minecraft.block.*;
+import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placement.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.registries.*;
 
 /**
  * @author Minecraftschurli

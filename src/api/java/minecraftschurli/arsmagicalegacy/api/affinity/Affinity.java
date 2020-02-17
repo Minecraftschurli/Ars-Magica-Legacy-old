@@ -1,18 +1,14 @@
 package minecraftschurli.arsmagicalegacy.api.affinity;
 
-import com.google.common.collect.Comparators;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import minecraftschurli.arsmagicalegacy.api.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
+import net.minecraftforge.registries.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 /**
  * @author Minecraftschurli
