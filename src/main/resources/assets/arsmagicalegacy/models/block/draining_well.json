@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagicalegacy:block/draining_well_top",
+        "down": "arsmagicalegacy:block/draining_well_bottom",
+        "north": "arsmagicalegacy:block/draining_well_side",
+        "east": "arsmagicalegacy:block/draining_well_side",
+        "south": "arsmagicalegacy:block/draining_well_side",
+        "west": "arsmagicalegacy:block/draining_well_side",
+        "particle": "arsmagicalegacy:block/draining_well_side"
+    }
+}

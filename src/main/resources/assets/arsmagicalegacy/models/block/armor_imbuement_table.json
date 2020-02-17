@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagicalegacy:block/armor_imbuement_table_top",
+		"down": "arsmagicalegacy:block/armor_imbuement_table_bottom",
+		"north": "arsmagicalegacy:block/armor_imbuement_table_side",
+		"east": "arsmagicalegacy:block/armor_imbuement_table_side",
+		"south": "arsmagicalegacy:block/armor_imbuement_table_side",
+		"west": "arsmagicalegacy:block/armor_imbuement_table_side",
+		"particle": "arsmagicalegacy:block/armor_imbuement_table_side"
+    }
+}

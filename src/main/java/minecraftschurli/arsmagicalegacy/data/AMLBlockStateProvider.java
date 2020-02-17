@@ -20,37 +20,43 @@ public class AMLBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        simpleBlock(ModBlocks.ALTAR_CORE);
         airBlock(ModBlocks.ALTAR_VIEW);
+        doorBlock(ModBlocks.KEYSTONE_DOOR, "keystone");
+        doorBlock(ModBlocks.SPELL_SEALED_DOOR, "spell_sealed");
+        doorBlock(ModBlocks.WITCHWOOD_DOOR, "witchwood");
         flowerBlock(ModBlocks.AUM);
         flowerBlock(ModBlocks.CERUBLOSSOM);
-        simpleBlock(ModBlocks.CHIMERITE_BLOCK);
-        simpleBlock(ModBlocks.CHIMERITE_ORE);
         flowerBlock(ModBlocks.DESERT_NOVA);
+        flowerBlock(ModBlocks.TARMA_ROOT);
+        flowerBlock(ModBlocks.WAKEBLOOM);
+        flowerBlock(ModBlocks.WITCHWOOD_SAPLING);
+        logBlock(ModBlocks.STRIPPED_WITCHWOOD_LOG);
+        logBlock(ModBlocks.WITCHWOOD_LOG);
         railBlock(ModBlocks.GOLD_INLAY);
         railBlock(ModBlocks.IRON_INLAY);
+        railBlock(ModBlocks.REDSTONE_INLAY);
+        simpleBlock(ModBlocks.ALTAR_CORE);
+        simpleBlock(ModBlocks.CHIMERITE_BLOCK);
+        simpleBlock(ModBlocks.CHIMERITE_ORE);
+        simpleBlock(ModBlocks.EVERSTONE);
+        simpleBlock(ModBlocks.FLICKER_LURE);
         simpleBlock(ModBlocks.MAGIC_WALL);
         simpleBlock(ModBlocks.MANA_BATTERY);
         simpleBlock(ModBlocks.MOONSTONE_BLOCK);
         simpleBlock(ModBlocks.MOONSTONE_ORE);
-        railBlock(ModBlocks.REDSTONE_INLAY);
-        logBlock(ModBlocks.STRIPPED_WITCHWOOD_LOG);
+        simpleBlock(ModBlocks.SLIPSTREAM_GENERATOR);
         simpleBlock(ModBlocks.STRIPPED_WITCHWOOD_WOOD);
         simpleBlock(ModBlocks.SUNSTONE_BLOCK);
         simpleBlock(ModBlocks.SUNSTONE_ORE);
-        flowerBlock(ModBlocks.TARMA_ROOT);
         simpleBlock(ModBlocks.TOPAZ_BLOCK);
         simpleBlock(ModBlocks.TOPAZ_ORE);
         simpleBlock(ModBlocks.VINTEUM_BLOCK);
         simpleBlock(ModBlocks.VINTEUM_ORE);
-        flowerBlock(ModBlocks.WAKEBLOOM);
-        doorBlock(ModBlocks.WITCHWOOD_DOOR, "witchwood");
         simpleBlock(ModBlocks.WITCHWOOD_LEAVES);
-        logBlock(ModBlocks.WITCHWOOD_LOG);
-        flowerBlock(ModBlocks.WITCHWOOD_SAPLING);
-        slabStairFenceBlock(ModBlocks.WITCHWOOD_PLANKS, ModBlocks.WITCHWOOD_SLAB, ModBlocks.WITCHWOOD_STAIRS, ModBlocks.WITCHWOOD_FENCE, ModBlocks.WITCHWOOD_FENCE_GATE);
-        trapdoorBlock(ModBlocks.WITCHWOOD_TRAPDOOR);
         simpleBlock(ModBlocks.WITCHWOOD_WOOD);
+        slabStairFenceBlock(ModBlocks.WITCHWOOD_PLANKS, ModBlocks.WITCHWOOD_SLAB, ModBlocks.WITCHWOOD_STAIRS, ModBlocks.WITCHWOOD_FENCE, ModBlocks.WITCHWOOD_FENCE_GATE);
+        trapdoorBlock(ModBlocks.KEYSTONE_TRAPDOOR);
+        trapdoorBlock(ModBlocks.WITCHWOOD_TRAPDOOR);
     }
 
     private void trapdoorBlock(Supplier<? extends TrapDoorBlock> block) {
