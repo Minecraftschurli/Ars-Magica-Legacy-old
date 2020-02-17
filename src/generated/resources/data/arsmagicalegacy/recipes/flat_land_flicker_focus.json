@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "1 2",
+    "345",
+    " 6 "
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:iron_shovel"
+    },
+    "2": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "3": {
+      "item": "arsmagicalegacy:earth_flicker_jar"
+    },
+    "4": {
+      "item": "arsmagicalegacy:earth_essence"
+    },
+    "5": {
+      "item": "arsmagicalegacy:ice_flicker_jar"
+    },
+    "6": {
+      "item": "arsmagicalegacy:black_rune"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:flat_land_flicker_focus"
+  }
+}

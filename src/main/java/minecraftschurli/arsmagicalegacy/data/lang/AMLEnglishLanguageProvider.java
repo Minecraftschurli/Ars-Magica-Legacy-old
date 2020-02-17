@@ -161,7 +161,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.SPELL_PARCHMENT, "Spell Parchment");
         addItem(ModItems.PIG_FAT, "Pig Fat");
         addItem(ModItems.WOODEN_LEG, "Wooden Leg");
-        addItem(ModItems.ARCANE_COMPENDIUM, "Arcane Compendium");
         addItem(ModItems.EVIL_BOOK, "Evil Book");
         addItem(ModItems.SPELL_BOOK, "Spell Book");
         addItem(ModItems.SPELL, "Spell");

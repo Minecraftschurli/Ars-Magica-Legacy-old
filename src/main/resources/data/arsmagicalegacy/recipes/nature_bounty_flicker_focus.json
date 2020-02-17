@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "121",
+    "345",
+    "161"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:bone_meal"
+    },
+    "2": {
+      "item": "arsmagicalegacy:nature_flicker_jar"
+    },
+    "3": {
+      "item": "arsmagicalegacy:life_flicker_jar"
+    },
+    "4": {
+      "item": "arsmagicalegacy:nature_essence"
+    },
+    "5": {
+      "item": "arsmagicalegacy:water_flicker_jar"
+    },
+    "6": {
+      "item": "arsmagicalegacy:green_rune"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:nature_bounty_flicker_focus"
+  }
+}

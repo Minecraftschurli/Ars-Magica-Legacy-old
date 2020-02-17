@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "2 3",
+    " 4 "
+  ],
+  "key": {
+    "1": {
+      "tag": "minecraft:fishes"
+    },
+    "2": {
+      "item": "arsmagicalegacy:nature_flicker_jar"
+    },
+    "3": {
+      "item": "arsmagicalegacy:water_flicker_jar"
+    },
+    "4": {
+      "item": "minecraft:fishing_rod"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:fishing_flicker_focus"
+  }
+}

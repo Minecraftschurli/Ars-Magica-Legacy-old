@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "12 ",
+    "3 4",
+    "  1"
+  ],
+  "key": {
+    "1": {
+      "tag": "arsmagicalegacy:logs/witchwood"
+    },
+    "2": {
+      "item": "minecraft:iron_axe"
+    },
+    "3": {
+      "item": "arsmagicalegacy:nature_flicker_jar"
+    },
+    "4": {
+      "item": "arsmagicalegacy:lightning_flicker_jar"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:felling_flicker_focus"
+  }
+}

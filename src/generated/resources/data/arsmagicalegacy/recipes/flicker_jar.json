@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GMG",
+    "P P",
+    " P "
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:nuggets/gold"
+    },
+    "M": {
+      "item": "arsmagicalegacy:magic_wall"
+    },
+    "P": {
+      "tag": "forge:glass_panes"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:flicker_jar"
+  }
+}

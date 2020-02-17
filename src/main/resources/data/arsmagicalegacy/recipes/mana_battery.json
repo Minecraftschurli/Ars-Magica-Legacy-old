@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CVC",
+    "VAV",
+    "CVC"
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:gems/chimerite"
+    },
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    },
+    "A": {
+      "item": "arsmagicalegacy:arcane_ash"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:mana_battery"
+  }
+}

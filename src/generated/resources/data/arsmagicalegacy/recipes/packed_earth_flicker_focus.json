@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "111",
+    "232",
+    " 4 "
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:dirt"
+    },
+    "2": {
+      "item": "arsmagicalegacy:black_rune"
+    },
+    "3": {
+      "item": "arsmagicalegacy:earth_flicker_jar"
+    },
+    "4": {
+      "item": "arsmagicalegacy:earth_essence"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:packed_earth_flicker_focus"
+  }
+}
