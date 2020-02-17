@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.item.armor.battlemage.name",
+  "description": "compendium.categories.item.armor.battlemage.description",
+  "icon": "minecraft:missingno",
+  "parent": "item/armor"
+}

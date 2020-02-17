@@ -51,8 +51,7 @@ public interface ArsMagicaLanguagePlugin {
      * @param description the description for the skill
      */
     default void add(Skill skill, String name, String description) {
-        add(skill.getTranslationKey() + ".name", name);
-        add(skill.getTranslationKey() + ".occulusdesc", description);
+        addWithDescription(skill.getTranslationKey(), name, description);
     }
 
     /**
@@ -89,6 +88,27 @@ public interface ArsMagicaLanguagePlugin {
      */
     default void add(Affinity affinity, String name) {
         add(affinity.getTranslationKey(), name);
+    }
+
+    /**
+     * Adds the translation for the given category key
+     * @param key         the key of the category
+     * @param name        the translated name
+     * @param description the translated description
+     */
+    default void addCategoryTranslation(String key, String name, String description){
+        addWithDescription("compendium.categories."+key, name, description);
+    }
+
+    /**
+     * Adds the translation for anything that has a name and a description
+     * @param key         the base translation key
+     * @param name        the translated name
+     * @param description the translated description
+     */
+    default void addWithDescription(String key, String name, String description) {
+        add(key+".name", name);
+        add(key+".description", description);
     }
 
     void add(String key, String value);

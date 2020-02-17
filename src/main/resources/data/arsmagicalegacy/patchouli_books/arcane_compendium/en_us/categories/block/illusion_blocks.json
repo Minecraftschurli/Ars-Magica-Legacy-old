@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.block.illusion_blocks.name",
+  "description": "compendium.categories.block.illusion_blocks.description",
+  "icon": "minecraft:missingno",
+  "parent": "block"
+}

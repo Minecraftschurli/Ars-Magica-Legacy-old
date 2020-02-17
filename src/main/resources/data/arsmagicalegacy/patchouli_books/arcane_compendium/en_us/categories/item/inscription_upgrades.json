@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.item.inscription_upgrades.name",
+  "description": "compendium.categories.item.inscription_upgrades.description",
+  "icon": "minecraft:missingno",
+  "parent": "item"
+}

@@ -91,7 +91,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.SPELL, "Zauber");
         addItem(ModItems.INFINITY_ORB, "%s Infinity Orb");
         addItem(ModItems.SPELL_BOOK, "Buch der Zauber");
-        addItem(ModItems.ARCANE_COMPENDIUM, "Magisches Lexikon");
 
         addItem(ModItems.LESSER_FOCUS, "Schwacher Fokus");
         addItem(ModItems.STANDARD_FOCUS, "Normaler Fokus");

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.fluid;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModFluids;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Blocks;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -52,7 +54,7 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
                                         blockPos.getX(),
                                         blockPos.getY() + 1.5,
                                         blockPos.getZ(),
-                                        new ItemStack(ModItems.ARCANE_COMPENDIUM.get(), 1)
+                                        ArsMagicaLegacy.getCompendium()
                                 );
                             }
                         }

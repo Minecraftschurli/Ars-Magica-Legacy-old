@@ -1,11 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.api.network.UpdateStepHeightPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 /**
  * @author Minecraftschurli
@@ -19,14 +22,15 @@ public class AgilityEffect extends AMEffect {
 
     @Override
     public void startEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
-        ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
         livingEntity.stepHeight = 1.0f;
+        if (livingEntity instanceof ServerPlayerEntity)
+            NetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) livingEntity), new UpdateStepHeightPacket(livingEntity.stepHeight));
     }
 
     @Override
     public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
-        ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
         livingEntity.stepHeight = 0.6f;
-        ArsMagicaLegacy.LOGGER.debug(livingEntity.stepHeight);
+        if (livingEntity instanceof ServerPlayerEntity)
+            NetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) livingEntity), new UpdateStepHeightPacket(livingEntity.stepHeight));
     }
 }

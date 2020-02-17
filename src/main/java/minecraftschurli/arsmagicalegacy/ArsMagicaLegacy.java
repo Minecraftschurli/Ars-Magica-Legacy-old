@@ -41,6 +41,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.patchouli.api.PatchouliAPI;
 
 /**
  * @author Minecraftschurli
@@ -54,7 +55,7 @@ public final class ArsMagicaLegacy {
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModItems.ARCANE_COMPENDIUM.get());
+            return getCompendium();
         }
     };
 
@@ -69,6 +70,16 @@ public final class ArsMagicaLegacy {
         instance = this;
         spellRecipeManager = new SpellRecipeManager();
 
+        preInit();
+    }
+
+    public static ItemStack getCompendium() {
+        return PatchouliAPI.instance.getBookStack(new ResourceLocation(MODID, "arcane_compendium"));
+    }
+
+    //region =========LIFECYCLE=========
+
+    private void preInit() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
@@ -91,64 +102,6 @@ public final class ArsMagicaLegacy {
 
         IInit.setEventBus(modEventBus);
     }
-
-    public static SpellRecipeManager getSpellRecipeManager() {
-        return instance.spellRecipeManager;
-    }
-
-    public IModInfo getModInfo() {
-        return ModList.get().getModContainerById(MODID).map(ModContainer::getModInfo).get();
-    }
-
-    public String getVersion() {
-        return getModInfo().getVersion().getQualifier();
-    }
-
-    //region =========EVENTS=========
-
-    private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof PlayerEntity) {
-            event.addCapability(new ResourceLocation(MODID, "mana"), new ManaCapability());
-            event.addCapability(new ResourceLocation(MODID, "burnout"), new BurnoutCapability());
-            event.addCapability(new ResourceLocation(MODID, "research"), new ResearchCapability());
-            event.addCapability(new ResourceLocation(MODID, "magic"), new MagicCapability());
-            event.addCapability(new ResourceLocation(MODID, "rift_storage"), new RiftStorageCapability());
-            event.addCapability(new ResourceLocation(MODID, "affinity"), new AffinityCapability());
-        }
-    }
-
-    private void onServerLoad(final FMLServerStartingEvent event) {
-        ModCommands.register(event.getCommandDispatcher());
-        event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
-    }
-
-    private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
-        event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
-        //noinspection ConstantConditions
-        event.getItemColors().register(
-                (stack, tint) -> tint == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1,
-                ModItems.INFINITY_ORB.get()
-        );
-        event.getItemColors().register((stack, tint) -> tint > 0 ? -1 : PotionUtils.getColor(stack), ModItems.POTION_BUNDLE.get());
-    }
-
-    private void onRegistrySetupFinish(final RegistryEvent.NewRegistry event) {
-        ModBlocks.register();
-        ModFluids.register();
-        ModItems.register();
-        ModEntities.register();
-        ModTileEntities.register();
-        ModParticles.register();
-        ModEffects.register();
-        ModContainers.register();
-        ModFeatures.register();
-        ModBiomes.register();
-        ModSpellParts.register();
-    }
-
-    //endregion
-
-    //region =========LIFECYCLE=========
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
@@ -197,4 +150,60 @@ public final class ArsMagicaLegacy {
     }
 
     //endregion
+
+    //region =========EVENTS=========
+
+    private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof PlayerEntity) {
+            event.addCapability(new ResourceLocation(MODID, "mana"), new ManaCapability());
+            event.addCapability(new ResourceLocation(MODID, "burnout"), new BurnoutCapability());
+            event.addCapability(new ResourceLocation(MODID, "research"), new ResearchCapability());
+            event.addCapability(new ResourceLocation(MODID, "magic"), new MagicCapability());
+            event.addCapability(new ResourceLocation(MODID, "rift_storage"), new RiftStorageCapability());
+            event.addCapability(new ResourceLocation(MODID, "affinity"), new AffinityCapability());
+        }
+    }
+
+    private void onServerLoad(final FMLServerStartingEvent event) {
+        ModCommands.register(event.getCommandDispatcher());
+        event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
+    }
+
+    private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
+        event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
+        //noinspection ConstantConditions
+        event.getItemColors().register(
+                (stack, tint) -> tint == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1,
+                ModItems.INFINITY_ORB.get()
+        );
+        event.getItemColors().register((stack, tint) -> tint > 0 ? -1 : PotionUtils.getColor(stack), ModItems.POTION_BUNDLE.get());
+    }
+
+    private void onRegistrySetupFinish(final RegistryEvent.NewRegistry event) {
+        ModBlocks.register();
+        ModFluids.register();
+        ModItems.register();
+        ModEntities.register();
+        ModTileEntities.register();
+        ModParticles.register();
+        ModEffects.register();
+        ModContainers.register();
+        ModFeatures.register();
+        ModBiomes.register();
+        ModSpellParts.register();
+    }
+
+    //endregion
+
+    public static SpellRecipeManager getSpellRecipeManager() {
+        return instance.spellRecipeManager;
+    }
+
+    public IModInfo getModInfo() {
+        return ModList.get().getModContainerById(MODID).map(ModContainer::getModInfo).get();
+    }
+
+    public String getVersion() {
+        return getModInfo().getVersion().getQualifier();
+    }
 }

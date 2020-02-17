@@ -127,7 +127,6 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MAGIC_WALL = stackableBlockItem64(ModBlocks.MAGIC_WALL);
     public static final RegistryObject<Item> MANA_BATTERY = stackableBlockItem64(ModBlocks.MANA_BATTERY);
     public static final RegistryObject<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
-    public static final RegistryObject<Item> ARCANE_COMPENDIUM = ITEMS.register("arcane_compendium", ArcaneCompendiumItem::new);
     public static final RegistryObject<Item> SPELL = ITEMS.register("spell", SpellItem::new);
     public static final RegistryObject<Item> POTION_BUNDLE = ITEMS.register("potion_bundle", () -> new PotionBundleItem(new Item.Properties().maxStackSize(1).group(ItemGroup.BREWING)));
 

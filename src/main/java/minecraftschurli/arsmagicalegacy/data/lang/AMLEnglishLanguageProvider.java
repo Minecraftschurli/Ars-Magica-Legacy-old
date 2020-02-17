@@ -115,7 +115,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.WOODEN_LEG, "Wooden Leg");
         addItem(ModItems.SPELL, "Spell");
         addItem(ModItems.SPELL_BOOK, "Spell Book");
-        addItem(ModItems.ARCANE_COMPENDIUM, "Arcane Compendium");
         addItem(ModFluids.LIQUID_ESSENCE_BUCKET, "Liquid Essence Bucket");
         addItem(ModItems.INFINITY_ORB, "%s Infinity Orb");
         addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(0)), "Tier I Upgrade");
@@ -275,39 +274,79 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Red");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Green");
         add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
-        add(ArsMagicaLegacy.MODID + "altar.lowpower", "The altar power level is too low!");
-        add(ArsMagicaLegacy.MODID + "chat.appropriationError", "Couldn't appropriate this");
-        add(ArsMagicaLegacy.MODID + "chat.markSet", "Mark set");
-        add(ArsMagicaLegacy.MODID + "chat.markClear", "Mark cleared");
-        add(ArsMagicaLegacy.MODID + "chat.missingReagents", "Reagents missing");
-        add(ArsMagicaLegacy.MODID + "chat.noBlink", "Couldn't blink");
-        add(ArsMagicaLegacy.MODID + "chat.noIntervention", "Couldn't intervent");
-        add(ArsMagicaLegacy.MODID + "chat.noInterventionDistortion", "You are too distorted to intervent");
-        add(ArsMagicaLegacy.MODID + "chat.noInterventionNether", "The nether doesn't allow interventions");
-        add(ArsMagicaLegacy.MODID + "chat.noRecall", "Couldn't recall you from here");
-        add(ArsMagicaLegacy.MODID + "chat.noTeleport", "Couldn't teleport");
-        add(ArsMagicaLegacy.MODID + "chat.noTeleportDistortion", "You are too distorted to teleport");
-        add(ArsMagicaLegacy.MODID + "chat.noSummons", "Can't summon anything else right now");
-        add(ArsMagicaLegacy.MODID + "chat.placeBlockSpell", "Placed block");
-        add(ArsMagicaLegacy.MODID + "command.forget", "Forgot skill %s");
-        add(ArsMagicaLegacy.MODID + "command.forgetall", "Forgot all skills");
-        add(ArsMagicaLegacy.MODID + "command.learned", "Learned skill %s");
-        add(ArsMagicaLegacy.MODID + "command.skillnotfound", "Couldn't find skill: %s");
-        add(ArsMagicaLegacy.MODID + "gui.xp", "XP: ");
-        add(ArsMagicaLegacy.MODID + "inscriptiontable.bookOut", "Take the book out");
-        add(ArsMagicaLegacy.MODID + "inscriptiontable.search", "Search");
-        add(ArsMagicaLegacy.MODID + "inscriptiontable.makeSpell", "Make Spell");
-        add(ArsMagicaLegacy.MODID + "inscriptiontable.name", "Name");
-        add(ArsMagicaLegacy.MODID + "inscriptiontable.resetSpell", "Reset Spell");
-        add(ArsMagicaLegacy.MODID + "occulus.disabled", "Disabled");
-        add(ArsMagicaLegacy.MODID + "occulus.displayname", "Occulus");
-        add(ArsMagicaLegacy.MODID + "occulus.missingrequirements", "Missing requirements!");
-        add(ArsMagicaLegacy.MODID + "occulus.prevent", "Mythical forces prevent you from using this device!");
-        add(ArsMagicaLegacy.MODID + "spell.manacost", "Mana Cost: %d");
-        add(ArsMagicaLegacy.MODID + "spell.unfinishedSpellRecipe", "Unfinished Spell Recipe");
-        add(ArsMagicaLegacy.MODID + "spell.validate.invalid", "Invalid Spell");
-        add(ArsMagicaLegacy.MODID + "spell.validate.principum", "Principum Spell");
-        add(ArsMagicaLegacy.MODID + "spell.validate.terminus", "Terminus Spell");
+        add(ArsMagicaLegacy.MODID + ".altar.lowpower", "The altar power level is too low!");
+        add(ArsMagicaLegacy.MODID + ".chat.appropriationError", "Couldn't appropriate this");
+        add(ArsMagicaLegacy.MODID + ".chat.markSet", "Mark set");
+        add(ArsMagicaLegacy.MODID + ".chat.markClear", "Mark cleared");
+        add(ArsMagicaLegacy.MODID + ".chat.missingReagents", "Reagents missing");
+        add(ArsMagicaLegacy.MODID + ".chat.noBlink", "Couldn't blink");
+        add(ArsMagicaLegacy.MODID + ".chat.noIntervention", "Couldn't intervene");
+        add(ArsMagicaLegacy.MODID + ".chat.noInterventionDistortion", "You are too distorted to intervene");
+        add(ArsMagicaLegacy.MODID + ".chat.noInterventionNether", "The nether doesn't allow interventions");
+        add(ArsMagicaLegacy.MODID + ".chat.noRecall", "Couldn't recall you from here");
+        add(ArsMagicaLegacy.MODID + ".chat.noTeleport", "Couldn't teleport");
+        add(ArsMagicaLegacy.MODID + ".chat.noTeleportDistortion", "You are too distorted to teleport");
+        add(ArsMagicaLegacy.MODID + ".chat.noSummons", "Can't summon anything else right now");
+        add(ArsMagicaLegacy.MODID + ".chat.placeBlockSpell", "Placed block");
+        add(ArsMagicaLegacy.MODID + ".command.forget", "Forgot skill %s");
+        add(ArsMagicaLegacy.MODID + ".command.forgetall", "Forgot all skills");
+        add(ArsMagicaLegacy.MODID + ".command.learned", "Learned skill %s");
+        add(ArsMagicaLegacy.MODID + ".command.skillnotfound", "Couldn't find skill: %s");
+        add(ArsMagicaLegacy.MODID + ".gui.xp", "XP: ");
+        add(ArsMagicaLegacy.MODID + ".inscriptiontable.bookOut", "Take the book out");
+        add(ArsMagicaLegacy.MODID + ".inscriptiontable.search", "Search");
+        add(ArsMagicaLegacy.MODID + ".inscriptiontable.makeSpell", "Make Spell");
+        add(ArsMagicaLegacy.MODID + ".inscriptiontable.name", "Name");
+        add(ArsMagicaLegacy.MODID + ".inscriptiontable.resetSpell", "Reset Spell");
+        add(ArsMagicaLegacy.MODID + ".occulus.disabled", "Disabled");
+        add(ArsMagicaLegacy.MODID + ".occulus.displayname", "Occulus");
+        add(ArsMagicaLegacy.MODID + ".occulus.missingrequirements", "Missing requirements!");
+        add(ArsMagicaLegacy.MODID + ".occulus.prevent", "Mythical forces prevent you from using this device!");
+        add(ArsMagicaLegacy.MODID + ".spell.manacost", "Mana Cost: %d");
+        add(ArsMagicaLegacy.MODID + ".spell.unfinishedSpellRecipe", "Unfinished Spell Recipe");
+        add(ArsMagicaLegacy.MODID + ".spell.validate.invalid", "Invalid Spell");
+        add(ArsMagicaLegacy.MODID + ".spell.validate.principum", "Principum Spell");
+        add(ArsMagicaLegacy.MODID + ".spell.validate.terminus", "Terminus Spell");
+
+        add(ArsMagicaLegacy.MODID + ".arcane_compendium.name", "Arcane Compendium");
+        add(ArsMagicaLegacy.MODID + ".arcane_compendium.landing_text", "Hello World");
+
+        addCategoryTranslation("guide", "Guides", "");
+
+        addCategoryTranslation("mechanic", "Mechanics", "");
+        addCategoryTranslation("mechanic.affinity", "Affinities", "");
+        addCategoryTranslation("mechanic.enchants", "Enchantments", "");
+        addCategoryTranslation("mechanic.infusions", "Infusions", "");
+
+        addCategoryTranslation("item", "Items", "");
+        addCategoryTranslation("item.ore", "Ars Magica Ores", "");
+        addCategoryTranslation("item.essence", "Essence", "");
+        addCategoryTranslation("item.rune", "Runes", "");
+        addCategoryTranslation("item.armor", "Ars Magica Armor", "");
+        addCategoryTranslation("item.armor.mage", "Mage Armor", "");
+        addCategoryTranslation("item.armor.battlemage", "Battlemage Armor", "");
+        addCategoryTranslation("item.affinity_tomes", "Affinity Tomes", "");
+        addCategoryTranslation("item.foci", "Foci", "");
+        addCategoryTranslation("item.mana_potion", "Mana Potions", "");
+        addCategoryTranslation("item.binding_catalyst", "Binding Catalysts", "");
+        addCategoryTranslation("item.flickerfocus", "Flicker Focus", "");
+        addCategoryTranslation("item.inscription_upgrades", "Inscription Table Upgrades", "");
+
+        addCategoryTranslation("block", "Blocks", "");
+        addCategoryTranslation("block.illusion_blocks", "Illusion Blocks", "");
+        addCategoryTranslation("block.crystalmarker", "Crystal Marker", "");
+        addCategoryTranslation("block.inlays", "Inlays", "");
+
+        addCategoryTranslation("shape", "Shapes", "");
+        addCategoryTranslation("component", "Components", "");
+        addCategoryTranslation("modifier", "Modifiers", "");
+        addCategoryTranslation("talent", "Talents", "");
+
+        addCategoryTranslation("mob", "Mobs", "");
+        addCategoryTranslation("mob.flicker", "Flickers", "");
+
+        addCategoryTranslation("structure", "Structures", "");
+        addCategoryTranslation("boss", "Bosses", "");
     }
 
     @Override

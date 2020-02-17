@@ -25,6 +25,10 @@ repositories {
         name = "MinecraftschurliMaven"
         url = mcs_maven_url
     }
+    maven {
+        name = "JaredMaven"
+        url = "https://maven.blamejared.com"
+    }
 }
 
 apply plugin: 'idea'
@@ -109,6 +113,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
+    compile fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
     compile fg.deobf("minecraftschurli:simpleorelib:${mc_version}-1.0.0.0")
 }
 
@@ -116,7 +121,6 @@ jar {
     from sourceSets.main.output.classesDirs
     from sourceSets.api.output.classesDirs
     from sourceSets.main.output.resourcesDir
-    from sourceSets.api.output.resourcesDir
 
     manifest {
         attributes([

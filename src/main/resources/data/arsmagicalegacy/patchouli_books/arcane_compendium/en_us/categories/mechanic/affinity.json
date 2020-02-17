@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.mechanic.affinity.name",
+  "description": "compendium.categories.mechanic.affinity.description",
+  "icon": "minecraft:missingno",
+  "parent": "mechanic"
+}

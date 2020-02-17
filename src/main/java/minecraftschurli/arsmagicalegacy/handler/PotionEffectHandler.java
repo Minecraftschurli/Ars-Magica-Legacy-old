@@ -36,14 +36,16 @@ public class PotionEffectHandler {
 
     @SubscribeEvent
     public static void addPotionEffect(PotionEvent.PotionAddedEvent e) {
-        ArsMagicaLegacy.LOGGER.debug(e);
+        if (e.getEntity().getEntityWorld().isRemote())
+            return;
         if (e.getPotionEffect().getPotion() instanceof AMEffect)
             ((AMEffect) e.getPotionEffect().getPotion()).startEffect(e.getEntityLiving(), e.getPotionEffect());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void removePotionEffect(PotionEvent.PotionExpiryEvent e) {
-        ArsMagicaLegacy.LOGGER.debug(e);
+        if (e.getEntity().getEntityWorld().isRemote())
+            return;
         if (e.getPotionEffect() == null) return;
         if (e.getPotionEffect().getPotion() instanceof AMEffect) {
             ((AMEffect) e.getPotionEffect().getPotion()).stopEffect(e.getEntityLiving(), e.getPotionEffect());
@@ -52,7 +54,8 @@ public class PotionEffectHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void removePotionEffect(PotionEvent.PotionRemoveEvent e) {
-        ArsMagicaLegacy.LOGGER.debug(e);
+        if (e.getEntity().getEntityWorld().isRemote())
+            return;
         if (e.getPotion() instanceof AMEffect)
             ((AMEffect) e.getPotion()).stopEffect(e.getEntityLiving(), e.getPotionEffect());
     }

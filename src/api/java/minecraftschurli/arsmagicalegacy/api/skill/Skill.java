@@ -74,6 +74,6 @@ public final class Skill extends ForgeRegistryEntry<Skill> {
     }
 
     public ITextComponent getOcculusDesc() {
-        return new TranslationTextComponent(getTranslationKey() + ".occulusdesc");
+        return new TranslationTextComponent(getTranslationKey() + ".description");
     }
 }

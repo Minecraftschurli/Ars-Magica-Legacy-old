@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.mechanic.enchants.name",
+  "description": "compendium.categories.mechanic.enchants.description",
+  "icon": "minecraft:missingno",
+  "parent": "mechanic"
+}

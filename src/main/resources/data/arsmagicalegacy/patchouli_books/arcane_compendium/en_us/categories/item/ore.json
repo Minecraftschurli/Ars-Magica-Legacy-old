@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.item.ore.name",
+  "description": "compendium.categories.item.ore.description",
+  "icon": "minecraft:missingno",
+  "parent": "item"
+}

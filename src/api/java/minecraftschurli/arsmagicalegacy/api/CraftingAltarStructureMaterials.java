@@ -2,17 +2,27 @@ package minecraftschurli.arsmagicalegacy.api;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-31
  */
 public class CraftingAltarStructureMaterials {
-    private static final LinkedHashMap<Block, Integer> CAPS = new LinkedHashMap<>();
-    private static final LinkedHashMap<Block, Integer> MAIN = new LinkedHashMap<>();
-    private static final LinkedHashMap<Block, StairsBlock> STAIRS = new LinkedHashMap<>();
+    private static final HashMap<Block, Integer> CAPS = new HashMap<>();
+    private static final HashMap<Block, Integer> MAIN = new HashMap<>();
+    private static final HashMap<Block, StairsBlock> STAIRS = new HashMap<>();
+
+    /*public static Tag<Block> getCapsTag() {
+        return new Tag<>(new ResourceLocation(ArsMagicaAPI.MODID, "altar_caps"), Collections.singletonList(new Tag.ListEntry<>(CAPS.keySet())),true);
+    }
+
+    public static Tag<Block> getMainTag() {
+        return new Tag<>(new ResourceLocation(ArsMagicaAPI.MODID, "altar_caps"), Collections.singletonList(new Tag.ListEntry<>(MAIN.keySet())),true);
+    }*/
 
     public static void addCapMaterial(Block block, int value) {
         CAPS.put(block, value);

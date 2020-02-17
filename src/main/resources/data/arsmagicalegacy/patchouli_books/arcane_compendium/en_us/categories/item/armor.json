@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.item.armor.name",
+  "description": "compendium.categories.item.armor.description",
+  "icon": "minecraft:missingno",
+  "parent": "item"
+}
