@@ -119,9 +119,9 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.PROGENY_FLICKER_FOCUS, "Flickerfokus: Vermehrung");
         addItem(ModItems.MANA_CAKE, "Manakuchen");
         addItem(ModItems.MANA_MARTINI, "Mana-Martini");
-        addBlock(ModBlocks.GOLD_INLAY, "Goldmuster");
-        addBlock(ModBlocks.IRON_INLAY, "Eisenmuster");
-        addBlock(ModBlocks.REDSTONE_INLAY, "Redstonemuster");
+        addBlock(ModBlocks.GOLD_INLAY, "Goldgravur");
+        addBlock(ModBlocks.IRON_INLAY, "Eisengravur");
+        addBlock(ModBlocks.REDSTONE_INLAY, "Redstonegravur");
         addBlock(ModBlocks.VINTEUM_TORCH, "Vinteumfackel");
         addItem(ModItems.MAGE_HELMET, "Magierhelm");
         addItem(ModItems.MAGE_CHESTPLATE, "Magierbrustplatte");
