@@ -17,27 +17,21 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
 
     @Override
     protected void addTranslations() {
-        addBlock(ModBlocks.SUNSTONE_BLOCK, "Sonnensteinblock");
-        addBlock(ModBlocks.SUNSTONE_ORE, "Sonnensteinerz");
-        addItem(ModItems.SUNSTONE, "Sonnenstein");
-
-        addBlock(ModBlocks.MOONSTONE_BLOCK, "Mondsteinblock");
-        addBlock(ModBlocks.MOONSTONE_ORE, "Mondsteinerz");
-        addItem(ModItems.MOONSTONE, "Mondstein");
-
         addBlock(ModBlocks.CHIMERITE_BLOCK, "Chimeritblock");
         addBlock(ModBlocks.CHIMERITE_ORE, "Chimeriterz");
         addItem(ModItems.CHIMERITE, "Chimerit");
-
         addBlock(ModBlocks.TOPAZ_BLOCK, "Topasblock");
         addBlock(ModBlocks.TOPAZ_ORE, "Topaserz");
         addItem(ModItems.TOPAZ, "Topas");
-
         addBlock(ModBlocks.VINTEUM_BLOCK, "Vinteumblock");
         addBlock(ModBlocks.VINTEUM_ORE, "Vinteumerz");
         addItem(ModItems.VINTEUM, "Vinteum");
-        addItem(ModItems.PURIFIED_VINTEUM, "Gereinigtes Vinteum");
-
+        addBlock(ModBlocks.MOONSTONE_BLOCK, "Mondsteinblock");
+        addBlock(ModBlocks.MOONSTONE_ORE, "Mondsteinerz");
+        addItem(ModItems.MOONSTONE, "Mondstein");
+        addBlock(ModBlocks.SUNSTONE_BLOCK, "Sonnensteinblock");
+        addBlock(ModBlocks.SUNSTONE_ORE, "Sonnensteinerz");
+        addItem(ModItems.SUNSTONE, "Sonnenstein");
         addBlock(ModBlocks.WITCHWOOD_PLANKS, "Hexenholzbretter");
         addBlock(ModBlocks.WITCHWOOD_LOG, "Hexenholzstamm");
         addBlock(ModBlocks.WITCHWOOD_STAIRS, "Hexenholztreppe");
@@ -53,11 +47,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addBlock(ModBlocks.WITCHWOOD_SAPLING, "Hexenholzsapling");
         addBlock(ModBlocks.STRIPPED_WITCHWOOD_LOG, "Entrindeter Hexenholzstamm");
         addBlock(ModBlocks.STRIPPED_WITCHWOOD_WOOD, "Entrindetes Hexenholz");
-
-        addBlock(ModBlocks.ALTAR_CORE, "Altarkern");
-        addBlock(ModBlocks.INSCRIPTION_TABLE, "Inschriftentisch");
-        addBlock(ModBlocks.OCCULUS, "Okkulus");
-
         addItem(ModItems.RUNE, "Rune");
         addItem(ModItems.BLUE_RUNE, "Blaue Rune");
         addItem(ModItems.WHITE_RUNE, "Weiße Rune");
@@ -75,7 +64,15 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.LIME_RUNE, "Hellgrüne Rune");
         addItem(ModItems.MAGENTA_RUNE, "Magenta Rune");
         addItem(ModItems.PINK_RUNE, "Pinke Rune");
-
+        addItem(ModItems.LESSER_FOCUS, "Schwacher Fokus");
+        addItem(ModItems.STANDARD_FOCUS, "Normaler Fokus");
+        addItem(ModItems.GREATER_FOCUS, "Starker Fokus");
+        addItem(ModItems.MANA_FOCUS, "Manafokus");
+        addItem(ModItems.MONSTER_FOCUS, "Monsterfokus");
+        addItem(ModItems.PLAYER_FOCUS, "Spielerfokus");
+        addItem(ModItems.CREATURE_FOCUS, "Kreaturfokus");
+        addItem(ModItems.ITEM_FOCUS, "Itemfokus");
+        addItem(ModItems.CHARGE_FOCUS, "Aufgeladener Focus");
         addItem(ModItems.ARCANE_ESSENCE, "Magieessenz");
         addItem(ModItems.ENDER_ESSENCE, "Enderessenz");
         addItem(ModItems.LIFE_ESSENCE, "Lebensessenz");
@@ -86,22 +83,46 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.EARTH_ESSENCE, "Erdessenz");
         addItem(ModItems.FIRE_ESSENCE, "Feueressenz");
         addItem(ModItems.WATER_ESSENCE, "Wasseressenz");
-
-        addItem(ModItems.ARCANE_ASH, "Magische Asche");
-        addItem(ModItems.SPELL, "Zauber");
-        addItem(ModItems.INFINITY_ORB, "%s Infinity Orb");
-        addItem(ModItems.SPELL_BOOK, "Buch der Zauber");
-
-        addItem(ModItems.LESSER_FOCUS, "Schwacher Fokus");
-        addItem(ModItems.STANDARD_FOCUS, "Normaler Fokus");
-        addItem(ModItems.GREATER_FOCUS, "Starker Fokus");
-        addItem(ModItems.MANA_FOCUS, "Manafokus");
-        addItem(ModItems.MONSTER_FOCUS, "Monsterfokus");
-        addItem(ModItems.PLAYER_FOCUS, "Spielerfokus");
-        addItem(ModItems.CREATURE_FOCUS, "Kreaturfokus");
-        addItem(ModItems.ITEM_FOCUS, "Itemfokus");
-        addItem(ModItems.CHARGE_FOCUS, "Aufgeladener Focus");
-
+        addItem(ModItems.FLICKER_JAR, "Flickervase");
+        addItem(ModItems.WATER_FLICKER_JAR, "Wasserflickervase");
+        addItem(ModItems.FIRE_FLICKER_JAR, "Feuerflickervase");
+        addItem(ModItems.EARTH_FLICKER_JAR, "Erdflickervase");
+        addItem(ModItems.AIR_FLICKER_JAR, "Luftflickervase");
+        addItem(ModItems.LIGHTNING_FLICKER_JAR, "Blitzflickervase");
+        addItem(ModItems.ICE_FLICKER_JAR, "Eisflickervase");
+        addItem(ModItems.NATURE_FLICKER_JAR, "Naturflickervase");
+        addItem(ModItems.LIFE_FLICKER_JAR, "Lebensflickervase");
+        addItem(ModItems.ARCANE_FLICKER_JAR, "Magieflickervase");
+        addItem(ModItems.ENDER_FLICKER_JAR, "Enderflickervase");
+        addItem(ModItems.WATER_TOME, "Wasserlexikon");
+        addItem(ModItems.FIRE_TOME, "Feuerlexikon");
+        addItem(ModItems.EARTH_TOME, "Erdlexikon");
+        addItem(ModItems.AIR_TOME, "Luftlexikon");
+        addItem(ModItems.LIGHTNING_TOME, "Blitzlexikon");
+        addItem(ModItems.ICE_TOME, "Eislexikon");
+        addItem(ModItems.NATURE_TOME, "Naturlexikon");
+        addItem(ModItems.LIFE_TOME, "Lebenslexikon");
+        addItem(ModItems.ARCANE_TOME, "Magielexikon");
+        addItem(ModItems.ENDER_TOME, "Enderlexikon");
+        addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flickerfokus: Schlachter");
+        addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flickerfokus: Beinhaltung");
+        addItem(ModItems.FELLING_FLICKER_FOCUS, "Flickerfokus: Holzfällen");
+        addItem(ModItems.FISHING_FLICKER_FOCUS, "Flickerfokus: Fischen");
+        addItem(ModItems.FLAT_LAND_FLICKER_FOCUS, "Flickerfokus: Flachland");
+        addItem(ModItems.GENTLE_RAIN_FLICKER_FOCUS, "Flickerfokus: Regen");
+        addItem(ModItems.INTERDICTION_FLICKER_FOCUS, "Flickerfokus: Verbot");
+        addItem(ModItems.ITEM_TRANSPORT_FLICKER_FOCUS, "Flickerfokus: Itemtransport");
+        addItem(ModItems.LIGHT_FLICKER_FOCUS, "Flickerfokus: Licht");
+        addItem(ModItems.LUNAR_FLICKER_FOCUS, "Flickerfokus: Mondlicht");
+        addItem(ModItems.NATURE_BOUNTY_FLICKER_FOCUS, "Flickerfokus: Naturschatz");
+        addItem(ModItems.PACKED_EARTH_FLICKER_FOCUS, "Flickerfokus: Packerde");
+        addItem(ModItems.PROGENY_FLICKER_FOCUS, "Flickerfokus: Vermehrung");
+        addItem(ModItems.MANA_CAKE, "Manakuchen");
+        addItem(ModItems.MANA_MARTINI, "Mana-Martini");
+        addBlock(ModBlocks.GOLD_INLAY, "Goldmuster");
+        addBlock(ModBlocks.IRON_INLAY, "Eisenmuster");
+        addBlock(ModBlocks.REDSTONE_INLAY, "Redstonemuster");
+        addBlock(ModBlocks.VINTEUM_TORCH, "Vinteumfackel");
         addItem(ModItems.MAGE_HELMET, "Magierhelm");
         addItem(ModItems.MAGE_CHESTPLATE, "Magierbrustplatte");
         addItem(ModItems.MAGE_LEGGINGS, "Magierhose");
@@ -110,12 +131,52 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.BATTLEMAGE_CHESTPLATE, "Kampfmagierbrustplatte");
         addItem(ModItems.BATTLEMAGE_LEGGINGS, "Kampfmagierhose");
         addItem(ModItems.BATTLEMAGE_BOOTS, "Kampfmagierstiefel");
-
+        addItem(ModItems.INFINITY_ORB, "%s Infinityorb");
+        addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(0)), "Upgrade Level I");
+        addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(1)), "Upgrade Level II");
+        addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(2)), "Upgrade Level III");
+        addBlock(ModBlocks.INSCRIPTION_TABLE, "Magischer Schreibtisch");
+        addBlock(ModBlocks.ALTAR_CORE, "Altarkern");
+        addBlock(ModBlocks.MAGIC_WALL, "Magische Barriere");
+        addBlock(ModBlocks.OCCULUS, "Okkulus");
+        addBlock(ModBlocks.MANA_BATTERY, "Manabatterie");
+        addBlock(ModBlocks.ESSENCE_REFINER, "Essenzfilter");
+        addBlock(ModBlocks.ARMOR_IMBUEMENT_TABLE, "Rüstungsinfusionsaltar");
+        addBlock(ModBlocks.SLIPSTREAM_GENERATOR, "Strömungsgenerator");
+        addBlock(ModBlocks.DRAINING_WELL, "Entzugsbrunnen");
+        addBlock(ModBlocks.FLICKER_LURE, "Flickerköder");
+        addBlock(ModBlocks.EVERSTONE, "Ewiger Stein");
+        addBlock(ModBlocks.KEYSTONE_DOOR, "Magisch verschlossene Tür");
+        addBlock(ModBlocks.SPELL_SEALED_DOOR, "Magisch versiegelte Tür");
+        addBlock(ModBlocks.KEYSTONE_TRAPDOOR, "Magisch verschlossene Falltür");
+        addItem(ModItems.KEYSTONE, "Magischer Schlüssel");
+        addItem(ModItems.PURIFIED_VINTEUM, "Gereinigtes Vinteum");
+        addItem(ModItems.ARCANE_ASH, "Magische Asche");
+        addItem(ModItems.ARCANE_COMPOUND, "Magische Mischung");
+        addItem(ModItems.SPELL_PARCHMENT, "Magisches Pergament");
+        addItem(ModItems.PIG_FAT, "Schweinefett");
+        addItem(ModItems.WOODEN_LEG, "Holzbein");
+        addItem(ModItems.EVIL_BOOK, "Buch des Bösen");
+        addItem(ModItems.SPELL_BOOK, "Buch der Zauber");
+        addItem(ModItems.SPELL, "Zauber");
+        addItem(ModItems.BASE_ESSENCE_CORE, "Basisessenz");
+        addItem(ModItems.HIGH_ESSENCE_CORE, "Angereichte Essenz");
+        addItem(ModItems.PURE_ESSENCE_CORE, "Pure Essenz");
+        addItem(ModItems.DEFICIT_CRYSTAL, "Defizitkristall");
+        addItem(ModItems.RUNE_BAG, "Runentasche");
+        addItem(ModItems.ESSENCE_BAG, "Essenztasche");
+        addItem(ModItems.HELL_COW_HORN, "Höllenkuhhorn");
+        addItem(ModItems.JOURNAL, "Journal");
+        addItem(ModItems.MAGITECH_GOGGLES, "Magische Brille");
+        addItem(ModItems.MAGITECH_STAFF, "Zauberstab");
+        addItem(ModItems.CRYSTAL_WRENCH, "Kristallstab");
+        addItem(ModItems.WIZARD_CHALK, "Magischer Kalk");
+        addItem(ModItems.CRYSTAL_PHYLACTERY, "Kristallbehälter");
+        addItem(ModItems.POTION_BUNDLE, "%s Trankbündel");
+        addItem(ModFluids.LIQUID_ESSENCE_BUCKET, "Flüssiger Essenzeimer");
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Hexenwald");
-
         addEntityType(ModEntities.SPELL_PROJECTILE, "Zaubergeschoss");
         addEntityType(ModEntities.THROWN_ROCK, "Magischer Meteor");
-
         addEffect(ModEffects.ASTRAL_DISTORTION, "Astrale Verwirrung");
         addEffect(ModEffects.SHRINK, "Schrumpfung");
         addEffect(ModEffects.CLARITY, "Klarheit");
@@ -139,21 +200,17 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addEffect(ModEffects.MANA_BOOST, "Manaboost");
         addEffect(ModEffects.MANA_REGEN, "Manaregeneration");
         addEffect(ModEffects.SHIELD, "Schild");
-
         addSpellPart(ModSpellParts.BLIZZARD, "Blizzard", "Schnee. Sehr viel Schnee");
         addSpellPart(ModSpellParts.FALLING_STAR, "Sternschlag", "Leuchtend! Warte, fällt es auf mich zu?");
         addSpellPart(ModSpellParts.FIRE_RAIN, "Feuerregen", "Zumindest werde ich mich nicht erkälten...");
         addSpellPart(ModSpellParts.DISMEMBERING, "Zerlegung", "Ich wars nicht. Ich schwöre, er hatte keinen Kopf mehr, als ich kam.");
         addSpellPart(ModSpellParts.MANA_BLAST, "Manabombe", "Ich LIEBE Mana, speziell wenn es das Gesicht von anderen sprengt.");
-
         //addSpellPart(ModSpellParts.MANA_LINK, "Manalink", "Müde? Ein bisschen was geht noch.");
         addSpellPart(ModSpellParts.MANA_SHIELD, "Manaschild", "Jetzt weiß ich, wie Unnahbarkeit aussieht.");
         addSpellPart(ModSpellParts.BUFF_POWER, "Zauberkraft", "Stärker, schneller, besser und... meine Manaleiste ist leer.");
-
         addSpellPart(ModSpellParts.DAYLIGHT, "Tageslicht", "Heißt das, ich kann die Zeit kontrollieren?");
         addSpellPart(ModSpellParts.MOONRISE, "Mondlicht", "Vollmond.");
         //addSpellPart(ModSpellParts.PROSPERITY, "Wohlstand", "Gold. Unmengen an Gold.");
-
         addSkill(ModSpellParts.MANA_REGEN_1, "Manaheilung I", "Du fühlst die Mana, wie sie dich umfließt...");
         addSkill(ModSpellParts.MANA_REGEN_2, "Manaheilung II", "All diese Energie... wieso verschwenden?");
         addSkill(ModSpellParts.MANA_REGEN_3, "Manaheilung III", "Deine Kontrolle über Mana hat ihren Höhepunkt erreicht.");
@@ -165,7 +222,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSkill(ModSpellParts.SHIELD_OVERLOAD, "Schildüberladung", "Zu viel Mana? Dann machen wir ein Schild draus...");
         addSkill(ModSpellParts.AUGMENTED_CASTING, "Erweitertes Zaubern", "Bessere Magie.");
         addSkill(ModSpellParts.AFFINITY_GAINS, "Affinitätsboost", "Wie wärs mit dem Teil, in dem ich Superkräfte habe?");
-
         addSpellPart(ModSpellParts.PROJECTILE, "Projektil", "Schneeball!");
         addSpellPart(ModSpellParts.GRAVITY, "Schwerkraft", "Fallen... okay...");
         addSpellPart(ModSpellParts.BOUNCE, "Abprallen", "Hey! Komm zurück!");
@@ -194,7 +250,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSpellPart(ModSpellParts.VELOCITY_ADDED, "Extrageschwindigkeit", "Schneller! SCHNELLER!");
         addSpellPart(ModSpellParts.DROWN, "Ertrinken", "Wie kannst du ertrinken? Hier ist kein Wasser.");
         addSpellPart(ModSpellParts.WATERY_GRAVE, "Wassergrab", "Grund des Ozeans.");
-
         addSpellPart(ModSpellParts.WALL, "Mauer", "Du darfst nicht vorbei.");
         addSpellPart(ModSpellParts.APPROPRIATON, "Beschlagnahmung", "Meins! Meins!");
         addSpellPart(ModSpellParts.SLOW, "Verlangsamung", "Kein Laufen mehr!");
@@ -230,7 +285,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSpellPart(ModSpellParts.ABSORPTION, "Absorption", "Wie ein Schild, nur nicht so dick.");
         //addSpellPart(ModSpellParts.CONTINGENCY_HEALTH, "Eventualität: Heilung", "I'm not going down... not right now.");
         //addSpellPart(ModSpellParts.CONTINGENCY_DAMAGE, "Eventualität: Schaden", "Hurting me? That would be bad...");
-
         addSpellPart(ModSpellParts.TOUCH, "Berührung", "Klopf klopf? Jemand da?");
         addSpellPart(ModSpellParts.DIG, "Graben", "Baggerfahrer.");
         addSpellPart(ModSpellParts.WIZARDS_AUTUMN, "Herbst", "Blätter fallen nur langsam...");
@@ -269,15 +323,10 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSpellPart(ModSpellParts.DIVINE_INTERVENTION, "Außerirdischer Eingriff", "Hilfe aus dem Weltall.");
         addSpellPart(ModSpellParts.ENDER_INTERVENTION, "Endereingriff", "Ich wusste nicht, wie die Hölle aussieht...");
         //addSpellPart(ModSpellParts.CONTINGENCY_DEATH, "Eventualität: Tod", "Du kommst mit mir.");
-
         addSkillPoint(ModSpellParts.SKILL_POINT_1, "Blau");
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Rot");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Grün");
-
-        add("itemGroup.arsmagicalegacy", "Ars Magica: Legacy");
-
-        add("arsmagicalegacy.gui.inscriptiontable.search", "Suchen");
-        add("arsmagicalegacy.occulus.prevent", "Mythische Kräfte hindern dich am Benutzen dieses Konstrukts!");
+        add("itemGroup." + ArsMagicaLegacy.MODID, "Ars Magica: Legacy");
     }
 
     @Override
