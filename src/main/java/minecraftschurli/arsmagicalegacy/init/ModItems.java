@@ -177,10 +177,10 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> HIGH_ESSENCE_CORE = stackableItem64("high_essence_core");
     public static final RegistryObject<Item> PURE_ESSENCE_CORE = stackableItem64("pure_essence_core");
     public static final RegistryObject<Item> DEFICIT_CRYSTAL = stackableItem64("deficit_crystal");
-    public static final RegistryObject<Item> RUNE_BAG = stackableItem64("rune_bag");
-    public static final RegistryObject<Item> ESSENCE_BAG = stackableItem64("essence_bag");
-    public static final RegistryObject<Item> HELL_COW_HORN = stackableItem64("hell_cow_horn");
-    public static final RegistryObject<Item> JOURNAL = stackableItem64("journal");
+    public static final RegistryObject<Item> RUNE_BAG = ITEMS.register("rune_bag", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> ESSENCE_BAG = ITEMS.register("essence_bag", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> HELL_COW_HORN = ITEMS.register("hell_cow_horn", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> JOURNAL = ITEMS.register("journal", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", () -> new Item(ITEM_1));
