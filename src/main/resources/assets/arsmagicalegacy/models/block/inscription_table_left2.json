@@ -1,7 +1,7 @@
 {
   "parent": "block/block",
   "textures": {
-    "cloth": "arsmagicalegacy:block/table_cloth"
+    "cloth": "arsmagicalegacy:block/inscription_table_cloth"
   },
   "elements": [
     {

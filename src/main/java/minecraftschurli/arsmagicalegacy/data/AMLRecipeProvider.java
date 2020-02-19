@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
+import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
@@ -11,6 +12,7 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.potion.*;
 import net.minecraft.tags.*;
 import net.minecraftforge.common.*;
+import net.minecraftforge.common.brewing.*;
 
 import javax.annotation.*;
 import java.util.function.*;
@@ -60,7 +62,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .patternLine("XSX")
                 .patternLine("XSX")
                 .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .key('S', Items.STICK)
+                .key('S', Tags.Items.RODS_WOODEN)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WITCHWOOD_PLANKS.get()))
                 .build(consumer);
         ShapedRecipeBuilder
@@ -68,7 +70,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .patternLine("SXS")
                 .patternLine("SXS")
                 .key('X', ModItems.WITCHWOOD_PLANKS.get())
-                .key('S', Items.STICK)
+                .key('S', Tags.Items.RODS_WOODEN)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WITCHWOOD_PLANKS.get()))
                 .build(consumer);
         ShapedRecipeBuilder
@@ -422,7 +424,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .addIngredient(Items.ICE)
                 .addIngredient(Items.POTATO)
                 .addIngredient(Items.SUGAR)
-                .addIngredient(Items.STICK)
+                .addIngredient(Tags.Items.RODS_WOODEN)
                 .addIngredient(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.MANA_POTION.get())))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.POTATO))
                 .build(consumer);
@@ -454,7 +456,7 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .patternLine("V")
                 .patternLine("S")
                 .key('V', ModTags.Items.DUSTS_VINTEUM)
-                .key('S', Items.STICK)
+                .key('S', Tags.Items.RODS_WOODEN)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.MAGE_HELMET.get())
@@ -535,52 +537,6 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .key('E', ModItems.AIR_ESSENCE.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_PARCHMENT.get())
-                .patternLine("S")
-                .patternLine("P")
-                .patternLine("S")
-                .key('S', Items.STICK)
-                .key('P', Items.PAPER)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.STICK))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURIFIED_VINTEUM.get())
-                .addIngredient(ModItems.CERUBLOSSOM.get())
-                .addIngredient(ModItems.DESERT_NOVA.get())
-                .addIngredient(ModItems.VINTEUM.get())
-                .addIngredient(ModItems.ARCANE_ASH.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.VINTEUM.get()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.ARCANE_COMPOUND.get())
-                .addIngredient(Items.STONE)
-                .addIngredient(Items.NETHERRACK)
-                .addIngredient(Tags.Items.DUSTS_REDSTONE)
-                .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-                .addIngredient(Items.STONE)
-                .addIngredient(Items.NETHERRACK)
-                .addIngredient(Tags.Items.DUSTS_REDSTONE)
-                .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.NETHERRACK))
-                .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.WOODEN_LEG.get())
-                .patternLine("P")
-                .patternLine("W")
-                .patternLine("S")
-                .key('P', ItemTags.PLANKS)
-                .key('W', ItemTags.WOODEN_SLABS)
-                .key('S', Items.STICK)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.STICK))
-                .build(consumer);
-        RecipeHelper.addBlastingRecipe(ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
-        RecipeHelper.addSmeltingRecipe(ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_BOOK.get())
-                .patternLine("SLL")
-                .patternLine("SPP")
-                .patternLine("SLL")
-                .key('S', Tags.Items.STRING)
-                .key('L', Tags.Items.LEATHER)
-                .key('P', Items.PAPER)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STRING).build()))
-                .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.INSCRIPTION_UPGRADE.get())
                 .addIngredient(Items.BOOK)
                 .addIngredient(Tags.Items.STRING)
@@ -631,7 +587,223 @@ public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipe
                 .key('C', ModTags.Items.GEMS_CHIMERITE)
                 .key('V', ModTags.Items.DUSTS_VINTEUM)
                 .key('A', ModItems.ARCANE_ASH.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.ARCANE_ASH.get()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_CHIMERITE).build()))
                 .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.ESSENCE_REFINER.get())
+                .patternLine("PDP")
+                .patternLine("OAO")
+                .patternLine("PPP")
+                .key('P', ItemTags.PLANKS)
+                .key('D', Tags.Items.GEMS_DIAMOND)
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('A', ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.ARMOR_IMBUEMENT_TABLE.get())
+                .patternLine("ACA")
+                .patternLine("OEO")
+                .patternLine("OOO")
+                .key('C', ItemTags.CARPETS)
+                .key('E', Items.ENCHANTING_TABLE)
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('A', ModItems.ALTAR_CORE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SLIPSTREAM_GENERATOR.get())
+                .patternLine("WWW")
+                .patternLine("FAF")
+                .patternLine("WWW")
+                .key('W', ModTags.Items.LOGS_WITCHWOOD)
+                .key('F', Tags.Items.FEATHERS)
+                .key('A', ModItems.AIR_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.AIR_ESSENCE.get()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.DRAINING_WELL.get())
+                .patternLine("MPM")
+                .patternLine("VAV")
+                .patternLine("MTM")
+                .key('M', ModItems.MAGIC_WALL.get())
+                .key('P', ModItems.PURE_ESSENCE_CORE.get())
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .key('A', ModItems.ARCANE_ESSENCE.get())
+                .key('T', ModTags.Items.GEMS_TOPAZ)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.ARCANE_ESSENCE.get()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.FLICKER_LURE.get())
+                .patternLine("CIV")
+                .patternLine("SSS")
+                .key('C', ModTags.Items.GEMS_CHIMERITE)
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .key('S', Tags.Items.STONE)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.EVERSTONE.get())
+                .patternLine(" T ")
+                .patternLine("CSC")
+                .patternLine(" T ")
+                .key('C', ModTags.Items.GEMS_CHIMERITE)
+                .key('V', ModTags.Items.GEMS_TOPAZ)
+                .key('S', Tags.Items.STONE)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.KEYSTONE_DOOR.get())
+                .patternLine("PMP")
+                .patternLine("RRR")
+                .patternLine("PMP")
+                .key('P', ModItems.WITCHWOOD_PLANKS.get())
+                .key('M', ModItems.MAGIC_WALL.get())
+                .key('R', ModItems.RUNE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WITCHWOOD_PLANKS.get()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_SEALED_DOOR.get())
+                .patternLine(" G ")
+                .patternLine("SDS")
+                .patternLine(" L ")
+                .key('G', ModItems.GREATER_FOCUS.get())
+                .key('S', ModItems.STANDARD_FOCUS.get())
+                .key('D', ModItems.KEYSTONE_DOOR.get())
+                .key('L', ModItems.LESSER_FOCUS.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WITCHWOOD_PLANKS.get()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.KEYSTONE.get())
+                .patternLine("GIG")
+                .patternLine("IVI")
+                .patternLine("GIG")
+                .key('G', Tags.Items.INGOTS_GOLD)
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_PARCHMENT.get())
+                .patternLine("S")
+                .patternLine("P")
+                .patternLine("S")
+                .key('S', Tags.Items.RODS_WOODEN)
+                .key('P', Items.PAPER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.RODS_WOODEN).build()))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURIFIED_VINTEUM.get())
+                .addIngredient(ModItems.CERUBLOSSOM.get())
+                .addIngredient(ModItems.DESERT_NOVA.get())
+                .addIngredient(ModTags.Items.DUSTS_VINTEUM)
+                .addIngredient(ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.ARCANE_COMPOUND.get())
+                .addIngredient(Items.STONE)
+                .addIngredient(Items.NETHERRACK)
+                .addIngredient(Tags.Items.DUSTS_REDSTONE)
+                .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
+                .addIngredient(Items.STONE)
+                .addIngredient(Items.NETHERRACK)
+                .addIngredient(Tags.Items.DUSTS_REDSTONE)
+                .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.NETHERRACK))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.WOODEN_LEG.get())
+                .patternLine("P")
+                .patternLine("W")
+                .patternLine("S")
+                .key('P', ItemTags.PLANKS)
+                .key('W', ItemTags.WOODEN_SLABS)
+                .key('S', Tags.Items.RODS_WOODEN)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.RODS_WOODEN).build()))
+                .build(consumer);
+        RecipeHelper.addBlastingRecipe(ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
+        RecipeHelper.addSmeltingRecipe(ModItems.ARCANE_COMPOUND.get(), ModItems.ARCANE_ASH.get(), 0.2f);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.EVIL_BOOK.get())
+                .addIngredient(Ingredient.fromStacks(ArsMagicaLegacy.getCompendium()))
+                .addIngredient(ModItems.WOODEN_LEG.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WOODEN_LEG.get()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_BOOK.get())
+                .patternLine("SLL")
+                .patternLine("SPP")
+                .patternLine("SLL")
+                .key('S', Tags.Items.STRING)
+                .key('L', Tags.Items.LEATHER)
+                .key('P', Items.PAPER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STRING).build()))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
+                .addIngredient(Tags.Items.GEMS_DIAMOND)
+                .addIngredient(Items.ENDER_EYE)
+                .addIngredient(ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GEMS_DIAMOND).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.RUNE_BAG.get())
+                .patternLine("LLL")
+                .patternLine("W W")
+                .patternLine("LLL")
+                .key('L', Items.LEATHER)
+                .key('W', ItemTags.WOOL)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.ESSENCE_BAG.get())
+                .patternLine("LLL")
+                .patternLine("WGW")
+                .patternLine("LLL")
+                .key('L', Items.LEATHER)
+                .key('W', ItemTags.WOOL)
+                .key('G', Tags.Items.NUGGETS_GOLD)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
+                .addIngredient(Items.WRITABLE_BOOK)
+                .addIngredient(ModItems.ARCANE_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.ARCANE_ESSENCE.get()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGITECH_GOGGLES.get())
+                .patternLine("LLL")
+                .patternLine("CGC")
+                .patternLine("TLT")
+                .key('L', Items.LEATHER)
+                .key('C', ModTags.Items.GEMS_CHIMERITE)
+                .key('G', Tags.Items.NUGGETS_GOLD)
+                .key('T', ModTags.Items.GEMS_TOPAZ)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MAGITECH_STAFF.get())
+                .patternLine(" GT")
+                .patternLine("G G")
+                .patternLine("GGG")
+                .key('G', Tags.Items.NUGGETS_GOLD)
+                .key('T', ModTags.Items.GEMS_TOPAZ)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.CRYSTAL_WRENCH.get())
+                .patternLine("I I")
+                .patternLine("CVD")
+                .patternLine(" I ")
+                .key('C', ModItems.CERUBLOSSOM.get())
+                .key('D', ModItems.DESERT_NOVA.get())
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.WIZARD_CHALK.get())
+                .addIngredient(ModTags.Items.DUSTS_VINTEUM)
+                .addIngredient(Items.BONE_MEAL)
+                .addIngredient(Items.CLAY_BALL)
+                .addIngredient(Items.FLINT)
+                .addIngredient(Items.PAPER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.CRYSTAL_PHYLACTERY.get())
+                .patternLine(" M ")
+                .patternLine("GVG")
+                .patternLine(" W ")
+                .key('M', ModTags.Items.GEMS_MOONSTONE)
+                .key('G', Tags.Items.GLASS)
+                .key('V', ModItems.PURIFIED_VINTEUM.get())
+                .key('W', ModItems.MAGIC_WALL.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_MOONSTONE).build()))
+                .build(consumer);
+        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.GEMS_CHIMERITE), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.LESSER_MANA_POTION.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.GEMS_TOPAZ), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.MANA_POTION.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.DUSTS_VINTEUM), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.GREATER_MANA_POTION.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromItems(ModItems.ARCANE_ASH.get()), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.EPIC_MANA_POTION.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromItems(ModItems.PURIFIED_VINTEUM.get()), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.LEGENDARY_MANA_POTION.get()));
     }
 }

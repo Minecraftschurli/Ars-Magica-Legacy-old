@@ -1,0 +1,7 @@
+{
+  "parent": "block/door_bottom_rh",
+  "textures": {
+    "bottom": "arsmagicalegacy:block/spell_sealed_door_bottom",
+    "top": "arsmagicalegacy:block/spell_sealed_door_top"
+  }
+}

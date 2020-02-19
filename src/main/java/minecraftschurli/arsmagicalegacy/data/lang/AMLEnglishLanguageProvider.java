@@ -17,12 +17,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
 
     @Override
     protected void addTranslations() {
-        addBlock(ModBlocks.SUNSTONE_BLOCK, "Sunstone Block");
-        addBlock(ModBlocks.SUNSTONE_ORE, "Sunstone Ore");
-        addItem(ModItems.SUNSTONE, "Sunstone");
-        addBlock(ModBlocks.MOONSTONE_BLOCK, "Moonstone Block");
-        addBlock(ModBlocks.MOONSTONE_ORE, "Moonstone Ore");
-        addItem(ModItems.MOONSTONE, "Moonstone");
         addBlock(ModBlocks.CHIMERITE_BLOCK, "Chimerite Block");
         addBlock(ModBlocks.CHIMERITE_ORE, "Chimerite Ore");
         addItem(ModItems.CHIMERITE, "Chimerite");
@@ -32,6 +26,12 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addBlock(ModBlocks.VINTEUM_BLOCK, "Vinteum Block");
         addBlock(ModBlocks.VINTEUM_ORE, "Vinteum Ore");
         addItem(ModItems.VINTEUM, "Vinteum");
+        addBlock(ModBlocks.MOONSTONE_BLOCK, "Moonstone Block");
+        addBlock(ModBlocks.MOONSTONE_ORE, "Moonstone Ore");
+        addItem(ModItems.MOONSTONE, "Moonstone");
+        addBlock(ModBlocks.SUNSTONE_BLOCK, "Sunstone Block");
+        addBlock(ModBlocks.SUNSTONE_ORE, "Sunstone Ore");
+        addItem(ModItems.SUNSTONE, "Sunstone");
         addBlock(ModBlocks.WITCHWOOD_PLANKS, "Witchwood Planks");
         addBlock(ModBlocks.WITCHWOOD_LOG, "Witchwood Log");
         addBlock(ModBlocks.WITCHWOOD_STAIRS, "Witchwood Stairs");
@@ -109,19 +109,19 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.LIFE_TOME, "Life Tome");
         addItem(ModItems.ARCANE_TOME, "Arcane Tome");
         addItem(ModItems.ENDER_TOME, "Ender Tome");
-        addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Focus: Butcher");
-        addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Focus: Containment");
-        addItem(ModItems.FELLING_FLICKER_FOCUS, "Focus: Felling");
-        addItem(ModItems.FISHING_FLICKER_FOCUS, "Focus: Fishing");
-        addItem(ModItems.FLAT_LAND_FLICKER_FOCUS, "Focus: Flat Lands");
-        addItem(ModItems.GENTLE_RAIN_FLICKER_FOCUS, "Focus: Gentle Rains");
-        addItem(ModItems.INTERDICTION_FLICKER_FOCUS, "Focus: Interdiction");
-        addItem(ModItems.ITEM_TRANSPORT_FLICKER_FOCUS, "Focus: Item");
-        addItem(ModItems.LIGHT_FLICKER_FOCUS, "Focus: Light");
-        addItem(ModItems.LUNAR_FLICKER_FOCUS, "Focus: Lunar");
-        addItem(ModItems.NATURE_BOUNTY_FLICKER_FOCUS, "Focus: Nature's Bounty");
-        addItem(ModItems.PACKED_EARTH_FLICKER_FOCUS, "Focus: Packed Earth");
-        addItem(ModItems.PROGENY_FLICKER_FOCUS, "Focus: Progeny");
+        addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flicker Focus: Butcher");
+        addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flicker Focus: Containment");
+        addItem(ModItems.FELLING_FLICKER_FOCUS, "Flicker Focus: Felling");
+        addItem(ModItems.FISHING_FLICKER_FOCUS, "Flicker Focus: Fishing");
+        addItem(ModItems.FLAT_LAND_FLICKER_FOCUS, "Flicker Focus: Flat Lands");
+        addItem(ModItems.GENTLE_RAIN_FLICKER_FOCUS, "Flicker Focus: Gentle Rains");
+        addItem(ModItems.INTERDICTION_FLICKER_FOCUS, "Flicker Focus: Interdiction");
+        addItem(ModItems.ITEM_TRANSPORT_FLICKER_FOCUS, "Flicker Focus: Item");
+        addItem(ModItems.LIGHT_FLICKER_FOCUS, "Flicker Focus: Light");
+        addItem(ModItems.LUNAR_FLICKER_FOCUS, "Flicker Focus: Lunar");
+        addItem(ModItems.NATURE_BOUNTY_FLICKER_FOCUS, "Flicker Focus: Nature's Bounty");
+        addItem(ModItems.PACKED_EARTH_FLICKER_FOCUS, "Flicker Focus: Packed Earth");
+        addItem(ModItems.PROGENY_FLICKER_FOCUS, "Flicker Focus: Progeny");
         addItem(ModItems.MANA_CAKE, "Mana Cake");
         addItem(ModItems.MANA_MARTINI, "Mana Martini");
         addBlock(ModBlocks.GOLD_INLAY, "Gold Inlay");
@@ -365,17 +365,13 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         add(ArsMagicaLegacy.MODID + ".spell.validate.invalid", "Invalid Spell");
         add(ArsMagicaLegacy.MODID + ".spell.validate.principum", "Principum Spell");
         add(ArsMagicaLegacy.MODID + ".spell.validate.terminus", "Terminus Spell");
-
         add(ArsMagicaLegacy.MODID + ".arcane_compendium.name", "Arcane Compendium");
         add(ArsMagicaLegacy.MODID + ".arcane_compendium.landing_text", "Hello World");
-
         addCategoryTranslation("guide", "Guides", "");
-
         addCategoryTranslation("mechanic", "Mechanics", "");
         addCategoryTranslation("mechanic.affinity", "Affinities", "");
         addCategoryTranslation("mechanic.enchants", "Enchantments", "");
         addCategoryTranslation("mechanic.infusions", "Infusions", "");
-
         addCategoryTranslation("item", "Items", "");
         addCategoryTranslation("item.ore", "Ars Magica Ores", "");
         addCategoryTranslation("item.essence", "Essence", "");
@@ -389,20 +385,16 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addCategoryTranslation("item.binding_catalyst", "Binding Catalysts", "");
         addCategoryTranslation("item.flickerfocus", "Flicker Focus", "");
         addCategoryTranslation("item.inscription_upgrades", "Inscription Table Upgrades", "");
-
         addCategoryTranslation("block", "Blocks", "");
         addCategoryTranslation("block.illusion_blocks", "Illusion Blocks", "");
         addCategoryTranslation("block.crystalmarker", "Crystal Marker", "");
         addCategoryTranslation("block.inlays", "Inlays", "");
-
         addCategoryTranslation("shape", "Shapes", "");
         addCategoryTranslation("component", "Components", "");
         addCategoryTranslation("modifier", "Modifiers", "");
         addCategoryTranslation("talent", "Talents", "");
-
         addCategoryTranslation("mob", "Mobs", "");
         addCategoryTranslation("mob.flicker", "Flickers", "");
-
         addCategoryTranslation("structure", "Structures", "");
         addCategoryTranslation("boss", "Bosses", "");
     }

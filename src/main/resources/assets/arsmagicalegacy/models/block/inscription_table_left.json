@@ -1,10 +1,11 @@
 {
   "parent": "block/block",
   "textures": {
-    "base": "arsmagicalegacy:block/table_base",
-    "top": "arsmagicalegacy:block/table_top",
-    "top_special": "arsmagicalegacy:block/table_top_left",
-    "side": "arsmagicalegacy:block/table_side"
+    "particle": "arsmagicalegacy:block/inscription_table_base",
+    "base": "arsmagicalegacy:block/inscription_table_base",
+    "top": "arsmagicalegacy:block/inscription_table_top",
+    "top_special": "arsmagicalegacy:block/inscription_table_top_left",
+    "side": "arsmagicalegacy:block/inscription_table_side"
   },
   "elements": [
     {
