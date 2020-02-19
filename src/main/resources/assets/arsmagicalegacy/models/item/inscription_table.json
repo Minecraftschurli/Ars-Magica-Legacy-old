@@ -1,11 +1,11 @@
 {
   "parent": "arsmagicalegacy:block/scaledown",
   "textures": {
-    "base": "arsmagicalegacy:block/table_base",
-    "top": "arsmagicalegacy:block/table_top",
-    "top_special": "arsmagicalegacy:block/table_top_right",
-    "top_left": "arsmagicalegacy:block/table_top_left",
-    "side": "arsmagicalegacy:block/table_side"
+    "base": "arsmagicalegacy:block/inscription_table_base",
+    "top": "arsmagicalegacy:block/inscription_table_top",
+    "top_right": "arsmagicalegacy:block/inscription_table_top_right",
+    "top_left": "arsmagicalegacy:block/inscription_table_top_left",
+    "side": "arsmagicalegacy:block/inscription_table_side"
   },
   "elements": [
     {
@@ -1050,7 +1050,7 @@
           ]
         },
         "up": {
-          "texture": "#top_special",
+          "texture": "#top_right",
           "uv": [
             0,
             0,

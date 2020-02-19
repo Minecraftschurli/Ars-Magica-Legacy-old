@@ -1,9 +1,9 @@
 {
   "parent": "block/block",
   "textures": {
-    "book4": "arsmagicalegacy:block/book4",
-    "book5": "arsmagicalegacy:block/book5",
-    "cloth": "arsmagicalegacy:block/table_cloth"
+    "book4": "arsmagicalegacy:block/inscription_table_book_3",
+    "book5": "arsmagicalegacy:block/inscription_table_book_4",
+    "cloth": "arsmagicalegacy:block/inscription_table_cloth"
   },
   "elements": [
     {
