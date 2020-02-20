@@ -1,0 +1,19 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:storage_blocks/chimerite"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:chest",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:ender_pearls"
+    }
+  ]
+}

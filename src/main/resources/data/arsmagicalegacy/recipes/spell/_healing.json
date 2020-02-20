@@ -1,0 +1,22 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:life_essence",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:egg",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:potion",
+      "Count": 1,
+      "tag": {
+        "Potion": "minecraft:healing"
+      }
+    }
+  ]
+}

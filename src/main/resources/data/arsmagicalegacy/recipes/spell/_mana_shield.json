@@ -1,0 +1,9 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:mana_focus",
+      "Count": 1
+    }
+  ]
+}

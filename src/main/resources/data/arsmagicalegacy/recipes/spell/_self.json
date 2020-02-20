@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/vinteum"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:aum",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:lesser_focus",
+      "Count": 1
+    },
+    {
+      "amount": 500,
+      "essence": "NEUTRAL",
+      "ingredient_type": "essence"
+    }
+  ]
+}

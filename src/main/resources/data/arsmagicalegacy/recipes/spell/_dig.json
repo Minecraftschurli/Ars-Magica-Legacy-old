@@ -1,0 +1,28 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:iron_axe",
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:iron_pickaxe",
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:iron_shovel",
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
+    }
+  ]
+}

@@ -39,7 +39,7 @@ public class SpellRecipeManager extends JsonReloadListener {
             for (JsonElement e : entry.getValue().getAsJsonArray("ingredients")) {
                 ingredients.add(IngredientTypes.deserialize((CompoundNBT) NBTUtils.jsonToNBT(e)));
             }
-            return new Pair<>(entry.getKey(), ingredients.toArray(new ISpellIngredient[0]));
+            return new Pair<>(new ResourceLocation(entry.getKey().getNamespace(), entry.getKey().getPath().substring(1)), ingredients.toArray(new ISpellIngredient[0]));
         }).collect(ImmutableMap.toImmutableMap(Pair::getKey, Pair::getValue));
     }
 }

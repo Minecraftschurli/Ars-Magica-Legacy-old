@@ -13,6 +13,7 @@ import net.minecraft.potion.*;
 import net.minecraft.tags.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.brewing.*;
+import net.minecraftforge.common.data.ForgeRecipeProvider;
 
 import javax.annotation.*;
 import java.util.function.*;
@@ -21,7 +22,7 @@ import java.util.function.*;
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-public class AMLRecipeProvider extends RecipeProvider implements ArsMagicaRecipePlugin {
+public class AMLRecipeProvider extends ForgeRecipeProvider implements ArsMagicaRecipePlugin {
     public AMLRecipeProvider(DataGenerator generator) {
         super(generator);
     }

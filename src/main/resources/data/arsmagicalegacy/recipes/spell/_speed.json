@@ -1,0 +1,30 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:lightning_essence",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:leather_boots",
+      "Count": 1,
+      "tag": {
+        "Damage": 0
+      }
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:carrot",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:potion",
+      "Count": 1,
+      "tag": {
+        "Potion": "minecraft:swiftness"
+      }
+    }
+  ]
+}

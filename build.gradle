@@ -33,7 +33,7 @@ repositories {
 
 apply plugin: 'idea'
 
-version = "${mc_version}-${modVersion}"
+version = "${mcVersion}-${modVersion}"
 group = modGroup
 archivesBaseName = modBaseName
 
@@ -52,7 +52,7 @@ configurations {
 }
 
 minecraft {
-    mappings channel: 'snapshot', version: "${mcp_mappings}"
+    mappings channel: 'snapshot', version: "${mcpMappings}"
 
     runs {
         client {
@@ -108,13 +108,13 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${mcVersion}-${forgeVersion}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mcVersion}:${jeiVersion}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mcVersion}:${jeiVersion}")
 
-    compile fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
-    compile fg.deobf("minecraftschurli:simpleorelib:${mc_version}-1.0.0.0")
+    compile fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}")
+    compile fg.deobf("minecraftschurli:simpleorelib:${mcVersion}-1.0.0.0")
 }
 
 jar {
@@ -124,14 +124,32 @@ jar {
 
     manifest {
         attributes([
-                "Specification-Title": "${mod_name}",
+                "Specification-Title": "${modName}",
                 "Specification-Vendor": "${modGroup}",
-                "Specification-Version": "${mc_version}",
+                "Specification-Version": "${mcVersion}",
                 "Implementation-Title": project.name,
                 "Implementation-Version": "${modVersion}",
                 "Implementation-Vendor" :"${modGroup}",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
+    }
+}
+
+processResources {
+    // This will ensure that this task is redone when the versions change.
+    inputs.property 'version', project.version
+
+    // Replace stuff in mods.toml, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+
+        // Replace version
+        expand 'version': project.version
+    }
+
+    // Copy everything else except the mods.toml
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
     }
 }
 

@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/moonstone"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:air_essence",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:tnt",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "essence": "ANY",
+      "ingredient_type": "essence"
+    }
+  ]
+}

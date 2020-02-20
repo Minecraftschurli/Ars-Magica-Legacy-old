@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:arcane_essence",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:arrow",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/redstone"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:snowball",
+      "Count": 1
+    }
+  ]
+}

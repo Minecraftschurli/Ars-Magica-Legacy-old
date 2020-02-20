@@ -126,8 +126,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> NATURE_BOUNTY_FLICKER_FOCUS = stackableItem64("nature_bounty_flicker_focus");
     public static final RegistryObject<Item> PACKED_EARTH_FLICKER_FOCUS = stackableItem64("packed_earth_flicker_focus");
     public static final RegistryObject<Item> PROGENY_FLICKER_FOCUS = stackableItem64("progeny_flicker_focus");
-    public static final RegistryObject<Item> MANA_CAKE = stackableFoodItem64("mana_cake", new Food.Builder().hunger(3).saturation(0.6f).effect(new EffectInstance(ModEffects.mana_regen_effect, 600), 1).build());
-    public static final RegistryObject<Item> MANA_MARTINI = stackableFoodItem64("mana_martini", new Food.Builder().hunger(0).saturation(0).effect(new EffectInstance(ModEffects.burnout_reduction_effect, 300), 1).build());
+    public static final RegistryObject<Item> MANA_CAKE = stackableFoodItem64("mana_cake", new Food.Builder().hunger(3).saturation(0.6f).effect(ModEffects.MANA_REGEN.lazyMap(effect -> new EffectInstance(effect, 600)), 1).build());
+    public static final RegistryObject<Item> MANA_MARTINI = stackableFoodItem64("mana_martini", new Food.Builder().hunger(0).saturation(0).effect(ModEffects.BURNOUT_REDUCTION.lazyMap(effect -> new EffectInstance(effect, 300)), 1).build());
     public static final RegistryObject<Item> REDSTONE_INLAY = stackableBlockItem64(ModBlocks.REDSTONE_INLAY);
     public static final RegistryObject<Item> IRON_INLAY = stackableBlockItem64(ModBlocks.IRON_INLAY);
     public static final RegistryObject<Item> GOLD_INLAY = stackableBlockItem64(ModBlocks.GOLD_INLAY);

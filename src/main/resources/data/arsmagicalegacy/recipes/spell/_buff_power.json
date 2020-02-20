@@ -1,0 +1,44 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/emerald"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:ghast_tear",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:glass_bottle",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/glowstone"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:gunpowder",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:nether_wart",
+      "Count": 1
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:dusts/redstone"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "minecraft:spider_eye",
+      "Count": 1
+    }
+  ]
+}

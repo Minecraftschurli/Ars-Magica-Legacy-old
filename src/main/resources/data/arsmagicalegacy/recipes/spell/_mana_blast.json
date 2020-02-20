@@ -1,0 +1,19 @@
+{
+  "ingredients": [
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:purple_rune",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:greater_focus",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:mana_focus",
+      "Count": 1
+    }
+  ]
+}

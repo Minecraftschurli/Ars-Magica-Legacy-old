@@ -3,7 +3,7 @@ loaderVersion="[31,)"
 
 [[mods]]
     modId="arsmagicalegacy"
-    version="${file.jarVersion}"
+    version="${version}"
     displayName="Ars Magica Legacy"
     authors="Minecraftschurli, IchHabeHunger54"
     description='''
