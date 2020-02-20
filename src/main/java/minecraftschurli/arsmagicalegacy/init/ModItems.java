@@ -103,16 +103,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> LIFE_FLICKER_JAR = stackableItem64("life_flicker_jar");
     public static final RegistryObject<Item> ARCANE_FLICKER_JAR = stackableItem64("arcane_flicker_jar");
     public static final RegistryObject<Item> ENDER_FLICKER_JAR = stackableItem64("ender_flicker_jar");
-    public static final RegistryObject<Item> WATER_TOME = stackableItem64("water_tome");
-    public static final RegistryObject<Item> FIRE_TOME = stackableItem64("fire_tome");
-    public static final RegistryObject<Item> EARTH_TOME = stackableItem64("earth_tome");
-    public static final RegistryObject<Item> AIR_TOME = stackableItem64("air_tome");
-    public static final RegistryObject<Item> LIGHTNING_TOME = stackableItem64("lightning_tome");
-    public static final RegistryObject<Item> ICE_TOME = stackableItem64("ice_tome");
-    public static final RegistryObject<Item> NATURE_TOME = stackableItem64("nature_tome");
-    public static final RegistryObject<Item> LIFE_TOME = stackableItem64("life_tome");
-    public static final RegistryObject<Item> ARCANE_TOME = stackableItem64("arcane_tome");
-    public static final RegistryObject<Item> ENDER_TOME = stackableItem64("ender_tome");
+    public static final RegistryObject<AffinityTomeItem> AFFINITY_TOME = ITEMS.register("affinity_tome", AffinityTomeItem::new);
     public static final RegistryObject<Item> BUTCHER_FLICKER_FOCUS = stackableItem64("butcher_flicker_focus");
     public static final RegistryObject<Item> CONTAINMENT_FLICKER_FOCUS = stackableItem64("containment_flicker_focus");
     public static final RegistryObject<Item> FELLING_FLICKER_FOCUS = stackableItem64("felling_flicker_focus");

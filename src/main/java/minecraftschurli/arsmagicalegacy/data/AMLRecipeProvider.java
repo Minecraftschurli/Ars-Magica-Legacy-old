@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.data.*;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
@@ -22,7 +19,7 @@ import java.util.function.*;
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-public class AMLRecipeProvider extends ForgeRecipeProvider implements ArsMagicaRecipePlugin {
+public class AMLRecipeProvider extends ForgeRecipeProvider {
     public AMLRecipeProvider(DataGenerator generator) {
         super(generator);
     }

@@ -88,10 +88,6 @@ public final class ArsMagicaLegacy {
         preInit();
     }
 
-    public static ItemStack getCompendium() {
-        return PatchouliAPI.instance.getBookStack(new ResourceLocation(MODID, "arcane_compendium"));
-    }
-
     //region =========LIFECYCLE=========
 
     private void preInit() {
@@ -196,8 +192,14 @@ public final class ArsMagicaLegacy {
 
     //endregion
 
+    //region =========UTIL=========
+
     public static SpellRecipeManager getSpellRecipeManager() {
         return instance.spellRecipeManager;
+    }
+
+    public static ItemStack getCompendium() {
+        return PatchouliAPI.instance.getBookStack(new ResourceLocation(MODID, "arcane_compendium"));
     }
 
     public IModInfo getModInfo() {
@@ -207,4 +209,6 @@ public final class ArsMagicaLegacy {
     public String getVersion() {
         return getModInfo().getVersion().getQualifier();
     }
+
+    //endregion
 }
