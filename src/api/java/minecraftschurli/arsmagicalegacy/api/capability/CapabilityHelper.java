@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
 import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.advancements.CriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.event.*;
 import minecraftschurli.arsmagicalegacy.api.network.*;
@@ -68,6 +69,8 @@ public class CapabilityHelper {
         while (xp >= magic.getMaxXP()){
             xp -= magic.getMaxXP();
             magic.levelUp();
+            if (player instanceof ServerPlayerEntity)
+                CriteriaTriggers.MAGIC_LEVEL.trigger((ServerPlayerEntity) player);
             MinecraftForge.EVENT_BUS.post(new PlayerMagicLevelChangeEvent(player));
         }
         magic.setXp(xp);
@@ -223,6 +226,7 @@ public class CapabilityHelper {
     public static void increaseMana(LivingEntity entity, float amount) {
         getManaCapability(entity).increase(amount);
         if (entity instanceof ServerPlayerEntity) {
+            CriteriaTriggers.MANA_LEVEL.trigger((ServerPlayerEntity) entity);
             syncMana((ServerPlayerEntity) entity);
         }
     }
@@ -235,6 +239,7 @@ public class CapabilityHelper {
     public static void decreaseMana(LivingEntity entity, float amount) {
         getManaCapability(entity).decrease(amount);
         if (entity instanceof ServerPlayerEntity) {
+            CriteriaTriggers.MANA_LEVEL.trigger((ServerPlayerEntity) entity);
             syncMana((ServerPlayerEntity) entity);
         }
     }
@@ -262,8 +267,10 @@ public class CapabilityHelper {
         research.learn(skill);
         if (!player.isCreative())
             research.use(skill.getPoint().getTier());
-        if (player instanceof ServerPlayerEntity)
+        if (player instanceof ServerPlayerEntity) {
+            CriteriaTriggers.SKILL_LEARNED.trigger((ServerPlayerEntity) player);
             syncResearch((ServerPlayerEntity) player);
+        }
     }
 
     /**
@@ -363,8 +370,10 @@ public class CapabilityHelper {
      */
     public static void learn(PlayerEntity player, Skill skill) {
         getResearchCapability(player).learn(skill);
-        if (player instanceof ServerPlayerEntity)
+        if (player instanceof ServerPlayerEntity) {
+            CriteriaTriggers.SKILL_LEARNED.trigger((ServerPlayerEntity) player);
             syncResearch((ServerPlayerEntity) player);
+        }
     }
 
     /**
@@ -374,8 +383,10 @@ public class CapabilityHelper {
      */
     public static void learn(PlayerEntity player, ResourceLocation skill) {
         getResearchCapability(player).learn(skill);
-        if (player instanceof ServerPlayerEntity)
+        if (player instanceof ServerPlayerEntity) {
+            CriteriaTriggers.SKILL_LEARNED.trigger((ServerPlayerEntity) player);
             syncResearch((ServerPlayerEntity) player);
+        }
     }
 
     //endregion

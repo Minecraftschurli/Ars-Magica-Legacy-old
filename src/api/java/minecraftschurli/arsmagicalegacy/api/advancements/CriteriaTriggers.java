@@ -1,0 +1,32 @@
+package minecraftschurli.arsmagicalegacy.api.advancements;
+
+import net.minecraft.advancements.ICriterionTrigger;
+import net.minecraft.util.ResourceLocation;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author Minecraftschurli
+ * @version 2020-02-19
+ */
+public class CriteriaTriggers {
+    private static final Map<ResourceLocation,ICriterionTrigger<?>> CRITERION_TRIGGERS = new HashMap<>();
+
+    public static final MagicLevelTrigger MAGIC_LEVEL = register(new MagicLevelTrigger());
+    public static final ManaLevelTrigger MANA_LEVEL = register(new ManaLevelTrigger());
+    public static final SkillLearnedTrigger SKILL_LEARNED = register(new SkillLearnedTrigger());
+
+    public static void registerDefaults() {
+        for (ICriterionTrigger<?> criterionTrigger : CRITERION_TRIGGERS.values()) {
+            net.minecraft.advancements.CriteriaTriggers.register(criterionTrigger);
+        }
+    }
+
+    public static <T extends ICriterionTrigger<?>> T register(T criterion) {
+        if (CRITERION_TRIGGERS.containsKey(criterion.getId()))
+            throw new IllegalArgumentException("Duplicate criterion " + criterion.getId());
+        CRITERION_TRIGGERS.put(criterion.getId(), criterion);
+        return criterion;
+    }
+}

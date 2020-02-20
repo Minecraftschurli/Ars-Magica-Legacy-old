@@ -11,10 +11,10 @@
 - [ ] add particles to all spell parts
 - [ ] implement all spell parts
 - [ ] implement all potion effects
-- [ ] add Patchouli documentation
+- [ ] add [Patchouli documentation](src/main/resources/data/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/_TODO.txt)
 - [ ] finish documenting the API
-- [ ] first alpha release [_non survival ready version_] (~ March)
+- [ ] first **_alpha_** release [_non survival ready version_] (~ March)
 - [ ] add temporary Villager Profession to trade Infinityorbs
-- [ ] first beta release (~ April)
+- [ ] first **_beta_** release (~ April)
 - [ ] add entities and bosses
-- [ ] first release (~ July)
+- [ ] first **_release_** (~ July)

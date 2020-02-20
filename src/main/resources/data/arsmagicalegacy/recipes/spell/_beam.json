@@ -1,0 +1,34 @@
+{
+  "ingredients": [
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/topaz"
+    },
+    {
+      "amount": 1,
+      "ingredient_type": "item_tag",
+      "location": "forge:gems/topaz"
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:purified_vinteum",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:aum",
+      "Count": 1
+    },
+    {
+      "ingredient_type": "item_stack",
+      "id": "arsmagicalegacy:standard_focus",
+      "Count": 1
+    },
+    {
+      "amount": 500,
+      "essence": "NEUTRAL",
+      "ingredient_type": "essence"
+    }
+  ]
+}

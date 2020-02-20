@@ -1,2 +1,0 @@
-add content to arcane compendium
-https://github.com/Vazkii/Patchouli/wiki/Entry-JSON-Format

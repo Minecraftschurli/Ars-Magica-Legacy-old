@@ -70,16 +70,6 @@ public final class ArsMagicaLegacy {
         instance = this;
         spellRecipeManager = new SpellRecipeManager();
 
-        preInit();
-    }
-
-    public static ItemStack getCompendium() {
-        return PatchouliAPI.instance.getBookStack(new ResourceLocation(MODID, "arcane_compendium"));
-    }
-
-    //region =========LIFECYCLE=========
-
-    private void preInit() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
@@ -90,17 +80,28 @@ public final class ArsMagicaLegacy {
         modEventBus.addListener(EventPriority.LOWEST, this::onRegistrySetupFinish);
         modEventBus.register(Config.class);
 
-        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.setup();
-
         MinecraftForge.EVENT_BUS.addListener(this::onAttachPlayerCapabilities);
         MinecraftForge.EVENT_BUS.addListener(this::onServerLoad);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
+
+        preInit();
+    }
+
+    public static ItemStack getCompendium() {
+        return PatchouliAPI.instance.getBookStack(new ResourceLocation(MODID, "arcane_compendium"));
+    }
+
+    //region =========LIFECYCLE=========
+
+    private void preInit() {
+        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.setup();
+
         Config.setup();
 
         proxy.preInit();
 
-        IInit.setEventBus(modEventBus);
+        IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
