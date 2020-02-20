@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.advancements;
 
+import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,6 +12,10 @@ import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.shapes.IBooleanFunction;
+
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Minecraftschurli
@@ -25,7 +31,7 @@ public class SkillLearnedTrigger extends AbstractCriterionTrigger<SkillLearnedTr
 
     @Override
     public Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
-        return new Instance(json.get("skill").getAsString());
+        return new Instance(ImmutableList.copyOf(json.get("skills").getAsJsonArray()).stream().map(JsonElement::getAsString).collect(ImmutableList.toImmutableList()), json.get("function").getAsString());
     }
 
     public void trigger(ServerPlayerEntity player) {
@@ -34,37 +40,50 @@ public class SkillLearnedTrigger extends AbstractCriterionTrigger<SkillLearnedTr
 
     public static class Instance extends CriterionInstance {
 
-        private ResourceLocation skill;
+        private final ImmutableList<String> skills;
+        private final String function;
 
-        public Instance(String name) {
-            this(ResourceLocation.tryCreate(name));
-        }
-
-        public Instance(ResourceLocation skill) {
+        private Instance(ImmutableList<String> skills, String function) {
             super(SkillLearnedTrigger.ID);
-            this.skill = skill;
+            this.skills = skills;
+            this.function = function;
         }
 
-        public static SkillLearnedTrigger.Instance forSkill(Skill skill) {
-            return forSkill(ArsMagicaAPI.getSkillRegistry().getKey(skill));
+        public static SkillLearnedTrigger.Instance anyOf(String... skill) {
+            return new Instance(ImmutableList.copyOf(skill), "or");
         }
 
-        public static SkillLearnedTrigger.Instance forSkill(ResourceLocation skill) {
-            return new SkillLearnedTrigger.Instance(skill);
+        public static SkillLearnedTrigger.Instance allOf(String... skill) {
+            return new Instance(ImmutableList.copyOf(skill), "and");
         }
 
-        public static SkillLearnedTrigger.Instance forSkill(String skill) {
-            return new SkillLearnedTrigger.Instance(skill);
+        public static SkillLearnedTrigger.Instance of(String skill) {
+            return new Instance(ImmutableList.of(skill), "one");
         }
 
         public JsonElement serialize() {
             JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("skill", skill.toString());
+            JsonArray skills = new JsonArray();
+            for (String skill : this.skills) {
+                skills.add(skill);
+            }
+            jsonobject.add("skills", skills);
+            jsonobject.addProperty("function", function);
             return jsonobject;
         }
 
         public boolean test(ServerPlayerEntity player) {
-            return CapabilityHelper.knows(player, skill);
+            if (function.equals("one"))
+                return CapabilityHelper.knows(player, ResourceLocation.tryCreate(skills.get(0)));
+            Stream<Boolean> s = skills.stream()
+                    .map(ResourceLocation::tryCreate)
+                    .filter(Objects::nonNull)
+                    .map(rl -> CapabilityHelper.knows(player, rl));
+            if (function.equals("or"))
+                return s.anyMatch(aBoolean -> aBoolean);
+            else if (function.equals("and"))
+                return s.allMatch(aBoolean -> aBoolean);
+            else return false;
         }
     }
 }

@@ -29,7 +29,6 @@ public class AMLRecipeProvider extends ForgeRecipeProvider implements ArsMagicaR
 
     @Override
     protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        for (AbstractSpellPart part : ArsMagicaAPI.getSpellPartRegistry()) addSpellRecipe(part.getRegistryName(), part.getRecipe(), consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.CHIMERITE_BLOCK.get(), ModTags.Items.GEMS_CHIMERITE).build(consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.TOPAZ_BLOCK.get(), ModTags.Items.GEMS_TOPAZ).build(consumer);
         RecipeHelper.addLargeCompressRecipe(ModItems.VINTEUM_BLOCK.get(), ModTags.Items.DUSTS_VINTEUM).build(consumer);

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import minecraftschurli.arsmagicalegacy.api.advancements.CriteriaTriggers;
+import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
@@ -45,7 +45,7 @@ public class ArsMagicaAPI {
 
     public static void init() {
         IngredientTypes.registerDefault();
-        CriteriaTriggers.registerDefaults();
+        ArsMagicaCriteriaTriggers.registerDefaults();
     }
 
     private static void registerRegistries(final RegistryEvent.NewRegistry event) {

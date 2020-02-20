@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Minecraftschurli
  * @version 2020-02-19
  */
-public class CriteriaTriggers {
+public class ArsMagicaCriteriaTriggers {
     private static final Map<ResourceLocation,ICriterionTrigger<?>> CRITERION_TRIGGERS = new HashMap<>();
 
     public static final MagicLevelTrigger MAGIC_LEVEL = register(new MagicLevelTrigger());

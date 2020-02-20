@@ -47,7 +47,7 @@ public interface ArsMagicaRecipePlugin {
 
         @Override
         public ResourceLocation getID() {
-            return new ResourceLocation(spellID.getNamespace(), "spell/_"+spellID.getPath());// add _ so it gets ignored for vanilla recipes
+            return new ResourceLocation(spellID.getNamespace(), "spell/"+spellID.getPath());
         }
 
         @Override
