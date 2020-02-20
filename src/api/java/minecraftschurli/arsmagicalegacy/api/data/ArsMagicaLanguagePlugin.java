@@ -110,5 +110,16 @@ public interface ArsMagicaLanguagePlugin {
         add(key+".description", description);
     }
 
+    /**
+     * Adds the translation for a text page
+     * @param category    the page's category
+     * @param entry       the page's entry
+     * @param number      the page number
+     * @param translation the translated text
+     */
+    default void addTextPageTranslation(String category, String entry, int number, String translation) {
+        add("compendium.entries." + category + "." + entry + ".page." + number, translation);
+    }
+
     void add(String key, String value);
 }

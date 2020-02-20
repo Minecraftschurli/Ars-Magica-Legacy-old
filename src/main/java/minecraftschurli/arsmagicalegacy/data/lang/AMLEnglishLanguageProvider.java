@@ -366,29 +366,29 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         add(ArsMagicaLegacy.MODID + ".spell.validate.principum", "Principum Spell");
         add(ArsMagicaLegacy.MODID + ".spell.validate.terminus", "Terminus Spell");
         add(ArsMagicaLegacy.MODID + ".arcane_compendium.name", "Arcane Compendium");
-        add(ArsMagicaLegacy.MODID + ".arcane_compendium.landing_text", "Hello World");
+        add(ArsMagicaLegacy.MODID + ".arcane_compendium.landing_text", "A look into Minecraft with a splash of magic...");
         addCategoryTranslation("guide", "Guides", "");
         addCategoryTranslation("mechanic", "Mechanics", "");
         addCategoryTranslation("mechanic.affinity", "Affinities", "");
-        addCategoryTranslation("mechanic.enchants", "Enchantments", "");
-        addCategoryTranslation("mechanic.infusions", "Infusions", "");
+        addCategoryTranslation("mechanic.enchantment", "Enchantments", "");
+        addCategoryTranslation("mechanic.infusion", "Infusions", "");
         addCategoryTranslation("item", "Items", "");
-        addCategoryTranslation("item.ore", "Ars Magica Ores", "");
+        addCategoryTranslation("item.ore", "Ores", "");
         addCategoryTranslation("item.essence", "Essence", "");
         addCategoryTranslation("item.rune", "Runes", "");
-        addCategoryTranslation("item.armor", "Ars Magica Armor", "");
+        addCategoryTranslation("item.armor", "Armor", "");
         addCategoryTranslation("item.armor.mage", "Mage Armor", "");
         addCategoryTranslation("item.armor.battlemage", "Battlemage Armor", "");
-        addCategoryTranslation("item.affinity_tomes", "Affinity Tomes", "");
-        addCategoryTranslation("item.foci", "Foci", "");
+        addCategoryTranslation("item.affinity_tome", "Affinity Tomes", "");
+        addCategoryTranslation("item.focus", "Foci", "");
         addCategoryTranslation("item.mana_potion", "Mana Potions", "");
         addCategoryTranslation("item.binding_catalyst", "Binding Catalysts", "");
-        addCategoryTranslation("item.flickerfocus", "Flicker Focus", "");
-        addCategoryTranslation("item.inscription_upgrades", "Inscription Table Upgrades", "");
+        addCategoryTranslation("item.flicker_focus", "Flicker Focus", "");
+        addCategoryTranslation("item.inscription_table_upgrade", "Inscription Table Upgrades", "");
         addCategoryTranslation("block", "Blocks", "");
-        addCategoryTranslation("block.illusion_blocks", "Illusion Blocks", "");
-        addCategoryTranslation("block.crystalmarker", "Crystal Marker", "");
-        addCategoryTranslation("block.inlays", "Inlays", "");
+        addCategoryTranslation("block.illusion_block", "Illusion Blocks", "");
+        addCategoryTranslation("block.crystal_marker", "Crystal Marker", "");
+        addCategoryTranslation("block.inlay", "Inlays", "");
         addCategoryTranslation("shape", "Shapes", "");
         addCategoryTranslation("component", "Components", "");
         addCategoryTranslation("modifier", "Modifiers", "");
@@ -397,6 +397,11 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addCategoryTranslation("mob.flicker", "Flickers", "");
         addCategoryTranslation("structure", "Structures", "");
         addCategoryTranslation("boss", "Bosses", "");
+        addTextPageTranslation("guide", "your_first_spell", 0, "To make a spell, you will first need to create an $(l:occulus) and unlock at least one spell shape and one component. You start with three blue skill points to make this possible. Then, craft a writable book and head over to your $(l:inscription_table). Place the book in the inscription table.");
+        addTextPageTranslation("guide", "your_first_spell", 1, "There are three sections of the Inscription Table interface that are of note. The source region is the large grey square at the top, and will contain all of your known shapes, components, and modifiers. The Shape Group section is identified by brown squares. There are multiple brown squares as multiple shape groups can be created. Finally there is the Spell Grammar section, which is the gray rectangle at the bottom.");
+        addTextPageTranslation("guide", "your_first_spell", 2, "Create $(l:shape) by dragging shapes and/or modifiers from the source region to any of the shape groups in the interface. You can create multiple shape groups in the same spell, three by default. Each shape group can have up to four shapes/modifiers. Shape groups cannot contain components. A good way to think about it is that shape groups are different means of targeting things with the spell, then the spell grammar is what the spell actually does.");
+        addTextPageTranslation("guide", "your_first_spell", 3, "Once your shape groups are created, drag the spell parts you want, in order, from the source region to the spell grammar section. The spell grammar section can contain spell shapes, components, and modifiers in addition to the shape groups. Once your combination is completed, go to your #5Crafting Altar#0 and place your book containing the spell recipe on the lectern.");
+        addTextPageTranslation("guide", "your_first_spell", 4, "Throw a $(l:item/rune) into the middle of the crafting altar to begin the process, then follow the book's prompts. The book itself is worth reading as well, as it contains a recap of what the spell recipe is for, the materials list for the spell and an affinity breakdown of the spell. Note that certain crafting altars can only craft spells that are so powerful. Too much power and bad things can happen. See the entry on the $(l:crafting_altar) for more information.");
     }
 
     @Override

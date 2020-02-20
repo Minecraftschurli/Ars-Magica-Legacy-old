@@ -1,6 +1,6 @@
 {
   "name": "compendium.categories.item.armor.mage.name",
   "description": "compendium.categories.item.armor.mage.description",
-  "icon": "minecraft:missingno",
+  "icon": "arsmagicalegacy:mage_helmet",
   "parent": "item/armor"
 }

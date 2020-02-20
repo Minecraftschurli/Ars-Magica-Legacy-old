@@ -1,0 +1,27 @@
+{
+  "name": "compendium.entries.guide.your_first_spell.name",
+  "category": "guide",
+  "icon": "minecraft:missingno",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.guide.your_first_spell.page.0"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.guide.your_first_spell.page.1"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.guide.your_first_spell.page.2"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.guide.your_first_spell.page.3"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.guide.your_first_spell.page.4"
+    }
+  ]
+}

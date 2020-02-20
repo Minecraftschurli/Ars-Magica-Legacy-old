@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.foci.name",
-  "description": "compendium.categories.item.foci.description",
-  "icon": "minecraft:missingno",
-  "parent": "item"
-}
