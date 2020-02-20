@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.block.crystal_marker.name",
+  "description": "compendium.categories.block.crystal_marker.description",
+  "icon": "minecraft:missingno",
+  "parent": "block"
+}

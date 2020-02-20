@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.mechanic.infusion.name",
+  "description": "compendium.categories.mechanic.infusion.description",
+  "icon": "minecraft:missingno",
+  "parent": "mechanic"
+}
