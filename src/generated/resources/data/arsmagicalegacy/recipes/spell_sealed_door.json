@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "SDS",
+    " L "
+  ],
+  "key": {
+    "G": {
+      "item": "arsmagicalegacy:greater_focus"
+    },
+    "S": {
+      "item": "arsmagicalegacy:standard_focus"
+    },
+    "D": {
+      "item": "arsmagicalegacy:keystone_door"
+    },
+    "L": {
+      "item": "arsmagicalegacy:lesser_focus"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:spell_sealed_door"
+  }
+}

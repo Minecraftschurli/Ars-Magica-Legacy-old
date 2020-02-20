@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MPM",
+    "VAV",
+    "MTM"
+  ],
+  "key": {
+    "M": {
+      "item": "arsmagicalegacy:magic_wall"
+    },
+    "P": {
+      "item": "arsmagicalegacy:pure_essence_core"
+    },
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    },
+    "A": {
+      "item": "arsmagicalegacy:arcane_essence"
+    },
+    "T": {
+      "tag": "forge:gems/topaz"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:draining_well"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "WGW",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    },
+    "G": {
+      "tag": "forge:nuggets/gold"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:essence_bag"
+  }
+}

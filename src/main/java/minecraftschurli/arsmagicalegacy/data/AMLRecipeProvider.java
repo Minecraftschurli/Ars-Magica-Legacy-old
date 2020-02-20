@@ -643,7 +643,7 @@ public class AMLRecipeProvider extends ForgeRecipeProvider implements ArsMagicaR
                 .patternLine("CSC")
                 .patternLine(" T ")
                 .key('C', ModTags.Items.GEMS_CHIMERITE)
-                .key('V', ModTags.Items.GEMS_TOPAZ)
+                .key('T', ModTags.Items.GEMS_TOPAZ)
                 .key('S', Tags.Items.STONE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
                 .build(consumer);
@@ -749,11 +749,11 @@ public class AMLRecipeProvider extends ForgeRecipeProvider implements ArsMagicaR
                 .key('G', Tags.Items.NUGGETS_GOLD)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.LEATHER))
                 .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
+        /*ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
                 .addIngredient(Items.WRITABLE_BOOK)
                 .addIngredient(ModItems.ARCANE_ESSENCE.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.ARCANE_ESSENCE.get()))
-                .build(consumer);
+                .build(consumer);*/
         ShapedRecipeBuilder.shapedRecipe(ModItems.MAGITECH_GOGGLES.get())
                 .patternLine("LLL")
                 .patternLine("CGC")

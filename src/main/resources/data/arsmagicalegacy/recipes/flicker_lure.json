@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CIV",
+    "SSS"
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:gems/chimerite"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    },
+    "S": {
+      "tag": "forge:stone"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:flicker_lure"
+  }
+}

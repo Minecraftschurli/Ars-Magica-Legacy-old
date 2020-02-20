@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "GVG",
+    " W "
+  ],
+  "key": {
+    "M": {
+      "tag": "forge:gems/moonstone"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "V": {
+      "item": "arsmagicalegacy:purified_vinteum"
+    },
+    "W": {
+      "item": "arsmagicalegacy:magic_wall"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:crystal_phylactery"
+  }
+}

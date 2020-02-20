@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PMP",
+    "RRR",
+    "PMP"
+  ],
+  "key": {
+    "P": {
+      "item": "arsmagicalegacy:witchwood_planks"
+    },
+    "M": {
+      "item": "arsmagicalegacy:magic_wall"
+    },
+    "R": {
+      "item": "arsmagicalegacy:rune"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:keystone_door"
+  }
+}

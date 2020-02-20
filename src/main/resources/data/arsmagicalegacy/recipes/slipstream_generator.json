@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "FAF",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "tag": "arsmagicalegacy:logs/witchwood"
+    },
+    "F": {
+      "tag": "forge:feathers"
+    },
+    "A": {
+      "item": "arsmagicalegacy:air_essence"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:slipstream_generator"
+  }
+}

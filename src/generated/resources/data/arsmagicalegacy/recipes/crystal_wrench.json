@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    "CVD",
+    " I "
+  ],
+  "key": {
+    "C": {
+      "item": "arsmagicalegacy:cerublossom"
+    },
+    "D": {
+      "item": "arsmagicalegacy:desert_nova"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "V": {
+      "tag": "forge:dusts/vinteum"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:crystal_wrench"
+  }
+}

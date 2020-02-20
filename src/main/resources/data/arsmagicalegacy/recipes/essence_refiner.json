@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PDP",
+    "OAO",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "O": {
+      "tag": "forge:obsidian"
+    },
+    "A": {
+      "item": "arsmagicalegacy:arcane_ash"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:essence_refiner"
+  }
+}

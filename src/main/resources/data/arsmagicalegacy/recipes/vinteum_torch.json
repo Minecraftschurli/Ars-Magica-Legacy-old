@@ -9,7 +9,7 @@
       "tag": "forge:dusts/vinteum"
     },
     "S": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     }
   },
   "result": {

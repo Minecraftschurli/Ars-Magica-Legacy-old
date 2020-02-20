@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ACA",
+    "OEO",
+    "OOO"
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:carpets"
+    },
+    "E": {
+      "item": "minecraft:enchanting_table"
+    },
+    "O": {
+      "tag": "forge:obsidian"
+    },
+    "A": {
+      "item": "arsmagicalegacy:altar_core"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:armor_imbuement_table"
+  }
+}

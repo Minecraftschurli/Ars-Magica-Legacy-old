@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " GT",
+    "G G",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:nuggets/gold"
+    },
+    "T": {
+      "tag": "forge:gems/topaz"
+    }
+  },
+  "result": {
+    "item": "arsmagicalegacy:magitech_staff"
+  }
+}
