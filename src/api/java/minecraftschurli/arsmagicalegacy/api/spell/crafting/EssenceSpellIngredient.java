@@ -62,4 +62,12 @@ public class EssenceSpellIngredient implements ISpellIngredient {
     public boolean consume(World world, BlockPos pos) {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "EssenceSpellIngredient{" +
+                "amount=" + amount +
+                ", essenceType=" + essenceType.toString() +
+                '}';
+    }
 }

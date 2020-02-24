@@ -1,0 +1,12 @@
+{
+  "name": "Test",
+  "category": "guide",
+  "icon": "minecraft:missingno",
+  "pages": [
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:dig",
+      "text": "Hello World"
+    }
+  ]
+}

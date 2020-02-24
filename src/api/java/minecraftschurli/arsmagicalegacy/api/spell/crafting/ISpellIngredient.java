@@ -24,4 +24,6 @@ public interface ISpellIngredient extends INBTSerializable<CompoundNBT> {
 
     @OnlyIn(Dist.CLIENT)
     default void render(){}
+
+    String toString();
 }

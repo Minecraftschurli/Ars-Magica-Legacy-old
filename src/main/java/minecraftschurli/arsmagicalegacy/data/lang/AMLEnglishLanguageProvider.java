@@ -1,8 +1,10 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import net.minecraft.data.*;
 import net.minecraftforge.common.data.*;
 
@@ -99,6 +101,16 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addItem(ModItems.LIFE_FLICKER_JAR, "Life Flicker Jar");
         addItem(ModItems.ARCANE_FLICKER_JAR, "Arcane Flicker Jar");
         addItem(ModItems.ENDER_FLICKER_JAR, "Ender Flicker Jar");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.WATER), "Water Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.FIRE), "Fire Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.EARTH), "Earth Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.AIR), "Air Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.LIGHTNING), "Lightning Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.ICE), "Ice Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.NATURE), "Nature Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.LIFE), "Life Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.ARCANE), "Arcane Tome");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.ENDER), "Ender Tome");
         addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flicker Focus: Butcher");
         addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flicker Focus: Containment");
         addItem(ModItems.FELLING_FLICKER_FOCUS, "Flicker Focus: Felling");
