@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.binding_catalyst.name",
-  "description": "compendium.categories.item.binding_catalyst.description",
-  "icon": "minecraft:missingno",
-  "parent": "item"
-}

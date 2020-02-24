@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.rune.name",
-  "description": "compendium.categories.item.rune.description",
-  "icon": "minecraft:missingno",
-  "parent": "item"
-}

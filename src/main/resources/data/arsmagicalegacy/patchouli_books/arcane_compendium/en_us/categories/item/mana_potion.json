@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.mana_potion.name",
-  "description": "compendium.categories.item.mana_potion.description",
-  "icon": "minecraft:missingno",
-  "parent": "item"
-}

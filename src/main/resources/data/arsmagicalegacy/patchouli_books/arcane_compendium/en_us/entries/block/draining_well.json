@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.draining_well.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:draining_well",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.draining_well.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:draining_well"
+    }
+  ]
+}

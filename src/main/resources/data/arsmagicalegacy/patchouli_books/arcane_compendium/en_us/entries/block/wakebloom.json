@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.block.wakebloom.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:wakebloom",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.wakebloom.page.0"
+    }
+  ]
+}

@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.armor.battlemage.name",
-  "description": "compendium.categories.item.armor.battlemage.description",
-  "icon": "arsmagicalegacy:battlemage_helmet",
-  "parent": "item/armor"
-}

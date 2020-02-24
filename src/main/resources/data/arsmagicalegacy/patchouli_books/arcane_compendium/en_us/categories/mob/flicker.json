@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.mob.flicker.name",
-  "description": "compendium.categories.mob.flicker.description",
-  "icon": "minecraft:missingno",
-  "parent": "mob"
-}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.flicker_lure.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:flicker_lure",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.flicker_lure.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:flicker_lure"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "compendium.entries.block.inscription_table.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:inscription_table",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.inscription_table.page.0"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.block.inscription_table.page.1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:inscription_table",
+      "recipe2": "arsmagicalegacy:inscription_upgrade"
+    }
+  ]
+}
