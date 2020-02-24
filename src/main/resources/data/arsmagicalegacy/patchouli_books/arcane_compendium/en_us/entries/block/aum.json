@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.block.aum.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:aum",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.aum.page.0"
+    }
+  ]
+}

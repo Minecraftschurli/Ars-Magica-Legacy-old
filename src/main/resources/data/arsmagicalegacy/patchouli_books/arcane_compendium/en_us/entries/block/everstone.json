@@ -1,0 +1,19 @@
+{
+  "name": "compendium.entries.block.everstone.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:everstone",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.everstone.page.0"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.block.everstone.page.1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:everstone"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.block.tarma_root.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:tarma_root",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.tarma_root.page.0"
+    }
+  ]
+}

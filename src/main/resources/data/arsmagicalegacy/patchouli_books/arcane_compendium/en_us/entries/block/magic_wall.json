@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.magic_wall.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:magic_wall",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.magic_wall.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:magic_wall"
+    }
+  ]
+}

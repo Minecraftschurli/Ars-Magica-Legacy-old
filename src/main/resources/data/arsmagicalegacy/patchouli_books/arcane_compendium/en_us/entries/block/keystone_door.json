@@ -1,0 +1,20 @@
+{
+  "name": "compendium.entries.block.keystone_door.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:keystone_door",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.keystone_door.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:keystone_door",
+      "recipe2": "arsmagicalegacy:spell_sealed_door"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:keystone_trapdoor"
+    }
+  ]
+}

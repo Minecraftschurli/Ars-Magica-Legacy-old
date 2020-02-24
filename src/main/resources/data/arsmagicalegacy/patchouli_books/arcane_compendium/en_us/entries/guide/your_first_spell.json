@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.guide.your_first_spell.name",
   "category": "guide",
-  "icon": "minecraft:missingno",
+  "icon": "arsmagicalegacy:icon/spell/shape/touch.png",
   "pages": [
     {
       "type": "text",

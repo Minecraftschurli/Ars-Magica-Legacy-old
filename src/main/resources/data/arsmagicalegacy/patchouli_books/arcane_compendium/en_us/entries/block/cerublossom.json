@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.block.cerublossom.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:cerublossom",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.cerublossom.page.0"
+    }
+  ]
+}

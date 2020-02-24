@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.inscription_table_upgrade.name",
-  "description": "compendium.categories.item.inscription_table_upgrade.description",
-  "icon": "minecraft:missingno",
-  "parent": "item"
-}

@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.block.desert_nova.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:desert_nova",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.desert_nova.page.0"
+    }
+  ]
+}

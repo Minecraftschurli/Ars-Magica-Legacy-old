@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.slipstream_generator.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:slipstream_generator",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.slipstream_generator.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:slipstream_generator"
+    }
+  ]
+}

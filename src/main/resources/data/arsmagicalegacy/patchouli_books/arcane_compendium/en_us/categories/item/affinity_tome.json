@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.item.affinity_tome.name",
-  "description": "compendium.categories.item.affinity_tome.description",
-  "icon": "minecraft:missingno",
-  "parent": "item"
-}

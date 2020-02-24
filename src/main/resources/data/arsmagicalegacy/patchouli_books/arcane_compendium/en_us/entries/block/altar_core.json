@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.altar_core.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:altar_core",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.altar_core.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:altar_core"
+    }
+  ]
+}

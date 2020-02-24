@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.occulus.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:occulus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.occulus.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:occulus"
+    }
+  ]
+}

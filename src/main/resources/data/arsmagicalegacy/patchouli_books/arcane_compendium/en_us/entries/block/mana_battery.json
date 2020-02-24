@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.block.mana_battery.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:mana_battery",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.mana_battery.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:mana_battery"
+    }
+  ]
+}

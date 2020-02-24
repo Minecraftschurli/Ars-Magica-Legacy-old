@@ -1,0 +1,20 @@
+{
+  "name": "compendium.entries.block.inlay.name",
+  "category": "block",
+  "icon": "arsmagicalegacy:redstone_inlay",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.block.inlay.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:redstone_inlay",
+      "recipe2": "arsmagicalegacy:iron_inlay"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:gold_inlay"
+    }
+  ]
+}

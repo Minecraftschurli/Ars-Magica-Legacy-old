@@ -94,16 +94,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.LIFE_FLICKER_JAR, "Lebensflickervase");
         addItem(ModItems.ARCANE_FLICKER_JAR, "Magieflickervase");
         addItem(ModItems.ENDER_FLICKER_JAR, "Enderflickervase");
-        addItem(ModItems.WATER_TOME, "Wasserlexikon");
-        addItem(ModItems.FIRE_TOME, "Feuerlexikon");
-        addItem(ModItems.EARTH_TOME, "Erdlexikon");
-        addItem(ModItems.AIR_TOME, "Luftlexikon");
-        addItem(ModItems.LIGHTNING_TOME, "Blitzlexikon");
-        addItem(ModItems.ICE_TOME, "Eislexikon");
-        addItem(ModItems.NATURE_TOME, "Naturlexikon");
-        addItem(ModItems.LIFE_TOME, "Lebenslexikon");
-        addItem(ModItems.ARCANE_TOME, "Magielexikon");
-        addItem(ModItems.ENDER_TOME, "Enderlexikon");
         addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flickerfokus: Schlachter");
         addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flickerfokus: Beinhaltung");
         addItem(ModItems.FELLING_FLICKER_FOCUS, "Flickerfokus: Holzfällen");

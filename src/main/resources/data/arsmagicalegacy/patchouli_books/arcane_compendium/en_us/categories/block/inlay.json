@@ -1,6 +1,0 @@
-{
-  "name": "compendium.categories.block.inlay.name",
-  "description": "compendium.categories.block.inlay.description",
-  "icon": "minecraft:missingno",
-  "parent": "block"
-}
