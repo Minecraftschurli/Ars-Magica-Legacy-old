@@ -10,24 +10,22 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.util.RenderUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.client.gui.GuiUtils;
+import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -37,12 +35,7 @@ public class SpellComponentPage implements ICustomComponent {
     private String component;
     private String text;
     private transient int x, y;
-    private transient String _text = "";
     private transient AbstractSpellPart part;
-    private transient float framecount;
-    private transient ItemStack stackTip;
-    private transient int tipX;
-    private transient int tipY;
 
     @Override
     public void build(int x, int y, int num) {
@@ -59,35 +52,28 @@ public class SpellComponentPage implements ICustomComponent {
         RenderHelper.disableStandardItemLighting();
         int cx = x + 50;
         int cy = y + 76;
-        framecount += 0.5f;
-        stackTip = null;
-        {
-            context.getGui().getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/arcane_compendium_gui_extras.png"));
-            context.getGui().setBlitOffset(context.getGui().getBlitOffset()+1);
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            this.drawTexturedModalRectClassic(x + 42, y + 15, 112, 145, 60, 40, 40, 40, context.getGui().getBlitOffset());
-            this.drawTexturedModalRectClassic(x, y , 112, 175, 60, 40, 40, 40, context.getGui().getBlitOffset());
-            RenderSystem.disableBlend();
-            context.getGui().setBlitOffset(context.getGui().getBlitOffset()-1);
-        }
+        context.getGui().getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/arcane_compendium_gui_extras.png"));
+        context.getGui().setBlitOffset(context.getGui().getBlitOffset()+1);
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        drawTexturedModalRectClassic(x + 42, y + 15, 112, 145, 60, 40, 40, 40, context.getGui().getBlitOffset());
+        drawTexturedModalRectClassic(x, y , 112, 175, 60, 40, 40, 40, context.getGui().getBlitOffset());
+        RenderSystem.disableBlend();
+        context.getGui().setBlitOffset(context.getGui().getBlitOffset()-1);
         renderRecipe(context, cx, cy, mouseX, mouseY);
-        context.getGui().getMinecraft().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(part).getIcon());
+        Skill skill = SpellRegistry.getSkillFromPart(part);
+        context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
         RenderSystem.color4f(1, 1, 1, 1);
         RenderSystem.enableBlend();
-        drawTexturedModalRectClassic(cx, cy, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());//TODO replace with correct blit
+        drawTexturedModalRectClassic(cx, cy, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
         RenderSystem.disableBlend();
-        if (mouseX > cx && mouseX < cx + 16){
-            if (mouseY > cy && mouseY < cy + 16){
-                //stackTip = new ItemStack();
-                tipX = mouseX;
-                tipY = mouseY;
-            }
+        if (context.isAreaHovered(mouseX, mouseY, cx, cy, 16, 16)){
+            context.setHoverTooltip(skill.getTooltip()
+                            .stream()
+                            .map(ITextComponent::getFormattedText)
+                            .collect(Collectors.toList()));
         }
         renderModifiers(context, x, y, mouseX, mouseY);
-        /*if (stackTip != null) {
-            GuiUtils.drawHoveringText(stackTip, mouseX, mouseY, tipX, tipY);//TODO
-        }*/
         RenderHelper.enableStandardItemLighting();
     }
 
@@ -114,16 +100,16 @@ public class SpellComponentPage implements ICustomComponent {
             RenderSystem.color3f(1.0f, 1.0f, 1.0f);
         }
         for (SpellModifier mod : modifiers) {
-            context.getGui().getMinecraft().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(mod).getIcon());
+            Skill skill = SpellRegistry.getSkillFromPart(mod);
+            context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
             RenderSystem.enableBlend();
-            drawTexturedModalRectClassic(posX + startX, posY + yOffset, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());//TODO replace with correct blit
+            drawTexturedModalRectClassic(posX + startX, posY + yOffset, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
             RenderSystem.disableBlend();
-            if (mouseX > posX + startX && mouseX < posX + startX + 16){
-                if (mouseY > posY + yOffset && mouseY < posY + yOffset + 16){
-                    //stackTip = new ItemStack(ItemDefs.spell_component);//ArsMagicaAPI.getSkillRegistry().getId(mod.getRegistryName())
-                    tipX = mouseX;
-                    tipY = mouseY;
-                }
+            if (context.isAreaHovered(mouseX, mouseY, posX + startX, posY + yOffset, 16, 16)){
+                context.setHoverTooltip(skill.getTooltip()
+                        .stream()
+                        .map(ITextComponent::getFormattedText)
+                        .collect(Collectors.toList()));
             }
             startX += 16;
         }
@@ -133,8 +119,8 @@ public class SpellComponentPage implements ICustomComponent {
         if (part == null || part.getRecipe() == null) return;
         float angleStep = (360.0f / part.getRecipe().length);
         for (int i = 0; i < part.getRecipe().length; ++i){
-            float angle = (float)(Math.toRadians((angleStep * i) + framecount % 360));
-            float nextangle = (float)(Math.toRadians((angleStep * ((i + 1) % part.getRecipe().length)) + framecount % 360));
+            float angle = (float)(Math.toRadians((angleStep * i) + (context.getTicksInBook()*0.5) % 360));
+            float nextangle = (float)(Math.toRadians((angleStep * ((i + 1) % part.getRecipe().length)) + (context.getTicksInBook()*0.5) % 360));
             float dist = 45;
             float x = (float) (cx - Math.cos(angle) * dist);
             float y = (float) (cy - Math.sin(angle) * dist);
@@ -165,25 +151,21 @@ public class SpellComponentPage implements ICustomComponent {
         } else return;
         RenderUtils.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset()+1);
 
-        if (mousex > sx && mousex < sx + 16){
-            if (mousey > sy && mousey < sy + 16){
-                //stackTip = stack;
-                tipX = mousex;
-                tipY = mousey;
-            }
+        if (context.isAreaHovered(mousex, mousey, (int)sx, (int)sy, 16, 16)){
+            context.setHoverTooltip(context.getGui().getTooltipFromItem(stack));
         }
     }
 
     public void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel){
-        float var7 = 0.00390625F;
-        float var8 = 0.00390625F;
+        final float uScale = 1f / 0x100;
+        final float vScale = 1f / 0x100;
 
         Tessellator var9 = Tessellator.getInstance();
-        var9.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        var9.getBuffer().pos(dst_x, dst_y + dst_height, zLevel).tex((src_x) * var7, (src_y + src_height) * var8).endVertex();
-        var9.getBuffer().pos(dst_x + dst_width, dst_y + dst_height, zLevel).tex((src_x + src_width) * var7, (src_y + src_height) * var8).endVertex();
-        var9.getBuffer().pos(dst_x + dst_width, dst_y, zLevel).tex((src_x + src_width) * var7, (src_y) * var8).endVertex();
-        var9.getBuffer().pos(dst_x, dst_y, zLevel).tex((src_x) * var7, (src_y) * var8).endVertex();
+        var9.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        var9.getBuffer().pos(dst_x, dst_y + dst_height, zLevel).tex((src_x) * uScale, (src_y + src_height) * vScale).endVertex();
+        var9.getBuffer().pos(dst_x + dst_width, dst_y + dst_height, zLevel).tex((src_x + src_width) * uScale, (src_y + src_height) * vScale).endVertex();
+        var9.getBuffer().pos(dst_x + dst_width, dst_y, zLevel).tex((src_x + src_width) * uScale, (src_y) * vScale).endVertex();
+        var9.getBuffer().pos(dst_x, dst_y, zLevel).tex((src_x) * uScale, (src_y) * vScale).endVertex();
         var9.draw();
     }
 
