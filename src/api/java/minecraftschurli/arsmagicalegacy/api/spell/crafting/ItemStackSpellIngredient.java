@@ -28,15 +28,12 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(TYPE_KEY, TYPE);
-        return this.stack.write(nbt);
+    public void writeToNBT(CompoundNBT nbt) {
+        this.stack.write(nbt);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        //nbt.remove(TYPE_KEY);
         this.stack = ItemStack.read(nbt);
     }
 
@@ -80,5 +77,10 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
     @Override
     public String toString() {
         return "ItemStackSpellIngredient{" + stack.toString() + '}';
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
     }
 }

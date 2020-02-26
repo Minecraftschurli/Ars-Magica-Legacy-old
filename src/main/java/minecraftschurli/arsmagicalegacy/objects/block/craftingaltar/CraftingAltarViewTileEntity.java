@@ -38,12 +38,6 @@ public class CraftingAltarViewTileEntity extends TileEntity {
         return null;
     }
 
-    @Override
-    public void remove() {
-        ArsMagicaLegacy.LOGGER.debug("removed");
-        super.remove();
-    }
-
     @Nonnull
     @Override
     public CompoundNBT write(CompoundNBT compound) {

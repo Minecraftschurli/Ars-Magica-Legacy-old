@@ -26,4 +26,16 @@ public interface ISpellIngredient extends INBTSerializable<CompoundNBT> {
     default void render(){}
 
     String toString();
+
+    String getType();
+
+    @Override
+    default CompoundNBT serializeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putString(TYPE_KEY, getType());
+        this.writeToNBT(nbt);
+        return nbt;
+    }
+
+    void writeToNBT(CompoundNBT nbt);
 }

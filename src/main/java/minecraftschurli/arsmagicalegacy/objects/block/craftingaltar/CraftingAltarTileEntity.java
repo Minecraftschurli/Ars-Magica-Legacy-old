@@ -194,7 +194,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                         getWorld().setBlockState(te.getPos().up(), ModBlocks.ALTAR_VIEW.map(Block::getDefaultState).orElse(Blocks.AIR.getDefaultState()));
                         //noinspection ConstantConditions
                         ((CraftingAltarViewTileEntity) getWorld().getTileEntity(te.getPos().up())).setAltarPos(getPos());
-                        ArsMagicaLegacy.LOGGER.debug("View1: {} {}", getWorld().getBlockState(te.getPos().up()), getWorld().getTileEntity(te.getPos().up()));
+                        //ArsMagicaLegacy.LOGGER.debug("View1: {} {}", getWorld().getBlockState(te.getPos().up()), getWorld().getTileEntity(te.getPos().up()));
                     }
                 } else {
                     if (isMultiblockFormed())
@@ -250,7 +250,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private void invalidateMB() {
         if (getWorld() != null && lecternPos != null) {
             BlockPos pos = lecternPos.up();
-            ArsMagicaLegacy.LOGGER.debug("View2: {}",getWorld().getTileEntity(pos));
+            //ArsMagicaLegacy.LOGGER.debug("View2: {}",getWorld().getTileEntity(pos));
             if(getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get())
                 getWorld().removeBlock(pos, false);
         }

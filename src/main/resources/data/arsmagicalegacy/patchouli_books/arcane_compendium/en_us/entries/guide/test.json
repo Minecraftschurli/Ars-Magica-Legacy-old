@@ -5,8 +5,7 @@
   "pages": [
     {
       "type": "spell_component",
-      "component": "arsmagicalegacy:dig",
-      "text": "Hello World"
+      "component": "arsmagicalegacy:dig"
     }
   ]
 }

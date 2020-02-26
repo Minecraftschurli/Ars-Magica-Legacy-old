@@ -1,27 +1,40 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 
-import minecraftschurli.arsmagicalegacy.api.*;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-19
  */
-public enum EssenceType {
-    DARK(1),
-    LIGHT(2),
-    DARK_LIGHT(3),
-    NEUTRAL(4),
-    DARK_NEUTRAL(5),
-    LIGHT_NEUTRAL(6),
-    ANY(7);
-    public final int i;
+public class EssenceType extends ForgeRegistryEntry<EssenceType> {
+    public static final EssenceType DARK = new EssenceType(0xffffff);
+    public static final EssenceType LIGHT = new EssenceType(0xffffff);
+    public static final EssenceType NEUTRAL = new EssenceType(0xffffff);
 
-    EssenceType(int i) {
-        this.i = i;
+    private final int color;
+
+    public EssenceType(int color) {
+        this.color = color;
     }
 
     public String getTranslationKey() {
-        return ArsMagicaAPI.MODID + ".essence." + this.name().toLowerCase();
+        return Util.makeTranslationKey("essence_type", getRegistryName());
+    }
+
+    public int getColor() {
+        return this.color;
+    }
+
+    public ITextComponent getDisplayName() {
+        return new TranslationTextComponent(getTranslationKey());
+    }
+
+    @Override
+    public String toString() {
+        return "EssenceType("+getRegistryName().toString()+")";
     }
 }

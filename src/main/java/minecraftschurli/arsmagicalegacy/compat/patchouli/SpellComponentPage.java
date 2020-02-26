@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
@@ -11,14 +10,13 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.util.RenderUtils;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -26,6 +24,7 @@ import vazkii.patchouli.api.ICustomComponent;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Minecraftschurli
@@ -33,7 +32,6 @@ import java.util.stream.Collectors;
  */
 public class SpellComponentPage implements ICustomComponent {
     private String component;
-    private String text;
     private transient int x, y;
     private transient AbstractSpellPart part;
 
@@ -147,12 +145,24 @@ public class SpellComponentPage implements ICustomComponent {
                 return;
             stack = new ItemStack(((ItemTagSpellIngredient) craftingComponent).getTag().getRandomElement(new Random()));
         } else if (craftingComponent instanceof EssenceSpellIngredient){
-            stack = new ItemStack(Items.BARRIER);
+            renderEssence(context, mousex, mousey, sx, sy, ((EssenceSpellIngredient) craftingComponent));
+            return;
         } else return;
         RenderUtils.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset()+1);
 
         if (context.isAreaHovered(mousex, mousey, (int)sx, (int)sy, 16, 16)){
             context.setHoverTooltip(context.getGui().getTooltipFromItem(stack));
+        }
+    }
+
+    private void renderEssence(IComponentRenderContext context, int mousex, int mousey, float x, float y, EssenceSpellIngredient ingredient) {
+        if (!ingredient.getEssenceTypes().isEmpty()) {
+            //TODO render
+            Deque<EssenceType> types = new ArrayDeque<>(ingredient.getEssenceTypes());
+            GuiUtils.drawGradientRect(context.getGui().getBlitOffset(), (int) x, (int) y, (int) x + 16, (int) y + 16, types.getFirst().getColor(), types.getLast().getColor());
+        }
+        if (context.isAreaHovered(mousex, mousey, (int)x, (int)y, 16, 16)){
+            context.setHoverTooltip(Collections.singletonList(ingredient.getTooltip().getFormattedText()));
         }
     }
 
@@ -171,7 +181,6 @@ public class SpellComponentPage implements ICustomComponent {
 
     @Override
     public void onVariablesAvailable(Function<String, String> function) {
-        text = function.apply(text);
         component = function.apply(component);
     }
 }

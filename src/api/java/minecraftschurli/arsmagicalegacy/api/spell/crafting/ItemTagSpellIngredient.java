@@ -35,17 +35,13 @@ public class ItemTagSpellIngredient implements ISpellIngredient {
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(TYPE_KEY, TYPE);
+    public void writeToNBT(CompoundNBT nbt) {
         nbt.putString("location", tag.getId().toString());
         nbt.putInt("amount", amount);
-        return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        //nbt.remove(TYPE_KEY);
         tag = new ItemTags.Wrapper(new ResourceLocation(nbt.getString("location")));
         amount = nbt.getInt("amount");
     }
@@ -90,5 +86,10 @@ public class ItemTagSpellIngredient implements ISpellIngredient {
                 "amount=" + amount +
                 ", tag=" + tag.getId().toString() +
                 '}';
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
     }
 }

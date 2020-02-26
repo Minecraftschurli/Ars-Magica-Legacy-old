@@ -24,12 +24,13 @@ public class ArsMagicaAPI {
     public static final String MODID = "arsmagicalegacy";
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final ResourceLocation MISSING_SHAPE = new ResourceLocation(MODID, "null");
+    public static final ResourceLocation MISSING_SHAPE = new ResourceLocation(MODID, "null");;
 
     private static IForgeRegistry<SkillTree> SKILL_TREE_REGISTRY = null;
     private static IForgeRegistry<AbstractSpellPart> SPELL_PART_REGISTRY = null;
     private static IForgeRegistry<Skill> SKILL_REGISTRY = null;
     private static IForgeRegistry<Affinity> AFFINITY_REGISTRY = null;
+    private static IForgeRegistry<EssenceType> ESSENCE_TYPE_REGISTRY = null;
 
     public static void setup() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -53,8 +54,8 @@ public class ArsMagicaAPI {
         SKILL_REGISTRY = new RegistryBuilder<Skill>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "skills")).setType(Skill.class).create();
         SKILL_TREE_REGISTRY = new RegistryBuilder<SkillTree>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "skill_trees")).setType(SkillTree.class).create();
         AFFINITY_REGISTRY = new RegistryBuilder<Affinity>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "affinities")).setType(Affinity.class).create();
+        ESSENCE_TYPE_REGISTRY = new RegistryBuilder<EssenceType>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "essence_types")).setType(EssenceType.class).create();
     }
-
 
     public static IForgeRegistry<AbstractSpellPart> getSpellPartRegistry() {
         return SPELL_PART_REGISTRY;
@@ -68,11 +69,15 @@ public class ArsMagicaAPI {
         return SKILL_TREE_REGISTRY;
     }
 
-    public static PlayerEntity getLocalPlayer() {
-        return DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> net.minecraft.client.Minecraft.getInstance().player);
-    }
-
     public static IForgeRegistry<Affinity> getAffinityRegistry() {
         return AFFINITY_REGISTRY;
+    }
+
+    public static IForgeRegistry<EssenceType> getEssenceTypeRegistry() {
+        return ESSENCE_TYPE_REGISTRY;
+    }
+
+    public static PlayerEntity getLocalPlayer() {
+        return DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> net.minecraft.client.Minecraft.getInstance().player);
     }
 }
