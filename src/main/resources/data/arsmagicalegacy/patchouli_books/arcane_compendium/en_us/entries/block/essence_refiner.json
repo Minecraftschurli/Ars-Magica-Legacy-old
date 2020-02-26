@@ -8,10 +8,6 @@
       "text": "compendium.entries.block.essence_refiner.page.0"
     },
     {
-      "type": "text",
-      "text": "compendium.entries.block.essence_refiner.page.1"
-    },
-    {
       "type": "crafting",
       "recipe": "arsmagicalegacy:essence_refiner"
     }

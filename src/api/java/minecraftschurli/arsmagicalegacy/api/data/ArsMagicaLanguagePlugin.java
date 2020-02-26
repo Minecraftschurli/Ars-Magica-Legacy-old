@@ -95,7 +95,7 @@ public interface ArsMagicaLanguagePlugin {
      * @param name        the translated name
      * @param description the translated description
      */
-    default void addCategoryTranslation(String key, String name, String description){
+    default void addCategory(String key, String name, String description){
         addWithDescription("compendium.categories."+key, name, description);
     }
 
@@ -117,7 +117,7 @@ public interface ArsMagicaLanguagePlugin {
      * @param number      the page number
      * @param translation the translated text
      */
-    default void addTextPageTranslation(String category, String entry, int number, String translation) {
+    default void addTextPage(String category, String entry, int number, String translation) {
         add("compendium.entries." + category + "." + entry + ".page." + number, translation);
     }
 
