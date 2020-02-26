@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.progeny.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:progeny_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.progeny.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:progeny_flicker_focus"
+    }
+  ]
+}

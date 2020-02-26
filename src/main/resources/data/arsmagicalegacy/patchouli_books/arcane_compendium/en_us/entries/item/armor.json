@@ -1,0 +1,31 @@
+{
+  "name": "compendium.entries.item.armor.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:mage_helmet",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.armor.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:mage_helmet",
+      "recipe2": "arsmagicalegacy:mage_chestplate"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:mage_leggings",
+      "recipe2": "arsmagicalegacy:mage_boots"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:battlemage_helmet",
+      "recipe2": "arsmagicalegacy:battlemage_chestplate"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:battlemage_leggings",
+      "recipe2": "arsmagicalegacy:battlemage_boots"
+    }
+  ]
+}

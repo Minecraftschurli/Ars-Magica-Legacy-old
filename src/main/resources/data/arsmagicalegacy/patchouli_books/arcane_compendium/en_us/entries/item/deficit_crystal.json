@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.deficit_crystal.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:deficit_crystal",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.deficit_crystal.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:deficit_crystal"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.nature_bounty.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:nature_bounty_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.nature_bounty.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:nature_bounty_flicker_focus"
+    }
+  ]
+}

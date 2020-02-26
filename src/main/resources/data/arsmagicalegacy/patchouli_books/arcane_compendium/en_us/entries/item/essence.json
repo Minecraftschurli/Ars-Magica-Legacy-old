@@ -1,0 +1,19 @@
+{
+  "name": "compendium.entries.item.essence.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:water_essence",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.essence.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:pure_essence_core"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:essence_bag"
+    }
+  ]
+}

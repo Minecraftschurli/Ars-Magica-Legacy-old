@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.keystone.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:keystone",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.keystone.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:keystone"
+    }
+  ]
+}

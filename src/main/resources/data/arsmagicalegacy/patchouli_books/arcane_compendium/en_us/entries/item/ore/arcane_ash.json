@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.ore.arcane_ash.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:arcane_ash",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.ore.arcane_ash.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:arcane_compound"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.felling.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:felling_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.felling.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:felling_flicker_focus"
+    }
+  ]
+}

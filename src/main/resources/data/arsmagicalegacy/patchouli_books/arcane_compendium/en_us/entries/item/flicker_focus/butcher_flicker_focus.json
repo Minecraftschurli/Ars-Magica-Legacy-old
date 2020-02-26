@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.butcher.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:butcher_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.butcher.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:butcher_flicker_focus"
+    }
+  ]
+}

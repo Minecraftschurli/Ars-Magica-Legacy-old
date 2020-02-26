@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.crystal_wrench.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:crystal_wrench",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.crystal_wrench.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:crystal_wrench"
+    }
+  ]
+}

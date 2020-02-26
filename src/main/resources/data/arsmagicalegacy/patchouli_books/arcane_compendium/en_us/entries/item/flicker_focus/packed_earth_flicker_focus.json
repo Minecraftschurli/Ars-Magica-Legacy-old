@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.packed_earth.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:packed_earth_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.packed_earth.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:packed_earth_flicker_focus"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.crystal_phylactery.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:crystal_phylactery",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.crystal_phylactery.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:crystal_phylactery"
+    }
+  ]
+}

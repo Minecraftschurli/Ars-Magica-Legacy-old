@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.item.affinity_tome.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:item/water_tome.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.affinity_tome.page.0"
+    }
+  ]
+}

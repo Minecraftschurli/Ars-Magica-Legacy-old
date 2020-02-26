@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.lunar.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:lunar_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.lunar.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:lunar_flicker_focus"
+    }
+  ]
+}

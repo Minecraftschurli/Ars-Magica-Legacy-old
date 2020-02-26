@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.spell_book.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:spell_book",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.spell_book.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:spell_book"
+    }
+  ]
+}
