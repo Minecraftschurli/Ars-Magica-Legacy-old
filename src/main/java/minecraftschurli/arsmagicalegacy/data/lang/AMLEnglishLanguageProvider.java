@@ -392,6 +392,43 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("block", "keystone_door", 0, "");
         addTextPage("block", "magic_wall", 0, "");
         addTextPage("block", "mana_battery", 0, "");
+        addTextPage("item", "affinity_tome", 0, "");
+        addTextPage("item", "armor", 0, "");
+        addTextPage("item", "crystal_phylactery", 0, "");
+        addTextPage("item", "crystal_wrench", 0, "");
+        addTextPage("item", "deficit_crystal", 0, "");
+        addTextPage("item", "essence", 0, "");
+        addTextPage("item", "flicker_jar", 0, "");
+        addTextPage("item", "focus", 0, "");
+        addTextPage("item", "journal", 0, "");
+        addTextPage("item", "keystone", 0, "");
+        addTextPage("item", "magitech_goggles", 0, "");
+        addTextPage("item", "magitech_staff", 0, "");
+        addTextPage("item", "mana_cake", 0, "");
+        addTextPage("item", "mana_martini", 0, "");
+        addTextPage("item", "rune", 0, "");
+        addTextPage("item", "spell_book", 0, "");
+        addTextPage("item", "wizard_chalk", 0, "");
+        addTextPage("item.ore", "arcane_ash", 0, "");
+        addTextPage("item.ore", "chimerite", 0, "");
+        addTextPage("item.ore", "moonstone", 0, "");
+        addTextPage("item.ore", "purified_vinteum", 0, "");
+        addTextPage("item.ore", "sunstone", 0, "");
+        addTextPage("item.ore", "topaz", 0, "");
+        addTextPage("item.ore", "vinteum", 0, "");
+        addTextPage("item.flicker_focus", "butcher", 0, "");
+        addTextPage("item.flicker_focus", "containment", 0, "");
+        addTextPage("item.flicker_focus", "felling", 0, "");
+        addTextPage("item.flicker_focus", "fishing", 0, "");
+        addTextPage("item.flicker_focus", "flat_land", 0, "");
+        addTextPage("item.flicker_focus", "gentle_rain", 0, "");
+        addTextPage("item.flicker_focus", "interdiction", 0, "");
+        addTextPage("item.flicker_focus", "item_transport", 0, "");
+        addTextPage("item.flicker_focus", "light", 0, "");
+        addTextPage("item.flicker_focus", "lunar", 0, "");
+        addTextPage("item.flicker_focus", "nature_bounty", 0, "");
+        addTextPage("item.flicker_focus", "packed_earth", 0, "");
+        addTextPage("item.flicker_focus", "progeny", 0, "");
     }
 
     @Override
