@@ -18,6 +18,13 @@ loaderVersion="[31,)"
     side="BOTH"
 
 [[dependencies.arsmagicalegacy]]
+    modId="patchouli"
+    mandatory=true
+    versionRange="[1.15.2-1.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.arsmagicalegacy]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.15.2]"

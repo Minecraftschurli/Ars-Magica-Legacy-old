@@ -49,24 +49,23 @@ public class SpellComponentPage implements ICustomComponent {
 
     @Override
     public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
-        RenderHelper.disableStandardItemLighting();
         int cx = x + 50;
         int cy = y + 76;
+        RenderSystem.pushMatrix();
+        /*RenderSystem.enableBlend();
         context.getGui().getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/arcane_compendium_gui_extras.png"));
         context.getGui().setBlitOffset(context.getGui().getBlitOffset()+1);
-        RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         drawTexturedModalRectClassic(x + 42, y + 15, 112, 145, 60, 40, 40, 40, context.getGui().getBlitOffset());
         drawTexturedModalRectClassic(x, y , 112, 175, 60, 40, 40, 40, context.getGui().getBlitOffset());
-        RenderSystem.disableBlend();
         context.getGui().setBlitOffset(context.getGui().getBlitOffset()-1);
+        RenderSystem.disableBlend();*/
         renderRecipe(context, cx, cy, mouseX, mouseY);
+        RenderSystem.enableBlend();
         Skill skill = SpellRegistry.getSkillFromPart(part);
         context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
         RenderSystem.color4f(1, 1, 1, 1);
-        RenderSystem.enableBlend();
         drawTexturedModalRectClassic(cx, cy, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
-        RenderSystem.disableBlend();
         if (context.isAreaHovered(mouseX, mouseY, cx, cy, 16, 16)){
             context.setHoverTooltip(skill.getTooltip()
                             .stream()
@@ -74,7 +73,8 @@ public class SpellComponentPage implements ICustomComponent {
                             .collect(Collectors.toList()));
         }
         renderModifiers(context, x, y, mouseX, mouseY);
-        RenderHelper.enableStandardItemLighting();
+        RenderSystem.disableBlend();
+        RenderSystem.popMatrix();
     }
 
     private void renderModifiers(IComponentRenderContext context, int posX, int posY,int mouseX, int mouseY) {
