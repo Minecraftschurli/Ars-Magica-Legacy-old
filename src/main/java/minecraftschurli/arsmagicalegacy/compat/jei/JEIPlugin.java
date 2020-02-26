@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.compat;
+package minecraftschurli.arsmagicalegacy.compat.jei;
 
 import mezz.jei.api.*;
 import mezz.jei.api.registration.*;
@@ -8,6 +8,7 @@ import net.minecraft.potion.*;
 import net.minecraft.util.*;
 
 import javax.annotation.*;
+import java.util.Objects;
 
 /**
  * @author Minecraftschurli
@@ -18,8 +19,10 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
+        Objects.requireNonNull(registration);
         registration.useNbtForSubtypes(ModItems.INFINITY_ORB.get());
         registration.useNbtForSubtypes(ModItems.INSCRIPTION_UPGRADE.get());
+        registration.useNbtForSubtypes(ModItems.AFFINITY_TOME.get());
         registration.registerSubtypeInterpreter(ModItems.POTION_BUNDLE.get(), itemStack -> PotionUtils.getPotionFromItem(itemStack).getRegistryName().toString());
     }
 

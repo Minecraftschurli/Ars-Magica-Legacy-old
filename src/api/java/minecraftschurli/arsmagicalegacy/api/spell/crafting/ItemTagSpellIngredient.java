@@ -83,4 +83,12 @@ public class ItemTagSpellIngredient implements ISpellIngredient {
     public Tag<Item> getTag() {
         return tag;
     }
+
+    @Override
+    public String toString() {
+        return "ItemTagSpellIngredient{" +
+                "amount=" + amount +
+                ", tag=" + tag.getId().toString() +
+                '}';
+    }
 }

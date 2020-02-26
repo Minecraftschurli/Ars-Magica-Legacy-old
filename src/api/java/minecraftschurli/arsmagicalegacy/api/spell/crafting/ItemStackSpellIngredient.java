@@ -76,4 +76,9 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
     public ItemStack getStack() {
         return stack;
     }
+
+    @Override
+    public String toString() {
+        return "ItemStackSpellIngredient{" + stack.toString() + '}';
+    }
 }

@@ -1,8 +1,10 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import net.minecraft.data.*;
 import net.minecraftforge.common.data.*;
 
@@ -94,6 +96,16 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addItem(ModItems.LIFE_FLICKER_JAR, "Lebensflickervase");
         addItem(ModItems.ARCANE_FLICKER_JAR, "Magieflickervase");
         addItem(ModItems.ENDER_FLICKER_JAR, "Enderflickervase");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.WATER), "Wasserlexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.FIRE), "Feuerlexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.EARTH), "Erdlexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.AIR), "Luftlexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.LIGHTNING), "Blitzlexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.ICE), "Eislexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.NATURE), "Naturlexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.LIFE), "Lebenslexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.ARCANE), "Magielexikon");
+        add(AffinityTomeItem.getStackForAffinity(Affinity.ENDER), "Enderlexikon");
         addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flickerfokus: Schlachter");
         addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flickerfokus: Beinhaltung");
         addItem(ModItems.FELLING_FLICKER_FOCUS, "Flickerfokus: Holzfällen");

@@ -25,11 +25,20 @@ public enum SpellModifiers {
     BUFF_POWER(1),
     HOMING(0);
 
-    public double defaultValue;
-    public int defaultValueInt;
+    private final double defaultValue;
+    private final int defaultValueInt;
 
     SpellModifiers(double defaultValue) {
         this.defaultValue = defaultValue;
         this.defaultValueInt = (int) defaultValue;
     }
+
+    public double getDefaultValue() {
+        return defaultValue;
+    }
+
+    public int getDefaultValueInt() {
+        return defaultValueInt;
+    }
+
 }

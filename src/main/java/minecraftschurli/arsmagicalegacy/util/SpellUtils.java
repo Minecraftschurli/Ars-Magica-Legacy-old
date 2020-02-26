@@ -580,7 +580,7 @@ public class SpellUtils {
      * @return
      */
     public static double getModifiedStat(int operation, ItemStack stack, LivingEntity caster, Entity target, World world, int stage, SpellModifiers modified) {
-        return getModifiedStat(modified.defaultValue, operation, stack, caster, target, world, stage, modified);
+        return getModifiedStat(modified.getDefaultValue(), operation, stack, caster, target, world, stage, modified);
     }
 
     public static List<SpellModifier> getModifiersForStage(ItemStack stack, int stage) {
@@ -783,7 +783,7 @@ public class SpellUtils {
     }
 
     public static double getModifiedDoubleMul(ItemStack stack, LivingEntity caster, Entity target, World world, SpellModifiers modified) {
-        return getModifiedStat(modified.defaultValue, 2, stack, caster, target, world, -1, modified);
+        return getModifiedStat(modified.getDefaultValue(), 2, stack, caster, target, world, -1, modified);
     }
 
     public static int getModifiedIntAdd(int defaultValue, ItemStack stack, LivingEntity caster, Entity target, World world, SpellModifiers modified) {
@@ -795,11 +795,11 @@ public class SpellUtils {
     }
 
     public static double getModifiedDoubleAdd(ItemStack stack, LivingEntity caster, Entity target, World world, SpellModifiers modified) {
-        return getModifiedStat(modified.defaultValueInt, 0, stack, caster, target, world, -1, modified);
+        return getModifiedStat(modified.getDefaultValueInt(), 0, stack, caster, target, world, -1, modified);
     }
 
     public static int getModifiedIntAdd(ItemStack stack, LivingEntity caster, LivingEntity target, World world, SpellModifiers modified) {
-        return getModifiedIntAdd(modified.defaultValueInt, stack, caster, target, world, modified);
+        return getModifiedIntAdd(modified.getDefaultValueInt(), stack, caster, target, world, modified);
     }
 
     public static String getSpellMetadata(ItemStack stack, String string) {

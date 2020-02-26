@@ -6,6 +6,9 @@ import net.minecraft.util.*;
 import net.minecraft.util.text.*;
 import net.minecraftforge.registries.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-27
@@ -73,5 +76,11 @@ public final class Skill extends ForgeRegistryEntry<Skill> {
 
     public ITextComponent getOcculusDesc() {
         return new TranslationTextComponent(getTranslationKey() + ".description");
+    }
+
+    public List<ITextComponent> getTooltip() {
+        List<ITextComponent> list = new ArrayList<>();
+        list.add(getName());
+        return list;
     }
 }

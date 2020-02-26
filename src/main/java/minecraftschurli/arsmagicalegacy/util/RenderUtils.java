@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.util;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.*;
 import minecraftschurli.arsmagicalegacy.objects.particle.*;
 import net.minecraft.block.*;
@@ -7,7 +9,13 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.*;
@@ -18,6 +26,7 @@ import org.lwjgl.opengl.*;
 import java.util.*;
 
 public class RenderUtils {
+
     public static Vec3d copyVec(Vec3d vec) {
         return new Vec3d(vec.x, vec.y, vec.z);
     }
@@ -186,4 +195,50 @@ public class RenderUtils {
         }
     }
 
+    public static void gradientline2d(float src_x, float src_y, float dst_x, float dst_y, float zLevel, int color1, int color2){
+        RenderSystem.disableTexture();
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
+        RenderSystem.lineWidth(1f);
+        BufferBuilder buf = Tessellator.getInstance().getBuffer();
+        buf.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        buf.pos(src_x, src_y, zLevel).color((color1 & 0xFF0000) >> 16, (color1 & 0x00FF00) >> 8, color1 & 0x0000FF, 0xFF).endVertex();
+        buf.pos(dst_x, dst_y, zLevel).color((color2 & 0xFF0000) >> 16, (color2 & 0x00FF00) >> 8, color2 & 0x0000FF, 0xFF).endVertex();
+        Tessellator.getInstance().draw();
+        RenderSystem.shadeModel(GL11.GL_FLAT);
+        RenderSystem.enableTexture();
+    }
+
+    public static void renderItemIntoGUI(ItemRenderer renderer, TextureManager textureManager, ItemStack stack, float x, float y, int zLevel) {
+        IBakedModel bakedmodel = renderer.getItemModelWithOverrides(stack, null, null);
+        RenderSystem.pushMatrix();
+        textureManager.bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+        textureManager.getTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE).setBlurMipmapDirect(false, false);
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.defaultAlphaFunc();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.translatef((float)x, (float)y, 100.0F + zLevel);
+        RenderSystem.translatef(8.0F, 8.0F, 0.0F);
+        RenderSystem.scalef(1.0F, -1.0F, 1.0F);
+        RenderSystem.scalef(16.0F, 16.0F, 16.0F);
+        MatrixStack matrixstack = new MatrixStack();
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+        boolean flag = !bakedmodel.func_230044_c_();
+        if (flag) {
+            RenderHelper.setupGuiFlatDiffuseLighting();
+        }
+
+        renderer.renderItem(stack, ItemCameraTransforms.TransformType.GUI, false, matrixstack, irendertypebuffer$impl, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
+        irendertypebuffer$impl.finish();
+        RenderSystem.enableDepthTest();
+        if (flag) {
+            RenderHelper.setupGui3DDiffuseLighting();
+        }
+
+        RenderSystem.disableAlphaTest();
+        RenderSystem.disableRescaleNormal();
+        RenderSystem.popMatrix();
+    }
 }
