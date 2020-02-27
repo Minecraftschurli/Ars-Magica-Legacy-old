@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.item.rune.name",
   "category": "item",
-  "icon": "arsmagicalegacy:blank_rune",
+  "icon": "arsmagicalegacy:rune",
   "pages": [
     {
       "type": "text",
