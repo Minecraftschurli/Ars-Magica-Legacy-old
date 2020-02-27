@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.item.ore.sunstone.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:sunstone",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.ore.sunstone.page.0"
+    }
+  ]
+}

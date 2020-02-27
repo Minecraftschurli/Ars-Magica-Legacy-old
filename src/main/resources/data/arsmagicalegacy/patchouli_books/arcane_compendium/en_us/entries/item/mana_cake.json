@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.mana_cake.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:mana_cake",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.mana_cake.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:mana_cake"
+    }
+  ]
+}

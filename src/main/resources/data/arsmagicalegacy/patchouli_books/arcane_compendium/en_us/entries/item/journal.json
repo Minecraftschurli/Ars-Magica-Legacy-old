@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.journal.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:journal",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.journal.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:journal"
+    }
+  ]
+}

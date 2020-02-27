@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.ore.purified_vinteum.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:purified_vinteum",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.ore.purified_vinteum.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:purified_vinteum"
+    }
+  ]
+}

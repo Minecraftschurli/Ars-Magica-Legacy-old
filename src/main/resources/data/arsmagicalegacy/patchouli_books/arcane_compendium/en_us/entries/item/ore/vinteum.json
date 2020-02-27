@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.item.ore.vinteum.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:vinteum",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.ore.vinteum.page.0"
+    }
+  ]
+}

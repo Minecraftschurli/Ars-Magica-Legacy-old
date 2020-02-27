@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.wizard_chalk.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:wizard_chalk",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.wizard_chalk.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:wizard_chalk"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.item.ore.topaz.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:topaz",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.ore.topaz.page.0"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.fishing.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:fishing_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.fishing.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:fishing_flicker_focus"
+    }
+  ]
+}

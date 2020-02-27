@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.flat_land.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:flat_land_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.flat_land.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:flat_land_flicker_focus"
+    }
+  ]
+}

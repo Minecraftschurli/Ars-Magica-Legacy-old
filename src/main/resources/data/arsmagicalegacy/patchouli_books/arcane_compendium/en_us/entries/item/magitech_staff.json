@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.magitech_staff.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:magitech_staff",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.magitech_staff.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:magitech_staff"
+    }
+  ]
+}

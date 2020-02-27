@@ -1,0 +1,55 @@
+{
+  "name": "compendium.entries.item.rune.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:rune",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.rune.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:white_rune",
+      "recipe2": "arsmagicalegacy:orange_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:magenta_rune",
+      "recipe2": "arsmagicalegacy:light_blue_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:yellow_rune",
+      "recipe2": "arsmagicalegacy:lime_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:pink_rune",
+      "recipe2": "arsmagicalegacy:gray_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:light_gray_rune",
+      "recipe2": "arsmagicalegacy:cyan_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:purple_rune",
+      "recipe2": "arsmagicalegacy:blue_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:brown_rune",
+      "recipe2": "arsmagicalegacy:green_rune"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:red_rune",
+      "recipe2": "arsmagicalegacy:black_rune"
+    }
+  ]
+}

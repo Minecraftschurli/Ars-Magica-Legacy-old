@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_focus.interdiction.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:interdiction_flicker_focus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_focus.interdiction.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:interdiction_flicker_focus"
+    }
+  ]
+}

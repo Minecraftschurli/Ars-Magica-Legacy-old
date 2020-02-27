@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.flicker_jar.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:flicker_jar",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.flicker_jar.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:flicker_jar"
+    }
+  ]
+}

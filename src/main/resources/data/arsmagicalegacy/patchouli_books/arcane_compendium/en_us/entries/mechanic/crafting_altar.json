@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.mechanic.crafting_altar.name",
+  "category": "mechanic",
+  "icon": "minecraft:missingno",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.crafting_altar.page.0"
+    }
+  ]
+}

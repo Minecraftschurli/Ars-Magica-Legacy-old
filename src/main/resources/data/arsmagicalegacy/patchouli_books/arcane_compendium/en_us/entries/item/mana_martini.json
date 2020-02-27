@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.item.mana_martini.name",
+  "category": "item",
+  "icon": "arsmagicalegacy:mana_martini",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.item.mana_martini.page.0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "arsmagicalegacy:mana_martini"
+    }
+  ]
+}
