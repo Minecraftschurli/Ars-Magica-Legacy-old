@@ -8,39 +8,39 @@
       "text": "compendium.entries.item.focus.page.0"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:lesser_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:standard_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:greater_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:mana_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:player_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:creature_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:monster_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:item_focus"
     },
     {
-      "type": "recipe",
+      "type": "crafting",
       "recipe": "arsmagicalegacy:charge_focus"
     }
   ]
