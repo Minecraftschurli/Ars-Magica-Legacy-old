@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.mechanic.spell_creation.name",
+  "category": "mechanic",
+  "icon": "minecraft:missingno",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.spell_creation.page.0"
+    }
+  ]
+}

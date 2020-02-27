@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.mechanic.burnout.name",
+  "category": "mechanic",
+  "icon": "minecraft:missingno",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.burnout.page.0"
+    }
+  ]
+}

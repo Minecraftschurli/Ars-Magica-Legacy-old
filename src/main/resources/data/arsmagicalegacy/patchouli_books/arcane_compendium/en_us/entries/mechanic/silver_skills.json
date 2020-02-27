@@ -1,0 +1,11 @@
+{
+  "name": "compendium.entries.mechanic.silver_skills.name",
+  "category": "mechanic",
+  "icon": "minecraft:missingno",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.silver_skills.page.0"
+    }
+  ]
+}
