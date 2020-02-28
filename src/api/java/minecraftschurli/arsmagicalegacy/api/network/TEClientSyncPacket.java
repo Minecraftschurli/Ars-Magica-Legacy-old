@@ -1,13 +1,13 @@
 package minecraftschurli.arsmagicalegacy.api.network;
 
-import net.minecraft.client.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.math.*;
-import net.minecraftforge.fml.network.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

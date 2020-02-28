@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.event;
 
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
-import net.minecraft.entity.player.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.Cancelable;
 
 /**
  * @author Minecraftschurli

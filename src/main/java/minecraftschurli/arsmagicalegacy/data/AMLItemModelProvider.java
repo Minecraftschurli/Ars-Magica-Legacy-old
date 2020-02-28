@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import net.minecraft.data.*;
-import net.minecraftforge.client.model.generators.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
 
 /**
  * @author Minecraftschurli

@@ -6,8 +6,6 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.entity.player.ServerPlayerEntity;

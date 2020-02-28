@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.api.network;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import net.minecraft.network.*;
-import net.minecraft.util.*;
-import net.minecraftforge.fml.network.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

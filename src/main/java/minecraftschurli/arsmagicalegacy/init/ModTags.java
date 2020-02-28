@@ -1,10 +1,12 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import net.minecraft.block.*;
-import net.minecraft.item.*;
-import net.minecraft.tags.*;
-import net.minecraft.util.*;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Minecraftschurli

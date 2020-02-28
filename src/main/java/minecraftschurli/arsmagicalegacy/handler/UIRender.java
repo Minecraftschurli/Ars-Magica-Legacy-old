@@ -1,24 +1,25 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.vertex.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * @author Minecraftschurli

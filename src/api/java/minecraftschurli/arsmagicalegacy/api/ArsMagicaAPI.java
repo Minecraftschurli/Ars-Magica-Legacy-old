@@ -1,20 +1,24 @@
 package minecraftschurli.arsmagicalegacy.api;
 
 import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.javafmlmod.*;
-import net.minecraftforge.registries.*;
-import org.apache.logging.log4j.*;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceType;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Minecraftschurli

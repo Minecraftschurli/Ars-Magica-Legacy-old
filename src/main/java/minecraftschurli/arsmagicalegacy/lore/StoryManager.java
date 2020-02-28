@@ -1,9 +1,10 @@
 package minecraftschurli.arsmagicalegacy.lore;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class StoryManager {
     private static final Random rand = new Random();

@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import net.minecraft.inventory.container.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.network.*;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.network.IContainerFactory;
 
 /**
  * @author Minecraftschurli

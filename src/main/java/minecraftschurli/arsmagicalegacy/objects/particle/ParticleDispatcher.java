@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.client.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ArsMagicaAPI.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ParticleDispatcher {

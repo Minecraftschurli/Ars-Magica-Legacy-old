@@ -1,28 +1,39 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import com.mojang.blaze3d.systems.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.screen.inventory.*;
-import net.minecraft.client.gui.widget.*;
-import net.minecraft.client.gui.widget.button.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.renderer.vertex.*;
-import net.minecraft.client.util.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.util.text.*;
-import org.lwjgl.opengl.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.util.InputMappings;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL14;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

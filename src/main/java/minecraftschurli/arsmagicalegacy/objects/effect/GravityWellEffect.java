@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.ai.attributes.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.potion.*;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectType;
 
 /**
  * @author Minecraftschurli

@@ -1,12 +1,15 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.worldgen.features.*;
-import net.minecraft.world.gen.blockstateprovider.*;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.foliageplacer.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.worldgen.features.MoonstoneMeteor;
+import minecraftschurli.arsmagicalegacy.worldgen.features.SunstoneOre;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.TreeFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraftforge.fml.RegistryObject;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

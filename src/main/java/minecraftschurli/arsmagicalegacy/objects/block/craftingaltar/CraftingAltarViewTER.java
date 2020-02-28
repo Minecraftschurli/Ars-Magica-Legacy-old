@@ -1,16 +1,23 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import com.mojang.blaze3d.matrix.*;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
-import net.minecraft.block.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.tileentity.*;
-import net.minecraft.item.*;
-import net.minecraft.util.text.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TranslationTextComponent;
 
 /**
  * @author Minecraftschurli

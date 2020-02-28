@@ -1,12 +1,14 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import net.minecraft.util.*;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.stream.*;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

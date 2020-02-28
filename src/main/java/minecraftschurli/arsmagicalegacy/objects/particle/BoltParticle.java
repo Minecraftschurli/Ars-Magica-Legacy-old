@@ -1,16 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import com.mojang.blaze3d.platform.*;
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class BoltParticle extends Particle {
     private BoltParticleData.BoltType type;

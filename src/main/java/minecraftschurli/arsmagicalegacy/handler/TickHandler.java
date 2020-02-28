@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 
 /**
  * @author Minecraftschurli

@@ -1,20 +1,28 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import minecraftschurli.arsmagicalegacy.init.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.network.datasync.*;
-import net.minecraft.network.play.server.*;
-import net.minecraft.util.*;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SSpawnObjectPacket;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
-import net.minecraft.world.*;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Minecraftschurli

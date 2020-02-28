@@ -1,15 +1,24 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.LazyOptional;
 
-import javax.annotation.*;
-import java.util.stream.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.stream.Collectors;
 
 
 /**

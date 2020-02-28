@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.compat.jei;
 
-import mezz.jei.api.*;
-import mezz.jei.api.registration.*;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 /**

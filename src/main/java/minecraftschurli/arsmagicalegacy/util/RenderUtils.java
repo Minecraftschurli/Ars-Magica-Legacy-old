@@ -2,28 +2,27 @@ package minecraftschurli.arsmagicalegacy.util;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.*;
-import minecraftschurli.arsmagicalegacy.objects.particle.*;
-import net.minecraft.block.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.vertex.*;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.*;
-import org.lwjgl.opengl.*;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.RegistryObject;
+import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.Random;
 
 public class RenderUtils {
 

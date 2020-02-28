@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.entity.boss;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.monster.*;
-import net.minecraft.world.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.world.World;
 
 /**
  * @author Minecraftschurli

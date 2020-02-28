@@ -1,16 +1,20 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import net.minecraft.entity.item.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.tags.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * @author Minecraftschurli

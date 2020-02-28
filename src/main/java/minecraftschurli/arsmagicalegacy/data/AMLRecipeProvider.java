@@ -1,19 +1,27 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.advancements.criterion.*;
-import net.minecraft.data.*;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.*;
-import net.minecraft.potion.*;
-import net.minecraft.tags.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.brewing.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
+import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.data.ForgeRecipeProvider;
 
-import javax.annotation.*;
-import java.util.function.*;
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli

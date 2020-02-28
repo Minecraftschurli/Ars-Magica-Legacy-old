@@ -7,12 +7,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.shapes.IBooleanFunction;
 
 import java.util.Objects;
 import java.util.stream.Stream;

@@ -1,38 +1,25 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.SilverSkillTrigger;
-import minecraftschurli.arsmagicalegacy.api.advancements.SkillLearnedTrigger;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.criterion.ChangeDimensionTrigger;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.AdvancementProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
-import net.minecraft.data.advancements.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 

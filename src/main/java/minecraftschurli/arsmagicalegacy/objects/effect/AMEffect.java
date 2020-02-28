@@ -1,9 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.*;
-import net.minecraft.potion.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
 /**
  * @author Minecraftschurli

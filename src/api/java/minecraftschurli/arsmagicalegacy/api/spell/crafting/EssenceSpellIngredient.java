@@ -2,16 +2,18 @@ package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 import com.google.common.collect.ImmutableSet;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import net.minecraft.client.particle.CampfireParticle;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,13 +1,13 @@
 package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.*;
-import net.minecraft.data.*;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.*;
 
-import javax.annotation.*;
-import java.util.function.*;
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

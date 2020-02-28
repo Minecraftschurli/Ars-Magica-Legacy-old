@@ -1,11 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.component.*;
-import net.minecraft.util.text.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.objects.spell.component.Summon;
+import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpellValidator {
     public static final SpellValidator instance = new SpellValidator();

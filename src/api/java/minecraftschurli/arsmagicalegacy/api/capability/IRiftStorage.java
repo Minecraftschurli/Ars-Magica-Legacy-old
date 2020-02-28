@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import net.minecraft.inventory.*;
-import net.minecraft.nbt.*;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.nbt.CompoundNBT;
 
 /**
  * @author Minecraftschurli

@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.StairsBlock;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
  * @author Minecraftschurli

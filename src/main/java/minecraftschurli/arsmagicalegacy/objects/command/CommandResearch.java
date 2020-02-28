@@ -1,19 +1,25 @@
 package minecraftschurli.arsmagicalegacy.objects.command;
 
-import com.mojang.brigadier.*;
-import com.mojang.brigadier.builder.*;
-import com.mojang.brigadier.context.*;
-import com.mojang.brigadier.exceptions.*;
-import com.mojang.brigadier.suggestion.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import net.minecraft.command.*;
-import net.minecraft.command.arguments.*;
-import net.minecraft.util.text.*;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.ISuggestionProvider;
+import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.command.arguments.ResourceLocationArgument;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

@@ -1,8 +1,10 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.effect.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli

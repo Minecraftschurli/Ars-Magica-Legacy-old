@@ -1,14 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import com.mojang.brigadier.*;
-import com.mojang.brigadier.exceptions.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.network.*;
-import net.minecraft.particles.*;
-import net.minecraft.util.math.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 

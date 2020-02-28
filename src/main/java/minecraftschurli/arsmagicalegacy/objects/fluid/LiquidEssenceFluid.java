@@ -2,13 +2,11 @@ package minecraftschurli.arsmagicalegacy.objects.fluid;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModFluids;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -18,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;

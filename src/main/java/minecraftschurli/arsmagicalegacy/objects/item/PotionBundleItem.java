@@ -1,19 +1,26 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.PotionItem;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
 
 public class PotionBundleItem extends PotionItem {
     public static final String USES_KEY = "Uses";

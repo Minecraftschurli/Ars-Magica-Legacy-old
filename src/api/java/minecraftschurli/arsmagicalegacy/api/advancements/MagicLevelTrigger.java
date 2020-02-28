@@ -5,7 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
+import net.minecraft.advancements.criterion.CriterionInstance;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 

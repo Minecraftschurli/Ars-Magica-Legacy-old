@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.particle.*;
-import net.minecraft.particles.*;
-import net.minecraftforge.fml.*;
+import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleType;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli

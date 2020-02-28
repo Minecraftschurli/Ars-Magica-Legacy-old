@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import javafx.util.*;
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.affinity.*;
-import net.minecraft.util.*;
+import javafx.util.Pair;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import net.minecraft.util.ResourceLocation;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

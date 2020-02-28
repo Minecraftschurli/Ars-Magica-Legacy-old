@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.api;
 import com.google.gson.*;
 import net.minecraft.nbt.*;
 
-import java.util.*;
+import java.util.Map;
 
 /**
  * @author Minecraftschurli

@@ -1,19 +1,26 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.*;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import minecraftschurli.arsmagicalegacy.api.skill.*;
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.util.text.*;
-import net.minecraft.world.*;
+import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.stream.*;
+import javax.annotation.Nonnull;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * @author IchHabeHunger54

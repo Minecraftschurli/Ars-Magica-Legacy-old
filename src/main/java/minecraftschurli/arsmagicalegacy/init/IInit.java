@@ -1,21 +1,23 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.merchant.villager.*;
-import net.minecraft.fluid.*;
-import net.minecraft.inventory.container.*;
-import net.minecraft.item.*;
-import net.minecraft.particles.*;
-import net.minecraft.potion.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.village.*;
-import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.carver.*;
-import net.minecraft.world.gen.feature.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.village.PointOfInterestType;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * @author Minecraftschurli

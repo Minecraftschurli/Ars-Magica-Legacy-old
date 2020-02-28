@@ -1,10 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.capability.*;
-import net.minecraft.entity.*;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
 
 /**
  * @author Minecraftschurli

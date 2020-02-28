@@ -1,8 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.init.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Minecraftschurli

@@ -1,18 +1,21 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.*;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.*;
-import minecraftschurli.arsmagicalegacy.objects.block.occulus.*;
-import minecraftschurli.arsmagicalegacy.worldgen.features.*;
-import minecraftschurli.simpleorelib.*;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
+import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
+import minecraftschurli.simpleorelib.Ore;
 import net.minecraft.block.*;
-import net.minecraft.block.material.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.RegistryObject;
 
 /**
  * @author Minecraftschurli

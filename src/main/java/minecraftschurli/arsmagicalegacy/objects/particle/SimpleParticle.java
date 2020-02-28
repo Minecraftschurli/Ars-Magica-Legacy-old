@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import minecraftschurli.arsmagicalegacy.util.*;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
 import net.minecraft.client.particle.*;
-import net.minecraft.world.*;
+import net.minecraft.world.World;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
 public class SimpleParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite animatedSprite;

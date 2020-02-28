@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.*;
-import net.minecraft.potion.*;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.potion.EffectType;
 
-import java.util.*;
+import java.util.UUID;
 
 /**
  * @author Minecraftschurli

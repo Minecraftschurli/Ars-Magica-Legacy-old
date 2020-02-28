@@ -1,17 +1,19 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
-import net.minecraft.block.*;
-import net.minecraft.inventory.*;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraftforge.fml.RegistryObject;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 /**
  * @author Minecraftschurli

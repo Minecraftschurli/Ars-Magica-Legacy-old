@@ -1,19 +1,23 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
-import com.mojang.blaze3d.platform.*;
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import minecraftschurli.arsmagicalegacy.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import org.lwjgl.opengl.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.IParticleFactory;
+import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
 public class BeamParticle extends SpriteTexturedParticle {
     private double dX, dY, dZ, uX, uY, uZ;
