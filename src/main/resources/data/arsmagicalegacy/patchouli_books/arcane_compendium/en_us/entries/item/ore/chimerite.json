@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.ore.chimerite.name",
-  "category": "item",
+  "category": "item/ore",
   "icon": "arsmagicalegacy:chimerite",
   "pages": [
     {

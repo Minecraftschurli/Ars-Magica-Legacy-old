@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.flicker_focus.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "_comment": "replace icon with arsmagicalegacy:flicker_habitat",
   "icon": "minecraft:missingno",
   "pages": [

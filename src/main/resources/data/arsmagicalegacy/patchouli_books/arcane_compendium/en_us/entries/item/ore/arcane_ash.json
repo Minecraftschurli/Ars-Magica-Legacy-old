@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.ore.arcane_ash.name",
-  "category": "item",
+  "category": "item/ore",
   "icon": "arsmagicalegacy:arcane_ash",
   "pages": [
     {

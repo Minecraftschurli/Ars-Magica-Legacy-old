@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.gentle_rain_flicker_focus.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:gentle_rain_flicker_focus",
   "pages": [
     {

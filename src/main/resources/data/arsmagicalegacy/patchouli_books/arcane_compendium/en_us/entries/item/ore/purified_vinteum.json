@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.ore.purified_vinteum.name",
-  "category": "item",
+  "category": "item/ore",
   "icon": "arsmagicalegacy:purified_vinteum",
   "pages": [
     {

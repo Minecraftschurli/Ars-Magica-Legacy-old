@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.nature_bounty.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:nature_bounty_flicker_focus",
   "pages": [
     {

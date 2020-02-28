@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.lunar.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:lunar_flicker_focus",
   "pages": [
     {

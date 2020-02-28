@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.packed_earth.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:packed_earth_flicker_focus",
   "pages": [
     {

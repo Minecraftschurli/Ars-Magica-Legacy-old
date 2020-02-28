@@ -1,6 +1,6 @@
 {
   "name": "compendium.categories.item.flicker_focus.name",
   "description": "compendium.categories.item.flicker_focus.description",
-  "icon": "minecraft:missingno",
+  "icon": "arsmagicalegacy:item_transport_flicker_focus",
   "parent": "item"
 }
