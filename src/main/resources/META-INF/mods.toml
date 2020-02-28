@@ -20,7 +20,7 @@ loaderVersion="[31,)"
 [[dependencies.arsmagicalegacy]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.15.2-1.2,)"
+    versionRange="[1.15.2-1.2-28,)"
     ordering="NONE"
     side="BOTH"
 

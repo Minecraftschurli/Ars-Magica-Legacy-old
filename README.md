@@ -7,7 +7,7 @@ please report any bugs on [github](https://github.com/Minecraftschurli/ArsMagica
 ## Dependencies
 This mod requires 
 - [SimpleOreLib](https://www.curseforge.com/minecraft/mc-mods/simpleorelib) version 1.0.0.0
-- [Patchouli](https://www.curseforge.com/minecraft/mc-mods/patchouli) version 1.15.2-1.2-27
+- [Patchouli](https://www.curseforge.com/minecraft/mc-mods/patchouli) version 1.15.2-1.2-28
 
 ## ArsMagicaAPI
 ### Repositories
