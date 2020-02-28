@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.fishing.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:fishing_flicker_focus",
   "pages": [
     {

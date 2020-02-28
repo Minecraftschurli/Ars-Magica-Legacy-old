@@ -121,5 +121,15 @@ public interface ArsMagicaLanguagePlugin {
         add("compendium.entries." + category + "." + entry + ".page." + number, translation);
     }
 
+    /**
+     * Adds the translation for a section's title
+     * @param category    the section's category
+     * @param entry       the section's actual name
+     * @param translation the translated text
+     */
+    default void addSectionTitle(String category, String entry, String translation) {
+        add("compendium.entries." + category + "." + entry + ".name", translation);
+    }
+
     void add(String key, String value);
 }

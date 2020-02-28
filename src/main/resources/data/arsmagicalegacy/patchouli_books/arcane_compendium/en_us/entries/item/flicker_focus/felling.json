@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.felling.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:felling_flicker_focus",
   "pages": [
     {

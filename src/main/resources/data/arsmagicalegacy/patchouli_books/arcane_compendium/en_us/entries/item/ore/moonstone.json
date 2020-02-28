@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.ore.moonstone.name",
-  "category": "item",
+  "category": "item/ore",
   "icon": "arsmagicalegacy:moonstone",
   "pages": [
     {

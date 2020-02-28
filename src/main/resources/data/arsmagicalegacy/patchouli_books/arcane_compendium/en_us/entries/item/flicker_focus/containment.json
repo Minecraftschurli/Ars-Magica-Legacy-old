@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.containment.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:containment_flicker_focus",
   "pages": [
     {

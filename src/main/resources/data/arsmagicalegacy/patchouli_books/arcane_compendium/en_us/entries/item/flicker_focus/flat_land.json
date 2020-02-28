@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.flat_land.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:flat_land_flicker_focus",
   "pages": [
     {

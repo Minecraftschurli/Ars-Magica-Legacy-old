@@ -1,6 +1,6 @@
 {
   "name": "compendium.entries.item.flicker_focus.butcher.name",
-  "category": "item",
+  "category": "item/flicker_focus",
   "icon": "arsmagicalegacy:butcher_flicker_focus",
   "pages": [
     {
