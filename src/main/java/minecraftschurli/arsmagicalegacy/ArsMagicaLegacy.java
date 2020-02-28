@@ -36,6 +36,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
@@ -82,6 +83,7 @@ public final class ArsMagicaLegacy {
 
         MinecraftForge.EVENT_BUS.addListener(this::onAttachPlayerCapabilities);
         MinecraftForge.EVENT_BUS.addListener(this::onServerLoad);
+        MinecraftForge.EVENT_BUS.addListener(this::beforeServerLoad);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
 
@@ -163,6 +165,9 @@ public final class ArsMagicaLegacy {
 
     private void onServerLoad(final FMLServerStartingEvent event) {
         ModCommands.register(event.getCommandDispatcher());
+    }
+
+    private void beforeServerLoad(final FMLServerAboutToStartEvent event) {
         event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
     }
 

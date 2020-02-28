@@ -55,7 +55,7 @@ public class Wall extends SpellShape {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get(), 2)),
                 new ItemStackSpellIngredient(new ItemStack(Items.COBBLESTONE_WALL)),
                 new ItemTagSpellIngredient(Tags.Items.FENCES_WOODEN),
-                new EssenceSpellIngredient(EssenceType.ANY, 2500)
+                new EssenceSpellIngredient(2500)
         };
     }
 

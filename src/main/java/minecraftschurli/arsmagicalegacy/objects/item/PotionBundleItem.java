@@ -10,6 +10,7 @@ import net.minecraft.potion.*;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.*;
 
 import javax.annotation.*;
@@ -52,9 +53,7 @@ public class PotionBundleItem extends PotionItem {
             tag.putInt(USES_KEY, tag.getInt(USES_KEY) - 1);
         }
         if (playerentity != null) {
-            if (!playerentity.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE))) {
-                InventoryHelper.spawnItemStack(world, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), new ItemStack(Items.GLASS_BOTTLE));
-            }
+            ItemHandlerHelper.giveItemToPlayer(playerentity, new ItemStack(Items.GLASS_BOTTLE));
         }
         if(tag.getInt(USES_KEY) == 1)
             return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION, 1), PotionUtils.getPotionFromItem(stack));

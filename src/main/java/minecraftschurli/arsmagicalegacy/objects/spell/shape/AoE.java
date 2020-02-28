@@ -96,7 +96,7 @@ public class AoE extends SpellShape {
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
-                new EssenceSpellIngredient(EssenceType.ANY)
+                new EssenceSpellIngredient(0)
         };
     }
 

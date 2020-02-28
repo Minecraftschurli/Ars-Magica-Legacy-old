@@ -50,7 +50,7 @@ public class Summon extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MONSTER_FOCUS.get())),
-                new EssenceSpellIngredient(EssenceType.DARK, 1500)
+                new EssenceSpellIngredient(1500, EssenceType.DARK)
         };
     }
 

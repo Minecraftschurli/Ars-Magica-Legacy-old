@@ -129,7 +129,7 @@ public class Beam extends SpellShape {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.STANDARD_FOCUS.get())),
-                new EssenceSpellIngredient(EssenceType.NEUTRAL, 500)
+                new EssenceSpellIngredient(500, EssenceType.NEUTRAL)
         };
     }
 

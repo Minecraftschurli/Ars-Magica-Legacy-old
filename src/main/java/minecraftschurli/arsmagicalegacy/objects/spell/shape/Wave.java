@@ -53,7 +53,7 @@ public class Wave extends SpellShape {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get())),
-                new EssenceSpellIngredient(EssenceType.ANY, 2500)
+                new EssenceSpellIngredient(2500)
         };
     }
 
