@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -21,16 +21,16 @@ public class EnderIntervention extends SpellComponent {
         if (world.isRemote || !(target instanceof LivingEntity)) return true;
         if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
             if (target instanceof PlayerEntity)
-                target.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noInterventionDistortion"));
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionDistortion"));
             return true;
         }
         if (target.dimension.getId() == 1) {
             if (target instanceof PlayerEntity)
-                target.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noIntervention"));
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noIntervention"));
             return true;
         } else if (target.dimension.getId() == -1) {
             if (target instanceof PlayerEntity)
-                target.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noInterventionNether"));
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionNether"));
 			return false;
         } else {
 //            DimensionUtilities.doDimensionTransfer((LivingEntity) target, -1);

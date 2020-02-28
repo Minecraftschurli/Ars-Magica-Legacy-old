@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.data.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -14,7 +14,7 @@ import net.minecraftforge.common.data.*;
  */
 public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMagicaLanguagePlugin {
     public AMLGermanLanguageProvider(DataGenerator gen) {
-        super(gen, ArsMagicaLegacy.MODID, "de_de");
+        super(gen, ArsMagicaAPI.MODID, "de_de");
     }
 
     @Override
@@ -328,42 +328,42 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSkillPoint(ModSpellParts.SKILL_POINT_1, "Blau");
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Rot");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Grün");
-        add("itemGroup." + ArsMagicaLegacy.MODID, "Ars Magica: Legacy");
-        add(ArsMagicaLegacy.MODID + ".altar.lowpower", "Das Altarlevel ist zu niedrig!");
-        add(ArsMagicaLegacy.MODID + ".chat.appropriationError", "Besitzergreifung unmöglich");
-        add(ArsMagicaLegacy.MODID + ".chat.markSet", "Markierung gesetzt");
-        add(ArsMagicaLegacy.MODID + ".chat.markClear", "Markierung entfernt");
-        add(ArsMagicaLegacy.MODID + ".chat.missingReagents", "Materialien fehlen");
-        add(ArsMagicaLegacy.MODID + ".chat.noBlink", "Blink unmöglich");
-        add(ArsMagicaLegacy.MODID + ".chat.noIntervention", "Intervention unmöglich");
-        add(ArsMagicaLegacy.MODID + ".chat.noInterventionDistortion", "Du bist zu gestört für Interventionen");
-        add(ArsMagicaLegacy.MODID + ".chat.noInterventionNether", "Der Nether erlaubt keine Interventionen");
-        add(ArsMagicaLegacy.MODID + ".chat.noRecall", "Rückruf unmöglich");
-        add(ArsMagicaLegacy.MODID + ".chat.noTeleport", "Teleportation unmöglich");
-        add(ArsMagicaLegacy.MODID + ".chat.noTeleportDistortion", "Du bist zu gestört zur Teleportation");
-        add(ArsMagicaLegacy.MODID + ".chat.noSummons", "Du bist aktuell nicht in der Lage zu einer Beschwörung");
-        add(ArsMagicaLegacy.MODID + ".chat.placeBlockSpell", "Block platziert");
-        add(ArsMagicaLegacy.MODID + ".command.forget", "Skill %s vergessen");
-        add(ArsMagicaLegacy.MODID + ".command.forgetall", "Alle Skills vergessen");
-        add(ArsMagicaLegacy.MODID + ".command.learned", "Skill %s erlernt");
-        add(ArsMagicaLegacy.MODID + ".command.skillnotfound", "Unbekannter Skill: %s");
-        add(ArsMagicaLegacy.MODID + ".gui.xp", "XP: ");
-        add(ArsMagicaLegacy.MODID + ".inscriptiontable.bookOut", "Das Buch herausnehmen");
-        add(ArsMagicaLegacy.MODID + ".inscriptiontable.search", "Suchen");
-        add(ArsMagicaLegacy.MODID + ".inscriptiontable.makeSpell", "Zauber erstellen");
-        add(ArsMagicaLegacy.MODID + ".inscriptiontable.name", "Name");
-        add(ArsMagicaLegacy.MODID + ".inscriptiontable.resetSpell", "Zauber zurücksetzen");
-        add(ArsMagicaLegacy.MODID + ".occulus.disabled", "Deaktiviert");
-        add(ArsMagicaLegacy.MODID + ".occulus.displayname", "Okkulus");
-        add(ArsMagicaLegacy.MODID + ".occulus.missingrequirements", "Fehlende Anforderungen!");
-        add(ArsMagicaLegacy.MODID + ".occulus.prevent", "Mythische Kräfte hindern dich am Benutzen dieses Konstrukts!");
-        add(ArsMagicaLegacy.MODID + ".spell.manacost", "Manakosten: %d");
-        add(ArsMagicaLegacy.MODID + ".spell.unfinishedSpellRecipe", "Unfertiges Zauberrezept");
-        add(ArsMagicaLegacy.MODID + ".spell.validate.invalid", "Defekter Zauber");
-        add(ArsMagicaLegacy.MODID + ".spell.validate.principum", "Principumzauber");
-        add(ArsMagicaLegacy.MODID + ".spell.validate.terminus", "Terminuszauber");
-        add(ArsMagicaLegacy.MODID + ".arcane_compendium.name", "Magisches Lexikon");
-        add(ArsMagicaLegacy.MODID + ".arcane_compendium.landing_text", "Hallo Welt");
+        add("itemGroup." + ArsMagicaAPI.MODID, "Ars Magica: Legacy");
+        add(ArsMagicaAPI.MODID + ".altar.lowpower", "Das Altarlevel ist zu niedrig!");
+        add(ArsMagicaAPI.MODID + ".chat.appropriationError", "Besitzergreifung unmöglich");
+        add(ArsMagicaAPI.MODID + ".chat.markSet", "Markierung gesetzt");
+        add(ArsMagicaAPI.MODID + ".chat.markClear", "Markierung entfernt");
+        add(ArsMagicaAPI.MODID + ".chat.missingReagents", "Materialien fehlen");
+        add(ArsMagicaAPI.MODID + ".chat.noBlink", "Blink unmöglich");
+        add(ArsMagicaAPI.MODID + ".chat.noIntervention", "Intervention unmöglich");
+        add(ArsMagicaAPI.MODID + ".chat.noInterventionDistortion", "Du bist zu gestört für Interventionen");
+        add(ArsMagicaAPI.MODID + ".chat.noInterventionNether", "Der Nether erlaubt keine Interventionen");
+        add(ArsMagicaAPI.MODID + ".chat.noRecall", "Rückruf unmöglich");
+        add(ArsMagicaAPI.MODID + ".chat.noTeleport", "Teleportation unmöglich");
+        add(ArsMagicaAPI.MODID + ".chat.noTeleportDistortion", "Du bist zu gestört zur Teleportation");
+        add(ArsMagicaAPI.MODID + ".chat.noSummons", "Du bist aktuell nicht in der Lage zu einer Beschwörung");
+        add(ArsMagicaAPI.MODID + ".chat.placeBlockSpell", "Block platziert");
+        add(ArsMagicaAPI.MODID + ".command.forget", "Skill %s vergessen");
+        add(ArsMagicaAPI.MODID + ".command.forgetall", "Alle Skills vergessen");
+        add(ArsMagicaAPI.MODID + ".command.learned", "Skill %s erlernt");
+        add(ArsMagicaAPI.MODID + ".command.skillnotfound", "Unbekannter Skill: %s");
+        add(ArsMagicaAPI.MODID + ".gui.xp", "XP: ");
+        add(ArsMagicaAPI.MODID + ".inscriptiontable.bookOut", "Das Buch herausnehmen");
+        add(ArsMagicaAPI.MODID + ".inscriptiontable.search", "Suchen");
+        add(ArsMagicaAPI.MODID + ".inscriptiontable.makeSpell", "Zauber erstellen");
+        add(ArsMagicaAPI.MODID + ".inscriptiontable.name", "Name");
+        add(ArsMagicaAPI.MODID + ".inscriptiontable.resetSpell", "Zauber zurücksetzen");
+        add(ArsMagicaAPI.MODID + ".occulus.disabled", "Deaktiviert");
+        add(ArsMagicaAPI.MODID + ".occulus.displayname", "Okkulus");
+        add(ArsMagicaAPI.MODID + ".occulus.missingrequirements", "Fehlende Anforderungen!");
+        add(ArsMagicaAPI.MODID + ".occulus.prevent", "Mythische Kräfte hindern dich am Benutzen dieses Konstrukts!");
+        add(ArsMagicaAPI.MODID + ".spell.manacost", "Manakosten: %d");
+        add(ArsMagicaAPI.MODID + ".spell.unfinishedSpellRecipe", "Unfertiges Zauberrezept");
+        add(ArsMagicaAPI.MODID + ".spell.validate.invalid", "Defekter Zauber");
+        add(ArsMagicaAPI.MODID + ".spell.validate.principum", "Principumzauber");
+        add(ArsMagicaAPI.MODID + ".spell.validate.terminus", "Terminuszauber");
+        add(ArsMagicaAPI.MODID + ".arcane_compendium.name", "Magisches Lexikon");
+        add(ArsMagicaAPI.MODID + ".arcane_compendium.landing_text", "Hallo Welt");
         addCategory("guide", "Tutorials", "");
         addCategory("mechanic", "Mechaniken", "");
         addCategory("mechanic.affinity", "Affinitäten", "");

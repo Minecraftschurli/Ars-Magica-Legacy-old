@@ -16,6 +16,7 @@ public class ArsMagicaCriteriaTriggers {
     public static final MagicLevelTrigger MAGIC_LEVEL = register(new MagicLevelTrigger());
     public static final ManaLevelTrigger MANA_LEVEL = register(new ManaLevelTrigger());
     public static final SkillLearnedTrigger SKILL_LEARNED = register(new SkillLearnedTrigger());
+    public static final SilverSkillTrigger SILVER_SKILL = register(new SilverSkillTrigger());
 
     public static void registerDefaults() {
         for (ICriterionTrigger<?> criterionTrigger : CRITERION_TRIGGERS.values()) {

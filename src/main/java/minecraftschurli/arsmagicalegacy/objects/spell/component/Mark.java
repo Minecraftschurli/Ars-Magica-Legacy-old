@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -21,7 +21,7 @@ public class Mark extends SpellComponent {
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
 //        EntityExtension.For(caster).setMark(impactX, impactY, impactZ, caster.world.getDimension());
         if (caster instanceof PlayerEntity && world.isRemote)
-            caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.markSet"));
+            caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.markSet"));
         return true;
     }
 
@@ -31,11 +31,11 @@ public class Mark extends SpellComponent {
         if (caster.dimension.getId() != -512) {
             caster.dimension = DimensionType.getById(512);
             if (caster instanceof PlayerEntity && world.isRemote)
-                caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.markClear"));
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.markClear"));
         } else {
 //            caster.setMark(target.getPosX(), target.getPosY(), target.getPosZ(), caster.world.getDimension());
             if (caster instanceof PlayerEntity && world.isRemote)
-                caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.markSet"));
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.markSet"));
         }
         return true;
     }

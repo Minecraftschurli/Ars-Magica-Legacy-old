@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.util.*;
@@ -186,7 +186,7 @@ public class SpellProjectileEntity extends Entity {
 
     @Override
     protected void readAdditional(CompoundNBT tagCompound) {
-        CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaLegacy.MODID);
+        CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaAPI.MODID);
         dataManager.set(DW_BOUNCE_COUNTER, am2Tag.getInt("BounceCount"));
         dataManager.set(DW_GRAVITY, am2Tag.getFloat("Gravity"));
         dataManager.set(DW_EFFECT, ItemStack.read(am2Tag.getCompound("Effect")));
@@ -201,7 +201,7 @@ public class SpellProjectileEntity extends Entity {
 
     @Override
     protected void writeAdditional(CompoundNBT tagCompound) {
-        CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaLegacy.MODID);
+        CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaAPI.MODID);
         am2Tag.putInt("BounceCount", dataManager.get(DW_BOUNCE_COUNTER));
         am2Tag.putFloat("Gravity", dataManager.get(DW_GRAVITY));
         CompoundNBT tmp = new CompoundNBT();

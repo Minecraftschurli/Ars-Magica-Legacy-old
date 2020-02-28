@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.systems.*;
-import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.affinity.*;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
@@ -116,7 +115,7 @@ public class OcculusScreen extends Screen {
         float renderSize = 32F;
         float renderRatio = 0.29F;
         this.setBlitOffset(-5);
-        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/overlay.png"));
+        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/occulus/overlay.png"));
         //Overlay
         blit(posX, posY, 0, 0, 210, 210);
         //Tab Under
@@ -149,7 +148,7 @@ public class OcculusScreen extends Screen {
             maxSize = Math.max(maxSize, font.getStringWidth(point.getDisplayName().getFormattedText() + " : " + CapabilityHelper.getSkillPoint(player, point)));
         }
         this.setBlitOffset(-1);
-        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/skill_points.png"));
+        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/occulus/skill_points.png"));
         drawSkillPointBackground(posX, posY, maxSize + 10, 210);
         int pointOffsetX = 5;
         for (SkillPoint point : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).sorted(Comparator.comparingInt(SkillPoint::getTier)).collect(Collectors.toList())) {
@@ -307,7 +306,7 @@ public class OcculusScreen extends Screen {
                     if (hasPrereq)
                         list.add(s.getOcculusDesc().applyTextStyle(TextFormatting.DARK_GRAY));
                     else
-                        list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
+                        list.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
 
                     renderTooltip(list.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY, font);
                     flag = true;
@@ -399,7 +398,7 @@ public class OcculusScreen extends Screen {
             }
             if (!drawString.isEmpty()) {
                 if (!isShiftDown)
-                    drawString.add(new TranslationTextComponent(ArsMagicaLegacy.MODID+".tooltip.shiftForDetails").applyTextStyle(TextFormatting.GRAY));
+                    drawString.add(new TranslationTextComponent(ArsMagicaAPI.MODID+".tooltip.shiftForDetails").applyTextStyle(TextFormatting.GRAY));
                 renderTooltip(drawString.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY);
             }
             RenderSystem.color3f(1, 1, 1);

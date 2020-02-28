@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.tags.*;
@@ -31,7 +31,7 @@ public final class ModTags {
         }
 
         private static Tag<Block> tag(String name) {
-            return new BlockTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
+            return new BlockTags.Wrapper(new ResourceLocation(ArsMagicaAPI.MODID, name));
         }
     }
 
@@ -63,7 +63,7 @@ public final class ModTags {
         }
 
         private static Tag<Item> tag(String name) {
-            return new ItemTags.Wrapper(new ResourceLocation(ArsMagicaLegacy.MODID, name));
+            return new ItemTags.Wrapper(new ResourceLocation(ArsMagicaAPI.MODID, name));
         }
     }
 

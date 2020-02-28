@@ -19,6 +19,8 @@ import java.util.function.*;
  */
 @SuppressWarnings("unchecked")
 public class SpellRegistry {
+    public static final ResourceLocation MISSING_SHAPE = new ResourceLocation(ArsMagicaAPI.MODID, "null");
+
     private static final Map<RegistryObject<AbstractSpellPart>, Supplier<? extends AbstractSpellPart>> parts = new LinkedHashMap<>();
 
     static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event) {
@@ -232,7 +234,7 @@ public class SpellRegistry {
      */
     public static SpellShape getShapeFromName(String name) {
         ResourceLocation rl = ResourceLocation.tryCreate(name);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
         return part instanceof SpellShape ? (SpellShape) part : null;
     }
 
@@ -244,7 +246,7 @@ public class SpellRegistry {
      */
     public static SpellModifier getModifierFromName(String name) {
         ResourceLocation rl = ResourceLocation.tryCreate(name);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
         return part instanceof SpellModifier ? (SpellModifier) part : null;
     }
 
@@ -256,7 +258,7 @@ public class SpellRegistry {
      */
     public static SpellComponent getComponentFromName(String name) {
         ResourceLocation rl = ResourceLocation.tryCreate(name);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? ArsMagicaAPI.MISSING_SHAPE : rl);
+        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
         return part instanceof SpellComponent ? (SpellComponent) part : null;
     }
 }

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -27,7 +27,7 @@ public class Recall extends SpellComponent {
         if (!(target instanceof LivingEntity)) return false;
         if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get()) || ((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get()))
             if (caster instanceof PlayerEntity) {
-                caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noRecall"));
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noRecall"));
                 return false;
             }
 //        if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
@@ -36,7 +36,7 @@ public class Recall extends SpellComponent {
 //        }
         if (caster.dimension.getId() == -512) {
             if (caster instanceof PlayerEntity && !world.isRemote)
-                caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noRecall"));
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noRecall"));
             return false;
         }
         if (!world.isRemote) target.setPositionAndUpdate(caster.getPosX(), caster.getPosY(), caster.getPosZ());

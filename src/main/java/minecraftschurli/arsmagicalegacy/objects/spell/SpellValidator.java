@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell;
 
-import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.*;
@@ -73,11 +72,11 @@ public class SpellValidator {
             StageValidations result = validateStage(segmented.get(i), i == segmented.size() - 1);
 
             if (result == StageValidations.NOT_VALID) {
-                return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent(ArsMagicaLegacy.MODID + ".spell.validate.invalid").getFormattedText());
+                return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.validate.invalid").getFormattedText());
             } else if (result == StageValidations.PRINCIPUM && i == segmented.size() - 1) {
-                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaLegacy.MODID + "spell.validate.principum").getFormattedText()));
+                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.principum").getFormattedText()));
             } else if (result == StageValidations.TERMINUS && i < segmented.size() - 1) {
-                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaLegacy.MODID + "spell.validate.terminus").getFormattedText()));
+                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.terminus").getFormattedText()));
             }
         }
 

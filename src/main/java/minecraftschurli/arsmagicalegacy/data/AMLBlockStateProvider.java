@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.block.*;
 import net.minecraft.data.*;
@@ -15,7 +15,7 @@ import java.util.function.*;
  */
 public class AMLBlockStateProvider extends BlockStateProvider {
     public AMLBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, ArsMagicaLegacy.MODID, exFileHelper);
+        super(gen, ArsMagicaAPI.MODID, exFileHelper);
     }
 
     @Override
@@ -144,6 +144,6 @@ public class AMLBlockStateProvider extends BlockStateProvider {
     @Nonnull
     @Override
     public String getName() {
-        return ArsMagicaLegacy.MODNAME + " Block State Provider";
+        return ArsMagicaAPI.MODNAME + " Block State Provider";
     }
 }

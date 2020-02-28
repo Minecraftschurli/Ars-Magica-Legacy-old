@@ -38,7 +38,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        if (oldIs == null || !oldIs.hasTag()) return (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(ArsMagicaAPI.MISSING_SHAPE);
+        if (oldIs == null || !oldIs.hasTag()) return (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
         ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
@@ -49,7 +49,7 @@ public class SpellUtils {
                 break;
             }
         }
-        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(ArsMagicaAPI.MISSING_SHAPE);
+        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
     }
 
     public static void changeEnchantmentsForShapeGroup(ItemStack stack) {
@@ -463,7 +463,7 @@ public class SpellUtils {
         if (caster instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) caster;
             if (player.isCreative()) return "";
-            StringBuilder string = new StringBuilder(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.missingReagents").toString());
+            StringBuilder string = new StringBuilder(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.missingReagents").toString());
             boolean first = true;
             for (SpellComponent part : getComponentsForStage(spellStack, -1)) {
                 if (part.getReagents(caster) == null) continue;
@@ -683,7 +683,7 @@ public class SpellUtils {
 
     public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
         SpellShape stageShape = SpellUtils.getShapeForStage(stack, 0);
-        if (stageShape == null || Objects.equals(stageShape.getRegistryName(), ArsMagicaAPI.MISSING_SHAPE)) {
+        if (stageShape == null || Objects.equals(stageShape.getRegistryName(), SpellRegistry.MISSING_SHAPE)) {
             return SpellCastResult.MALFORMED_SPELL_STACK;
         }
         boolean isPlayer = caster instanceof PlayerEntity;

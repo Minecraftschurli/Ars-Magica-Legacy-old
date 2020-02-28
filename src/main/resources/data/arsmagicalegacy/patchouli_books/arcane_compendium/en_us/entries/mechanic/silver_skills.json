@@ -7,5 +7,7 @@
       "type": "text",
       "text": "compendium.entries.mechanic.silver_skills.page.0"
     }
-  ]
+  ],
+  "advancement": "arsmagicalegacy:silver",
+  "secret": true
 }

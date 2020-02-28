@@ -22,9 +22,9 @@ import org.apache.logging.log4j.*;
  */
 public class ArsMagicaAPI {
     public static final String MODID = "arsmagicalegacy";
+    public static final String MODNAME = "ArsMagicaLegacy";
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final ResourceLocation MISSING_SHAPE = new ResourceLocation(MODID, "null");;
 
     private static IForgeRegistry<SkillTree> SKILL_TREE_REGISTRY = null;
     private static IForgeRegistry<AbstractSpellPart> SPELL_PART_REGISTRY = null;

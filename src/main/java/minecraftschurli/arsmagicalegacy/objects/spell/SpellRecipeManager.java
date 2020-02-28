@@ -27,14 +27,13 @@ public class SpellRecipeManager extends JsonReloadListener {
 
     public ISpellIngredient[] getRecipe(ResourceLocation spellPart) {
         ISpellIngredient[] ingredients = this.recipes.get(spellPart);
-        if (ingredients == null)
-            ingredients = ArsMagicaAPI.getSpellPartRegistry().getValue(spellPart).getRecipe();
+        /*if (ingredients == null)
+            ingredients = ArsMagicaAPI.getSpellPartRegistry().getValue(spellPart).getRecipe();*/
         return ingredients;
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-        ArsMagicaAPI.LOGGER.debug(splashList);
         this.recipes = splashList.entrySet().stream().map(entry -> {
             List<ISpellIngredient> ingredients = new ArrayList<>();
             for (JsonElement e : entry.getValue().getAsJsonArray("ingredients")) {

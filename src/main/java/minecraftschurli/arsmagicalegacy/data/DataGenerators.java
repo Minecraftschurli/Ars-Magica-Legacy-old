@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.data.lang.*;
 import minecraftschurli.arsmagicalegacy.data.loot.*;
 import minecraftschurli.arsmagicalegacy.data.tags.*;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.*;
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ArsMagicaLegacy.MODID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ArsMagicaAPI.MODID)
 public class DataGenerators {
 
     @SubscribeEvent
@@ -28,6 +28,7 @@ public class DataGenerators {
             gen.addProvider(new AMLBlockTagsProvider(gen));
             gen.addProvider(new AMLItemTagsProvider(gen));
             gen.addProvider(new AMLFluidTagsProvider(gen));
+            gen.addProvider(new AMLAdvancementProvider(gen));
         }
         if (event.includeClient()) {
             gen.addProvider(new AMLEnglishLanguageProvider(gen));

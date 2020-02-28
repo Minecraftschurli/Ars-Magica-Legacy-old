@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -46,10 +46,10 @@ public class PlaceBlock extends SpellComponent {
         ListNBT tagList = stack.getTag().getList("Lore", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); ++i) {
             String str = tagList.getString(i);
-            if (str.startsWith(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.placeBlockSpell").toString()))
+            if (str.startsWith(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.placeBlockSpell").toString()))
                 tagList.remove(i);
         }
-        tagList.add(StringNBT.valueOf(String.format(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.placeBlockSpell").toString(), blockStack.getDisplayName().toString())));
+        tagList.add(StringNBT.valueOf(String.format(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.placeBlockSpell").toString(), blockStack.getDisplayName().toString())));
         stack.getTag().put("Lore", tagList);
     }
 

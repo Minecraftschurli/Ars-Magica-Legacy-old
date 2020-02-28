@@ -118,6 +118,6 @@ public class SpellItem extends Item implements ISpellItem {
         if (!stack.hasTag()) return;
 
         float manaCost = SpellUtils.getManaCost(stack, ArsMagicaLegacy.proxy.getLocalPlayer());
-        tooltip.add(new TranslationTextComponent(ArsMagicaLegacy.MODID+".spell.manacost", manaCost));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID+".spell.manacost", manaCost));
     }
 }

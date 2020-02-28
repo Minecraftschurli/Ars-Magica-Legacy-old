@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.client.gui.screen.inventory.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
@@ -14,8 +14,8 @@ import org.lwjgl.opengl.*;
  */
 public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
 
-    private static final ResourceLocation background = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui.png");
-    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spell_book_gui_2.png");
+    private static final ResourceLocation background = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui.png");
+    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui_2.png");
     private int bookActiveSlot;
 
     public SpellBookScreen(SpellBookContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

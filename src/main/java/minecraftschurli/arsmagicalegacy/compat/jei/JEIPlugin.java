@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.compat.jei;
 
 import mezz.jei.api.*;
 import mezz.jei.api.registration.*;
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
@@ -44,6 +44,6 @@ public class JEIPlugin implements IModPlugin {
     @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(ArsMagicaLegacy.MODID, ArsMagicaLegacy.MODID);
+        return new ResourceLocation(ArsMagicaAPI.MODID, ArsMagicaAPI.MODID);
     }
 }

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -113,7 +113,7 @@ public class Blink extends SpellComponent {
 //        }
         if (!world.isRemote) {
             if (!coordsValid && target instanceof PlayerEntity) {
-                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noBlink"));
+                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noBlink"));
                 return false;
             }
         }

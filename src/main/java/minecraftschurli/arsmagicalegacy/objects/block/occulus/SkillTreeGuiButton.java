@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.*;
 import minecraftschurli.arsmagicalegacy.util.*;
 import net.minecraft.client.*;
@@ -25,7 +25,7 @@ public class SkillTreeGuiButton extends Button {
     @Override
     public void renderButton(int mouseX, int mouseY, float partial) {
         if (visible) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/occulus/overlay.png"));
+            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/occulus/overlay.png"));
             float f = 0.00390625F;
             if (inverted)
                 RenderUtils.drawBox(x, y, 22, 22, getBlitOffset(), 22 * f, 210 * f + 22 * f, 0, 210 * f);

@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
 import com.mojang.blaze3d.systems.*;
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.*;
@@ -26,8 +26,8 @@ import java.util.*;
  */
 public class UIRender {
 
-    public static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/bar.png");
-    public static final ResourceLocation SPELL_BOOK_UI_TEXTURE = new ResourceLocation(ArsMagicaLegacy.MODID, "textures/gui/spellbook_ui.png");
+    public static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/bar.png");
+    public static final ResourceLocation SPELL_BOOK_UI_TEXTURE = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spellbook_ui.png");
     public static final ResourceLocation MC_TEXTURE = new ResourceLocation( "textures/gui/icons.png");
     private final Minecraft mc = Minecraft.getInstance();
     private float blitOffset;
@@ -131,7 +131,7 @@ public class UIRender {
                 drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
             }
 
-            String xpStr = new TranslationTextComponent(ArsMagicaLegacy.MODID+".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
+            String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID+".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
             Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
             Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
             RenderSystem.popMatrix();

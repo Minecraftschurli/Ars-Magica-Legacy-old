@@ -133,7 +133,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = ITEMS.register("battlemage_chestplate", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = ITEMS.register("battlemage_leggings", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_BOOTS = ITEMS.register("battlemage_boots", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
-    public static final RegistryObject<Item> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrbItem::new);
+    public static final RegistryObject<InfinityOrbItem> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrbItem::new);
     public static final RegistryObject<InscriptionTableUpgradeItem> INSCRIPTION_UPGRADE = ITEMS.register("inscription_upgrade", InscriptionTableUpgradeItem::new);
     public static final RegistryObject<Item> INSCRIPTION_TABLE = ITEMS.register("inscription_table", () -> new BlockItem(ModBlocks.INSCRIPTION_TABLE.get(), ITEM_1) {
         protected boolean placeBlock(BlockItemUseContext context, @Nonnull BlockState state) {

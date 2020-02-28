@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.data.*;
 import net.minecraftforge.client.model.generators.*;
 
@@ -10,7 +10,7 @@ import net.minecraftforge.client.model.generators.*;
  */
 public class AMLItemModelProvider extends ItemModelProvider {
     public AMLItemModelProvider(DataGenerator gen, ExistingFileHelper helper) {
-        super(gen, ArsMagicaLegacy.MODID, helper);
+        super(gen, ArsMagicaAPI.MODID, helper);
     }
 
     @Override
@@ -23,6 +23,6 @@ public class AMLItemModelProvider extends ItemModelProvider {
      */
     @Override
     public String getName() {
-        return ArsMagicaLegacy.MODNAME + " Item Model Provider";
+        return ArsMagicaAPI.MODNAME + " Item Model Provider";
     }
 }

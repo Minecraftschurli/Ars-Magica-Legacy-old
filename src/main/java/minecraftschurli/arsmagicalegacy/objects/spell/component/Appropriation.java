@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -112,7 +112,7 @@ public class Appropriation extends SpellComponent {
                     if (block != null) world.setBlockState(pos, block.getDefaultState(), 2);
                     else {
                         if (!player.world.isRemote)
-                            player.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.appropriationError"));
+                            player.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.appropriationError"));
                         stack.getTag().remove(storageKey);
                         return;
                     }

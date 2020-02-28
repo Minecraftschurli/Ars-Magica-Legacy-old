@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
 import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
 import net.minecraft.entity.player.*;
@@ -59,7 +60,7 @@ public class InscriptionTableSlot extends Slot {
     public void putStack(ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() == Items.WRITABLE_BOOK) {
             stack = new ItemStack(Items.WRITTEN_BOOK, stack.getCount(), stack.getTag());
-            stack.setDisplayName(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".spell.unfinishedSpellRecipe"));
+            stack.setDisplayName(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.unfinishedSpellRecipe"));
         }
         super.putStack(stack);
     }

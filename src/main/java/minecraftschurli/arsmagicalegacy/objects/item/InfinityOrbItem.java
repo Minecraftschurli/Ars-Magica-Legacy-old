@@ -55,6 +55,10 @@ public class InfinityOrbItem extends Item {
         return stack;
     }
 
+    public static ItemStack getWithSkillPoint(SkillPoint point) {
+        return ModItems.INFINITY_ORB.get().setSkillPoint(new ItemStack(ModItems.INFINITY_ORB.get()), point);
+    }
+
     public static SkillPoint getSkillPoint(ItemStack stack) {
         return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
     }

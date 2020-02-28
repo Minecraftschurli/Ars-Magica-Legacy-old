@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
@@ -97,10 +97,10 @@ public class OcculusBlock extends Block {
             return ActionResultType.PASS;
         if (worldIn.isRemote) {
             if (CapabilityHelper.getCurrentLevel(player) == 0 && !player.isCreative()) {
-                player.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.prevent"));
+                player.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.prevent"));
                 return ActionResultType.FAIL;
             }
-            Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.displayname"), player));
+            Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.displayname"), player));
         }
         return ActionResultType.SUCCESS;
     }

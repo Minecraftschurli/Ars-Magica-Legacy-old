@@ -48,12 +48,10 @@ import vazkii.patchouli.api.PatchouliAPI;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-@Mod(ArsMagicaLegacy.MODID)
+@Mod(ArsMagicaAPI.MODID)
 public final class ArsMagicaLegacy {
-    public static final String MODID = ArsMagicaAPI.MODID;
-    public static final String MODNAME = "ArsMagicaLegacy";
 
-    public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(ArsMagicaAPI.MODID) {
         @Override
         public ItemStack createIcon() {
             return getCompendium();
@@ -154,12 +152,12 @@ public final class ArsMagicaLegacy {
 
     private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
-            event.addCapability(new ResourceLocation(MODID, "mana"), new ManaCapability());
-            event.addCapability(new ResourceLocation(MODID, "burnout"), new BurnoutCapability());
-            event.addCapability(new ResourceLocation(MODID, "research"), new ResearchCapability());
-            event.addCapability(new ResourceLocation(MODID, "magic"), new MagicCapability());
-            event.addCapability(new ResourceLocation(MODID, "rift_storage"), new RiftStorageCapability());
-            event.addCapability(new ResourceLocation(MODID, "affinity"), new AffinityCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "mana"), new ManaCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "burnout"), new BurnoutCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "research"), new ResearchCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "magic"), new MagicCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "rift_storage"), new RiftStorageCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "affinity"), new AffinityCapability());
         }
     }
 
@@ -204,11 +202,11 @@ public final class ArsMagicaLegacy {
     }
 
     public static ItemStack getCompendium() {
-        return PatchouliAPI.instance.getBookStack(new ResourceLocation(MODID, "arcane_compendium"));
+        return PatchouliAPI.instance.getBookStack(new ResourceLocation(ArsMagicaAPI.MODID, "arcane_compendium"));
     }
 
     public IModInfo getModInfo() {
-        return ModList.get().getModContainerById(MODID).map(ModContainer::getModInfo).get();
+        return ModList.get().getModContainerById(ArsMagicaAPI.MODID).map(ModContainer::getModInfo).get();
     }
 
     public String getVersion() {

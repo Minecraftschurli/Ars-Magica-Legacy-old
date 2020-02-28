@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.*;
 import net.minecraft.entity.*;
 import net.minecraft.nbt.*;
@@ -26,15 +26,15 @@ public class TemporalAnchorEffect extends AMEffect {
         nbt.putFloat("RotationYawHead", livingEntity.rotationYawHead);
         nbt.putFloat("Mana", CapabilityHelper.getMana(livingEntity));
         nbt.putFloat("Health", livingEntity.getHealth());
-        if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaLegacy.MODID))
-            livingEntity.getPersistentData().put(ArsMagicaLegacy.MODID, new CompoundNBT());
-        livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).put("anchor", nbt);
+        if (!livingEntity.getPersistentData().hasUniqueId(ArsMagicaAPI.MODID))
+            livingEntity.getPersistentData().put(ArsMagicaAPI.MODID, new CompoundNBT());
+        livingEntity.getPersistentData().getCompound(ArsMagicaAPI.MODID).put("anchor", nbt);
     }
 
     @Override
     public void stopEffect(LivingEntity livingEntity, EffectInstance potionEffect) {
         try {
-            CompoundNBT nbt = livingEntity.getPersistentData().getCompound(ArsMagicaLegacy.MODID).getCompound("anchor");
+            CompoundNBT nbt = livingEntity.getPersistentData().getCompound(ArsMagicaAPI.MODID).getCompound("anchor");
             double x = nbt.getDouble("X");
             double y = nbt.getDouble("Y");
             double z = nbt.getDouble("Z");

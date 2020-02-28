@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "arsmagicalegacy:infinity_orb",
+      "nbt": "{type:-1}"
+    },
+    "title": {
+      "translate": "arsmagicalegacy.advancements.silver.title"
+    },
+    "description": {
+      "translate": "arsmagicalegacy.advancements.silver.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true,
+    "background": "arsmagicalegacy:textures/block/vinteum_ore.png"
+  },
+  "criteria": {
+    "got_silver_skill": {
+      "trigger": "arsmagicalegacy:silver_skill"
+    }
+  },
+  "requirements": [
+    [
+      "got_silver_skill"
+    ]
+  ]
+}

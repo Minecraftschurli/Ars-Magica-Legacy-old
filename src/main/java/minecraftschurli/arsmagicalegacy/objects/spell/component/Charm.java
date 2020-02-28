@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
 import minecraftschurli.arsmagicalegacy.init.*;
@@ -57,7 +57,7 @@ public class Charm extends SpellComponent {
 //            }
 //        } else {
         if (caster instanceof PlayerEntity)
-            ((PlayerEntity) caster).sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noSummons"));
+            ((PlayerEntity) caster).sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noSummons"));
         return true;
 //        }
 //        return false;
