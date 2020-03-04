@@ -1,0 +1,18 @@
+# ROADMAP:
+- [x] port spell parts
+- [x] port occulus
+- [x] port effects
+- [x] add multi-block structure system
+- [x] add spell creation system
+- [x] add spell execution system
+- [x] update to 1.15.2
+- [ ] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
+- [ ] finish documenting the API
+- [ ] add leveling system
+- [ ] add spell entities
+- [ ] implement all spell parts
+- [ ] implement all potion effects
+- [ ] add particles to all spell parts
+- [ ] first **_alpha_** release [_non survival ready version_] (2020-03-26)
+- [ ] add npcs and bosses
+- [ ] first **_release_** (~ July/August 2020)

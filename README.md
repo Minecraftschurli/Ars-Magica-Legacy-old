@@ -4,6 +4,8 @@ Ars Magica Legacy is a Legacy version of Ars Magica 2 by Mithion.
 If you want to support donate via [Patreon](https://www.patreon.com/minecraftschurli) and
 please report any bugs on [github](https://github.com/Minecraftschurli/ArsMagicaLegacy/issues)
 
+If you want to help with development here's the [Roadmap](ROADMAP.md)
+
 ## Dependencies
 This mod requires 
 - [SimpleOreLib](https://www.curseforge.com/minecraft/mc-mods/simpleorelib) version 1.0.0.0
