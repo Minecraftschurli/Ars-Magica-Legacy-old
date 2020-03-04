@@ -63,5 +63,11 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
         getBuilder(BlockTags.LOGS).add(ModTags.Blocks.LOGS_WITCHWOOD);
 
         getBuilder(BlockTags.SAPLINGS).add(ModBlocks.WITCHWOOD_SAPLING.get());
+
+        getBuilder(BlockTags.RAILS).add(
+                ModBlocks.GOLD_INLAY.get(),
+                ModBlocks.IRON_INLAY.get(),
+                ModBlocks.REDSTONE_INLAY.get()
+        );
     }
 }

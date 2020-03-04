@@ -7,20 +7,6 @@
       "model": "arsmagicalegacy:block/iron_inlay",
       "y": 90
     },
-    "shape=ascending_east": {
-      "model": "arsmagicalegacy:block/iron_inlay_raised_ne",
-      "y": 90
-    },
-    "shape=ascending_west": {
-      "model": "arsmagicalegacy:block/iron_inlay_raised_sw",
-      "y": 90
-    },
-    "shape=ascending_north": {
-      "model": "arsmagicalegacy:block/iron_inlay_raised_ne"
-    },
-    "shape=ascending_south": {
-      "model": "arsmagicalegacy:block/iron_inlay_raised_sw"
-    },
     "shape=south_east": {
       "model": "arsmagicalegacy:block/iron_inlay_corner"
     },

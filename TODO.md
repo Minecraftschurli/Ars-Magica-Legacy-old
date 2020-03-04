@@ -6,12 +6,11 @@
 - [x] add spell creation system
 - [x] add spell execution system
 - [x] update to 1.15.2
-- [ ] fix InlayBlock
 - [ ] add spell entities
 - [ ] add particles to all spell parts
 - [ ] implement all spell parts
 - [ ] implement all potion effects
-- [ ] add Patchouli documentation
+- [ ] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
 - [ ] finish documenting the API
 - [ ] first **_alpha_** release [_non survival ready version_] (~ March)
 - [ ] add temporary Villager Profession to trade Infinityorbs

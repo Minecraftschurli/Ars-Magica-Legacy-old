@@ -53,6 +53,7 @@ configurations {
 
 minecraft {
     mappings channel: 'snapshot', version: "${mcpMappings}"
+    //accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -113,7 +114,10 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mcVersion}:${jeiVersion}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mcVersion}:${jeiVersion}")
 
+    //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:api")
     compile fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}")
+    //compile fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:sources")
+
     compile fg.deobf("minecraftschurli:simpleorelib:${mcVersion}-1.0.0.0")
 }
 

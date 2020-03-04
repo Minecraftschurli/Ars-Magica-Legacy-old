@@ -2,8 +2,10 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.objects.block.InlayBlock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 
 import javax.annotation.Nonnull;
@@ -100,13 +102,16 @@ public class AMLBlockStateProvider extends BlockStateProvider {
     }
 
     protected void railBlock(Block block) {
+        if (!(block instanceof AbstractRailBlock))
+            return;
         VariantBlockStateBuilder builder = getVariantBuilder(block);
-        ModelFile straight = models().withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTexture(block));
-        ModelFile curved = models().withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", blockTexture(block));
-        ModelFile raisedNE = models().withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTexture(block));
-        ModelFile raisedSW = models().withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTexture(block));
+        ResourceLocation blockTex = blockTexture(block);
+        ModelFile straight = models().withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTex);
+        ModelFile curved = models().withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", new ResourceLocation(blockTex.getNamespace(), blockTex.getPath()+"_corner"));
+        ModelFile raisedNE = models().withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTex);
+        ModelFile raisedSW = models().withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTex);
         builder.forAllStates(state -> {
-            switch (state.get(RailBlock.SHAPE)) {
+            switch (state.get(((AbstractRailBlock) block).getShapeProperty())) {
                 case NORTH_SOUTH:
                     return ConfiguredModel.builder().modelFile(straight).build();
                 case EAST_WEST:
