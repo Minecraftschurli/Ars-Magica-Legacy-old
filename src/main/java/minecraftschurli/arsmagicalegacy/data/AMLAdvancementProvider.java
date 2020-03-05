@@ -3,12 +3,14 @@ package minecraftschurli.arsmagicalegacy.data;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import minecraftschurli.arsmagicalegacy.*;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.SilverSkillTrigger;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
@@ -58,14 +60,35 @@ public class AMLAdvancementProvider implements IDataProvider {
 
     private void addAdvancements(Consumer<Advancement> consumer) {
         Advancement.Builder.builder()
-                .withDisplay(InfinityOrbItem.getWithSkillPoint(ModSpellParts.SILVER_POINT.get()),
-                        new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.silver.title"),
-                        new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.silver.description"),
-                        new ResourceLocation(ArsMagicaAPI.MODID,"textures/block/vinteum_ore.png"),
-                        FrameType.CHALLENGE, true, false, true)
+                .withDisplay(ArsMagicaLegacy.getCompendium(), new TranslationTextComponent(ArsMagicaAPI.MODID+"advancements.compendium.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+"advancements.compendium.description"),
+                        new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/vinteum_ore.png"), FrameType.TASK, true, false, true)
+                .withCriterion("got_compendium", InventoryChangeTrigger.Instance.forItems(ArsMagicaLegacy.getCompendium().getItem()))
+                .register(consumer, ArsMagicaAPI.MODID+":compendium");
+        Advancement.Builder.builder()
+                .withDisplay(InfinityOrbItem.getWithSkillPoint(ModSpellParts.SILVER_POINT.get()), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.silver.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.silver.description"),
+                        null, FrameType.CHALLENGE, true, false, true)
                 .withCriterion("got_silver_skill", SilverSkillTrigger.Instance.create())
                 .register(consumer, ArsMagicaAPI.MODID+":silver");
-
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level5.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level5.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level10.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level10.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level15.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level15.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level20.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level20.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level25.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level25.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level30.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level30.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level35.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level35.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level40.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level40.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level45.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level45.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level50.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level50.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level55.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level55.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level60.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level60.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level65.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level65.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level70.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level70.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level75.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level75.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level80.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level80.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level85.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level85.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level90.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level90.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level95.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level95.description"), null, FrameType.TASK, false, false, true);
+        Advancement.Builder.builder().withDisplay(ModItems.VINTEUM.get(), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level100.title"), new TranslationTextComponent(ArsMagicaAPI.MODID+".advancements.level100.description"), null, FrameType.TASK, false, false, true);
     }
 
     private static Path getPath(Path pathIn, Advancement advancementIn) {

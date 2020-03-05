@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.data;
 
-
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.*;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
@@ -130,6 +129,11 @@ public interface ArsMagicaLanguagePlugin {
      */
     default void addSectionTitle(String category, String entry, String translation) {
         add("compendium.entries." + category + "." + entry + ".name", translation);
+    }
+
+    default void addAdvancement(String key, String title, String desc) {
+        add(ArsMagicaAPI.MODID + ".advancements." + key + ".title", title);
+        add(ArsMagicaAPI.MODID + ".advancements." + key + ".description", desc);
     }
 
     void add(String key, String value);
