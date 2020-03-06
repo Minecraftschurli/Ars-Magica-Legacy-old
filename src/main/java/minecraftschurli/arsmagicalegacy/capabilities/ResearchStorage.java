@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import com.google.common.collect.ImmutableList;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.util.ResourceLocation;
 
@@ -65,7 +65,7 @@ public class ResearchStorage implements IResearchStorage {
 
     @Override
     public List<Skill> getLearnedSkills() {
-        return this.learned.stream().filter(ArsMagicaAPI.getSkillRegistry()::containsKey).map(ArsMagicaAPI.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
+        return this.learned.stream().filter(RegistryHandler.getSkillRegistry()::containsKey).map(RegistryHandler.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
     }
 
     @Override

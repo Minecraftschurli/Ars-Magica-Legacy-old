@@ -2,12 +2,13 @@ package minecraftschurli.arsmagicalegacy.api.capability;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
 import minecraftschurli.arsmagicalegacy.api.network.*;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -264,7 +265,7 @@ public class CapabilityHelper {
      * @param skillid
      */
     public static void learnSkill(PlayerEntity player, String skillid) {
-        Skill skill = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(skillid));
+        Skill skill = RegistryHandler.getSkillRegistry().getValue(new ResourceLocation(skillid));
         if (skill == null) {
             return;
         }
@@ -422,7 +423,7 @@ public class CapabilityHelper {
         ResourceLocation maxAff1 = Affinity.NONE;
         ResourceLocation maxAff2 = Affinity.NONE;
         for (Map.Entry<ResourceLocation, Double> entry : getAffinityCapability(caster).getAffinitiesInternal().entrySet()) {
-            if (!ArsMagicaAPI.getAffinityRegistry().containsKey(entry.getKey()))
+            if (!RegistryHandler.getAffinityRegistry().containsKey(entry.getKey()))
                 continue;
             if (entry.getValue() > max1) {
                 max2 = max1;
@@ -435,8 +436,8 @@ public class CapabilityHelper {
             }
         }
         return new Affinity[] {
-                ArsMagicaAPI.getAffinityRegistry().getValue(maxAff1),
-                ArsMagicaAPI.getAffinityRegistry().getValue(maxAff2)
+                RegistryHandler.getAffinityRegistry().getValue(maxAff1),
+                RegistryHandler.getAffinityRegistry().getValue(maxAff2)
         };
     }
 

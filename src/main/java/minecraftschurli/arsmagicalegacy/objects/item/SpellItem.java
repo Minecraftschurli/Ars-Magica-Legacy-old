@@ -2,13 +2,10 @@ package minecraftschurli.arsmagicalegacy.objects.item;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,7 +15,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -33,7 +29,7 @@ import java.util.List;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-public class SpellItem extends Item implements ISpellItem {
+public class SpellItem extends Item {
     public SpellItem() {
         super(new Properties().maxStackSize(1));
     }
@@ -84,44 +80,6 @@ public class SpellItem extends Item implements ISpellItem {
     @Override
     public int getUseDuration(ItemStack stack) {
         return 72000;
-    }
-
-    @Override
-    public RayTraceResult getMovingObjectPosition(LivingEntity caster, World world, double range, boolean includeEntities, boolean targetWater) {
-        RayTraceResult entityPos = null;
-        if (includeEntities) {
-            Entity pointedEntity = EntityUtils.getPointedEntity(world, caster, range, 1, false, targetWater);
-            if (pointedEntity != null) {
-                entityPos = new EntityRayTraceResult(pointedEntity);
-            }
-        }
-
-        float factor = 1;
-        float interpPitch = caster.prevRotationPitch + (caster.rotationPitch - caster.prevRotationPitch) * factor;
-        float interpYaw = caster.prevRotationYaw + (caster.rotationYaw - caster.prevRotationYaw) * factor;
-        double interpPosX = caster.prevPosX + (caster.getPosX() - caster.prevPosX) * factor;
-        double interpPosY = caster.prevPosY + (caster.getPosY() - caster.prevPosY) * factor + caster.getEyeHeight();
-        double interpPosZ = caster.prevPosZ + (caster.getPosZ() - caster.prevPosZ) * factor;
-        Vec3d vec3 = new Vec3d(interpPosX, interpPosY, interpPosZ);
-        float offsetYawCos = MathHelper.cos(-interpYaw * 0.017453292F - (float) Math.PI);
-        float offsetYawSin = MathHelper.sin(-interpYaw * 0.017453292F - (float) Math.PI);
-        float offsetPitchCos = -MathHelper.cos(-interpPitch * 0.017453292F);
-        float offsetPitchSin = MathHelper.sin(-interpPitch * 0.017453292F);
-        float finalXOffset = offsetYawSin * offsetPitchCos;
-        float finalZOffset = offsetYawCos * offsetPitchCos;
-        Vec3d targetVector = vec3.add(finalXOffset * range, offsetPitchSin * range, finalZOffset * range);
-        RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(vec3, targetVector, RayTraceContext.BlockMode.OUTLINE, targetWater ? RayTraceContext.FluidMode.SOURCE_ONLY : RayTraceContext.FluidMode.NONE, caster));
-
-        if (entityPos != null) {
-            if (mop.getHitVec().distanceTo(new EntityRayTraceResult(caster).getHitVec()) < entityPos.getHitVec().distanceTo(new EntityRayTraceResult(caster).getHitVec())) {
-                return mop;
-            } else {
-                return entityPos;
-            }
-        }
-
-        return mop;
-
     }
 
     @Override

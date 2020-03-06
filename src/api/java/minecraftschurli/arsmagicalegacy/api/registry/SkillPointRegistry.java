@@ -1,5 +1,6 @@
-package minecraftschurli.arsmagicalegacy.api;
+package minecraftschurli.arsmagicalegacy.api.registry;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 
 import java.util.HashMap;
@@ -13,6 +14,14 @@ import java.util.function.Supplier;
 public class SkillPointRegistry {
     public static final Map<Integer, SkillPoint> SKILL_POINT_REGISTRY = new HashMap<>();
 
+    /**
+     * Registers a {@link SkillPoint} for the given tier
+     * fails if there is already a {@link SkillPoint} registered for the given tier
+     *
+     * @param tier       : the tier to register the {@link SkillPoint} for
+     * @param skillPoint : the {@link SkillPoint} to register
+     * @return a {@link Supplier<SkillPoint>} of the {@link SkillPoint} registered for the given tier
+     */
     public static Supplier<SkillPoint> registerSkillPoint(int tier, SkillPoint skillPoint) {
         if (SKILL_POINT_REGISTRY.containsKey(tier)) {
             ArsMagicaAPI.LOGGER.error("Skillpoint with tier " + tier + " already registered!");
@@ -25,6 +34,12 @@ public class SkillPointRegistry {
         return () -> SKILL_POINT_REGISTRY.get(tier);
     }
 
+    /**
+     * Returns the {@link SkillPoint} for the given tier
+     *
+     * @param tier : the tier to get the {@link SkillPoint} for
+     * @return the {@link SkillPoint} registered for the given tier, null if there is nothing registered for the given tier
+     */
     public static SkillPoint getSkillPointFromTier(int tier) {
         return SKILL_POINT_REGISTRY.getOrDefault(tier, null);
     }

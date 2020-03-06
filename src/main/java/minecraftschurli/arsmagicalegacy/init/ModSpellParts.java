@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import com.google.common.collect.ImmutableSet;
-import minecraftschurli.arsmagicalegacy.api.*;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.registry.*;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;

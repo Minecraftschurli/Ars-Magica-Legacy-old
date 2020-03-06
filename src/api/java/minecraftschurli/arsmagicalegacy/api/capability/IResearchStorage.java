@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import net.minecraft.util.ResourceLocation;

@@ -29,7 +29,7 @@ public final class IngredientTypes {
     }
 
     public static void registerDefault() {
-        register(EssenceSpellIngredient.TYPE, EssenceSpellIngredient::new);
+        register(EtheriumSpellIngredient.TYPE, EtheriumSpellIngredient::new);
         register(ItemStackSpellIngredient.TYPE, ItemStackSpellIngredient::new);
         register(ItemTagSpellIngredient.TYPE, ItemTagSpellIngredient::new);
     }

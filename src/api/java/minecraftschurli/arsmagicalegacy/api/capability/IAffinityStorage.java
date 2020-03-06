@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
 import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Map;
@@ -29,7 +29,7 @@ public interface IAffinityStorage {
         return this.getAffinitiesInternal()
                 .entrySet()
                 .stream()
-                .map(entry -> new Pair<>(ArsMagicaAPI.getAffinityRegistry().getValue(entry.getKey()), entry.getValue()))
+                .map(entry -> new Pair<>(RegistryHandler.getAffinityRegistry().getValue(entry.getKey()), entry.getValue()))
                 .filter(entry -> entry.getKey() != null)
                 .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
     }

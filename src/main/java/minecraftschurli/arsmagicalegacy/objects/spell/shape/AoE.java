@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.EssenceSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
@@ -19,6 +18,7 @@ import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -60,7 +60,7 @@ public class AoE extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         double radius = SpellUtils.getModifiedDoubleAdd(1, stack, caster, target, world, SpellModifiers.RADIUS);
         List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius));
         boolean appliedToAtLeastOneEntity = false;
@@ -109,7 +109,7 @@ public class AoE extends SpellShape {
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
-                new EssenceSpellIngredient(0)
+                new EtheriumSpellIngredient(0)
         };
     }
 

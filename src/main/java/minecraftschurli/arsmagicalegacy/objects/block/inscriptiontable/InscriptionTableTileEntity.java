@@ -2,12 +2,12 @@ package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.event.SpellRecipeItemsEvent;
 import minecraftschurli.arsmagicalegacy.api.network.InscriptionTablePacket;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
@@ -385,7 +385,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ArrayList<AbstractSpellPart> parts = new ArrayList<>();
             for (int j = 0; j < tmplist.size(); j++) {
                 CompoundNBT tmp = tmplist.getCompound(j);
-                parts.add(tmp.getInt(SLOT_KEY), ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
+                parts.add(tmp.getInt(SLOT_KEY), RegistryHandler.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
             }
             this.shapeGroups.add(parts);
         }
@@ -393,7 +393,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         ListNBT recipe = nbt.getList(CURRENT_RECIPE_KEY, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < recipe.size(); i++) {
             CompoundNBT tmp = recipe.getCompound(i);
-            currentRecipe.add(tmp.getInt(SLOT_KEY), ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
+            currentRecipe.add(tmp.getInt(SLOT_KEY), RegistryHandler.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
         }
         this.numStageGroups = Math.max(nbt.getInt(NUM_SHAPE_GROUP_SLOTS_KEY), 2);
         this.currentSpellName = nbt.getString(CURRENT_SPELL_NAME_KEY);

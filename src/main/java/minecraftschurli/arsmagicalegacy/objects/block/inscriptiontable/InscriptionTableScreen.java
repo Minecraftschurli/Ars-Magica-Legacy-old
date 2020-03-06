@@ -2,8 +2,9 @@ package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -83,9 +84,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         dragging = false;
 
         List<ResourceLocation> skills = CapabilityHelper.getLearned(usingPlayer);
-        knownShapes = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellShape).collect(Collectors.toList());
-        knownComponents = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellComponent).collect(Collectors.toList());
-        knownModifiers = skills.stream().filter(skill -> ArsMagicaAPI.getSpellPartRegistry().getValue(skill) instanceof SpellModifier).collect(Collectors.toList());
+        knownShapes = skills.stream().filter(skill -> RegistryHandler.getSpellPartRegistry().getValue(skill) instanceof SpellShape).collect(Collectors.toList());
+        knownComponents = skills.stream().filter(skill -> RegistryHandler.getSpellPartRegistry().getValue(skill) instanceof SpellComponent).collect(Collectors.toList());
+        knownModifiers = skills.stream().filter(skill -> RegistryHandler.getSpellPartRegistry().getValue(skill) instanceof SpellModifier).collect(Collectors.toList());
     }
 
     @Override
@@ -493,9 +494,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private boolean drawIconSet(List<ResourceLocation> ids, List<String> labelText) {
         boolean hovering = false;
         for (ResourceLocation i : ids) {
-            Skill part = ArsMagicaAPI.getSkillRegistry().getValue(i);
+            Skill part = RegistryHandler.getSkillRegistry().getValue(i);
 
-            if (part == null || ArsMagicaAPI.getSpellPartRegistry().getValue(part.getRegistryName()) == null)// && SkillTreeManager.instance.isSkillDisabled(part))
+            if (part == null || RegistryHandler.getSpellPartRegistry().getValue(part.getRegistryName()) == null)// && SkillTreeManager.instance.isSkillDisabled(part))
                 continue;
 
             String name = part.getName().getFormattedText();
@@ -506,7 +507,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             }
 
             if (iconY < 0 || iconY > 42) return hovering;
-            if (drawIcon(ArsMagicaAPI.getSpellPartRegistry().getValue(part.getRegistryName()))) {
+            if (drawIcon(RegistryHandler.getSpellPartRegistry().getValue(part.getRegistryName()))) {
                 hovering = true;
                 labelText.add(name);
             }

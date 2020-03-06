@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

@@ -2,13 +2,14 @@ package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
 import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.handler.TickHandler;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
+import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellRecipeManager;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
@@ -21,6 +22,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -44,6 +47,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
@@ -52,7 +57,9 @@ import vazkii.patchouli.api.PatchouliAPI;
 public final class ArsMagicaLegacy {
 
     public static final ItemGroup ITEM_GROUP = new ItemGroup(ArsMagicaAPI.MODID) {
+        @Nonnull
         @Override
+        @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
             return getCompendium();
         }
@@ -170,13 +177,14 @@ public final class ArsMagicaLegacy {
     }
 
     private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
-        event.getItemColors().register((stack, tint) -> tint == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
+        event.getItemColors().register((stack, index) -> index == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
         //noinspection ConstantConditions
         event.getItemColors().register(
-                (stack, tint) -> tint == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1,
+                (stack, index) -> index == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1,
                 ModItems.INFINITY_ORB.get()
         );
-        event.getItemColors().register((stack, tint) -> tint > 0 ? -1 : PotionUtils.getColor(stack), ModItems.POTION_BUNDLE.get());
+        event.getItemColors().register((stack, index) -> index > 0 ? -1 : PotionUtils.getColor(stack), ModItems.POTION_BUNDLE.get());
+        event.getItemColors().register((stack, index) -> index > 0 ? -1 : AffinityTomeItem.getAffinity(stack).getColor(), ModItems.AFFINITY_TOME.get());
     }
 
     private void onRegistrySetupFinish(final RegistryEvent.NewRegistry event) {
