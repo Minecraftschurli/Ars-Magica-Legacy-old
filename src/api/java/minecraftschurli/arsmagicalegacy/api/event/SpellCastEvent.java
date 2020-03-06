@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.event;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -14,7 +14,7 @@ public class SpellCastEvent extends Event {
     /**
      * The spell being cast
      */
-    public final ISpellItem spell;
+    public final Item spell;
     /**
      * The caster of the spell
      */
@@ -40,7 +40,7 @@ public class SpellCastEvent extends Event {
      */
     public SpellCastResult castResult;
 
-    public SpellCastEvent(ItemStack stack, ISpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
+    public SpellCastEvent(ItemStack stack, Item spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
         this.caster = caster;
         this.spell = spell;
         this.manaCost = manaCost;
@@ -51,14 +51,14 @@ public class SpellCastEvent extends Event {
 
     public static class Pre extends SpellCastEvent {
 
-        public Pre(ItemStack stack, ISpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
+        public Pre(ItemStack stack, Item spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled) {
             super(stack, spell, caster, manaCost, burnout, isChanneled);
         }
     }
 
     public static class Post extends SpellCastEvent {
 
-        public Post(ItemStack stack, ISpellItem spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled, SpellCastResult castResult) {
+        public Post(ItemStack stack, Item spell, LivingEntity caster, float manaCost, float burnout, boolean isChanneled, SpellCastResult castResult) {
             super(stack, spell, caster, manaCost, burnout, isChanneled);
             this.castResult = castResult;
         }

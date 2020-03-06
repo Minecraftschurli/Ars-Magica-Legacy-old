@@ -1,11 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import minecraftschurli.arsmagicalegacy.api.EntityUtils;
+import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -59,7 +63,7 @@ public class Summon extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MONSTER_FOCUS.get())),
-                new EssenceSpellIngredient(1500, EssenceType.DARK)
+                new EtheriumSpellIngredient(1500, EtheriumType.DARK)
         };
     }
 

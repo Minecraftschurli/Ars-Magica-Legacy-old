@@ -9,10 +9,11 @@
 - [ ] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
 - [ ] finish documenting the API
 - [ ] add leveling system
+- [ ] add Affinity-Abilities
 - [ ] add spell entities
 - [ ] implement all spell parts
 - [ ] implement all potion effects
 - [ ] add particles to all spell parts
-- [ ] first **_alpha_** release [_non survival ready version_] (2020-03-26)
+- [ ] first **_alpha_** release [_non survival ready version_] (2020-04-??)
 - [ ] add npcs and bosses
 - [ ] first **_release_** (~ July/August 2020)

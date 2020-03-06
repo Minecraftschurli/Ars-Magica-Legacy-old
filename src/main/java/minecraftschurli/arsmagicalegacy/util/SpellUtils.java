@@ -5,10 +5,11 @@ import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.NBTUtils;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -48,7 +49,7 @@ public class SpellUtils {
     public static final String SPELL_DATA = "SpellData";
 
     public static SpellShape getShapeForStage(ItemStack oldIs, int stage) {
-        if (oldIs == null || !oldIs.hasTag()) return (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
+        if (oldIs == null || !oldIs.hasTag()) return (SpellShape) RegistryHandler.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
         ItemStack stack = merge(oldIs.copy());
         CompoundNBT am2Tag = NBTUtils.getAM2Tag(stack.getTag());
         ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
@@ -59,7 +60,7 @@ public class SpellUtils {
                 break;
             }
         }
-        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : (SpellShape) ArsMagicaAPI.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
+        return SpellRegistry.getShapeFromName(shapeName) != null ? SpellRegistry.getShapeFromName(shapeName) : (SpellShape) RegistryHandler.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
     }
 
     public static void changeEnchantmentsForShapeGroup(ItemStack stack) {
@@ -652,7 +653,7 @@ public class SpellUtils {
                 ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAM2Tag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
-                    mods.add(ArsMagicaAPI.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
+                    mods.add(RegistryHandler.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
                 }
             }
             return mods;

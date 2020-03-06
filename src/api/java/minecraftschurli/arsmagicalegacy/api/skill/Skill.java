@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -69,7 +69,7 @@ public final class Skill extends ForgeRegistryEntry<Skill> {
     }
 
     public String getTranslationKey() {
-        return Util.makeTranslationKey("skill", ArsMagicaAPI.getSkillRegistry().getKey(this));
+        return Util.makeTranslationKey("skill", RegistryHandler.getSkillRegistry().getKey(this));
     }
 
     public ITextComponent getName() {

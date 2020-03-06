@@ -2,13 +2,18 @@ package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.util.RenderUtils;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -38,7 +43,7 @@ public class SpellComponentPage implements ICustomComponent {
     public void build(int x, int y, int num) {
         this.x = x;
         this.y = y;
-        this.part = ArsMagicaAPI.getSpellPartRegistry().getValue(ResourceLocation.tryCreate(component));
+        this.part = RegistryHandler.getSpellPartRegistry().getValue(ResourceLocation.tryCreate(component));
         ArsMagicaAPI.LOGGER.warn(component);
         ArsMagicaAPI.LOGGER.warn(part);
         ArsMagicaAPI.LOGGER.warn(Arrays.toString(part.getRecipe()));
@@ -77,7 +82,7 @@ public class SpellComponentPage implements ICustomComponent {
     private void renderModifiers(IComponentRenderContext context, int posX, int posY,int mouseX, int mouseY) {
         ArrayList<SpellModifier> modifiers = new ArrayList<>();
         EnumSet<SpellModifiers> mods = part.getModifiers();
-        for (AbstractSpellPart modifier : ArsMagicaAPI.getSpellPartRegistry()) {
+        for (AbstractSpellPart modifier : RegistryHandler.getSpellPartRegistry()) {
             if (part == modifier)
                 continue;
             if (modifier instanceof SpellModifier) {
@@ -143,8 +148,8 @@ public class SpellComponentPage implements ICustomComponent {
             if (size == 0)
                 return;
             stack = new ItemStack(((ItemTagSpellIngredient) craftingComponent).getTag().getRandomElement(new Random()));
-        } else if (craftingComponent instanceof EssenceSpellIngredient){
-            renderEssence(context, mousex, mousey, sx, sy, ((EssenceSpellIngredient) craftingComponent));
+        } else if (craftingComponent instanceof EtheriumSpellIngredient){
+            renderEssence(context, mousex, mousey, sx, sy, ((EtheriumSpellIngredient) craftingComponent));
             return;
         } else return;
         RenderUtils.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset()+1);
@@ -154,10 +159,10 @@ public class SpellComponentPage implements ICustomComponent {
         }
     }
 
-    private void renderEssence(IComponentRenderContext context, int mousex, int mousey, float x, float y, EssenceSpellIngredient ingredient) {
+    private void renderEssence(IComponentRenderContext context, int mousex, int mousey, float x, float y, EtheriumSpellIngredient ingredient) {
         if (!ingredient.getEssenceTypes().isEmpty()) {
             //TODO render
-            Deque<EssenceType> types = new ArrayDeque<>(ingredient.getEssenceTypes());
+            Deque<EtheriumType> types = new ArrayDeque<>(ingredient.getEssenceTypes());
             GuiUtils.drawGradientRect(context.getGui().getBlitOffset(), (int) x, (int) y, (int) x + 16, (int) y + 16, types.getFirst().getColor(), types.getLast().getColor());
         }
         if (context.isAreaHovered(mousex, mousey, (int)x, (int)y, 16, 16)){

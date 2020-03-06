@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
@@ -45,7 +46,7 @@ public class SilverSkillTrigger extends AbstractCriterionTrigger<SilverSkillTrig
 
         public boolean test(ServerPlayerEntity player) {
             return CapabilityHelper.getLearned(player).stream()
-                    .map(ArsMagicaAPI.getSkillRegistry()::getValue)
+                    .map(RegistryHandler.getSkillRegistry()::getValue)
                     .filter(Objects::nonNull)
                     .map(Skill::getPoint)
                     .mapToInt(SkillPoint::getTier)

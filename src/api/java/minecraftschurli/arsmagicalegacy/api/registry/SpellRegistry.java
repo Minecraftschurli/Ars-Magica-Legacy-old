@@ -1,5 +1,6 @@
-package minecraftschurli.arsmagicalegacy.api;
+package minecraftschurli.arsmagicalegacy.api.registry;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
@@ -45,14 +46,14 @@ public class SpellRegistry {
      *
      * @param id      : Name of this component
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Component, use new {@link SpellComponent}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static <T extends AbstractSpellPart> RegistryObject<T> registerSpellComponent(ResourceLocation id, Supplier<SkillPoint> tier, Supplier<SpellComponent> part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
-        RegistryObject<T> ret = RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
+        RegistryObject<T> ret = RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
         if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) {
             throw new IllegalArgumentException("Duplicate registration " + id);
         }
@@ -65,7 +66,7 @@ public class SpellRegistry {
      *
      * @param name    : Name of this component
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Component, use new {@link SpellComponent}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
@@ -80,7 +81,7 @@ public class SpellRegistry {
      *
      * @param name    : Name of this component
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Component, use new {@link SpellComponent}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
@@ -102,19 +103,19 @@ public class SpellRegistry {
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static <T extends AbstractSpellPart> RegistryObject<T> registerSpellModifier(ResourceLocation id, Supplier<SkillPoint> tier, Supplier<SpellModifier> part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
-        RegistryObject<T> ret = RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
+        RegistryObject<T> ret = RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
         if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) {
             throw new IllegalArgumentException("Duplicate registration " + id);
         }
         SkillRegistry.registerSkill(id, getModifierIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
+        return RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
     }
 
     /**
      * Register a spell modifier
-     *  @param name    : Name of this modifier
+     * @param name    : Name of this modifier
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Modifier, use new {@link SpellModifier}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
@@ -129,7 +130,7 @@ public class SpellRegistry {
      *
      * @param name    : Name of this modifier
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Modifier, use new {@link SpellModifier}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
@@ -144,19 +145,19 @@ public class SpellRegistry {
      *
      * @param id      : Name of this shape
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Shape, use new {@link SpellShape}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
      * @param parents : Skills that need to be unlocked before this one (occulus only)
      */
     public static <T extends AbstractSpellPart> RegistryObject<T> registerSpellShape(ResourceLocation id, Supplier<SkillPoint> tier, Supplier<SpellShape> part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
-        RegistryObject<T> ret = RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
+        RegistryObject<T> ret = RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
         if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) {
             throw new IllegalArgumentException("Duplicate registration " + id);
         }
         SkillRegistry.registerSkill(id, getShapeIcon(id), tier, tree, posX, posY, parents);
-        return RegistryObject.of(id, ArsMagicaAPI.getSpellPartRegistry());
+        return RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
     }
 
     /**
@@ -164,7 +165,7 @@ public class SpellRegistry {
      *
      * @param name    : Name of this shape
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Shape, use new {@link SpellShape}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
@@ -179,7 +180,7 @@ public class SpellRegistry {
      *
      * @param name    : Name of this shape
      * @param tier    : Skill Point required to unlock
-     * @param part    : Actual Shape, use new {@link SpellShape}()
+     * @param part    : the actual Component
      * @param tree    : Skill Tree
      * @param posX    : Position in the tree
      * @param posY    : Position in the tree
@@ -209,7 +210,7 @@ public class SpellRegistry {
      * @return the associated Skill for the given Part
      */
     public static Skill getSkillFromPart(AbstractSpellPart part) {
-        return ArsMagicaAPI.getSkillRegistry().getValue(part.getRegistryName());
+        return RegistryHandler.getSkillRegistry().getValue(part.getRegistryName());
     }
 
     /*public static AbstractSpellPart getPartByRecipe(List<ItemStack> currentAddedItems) {
@@ -241,7 +242,7 @@ public class SpellRegistry {
      */
     public static SpellShape getShapeFromName(String name) {
         ResourceLocation rl = ResourceLocation.tryCreate(name);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
+        AbstractSpellPart part = RegistryHandler.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
         return part instanceof SpellShape ? (SpellShape) part : null;
     }
 
@@ -253,7 +254,7 @@ public class SpellRegistry {
      */
     public static SpellModifier getModifierFromName(String name) {
         ResourceLocation rl = ResourceLocation.tryCreate(name);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
+        AbstractSpellPart part = RegistryHandler.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
         return part instanceof SpellModifier ? (SpellModifier) part : null;
     }
 
@@ -265,7 +266,7 @@ public class SpellRegistry {
      */
     public static SpellComponent getComponentFromName(String name) {
         ResourceLocation rl = ResourceLocation.tryCreate(name);
-        AbstractSpellPart part = ArsMagicaAPI.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
+        AbstractSpellPart part = RegistryHandler.getSpellPartRegistry().getValue(rl == null ? MISSING_SHAPE : rl);
         return part instanceof SpellComponent ? (SpellComponent) part : null;
     }
 }

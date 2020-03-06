@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
@@ -55,6 +55,6 @@ public abstract class SpellShape extends AbstractSpellPart {
      * @param useCount The number of ticks the spell item has been in use for
      * @return The result of the spell cast.
      */
-    public abstract SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount);
+    public abstract SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount);
 
 }

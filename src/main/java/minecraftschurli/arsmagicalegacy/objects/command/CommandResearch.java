@@ -6,8 +6,9 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
  * @version 2019-12-04
  */
 public class CommandResearch {
-    private static final SuggestionProvider<CommandSource> SUGGEST_RESEARCH = (context, builder) -> ISuggestionProvider.func_212476_a(ArsMagicaAPI.getSkillRegistry().getValues().stream().map(Skill::getRegistryName), builder);
+    private static final SuggestionProvider<CommandSource> SUGGEST_RESEARCH = (context, builder) -> ISuggestionProvider.func_212476_a(RegistryHandler.getSkillRegistry().getValues().stream().map(Skill::getRegistryName), builder);
     private static final String TARGET = "target";
 
     public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
@@ -36,7 +37,7 @@ public class CommandResearch {
                         .then(Commands.argument(TARGET, EntityArgument.player())
                                 .then(Commands.argument("id", ResourceLocationArgument.resourceLocation())
                                         .suggests(SUGGEST_RESEARCH)
-                                        .executes(context -> CommandResearch.learn(context, ArsMagicaAPI.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"))))
+                                        .executes(context -> CommandResearch.learn(context, RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"))))
                                 ).then(Commands.literal("*").executes(CommandResearch::learnAll))
                         )
                 ).then(Commands.literal("forget")
@@ -59,7 +60,7 @@ public class CommandResearch {
     }
 
     private static int forget(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        Skill skill = ArsMagicaAPI.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"));
+        Skill skill = RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"));
         if (skill == null) {
             context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", skill.getName()), false);
             return 1;
@@ -88,7 +89,7 @@ public class CommandResearch {
     }
 
     private static int learnAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        for (Skill skill : ArsMagicaAPI.getSkillRegistry()) {
+        for (Skill skill : RegistryHandler.getSkillRegistry()) {
             CommandResearch.learn(context, skill);
         }
         return 0;

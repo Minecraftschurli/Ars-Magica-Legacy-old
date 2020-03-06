@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.affinity;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -30,10 +31,10 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
     public static final ResourceLocation LIFE = new ResourceLocation(ArsMagicaAPI.MODID, "life");
     public static final ResourceLocation ENDER = new ResourceLocation(ArsMagicaAPI.MODID, "ender");
 
-    private int color;
+    private final int color;
     private ResourceLocation directOpposite;
-    private Set<ResourceLocation> majorOpposites = new HashSet<>();
-    private Set<ResourceLocation> minorOpposites = new HashSet<>();
+    private final Set<ResourceLocation> majorOpposites = new HashSet<>();
+    private final Set<ResourceLocation> minorOpposites = new HashSet<>();
     private IItemProvider essence = Items.AIR;
 
     public Affinity(int color) {
@@ -41,7 +42,7 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
     }
 
     public String getTranslationKey() {
-        return Util.makeTranslationKey("affinity", ArsMagicaAPI.getAffinityRegistry().getKey(this));
+        return Util.makeTranslationKey("affinity", RegistryHandler.getAffinityRegistry().getKey(this));
     }
 
     public ITextComponent getName() {
@@ -62,7 +63,7 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return minorOpposites
                 .stream()
                 .filter(location -> !location.equals(NONE))
-                .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
+                .map(RegistryHandler.getAffinityRegistry()::getValue)
                 .collect(Collectors.toSet());
     }
 
@@ -70,21 +71,21 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return majorOpposites
                 .stream()
                 .filter(location -> !location.equals(NONE))
-                .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
+                .map(RegistryHandler.getAffinityRegistry()::getValue)
                 .collect(Collectors.toSet());
     }
 
     public Set<Affinity> getAdjacentAffinities() {
-        return ArsMagicaAPI.getAffinityRegistry()
+        return RegistryHandler.getAffinityRegistry()
                 .getKeys()
                 .stream()
                 .filter(rl -> !(Objects.equals(rl, NONE) || majorOpposites.contains(rl) || minorOpposites.contains(rl) || Objects.equals(directOpposite, rl) || Objects.equals(getRegistryName(), rl)))
-                .map(ArsMagicaAPI.getAffinityRegistry()::getValue)
+                .map(RegistryHandler.getAffinityRegistry()::getValue)
                 .collect(Collectors.toSet());
     }
 
     public Affinity getOpposingAffinity() {
-        return ArsMagicaAPI.getAffinityRegistry().getValue(directOpposite);
+        return RegistryHandler.getAffinityRegistry().getValue(directOpposite);
     }
 
     public Affinity setDirectOpposite(ResourceLocation directOpposite) {
@@ -171,7 +172,7 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
     public int compareTo(@Nonnull Affinity o) {
         if (o.getRegistryName() == null && this.getRegistryName() != null)
             return 1;
-        return Objects.compare(ArsMagicaAPI.getAffinityRegistry().getKey(this), ArsMagicaAPI.getAffinityRegistry().getKey(o), Comparator.comparing(ResourceLocation::toString));
+        return Objects.compare(RegistryHandler.getAffinityRegistry().getKey(this), RegistryHandler.getAffinityRegistry().getKey(o), Comparator.comparing(ResourceLocation::toString));
     }
 
     public IItemProvider getEssence() {

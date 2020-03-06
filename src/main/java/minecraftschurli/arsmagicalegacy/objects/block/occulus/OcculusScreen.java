@@ -2,12 +2,13 @@ package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.SkillRegistry;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.network.LearnSkillPacket;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
+import minecraftschurli.arsmagicalegacy.api.registry.SkillRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
@@ -59,7 +60,7 @@ public class OcculusScreen extends Screen {
         super(name);
         this.player = player;
         //noinspection OptionalGetWithoutIsPresent
-        currentTree = ArsMagicaAPI.getSkillTreeRegistry().getValues().stream().min(Comparator.comparingInt(SkillTree::getOcculusIndex)).get();
+        currentTree = RegistryHandler.getSkillTreeRegistry().getValues().stream().min(Comparator.comparingInt(SkillTree::getOcculusIndex)).get();
         currentTabId = 0;
     }
 
@@ -67,7 +68,7 @@ public class OcculusScreen extends Screen {
     protected void init() {
         int posX = width / 2 - xSize / 2;
         int posY = height / 2 - ySize / 2;
-        for (SkillTree tree : ArsMagicaAPI.getSkillTreeRegistry()) {
+        for (SkillTree tree : RegistryHandler.getSkillTreeRegistry()) {
             int tabId = tree.getOcculusIndex();
             if (tabId % 16 < 8) {
                 addButton(new SkillTreeGuiButton(tabId, posX + 7 + ((tabId % 16) * 24), posY - 22, tree, (int) Math.floor((float) tabId / 16F), false, this::actionPerformed));
@@ -75,7 +76,7 @@ public class OcculusScreen extends Screen {
                 addButton(new SkillTreeGuiButton(tabId, posX + 7 + (((tabId % 16) - 8) * 24), posY + 210, tree, (int) Math.floor((float) tabId / 16F), true, this::actionPerformed));
             }
         }
-        maxPage = (int) Math.floor((float) (ArsMagicaAPI.getSkillTreeRegistry().getValues().size() - 1) / 16F);
+        maxPage = (int) Math.floor((float) (RegistryHandler.getSkillTreeRegistry().getValues().size() - 1) / 16F);
         nextPage = new Button(posX + 212, posY - 21, 20, 20, ">", this::actionPerformed);
         prevPage = new Button(posX - 15, posY - 21, 20, 20, "<", this::actionPerformed);
         nextPage.active = page < maxPage;
@@ -177,7 +178,7 @@ public class OcculusScreen extends Screen {
                 for (String p : s.getParents()) {
                     if (p == null)
                         continue;
-                    Skill parent = ArsMagicaAPI.getSkillRegistry().getValue(new ResourceLocation(p));
+                    Skill parent = RegistryHandler.getSkillRegistry().getValue(new ResourceLocation(p));
                     if (parent == null || !skills.contains(parent)) continue;
                     if (!parent.getPoint().canRender() && !CapabilityHelper.knows(player, parent))
                         continue;
@@ -332,14 +333,14 @@ public class OcculusScreen extends Screen {
         } else {
             boolean isShiftDown = player.func_226563_dT_();
             RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), 0, 0, 1, 1);
-            int affNum = ArsMagicaAPI.getAffinityRegistry().getValues().size() - 1;
+            int affNum = RegistryHandler.getAffinityRegistry().getValues().size() - 1;
             int portion = 360 / affNum;
             int currentID = 0;
             int cX = posX + xSize/2;
             int cY = posY + ySize/2;
             //float finalPercentage = AffinityData.For(player).getAffinityDepth(SkillDefs.NONE) * 100;
             List<ITextComponent> drawString = new ArrayList<>();
-            for (Affinity aff : ArsMagicaAPI.getAffinityRegistry().getValues()) {
+            for (Affinity aff : RegistryHandler.getAffinityRegistry().getValues()) {
                 if (Objects.equals(aff.getRegistryName(), Affinity.NONE))
                     continue;
                 double depth = CapabilityHelper.getAffinityDepth(player, aff);

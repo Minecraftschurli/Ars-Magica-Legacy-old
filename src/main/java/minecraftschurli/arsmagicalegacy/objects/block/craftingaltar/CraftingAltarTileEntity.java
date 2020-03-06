@@ -2,11 +2,11 @@ package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import com.google.common.collect.ImmutableList;
 import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.CraftingAltarStructureMaterials;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.network.TEClientSyncPacket;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
@@ -246,7 +246,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                         .stream()
                         .map(INBT::getString)
                         .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
-                        .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                        .map(RegistryHandler.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
                         .count();
             }
         }
@@ -254,7 +254,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 .stream()
                 .map(INBT::getString)
                 .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
-                .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                .map(RegistryHandler.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
                 .count();
         int power = CraftingAltarStructureMaterials.getMainPower(main.get().getBlock()) + CraftingAltarStructureMaterials.getCapPower(cap.get().getBlock());
         return count < power;
@@ -310,7 +310,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                                 .stream()
                                 .map(INBT::getString)
                                 .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
-                                .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                                .map(RegistryHandler.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
                                 .collect(Collectors.toList()),
                                 new CompoundNBT())
                 );
@@ -327,7 +327,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                         .stream()
                         .map(INBT::getString)
                         .map(ResourceLocation::tryCreate).filter(Objects::nonNull)
-                        .map(ArsMagicaAPI.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
+                        .map(RegistryHandler.getSpellPartRegistry()::getValue).filter(Objects::nonNull)
                         .collect(Collectors.toList()),
                 new CompoundNBT()
         );

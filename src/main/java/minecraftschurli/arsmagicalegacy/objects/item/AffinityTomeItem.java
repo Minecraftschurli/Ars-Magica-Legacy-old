@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -27,7 +27,7 @@ public class AffinityTomeItem extends Item {
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (isInGroup(group)) {
-            for (Affinity affinity : ArsMagicaAPI.getAffinityRegistry()) {
+            for (Affinity affinity : RegistryHandler.getAffinityRegistry()) {
                 items.add(setAffinity(new ItemStack(this), affinity));
             }
         }
@@ -46,17 +46,17 @@ public class AffinityTomeItem extends Item {
     }
 
     @SuppressWarnings("ConstantConditions")
-    private Affinity getAffinity(ItemStack stack) {
+    public static Affinity getAffinity(ItemStack stack) {
         ResourceLocation affinity;
         if (!stack.hasTag() || !stack.getTag().contains(AFFINITY_KEY))
             affinity = Affinity.NONE;
         else
             affinity = ResourceLocation.tryCreate(stack.getTag().getString(AFFINITY_KEY));
-        return ArsMagicaAPI.getAffinityRegistry().getValue(affinity);
+        return RegistryHandler.getAffinityRegistry().getValue(affinity);
     }
 
     private ItemStack setAffinity(ItemStack itemStack, Affinity affinity) {
-        ResourceLocation rl = ArsMagicaAPI.getAffinityRegistry().getKey(affinity);
+        ResourceLocation rl = RegistryHandler.getAffinityRegistry().getKey(affinity);
         if (rl == null)
             throw new IllegalStateException("Affinity not registered");
         itemStack.getOrCreateTag().putString(AFFINITY_KEY, rl.toString());

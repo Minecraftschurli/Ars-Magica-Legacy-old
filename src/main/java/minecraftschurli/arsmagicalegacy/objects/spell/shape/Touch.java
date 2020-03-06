@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
+import minecraftschurli.arsmagicalegacy.api.EntityUtils;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -12,6 +12,7 @@ import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -46,12 +47,12 @@ public class Touch extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (target != null) {
             return SpellUtils.applyStageToEntity(stack, caster, world, target, giveXP);
         }
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
-        RayTraceResult mop = item.getMovingObjectPosition(caster, world, 2.5f, true, targetWater);
+        RayTraceResult mop = EntityUtils.getMovingObjectPosition(caster, world, 2.5f, true, targetWater);
         if (mop == null) return SpellCastResult.EFFECT_FAILED;
         else {
             if (mop.getType() == RayTraceResult.Type.ENTITY) {

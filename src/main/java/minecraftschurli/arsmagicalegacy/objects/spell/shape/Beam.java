@@ -1,19 +1,23 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import minecraftschurli.arsmagicalegacy.api.ISpellItem;
+import minecraftschurli.arsmagicalegacy.api.EntityUtils;
+import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.*;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
-import minecraftschurli.arsmagicalegacy.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -59,12 +63,12 @@ public class Beam extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(ISpellItem item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+    public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         boolean shouldApplyEffectBlock = useCount % 5 == 0;
         boolean shouldApplyEffectEntity = useCount % 10 == 0;
         double range = SpellUtils.getModifiedDoubleAdd(stack, caster, target, world, SpellModifiers.RANGE);
         boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
-        RayTraceResult mop = item.getMovingObjectPosition(caster, world, range, true, targetWater);
+        RayTraceResult mop = EntityUtils.getMovingObjectPosition(caster, world, range, true, targetWater);
         SpellCastResult result = null;
         Vec3d beamHitVec;
         Vec3d spellVec;
@@ -139,7 +143,7 @@ public class Beam extends SpellShape {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.STANDARD_FOCUS.get())),
-                new EssenceSpellIngredient(500, EssenceType.NEUTRAL)
+                new EtheriumSpellIngredient(500, EtheriumType.NEUTRAL)
         };
     }
 
