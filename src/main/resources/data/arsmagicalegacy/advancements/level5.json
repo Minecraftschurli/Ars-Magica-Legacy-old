@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:arsmagicalegacycompendium",
+  "display": {
+    "icon": {
+      "item": "arsmagicalegacy:vinteum"
+    },
+    "title": {
+      "translate": "arsmagicalegacy.advancements.level5.title"
+    },
+    "description": {
+      "translate": "arsmagicalegacy.advancements.level5.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "level": {
+      "trigger": "arsmagicalegacy:magic_level",
+      "conditions": {
+        "bound": {
+          "min": 5
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "level"
+    ]
+  ]
+}

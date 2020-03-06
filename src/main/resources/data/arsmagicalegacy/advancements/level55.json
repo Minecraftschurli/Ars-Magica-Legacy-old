@@ -1,0 +1,33 @@
+{
+  "parent": "arsmagicalegacy:level50",
+  "display": {
+    "icon": {
+      "item": "arsmagicalegacy:vinteum"
+    },
+    "title": {
+      "translate": "arsmagicalegacy.advancements.level55.title"
+    },
+    "description": {
+      "translate": "arsmagicalegacy.advancements.level55.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "level": {
+      "trigger": "arsmagicalegacy:magic_level",
+      "conditions": {
+        "bound": {
+          "min": 55
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "level"
+    ]
+  ]
+}

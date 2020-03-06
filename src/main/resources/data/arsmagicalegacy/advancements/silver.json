@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:arsmagicalegacycompendium",
   "display": {
     "icon": {
       "item": "arsmagicalegacy:infinity_orb",
@@ -11,10 +12,9 @@
       "translate": "arsmagicalegacy.advancements.silver.description"
     },
     "frame": "challenge",
-    "show_toast": true,
+    "show_toast": false,
     "announce_to_chat": false,
-    "hidden": true,
-    "background": "arsmagicalegacy:textures/block/vinteum_ore.png"
+    "hidden": true
   },
   "criteria": {
     "got_silver_skill": {
