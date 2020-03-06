@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:arsmagicalegacycompendium",
+  "parent": "arsmagicalegacy:compendium",
   "display": {
     "icon": {
       "item": "arsmagicalegacy:infinity_orb",
