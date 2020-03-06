@@ -2,6 +2,7 @@
   "name": "compendium.entries.item.armor.name",
   "category": "item",
   "icon": "arsmagicalegacy:mage_helmet",
+  "advancement": "arsmagicalegacy:level10",
   "pages": [
     {
       "type": "text",

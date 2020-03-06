@@ -2,6 +2,7 @@
   "name": "compendium.entries.item.journal.name",
   "category": "item",
   "icon": "arsmagicalegacy:journal",
+  "advancement": "arsmagicalegacy:level10",
   "pages": [
     {
       "type": "text",
