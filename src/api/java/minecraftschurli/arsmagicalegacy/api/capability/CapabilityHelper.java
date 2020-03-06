@@ -529,6 +529,18 @@ public class CapabilityHelper {
 
     //endregion
 
+    //region =========ABILITY=========
+
+    public static Map<String, Integer> getAbilityCooldowns(LivingEntity entity) {
+        return getAbilityCapability(entity).getCooldowns();
+    }
+
+    public static void addAbilityCooldown(LivingEntity entity, String key, int value) {
+        getAbilityCapability(entity).addCooldown(key, value);
+    }
+
+    //endregion
+
     //region =========EVENT=========
 
     private static void onPlayerLevelUp(final PlayerMagicLevelChangeEvent event) {
@@ -598,6 +610,8 @@ public class CapabilityHelper {
     static Capability<IBurnoutStorage> BURNOUT = null;
     @CapabilityInject(IAffinityStorage.class)
     static Capability<IAffinityStorage> AFFINITY = null;
+    @CapabilityInject(IAbilityStorage.class)
+    static Capability<IAbilityStorage> ABILITY = null;
 
     public static Capability<IRiftStorage> getRiftStorageCapability() {
         return RIFT_STORAGE;
@@ -621,6 +635,10 @@ public class CapabilityHelper {
 
     public static Capability<IAffinityStorage> getAffinityCapability() {
         return AFFINITY;
+    }
+
+    public static Capability<IAbilityStorage> getAbilityCapability() {
+        return ABILITY;
     }
 
     private static IManaStorage getManaCapability(LivingEntity entity) {
@@ -657,6 +675,12 @@ public class CapabilityHelper {
         Objects.requireNonNull(entity);
         return entity.getCapability(AFFINITY)
                 .orElseThrow(() -> new IllegalStateException("No Affinity Capability present!"));
+    }
+
+    private static IAbilityStorage getAbilityCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
+        return entity.getCapability(ABILITY)
+                .orElseThrow(() -> new IllegalStateException("No Ability Capability present!"));
     }
 
     private static void syncMana(ServerPlayerEntity player) {

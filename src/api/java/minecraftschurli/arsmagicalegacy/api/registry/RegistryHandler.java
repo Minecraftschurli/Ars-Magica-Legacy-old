@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.registry;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.affinity.AbstractAffinityAbility;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
@@ -13,6 +14,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
+
 /**
  * @author Minecraftschurli
  * @version 2020-03-04
@@ -24,6 +27,7 @@ public class RegistryHandler {
     private static ForgeRegistry<Skill> SKILL_REGISTRY = null;
     private static ForgeRegistry<Affinity> AFFINITY_REGISTRY = null;
     private static ForgeRegistry<EtheriumType> ETHERIUM_REGISTRY = null;
+    private static ForgeRegistry<AbstractAffinityAbility> AFFINITY_ABILITY_REGISTRY = null;
 
     /**
      * Do not call this method yourself
@@ -45,6 +49,7 @@ public class RegistryHandler {
         SKILL_TREE_REGISTRY = (ForgeRegistry<SkillTree>) new RegistryBuilder<SkillTree>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "skill_trees")).setType(SkillTree.class).create();
         AFFINITY_REGISTRY = (ForgeRegistry<Affinity>) new RegistryBuilder<Affinity>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "affinities")).setType(Affinity.class).create();
         ETHERIUM_REGISTRY = (ForgeRegistry<EtheriumType>) new RegistryBuilder<EtheriumType>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "etherium")).setType(EtheriumType.class).create();
+        AFFINITY_ABILITY_REGISTRY = (ForgeRegistry<AbstractAffinityAbility>) new RegistryBuilder<AbstractAffinityAbility>().setName(new ResourceLocation(ArsMagicaAPI.MODID, "affinity_abilities")).setType(AbstractAffinityAbility.class).create();
     }
 
     /**
@@ -90,5 +95,9 @@ public class RegistryHandler {
      */
     public static ForgeRegistry<EtheriumType> getEtheriumRegistry() {
         return ETHERIUM_REGISTRY;
+    }
+
+    public static ForgeRegistry<AbstractAffinityAbility> getAffinityAbilityRegistry() {
+        return AFFINITY_ABILITY_REGISTRY;
     }
 }
