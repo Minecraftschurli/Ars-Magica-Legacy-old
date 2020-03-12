@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.channel.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/channel.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.channel.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:channel"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.aoe.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/aoe.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.aoe.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:aoe"
+    }
+  ]
+}

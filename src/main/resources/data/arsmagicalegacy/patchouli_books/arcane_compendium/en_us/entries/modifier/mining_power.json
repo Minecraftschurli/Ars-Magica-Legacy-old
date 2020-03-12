@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.mining_power.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/mining_power.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.mining_power.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:mining_power"
+    }
+  ]
+}

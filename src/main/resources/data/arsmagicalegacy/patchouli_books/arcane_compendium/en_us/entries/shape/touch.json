@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.touch.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/touch.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.touch.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:touch"
+    }
+  ]
+}

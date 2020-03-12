@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.rune.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/rune.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.rune.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:rune"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.speed.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/speed.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.speed.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:speed"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.projectile.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/projectile.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.projectile.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:projectile"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.damage.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/damage.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.damage.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:damage"
+    }
+  ]
+}

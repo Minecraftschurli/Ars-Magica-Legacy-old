@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.healing.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/healing.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.healing.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:healing"
+    }
+  ]
+}

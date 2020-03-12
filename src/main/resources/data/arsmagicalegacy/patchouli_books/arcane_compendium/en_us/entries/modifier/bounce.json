@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.bounce.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/bounce.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.bounce.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:bounce"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.range.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/range.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.range.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:range"
+    }
+  ]
+}

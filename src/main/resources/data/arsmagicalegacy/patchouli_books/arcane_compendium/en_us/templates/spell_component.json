@@ -3,7 +3,6 @@
     {
       "type": "custom",
       "class": "minecraftschurli.arsmagicalegacy.compat.patchouli.SpellComponentPage",
-      "text": "#text",
       "component": "#component"
     }
   ]

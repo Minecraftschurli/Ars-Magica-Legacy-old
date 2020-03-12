@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.duration.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/duration.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.duration.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:duration"
+    }
+  ]
+}

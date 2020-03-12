@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.piercing.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/piercing.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.piercing.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:piercing"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.rune_procs.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/rune_procs.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.rune_procs.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:rune_procs"
+    }
+  ]
+}

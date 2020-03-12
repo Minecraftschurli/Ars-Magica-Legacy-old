@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.zone.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/zone.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.zone.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:zone"
+    }
+  ]
+}

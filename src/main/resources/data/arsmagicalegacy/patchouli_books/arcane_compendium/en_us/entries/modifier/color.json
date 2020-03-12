@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.color.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/color.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.color.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:color"
+    }
+  ]
+}

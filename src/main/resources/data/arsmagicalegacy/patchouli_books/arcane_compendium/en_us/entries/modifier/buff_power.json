@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.buff_power.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/buff_power.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.buff_power.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:buff_power"
+    }
+  ]
+}

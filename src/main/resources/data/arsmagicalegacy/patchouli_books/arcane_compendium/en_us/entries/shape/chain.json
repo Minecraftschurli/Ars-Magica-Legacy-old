@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.shape.chain.name",
+  "category": "shape",
+  "icon": "arsmagicalegacy:icon/shape/chain.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.shape.chain.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:chain"
+    }
+  ]
+}

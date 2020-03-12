@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.solar.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/solar.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.solar.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:solar"
+    }
+  ]
+}
