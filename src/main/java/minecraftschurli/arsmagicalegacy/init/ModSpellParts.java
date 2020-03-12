@@ -57,7 +57,7 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellModifier> DAMAGE = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "damage", SKILL_POINT_3, Damage::new, OFFENSE, 300, 315, "arsmagicalegacy:beam");
     public static final RegistryObject<SpellModifier> DISMEMBERING = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "dismembering", SILVER_POINT, Dismembering::new, OFFENSE, 75, 225);
     public static final RegistryObject<SpellModifier> DURATION = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "duration", SKILL_POINT_3, Bounce::new, DEFENSE, 312, 360, "arsmagicalegacy:chrono_anchor");
-    public static final RegistryObject<SpellModifier> FORTUNE = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "fortune", SILVER_POINT, Fortune::new, null, 0, 0);
+    public static final RegistryObject<SpellModifier> PROSPERITY = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "prosperity", SILVER_POINT, Fortune::new, null, 0, 0);
     public static final RegistryObject<SpellModifier> GRAVITY = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "gravity", SKILL_POINT_1, Gravity::new, OFFENSE, 255, 70, "arsmagicalegacy:projectile");
     public static final RegistryObject<SpellModifier> HEALING = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "healing", SKILL_POINT_3, Healing::new, DEFENSE, 402, 135, "arsmagicalegacy:heal");
     public static final RegistryObject<SpellModifier> LUNAR = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "lunar", SKILL_POINT_3, Lunar::new, UTILITY, 145, 210, "arsmagicalegacy:true_sight");

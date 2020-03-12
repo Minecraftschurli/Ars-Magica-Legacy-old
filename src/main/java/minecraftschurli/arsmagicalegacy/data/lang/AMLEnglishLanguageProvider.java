@@ -261,7 +261,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSpellPart(ModSpellParts.ACCELERATE, "Accelerate", "Seems like you won't be catching me anytime soon.");
         addSpellPart(ModSpellParts.APPROPRIATON, "Appropriation", "That's mine.");
         addSpellPart(ModSpellParts.CHRONO_ANCHOR, "Chrono Anchor", "Let's look at the time. Oh dear! It went backward!");
-        addSpellPart(ModSpellParts.FORTUNE, "Fortune", "Bling!");
+        addSpellPart(ModSpellParts.PROSPERITY, "Prosperity", "Bling!");
         //addSpellPart(ModSpellParts.CONTINGENCY_DAMAGE, "Contingency: Damage", "Hurting me? That would be bad...");
         //addSpellPart(ModSpellParts.CONTINGENCY_FALL, "Contingency: Fall", "Falling... Well, at least now it has a purpose.");
         //addSpellPart(ModSpellParts.CONTINGENCY_HEALTH, "Contingency: Health", "I'm not going down... not right now.");

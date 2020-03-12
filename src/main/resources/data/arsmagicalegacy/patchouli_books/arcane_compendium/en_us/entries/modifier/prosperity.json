@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.modifier.prosperity.name",
+  "category": "modifier",
+  "icon": "arsmagicalegacy:icon/modifier/prosperity.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.modifier.prosperity.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:prosperity"
+    }
+  ]
+}
