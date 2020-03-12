@@ -114,9 +114,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mcVersion}:${jeiVersion}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mcVersion}:${jeiVersion}")
 
-    //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:api")
-    compile fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}")
-    //compile fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:sources")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}")
 
     compile fg.deobf("minecraftschurli:simpleorelib:${mcVersion}-1.0.0.0")
 }

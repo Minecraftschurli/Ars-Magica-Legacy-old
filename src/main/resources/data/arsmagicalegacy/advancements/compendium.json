@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "patchouli:guide_book",
+      "nbt": "{\"patchouli:book\":\"arsmagicalegacy:arcane_compendium\"}"
+    },
+    "title": {
+      "translate": "arsmagicalegacy.advancements.compendium.title"
+    },
+    "description": {
+      "translate": "arsmagicalegacy.advancements.compendium.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true,
+    "background": "arsmagicalegacy:textures/block/vinteum_ore.png"
+  },
+  "criteria": {
+    "got_compendium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "patchouli:guide_book",
+            "nbt": "{\"patchouli:book\":\"arsmagicalegacy:arcane_compendium\"}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got_compendium"
+    ]
+  ]
+}

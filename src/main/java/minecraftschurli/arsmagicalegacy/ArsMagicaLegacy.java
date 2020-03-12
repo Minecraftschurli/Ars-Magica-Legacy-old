@@ -121,6 +121,7 @@ public final class ArsMagicaLegacy {
         MagicCapability.register();
         RiftStorageCapability.register();
         AffinityCapability.register();
+        AbilityCapability.register();
 
         /*ForgeRegistries.BIOMES.getValues()
                 .stream()
@@ -165,6 +166,7 @@ public final class ArsMagicaLegacy {
             event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "magic"), new MagicCapability());
             event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "rift_storage"), new RiftStorageCapability());
             event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "affinity"), new AffinityCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "affinity_ability"), new AbilityCapability());
         }
     }
 

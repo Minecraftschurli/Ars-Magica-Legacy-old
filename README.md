@@ -11,7 +11,7 @@ Please report any bugs here on [github](https://github.com/Minecraftschurli/ArsM
 
 ## Dependencies
 This mod requires 
-- [Patchouli by Vazkii](https://www.curseforge.com/minecraft/mc-mods/patchouli) on version 1.15.2-1.2-28 or higher
+- [Patchouli by Vazkii](https://www.curseforge.com/minecraft/mc-mods/patchouli) on version 1.15.2-1.2-29 or higher
 - [SimpleOreLib](https://www.curseforge.com/minecraft/mc-mods/simpleorelib) version 1.0.0.0
 
 ## Contributing
@@ -20,7 +20,7 @@ If you want to help with development join us on [Discord](https://discord.gg/tzg
 You can find our current roadmap [here](ROADMAP.md)
 
 ## ArsMagicaAPI
-Ars Magica: Legacy provides an API for mod developers to add their own content like custom components, affinities, ...  
+Ars Magica: Legacy provides an API for mod developers to add their own content like custom spell-components, affinities, ...  
 To use it you just need to add the following to your `build.gradle`
 
 ```gradle
