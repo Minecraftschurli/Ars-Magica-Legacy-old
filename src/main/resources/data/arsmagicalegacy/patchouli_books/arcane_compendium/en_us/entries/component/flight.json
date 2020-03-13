@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.flight.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/flight.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.flight.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:flight"
+    }
+  ]
+}

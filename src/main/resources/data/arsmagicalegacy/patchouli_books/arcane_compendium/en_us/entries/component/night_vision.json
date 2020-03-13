@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.night_vision.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/night_vision.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.night_vision.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:night_vision"
+    }
+  ]
+}

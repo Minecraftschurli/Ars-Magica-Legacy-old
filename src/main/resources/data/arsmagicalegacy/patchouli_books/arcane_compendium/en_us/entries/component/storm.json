@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.storm.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/storm.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.storm.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:storm"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.fling.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/fling.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.fling.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:fling"
+    }
+  ]
+}

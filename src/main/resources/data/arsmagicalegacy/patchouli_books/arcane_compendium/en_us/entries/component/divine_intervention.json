@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.divine_intervention.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/divine_intervention.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.divine_intervention.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:divine_intervention"
+    }
+  ]
+}

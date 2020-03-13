@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.summon.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/summon.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.summon.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:summon"
+    }
+  ]
+}

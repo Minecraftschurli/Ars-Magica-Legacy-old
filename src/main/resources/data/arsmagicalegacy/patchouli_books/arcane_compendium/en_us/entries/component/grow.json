@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.grow.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/grow.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.grow.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:grow"
+    }
+  ]
+}

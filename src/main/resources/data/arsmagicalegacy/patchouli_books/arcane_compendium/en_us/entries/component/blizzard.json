@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.blizzard.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/blizzard.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.blizzard.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:blizzard"
+    }
+  ]
+}

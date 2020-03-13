@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.rift.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/rift.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.rift.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:rift"
+    }
+  ]
+}

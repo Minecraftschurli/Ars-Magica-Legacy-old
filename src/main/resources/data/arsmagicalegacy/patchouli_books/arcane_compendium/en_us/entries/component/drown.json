@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.drown.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/drown.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.drown.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:drown"
+    }
+  ]
+}

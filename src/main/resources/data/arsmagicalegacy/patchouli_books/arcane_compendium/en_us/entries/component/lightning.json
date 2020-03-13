@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.lightning.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/lightning.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.lightning.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:lightning"
+    }
+  ]
+}

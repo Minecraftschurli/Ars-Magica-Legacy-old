@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.harvest_plants.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/harvest_plants.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.harvest_plants.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:harvest_plants"
+    }
+  ]
+}

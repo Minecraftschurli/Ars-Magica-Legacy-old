@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.freeze.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/freeze.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.freeze.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:freeze"
+    }
+  ]
+}

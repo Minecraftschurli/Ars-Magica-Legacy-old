@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.mana_shield.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/mana_shield.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.mana_shield.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:mana_shield"
+    }
+  ]
+}

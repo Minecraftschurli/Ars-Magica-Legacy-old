@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.blind.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/blind.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.blind.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:blind"
+    }
+  ]
+}

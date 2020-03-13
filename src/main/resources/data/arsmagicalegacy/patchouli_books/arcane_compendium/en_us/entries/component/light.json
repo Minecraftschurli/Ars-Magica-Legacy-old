@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.light.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/light.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.light.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:light"
+    }
+  ]
+}

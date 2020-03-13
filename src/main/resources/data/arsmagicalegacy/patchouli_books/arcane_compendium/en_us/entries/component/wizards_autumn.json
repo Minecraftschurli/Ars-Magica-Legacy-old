@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.wizards_autumn.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/wizards_autumn.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.wizards_autumn.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:wizards_autumn"
+    }
+  ]
+}

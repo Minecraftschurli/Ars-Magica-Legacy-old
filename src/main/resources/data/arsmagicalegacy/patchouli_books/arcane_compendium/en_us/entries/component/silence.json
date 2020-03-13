@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.silence.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/silence.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.silence.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:silence"
+    }
+  ]
+}

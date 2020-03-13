@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.ignition.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/ignition.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.ignition.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:ignition"
+    }
+  ]
+}

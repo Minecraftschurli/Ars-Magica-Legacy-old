@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.mana_blast.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/mana_blast.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.mana_blast.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:mana_blast"
+    }
+  ]
+}

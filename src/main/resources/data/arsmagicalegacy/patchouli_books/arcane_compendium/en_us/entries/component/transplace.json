@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.transplace.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/transplace.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.transplace.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:transplace"
+    }
+  ]
+}

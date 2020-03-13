@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.physical_damage.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/physical_damage.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.physical_damage.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:physical_damage"
+    }
+  ]
+}

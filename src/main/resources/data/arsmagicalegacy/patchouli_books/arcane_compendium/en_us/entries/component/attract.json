@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.attract.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/attract.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.attract.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:attract"
+    }
+  ]
+}
