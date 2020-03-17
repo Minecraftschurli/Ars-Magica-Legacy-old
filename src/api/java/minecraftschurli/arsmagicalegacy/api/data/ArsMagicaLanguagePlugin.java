@@ -139,7 +139,7 @@ public interface ArsMagicaLanguagePlugin {
      * @param translation the translated text
      */
     default void addSectionTitle(String category, String translation) {
-        add("compendium.entries." + category + "." + translation.toLowerCase().replace(' ', '_').replace('-', '_') + ".name", translation);
+        add("compendium.entries." + category + "." + translation.toLowerCase().replace("'", " ").replace(' ', '_').replace('-', '_') + ".name", translation);
     }
 
     default void addAdvancement(String key, String title, String desc) {
