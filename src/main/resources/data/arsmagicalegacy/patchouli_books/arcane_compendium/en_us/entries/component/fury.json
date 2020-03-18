@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.fury.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/fury.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.fury.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:fury"
+    }
+  ]
+}

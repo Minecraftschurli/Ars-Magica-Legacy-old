@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.disarm.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/disarm.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.disarm.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:disarm"
+    }
+  ]
+}

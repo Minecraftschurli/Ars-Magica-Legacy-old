@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.astral_distortion.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/astral_distortion.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.astral_distortion.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:astral_distortion"
+    }
+  ]
+}

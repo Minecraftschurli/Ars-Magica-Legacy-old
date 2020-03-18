@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.levitate.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/levitate.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.levitate.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:levitate"
+    }
+  ]
+}

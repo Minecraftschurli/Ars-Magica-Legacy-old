@@ -133,6 +133,15 @@ public interface ArsMagicaLanguagePlugin {
         add("compendium.entries." + category + "." + entry + ".name", translation);
     }
 
+    /**
+     * Adds the translation for a section's title, generating the translation key from the translation value
+     * @param category    the section's category
+     * @param translation the translated text
+     */
+    default void addSectionTitle(String category, String translation) {
+        add("compendium.entries." + category + "." + translation.toLowerCase().replace("'", " ").replace(' ', '_').replace('-', '_') + ".name", translation);
+    }
+
     default void addAdvancement(String key, String title, String desc) {
         add(ArsMagicaAPI.MODID + ".advancements." + key + ".title", title);
         add(ArsMagicaAPI.MODID + ".advancements." + key + ".description", desc);

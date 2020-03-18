@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.magic_damage.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/magic_damage.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.magic_damage.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:magic_damage"
+    }
+  ]
+}

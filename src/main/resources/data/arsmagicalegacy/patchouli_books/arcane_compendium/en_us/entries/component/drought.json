@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.drought.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/drought.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.drought.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:drought"
+    }
+  ]
+}

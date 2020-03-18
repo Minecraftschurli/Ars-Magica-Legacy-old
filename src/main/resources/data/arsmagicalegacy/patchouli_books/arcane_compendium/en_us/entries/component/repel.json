@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.repel.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/repel.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.repel.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:repel"
+    }
+  ]
+}

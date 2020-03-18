@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.falling_star.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/falling_star.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.falling_star.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:falling_star"
+    }
+  ]
+}

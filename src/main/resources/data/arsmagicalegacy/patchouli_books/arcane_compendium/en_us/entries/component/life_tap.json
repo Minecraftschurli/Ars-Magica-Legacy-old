@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.life_tap.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/life_tap.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.life_tap.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:life_tap"
+    }
+  ]
+}

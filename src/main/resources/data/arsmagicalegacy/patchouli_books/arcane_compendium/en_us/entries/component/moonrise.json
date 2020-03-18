@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.moonrise.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/moonrise.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.moonrise.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:moonrise"
+    }
+  ]
+}

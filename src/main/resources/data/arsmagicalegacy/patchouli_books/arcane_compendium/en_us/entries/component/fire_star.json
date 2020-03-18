@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.dig.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/dig.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.dig.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:dig"
+    }
+  ]
+}

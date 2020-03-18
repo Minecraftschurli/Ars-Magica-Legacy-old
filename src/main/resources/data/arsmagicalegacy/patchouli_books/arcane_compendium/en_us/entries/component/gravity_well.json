@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.gravity_well.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/gravity_well.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.gravity_well.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:gravity_well"
+    }
+  ]
+}

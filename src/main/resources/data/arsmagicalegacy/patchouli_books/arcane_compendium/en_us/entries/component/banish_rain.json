@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.banish_rain.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/banish_rain.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.banish_rain.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:banish_rain"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.true_sight.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/true_sight.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.true_sight.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:true_sight"
+    }
+  ]
+}

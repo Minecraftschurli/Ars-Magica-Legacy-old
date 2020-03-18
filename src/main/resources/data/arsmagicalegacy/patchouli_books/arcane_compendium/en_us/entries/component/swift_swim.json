@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.swift_swim.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/swift_swim.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.swift_swim.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:swift_swim"
+    }
+  ]
+}

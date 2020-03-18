@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.chrono_anchor.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/chrono_anchor.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.chrono_anchor.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:chrono_anchor"
+    }
+  ]
+}

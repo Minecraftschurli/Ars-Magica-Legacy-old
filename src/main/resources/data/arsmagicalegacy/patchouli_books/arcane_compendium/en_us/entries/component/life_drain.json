@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.life_drain.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/life_drain.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.life_drain.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:life_drain"
+    }
+  ]
+}

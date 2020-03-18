@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.daylight.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/daylight.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.daylight.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:daylight"
+    }
+  ]
+}
