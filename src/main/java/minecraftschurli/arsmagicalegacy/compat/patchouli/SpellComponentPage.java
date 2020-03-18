@@ -44,9 +44,6 @@ public class SpellComponentPage implements ICustomComponent {
         this.x = x;
         this.y = y;
         this.part = RegistryHandler.getSpellPartRegistry().getValue(ResourceLocation.tryCreate(component));
-        ArsMagicaAPI.LOGGER.warn(component);
-        ArsMagicaAPI.LOGGER.warn(part);
-        ArsMagicaAPI.LOGGER.warn(Arrays.toString(part.getRecipe()));
     }
 
     @Override

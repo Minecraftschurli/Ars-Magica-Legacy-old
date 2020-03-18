@@ -13,6 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 repositories {
+    mavenCentral()
     maven {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
@@ -22,12 +23,12 @@ repositories {
         url = "https://modmaven.k-4u.nl"
     }
     maven {
-        name = "MinecraftschurliMaven"
-        url = mcs_maven_url
-    }
-    maven {
         name = "JaredMaven"
         url = "https://maven.blamejared.com"
+    }
+    maven {
+        name = "MinecraftschurliMaven"
+        url = mcs_maven_url
     }
 }
 
