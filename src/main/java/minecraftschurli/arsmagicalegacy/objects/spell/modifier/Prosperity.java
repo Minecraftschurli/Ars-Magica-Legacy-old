@@ -13,7 +13,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Fortune extends SpellModifier {
+public class Prosperity extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.FORTUNE_LEVEL);

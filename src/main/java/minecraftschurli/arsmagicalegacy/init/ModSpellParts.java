@@ -62,7 +62,7 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellModifier> LUNAR = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "lunar", SKILL_POINT_3, Lunar::new, UTILITY, 145, 210, "arsmagicalegacy:true_sight");
     public static final RegistryObject<SpellModifier> MINING_POWER = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "mining_power", SKILL_POINT_2, MiningPower::new, UTILITY, 185, 137, "arsmagicalegacy:silk_touch");
     public static final RegistryObject<SpellModifier> PIERCING = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "piercing", SKILL_POINT_3, Piercing::new, OFFENSE, 323, 215, "arsmagicalegacy:freeze");
-    public static final RegistryObject<SpellModifier> PROSPERITY = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "prosperity", SILVER_POINT, Fortune::new, null, 0, 0);
+    public static final RegistryObject<SpellModifier> PROSPERITY = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "prosperity", SILVER_POINT, Prosperity::new, null, 0, 0);
     public static final RegistryObject<SpellModifier> RADIUS = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "radius", SKILL_POINT_3, Radius::new, UTILITY, 275, 390, "arsmagicalegacy:channel");
     public static final RegistryObject<SpellModifier> RANGE = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "range", SKILL_POINT_3, Range::new, UTILITY, 140, 345, "arsmagicalegacy:blink");
     public static final RegistryObject<SpellModifier> RUNE_PROCS = SpellRegistry.registerSpellModifier(ArsMagicaAPI.MODID, "rune_procs", SKILL_POINT_2, RuneProcs::new, DEFENSE, 157, 360, "arsmagicalegacy:rune");
