@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class HarvestPlants extends SpellComponent {
+public class Harvest extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         BlockState block = world.getBlockState(pos);

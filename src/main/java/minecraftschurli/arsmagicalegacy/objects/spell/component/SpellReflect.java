@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class Reflect extends SpellComponent {
+public class SpellReflect extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;

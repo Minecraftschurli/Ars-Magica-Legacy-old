@@ -22,7 +22,6 @@ import java.util.function.Supplier;
  * @author Minecraftschurli
  * @version 2019-11-16
  */
-@SuppressWarnings("unused")
 public final class ModSpellParts implements IInit {
 
     public static final Supplier<SkillPoint> SILVER_POINT = SkillPointRegistry.registerSkillPoint(-1, new SkillPoint(TextFormatting.GRAY, 0x999999, -1, -1).disableRender());
@@ -74,11 +73,11 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellShape> AOE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "aoe", SKILL_POINT_2, AoE::new, OFFENSE, 300, 180, "arsmagicalegacy:frost_damage", "arsmagicalegacy:physical_damage", "arsmagicalegacy:fire_damage", "arsmagicalegacy:lightning_damage", "arsmagicalegacy:magic_damage");
     public static final RegistryObject<SpellShape> BEAM = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "beam", SKILL_POINT_3, Beam::new, OFFENSE, 300, 270, "arsmagicalegacy:aoe");
     public static final RegistryObject<SpellShape> CHAIN = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "chain", SKILL_POINT_3, Chain::new, UTILITY, 455, 210, "arsmagicalegacy:grow");
-    public static final RegistryObject<SpellShape> CHANNEL = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "channel", SKILL_POINT_2, MissingShape::new, UTILITY, 275, 345, "arsmagicalegacy:attract", "arsmagicalegacy:telekinesis");
+    public static final RegistryObject<SpellShape> CHANNEL = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "channel", SKILL_POINT_2, Channel::new, UTILITY, 275, 345, "arsmagicalegacy:attract", "arsmagicalegacy:telekinesis");
     public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "projectile", SKILL_POINT_1, Projectile::new, OFFENSE, 300, 45);
     public static final RegistryObject<SpellShape> RUNE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "rune", SKILL_POINT_2, Rune::new, DEFENSE, 157, 315, "arsmagicalegacy:accelerate", "arsmagicalegacy:entangle");
     public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "self", SKILL_POINT_1, Self::new, DEFENSE, 267, 45);
-//    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaLegacy.MODID, "toggle", SKILL_POINT_3, Toggle::new, UTILITY, 315, 345, "arsmagicalegacy:channel");
+    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "toggle", SKILL_POINT_3, Toggle::new, UTILITY, 315, 345, "arsmagicalegacy:channel");
     public static final RegistryObject<SpellShape> TOUCH = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "touch", SKILL_POINT_1, Touch::new, UTILITY, 275, 75);
     public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "wall", SKILL_POINT_2, Wall::new, DEFENSE, 87, 200, "arsmagicalegacy:repel");
     public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "wave", SKILL_POINT_3, Wave::new, OFFENSE, 367, 315, "arsmagicalegacy:beam", "arsmagicalegacy:fling");
@@ -115,14 +114,14 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> FURY = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "fury", SKILL_POINT_3, Fury::new, OFFENSE, 255, 315, "arsmagicalegacy:beam", "arsmagicalegacy:storm");
     public static final RegistryObject<SpellComponent> GRAVITY_WELL = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "gravity_well", SKILL_POINT_2, GravityWell::new, DEFENSE, 222, 180, "arsmagicalegacy:slowfall");
     public static final RegistryObject<SpellComponent> GROW = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "grow", SKILL_POINT_3, Grow::new, UTILITY, 410, 210, "arsmagicalegacy:drought", "arsmagicalegacy:create_water", "arsmagicalegacy:plant", "arsmagicalegacy:plow", "arsmagicalegacy:harvest_plants");
-    public static final RegistryObject<SpellComponent> HARVEST_PLANTS = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "harvest_plants", SKILL_POINT_2, HarvestPlants::new, UTILITY, 365, 120, "arsmagicalegacy:light");
+    public static final RegistryObject<SpellComponent> HARVEST = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "harvest", SKILL_POINT_2, Harvest::new, UTILITY, 365, 120, "arsmagicalegacy:light");
     public static final RegistryObject<SpellComponent> HASTE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "haste", SKILL_POINT_1, Haste::new, DEFENSE, 177, 155, "arsmagicalegacy:slowfall");
     public static final RegistryObject<SpellComponent> HEAL = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "heal", SKILL_POINT_1, Heal::new, DEFENSE, 357, 135, "arsmagicalegacy:regeneration");
     public static final RegistryObject<SpellComponent> IGNITION = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "ignition", SKILL_POINT_2, Ignition::new, OFFENSE, 165, 135, "arsmagicalegacy:fire_damage");
     public static final RegistryObject<SpellComponent> INVISIBILITY = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "invisibility", SKILL_POINT_2, Invisiblity::new, UTILITY, 185, 255, "arsmagicalegacy:true_sight");
     public static final RegistryObject<SpellComponent> KNOCKBACK = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "knockback", SKILL_POINT_2, Knockback::new, OFFENSE, 390, 180, "arsmagicalegacy:magic_damage");
     public static final RegistryObject<SpellComponent> LEAP = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "leap", SKILL_POINT_1, Leap::new, DEFENSE, 222, 90, "arsmagicalegacy:self");
-    public static final RegistryObject<SpellComponent> LEVITATE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "levitate", SKILL_POINT_2, Levitation::new, DEFENSE, 222, 225, "arsmagicalegacy:gravity_well");
+    public static final RegistryObject<SpellComponent> LEVITATION = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "levitation", SKILL_POINT_2, Levitation::new, DEFENSE, 222, 225, "arsmagicalegacy:gravity_well");
     public static final RegistryObject<SpellComponent> LIFE_DRAIN = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "life_drain", SKILL_POINT_2, LifeDrain::new, DEFENSE, 312, 180, "arsmagicalegacy:life_tap");
     public static final RegistryObject<SpellComponent> LIFE_TAP = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "life_tap", SKILL_POINT_2, LifeTap::new, DEFENSE, 312, 135, "arsmagicalegacy:heal");
     public static final RegistryObject<SpellComponent> LIGHT = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "light", SKILL_POINT_1, Light::new, UTILITY, 275, 165, "arsmagicalegacy:dig");
@@ -133,6 +132,7 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> MANA_SHIELD = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "mana_shield", SILVER_POINT, ManaShield::new, DEFENSE, 30, 90);
     public static final RegistryObject<SpellComponent> MARK = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "mark", SKILL_POINT_2, Mark::new, UTILITY, 155, 435, "arsmagicalegacy:transplace");
     public static final RegistryObject<SpellComponent> MOONRISE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "moonrise", SILVER_POINT, Moonrise::new, UTILITY, 75, 90);
+    //TODO nausea
     public static final RegistryObject<SpellComponent> NIGHT_VISION = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "night_vision", SKILL_POINT_1, NightVision::new, UTILITY, 185, 165, "arsmagicalegacy:light");
     public static final RegistryObject<SpellComponent> PHYSICAL_DAMAGE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "physical_damage", SKILL_POINT_1, PhysicalDamage::new, OFFENSE, 300, 90, "arsmagicalegacy:projectile");
     public static final RegistryObject<SpellComponent> PLACE_BLOCK = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "place_block", SKILL_POINT_1, PlaceBlock::new, UTILITY, 185, 93, "arsmagicalegacy:dig");
@@ -140,15 +140,16 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> PLOW = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "plow", SKILL_POINT_1, Plow::new, UTILITY, 365, 165, "arsmagicalegacy:light");
     public static final RegistryObject<SpellComponent> RANDOM_TELEPORT = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "random_teleport", SKILL_POINT_1, RandomTeleport::new, UTILITY, 185, 300, "arsmagicalegacy:invisibility");
     public static final RegistryObject<SpellComponent> RECALL = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "recall", SKILL_POINT_2, Recall::new, UTILITY, 215, 435, "arsmagicalegacy:transplace");
-    public static final RegistryObject<SpellComponent> REFLECT = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "reflect", SKILL_POINT_3, Reflect::new, DEFENSE, 357, 315, "arsmagicalegacy:shield");
     public static final RegistryObject<SpellComponent> REGENERATION = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "regeneration", SKILL_POINT_1, Regeneration::new, DEFENSE, 357, 90, "arsmagicalegacy:self");
     public static final RegistryObject<SpellComponent> REPEL = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "repel", SKILL_POINT_2, Repel::new, DEFENSE, 132, 200, "arsmagicalegacy:slow");
     public static final RegistryObject<SpellComponent> RIFT = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "rift", SKILL_POINT_2, Rift::new, UTILITY, 275, 255, "arsmagicalegacy:light");
+    //TODO scramble synapses
     public static final RegistryObject<SpellComponent> SHIELD = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "shield", SKILL_POINT_1, Shield::new, DEFENSE, 357, 270, "arsmagicalegacy:zone");
     public static final RegistryObject<SpellComponent> SHRINK = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "shrink", SKILL_POINT_1, Shrink::new, DEFENSE, 402, 90, "arsmagicalegacy:regeneration");
     public static final RegistryObject<SpellComponent> SILENCE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "silence", SKILL_POINT_3, Silence::new, OFFENSE, 345, 245, "arsmagicalegacy:astral_distortion");
     public static final RegistryObject<SpellComponent> SLOW = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "slow", SKILL_POINT_1, Slow::new, DEFENSE, 132, 155, "arsmagicalegacy:slowfall");
     public static final RegistryObject<SpellComponent> SLOWFALL = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "slowfall", SKILL_POINT_1, Slowfall::new, DEFENSE, 222, 135, "arsmagicalegacy:leap");
+    public static final RegistryObject<SpellComponent> SPELL_REFLECT = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "spell_reflect", SKILL_POINT_3, SpellReflect::new, DEFENSE, 357, 315, "arsmagicalegacy:shield");
     public static final RegistryObject<SpellComponent> STORM = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "storm", SKILL_POINT_3, Storm::new, OFFENSE, 255, 225, "arsmagicalegacy:lightning_damage");
     public static final RegistryObject<SpellComponent> SUMMON = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "summon", SKILL_POINT_2, Summon::new, DEFENSE, 267, 135, "arsmagicalegacy:life_tap");
     public static final RegistryObject<SpellComponent> SWIFT_SWIM = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "swift_swim", SKILL_POINT_1, SwiftSwim::new, DEFENSE, 177, 200, "arsmagicalegacy:haste");

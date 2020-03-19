@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class Nauseate extends SpellComponent {
+public class Nausea extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{

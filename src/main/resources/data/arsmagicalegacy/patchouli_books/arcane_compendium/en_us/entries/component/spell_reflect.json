@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.spell_reflect.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/spell_reflect.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.spell_reflect.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:spell_reflect"
+    }
+  ]
+}
