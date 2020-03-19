@@ -49,7 +49,7 @@ public class MeltArmor extends SpellComponent {
         for (ItemStack stack : armor) {
             if (stack == null) continue;
             if (!stack.hasTag() || stack.getTag().get(mmpsNBTTagName) == null)
-                stack.damageItem((int) Math.ceil(stack.getItem().getMaxDamage() * 0.25f), caster, null);
+                stack.damageItem((int) Math.ceil(stack.getItem().getMaxDamage(stack) * 0.25f), caster, null);
             else {
                 CompoundNBT subCompound = (CompoundNBT) stack.getTag().get(mmpsNBTTagName);
                 double charge = stack.getTag().getDouble(mmpsChargeTagName);
