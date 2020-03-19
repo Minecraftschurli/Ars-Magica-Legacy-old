@@ -334,7 +334,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSkillPoint(ModSpellParts.SKILL_POINT_1, "Blue");
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Red");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Green");
-        add("itemGroup." + ArsMagicaAPI.MODID, "Ars Magica: Legacy");
+        add("itemGroup." + ArsMagicaAPI.MODID, ArsMagicaAPI.MODNAME);
         addAdvancement("compendium", "Book of Magic", "Unlock the secrets of Ars Magica.");
         addAdvancement("silver", "Silver Skills", "The best of the best.");
         addAdvancement("level5", "Newcomer", "Reach Magic Level 5");
