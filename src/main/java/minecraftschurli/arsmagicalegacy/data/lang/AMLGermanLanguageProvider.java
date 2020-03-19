@@ -353,7 +353,7 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addAdvancement("level95", "Kaiser der Magier", "Erreiche Magielevel 95");
         addAdvancement("level100", "Oberster Zauberer", "Erreiche Magielevel 100");
         add(ArsMagicaAPI.MODID + ".arcane_compendium.name", "Magisches Lexikon");
-        add(ArsMagicaAPI.MODID + ".arcane_compendium.landing_text", "Hallo Welt");
+        add(ArsMagicaAPI.MODID + ".arcane_compendium.landing_text", "Ein magischer Blick in Minecraft...");
         add(ArsMagicaAPI.MODID + ".command.forget", "Skill %s vergessen");
         add(ArsMagicaAPI.MODID + ".command.forgetall", "Alle Skills vergessen");
         add(ArsMagicaAPI.MODID + ".command.learned", "Skill %s erlernt");
