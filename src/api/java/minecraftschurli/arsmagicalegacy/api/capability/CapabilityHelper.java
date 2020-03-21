@@ -686,50 +686,52 @@ public class CapabilityHelper {
     private static void syncMana(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IManaStorage iManaStorage = getManaCapability(player);
-        NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
+        NetworkHandler.INSTANCE.sendToPlayer(
                 new SyncManaPacket(
                         iManaStorage.getMana(),
                         iManaStorage.getMaxMana()
-                ));
+                ),
+                player
+        );
     }
 
     private static void syncBurnout(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IBurnoutStorage iBurnoutStorage = getBurnoutCapability(player);
-        NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
+        NetworkHandler.INSTANCE.sendToPlayer(
                 new SyncBurnoutPacket(
                         iBurnoutStorage.getBurnout(),
                         iBurnoutStorage.getMaxBurnout()
-                )
+                ),
+                player
         );
     }
 
     private static void syncResearch(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IResearchStorage iStorage = getResearchCapability(player);
-        NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncResearchPacket(iStorage)
+        NetworkHandler.INSTANCE.sendToPlayer(
+                new SyncResearchPacket(iStorage),
+                player
         );
     }
 
     private static void syncMagic(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IMagicStorage iStorage = getMagicCapability(player);
-        NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncMagicPacket(iStorage.getCurrentLevel(), iStorage.getXp())
+        NetworkHandler.INSTANCE.sendToPlayer(
+                new SyncMagicPacket(iStorage.getCurrentLevel(), iStorage.getXp()),
+                player
         );
     }
 
     private static void syncAffinity(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IAffinityStorage iAffinityStorage = getAffinityCapability(player);
-        NetworkHandler.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> player),
-                new SyncAffinityPacket(iAffinityStorage.getAffinitiesInternal()));
+        NetworkHandler.INSTANCE.sendToPlayer(
+                new SyncAffinityPacket(iAffinityStorage.getAffinitiesInternal()),
+                player
+        );
     }
 
     //endregion

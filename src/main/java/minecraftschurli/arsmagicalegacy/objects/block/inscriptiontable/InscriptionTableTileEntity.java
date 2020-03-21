@@ -15,7 +15,6 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.util.TextUtils;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,7 +46,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static minecraftschurli.arsmagicalegacy.util.TextUtils.NEWPAGE;
+import static minecraftschurli.arsmagicalegacy.api.util.TextUtils.NEWPAGE;
 
 /**
  * @author Minecraftschurli
@@ -552,7 +551,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             Iterator<AbstractSpellPart> it = currentRecipe.iterator();
             String[] outputData = spellPartListToStringBuilder(it, sb, null);
 
-            List<StringNBT> pages = TextUtils.splitStoryPartIntoPages(sb.toString());
+            List<StringNBT> pages = minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString());
 
             sb = new StringBuilder();
             sb.append("Materials List:\n\n");
@@ -560,7 +559,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.joining("\n")));
 
-            pages.addAll(TextUtils.splitStoryPartIntoPages(sb.toString()));
+            pages.addAll(minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString()));
 
 //            ArsMagicaLegacy.LOGGER.debug("before write: {}", pages);
 
@@ -589,13 +588,13 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 sb.append(String.format("%s: %.2f%%", aff.getName().getFormattedText(), pct));
                 sb.append("\n");
             }
-            pages.addAll(TextUtils.splitStoryPartIntoPages(sb.toString()));
-            TextUtils.writePartToNBT(bookstack.getTag(), pages);
+            pages.addAll(minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString()));
+            minecraftschurli.arsmagicalegacy.api.util.TextUtils.writePartToNBT(bookstack.getTag(), pages);
 //            ArsMagicaLegacy.LOGGER.debug("after write: {}", bookstack.getTag());
 
             if (currentSpellName.equals(""))
                 currentSpellName = "Spell Recipe";
-            TextUtils.finalizeStory(bookstack, new StringTextComponent(currentSpellName), player.getName().getFormattedText());
+            minecraftschurli.arsmagicalegacy.api.util.TextUtils.finalizeStory(bookstack, new StringTextComponent(currentSpellName), player.getName().getFormattedText());
 //            ArsMagicaLegacy.LOGGER.debug("after finalize: {}", bookstack.getTag());
 
 

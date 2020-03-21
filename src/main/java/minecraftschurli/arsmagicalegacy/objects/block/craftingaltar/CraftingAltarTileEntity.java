@@ -262,7 +262,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     private void sync() {
         if (getWorld() != null && !getWorld().isRemote())
-            NetworkHandler.INSTANCE.send(PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(getPos().getX(), getPos().getY(), getPos().getZ(), 96, getWorld().getDimension().getType())), new TEClientSyncPacket(this));
+            NetworkHandler.INSTANCE.sendToAllWatching(new TEClientSyncPacket(this), getWorld(), getPos());
     }
 
     private void invalidateMB() {

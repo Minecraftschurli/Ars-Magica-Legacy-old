@@ -4,8 +4,6 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.Supplier;
-
 /**
  * @author Minecraftschurli
  * @version 2020-02-15
@@ -17,14 +15,21 @@ public class UpdateStepHeightPacket implements IPacket {
         this.stepHeight = stepHeight;
     }
 
+    public UpdateStepHeightPacket() {}
+
     @Override
-    public void toBytes(PacketBuffer buf) {
+    public void serialize(PacketBuffer buf) {
         buf.writeFloat(stepHeight);
     }
 
     @Override
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
+    public void deserialize(PacketBuffer buf) {
+        this.stepHeight = buf.readFloat();
+    }
+
+    @Override
+    public boolean handle(NetworkEvent.Context ctx) {
         ArsMagicaAPI.getLocalPlayer().stepHeight = this.stepHeight;
-        ctx.get().setPacketHandled(true);
+        return true;
     }
 }

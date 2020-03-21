@@ -3,14 +3,16 @@ package minecraftschurli.arsmagicalegacy.api.network;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.Supplier;
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli
  * @version 2019-12-12
  */
 public interface IPacket {
-    void toBytes(PacketBuffer buf);
+    void serialize(PacketBuffer buf);
 
-    void handle(Supplier<NetworkEvent.Context> ctx);
+    void deserialize(PacketBuffer buf);
+
+    boolean handle(@Nonnull NetworkEvent.Context ctx);
 }

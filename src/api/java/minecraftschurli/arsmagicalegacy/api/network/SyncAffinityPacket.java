@@ -8,7 +8,6 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -21,16 +20,12 @@ public class SyncAffinityPacket implements IPacket {
         this.affinities = affinities;
     }
 
-    public SyncAffinityPacket(PacketBuffer buf) {
+    public SyncAffinityPacket() {
         this.affinities = new HashMap<>();
-        int len = buf.readInt();
-        for (int i = 0; i < len; i++) {
-            this.affinities.put(buf.readResourceLocation(), buf.readDouble());
-        }
     }
 
     @Override
-    public void toBytes(PacketBuffer buf) {
+    public void serialize(PacketBuffer buf) {
         buf.writeInt(this.affinities.size());
         for (Map.Entry<ResourceLocation, Double> entry : affinities.entrySet()) {
             buf.writeResourceLocation(entry.getKey());
@@ -39,12 +34,20 @@ public class SyncAffinityPacket implements IPacket {
     }
 
     @Override
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
+    public void deserialize(PacketBuffer buf) {
+        int len = buf.readInt();
+        for (int i = 0; i < len; i++) {
+            this.affinities.put(buf.readResourceLocation(), buf.readDouble());
+        }
+    }
+
+    @Override
+    public boolean handle(NetworkEvent.Context ctx) {
         ArsMagicaAPI.getLocalPlayer().getCapability(CapabilityHelper.getAffinityCapability()).ifPresent(iAffinityStorage -> {
             for (Map.Entry<ResourceLocation, Double> entry : affinities.entrySet()) {
                 iAffinityStorage.setAffinityDepth(entry.getKey(), entry.getValue());
             }
         });
-        ctx.get().setPacketHandled(true);
+        return true;
     }
 }

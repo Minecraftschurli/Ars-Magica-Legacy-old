@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -19,17 +18,32 @@ import java.util.function.Supplier;
  */
 public class SyncResearchPacket implements IPacket {
 
-    private Map<Integer, Integer> points;
-    private List<ResourceLocation> skills;
+    private final Map<Integer, Integer> points;
+    private final List<ResourceLocation> skills;
 
     public SyncResearchPacket(IResearchStorage capability) {
         points = capability.getPoints();
         skills = capability.getLearned();
     }
 
-    public SyncResearchPacket(PacketBuffer buf) {
+    public SyncResearchPacket() {
         points = new HashMap<>();
         skills = new ArrayList<>();
+    }
+
+    @Override
+    public void serialize(PacketBuffer buf) {
+        buf.writeInt(points.size());
+        points.forEach((tier, points) -> {
+            buf.writeInt(tier);
+            buf.writeInt(points);
+        });
+        buf.writeInt(skills.size());
+        skills.forEach(buf::writeResourceLocation);
+    }
+
+    @Override
+    public void deserialize(PacketBuffer buf) {
         int pointsSize = buf.readInt();
         for (int i = 0; i < pointsSize; i++){
             int tier = buf.readInt();
@@ -44,23 +58,12 @@ public class SyncResearchPacket implements IPacket {
     }
 
     @Override
-    public void toBytes(PacketBuffer buf) {
-        buf.writeInt(points.size());
-        points.forEach((tier, points) -> {
-            buf.writeInt(tier);
-            buf.writeInt(points);
-        });
-        buf.writeInt(skills.size());
-        skills.forEach(buf::writeResourceLocation);
-    }
-
-    @Override
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
+    public boolean handle(NetworkEvent.Context ctx) {
         ArsMagicaAPI.getLocalPlayer().getCapability(CapabilityHelper.getResearchCapability()).ifPresent(iStorage -> {
             iStorage.forgetAll();
             points.forEach(iStorage::set);
             skills.forEach(iStorage::learn);
         });
-        ctx.get().setPacketHandled(true);
+        return true;
     }
 }

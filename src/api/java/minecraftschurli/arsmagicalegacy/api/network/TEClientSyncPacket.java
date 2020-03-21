@@ -7,8 +7,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.Supplier;
-
 /**
  * @author Minecraftschurli
  * @version 2019-12-27
@@ -22,21 +20,24 @@ public class TEClientSyncPacket implements IPacket {
         this.data = te.write(new CompoundNBT());
     }
 
-    public TEClientSyncPacket(PacketBuffer buf) {
-        this.pos = buf.readBlockPos();
-        this.data = buf.readCompoundTag();
-    }
+    public TEClientSyncPacket() {}
 
     @Override
-    public void toBytes(PacketBuffer buf) {
+    public void serialize(PacketBuffer buf) {
         buf.writeBlockPos(pos);
         buf.writeCompoundTag(data);
     }
 
     @Override
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
+    public void deserialize(PacketBuffer buf) {
+        this.pos = buf.readBlockPos();
+        this.data = buf.readCompoundTag();
+    }
+
+    @Override
+    public boolean handle(NetworkEvent.Context ctx) {
         //noinspection ConstantConditions
-        ctx.get().enqueueWork(() -> Minecraft.getInstance().world.getTileEntity(pos).read(data));
-        ctx.get().setPacketHandled(true);
+        ctx.enqueueWork(() -> Minecraft.getInstance().world.getTileEntity(pos).read(data));
+        return true;
     }
 }
