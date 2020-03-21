@@ -14,13 +14,10 @@ apply plugin: 'net.minecraftforge.gradle'
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
     }
     maven {
         name = "JaredMaven"
@@ -28,7 +25,11 @@ repositories {
     }
     maven {
         name = "MinecraftschurliMaven"
-        url = mcs_maven_url
+        url = "${mcs_maven_url}"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
     }
 }
 
