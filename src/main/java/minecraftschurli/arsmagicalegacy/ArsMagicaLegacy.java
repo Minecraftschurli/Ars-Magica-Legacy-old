@@ -111,7 +111,7 @@ public final class ArsMagicaLegacy {
         LOGGER.debug("Common Setup");
         minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.init();
         WorldGenerator.setupBiomeGen();
-        WorldGenerator.setupOregen();
+        WorldGenerator.setupModFeatures();
         proxy.init();
         NetworkHandler.registerMessages();
 

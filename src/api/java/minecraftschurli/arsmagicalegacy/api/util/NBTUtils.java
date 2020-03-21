@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.api;
+package minecraftschurli.arsmagicalegacy.api.util;
 
 import com.google.gson.*;
 import net.minecraft.nbt.*;

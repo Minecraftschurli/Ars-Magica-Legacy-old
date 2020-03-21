@@ -46,8 +46,6 @@ public class RenderUtils {
         world.addParticle(new SimpleParticleData(type.get(), getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
     }
 
-    private static Random rand = new Random();
-
     public static void drawBox(float minX, float minY, float maxX, float maxY, float zLevel, float minU, float minV, float maxU, float maxV) {
         Tessellator t = Tessellator.getInstance();
         BufferBuilder wr = t.getBuffer();
@@ -60,15 +58,15 @@ public class RenderUtils {
     }
 
     public static float getRed(int color) {
-        return ((color & 0xFF0000) >> 16) / 255;
+        return ((color & 0xFF0000) >> 16) / 255f;
     }
 
     public static float getGreen(int color) {
-        return ((color & 0x00FF00) >> 8) / 255;
+        return ((color & 0x00FF00) >> 8) / 255f;
     }
 
     public static float getBlue(int color) {
-        return (color & 0x0000FF) / 255;
+        return (color & 0x0000FF) / 255f;
     }
 
     public static void color(int color) {
@@ -83,36 +81,31 @@ public class RenderUtils {
     }
 
     public static void line2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        RenderSystem.enableDepthTest();
-        GL11.glLineWidth(1f);
-        GL11.glColor3d(getRed(color), getGreen(color), getBlue(color));
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex3f(xStart, yStart, zLevel);
-        GL11.glVertex3f(xEnd, yEnd, zLevel);
-        GL11.glEnd();
-        GL11.glColor3d(1, 1, 1);
-        RenderSystem.disableDepthTest();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        line2d(xStart, yStart, xEnd, yEnd, zLevel, color, 1f);
     }
 
     public static void lineThick2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
-        GL11.glPushMatrix();
+        line2d(xStart, yStart, xEnd, yEnd, zLevel, color, 4f);
+    }
+
+    public static void line2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color, float width) {
+        RenderSystem.pushMatrix();
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         RenderSystem.enableDepthTest();
-        GL11.glLineWidth(4f);
-        GL11.glColor3d(((color & 0xFF0000) >> 16) / 255, ((color & 0x00FF00) >> 8) / 255, (color & 0x0000FF) / 255);
+        RenderSystem.lineWidth(width);
+        RenderSystem.color3f(getRed(color), getGreen(color), getBlue(color));
         GL11.glBegin(GL11.GL_LINES);
         GL11.glVertex3f(xStart, yStart, zLevel);
         GL11.glVertex3f(xEnd, yEnd, zLevel);
         GL11.glEnd();
-        GL11.glColor3d(1, 1, 1);
+        RenderSystem.color3f(1,1,1);
         RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glPopMatrix();
+        RenderSystem.popMatrix();
     }
 
     public static void fractalLine2df(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color, float displace, float fractalDetail) {
+        Random rand = Minecraft.getInstance().player.world.rand;
         if (displace < fractalDetail) line2d(xStart, yStart, xEnd, yEnd, zLevel, color);
         else {
             int mid_x = (int) ((xEnd + xStart) / 2);
@@ -131,15 +124,15 @@ public class RenderUtils {
     public static void drawTextInWorldAtOffset(String text, double x, double y, double z, int color) {
         FontRenderer fontrenderer = Minecraft.getInstance().fontRenderer;
         float f = 0.0104166675f;
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float) x, (float) y, (float) z);
-        GL11.glNormal3f(0, 1, 0);
-        GL11.glRotatef(-Minecraft.getInstance().getRenderManager().getCameraOrientation().getY(), 0, 1, 0);
-        GL11.glRotatef(Minecraft.getInstance().getRenderManager().getCameraOrientation().getX(), 1, 0, 0);
-        GL11.glScalef(-f, -f, f);
-        GL11.glScalef(0.5f, 0.5f, 0.5f);
+        RenderSystem.pushMatrix();
+        RenderSystem.translatef((float) x, (float) y, (float) z);
+        RenderSystem.normal3f(0, 1, 0);
+        RenderSystem.rotatef(-Minecraft.getInstance().getRenderManager().getCameraOrientation().getY(), 0, 1, 0);
+        RenderSystem.rotatef(Minecraft.getInstance().getRenderManager().getCameraOrientation().getX(), 1, 0, 0);
+        RenderSystem.scalef(-f, -f, f);
+        RenderSystem.scalef(0.5f, 0.5f, 0.5f);
         GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDepthMask(false);
+        RenderSystem.depthMask(false);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -154,14 +147,14 @@ public class RenderUtils {
         tessellator.getBuffer().pos(j + 1, -1 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
         tessellator.draw();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, b0, 553648127);
+        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2f, b0, 553648127);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(true);
-        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, b0, -1);
+        RenderSystem.depthMask(true);
+        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2f, b0, -1);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);
-        GL11.glColor4f(1, 1, 1, 1);
-        GL11.glPopMatrix();
+        RenderSystem.color4f(1, 1, 1, 1);
+        RenderSystem.popMatrix();
     }
 
     public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
@@ -169,11 +162,11 @@ public class RenderUtils {
         RenderSystem.rotatef((float)rotation.x, 1, 0, 0);
         RenderSystem.rotatef((float)rotation.y, 1, 1, 0);
         RenderSystem.rotatef((float)rotation.z, 1, 0, 1);
-        renderBlockModel(te, model, defaultState);
+//        renderBlockModel(te, model, defaultState);
         RenderSystem.popMatrix();
     }
 
-    public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState) {
+    public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState, MatrixStack matrixStack) {
         try {
             RenderSystem.pushMatrix();
             RenderSystem.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
@@ -186,7 +179,7 @@ public class RenderUtils {
             BlockState state = null;
             if (world != null) state = world.getBlockState(te.getPos());
             if (state.getBlock() != defaultState.getBlock()) state = defaultState;
-//            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), wr, true, world.rand, world.getSeed(), te.getModelData());
+//            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), matrixStack, wr, true, world.rand, world.getSeed(), te.getModelData());
             t.draw();
             RenderSystem.popMatrix();
         } catch (Throwable t) {
@@ -200,8 +193,8 @@ public class RenderUtils {
         RenderSystem.lineWidth(1f);
         BufferBuilder buf = Tessellator.getInstance().getBuffer();
         buf.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
-        buf.pos(src_x, src_y, zLevel).color((color1 & 0xFF0000) >> 16, (color1 & 0x00FF00) >> 8, color1 & 0x0000FF, 0xFF).endVertex();
-        buf.pos(dst_x, dst_y, zLevel).color((color2 & 0xFF0000) >> 16, (color2 & 0x00FF00) >> 8, color2 & 0x0000FF, 0xFF).endVertex();
+        buf.pos(src_x, src_y, zLevel).color(getRed(color1), getGreen(color1), getBlue(color1), 0xFF).endVertex();
+        buf.pos(dst_x, dst_y, zLevel).color(getRed(color2), getGreen(color2), getBlue(color2), 0xFF).endVertex();
         Tessellator.getInstance().draw();
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.enableTexture();

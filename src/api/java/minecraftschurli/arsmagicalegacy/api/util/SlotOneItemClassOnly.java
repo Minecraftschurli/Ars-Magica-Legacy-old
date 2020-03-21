@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.util;
+package minecraftschurli.arsmagicalegacy.api.util;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;

@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.api.NBTUtils;
+import minecraftschurli.arsmagicalegacy.api.util.NBTUtils;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
 import net.minecraft.client.resources.JsonReloadListener;

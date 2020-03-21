@@ -16,9 +16,7 @@ import java.util.function.Supplier;
  * @version 2020-01-18
  */
 public final class ModFeatures implements IInit {
-    public static final Supplier<TreeFeatureConfig> WITCHWOOD_TREE_CONFIG = () -> {
-        return new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.WITCHWOOD_LOG.get().getDefaultState()), new SimpleBlockStateProvider(ModBlocks.WITCHWOOD_LEAVES.get().getDefaultState()), new BlobFoliagePlacer(2, 0)).baseHeight(5).heightRandA(2).foliageHeight(3).ignoreVines().setSapling(ModBlocks.WITCHWOOD_SAPLING.get()).build();
-    };
+    public static final Supplier<TreeFeatureConfig> WITCHWOOD_TREE_CONFIG = () -> new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.WITCHWOOD_LOG.get().getDefaultState()), new SimpleBlockStateProvider(ModBlocks.WITCHWOOD_LEAVES.get().getDefaultState()), new BlobFoliagePlacer(2, 0)).baseHeight(5).heightRandA(2).foliageHeight(3).ignoreVines().setSapling(ModBlocks.WITCHWOOD_SAPLING.get()).build();
 
     public static final RegistryObject<MoonstoneMeteor> MOONSTONE_METEOR = FEATURES.register("moonstone_meteor", MoonstoneMeteor::new);
     public static final RegistryObject<SunstoneOre> SUNSTONE_ORE = FEATURES.register("sunstone_ore", SunstoneOre::new);

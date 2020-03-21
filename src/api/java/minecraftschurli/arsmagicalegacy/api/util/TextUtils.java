@@ -1,14 +1,36 @@
-package minecraftschurli.arsmagicalegacy.util;
+package minecraftschurli.arsmagicalegacy.api.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.text.ITextComponent;
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * @author Minecraftschurli
+ * @version 2020-03-21
+ */
 public class TextUtils {
+
+    public static final String NEWPAGE = "<newpage>";
+
+    public static List<ITextComponent> getLocalized(String key, Object... args) {
+        return breakUp(new TranslationTextComponent(key, args));
+    }
+
+    public static List<ITextComponent> breakUp(ITextComponent component) {
+        return Arrays.stream(component.getFormattedText().split("\n"))
+                .map(StringTextComponent::new)
+                .collect(Collectors.toList());
+    }
+
     public static void writePartToNBT(CompoundNBT compound, List<StringNBT> storyData) {
         ListNBT pages = new ListNBT();
         for (StringNBT page : storyData) {
@@ -25,8 +47,6 @@ public class TextUtils {
         stack.getTag().put("author", StringNBT.valueOf(author));
         return stack;
     }
-
-    public static final String NEWPAGE = "<newpage>";
 
     public static List<StringNBT> splitStoryPartIntoPages(String storyPart) {
         ArrayList<StringNBT> parts = new ArrayList<>();
