@@ -584,10 +584,10 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("mechanic", "mana", 0, "Mana represents your magical energy. It can be increased by gaining a higher magic experience level. The main usage of mana is executing spells. It is shown as a light blue bar in your interface.");
         addTextPage("mechanic", "silver_skills", 0, "Silver Skills are mysterious hidden spell components. They can only be obtained by creating a spell with specific components and/or modifiers (the shapes are irrelevant). To unlock them, a few tips have ever been found:$(br2)-The required parts are all in the same tree and all have to be in the same stage as the silver skill itself.$(br)-The combination doesn't require a specific order.$(br)-The required parts will make sense to the silver skill. For example, Firestorm won't require Drown.$(br)-The spell made in order to unlock the silver skill may not be commonly useful.");
         addTextPage("mechanic", "spell_creation", 0, "First, learn some parts at the occulus. Then, go to your Inscription Table and make a spell recipe (see the Inscription Table entry for more information on how to do this). With the recipe in your inventory, head to your crafting altar and put it onto the altar's lectern. Throw in the items that appear above the lectern - it always starts with a blank rune and ends with a spell parchment. If etherium is required, make sure you have an etherium source of the correct type connected to the altar, then switch the lever. It will draw the amount it needs automatically, no more, no less. Then, have fun with your newly created spell!");
-        addTextPage("component", "absorption", 0, "Gives the target the Absorption effect, like a golden apple would do.");
+        addTextPage("component", "absorption", 0, "Gives the target the Absorption effect.");
         addTextPage("component", "accelerate", 0, "Entities affected with this move faster, and machines work quicker.");
         addTextPage("component", "appropriation", 0, "This appropriates stuff. However, consider not using it, as it might corrupt your entire world.");
-        addTextPage("component", "astral_distortion", 0, "Gives the target the Astral Distortion effect. Astral Distortion blocks some magic abilities, so it's only useful if used on other mages.");
+        addTextPage("component", "astral_distortion", 0, "Gives the target the Astral Distortion effect. Astral Distortion blocks interventions, so it's most useful if used on other mages.");
         addTextPage("component", "attract", 0, "Attracts nearby mobs and animals.");
         addTextPage("component", "banish_rain", 0, "Just as the name says.");
         addTextPage("component", "blind", 0, "Gives the target the Blindness effect.");
@@ -641,7 +641,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("component", "plow", 0, "Like a hoe.");
         addTextPage("component", "random_teleport", 0, "Teleports the target somewhere in the environment.");
         addTextPage("component", "recall", 0, "Teleports the target to the caster.");
-        addTextPage("component", "regeneration", 0, "Gives you the Regeneration effect.");
+        addTextPage("component", "regeneration", 0, "Gives the target the Regeneration effect.");
         addTextPage("component", "repel", 0, "Mobs keep their distance.");
         addTextPage("component", "rift_storage", 0, "Like an ender chest, stores items in an interdimensional void known as rift storage.");
         addTextPage("component", "shield", 0, "Gives the target the Magic Shield effect, which doesn't do anything for now. Incompatible with the Reflect component.");
@@ -649,7 +649,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("component", "silence", 0, "Gives the target the Silence effect, which doesn't do anything for now.");
         addTextPage("component", "slow", 0, "Gives the target the Slowness effect.");
         addTextPage("component", "slowfall", 0, "Gives the target the Slowfall effect.");
-        addTextPage("component", "spell_reflect", 0, "Gives you the Spell Reflect effect, which doesn't do anything for now. Incompatible with the Shield component.");
+        addTextPage("component", "spell_reflect", 0, "Gives the target the Spell Reflect effect, which doesn't do anything for now. Incompatible with the Shield component.");
         addTextPage("component", "storm", 0, "Sets the weather to a thunderstorm.");
         addTextPage("component", "summon", 0, "Summons skeletons to aid you.");
         addTextPage("component", "swift_swim", 0, "Gives the target the Swift Swim effect, which acts like normal speed in water.");
