@@ -83,4 +83,11 @@ public abstract class SpellComponent extends AbstractSpellPart {
     public float getAffinityShift(Affinity affinity) {
         return 0;
     }
+
+    /**
+     * Gets the radius (in blocks) to search for reagents
+     */
+    public float getReagentSearchRadius() {
+        return 0;
+    }
 }
