@@ -339,7 +339,7 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSkillPoint(ModSpellParts.SKILL_POINT_1, "Blau");
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Rot");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Grün");
-        add("itemGroup." + ArsMagicaAPI.MODID, ArsMagicaAPI.MODNAME);
+        addItemGroup(ArsMagicaAPI.MODID, ArsMagicaAPI.MODNAME);
         addAdvancement("compendium", "Buch der Magie", "Finde das Geheimnis von Ars Magica.");
         addAdvancement("silver", "Silberne Zauber", "Die Besten der Besten.");
         addAdvancement("level5", "Neuling", "Erreiche Magielevel 5");
@@ -485,7 +485,7 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSectionTitle("component", "slowfall", "Sanfter Fall");
         addSectionTitle("component", "spell_reflect", "Magische Reflexion");
         addSectionTitle("component", "storm", "Sturm");
-        addSectionTitle("component", "summon", "beschwörung");
+        addSectionTitle("component", "summon", "Beschwörung");
         addSectionTitle("component", "swift_swim", "Schwimmgeschwindigkeit");
         addSectionTitle("component", "telekinesis", "Telekinese");
         addSectionTitle("component", "transplace", "Transplatzierung");

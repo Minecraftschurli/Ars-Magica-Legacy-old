@@ -331,7 +331,7 @@
   "compendium.entries.component.spell_reflect.page.0": "Gibt dem Ziel den Magische Reflexionseffekt, der aktuell nichts tut. inkompatibel mit der Schildkomponente.",
   "compendium.entries.component.storm.name": "Sturm",
   "compendium.entries.component.storm.page.0": "Beschw\u00C3\u00B6rt ein Gewitter herauf.",
-  "compendium.entries.component.summon.name": "beschw\u00C3\u00B6rung",
+  "compendium.entries.component.summon.name": "Beschw\u00C3\u00B6rung",
   "compendium.entries.component.summon.page.0": "Beschw\u00C3\u00B6rt Skelette, die dir im Kampf helfen.",
   "compendium.entries.component.swift_swim.name": "Schwimmgeschwindigkeit",
   "compendium.entries.component.swift_swim.page.0": "Gibt dem Ziel den Schwimmgeschwindigkeiteffekt, der wie normale Geschwindigkeit im Wasser.",

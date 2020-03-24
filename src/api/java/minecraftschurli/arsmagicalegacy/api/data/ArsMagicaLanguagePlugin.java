@@ -142,5 +142,21 @@ public interface ArsMagicaLanguagePlugin {
         add(ArsMagicaAPI.MODID + ".advancements." + key + ".description", desc);
     }
 
+    /**
+     * Adds an item group translation.
+     * @param key         the item group key
+     * @param translation the item group translation
+     */
+    default void addItemGroup(String key, String translation) {
+        add("itemGroup." + key, translation);
+    }
+
+    default void addPotion(String key, String potion, String splashPotion, String lingeringPotion, String tippedArrow) {
+        add("item.minecraft.potion.effect." + key, potion);
+        add("item.minecraft.splash_potion.effect." + key, splashPotion);
+        add("item.minecraft.lingering_potion.effect." + key, lingeringPotion);
+        add("item.minecraft.tipped_arrow.effect." + key, tippedArrow);
+    }
+
     void add(String key, String value);
 }

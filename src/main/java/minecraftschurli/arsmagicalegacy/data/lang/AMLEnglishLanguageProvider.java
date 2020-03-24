@@ -320,7 +320,7 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSpellPart(ModSpellParts.SOLAR, "Solar", "Sun power!");
         addSpellPart(ModSpellParts.SPEED, "Speed", "Projectiles are slow, here's something that could solve that problem.");
         addSpellPart(ModSpellParts.SPELL_REFLECT, "Spell Reflect", "Bounces back to you");
-        addSpellPart(ModSpellParts.STORM, "Thunderstorm", "It's raining...");
+        addSpellPart(ModSpellParts.STORM, "Storm", "It's raining...");
         addSpellPart(ModSpellParts.SUMMON, "Summon", "Rise creation! Oh you look like the others...");
         addSpellPart(ModSpellParts.SWIFT_SWIM, "Swift Swim", "No more swimming for hours.");
         addSpellPart(ModSpellParts.TARGET_NON_SOLID_BLOCKS, "Target Non-Solid Blocks", "And I decided that I would fight the water.");
@@ -339,7 +339,12 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSkillPoint(ModSpellParts.SKILL_POINT_1, "Blue");
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Red");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Green");
-        add("itemGroup." + ArsMagicaAPI.MODID, ArsMagicaAPI.MODNAME);
+        addItemGroup(ArsMagicaAPI.MODID, ArsMagicaAPI.MODNAME);
+        addPotion("lesser_mana_potion", "Potion of Lesser Mana", "Splash Potion of Lesser Mana", "Lingering Potion of Lesser Mana", "Tipped Arrow of Lesser Mana");
+        addPotion("mana_potion", "Potion of Mana", "Splash Potion of Mana", "Lingering Potion of Mana", "Tipped Arrow of Mana");
+        addPotion("greater_mana_potion", "Potion of Greater Mana", "Splash Potion of Greater Mana", "Lingering Potion of Greater Mana", "Tipped Arrow of Greater Mana");
+        addPotion("epic_mana_potion", "Potion of Epic Mana", "Splash Potion of Epic Mana", "Lingering Potion of Epic Mana", "Tipped Arrow of Epic Mana");
+        addPotion("legendary_mana_potion", "Potion of Legendary Mana", "Splash Potion of Legendary Mana", "Lingering Potion of Legendary Mana", "Tipped Arrow of Legendary Mana");
         addAdvancement("compendium", "Book of Magic", "Unlock the secrets of Ars Magica.");
         addAdvancement("silver", "Silver Skills", "The best of the best.");
         addAdvancement("level5", "Newcomer", "Reach Magic Level 5");
