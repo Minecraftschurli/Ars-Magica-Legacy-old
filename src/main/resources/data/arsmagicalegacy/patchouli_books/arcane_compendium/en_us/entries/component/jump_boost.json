@@ -1,0 +1,15 @@
+{
+  "name": "compendium.entries.component.jump_boost.name",
+  "category": "component",
+  "icon": "arsmagicalegacy:icon/component/jump_boost.png",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.component.jump_boost.page.0"
+    },
+    {
+      "type": "spell_component",
+      "component": "arsmagicalegacy:jump_boost"
+    }
+  ]
+}

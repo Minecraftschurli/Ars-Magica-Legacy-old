@@ -279,7 +279,7 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSpellPart(ModSpellParts.IGNITION, "Verbrennung", "Mehr Feuer!");
         addSpellPart(ModSpellParts.INVISIBILITY, "Unsichtbarkeit", "Magst du Verstecken spielen?");
         addSpellPart(ModSpellParts.KNOCKBACK, "Rückstoß", "Nach hinten gestoßen!");
-        addSpellPart(ModSpellParts.LEAP, "Sprung", "Kein Frosch? Und?");
+        addSpellPart(ModSpellParts.JUMP_BOOST, "Sprungkraft", "Kein Frosch? Und?");
         addSpellPart(ModSpellParts.LEVITATION, "Levitation", "Benutze die Macht.");
         addSpellPart(ModSpellParts.LIFE_DRAIN, "Lebensentzug", "Ich nehm dir alles. Inklusive dich selbst");
         addSpellPart(ModSpellParts.LIFE_TAP, "Leben anzapfen", "Ich borg mir das aus.");
@@ -454,8 +454,8 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSectionTitle("component", "heal", "Heilung");
         addSectionTitle("component", "ignition", "Verbrennung");
         addSectionTitle("component", "invisibility", "Unsichtbarkeit");
+        addSectionTitle("component", "jump_boost", "Sprungkraft");
         addSectionTitle("component", "knockback", "Rückstoß");
-        addSectionTitle("component", "leap", "Sprungkraft");
         addSectionTitle("component", "levitation", "Schwebekraft");
         addSectionTitle("component", "life_drain", "Lebensentzug");
         addSectionTitle("component", "life_tap", "Lebensband");

@@ -278,8 +278,8 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSpellPart(ModSpellParts.HEALING, "Healing", "Efficiency over number.");
         addSpellPart(ModSpellParts.IGNITION, "Ignition", "Burn harder!");
         addSpellPart(ModSpellParts.INVISIBILITY, "Invisibility", "Wanna play Hide & Seek?");
+        addSpellPart(ModSpellParts.JUMP_BOOST, "Jump Boost", "Not a frog? Who cares?");
         addSpellPart(ModSpellParts.KNOCKBACK, "Knockback", "Punch from a distance!");
-        addSpellPart(ModSpellParts.LEAP, "Leap", "Not a frog? Who cares?");
         addSpellPart(ModSpellParts.LEVITATION, "Levitation", "Use the force.");
         addSpellPart(ModSpellParts.LIFE_DRAIN, "Life Drain", "Ahem... I'm taking all of it. Including you.");
         addSpellPart(ModSpellParts.LIFE_TAP, "Life Tap", "I'm burrowing this.");
@@ -454,8 +454,8 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSectionTitle("component", "heal", "Heal");
         addSectionTitle("component", "ignition", "Ignition");
         addSectionTitle("component", "invisibility", "Invisibility");
+        addSectionTitle("component", "jump_boost", "Jump Boost");
         addSectionTitle("component", "knockback", "Knockback");
-        addSectionTitle("component", "leap", "Leap");
         addSectionTitle("component", "levitation", "Levitation");
         addSectionTitle("component", "life_drain", "Life Drain");
         addSectionTitle("component", "life_tap", "Life Tap");
