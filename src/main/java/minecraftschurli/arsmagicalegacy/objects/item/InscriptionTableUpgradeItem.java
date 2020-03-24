@@ -21,6 +21,10 @@ public class InscriptionTableUpgradeItem extends Item {
         });
     }
 
+    public static int getTier(ItemStack stack) {
+        return stack.getOrCreateTag().getInt("tier");
+    }
+
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
@@ -39,9 +43,5 @@ public class InscriptionTableUpgradeItem extends Item {
         ItemStack stack = new ItemStack(this);
         stack.getOrCreateTag().putInt("tier", tier);
         return stack;
-    }
-
-    public static int getTier(ItemStack stack) {
-        return stack.getOrCreateTag().getInt("tier");
     }
 }

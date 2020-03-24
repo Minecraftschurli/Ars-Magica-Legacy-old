@@ -38,6 +38,5 @@ public class Prosperity extends SpellModifier {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 }

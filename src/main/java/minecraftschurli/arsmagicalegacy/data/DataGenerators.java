@@ -19,12 +19,10 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ArsMagicaAPI.MODID)
 public class DataGenerators {
-
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
-
         if (event.includeServer()) {
             gen.addProvider(new AMLRecipeProvider(gen));
             gen.addProvider(new AMLLootTableProvider(gen));

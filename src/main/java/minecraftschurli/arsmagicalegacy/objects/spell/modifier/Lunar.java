@@ -54,7 +54,6 @@ public class Lunar extends SpellModifier {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 
     private float modifyValueOnTime(World world, float value) {

@@ -10,7 +10,6 @@ import net.minecraft.potion.EffectType;
  * @version 2019-12-04
  */
 public class FrostEffect extends AMEffect {
-
     private static final UUID frostSlowID = UUID.fromString("03B0A79B-9569-43AE-BFE3-820D993D4A64");
 
     public FrostEffect() {

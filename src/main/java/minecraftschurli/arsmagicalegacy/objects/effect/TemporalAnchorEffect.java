@@ -44,7 +44,6 @@ public class TemporalAnchorEffect extends AMEffect {
             float rotationYawHead = nbt.getFloat("RotationYawHead");
             float health = nbt.getFloat("Health");
             float mana = nbt.getFloat("Mana");
-
             livingEntity.setPositionAndRotation(x, y, z, rotationYaw, rotationPitch);
             livingEntity.rotationYawHead = rotationYawHead;
             CapabilityHelper.decreaseMana(livingEntity, CapabilityHelper.getMana(livingEntity));

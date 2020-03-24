@@ -66,7 +66,7 @@ public class RandomTeleport extends SpellComponent {
             if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos))
                 targetBlockIsSolid = true;
             else {
-                target.setPosition(target.getPosX(), target.getPosY()-1, target.getPosZ());
+                target.setPosition(target.getPosX(), target.getPosY() - 1, target.getPosZ());
                 pos = pos.down();
             }
         }

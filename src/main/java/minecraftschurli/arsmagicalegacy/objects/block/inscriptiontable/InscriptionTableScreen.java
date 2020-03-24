@@ -41,9 +41,7 @@ import org.lwjgl.opengl.GL14;
  */
 public class InscriptionTableScreen extends ContainerScreen<InscriptionTableContainer> {
     private static final ResourceLocation background = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/inscription_table_gui.png");
-
     private final PlayerEntity usingPlayer;
-
     private final List<ResourceLocation> knownShapes;
     private final List<ResourceLocation> knownComponents;
     private final List<ResourceLocation> knownModifiers;
@@ -66,12 +64,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private int iconX;
     private int iconY;
     private SpellValidator.ValidationResult result;
-
     private TextFieldWidget searchBar;
     private TextFieldWidget nameBar;
     private Button createSpellButton;
     private Button resetSpellButton;
-
     private String defaultSearchLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.search").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
     private String defaultNameLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.name").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
 
@@ -81,7 +77,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         xSize = 220;
         ySize = 252;
         dragging = false;
-
         List<ResourceLocation> skills = CapabilityHelper.getLearned(usingPlayer);
         knownShapes = skills.stream().filter(skill -> RegistryHandler.getSpellPartRegistry().getValue(skill) instanceof SpellShape).collect(Collectors.toList());
         knownComponents = skills.stream().filter(skill -> RegistryHandler.getSpellPartRegistry().getValue(skill) instanceof SpellComponent).collect(Collectors.toList());
@@ -96,10 +91,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     protected void init() {
         super.init();
-
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
-
         searchBar = addButton(new TextFieldWidget(Minecraft.getInstance().fontRenderer,
                 39 + l,
                 59 + i1,
@@ -107,7 +100,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 12,
                 ""));
         searchBar.setMaxStringLength(64);
-
         nameBar = addButton(new TextFieldWidget(Minecraft.getInstance().fontRenderer,
                 39 + l,
                 93 + i1,
@@ -115,24 +107,18 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 12,
                 ""));
         nameBar.setMaxStringLength(64);
-
         createSpellButton = new Button(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.makeSpell").getFormattedText(), this::actionPerformed);
-
         resetSpellButton = new Button(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.resetSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton.visible = false;
-
         if (usingPlayer.abilities.isCreativeMode) {
             this.addButton(createSpellButton);
         }
         this.addButton(resetSpellButton);
-
         nameBar.setText(this.container.getSpellName());
         if (nameBar.getText().equals("")) {
             nameBar.setText(defaultNameLabel);
         }
-
         searchBar.setText(defaultSearchLabel);
-
         result = this.container.validateCurrentDefinition();
     }
 
@@ -147,7 +133,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     public boolean mouseClicked(double x, double y, int button) {
         super.mouseClicked(x, y, button);
-
         if (hoveredItem != null) {
             if (spellPartIsValidAddition(hoveredItem) && !lowerHover) {
                 dragging = true;
@@ -223,12 +208,10 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     public boolean mouseReleased(double x, double y, int action) {
         super.mouseReleased(x, y, action);
-
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
         x -= l;
         y -= i1;
-
         if (action == 0 || action == 1) {
             if (dragging) {
                 dragging = false;
@@ -255,7 +238,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         }
         return false;
     }
-
 //	private void drawDropZones(){
 //
 //		int l = (width - xSize) / 2;
@@ -279,7 +261,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 //		AMGuiHelper.line2d(x, y + height, x + width, y + height, this.zLevel, color);
 //		AMGuiHelper.line2d(x, y, x, y + height, this.zLevel, color);
 //	}
-
 
     @Override
     public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
@@ -309,19 +290,14 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         int i1 = (height - ySize) / 2;
         blit(l, i1, 0, 0, xSize, 165);
         blit(l + 22, i1 + 165, 0, 165, 176, 87);
-
-
         int offsetX = l + shapeGroupX;
         for (int sg = 0; sg < InscriptionTableTileEntity.MAX_STAGE_GROUPS; ++sg) {
             if (sg >= this.container.getNumStageGroups())
                 GL14.glColor3f(0.5f, 0.5f, 0.5f);
             blit(offsetX + (sg * (shapeGroupWidth + shapeGroupPadding)), i1 + shapeGroupY, 176, 165, 37, 37);
         }
-
         GL14.glColor3f(1f, 1f, 1f);
-
         blit(l + 101, i1 + 73, 220, 0, 18, 18);
-
         lastMouseX = i - l;
         lastMouseY = j - i1;
     }
@@ -329,16 +305,11 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
-
         List<String> label = new ArrayList<>();
-
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
-
         this.setBlitOffset(0);
-
         GL14.glEnable(GL14.GL_ALPHA_TEST);
-
         drawBookIcon();
         boolean hovering = false;
         if (drawAvailableParts(label)) {
@@ -349,7 +320,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             hovering = true;
             lowerHover = true;
         }
-
         if (result.valid) {
             if (this.container.slotHasStack(0)) {
                 if (this.container.slotIsBook(0)) {
@@ -357,7 +327,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 } else {
                     resetSpellButton.visible = true;
                 }
-
             } else {
                 resetSpellButton.visible = false;
             }
@@ -366,7 +335,6 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             Minecraft.getInstance().fontRenderer.drawSplitString(result.message, 225, 5, 100, 0xFF7700);
         }
         createSpellButton.visible = false;
-
         if (!dragging) {
             if (hovering) {
                 renderTooltip(label, lastMouseX, lastMouseY, Minecraft.getInstance().fontRenderer);
@@ -383,9 +351,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private void drawBookIcon() {
         int x = this.container.getSlot(0).xPos;
         int y = this.container.getSlot(0).yPos;
-
         TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.WRITABLE_BOOK);
-
         //TODO
         /*if (AMGuiHelper.instance.getFastTicker() < 20)
             GL14.glColor4f(1, 1, 1, 0.4f);
@@ -426,20 +392,16 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     private boolean drawCurrentRecipe(List<String> labelText, int l, int i1) {
-
         iconX = iconXStartLower;
         iconY = iconYStartLower;
-
         boolean hovering = false;
         int index = 0;
-
         //main recipe
         for (int i = 0; i < this.container.getCurrentRecipeSize(); ++i) {
             AbstractSpellPart part = this.container.getRecipeItemAt(i);
             if (Objects.equals(part.getRegistryName(), SpellRegistry.MISSING_SHAPE))
                 continue;
             String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
-
             if (drawIcon(part, false)) {
                 labelText.add(name);
                 hovering = true;
@@ -448,19 +410,15 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             }
             index++;
         }
-
         //shape groups
         for (int i = 0; i < this.container.getNumStageGroups(); ++i) {
             for (int n = 0; n < this.container.getShapeGroupSize(i); ++n) {
                 AbstractSpellPart part = this.container.getShapeGroupPartAt(i, n);
                 String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
-
                 int SGX = shapeGroupX + ((shapeGroupWidth + shapeGroupPadding) * i) + 1;
                 int SGY = shapeGroupY;
-
                 iconX = SGX + (n % 2) * iconStep;
                 iconY = SGY + (int) Math.floor(n / 2.0) * iconStep;
-
                 if (drawIcon(part, false)) {
                     labelText.add(name);
                     hovering = true;
@@ -473,12 +431,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     private boolean drawAvailableParts(List<String> labelText) {
-
         iconX = iconXStartUpper;
         iconY = iconYStartUpper;
-
         boolean b = drawPartIcons(labelText);
-
         return b;
     }
 
@@ -494,17 +449,13 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         boolean hovering = false;
         for (ResourceLocation i : ids) {
             Skill part = RegistryHandler.getSkillRegistry().getValue(i);
-
             if (part == null || RegistryHandler.getSpellPartRegistry().getValue(part.getRegistryName()) == null)// && SkillTreeManager.instance.isSkillDisabled(part))
                 continue;
-
             String name = part.getName().getFormattedText();
-
             String filterText = searchBar.getText().toLowerCase();
             if (!filterText.equals("") && !filterText.equals(defaultSearchLabel.toLowerCase()) && !name.toLowerCase().contains(filterText)) {
                 continue;
             }
-
             if (iconY < 0 || iconY > 42) return hovering;
             if (drawIcon(RegistryHandler.getSpellPartRegistry().getValue(part.getRegistryName()))) {
                 hovering = true;
@@ -549,13 +500,11 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     private boolean drawIcon(AbstractSpellPart part, boolean allowDarken) {
-
         boolean hovering = false;
         /*TextureAtlasSprite shapeIcon = null;//SpellIconManager.INSTANCE.getSprite(SpellRegistry.getSkillFromPart(part).getID());
 
         if (shapeIcon == null)
             return false;*/
-
         if (!currentSpellDefIsReadOnly()) {
             if (!spellPartIsValidAddition(part) && allowDarken) {
                 GL14.glColor3f(0.3f, 0.3f, 0.3f);
@@ -565,14 +514,11 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         } else {
             GL14.glColor3f(1, 0.7f, 0.7f);
         }
-
         //TODO
         RenderSystem.matrixMode(GL14.GL_TEXTURE);
         RenderSystem.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(part).getIcon());
-
         Tessellator tessellator = Tessellator.getInstance();
-
         boolean drawing = false;
         try {
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -585,20 +531,15 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         float minV = 0.15625f * 32;
         float maxU = 0.546875f * 64;
         float maxV = 0.1875f * 32;
-
         tessellator.getBuffer().pos(iconX, iconY + 16, getBlitOffset()).tex(minU, maxV).endVertex();
         tessellator.getBuffer().pos(iconX + 16, iconY + 16, getBlitOffset()).tex(maxU, maxV).endVertex();
         tessellator.getBuffer().pos(iconX + 16, iconY, getBlitOffset()).tex(maxU, minV).endVertex();
         tessellator.getBuffer().pos(iconX, iconY, getBlitOffset()).tex(minU, minV).endVertex();
-
         tessellator.draw();
-
         RenderSystem.popMatrix();
         RenderSystem.matrixMode(GL14.GL_MODELVIEW);
-
         if (drawing)
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-
         if (!dragging) {
             if (lastMouseX > iconX && lastMouseX < iconX + 16) {
                 if (lastMouseY > iconY && lastMouseY < iconY + 16) {
@@ -607,13 +548,11 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 }
             }
         }
-
         iconX += iconStep;
         if (iconX >= 175) {
             iconX = iconXStartUpper;
             iconY += 17;
         }
-
         return hovering;
     }
 
@@ -622,10 +561,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         RenderSystem.matrixMode(GL14.GL_TEXTURE);
         RenderSystem.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(SpellRegistry.getSkillFromPart(hoveredItem).getIcon());
-
         RenderSystem.enableBlend();
         Tessellator tessellator = Tessellator.getInstance();
-
         boolean drawing = false;
         try {
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -638,17 +575,14 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         float minV = 0.15625f * 32;
         float maxU = 0.546875f * 64;
         float maxV = 0.1875f * 32;
-
         tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8 + 16, getBlitOffset()).tex(minU, maxV).endVertex();
         tessellator.getBuffer().pos(lastMouseX - 8 + 16, lastMouseY - 8 + 16, getBlitOffset()).tex(maxU, maxV).endVertex();
         tessellator.getBuffer().pos(lastMouseX - 8 + 16, lastMouseY - 8, getBlitOffset()).tex(maxU, minV).endVertex();
         tessellator.getBuffer().pos(lastMouseX - 8, lastMouseY - 8, getBlitOffset()).tex(minU, minV).endVertex();
-
         tessellator.draw();
         RenderSystem.disableBlend();
         RenderSystem.popMatrix();
         RenderSystem.matrixMode(GL14.GL_MODELVIEW);
-
         if (drawing)
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
     }
@@ -662,31 +596,24 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             GL14.glDisable(GL14.GL_LIGHTING);
             GL14.glDisable(GL14.GL_DEPTH_TEST);
             int k = 0;
-
             for (String s : tooltip) {
                 int l = font.getStringWidth(s);
-
                 if (l > k) {
                     k = l;
                 }
             }
-
             int i1 = x + 12;
             int j1 = y - 12;
             int k1 = 8;
-
             if (tooltip.size() > 1) {
                 k1 += 2 + (tooltip.size() - 1) * 10;
             }
-
             if (i1 + k > this.width) {
                 i1 -= 28 + k;
             }
-
             if (j1 + k1 + 6 > this.height) {
                 j1 = this.height - k1 - 6;
             }
-
             this.setBlitOffset(300);
             int l1 = -267386864;
             this.fillGradient(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
@@ -700,18 +627,14 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             this.fillGradient(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1 + 3 - 1, i2, j2);
             this.fillGradient(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
             this.fillGradient(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
-
             for (int k2 = 0; k2 < tooltip.size(); ++k2) {
                 String s1 = tooltip.get(k2);
                 font.drawStringWithShadow(s1, i1, j1, -1);
-
                 if (k2 == 0) {
                     j1 += 2;
                 }
-
                 j1 += 10;
             }
-
             this.setBlitOffset(0);
             GL14.glEnable(GL14.GL_LIGHTING);
             GL14.glEnable(GL14.GL_DEPTH_TEST);

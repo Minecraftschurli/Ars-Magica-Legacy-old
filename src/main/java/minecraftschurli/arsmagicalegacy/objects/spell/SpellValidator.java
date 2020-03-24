@@ -15,7 +15,6 @@ public class SpellValidator {
     public static final SpellValidator instance = new SpellValidator();
 
     private SpellValidator() {
-
     }
 
     public static List<List<AbstractSpellPart>> splitToStages(List<AbstractSpellPart> currentRecipe) {
@@ -40,7 +39,6 @@ public class SpellValidator {
             if (segmented.get(i).size() > 0)
                 noParts = false;
         if (noParts) return new ValidationResult(null, "");
-
         boolean validatedAny = false;
         for (int x = 0; x < shapeGroups.size(); ++x) {
             if (shapeGroups.get(x).size() > 0) {
@@ -57,24 +55,20 @@ public class SpellValidator {
                 ValidationResult result = internalValidation(splitToStages(concatenated));
                 if (result != null)
                     return result;
-
                 validatedAny = true;
             }
         }
-
         if (!validatedAny) {
             ValidationResult result = internalValidation(segmented);
             if (result != null)
                 return result;
         }
-
         return new ValidationResult();
     }
 
     private ValidationResult internalValidation(List<List<AbstractSpellPart>> segmented) {
         for (int i = 0; i < segmented.size(); ++i) {
             StageValidations result = validateStage(segmented.get(i), i == segmented.size() - 1);
-
             if (result == StageValidations.NOT_VALID) {
                 return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.validate.invalid").getFormattedText());
             } else if (result == StageValidations.PRINCIPUM && i == segmented.size() - 1) {
@@ -83,7 +77,6 @@ public class SpellValidator {
                 return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.terminus").getFormattedText()));
             }
         }
-
         return null;
     }
 
@@ -106,7 +99,6 @@ public class SpellValidator {
                 one_component = true;
             }
         }
-
         if (principum)
             return StageValidations.PRINCIPUM;
         if (!one_component || !one_shape)

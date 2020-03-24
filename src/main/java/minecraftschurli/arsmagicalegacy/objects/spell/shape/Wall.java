@@ -67,7 +67,6 @@ public class Wall extends SpellShape {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 
     @Override

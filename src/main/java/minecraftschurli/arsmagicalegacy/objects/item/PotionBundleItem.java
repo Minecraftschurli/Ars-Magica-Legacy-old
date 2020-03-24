@@ -35,12 +35,15 @@ public class PotionBundleItem extends PotionItem {
     @Nonnull
     @Override
     public ItemStack onItemUseFinish(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull LivingEntity entity) {
-        if(!stack.hasTag() || !stack.getTag().contains(USES_KEY) || PotionUtils.getPotionFromItem(stack) == Potions.EMPTY) return stack;
-        PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
-        if (playerentity instanceof ServerPlayerEntity) CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
+        if (!stack.hasTag() || !stack.getTag().contains(USES_KEY) || PotionUtils.getPotionFromItem(stack) == Potions.EMPTY)
+            return stack;
+        PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity) entity : null;
+        if (playerentity instanceof ServerPlayerEntity)
+            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, stack);
         if (!world.isRemote) {
-            for(EffectInstance effectinstance : PotionUtils.getEffectsFromStack(stack)) {
-                if (effectinstance.getPotion().isInstant()) effectinstance.getPotion().affectEntity(playerentity, playerentity, entity, effectinstance.getAmplifier(), 1);
+            for (EffectInstance effectinstance : PotionUtils.getEffectsFromStack(stack)) {
+                if (effectinstance.getPotion().isInstant())
+                    effectinstance.getPotion().affectEntity(playerentity, playerentity, entity, effectinstance.getAmplifier(), 1);
                 else entity.addPotionEffect(new EffectInstance(effectinstance));
             }
         }
@@ -50,7 +53,7 @@ public class PotionBundleItem extends PotionItem {
             tag.putInt(USES_KEY, tag.getInt(USES_KEY) - 1);
         }
         if (playerentity != null) ItemHandlerHelper.giveItemToPlayer(playerentity, new ItemStack(Items.GLASS_BOTTLE));
-        if(tag.getInt(USES_KEY) == 0) return new ItemStack(Items.STRING);
+        if (tag.getInt(USES_KEY) == 0) return new ItemStack(Items.STRING);
         return stack;
     }
 

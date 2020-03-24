@@ -44,15 +44,13 @@ public class AMLBlockLootTables extends BlockLootTables {
     @Override
     public void accept(BiConsumer<ResourceLocation, LootTable.Builder> p_accept_1_) {
         Set<ResourceLocation> set = Sets.newHashSet();
-
-        for(Block block : getKnownBlocks()) {
+        for (Block block : getKnownBlocks()) {
             ResourceLocation resourcelocation = block.getLootTable();
             if (resourcelocation != LootTables.EMPTY && set.add(resourcelocation)) {
                 LootTable.Builder loottable$builder = this.lootTables.remove(resourcelocation);
                 if (loottable$builder == null) {
                     continue;
                 }
-
                 p_accept_1_.accept(resourcelocation, loottable$builder);
             }
         }

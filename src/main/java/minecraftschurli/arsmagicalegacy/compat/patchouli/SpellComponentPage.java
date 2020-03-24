@@ -69,25 +69,25 @@ public class SpellComponentPage implements ICustomComponent {
         context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
         RenderSystem.color4f(1, 1, 1, 1);
         drawTexturedModalRectClassic(cx, cy, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
-        if (context.isAreaHovered(mouseX, mouseY, cx, cy, 16, 16)){
+        if (context.isAreaHovered(mouseX, mouseY, cx, cy, 16, 16)) {
             context.setHoverTooltip(skill.getTooltip()
-                            .stream()
-                            .map(ITextComponent::getFormattedText)
-                            .collect(Collectors.toList()));
+                    .stream()
+                    .map(ITextComponent::getFormattedText)
+                    .collect(Collectors.toList()));
         }
         renderModifiers(context, x, y, mouseX, mouseY);
         RenderSystem.disableBlend();
         RenderSystem.popMatrix();
     }
 
-    private void renderModifiers(IComponentRenderContext context, int posX, int posY,int mouseX, int mouseY) {
+    private void renderModifiers(IComponentRenderContext context, int posX, int posY, int mouseX, int mouseY) {
         ArrayList<SpellModifier> modifiers = new ArrayList<>();
         EnumSet<SpellModifiers> mods = part.getModifiers();
         for (AbstractSpellPart modifier : RegistryHandler.getSpellPartRegistry()) {
             if (part == modifier)
                 continue;
             if (modifier instanceof SpellModifier) {
-                for (SpellModifiers mod : ((SpellModifier)modifier).getAspectsModified()) {
+                for (SpellModifiers mod : ((SpellModifier) modifier).getAspectsModified()) {
                     if (mods.contains(mod)) {
                         modifiers.add((SpellModifier) modifier);
                         break;
@@ -98,7 +98,7 @@ public class SpellComponentPage implements ICustomComponent {
         int startX = 58 - (8 * modifiers.size());
         int yOffset = 10;
         if (!modifiers.isEmpty()) {
-            String shapeName = new TranslationTextComponent(ArsMagicaAPI.MODID+ (part instanceof SpellComponent ? ".gui.modifies" :  ".gui.modified_by")).getUnformattedComponentText();
+            String shapeName = new TranslationTextComponent(ArsMagicaAPI.MODID + (part instanceof SpellComponent ? ".gui.modifies" : ".gui.modified_by")).getUnformattedComponentText();
             context.getFont().drawString(shapeName, posX + 58 - (context.getFont().getStringWidth(shapeName) / 2f), posY, 0);
             RenderSystem.color3f(1.0f, 1.0f, 1.0f);
         }
@@ -108,7 +108,7 @@ public class SpellComponentPage implements ICustomComponent {
             RenderSystem.enableBlend();
             drawTexturedModalRectClassic(posX + startX, posY + yOffset, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
             RenderSystem.disableBlend();
-            if (context.isAreaHovered(mouseX, mouseY, posX + startX, posY + yOffset, 16, 16)){
+            if (context.isAreaHovered(mouseX, mouseY, posX + startX, posY + yOffset, 16, 16)) {
                 context.setHoverTooltip(skill.getTooltip()
                         .stream()
                         .map(ITextComponent::getFormattedText)
@@ -118,12 +118,12 @@ public class SpellComponentPage implements ICustomComponent {
         }
     }
 
-    private void renderRecipe(IComponentRenderContext context, int cx, int cy, int mousex, int mousey){
+    private void renderRecipe(IComponentRenderContext context, int cx, int cy, int mousex, int mousey) {
         if (part == null || part.getRecipe() == null) return;
         float angleStep = (360.0f / part.getRecipe().length);
-        for (int i = 0; i < part.getRecipe().length; ++i){
-            float angle = (float)(Math.toRadians((angleStep * i) + (context.getTicksInBook()*0.5) % 360));
-            float nextangle = (float)(Math.toRadians((angleStep * ((i + 1) % part.getRecipe().length)) + (context.getTicksInBook()*0.5) % 360));
+        for (int i = 0; i < part.getRecipe().length; ++i) {
+            float angle = (float) (Math.toRadians((angleStep * i) + (context.getTicksInBook() * 0.5) % 360));
+            float nextangle = (float) (Math.toRadians((angleStep * ((i + 1) % part.getRecipe().length)) + (context.getTicksInBook() * 0.5) % 360));
             float dist = 45;
             float x = (float) (cx - Math.cos(angle) * dist);
             float y = (float) (cy - Math.sin(angle) * dist);
@@ -135,27 +135,23 @@ public class SpellComponentPage implements ICustomComponent {
         }
     }
 
-    private void renderCraftingComponent(IComponentRenderContext context, int index, float sx, float sy, int mousex, int mousey){
+    private void renderCraftingComponent(IComponentRenderContext context, int index, float sx, float sy, int mousex, int mousey) {
         ISpellIngredient craftingComponent = part.getRecipe()[index];
-
         if (craftingComponent == null) return;
-
         ItemStack stack;
-
-        if (craftingComponent instanceof ItemStackSpellIngredient){
+        if (craftingComponent instanceof ItemStackSpellIngredient) {
             stack = ((ItemStackSpellIngredient) craftingComponent).getStack().copy();
-        } else if (craftingComponent instanceof ItemTagSpellIngredient){
+        } else if (craftingComponent instanceof ItemTagSpellIngredient) {
             int size = (((ItemTagSpellIngredient) craftingComponent).getTag().getAllElements()).size();
             if (size == 0)
                 return;
             stack = new ItemStack(((ItemTagSpellIngredient) craftingComponent).getTag().getRandomElement(new Random()));
-        } else if (craftingComponent instanceof EtheriumSpellIngredient){
+        } else if (craftingComponent instanceof EtheriumSpellIngredient) {
             renderEssence(context, mousex, mousey, sx, sy, ((EtheriumSpellIngredient) craftingComponent));
             return;
         } else return;
-        RenderUtils.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset()+1);
-
-        if (context.isAreaHovered(mousex, mousey, (int)sx, (int)sy, 16, 16)){
+        RenderUtils.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset() + 1);
+        if (context.isAreaHovered(mousex, mousey, (int) sx, (int) sy, 16, 16)) {
             context.setHoverTooltip(context.getGui().getTooltipFromItem(stack));
         }
     }
@@ -166,15 +162,14 @@ public class SpellComponentPage implements ICustomComponent {
             Deque<EtheriumType> types = new ArrayDeque<>(ingredient.getEssenceTypes());
             GuiUtils.drawGradientRect(context.getGui().getBlitOffset(), (int) x, (int) y, (int) x + 16, (int) y + 16, types.getFirst().getColor(), types.getLast().getColor());
         }
-        if (context.isAreaHovered(mousex, mousey, (int)x, (int)y, 16, 16)){
+        if (context.isAreaHovered(mousex, mousey, (int) x, (int) y, 16, 16)) {
             context.setHoverTooltip(Collections.singletonList(ingredient.getTooltip().getFormattedText()));
         }
     }
 
-    public void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel){
+    public void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel) {
         final float uScale = 1f / 0x100;
         final float vScale = 1f / 0x100;
-
         Tessellator var9 = Tessellator.getInstance();
         var9.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         var9.getBuffer().pos(dst_x, dst_y + dst_height, zLevel).tex((src_x) * uScale, (src_y + src_height) * vScale).endVertex();

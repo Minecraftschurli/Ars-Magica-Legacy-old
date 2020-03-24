@@ -59,7 +59,6 @@ public class Self extends SpellShape {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 
     @Override

@@ -42,6 +42,5 @@ public class TargetNonSolidBlocks extends SpellModifier {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 }

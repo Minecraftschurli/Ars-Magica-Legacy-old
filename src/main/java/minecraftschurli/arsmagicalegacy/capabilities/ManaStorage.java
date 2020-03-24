@@ -8,7 +8,6 @@ import minecraftschurli.arsmagicalegacy.api.capability.IManaStorage;
  * @version 2019-11-07
  */
 public class ManaStorage implements IManaStorage {
-
     private float maxMana = Config.COMMON.DEFAULT_MAX_MANA.get();
     private float mana = maxMana;
 

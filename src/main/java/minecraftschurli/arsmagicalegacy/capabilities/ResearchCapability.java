@@ -19,13 +19,11 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-14
  */
 public class ResearchCapability implements ICapabilitySerializable<INBT> {
-
     private LazyOptional<IResearchStorage> pointsInstance = LazyOptional.of(CapabilityHelper.getResearchCapability()::getDefaultInstance);
 
     public static void register() {

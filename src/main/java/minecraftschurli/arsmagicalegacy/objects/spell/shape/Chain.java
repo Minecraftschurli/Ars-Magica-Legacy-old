@@ -104,7 +104,6 @@ public class Chain extends SpellShape {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 
     @Override
@@ -112,11 +111,13 @@ public class Chain extends SpellShape {
         return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.PROCS);
     }
 
-    private void spawnChainParticles(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, ItemStack spellStack){
+    private void spawnChainParticles(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, ItemStack spellStack) {
         int color = -1;
-        if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, spellStack)){
+        if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, spellStack)) {
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(spellStack, -1);
-            for (SpellModifier mod : mods) if (mod instanceof Color) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, spellStack.getTag());
+            for (SpellModifier mod : mods)
+                if (mod instanceof Color)
+                    color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spellStack.getTag());
         }
 //        Affinity aff = AffinityShiftUtils.getMainShiftForStack(spellStack);
 //        if (aff.equals(Affinity.LIGHTNING)) ArsMagica2.proxy.particleManager.BoltFromPointToPoint(world, startX, startY, startZ, endX, endY, endZ, 1, color);

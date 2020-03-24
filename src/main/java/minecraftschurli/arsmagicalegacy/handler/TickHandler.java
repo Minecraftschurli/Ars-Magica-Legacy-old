@@ -10,7 +10,6 @@ import net.minecraftforge.fml.LogicalSide;
  * @version 2019-11-14
  */
 public class TickHandler {
-
     @SubscribeEvent
     public static void onTick(TickEvent.PlayerTickEvent event) {
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START) {

@@ -19,13 +19,13 @@ public class SimpleParticleData implements IParticleData {
     public static final IParticleData.IDeserializer<SimpleParticleData> DESERIALIZER = new IParticleData.IDeserializer<SimpleParticleData>() {
         public SimpleParticleData deserialize(ParticleType<SimpleParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
-            float f = (float)reader.readDouble();
+            float f = (float) reader.readDouble();
             reader.expect(' ');
-            float f1 = (float)reader.readDouble();
+            float f1 = (float) reader.readDouble();
             reader.expect(' ');
-            float f2 = (float)reader.readDouble();
+            float f2 = (float) reader.readDouble();
             reader.expect(' ');
-            float f3 = (float)reader.readDouble();
+            float f3 = (float) reader.readDouble();
             return new SimpleParticleData(particleTypeIn, f, f1, f2, f3);
         }
 

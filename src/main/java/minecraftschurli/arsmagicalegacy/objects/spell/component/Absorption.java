@@ -85,7 +85,7 @@ public class Absorption extends SpellComponent {
         return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

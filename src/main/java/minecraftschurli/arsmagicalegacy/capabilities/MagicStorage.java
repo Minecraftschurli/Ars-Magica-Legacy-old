@@ -26,12 +26,12 @@ public class MagicStorage implements IMagicStorage {
     }
 
     @Override
-    public void setXp(float xp) {
-        this.xp = xp;
+    public float getXp() {
+        return this.xp;
     }
 
     @Override
-    public float getXp() {
-        return this.xp;
+    public void setXp(float xp) {
+        this.xp = xp;
     }
 }

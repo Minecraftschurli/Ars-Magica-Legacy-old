@@ -36,7 +36,6 @@ public interface IInit {
     DeferredRegister<ContainerType<?>> CONTAINERS = new DeferredRegister<>(ForgeRegistries.CONTAINERS, ArsMagicaAPI.MODID);
     DeferredRegister<VillagerProfession> PROFESSIONS = new DeferredRegister<>(ForgeRegistries.PROFESSIONS, ArsMagicaAPI.MODID);
     DeferredRegister<PointOfInterestType> POI_TYPES = new DeferredRegister<>(ForgeRegistries.POI_TYPES, ArsMagicaAPI.MODID);
-
     DeferredRegister<WorldCarver<?>> WORLD_CARVERS = new DeferredRegister<>(ForgeRegistries.WORLD_CARVERS, ArsMagicaAPI.MODID);
     DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, ArsMagicaAPI.MODID);
 
@@ -53,7 +52,6 @@ public interface IInit {
         CONTAINERS.register(modEventBus);
         PROFESSIONS.register(modEventBus);
         POI_TYPES.register(modEventBus);
-
         WORLD_CARVERS.register(modEventBus);
         FEATURES.register(modEventBus);
     }

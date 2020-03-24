@@ -106,7 +106,6 @@ public class SpellBookInventory implements IInventory {
      */
     @Override
     public void markDirty() {
-
     }
 
     /**

@@ -36,7 +36,7 @@ public class EnderIntervention extends SpellComponent {
         } else if (target.dimension.getId() == -1) {
             if (target instanceof PlayerEntity)
                 target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionNether"));
-			return false;
+            return false;
         } else {
 //            DimensionUtilities.doDimensionTransfer((LivingEntity) target, -1);
 //            ArsMagicaLegacy.proxy.addDeferredDimensionTransfer((LivingEntity) target, -1);

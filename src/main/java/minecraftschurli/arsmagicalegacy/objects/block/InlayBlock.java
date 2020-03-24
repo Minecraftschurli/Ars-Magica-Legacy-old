@@ -20,7 +20,7 @@ import net.minecraft.world.World;
  * @version 2020-01-15
  */
 public class InlayBlock extends AbstractRailBlock {
-    public static final EnumProperty<RailShape> SHAPE = EnumProperty.create("shape", RailShape.class, ((Predicate<RailShape>)RailShape::isAscending).negate());
+    public static final EnumProperty<RailShape> SHAPE = EnumProperty.create("shape", RailShape.class, ((Predicate<RailShape>) RailShape::isAscending).negate());
 
     public InlayBlock(Block.Properties properties) {
         super(false, properties);
@@ -34,7 +34,6 @@ public class InlayBlock extends AbstractRailBlock {
                 ++rails;
             }
         }
-
         if (block.getDefaultState().canProvidePower() && rails == 3) {
             this.getUpdatedState(world, pos, state, false);
         }
@@ -51,9 +50,9 @@ public class InlayBlock extends AbstractRailBlock {
     }
 
     public BlockState rotate(BlockState state, Rotation rot) {
-        switch(rot) {
+        switch (rot) {
             case CLOCKWISE_180:
-                switch(state.get(SHAPE)) {
+                switch (state.get(SHAPE)) {
                     case SOUTH_EAST:
                         return state.with(SHAPE, RailShape.NORTH_WEST);
                     case SOUTH_WEST:
@@ -64,7 +63,7 @@ public class InlayBlock extends AbstractRailBlock {
                         return state.with(SHAPE, RailShape.SOUTH_WEST);
                 }
             case COUNTERCLOCKWISE_90:
-                switch(state.get(SHAPE)) {
+                switch (state.get(SHAPE)) {
                     case SOUTH_EAST:
                         return state.with(SHAPE, RailShape.NORTH_EAST);
                     case SOUTH_WEST:
@@ -79,7 +78,7 @@ public class InlayBlock extends AbstractRailBlock {
                         return state.with(SHAPE, RailShape.NORTH_SOUTH);
                 }
             case CLOCKWISE_90:
-                switch(state.get(SHAPE)) {
+                switch (state.get(SHAPE)) {
                     case SOUTH_EAST:
                         return state.with(SHAPE, RailShape.SOUTH_WEST);
                     case SOUTH_WEST:
@@ -100,9 +99,9 @@ public class InlayBlock extends AbstractRailBlock {
 
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         RailShape railshape = state.get(SHAPE);
-        switch(mirrorIn) {
+        switch (mirrorIn) {
             case LEFT_RIGHT:
-                switch(railshape) {
+                switch (railshape) {
                     case SOUTH_EAST:
                         return state.with(SHAPE, RailShape.NORTH_EAST);
                     case SOUTH_WEST:
@@ -115,7 +114,7 @@ public class InlayBlock extends AbstractRailBlock {
                         return super.mirror(state, mirrorIn);
                 }
             case FRONT_BACK:
-                switch(railshape) {
+                switch (railshape) {
                     case SOUTH_EAST:
                         return state.with(SHAPE, RailShape.SOUTH_WEST);
                     case SOUTH_WEST:
@@ -126,7 +125,6 @@ public class InlayBlock extends AbstractRailBlock {
                         return state.with(SHAPE, RailShape.NORTH_WEST);
                 }
         }
-
         return super.mirror(state, mirrorIn);
     }
 

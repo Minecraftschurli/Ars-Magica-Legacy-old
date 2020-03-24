@@ -125,9 +125,12 @@ public class AoE extends SpellShape {
         int color = 0xFFFFFF;
         if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
-            for (SpellModifier mod : mods) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
+            for (SpellModifier mod : mods)
+                if (mod instanceof Color)
+                    color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
         }
-        for (int i = 0; i < 360; i += /*ArsMagica2.config.FullGFX() ? 20 : ArsMagica2.config.LowGFX() ? 40 : */60) RenderUtils.addParticle(world, ModParticles.LENS_FLARE, color, x, y, z);
+        for (int i = 0; i < 360; i += /*ArsMagica2.config.FullGFX() ? 20 : ArsMagica2.config.LowGFX() ? 40 : */60)
+            RenderUtils.addParticle(world, ModParticles.LENS_FLARE, color, x, y, z);
     }
 
     private SpellCastResult applyStageHorizontal(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, int gravityMagnitude, boolean giveXP) {

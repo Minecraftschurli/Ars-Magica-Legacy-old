@@ -21,7 +21,6 @@ import net.minecraftforge.common.util.LazyOptional;
  * @version 2020-02-13
  */
 public class AffinityCapability implements ICapabilitySerializable<INBT> {
-
     private LazyOptional<IAffinityStorage> instance = LazyOptional.of(CapabilityHelper.getAffinityCapability()::getDefaultInstance);
 
     public static void register() {

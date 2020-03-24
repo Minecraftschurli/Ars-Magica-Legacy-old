@@ -12,13 +12,11 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-
 /**
  * @author Minecraftschurli
  * @version 2019-12-02
  */
 public class MagicCapability implements ICapabilitySerializable<INBT> {
-
     private LazyOptional<IMagicStorage> instance = LazyOptional.of(CapabilityHelper.getMagicCapability()::getDefaultInstance);
 
     public static void register() {

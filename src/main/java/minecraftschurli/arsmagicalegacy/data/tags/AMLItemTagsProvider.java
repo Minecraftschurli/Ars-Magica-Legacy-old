@@ -29,16 +29,14 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
                 ModTags.Items.GEMS_SUNSTONE,
                 ModTags.Items.GEMS_TOPAZ
         );
-
         getBuilder(ModTags.Items.DUSTS_VINTEUM).add(ModItems.VINTEUM.get());
         getBuilder(Tags.Items.DUSTS)
                 .add(
                         ModTags.Items.DUSTS_VINTEUM
                 ).add(
-                        ModItems.PURIFIED_VINTEUM.get(),
-                        ModItems.ARCANE_ASH.get()
-                );
-
+                ModItems.PURIFIED_VINTEUM.get(),
+                ModItems.ARCANE_ASH.get()
+        );
         getBuilder(ModTags.Items.RUNES).add(
                 ModItems.RUNE.get(),
                 ModItems.WHITE_RUNE.get(),
@@ -58,7 +56,6 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
                 ModItems.RED_RUNE.get(),
                 ModItems.BLACK_RUNE.get()
         );
-
         copy(ModTags.Blocks.ORES_CHIMERITE, ModTags.Items.ORES_CHIMERITE);
         copy(ModTags.Blocks.STORAGE_BLOCKS_CHIMERITE, ModTags.Items.STORAGE_BLOCKS_CHIMERITE);
         copy(ModTags.Blocks.ORES_MOONSTONE, ModTags.Items.ORES_MOONSTONE);
@@ -71,9 +68,7 @@ public class AMLItemTagsProvider extends ItemTagsProvider {
         copy(ModTags.Blocks.STORAGE_BLOCKS_VINTEUM, ModTags.Items.STORAGE_BLOCKS_VINTEUM);
         copy(Tags.Blocks.ORES, Tags.Items.ORES);
         copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
-
         copy(ModTags.Blocks.LOGS_WITCHWOOD, ModTags.Items.LOGS_WITCHWOOD);
-
         copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
         copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);

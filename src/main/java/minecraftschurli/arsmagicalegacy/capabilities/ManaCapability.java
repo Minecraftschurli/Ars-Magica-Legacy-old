@@ -12,13 +12,11 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
 public class ManaCapability implements ICapabilitySerializable<INBT> {
-
     private LazyOptional<IManaStorage> instance = LazyOptional.of(CapabilityHelper.getManaCapability()::getDefaultInstance);
 
     public static void register() {

@@ -40,6 +40,5 @@ public class Duration extends SpellModifier {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 }

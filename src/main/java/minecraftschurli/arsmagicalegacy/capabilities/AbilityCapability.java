@@ -20,7 +20,6 @@ import net.minecraftforge.common.util.LazyOptional;
  * @version 2020-02-13
  */
 public class AbilityCapability implements ICapabilitySerializable<INBT> {
-
     private LazyOptional<IAbilityStorage> instance = LazyOptional.of(CapabilityHelper.getAbilityCapability()::getDefaultInstance);
 
     public static void register() {

@@ -28,11 +28,10 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @version 2019-11-22
  */
 public class WorldGenerator {
-
     public static void setupModFeatures() {
         ForgeRegistries.BIOMES.getValues()
                 .forEach(biome -> {
-                    if (BiomeFilter.NETHER.apply(biome)){
+                    if (BiomeFilter.NETHER.apply(biome)) {
                         biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModFeatures.SUNSTONE_ORE.get().withConfiguration(new OreFeatureConfig(SimpleOreLib.fillerForBiome(biome), ModBlocks.SUNSTONE_ORE.get().getDefaultState(), 1)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(1, 0, 0, 25))));
                     }
                     if (BiomeFilter.OVERWORLD.apply(biome)) {

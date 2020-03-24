@@ -56,7 +56,6 @@ import net.minecraftforge.fml.RegistryObject;
  * @version 2019-11-16
  */
 public final class ModSpellParts implements IInit {
-
     public static final Supplier<SkillPoint> SILVER_POINT = SkillPointRegistry.registerSkillPoint(-1, new SkillPoint(TextFormatting.GRAY, 0x999999, -1, -1).disableRender());
     public static final Supplier<SkillPoint> SKILL_POINT_1 = SkillPointRegistry.registerSkillPoint(0, new SkillPoint(TextFormatting.BLUE, 0x0000ff, 0, 1));
     public static final Supplier<SkillPoint> SKILL_POINT_2 = SkillPointRegistry.registerSkillPoint(1, new SkillPoint(TextFormatting.GREEN, 0x00ff00, 20, 2));
@@ -64,15 +63,12 @@ public final class ModSpellParts implements IInit {
     //public static final Supplier<SkillPoint> SKILL_POINT_4 = SpellRegistry.registerSkillPoint(new SkillPoint(4, TextFormatting.YELLOW, 0xffff00, 40, 3));
     //public static final Supplier<SkillPoint> SKILL_POINT_5 = SpellRegistry.registerSkillPoint(new SkillPoint(5, TextFormatting.LIGHT_PURPLE, 0xff00ff, 50, 3));
     //public static final Supplier<SkillPoint> SKILL_POINT_6 = SpellRegistry.registerSkillPoint(new SkillPoint(6, TextFormatting.AQUA, 0x00ffff, 60, 4));
-
     public static final RegistryObject<SkillTree> OFFENSE = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "offense", 0);
     public static final RegistryObject<SkillTree> DEFENSE = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "defense", 1);
     public static final RegistryObject<SkillTree> UTILITY = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "utility", 2);
     public static final RegistryObject<SkillTree> AFFINITY = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "affinity", 3);
     public static final RegistryObject<SkillTree> TALENT = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "talent", 4);
-
     public static final RegistryObject<SpellShape> MISSING_SHAPE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "null", null, MissingShape::new, null, 0, 0);
-
     public static final RegistryObject<Skill> MANA_REGEN_1 = SkillRegistry.registerSkill(ArsMagicaAPI.MODID, "mana_regen1", SKILL_POINT_1, TALENT, 275, 75);
     public static final RegistryObject<Skill> MANA_REGEN_2 = SkillRegistry.registerSkill(ArsMagicaAPI.MODID, "mana_regen2", SKILL_POINT_2, TALENT, 275, 120, "arsmagicalegacy:mana_regen1");
     public static final RegistryObject<Skill> MANA_REGEN_3 = SkillRegistry.registerSkill(ArsMagicaAPI.MODID, "mana_regen3", SKILL_POINT_3, TALENT, 275, 165, "arsmagicalegacy:mana_regen2");
@@ -191,7 +187,6 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> WATER_BREATHING = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "water_breathing", SKILL_POINT_1, WaterBreathing::new, UTILITY, 410, 345, "arsmagicalegacy:drought");
     public static final RegistryObject<SpellComponent> WATERY_GRAVE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "watery_grave", SKILL_POINT_2, WateryGrave::new, OFFENSE, 435, 245, "arsmagicalegacy:drown");
     public static final RegistryObject<SpellComponent> WIZARDS_AUTUMN = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "wizards_autumn", SKILL_POINT_1, WizardsAutumn::new, UTILITY, 315, 120, "arsmagicalegacy:dig");
-
     public static final RegistryObject<Affinity> NONE = AffinityRegistry.registerAffinity(Affinity.NONE, 0xFFFFFF, Affinity.NONE, ImmutableSet.of(), ImmutableSet.of());
     public static final RegistryObject<Affinity> ARCANE = AffinityRegistry.registerAffinity(Affinity.ARCANE, 0xb935cd, Affinity.NATURE, ImmutableSet.of(Affinity.LIFE, Affinity.EARTH, Affinity.WATER, Affinity.ICE), ImmutableSet.of(Affinity.AIR, Affinity.ENDER));
     public static final RegistryObject<Affinity> WATER = AffinityRegistry.registerAffinity(Affinity.WATER, 0x0b5cef, Affinity.FIRE, ImmutableSet.of(Affinity.LIGHTNING, Affinity.EARTH, Affinity.ARCANE, Affinity.ENDER), ImmutableSet.of(Affinity.AIR, Affinity.ICE));
@@ -204,5 +199,6 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<Affinity> LIFE = AffinityRegistry.registerAffinity(Affinity.LIFE, 0x34e122, Affinity.ENDER, ImmutableSet.of(Affinity.ARCANE, Affinity.ICE, Affinity.FIRE, Affinity.EARTH), ImmutableSet.of(Affinity.NATURE, Affinity.LIGHTNING));
     public static final RegistryObject<Affinity> ENDER = AffinityRegistry.registerAffinity(Affinity.ENDER, 0x3f043d, Affinity.LIFE, ImmutableSet.of(Affinity.NATURE, Affinity.LIGHTNING, Affinity.WATER, Affinity.AIR), ImmutableSet.of(Affinity.ARCANE, Affinity.ICE));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

@@ -129,7 +129,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         return ActionResultType.PASS;
     }
 
-
     public void setActiveSlot(ItemStack itemStack, int slot) {
         if (itemStack.getTag() == null) {
             itemStack.setTag(new CompoundNBT());
@@ -137,7 +136,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         if (slot < 0) slot = 0;
         if (slot > 7) slot = 7;
         itemStack.getTag().putInt("spellbookactiveslot", slot);
-
         ItemStack active = getActiveItemStack(itemStack);
         // boolean Soulbound = EnchantmentHelper.getEnchantmentLevel(AMEnchantments.soulbound.effectId, itemStack) > 0;
         /*if (active != null)
@@ -149,7 +147,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     public int setNextSlot(ItemStack itemStack) {
         int slot = getActiveSlot(itemStack);
         int newSlot = slot;
-
         do {
             newSlot++;
             if (newSlot > 7) newSlot = 0;
@@ -161,7 +158,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     public int setPrevSlot(ItemStack itemStack) {
         int slot = getActiveSlot(itemStack);
         int newSlot = slot;
-
         do {
             newSlot--;
             if (newSlot < 0) newSlot = 7;
@@ -182,7 +178,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         NonNullList<ItemStack> list = NonNullList.withSize(8 * 4, ItemStack.EMPTY);
         if (itemStack.getTag() != null)
             ItemStackHelper.loadAllItems(itemStack.getTag(), list);
-
         return list;
     }
 

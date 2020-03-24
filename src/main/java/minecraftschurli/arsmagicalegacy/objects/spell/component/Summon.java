@@ -97,7 +97,6 @@ public class Summon extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-
     }
 
     //    @Override

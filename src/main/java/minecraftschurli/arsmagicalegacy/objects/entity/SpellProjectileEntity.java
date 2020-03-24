@@ -38,7 +38,6 @@ public class SpellProjectileEntity extends Entity {
     private static final DataParameter<Boolean> DW_TARGETGRASS = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DW_HOMING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> DW_HOMING_TARGET = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-
     private int currentPierces;
 
     public SpellProjectileEntity(World worldIn) {
@@ -215,7 +214,6 @@ public class SpellProjectileEntity extends Entity {
         am2Tag.put("Effect", tmp);
         am2Tag.putString("IconName", dataManager.get(DW_ICON_NAME));
         am2Tag.putInt("PierceCount", dataManager.get(DW_PIERCE_COUNT));
-
         am2Tag.putInt("Color", dataManager.get(DW_COLOR));
         am2Tag.putInt("Shooter", dataManager.get(DW_SHOOTER));
         am2Tag.putBoolean("TargetGrass", dataManager.get(DW_TARGETGRASS));
@@ -238,7 +236,6 @@ public class SpellProjectileEntity extends Entity {
                 }
             }
         }
-
         if (target != null) {
             this.getDataManager().set(DW_HOMING_TARGET, target.getEntityId());
         }

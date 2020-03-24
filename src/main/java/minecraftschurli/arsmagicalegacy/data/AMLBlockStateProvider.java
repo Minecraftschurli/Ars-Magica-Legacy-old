@@ -88,7 +88,7 @@ public class AMLBlockStateProvider extends BlockStateProvider {
     }
 
     protected void doorBlock(Supplier<? extends DoorBlock> block, String name) {
-        doorBlock(block.get(), name, modLoc("block/"+name+"_door_bottom"), modLoc("block/"+name+"_door_top"));
+        doorBlock(block.get(), name, modLoc("block/" + name + "_door_bottom"), modLoc("block/" + name + "_door_top"));
     }
 
     protected void logBlock(Supplier<? extends LogBlock> block) {
@@ -117,7 +117,7 @@ public class AMLBlockStateProvider extends BlockStateProvider {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
         ResourceLocation blockTex = blockTexture(block);
         ModelFile straight = models().withExistingParent(block.getRegistryName().getPath(), mcLoc("block/rail")).texture("rail", blockTex);
-        ModelFile curved = models().withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", new ResourceLocation(blockTex.getNamespace(), blockTex.getPath()+"_corner"));
+        ModelFile curved = models().withExistingParent(block.getRegistryName().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", new ResourceLocation(blockTex.getNamespace(), blockTex.getPath() + "_corner"));
         ModelFile raisedNE = models().withExistingParent(block.getRegistryName().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", blockTex);
         ModelFile raisedSW = models().withExistingParent(block.getRegistryName().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", blockTex);
         builder.forAllStates(state -> {

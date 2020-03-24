@@ -16,7 +16,6 @@ public class AMLItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-
     }
 
     /**

@@ -19,43 +19,48 @@ public class BoltParticle extends Particle {
     private int overrideColor = -1;
     private BoltParticleData main;
 
-    public BoltParticle(World world, Vec3d jammervec, Vec3d targetvec, long seed){
+    public BoltParticle(World world, Vec3d jammervec, Vec3d targetvec, long seed) {
         super(world, 0, 0, 0, 0, 0, 0);
         main = new BoltParticleData(jammervec, targetvec, seed);
         setupFromMain();
     }
 
-    public BoltParticle(World world, Entity detonator, Entity target, long seed){
+    public BoltParticle(World world, Entity detonator, Entity target, long seed) {
         super(world, 0, 0, 0, 0, 0, 0);
         main = new BoltParticleData(detonator, target, seed);
         setupFromMain();
     }
 
-    public BoltParticle(World world, Entity detonator, Entity target, long seed, int speed){
+    public BoltParticle(World world, Entity detonator, Entity target, long seed, int speed) {
         super(world, 0, 0, 0, 0, 0, 0);
         main = new BoltParticleData(detonator, target, seed, speed);
         setupFromMain();
     }
 
-    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi){
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi) {
         super(world, 0, 0, 0, 0, 0, 0);
         main = new BoltParticleData(x1, y1, z1, x, y, z, seed, duration, multi);
         setupFromMain();
     }
 
-    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi, int speed){
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration, float multi, int speed) {
         super(world, 0, 0, 0, 0, 0, 0);
         main = new BoltParticleData(x1, y1, z1, x, y, z, seed, duration, multi, speed);
         setupFromMain();
     }
 
-    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration){
+    public BoltParticle(World world, double x1, double y1, double z1, double x, double y, double z, long seed, int duration) {
         super(world, 0, 0, 0, 0, 0, 0);
         main = new BoltParticleData(x1, y1, z1, x, y, z, seed, duration, 1);
         setupFromMain();
     }
 
-    private void setupFromMain(){
+    private static Vec3d getRelativeViewVector(Vec3d pos) {
+        PlayerEntity renderentity = Minecraft.getInstance().player;
+        return new Vec3d(renderentity.getPosX() - pos.x, renderentity.getPosY() - pos.y, renderentity.getPosZ() - pos.z);
+    }
+
+    private void setupFromMain() {
         age = main.getMaxAge();
         setPosition(main.getStart().x, main.getStart().y, main.getStart().z);
         motionX = motionY = motionZ = 0;
@@ -65,37 +70,37 @@ public class BoltParticle extends Particle {
         main.defaultFractal();
     }
 
-    public void fractal(int splits, double amount, float splitchance, float splitlength, float splitangle){
+    public void fractal(int splits, double amount, float splitchance, float splitlength, float splitangle) {
         main.fractal(splits, amount, splitchance, splitlength, splitangle);
     }
 
-    public void finalizeBolt(){
+    public void finalizeBolt() {
         main.finalizeBolt();
 //        Minecraft.getInstance().worldRenderer.addParticle(this);
     }
 
-    public void setOverrideColor(int overrideColor){
+    public void setOverrideColor(int overrideColor) {
         this.overrideColor = overrideColor;
     }
 
-    public void setSourceEntity(Entity entity){
+    public void setSourceEntity(Entity entity) {
         main.wrapper = entity;
     }
 
-    public void setType(BoltParticleData.BoltType type){
+    public void setType(BoltParticleData.BoltType type) {
         this.type = type;
 //        main.type = type;
     }
 
-    public void setDamage(int dmg){
+    public void setDamage(int dmg) {
         main.damage = dmg;
     }
 
-    public void setNonLethal(){
+    public void setNonLethal() {
         main.nonLethal = true;
     }
 
-    public void setMultiplier(float m){
+    public void setMultiplier(float m) {
         main.multiplier = m;
     }
 
@@ -105,22 +110,17 @@ public class BoltParticle extends Particle {
         if (main.getAge() >= main.getMaxAge()) setExpired();
     }
 
-    private static Vec3d getRelativeViewVector(Vec3d pos){
-        PlayerEntity renderentity = Minecraft.getInstance().player;
-        return new Vec3d(renderentity.getPosX() - pos.x, renderentity.getPosY() - pos.y, renderentity.getPosZ() - pos.z);
-    }
-
-    private void renderBolt(IVertexBuilder buffer, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass){
+    private void renderBolt(IVertexBuilder buffer, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass) {
         Vec3d playervec = new Vec3d(sinyaw * -cospitch, -cossinpitch / cosyaw, cosyaw * cospitch);
         float boltage = main.getAge() >= 0 ? 1 : 0;
         float mainalpha = 1;
         if (pass == 0) mainalpha = (1 - boltage) * 0.9F;
         else if (pass == 1) mainalpha = 1 - boltage * 0.6F;
         else mainalpha = 1 - boltage * 0.3F;
-        int renderlength = (int)((main.getAge() + partialframe + (int)(main.length * 3)) / (int)(main.length * 3) * main.numsegments0);
+        int renderlength = (int) ((main.getAge() + partialframe + (int) (main.length * 3)) / (int) (main.length * 3) * main.numsegments0);
         for (BoltParticleData.Segment rendersegment : main.segments()) {
             if (rendersegment.segmentno <= renderlength) {
-                float width = (float)(0.015F * (getRelativeViewVector(rendersegment.startpoint.point).length() / 10 + 1) * (1 + rendersegment.light));
+                float width = (float) (0.015F * (getRelativeViewVector(rendersegment.startpoint.point).length() / 10 + 1) * (1 + rendersegment.light));
                 if (width > 0.05F) width = 0.05F;
                 if (pass == 1) width += 0.025f;
                 Vec3d diff1 = playervec.crossProduct(rendersegment.prevdiff).scale(width / rendersegment.sinprev);
@@ -218,8 +218,7 @@ public class BoltParticle extends Particle {
                 RenderSystem.blendFunc(770, 1);
                 break;
         }
-
-        if (overrideColor != -1){
+        if (overrideColor != -1) {
             particleRed = RenderUtils.getRed(overrideColor);
             particleGreen = RenderUtils.getGreen(overrideColor);
             particleBlue = RenderUtils.getBlue(overrideColor);
@@ -235,7 +234,7 @@ public class BoltParticle extends Particle {
 //			tessellator.draw();
 //		}catch (Throwable t){
 //		}
-        switch (type){
+        switch (type) {
             case TYPE_0:
                 particleRed = 1;
                 particleGreen = 0.6F;
@@ -275,7 +274,7 @@ public class BoltParticle extends Particle {
                 RenderSystem.blendFunc(770, 1);
                 break;
         }
-        if (overrideColor != -1){
+        if (overrideColor != -1) {
             particleRed = RenderUtils.getRed(overrideColor);
             particleGreen = RenderUtils.getGreen(overrideColor);
             particleBlue = RenderUtils.getBlue(overrideColor);
@@ -291,7 +290,7 @@ public class BoltParticle extends Particle {
 //			tessellator.draw();
 //		}catch (Throwable t){
 //		}
-        switch (type){
+        switch (type) {
             case TYPE_0:
                 particleRed = 1;
                 particleGreen = 0.6F;
@@ -331,7 +330,7 @@ public class BoltParticle extends Particle {
                 RenderSystem.blendFunc(770, 1);
                 break;
         }
-        if (overrideColor != -1){
+        if (overrideColor != -1) {
             particleRed = RenderUtils.getRed(overrideColor);
             particleGreen = RenderUtils.getGreen(overrideColor);
             particleBlue = RenderUtils.getBlue(overrideColor);
@@ -345,11 +344,12 @@ public class BoltParticle extends Particle {
 //        renderBolt(Minecraft.getInstance().worldRenderer, partialTicks, cosyaw, cospitch, sinyaw, cossinpitch, 2);
         try {
             tessellator.draw();
-        } catch (Throwable ignored){}
-
+        } catch (Throwable ignored) {
+        }
         try {
 //            Minecraft.getInstance().worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        } catch (Throwable ignored){}
+        } catch (Throwable ignored) {
+        }
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.popAttributes();
@@ -361,7 +361,7 @@ public class BoltParticle extends Particle {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    public int getRenderPass(){
+    public int getRenderPass() {
         return 2;
     }
 }

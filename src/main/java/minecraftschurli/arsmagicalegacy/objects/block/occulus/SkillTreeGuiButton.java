@@ -8,7 +8,6 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 
 public class SkillTreeGuiButton extends Button {
-
     public final int id;
     public final int page;
     SkillTree tree;

@@ -28,7 +28,6 @@ import net.minecraftforge.fml.RegistryObject;
 import org.lwjgl.opengl.GL11;
 
 public class RenderUtils {
-
     public static Vec3d copyVec(Vec3d vec) {
         return new Vec3d(vec.x, vec.y, vec.z);
     }
@@ -101,7 +100,7 @@ public class RenderUtils {
         GL11.glVertex3f(xStart, yStart, zLevel);
         GL11.glVertex3f(xEnd, yEnd, zLevel);
         GL11.glEnd();
-        RenderSystem.color3f(1,1,1);
+        RenderSystem.color3f(1, 1, 1);
         RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         RenderSystem.popMatrix();
@@ -162,9 +161,9 @@ public class RenderUtils {
 
     public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
         RenderSystem.pushMatrix();
-        RenderSystem.rotatef((float)rotation.x, 1, 0, 0);
-        RenderSystem.rotatef((float)rotation.y, 1, 1, 0);
-        RenderSystem.rotatef((float)rotation.z, 1, 0, 1);
+        RenderSystem.rotatef((float) rotation.x, 1, 0, 0);
+        RenderSystem.rotatef((float) rotation.y, 1, 1, 0);
+        RenderSystem.rotatef((float) rotation.z, 1, 0, 1);
 //        renderBlockModel(te, model, defaultState);
         RenderSystem.popMatrix();
     }
@@ -190,7 +189,7 @@ public class RenderUtils {
         }
     }
 
-    public static void gradientline2d(float src_x, float src_y, float dst_x, float dst_y, float zLevel, int color1, int color2){
+    public static void gradientline2d(float src_x, float src_y, float dst_x, float dst_y, float zLevel, int color1, int color2) {
         RenderSystem.disableTexture();
         RenderSystem.shadeModel(GL11.GL_SMOOTH);
         RenderSystem.lineWidth(1f);
@@ -214,7 +213,7 @@ public class RenderUtils {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.translatef((float)x, (float)y, 100.0F + zLevel);
+        RenderSystem.translatef(x, y, 100.0F + zLevel);
         RenderSystem.translatef(8.0F, 8.0F, 0.0F);
         RenderSystem.scalef(1.0F, -1.0F, 1.0F);
         RenderSystem.scalef(16.0F, 16.0F, 16.0F);
@@ -224,14 +223,12 @@ public class RenderUtils {
         if (flag) {
             RenderHelper.setupGuiFlatDiffuseLighting();
         }
-
         renderer.renderItem(stack, ItemCameraTransforms.TransformType.GUI, false, matrixstack, irendertypebuffer$impl, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
         irendertypebuffer$impl.finish();
         RenderSystem.enableDepthTest();
         if (flag) {
             RenderHelper.setupGui3DDiffuseLighting();
         }
-
         RenderSystem.disableAlphaTest();
         RenderSystem.disableRescaleNormal();
         RenderSystem.popMatrix();

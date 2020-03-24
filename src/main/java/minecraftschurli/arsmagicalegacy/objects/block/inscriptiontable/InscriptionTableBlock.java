@@ -116,7 +116,6 @@ public class InscriptionTableBlock extends Block {
                 Block.spawnDrops(blockstate, worldIn, blockpos, te, player, itemstack);
             }
         }
-
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
@@ -135,7 +134,6 @@ public class InscriptionTableBlock extends Block {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-
         super.onBlockActivated(state, worldIn, pos, player, hand, hit);
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
@@ -143,23 +141,20 @@ public class InscriptionTableBlock extends Block {
         boolean left = state.get(LEFT);
         BlockPos tePos = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos;
         InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
-
         if (te == null)
             return ActionResultType.FAIL;
-
         if (te.isInUse(player)) {
             player.sendMessage(new StringTextComponent("Someone else is using this."));
             return ActionResultType.FAIL;
         }
-
         ItemStack curItem = player.getHeldItem(hand);
         if (!curItem.isEmpty() && curItem.getItem() instanceof InscriptionTableUpgradeItem && curItem.getTag() != null) {
             int tier = state.get(TIER);
             if (tier == InscriptionTableUpgradeItem.getTier(curItem)) {
                 curItem.shrink(1);
-                worldIn.setBlockState(pos, state.with(TIER, tier+1), 2);
+                worldIn.setBlockState(pos, state.with(TIER, tier + 1), 2);
                 BlockPos other = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos.offset(state.get(FACING).rotateY());
-                worldIn.setBlockState(other, worldIn.getBlockState(other).with(TIER, tier+1), 2);
+                worldIn.setBlockState(other, worldIn.getBlockState(other).with(TIER, tier + 1), 2);
                 te.incrementUpgradeState();
                 return ActionResultType.SUCCESS;
             }
@@ -177,7 +172,6 @@ public class InscriptionTableBlock extends Block {
                 }
             }, tePos);
         }
-
         return ActionResultType.SUCCESS;
     }
 }

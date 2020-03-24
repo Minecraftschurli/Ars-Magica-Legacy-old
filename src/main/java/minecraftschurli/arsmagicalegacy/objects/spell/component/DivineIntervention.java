@@ -29,12 +29,12 @@ public class DivineIntervention extends SpellComponent {
         if (world.isRemote || !(target instanceof LivingEntity)) return true;
         if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
             if (target instanceof PlayerEntity)
-                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleportDistortion"));
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleportDistortion"));
             return true;
         }
         if (target.dimension.getId() == 1) {
             if (target instanceof PlayerEntity)
-                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleport"));
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleport"));
             return true;
         } else if (target.dimension.getId() == 0) {
             BlockPos coords = target instanceof PlayerEntity ? ((PlayerEntity) target).getBedLocation(target.dimension) : null;

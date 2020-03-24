@@ -42,7 +42,6 @@ public class ThrownRockEntity extends Entity {
     private Vec3d target = null;
     private float damage;
 
-
     public ThrownRockEntity(World worldIn) {
         this(ModEntities.THROWN_ROCK.get(), worldIn);
     }
@@ -142,16 +141,11 @@ public class ThrownRockEntity extends Entity {
             double deltaX = this.getPosX() - target.x;
             double deltaY = this.getPosY() - target.y;
             double deltaZ = this.getPosZ() - target.z;
-
             double angle = Math.atan2(deltaZ, deltaX);
-
             double hDist = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-
             double vAngle = Math.atan2(deltaY, hDist);
-
             setMotion(-Math.cos(angle) * 0.2, -Math.sin(angle) * 0.2, -Math.sin(vAngle) * 2.5);
         }
-
         if (!getIsMoonstoneMeteor() && !getIsShootingStar()) {
             //noinspection ConstantConditions
             if (!world.isRemote && (world.getEntityByID(getDataManager().get(OWNER)) == null || !world.getEntityByID(getDataManager().get(OWNER)).isAlive())) {
@@ -165,7 +159,6 @@ public class ThrownRockEntity extends Entity {
                 }
             }
         }
-
         if (getIsShootingStar()) {
             setMotion(getMotion().add(0, -0.1f, 0));
             if (getMotion().y < -2f)
@@ -217,7 +210,6 @@ public class ThrownRockEntity extends Entity {
                 }
             }
         }*/
-
         Vec3d vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
         Vec3d vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
         RayTraceResult movingobjectposition = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
@@ -243,12 +235,10 @@ public class ThrownRockEntity extends Entity {
                 d = d1;
             }
         }
-
         if (entity != null) {
             movingobjectposition = new EntityRayTraceResult(entity);
         }
         hitObject(movingobjectposition);
-
         double tmpX = getPosX() + getMotion().x;
         double tmpY = getPosY() + getMotion().y;
         double tmpZ = getPosZ() + getMotion().z;
@@ -256,29 +246,30 @@ public class ThrownRockEntity extends Entity {
         float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
         rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
         //noinspection StatementWithEmptyBody
-        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {}
+        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+        }
         //noinspection StatementWithEmptyBody
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {}
+        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {
+        }
         //noinspection StatementWithEmptyBody
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {}
+        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {
+        }
         //noinspection StatementWithEmptyBody
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {}
+        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {
+        }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         setPosition(getPosX(), getPosY(), getPosZ());
     }
 
-
     protected void hitObject(RayTraceResult movingobjectposition) {
         if (world.isRemote) {
             return;
         }
-
-
         if (getIsShootingStar()) {
             //AMNetHandler.INSTANCE.sendStarImpactToClients(getPosX(), getPosY() + ((movingobjectposition.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)movingobjectposition).getEntity().getEyeHeight() : 1.5f), getPosZ(), world, this.getSpellStack());
             List<LivingEntity> ents = world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12));
-            this.setPosition(getPosX(), getPosY()+1, getPosZ());
+            this.setPosition(getPosX(), getPosY() + 1, getPosZ());
             for (LivingEntity e : ents) {
                 if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
                 if (this.getDistance(e) < 12)
@@ -293,18 +284,14 @@ public class ThrownRockEntity extends Entity {
                 ((EntityRayTraceResult) movingobjectposition).getEntity().attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) world.getEntityByID(getDataManager().get(OWNER))), 10);
             } else if (movingobjectposition.getType() == RayTraceResult.Type.BLOCK) {
                 if (this.getIsMoonstoneMeteor()) {
-
                     if (this.target == null) {
                         this.target = movingobjectposition.getHitVec();
                     }
                     this.world.createExplosion(this, this.target.getX(), this.target.getY(), this.target.getZ(), 0.8f, Explosion.Mode.NONE /*ArsMagica2.config.moonstoneMeteorsDestroyTerrain()*/);
-
                     int numOres = rand.nextInt(4) + 1;
-
                     for (int i = 0; i < numOres; ++i) {
                         generateSurfaceOreAtOffset(world, new BlockPos(target), i == 0);
                     }
-
 //					if (this.world.isRemote){
 //						for (Object player : world.playerEntities)
 //							if (((EntityPlayer)player).getDistanceSqToEntity(this) < 4096)
@@ -319,10 +306,8 @@ public class ThrownRockEntity extends Entity {
     private void generateSurfaceOreAtOffset(World world, BlockPos pos, boolean force) {
         pos = pos.east(rand.nextInt(4) - 2);
         pos = pos.south(rand.nextInt(4) - 2);
-
         while (!world.isAirBlock(pos) && pos.getY() < world.getActualHeight())
             pos = pos.up();
-
         if (rand.nextInt(4) < 2 || force)
             //noinspection ConstantConditions
             world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());

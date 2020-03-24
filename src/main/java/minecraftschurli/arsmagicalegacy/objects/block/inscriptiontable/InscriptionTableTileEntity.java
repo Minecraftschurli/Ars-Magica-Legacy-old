@@ -71,7 +71,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     private static final String SHAPE_GROUPS_KEY = "ShapeGroups";
     private static final String NUM_SHAPE_GROUP_SLOTS_KEY = "numShapeGroupSlots";
     private static final String CURRENT_SPELL_NAME_KEY = "currentSpellName";
-
     private final List<AbstractSpellPart> currentRecipe;
     private final List<List<AbstractSpellPart>> shapeGroups;
     private final NonNullList<ItemStack> inscriptionTableItemStacks;
@@ -454,10 +453,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             group.clear();
         }
         currentSpellName = "";
-
         this.currentSpellName = stack.getDisplayName().getFormattedText();
         int numStages = SpellUtils.numStages(stack);
-
         for (int i = 0; i < numStages; ++i) {
             SpellShape shape = SpellUtils.getShapeForStage(stack, i);
             this.currentRecipe.add(shape);
@@ -466,7 +463,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             List<SpellModifier> modifiers = SpellUtils.getModifiersForStage(stack, i);
             this.currentRecipe.addAll(modifiers);
         }
-
         int numShapeGroups = SpellUtils.numShapeGroups(stack);
         for (int i = 0; i < numShapeGroups; ++i) {
             List<AbstractSpellPart> parts = SpellUtils.getShapeGroupParts(stack, i);
@@ -475,7 +471,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                     this.shapeGroups.get(i).add(partID);
             }
         }
-
         currentSpellIsReadOnly = true;
     }
 
@@ -486,7 +481,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     public AbstractSpellPart getShapeGroupPartAt(int groupIndex, int index) {
-
         return this.shapeGroups.get(groupIndex).get(index);
     }
 
@@ -507,46 +501,35 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         if (bookstack.getItem() == Items.WRITTEN_BOOK && this.currentRecipe != null) {
             if (!currentRecipeIsValid().valid)
                 return bookstack;
-
             if (!bookstack.hasTag())
                 bookstack.setTag(new CompoundNBT());
             else if (bookstack.getTag().getBoolean("spellFinalized")) //don't overwrite a completed spell
                 return bookstack;
-
             SpellIngredientList materialsList = new SpellIngredientList();
-
             materialsList.add(new ItemStackSpellIngredient(new ItemStack(ModItems.RUNE.get(), 1)));
-
             List<AbstractSpellPart> allRecipeItems = new ArrayList<>();
-
             for (List<AbstractSpellPart> shapeGroup : shapeGroups) {
                 if (shapeGroup == null || shapeGroup.size() == 0)
                     continue;
                 allRecipeItems.addAll(shapeGroup);
             }
-
             allRecipeItems.addAll(currentRecipe);
             for (AbstractSpellPart part : allRecipeItems) {
-
                 if (part == null) {
                     ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe part is null!");
                     return bookstack;
                 }
-
                 ISpellIngredient[] recipeItems = ArsMagicaLegacy.getSpellRecipeManager().getRecipe(part.getRegistryName());
                 SpellRecipeItemsEvent event = new SpellRecipeItemsEvent(SpellRegistry.getSkillFromPart(part).getID(), recipeItems);
                 MinecraftForge.EVENT_BUS.post(event);
                 recipeItems = event.recipeItems;
-
                 if (recipeItems == null) {
                     ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getName().getUnformattedComponentText());
                     return bookstack;
                 }
                 materialsList.addAll(Arrays.asList(recipeItems));
             }
-
             materialsList.add(new ItemStackSpellIngredient(new ItemStack(ModItems.SPELL_PARCHMENT.get(), 1)));
-
             StringBuilder sb = new StringBuilder();
             int sgCount = 0;
             String[][] shapeGroupCombos = new String[shapeGroups.size()][];
@@ -557,23 +540,17 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 shapeGroupCombos[sgCount - 1] = spellPartListToStringBuilder(it, sb, " -");
                 sb.append(NEWPAGE);
             }
-
             sb.append("Combination:\n\n");
             Iterator<AbstractSpellPart> it = currentRecipe.iterator();
             String[] outputData = spellPartListToStringBuilder(it, sb, null);
-
             List<StringNBT> pages = minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString());
-
             sb = new StringBuilder();
             sb.append("Materials List:\n\n");
             sb.append(materialsList.getTooltip().stream()
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.joining("\n")));
-
             pages.addAll(minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString()));
-
 //            ArsMagicaLegacy.LOGGER.debug("before write: {}", pages);
-
             sb = new StringBuilder();
             sb.append("Affinity Breakdown:\n\n");
             HashMap<Affinity, Integer> affinityData = new HashMap<>();
@@ -594,21 +571,18 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ValueComparator vc = new ValueComparator(affinityData);
             TreeMap<Affinity, Integer> sorted = new TreeMap<>(vc);
             sorted.putAll(affinityData);
-            for (Affinity aff : sorted.keySet()){
-                float pct = (float)sorted.get(aff) / (float)cpCount * 100f;
+            for (Affinity aff : sorted.keySet()) {
+                float pct = (float) sorted.get(aff) / (float) cpCount * 100f;
                 sb.append(String.format("%s: %.2f%%", aff.getName().getFormattedText(), pct));
                 sb.append("\n");
             }
             pages.addAll(minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString()));
             minecraftschurli.arsmagicalegacy.api.util.TextUtils.writePartToNBT(bookstack.getTag(), pages);
 //            ArsMagicaLegacy.LOGGER.debug("after write: {}", bookstack.getTag());
-
             if (currentSpellName.equals(""))
                 currentSpellName = "Spell Recipe";
             minecraftschurli.arsmagicalegacy.api.util.TextUtils.finalizeStory(bookstack, new StringTextComponent(currentSpellName), player.getName().getFormattedText());
 //            ArsMagicaLegacy.LOGGER.debug("after finalize: {}", bookstack.getTag());
-
-
             bookstack.getTag().put("spell_combo", materialsList.serializeNBT());
             ListNBT list = new ListNBT();
             list.addAll(Arrays.stream(outputData).map(StringNBT::valueOf).collect(Collectors.toList()));
@@ -622,16 +596,12 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 bookstack.getTag().put("shapeGroupCombo_" + i++, nbt);
             }
             bookstack.getTag().putString("spell_mod_version", ArsMagicaLegacy.instance.getVersion());
-
             this.currentRecipe.clear();
             for (List<AbstractSpellPart> group : shapeGroups)
                 group.clear();
             this.currentSpellName = "";
-
             bookstack.getTag().putBoolean("spellFinalized", true);
 //            ArsMagicaLegacy.LOGGER.debug("fin: {}", bookstack.getTag());
-
-
             //world.playSound(getPos().getX(), getPos().getY(), getPos().getZ(), "arsmagica2:misc.inscriptiontable.takebook", 1, 1, true);
             this.markDirty();
             //world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), world.getBlockState(pos), world.getBlockState(pos), 2);
@@ -639,31 +609,11 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         return bookstack;
     }
 
-    static class ValueComparator implements Comparator<Affinity>{
-
-        Map<Affinity, Integer> base;
-
-        ValueComparator(Map<Affinity, Integer> base){
-            this.base = base;
-        }
-
-        @Override
-        public int compare(Affinity a, Affinity b){
-            Integer x = base.get(a);
-            Integer y = base.get(b);
-            if (x.equals(y)){
-                return a.compareTo(b);
-            }
-            return x.compareTo(y);
-        }
-    }
-
     private String[] spellPartListToStringBuilder(Iterator<AbstractSpellPart> it, StringBuilder sb, String prefix) {
         ArrayList<String> outputCombo = new ArrayList<>();
         while (it.hasNext()) {
             AbstractSpellPart part = it.next();
             String displayName = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
-
             if (prefix != null) {
                 sb.append(prefix).append(displayName).append("\n");
             } else {
@@ -673,10 +623,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                     sb.append("-").append(displayName).append("\n");
                 }
             }
-
             outputCombo.add(part.getRegistryName().toString());
         }
-
         return outputCombo.toArray(new String[0]);
     }
 
@@ -843,16 +791,12 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void countModifiers() {
-
         resetModifierCount();
-
         for (List<AbstractSpellPart> shapeGroup : this.shapeGroups) {
             countModifiersInList(shapeGroup);
         }
-
         List<List<AbstractSpellPart>> stages = SpellValidator.splitToStages(currentRecipe);
         if (stages.size() == 0) return;
-
         for (List<AbstractSpellPart> currentStage : stages) {
             countModifiersInList(currentStage);
         }
@@ -886,17 +830,13 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             writer.add(player.getEntityId());
             AMNetHandler.INSTANCE.sendPacketToServer(AMPacketIDs.INSCRIPTION_TABLE_UPDATE, writer.generate());
         }else{*/
-
         List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroupSetup = new ArrayList<>();
         Pair<List<AbstractSpellPart>, CompoundNBT> curRecipeSetup = new Pair<>(currentRecipe, new CompoundNBT());
-
         for (List<AbstractSpellPart> arr : shapeGroups) {
             shapeGroupSetup.add(new Pair<>(arr, new CompoundNBT()));
         }
         ItemStack stack = SpellUtils.createSpellStack(shapeGroupSetup, curRecipeSetup);
-
         stack.getTag().putString("suggestedName", currentSpellName);
-
         player.inventory.addItemStackToInventory(stack);
         //}
     }
@@ -922,5 +862,23 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }
         stack.setItemDamage(0);*/
         stack.clearCustomName();
+    }
+
+    static class ValueComparator implements Comparator<Affinity> {
+        Map<Affinity, Integer> base;
+
+        ValueComparator(Map<Affinity, Integer> base) {
+            this.base = base;
+        }
+
+        @Override
+        public int compare(Affinity a, Affinity b) {
+            Integer x = base.get(a);
+            Integer y = base.get(b);
+            if (x.equals(y)) {
+                return a.compareTo(b);
+            }
+            return x.compareTo(y);
+        }
     }
 }

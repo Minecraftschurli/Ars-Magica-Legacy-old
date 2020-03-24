@@ -11,10 +11,10 @@ import net.minecraft.world.World;
 
 public class SimpleParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite animatedSprite;
-    private float scaleX, scaleY, scaleZ;
-    private int maxAge, age;
     public boolean hasGravity;
     public boolean hasMotion;
+    private float scaleX, scaleY, scaleZ;
+    private int maxAge, age;
 
     public SimpleParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SimpleParticleData data, IAnimatedSprite sprite) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
@@ -31,9 +31,17 @@ public class SimpleParticle extends SpriteTexturedParticle {
         selectSpriteWithAge(animatedSprite);
     }
 
+    public float getScaleX() {
+        return scaleX;
+    }
+
     public SimpleParticle setScaleX(float x) {
         scaleX = x;
         return this;
+    }
+
+    public float getScaleY() {
+        return scaleY;
     }
 
     public SimpleParticle setScaleY(float y) {
@@ -41,9 +49,17 @@ public class SimpleParticle extends SpriteTexturedParticle {
         return this;
     }
 
+    public float getScaleZ() {
+        return scaleZ;
+    }
+
     public SimpleParticle setScaleZ(float z) {
         scaleZ = z;
         return this;
+    }
+
+    public float getRed() {
+        return particleRed;
     }
 
     public SimpleParticle setRed(float r) {
@@ -51,9 +67,8 @@ public class SimpleParticle extends SpriteTexturedParticle {
         return this;
     }
 
-    public SimpleParticle setGreen(float g) {
-        particleGreen = g;
-        return this;
+    public float getBlue() {
+        return particleBlue;
     }
 
     public SimpleParticle setBlue(float b) {
@@ -61,53 +76,38 @@ public class SimpleParticle extends SpriteTexturedParticle {
         return this;
     }
 
-    public SimpleParticle setAlpha(float a) {
-        particleAlpha = a;
-        return this;
-    }
-
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public float getScaleX() {
-        return scaleX;
-    }
-
-    public float getScaleY() {
-        return scaleY;
-    }
-
-    public float getScaleZ() {
-        return scaleZ;
-    }
-
-    public float getRed() {
-        return particleRed;
-    }
-
-    public float getBlue() {
-        return particleBlue;
-    }
-
     public float getGreen() {
         return particleGreen;
+    }
+
+    public SimpleParticle setGreen(float g) {
+        particleGreen = g;
+        return this;
     }
 
     public float getAlpha() {
         return particleAlpha;
     }
 
+    public SimpleParticle setAlpha(float a) {
+        particleAlpha = a;
+        return this;
+    }
+
     public int getMaxAge() {
         return maxAge;
     }
 
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
+    }
+
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -128,6 +128,18 @@ public class SimpleParticle extends SpriteTexturedParticle {
         return this;
     }
 
+    public void setColor(int color) {
+        particleRed = RenderUtils.getRed(color);
+        particleGreen = RenderUtils.getGreen(color);
+        particleBlue = RenderUtils.getBlue(color);
+    }
+
+    public void setColor(float r, float g, float b) {
+        particleRed = r;
+        particleGreen = g;
+        particleBlue = b;
+    }
+
     public static class Factory implements IParticleFactory<SimpleParticleData> {
         private final IAnimatedSprite spriteSet;
 
@@ -140,17 +152,5 @@ public class SimpleParticle extends SpriteTexturedParticle {
         public Particle makeParticle(SimpleParticleData typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new SimpleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn, this.spriteSet);
         }
-    }
-
-    public void setColor(int color){
-        particleRed = RenderUtils.getRed(color);
-        particleGreen = RenderUtils.getGreen(color);
-        particleBlue = RenderUtils.getBlue(color);
-    }
-
-    public void setColor(float r, float g, float b) {
-        particleRed = r;
-        particleGreen = g;
-        particleBlue = b;
     }
 }

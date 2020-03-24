@@ -31,6 +31,14 @@ public class InfinityOrbItem extends Item {
         super(ModItems.ITEM_64);
     }
 
+    public static ItemStack getWithSkillPoint(SkillPoint point) {
+        return ModItems.INFINITY_ORB.get().setSkillPoint(new ItemStack(ModItems.INFINITY_ORB.get()), point);
+    }
+
+    public static SkillPoint getSkillPoint(ItemStack stack) {
+        return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
+    }
+
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.EAT;
@@ -61,16 +69,8 @@ public class InfinityOrbItem extends Item {
         return stack;
     }
 
-    public static ItemStack getWithSkillPoint(SkillPoint point) {
-        return ModItems.INFINITY_ORB.get().setSkillPoint(new ItemStack(ModItems.INFINITY_ORB.get()), point);
-    }
-
-    public static SkillPoint getSkillPoint(ItemStack stack) {
-        return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
-    }
-
     private ActionResult<ItemStack> useOrb(LivingEntity entity, ItemStack heldItem) {
-        if (entity instanceof PlayerEntity){
+        if (entity instanceof PlayerEntity) {
             CapabilityHelper.addSkillPoint((PlayerEntity) entity, heldItem.getTag().getInt(TYPE_KEY));
             heldItem.shrink(1);
         }

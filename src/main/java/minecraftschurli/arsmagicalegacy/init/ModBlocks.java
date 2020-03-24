@@ -73,7 +73,12 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Sapling> WITCHWOOD_SAPLING = BLOCKS.register("witchwood_sapling", () -> new Sapling(new WitchwoodTree()));
     public static final RegistryObject<FlowerBlock> AUM = BLOCKS.register("aum", () -> new FlowerBlock(ModEffects.mana_regen_effect, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)));
     public static final RegistryObject<FlowerBlock> CERUBLOSSOM = BLOCKS.register("cerublossom", () -> new FlowerBlock(Effects.LEVITATION, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)));
-    public static final RegistryObject<FlowerBlock> DESERT_NOVA = BLOCKS.register("desert_nova", () -> new FlowerBlock(Effects.FIRE_RESISTANCE, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)){@Override protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) { return Tags.Blocks.SAND.contains(state.getBlock()); }});
+    public static final RegistryObject<FlowerBlock> DESERT_NOVA = BLOCKS.register("desert_nova", () -> new FlowerBlock(Effects.FIRE_RESISTANCE, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)) {
+        @Override
+        protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+            return Tags.Blocks.SAND.contains(state.getBlock());
+        }
+    });
     public static final RegistryObject<FlowerBlock> TARMA_ROOT = BLOCKS.register("tarma_root", () -> new FlowerBlock(Effects.SLOWNESS, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)));
     public static final RegistryObject<FlowerBlock> WAKEBLOOM = BLOCKS.register("wakebloom", () -> new FlowerBlock(ModEffects.burnout_reduction_effect, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)));
     public static final RegistryObject<InlayBlock> REDSTONE_INLAY = BLOCKS.register("redstone_inlay", () -> new InlayBlock(Block.Properties.create(Material.MISCELLANEOUS).notSolid()));

@@ -85,8 +85,7 @@ public class SpellItem extends Item {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (!stack.hasTag()) return;
-
         float manaCost = SpellUtils.getManaCost(stack, ArsMagicaLegacy.proxy.getLocalPlayer());
-        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID+".spell.manacost", manaCost));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.manacost", manaCost));
     }
 }

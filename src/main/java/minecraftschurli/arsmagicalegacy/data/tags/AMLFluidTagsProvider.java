@@ -10,7 +10,6 @@ import net.minecraft.tags.FluidTags;
  * @version 2019-11-12
  */
 public class AMLFluidTagsProvider extends FluidTagsProvider {
-
     public AMLFluidTagsProvider(DataGenerator generatorIn) {
         super(generatorIn);
     }

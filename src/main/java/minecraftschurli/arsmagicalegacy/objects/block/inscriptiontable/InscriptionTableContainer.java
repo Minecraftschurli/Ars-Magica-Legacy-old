@@ -32,14 +32,12 @@ public class InscriptionTableContainer extends Container {
         this.table = table;
         this.inventoryPlayer = inventory;
         addSlot(new InscriptionTableSlot(table, 0, 102, 74));
-
         //display player inventory
         for (int i = 0; i < 3; i++) {
             for (int k = 0; k < 9; k++) {
                 addSlot(new Slot(inventory, k + i * 9 + 9, 30 + k * 18, 170 + i * 18));
             }
         }
-
         //display player action bar
         for (int j1 = 0; j1 < 9; j1++) {
             addSlot(new Slot(inventory, j1, 30 + j1 * 18, 228));
@@ -87,13 +85,11 @@ public class InscriptionTableContainer extends Container {
             } else if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, false)) {
                 return ItemStack.EMPTY;
             }
-
             if (itemstack1.getCount() == 0) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
-
             if (itemstack1.getCount() != itemstack.getCount()) {
                 slot.onSlotChange(itemstack1, itemstack);
             } else {
@@ -107,12 +103,10 @@ public class InscriptionTableContainer extends Container {
         if (stack.getItem() instanceof WritableBookItem) {
             Slot bookSlot = inventorySlots.get(0);
             if (bookSlot.getHasStack()) return false;
-
             ItemStack newStack = stack.copy();
             newStack.setCount(1);
             bookSlot.putStack(newStack);
             bookSlot.onSlotChanged();
-
             stack.setCount(stack.getCount() - 1);
             if (stack.getCount() == 0) {
                 slot.putStack(ItemStack.EMPTY);

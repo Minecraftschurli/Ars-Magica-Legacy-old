@@ -119,7 +119,7 @@ public class Blink extends SpellComponent {
 //        }
         if (!world.isRemote) {
             if (!coordsValid && target instanceof PlayerEntity) {
-                ((PlayerEntity) target).sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noBlink"));
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noBlink"));
                 return false;
             }
         }

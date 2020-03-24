@@ -35,13 +35,13 @@ public class AffinityStorage implements IAffinityStorage {
     }
 
     @Override
-    public void setLocked(boolean b) {
-        this.locked = b;
+    public boolean isLocked() {
+        return this.locked;
     }
 
     @Override
-    public boolean isLocked() {
-        return this.locked;
+    public void setLocked(boolean b) {
+        this.locked = b;
     }
 
     @Override

@@ -19,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
  */
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         Objects.requireNonNull(registration);

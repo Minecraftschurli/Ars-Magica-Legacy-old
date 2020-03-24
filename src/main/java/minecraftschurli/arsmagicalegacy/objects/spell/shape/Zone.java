@@ -63,7 +63,6 @@ public class Zone extends SpellShape {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 
     @Override

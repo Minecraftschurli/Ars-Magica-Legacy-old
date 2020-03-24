@@ -30,7 +30,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
 public class OcculusBlock extends Block {
-
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape[] SHAPE = makeRotatedShapes(new double[][]{
             {0, 0, 0, 16, 1, 16},

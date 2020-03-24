@@ -31,27 +31,23 @@ public class SpellBookContainer extends Container {
         }
         this.spellBookInventory = inventoryspellbook;
         this.bookSlot = inventoryplayer.currentItem;
-
         int slotIndex = 0;
         //Spell Book Pages - active spells
         for (int i = 0; i < 8; ++i) {
             addSlot(new SpellBookSlot(spellBookInventory, slotIndex++, 18, 5 + (i * 18)));
         }
-
         //Spell Book Pages - reserve spells
         for (int i = 0; i < 4; ++i) {
             for (int k = 0; k < 8; k++) {
                 addSlot(new SpellBookSlot(spellBookInventory, slotIndex++, 138 + (i * 26), 5 + (k * 18)));
             }
         }
-
         //display player inventory
         for (int i = 0; i < 3; i++) {
             for (int k = 0; k < 9; k++) {
                 addSlot(new Slot(inventoryplayer, k + i * 9 + 9, 48 + k * 18, 171 + i * 18));
             }
         }
-
         //display player action bar
         for (int j1 = 0; j1 < 9; j1++) {
             if (inventoryplayer.getStackInSlot(j1) == bookStack) {
@@ -60,15 +56,12 @@ public class SpellBookContainer extends Container {
                 addSlot(new Slot(inventoryplayer, j1, 48 + j1 * 18, 229));
             }
         }
-
     }
 
     @Override
     public void onContainerClosed(PlayerEntity entityplayer) {
-
         ItemStack spellBookItemStack = bookStack;
         spellBookInventory.writeNBT(spellBookItemStack.getOrCreateTag());
-
         super.onContainerClosed(entityplayer);
     }
 

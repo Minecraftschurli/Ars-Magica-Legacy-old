@@ -17,7 +17,6 @@ import net.minecraftforge.common.util.LazyOptional;
  * @version 2019-11-08
  */
 public class BurnoutCapability implements ICapabilitySerializable<INBT> {
-
     private LazyOptional<IBurnoutStorage> instance = LazyOptional.of(CapabilityHelper.getBurnoutCapability()::getDefaultInstance);
 
     public static void register() {

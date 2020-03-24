@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
 public class Color extends SpellModifier {
-
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -55,5 +54,4 @@ public class Color extends SpellModifier {
     public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
         return 1F;
     }
-
 }

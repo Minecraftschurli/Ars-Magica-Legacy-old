@@ -72,7 +72,6 @@ import vazkii.patchouli.api.PatchouliAPI;
  */
 @Mod(ArsMagicaAPI.MODID)
 public final class ArsMagicaLegacy {
-
     public static final ItemGroup ITEM_GROUP = new ItemGroup(ArsMagicaAPI.MODID) {
         @Nonnull
         @Override
@@ -81,20 +80,16 @@ public final class ArsMagicaLegacy {
             return getCompendium();
         }
     };
-
     public static final Logger LOGGER = LogManager.getLogger();
     @SuppressWarnings("Convert2MethodRef")
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
-
     private final SpellRecipeManager spellRecipeManager;
 
     public ArsMagicaLegacy() {
         instance = this;
         spellRecipeManager = new SpellRecipeManager();
-
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::enqueueIMC);
@@ -102,25 +97,27 @@ public final class ArsMagicaLegacy {
         modEventBus.addListener(this::registerItemColorHandler);
         modEventBus.addListener(EventPriority.LOWEST, this::onRegistrySetupFinish);
         modEventBus.register(Config.class);
-
         MinecraftForge.EVENT_BUS.addListener(this::onAttachPlayerCapabilities);
         MinecraftForge.EVENT_BUS.addListener(this::onServerLoad);
         MinecraftForge.EVENT_BUS.addListener(this::beforeServerLoad);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
-
         preInit();
     }
-
     //region =========LIFECYCLE=========
+
+    public static SpellRecipeManager getSpellRecipeManager() {
+        return instance.spellRecipeManager;
+    }
+
+    public static ItemStack getCompendium() {
+        return PatchouliAPI.instance.getBookStack(new ResourceLocation(ArsMagicaAPI.MODID, "arcane_compendium"));
+    }
 
     private void preInit() {
         minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.setup();
-
         Config.setup();
-
         proxy.preInit();
-
         IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
@@ -131,7 +128,6 @@ public final class ArsMagicaLegacy {
         WorldGenerator.setupModFeatures();
         proxy.init();
         NetworkHandler.registerMessages();
-
         ManaCapability.register();
         BurnoutCapability.register();
         ResearchCapability.register();
@@ -162,6 +158,8 @@ public final class ArsMagicaLegacy {
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getCutout());
     }
+    //endregion
+    //region =========EVENTS=========
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         LOGGER.debug("IMC Enqueue");
@@ -170,10 +168,6 @@ public final class ArsMagicaLegacy {
     private void processIMC(final InterModProcessEvent event) {
         LOGGER.debug("IMC Process");
     }
-
-    //endregion
-
-    //region =========EVENTS=========
 
     private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
@@ -194,6 +188,8 @@ public final class ArsMagicaLegacy {
     private void beforeServerLoad(final FMLServerAboutToStartEvent event) {
         event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
     }
+    //endregion
+    //region =========UTIL=========
 
     private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
         event.getItemColors().register((stack, index) -> index == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
@@ -220,18 +216,6 @@ public final class ArsMagicaLegacy {
         ModSpellParts.register();
     }
 
-    //endregion
-
-    //region =========UTIL=========
-
-    public static SpellRecipeManager getSpellRecipeManager() {
-        return instance.spellRecipeManager;
-    }
-
-    public static ItemStack getCompendium() {
-        return PatchouliAPI.instance.getBookStack(new ResourceLocation(ArsMagicaAPI.MODID, "arcane_compendium"));
-    }
-
     public IModInfo getModInfo() {
         return ModList.get().getModContainerById(ArsMagicaAPI.MODID).map(ModContainer::getModInfo).get();
     }
@@ -239,6 +223,5 @@ public final class ArsMagicaLegacy {
     public String getVersion() {
         return getModInfo().getVersion().getQualifier();
     }
-
     //endregion
 }

@@ -62,26 +62,22 @@ public final class ModEffects implements IInit {
     /*public static final RegistryObject<Effect> CHARME = POTIONS.register("charme",
             () -> new AMEffect(EffectType.NEUTRAL, 0)
     );*/
-
     public static final RegistryObject<Potion> LESSER_MANA_POTION = POTION_TYPES.register("lesser_mana_potion", () -> new Potion(
             new EffectInstance(MANA_REGEN.get(), 600, 0),
             new EffectInstance(INSTANT_MANA.get())));
-
     public static final RegistryObject<Potion> MANA_POTION = POTION_TYPES.register("mana_potion", () -> new Potion(
             new EffectInstance(MANA_REGEN.get(), 1200, 0),
             new EffectInstance(INSTANT_MANA.get(), 0, 1)));
-
     public static final RegistryObject<Potion> GREATER_MANA_POTION = POTION_TYPES.register("greater_mana_potion", () -> new Potion(
             new EffectInstance(MANA_REGEN.get(), 1800, 1),
             new EffectInstance(INSTANT_MANA.get(), 0, 2)));
-
     public static final RegistryObject<Potion> EPIC_MANA_POTION = POTION_TYPES.register("epic_mana_potion", () -> new Potion(
             new EffectInstance(MANA_REGEN.get(), 2400, 1),
             new EffectInstance(INSTANT_MANA.get(), 0, 3)));
-
     public static final RegistryObject<Potion> LEGENDARY_MANA_POTION = POTION_TYPES.register("legendary_mana_potion", () -> new Potion(
             new EffectInstance(MANA_REGEN.get(), 3000, 2),
             new EffectInstance(INSTANT_MANA.get(), 0, 4)));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

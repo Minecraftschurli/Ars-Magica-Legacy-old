@@ -74,7 +74,7 @@ public class BeamParticle extends SpriteTexturedParticle {
         dX = tX;
         dY = tY;
         dZ = tZ;
-        if(age > maxAge - 5) maxAge = age + 5;
+        if (age > maxAge - 5) maxAge = age + 5;
         change = true;
     }
 
@@ -82,13 +82,13 @@ public class BeamParticle extends SpriteTexturedParticle {
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
-        if(change) {
+        if (change) {
             posX = uX;
             posY = uY;
             posZ = uZ;
-            if(fppc) {
+            if (fppc) {
                 PlayerEntity player = Minecraft.getInstance().player;
-                if(player != null) {
+                if (player != null) {
                     double rotYaw = player.rotationYaw * Math.PI / 180;
                     posX -= Math.cos(rotYaw) * 0.06f;
                     posZ -= Math.sin(rotYaw) * 0.06f;
@@ -111,7 +111,7 @@ public class BeamParticle extends SpriteTexturedParticle {
 
     private void beamAging() {
         age++;
-        if(age >= maxAge) setExpired();
+        if (age >= maxAge) setExpired();
     }
 
     public void setType(BeamType type) {
@@ -139,14 +139,14 @@ public class BeamParticle extends SpriteTexturedParticle {
         float size = Math.min(age / maxLengthAge, 1);
         double offset = fppc ? 0.15d * size * 0.3f : 0.15d * size;
         RenderSystem.rotatef((world.getDayTime() % (360 / rotate) + 1) * rotate, 0, 1, 0);
-        for (int t = 0; t < 5; t++){
+        for (int t = 0; t < 5; t++) {
             Tessellator.getInstance().draw();
             iVertexBuilder.lightmap(7);
             double l = length * size * particleScale;
             RenderSystem.rotatef(45, 0, 1, 0);
             RenderSystem.clearCurrentColor();
-			if (t % 2 == 0) RenderSystem.color4f(particleRed, particleGreen, particleBlue, 0.4f);
-			else RenderSystem.color4f(1, 1, 1, 0.4f);
+            if (t % 2 == 0) RenderSystem.color4f(particleRed, particleGreen, particleBlue, 0.4f);
+            else RenderSystem.color4f(1, 1, 1, 0.4f);
             iVertexBuilder.pos(-offset, l, 0).tex(sprite.getMaxU(), sprite.getMinV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
             iVertexBuilder.pos(-offset, 0, 0).tex(sprite.getMaxU(), sprite.getMaxV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
             iVertexBuilder.pos(offset, 0, 0).tex(sprite.getMinU(), sprite.getMaxV()).color(particleRed, particleGreen, particleBlue, 0.4f).endVertex();
@@ -162,25 +162,7 @@ public class BeamParticle extends SpriteTexturedParticle {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    public enum BeamType {
-        NORMAL,
-        DARK,
-        LIGHT
-    }
-
-    public static class Factory implements IParticleFactory<BeamParticleData> {
-        private TextureAtlasSprite sprite;
-        public Factory(TextureAtlasSprite sprite) {
-            this.sprite = sprite;
-        }
-        @Nullable
-        @Override
-        public Particle makeParticle(BeamParticleData beamParticleData, World world, double v, double v1, double v2, double v3, double v4, double v5) {
-            return new BeamParticle(world, v, v1, v2, v3, v4, v5, beamParticleData, sprite);
-        }
-    }
-
-    public void setColor(int color){
+    public void setColor(int color) {
         particleRed = RenderUtils.getRed(color);
         particleGreen = RenderUtils.getGreen(color);
         particleBlue = RenderUtils.getBlue(color);
@@ -190,5 +172,25 @@ public class BeamParticle extends SpriteTexturedParticle {
         particleRed = r;
         particleGreen = g;
         particleBlue = b;
+    }
+
+    public enum BeamType {
+        NORMAL,
+        DARK,
+        LIGHT
+    }
+
+    public static class Factory implements IParticleFactory<BeamParticleData> {
+        private TextureAtlasSprite sprite;
+
+        public Factory(TextureAtlasSprite sprite) {
+            this.sprite = sprite;
+        }
+
+        @Nullable
+        @Override
+        public Particle makeParticle(BeamParticleData beamParticleData, World world, double v, double v1, double v2, double v3, double v4, double v5) {
+            return new BeamParticle(world, v, v1, v2, v3, v4, v5, beamParticleData, sprite);
+        }
     }
 }

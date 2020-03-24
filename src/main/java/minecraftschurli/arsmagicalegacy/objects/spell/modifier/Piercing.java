@@ -42,6 +42,5 @@ public class Piercing extends SpellModifier {
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-
     }
 }

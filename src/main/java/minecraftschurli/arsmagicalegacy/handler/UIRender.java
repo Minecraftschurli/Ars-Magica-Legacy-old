@@ -25,10 +25,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
  * @version 2019-11-12
  */
 public class UIRender {
-
     public static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/bar.png");
     public static final ResourceLocation SPELL_BOOK_UI_TEXTURE = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spellbook_ui.png");
-    public static final ResourceLocation MC_TEXTURE = new ResourceLocation( "textures/gui/icons.png");
+    public static final ResourceLocation MC_TEXTURE = new ResourceLocation("textures/gui/icons.png");
     private final Minecraft mc = Minecraft.getInstance();
     private float blitOffset;
 
@@ -46,7 +45,6 @@ public class UIRender {
     public void render(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL)
             return;
-
         Entity renderViewEntity = mc.getRenderViewEntity();
         PlayerEntity player = (PlayerEntity) renderViewEntity;
         if (player == null)
@@ -65,17 +63,15 @@ public class UIRender {
         int scaledHeight = mc.getMainWindow().getScaledHeight();
         int spellBookUIWidth = 148;
         int spellBookUIHeight = 22;
-        int spellBookUIX = (int)Math.round(0.5 * scaledWidth - 230);
+        int spellBookUIX = (int) Math.round(0.5 * scaledWidth - 230);
         int spellBookUIY = scaledHeight + 3 - spellBookUIHeight;
         int activeSpellSize = 15;
         ItemStack bookStack = player.getHeldItem(hand);
-        int bookSlot = ((SpellBookItem)bookStack.getItem()).getActiveSlot(bookStack);
+        int bookSlot = ((SpellBookItem) bookStack.getItem()).getActiveSlot(bookStack);
         int x = spellBookUIX + bookSlot * 13;
         int y = spellBookUIY;
         //ArsMagicaLegacy.LOGGER.debug("{}, {}", spellBookUIX, spellBookUIY);
-
         mc.getTextureManager().bindTexture(SPELL_BOOK_UI_TEXTURE);
-
         RenderSystem.color4f(1, 1, 1, 1);
 
         /*if (hand == Hand.MAIN_HAND) {
@@ -84,17 +80,13 @@ public class UIRender {
         } else {
 
         }*/
-
         setBlitOffset(-5);
-
         drawTexturedModalRect(spellBookUIX, spellBookUIY, 0, 0, 106, 15, spellBookUIWidth, spellBookUIHeight);
-
-        List<ItemStack> activeScrolls = ((SpellBookItem)bookStack.getItem()).getActiveInventory(bookStack);
-
-        for (int n = 0; n < 8; ++n){
+        List<ItemStack> activeScrolls = ((SpellBookItem) bookStack.getItem()).getActiveInventory(bookStack);
+        for (int n = 0; n < 8; ++n) {
             float iconX = spellBookUIX + 1.5f + n * 12.9f;
             ItemStack stackItem = activeScrolls.get(n);
-            if (stackItem == null){
+            if (stackItem == null) {
                 continue;
             }
             RenderSystem.pushMatrix();
@@ -110,7 +102,7 @@ public class UIRender {
     }
 
     private void renderMagicXp(PlayerEntity player) {
-        if (CapabilityHelper.getCurrentLevel(player) > 0){
+        if (CapabilityHelper.getCurrentLevel(player) > 0) {
             RenderSystem.pushMatrix();
             RenderSystem.enableBlend();
             float x = 0;
@@ -119,19 +111,16 @@ public class UIRender {
             Vec2f dimensions = new Vec2f(182, 5);
             Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
             RenderSystem.color4f(0.5f, 0.5f, 1, 1);
-
             //base XP bar
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
-
-            if (CapabilityHelper.getCurrentXP(player) > 0){
+            if (CapabilityHelper.getCurrentXP(player) > 0) {
                 float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
                 if (pctXP > 1)
                     pctXP = 1;
-                int width = (int)((dimensions.x + 1) * pctXP);
+                int width = (int) ((dimensions.x + 1) * pctXP);
                 drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
             }
-
-            String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID+".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
+            String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID + ".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
             Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
             Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
             RenderSystem.popMatrix();
@@ -162,18 +151,14 @@ public class UIRender {
         mc.getProfiler().startSection(name);
         RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
-
         mc.getTextureManager().bindTexture(BAR_TEXTURE);
-
         drawTexturedModalRect(x, y, 0, 0, 81, 9);
-
         float r = (color >> 16 & 0xFF) / 255f;
         float g = (color >> 8 & 0xFF) / 255f;
         float b = (color & 0xFF) / 255f;
         RenderSystem.color3f(r, g, b);
         drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
         RenderSystem.color4f(1, 1, 1, 1);
-
         if (false) {
             int i2 = getStringLength((int) value + "");
             drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
@@ -199,7 +184,6 @@ public class UIRender {
         tessellator.draw();*/
         float var7 = 0.00390625F;
         float var8 = 0.00390625F;
-
         Tessellator var9 = Tessellator.getInstance();
         var9.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
         var9.getBuffer().pos(dst_x, dst_y + dst_height, getBlitOffset()).tex((src_x) * var7, (src_y + src_height) * var8).endVertex();

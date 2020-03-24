@@ -23,6 +23,24 @@ public class AffinityTomeItem extends Item {
         super(ModItems.ITEM_64);
     }
 
+    @SuppressWarnings("ConstantConditions")
+    public static Affinity getAffinity(ItemStack stack) {
+        ResourceLocation affinity;
+        if (!stack.hasTag() || !stack.getTag().contains(AFFINITY_KEY))
+            affinity = Affinity.NONE;
+        else
+            affinity = ResourceLocation.tryCreate(stack.getTag().getString(AFFINITY_KEY));
+        return RegistryHandler.getAffinityRegistry().getValue(affinity);
+    }
+
+    public static ItemStack getStackForAffinity(Affinity affinity) {
+        return ModItems.AFFINITY_TOME.get().setAffinity(new ItemStack(ModItems.AFFINITY_TOME.get()), affinity);
+    }
+
+    public static ItemStack getStackForAffinity(ResourceLocation affinity) {
+        return ModItems.AFFINITY_TOME.get().setAffinity(new ItemStack(ModItems.AFFINITY_TOME.get()), affinity);
+    }
+
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (isInGroup(group)) {
@@ -41,17 +59,7 @@ public class AffinityTomeItem extends Item {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return "affinitytome."+getAffinity(stack).getTranslationKey();
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    public static Affinity getAffinity(ItemStack stack) {
-        ResourceLocation affinity;
-        if (!stack.hasTag() || !stack.getTag().contains(AFFINITY_KEY))
-            affinity = Affinity.NONE;
-        else
-            affinity = ResourceLocation.tryCreate(stack.getTag().getString(AFFINITY_KEY));
-        return RegistryHandler.getAffinityRegistry().getValue(affinity);
+        return "affinitytome." + getAffinity(stack).getTranslationKey();
     }
 
     private ItemStack setAffinity(ItemStack itemStack, Affinity affinity) {
@@ -67,13 +75,5 @@ public class AffinityTomeItem extends Item {
             throw new IllegalStateException("Affinity not registered");
         itemStack.getOrCreateTag().putString(AFFINITY_KEY, affinity.toString());
         return itemStack;
-    }
-
-    public static ItemStack getStackForAffinity(Affinity affinity) {
-        return ModItems.AFFINITY_TOME.get().setAffinity(new ItemStack(ModItems.AFFINITY_TOME.get()), affinity);
-    }
-
-    public static ItemStack getStackForAffinity(ResourceLocation affinity) {
-        return ModItems.AFFINITY_TOME.get().setAffinity(new ItemStack(ModItems.AFFINITY_TOME.get()), affinity);
     }
 }

@@ -56,20 +56,8 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
     private static final Supplier<BlockState> LEVER = Blocks.LEVER::getDefaultState;
     private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
-
     private static final ModelProperty<ResourceLocation> CAMO_RL = new ModelProperty<>();
-    
     private final ModelDataMap modelData = new ModelDataMap.Builder().withInitial(CAMO_RL, ModBlocks.ALTAR_CORE.getId()).build();
-
-    private int checkTimer = 0;
-    private boolean multiblockState;
-    private boolean powerFlag;
-    private int currentStage;
-    private boolean first = true;
-    private BlockPos lecternPos;
-    private LecternTileEntity lectern;
-    private ItemStack book;
-
     private final AtomicReference<BlockState> cap = new AtomicReference<>();
     private final AtomicReference<BlockState> main = new AtomicReference<>();
     private final Supplier<BlockState> stairBottom1 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
@@ -111,6 +99,14 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             {AIR, AIR, AIR, AIR, AIR}
     }}
     );
+    private int checkTimer = 0;
+    private boolean multiblockState;
+    private boolean powerFlag;
+    private int currentStage;
+    private boolean first = true;
+    private BlockPos lecternPos;
+    private LecternTileEntity lectern;
+    private ItemStack book;
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -126,27 +122,21 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     public boolean checkMultiblock(World world) {
         BlockPos pos = getPos();
         BlockPos basePos = pos.offset(Direction.DOWN, 4);
-
         // get and check cap block
         Block bottomCenter = world.getBlockState(basePos).getBlock();
         if (!CraftingAltarStructureMaterials.isValidCapMaterial(bottomCenter)) {
-            
             return false;
         }
         this.cap.set(bottomCenter.getDefaultState());
-
         // get and check main block
         Block firstMain = world.getBlockState(basePos.north()).getBlock();
         if (!CraftingAltarStructureMaterials.isValidMainMaterial(firstMain)) {
-            
             return false;
         }
         if (CraftingAltarStructureMaterials.getStairForBlock(firstMain) == null) {
-            
             return false;
         }
         this.main.set(firstMain.getDefaultState());
-
         Direction direction = getStructureDirection(world, pos);
         if (direction == null) return false;
         return STRUCTURE.check(world, pos.down(4).offset(direction, 2).offset(direction.rotateYCCW(), 2), direction);
@@ -179,7 +169,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     @Override
     public void tick() {
-        
         if (this.getWorld() == null) {
             return;
         }
@@ -193,10 +182,8 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         boolean check = checkMultiblock(this.getWorld());
         if (check) {
             Direction direction = getStructureDirection(getWorld(), getPos());
-            
             if (direction != null) {
                 TileEntity te = getWorld().getTileEntity(getPos().offset(direction.getOpposite(), 2).offset(direction.rotateY(), 2).down(3));
-                
                 if (te instanceof LecternTileEntity) {
                     this.lecternPos = te.getPos();
                     if (!this.getWorld().isRemote()) {
@@ -267,7 +254,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         if (getWorld() != null && lecternPos != null) {
             BlockPos pos = lecternPos.up();
             //ArsMagicaLegacy.LOGGER.debug("View2: {}",getWorld().getTileEntity(pos));
-            if(getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get())
+            if (getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get())
                 getWorld().removeBlock(pos, false);
         }
         this.multiblockState = false;
@@ -289,7 +276,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             }
             return true;
         }
-        
         ISpellIngredient ingredient = getRecipe().get(this.currentStage);
         if (ingredient.consume(getWorld(), getPos())) {
             this.currentStage++;
@@ -359,7 +345,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
-        if (lecternPos != null) 
+        if (lecternPos != null)
             compound.put("lectern", NBTUtil.writeBlockPos(lecternPos));
         compound.putInt("craft_state", currentStage);
         compound.putBoolean("power_flag", hasEnoughPower());

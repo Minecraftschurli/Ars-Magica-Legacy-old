@@ -97,7 +97,8 @@ public class RiftStorage implements IRiftStorage {
      * hasn't changed and skip it.
      */
     @Override
-    public void markDirty() {}
+    public void markDirty() {
+    }
 
     /**
      * Don't rename this method to canInteractWith due to conflicts with Container

@@ -62,7 +62,7 @@ public class Charm extends SpellComponent {
 //            }
 //        } else {
         if (caster instanceof PlayerEntity)
-            ((PlayerEntity) caster).sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noSummons"));
+            caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noSummons"));
         return true;
 //        }
 //        return false;

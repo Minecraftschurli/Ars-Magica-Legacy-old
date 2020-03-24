@@ -30,7 +30,7 @@ public class RiftStorageCapability implements ICapabilitySerializable<INBT> {
 
                     @Override
                     public void readNBT(Capability<IRiftStorage> capability, IRiftStorage instance, Direction side, INBT nbt) {
-                        instance.load((CompoundNBT)nbt);
+                        instance.load((CompoundNBT) nbt);
                     }
                 },
                 RiftStorage::new);

@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL11;
  * @version 2019-11-07
  */
 public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
-
     private static final ResourceLocation background = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui.png");
     private static final ResourceLocation extras = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui_2.png");
     private int bookActiveSlot;
@@ -70,13 +69,11 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
                 X += font.getStringWidth(s + " ");
             }
         }
-
         int x = 16;
         int y = 3 + bookActiveSlot * 18;
         minecraft.getTextureManager().bindTexture(extras);
         GL11.glColor4f(1, 1, 1, 1);
         blit(x, y, 0, 0, 20, 20);
-
         //special slot
         int index = this.container.specialSlotIndex - (8 + 4 * 8 + 3 * 9);
         x = 48 + 18 * index;

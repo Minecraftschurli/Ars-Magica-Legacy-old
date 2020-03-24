@@ -75,112 +75,110 @@ public class AffinityAbilityHelper {
 		GameRegistry.register(new AbilityThunderPunch());
 		GameRegistry.register(new AbilityWaterWeakness(Affinity.LIGHTNING));
 	}*/
-	
-	
-	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
-	public void onKeyInput(InputEvent.KeyInputEvent event) {
-		for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
-			if (ability.getKey() != null && event.getKey() == ability.getKey().getKey().getKeyCode()) {
 
-				//if (FMLCommonHandler.instance().getMinecraftServerInstance() == null)
-				//	return;
-				PlayerEntity p = ArsMagicaAPI.getLocalPlayer();
-				PlayerEntity player = p.getEntityWorld().getPlayerByUuid(p.getUniqueID());
-				if (ability.canApply(player)) {
-					ability.createRunnable(player).run();
-				}
-			}
-		}
-	}
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
+        for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
+            if (ability.getKey() != null && event.getKey() == ability.getKey().getKey().getKeyCode()) {
+                //if (FMLCommonHandler.instance().getMinecraftServerInstance() == null)
+                //	return;
+                PlayerEntity p = ArsMagicaAPI.getLocalPlayer();
+                PlayerEntity player = p.getEntityWorld().getPlayerByUuid(p.getUniqueID());
+                if (ability.canApply(player)) {
+                    ability.createRunnable(player).run();
+                }
+            }
+        }
+    }
 
-	@SubscribeEvent
-	public void onPlayerTick(LivingUpdateEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			if (!event.getEntityLiving().world.isRemote) {
-				for (Entry<String, Integer> entry : CapabilityHelper.getAbilityCooldowns(event.getEntityLiving()).entrySet()) {
-					if (entry.getValue() > 0)
-						CapabilityHelper.addAbilityCooldown(event.getEntityLiving(), entry.getKey(), entry.getValue() - 1);
-				}
-			}
-			for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
-				if (ability.canApply((PlayerEntity) event.getEntityLiving()))
-					ability.applyTick((PlayerEntity) event.getEntityLiving());
-				else
-					ability.removeEffects((PlayerEntity) event.getEntityLiving());
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onPlayerHurt(LivingHurtEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.getEntityLiving()))
-					ability.applyHurt((PlayerEntity) event.getEntityLiving(), event, false);
-			}
-		}
-		if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.getSource().getTrueSource()))
-					ability.applyHurt((PlayerEntity) event.getSource().getTrueSource(), event, true);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onPlayerFall(LivingFallEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.getEntityLiving()))
-					ability.applyFall((PlayerEntity) event.getEntityLiving(), event);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onDeath(LivingDeathEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.getEntityLiving()))
-					ability.applyDeath((PlayerEntity) event.getEntityLiving(), event);
-			}
-		}
-		if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.getSource().getTrueSource()))
-					ability.applyKill((PlayerEntity) event.getSource().getTrueSource(), event);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onPlayerJump(LivingJumpEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.getEntityLiving()))
-					ability.applyJump((PlayerEntity) event.getEntityLiving(), event);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onSpellCast(SpellCastEvent.Post event) {
-		if (event.caster instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.caster))
-					ability.applySpellCast((PlayerEntity) event.caster, event);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onPreSpellCast(SpellCastEvent.Pre event) {
-		if (event.caster instanceof PlayerEntity) {
-			for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
-				if (ability.canApply((PlayerEntity) event.caster))
-					ability.applyPreSpellCast((PlayerEntity) event.caster, event);
-			}
-		}
-	}
+    @SubscribeEvent
+    public void onPlayerTick(LivingUpdateEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            if (!event.getEntityLiving().world.isRemote) {
+                for (Entry<String, Integer> entry : CapabilityHelper.getAbilityCooldowns(event.getEntityLiving()).entrySet()) {
+                    if (entry.getValue() > 0)
+                        CapabilityHelper.addAbilityCooldown(event.getEntityLiving(), entry.getKey(), entry.getValue() - 1);
+                }
+            }
+            for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
+                if (ability.canApply((PlayerEntity) event.getEntityLiving()))
+                    ability.applyTick((PlayerEntity) event.getEntityLiving());
+                else
+                    ability.removeEffects((PlayerEntity) event.getEntityLiving());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerHurt(LivingHurtEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.getEntityLiving()))
+                    ability.applyHurt((PlayerEntity) event.getEntityLiving(), event, false);
+            }
+        }
+        if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.getSource().getTrueSource()))
+                    ability.applyHurt((PlayerEntity) event.getSource().getTrueSource(), event, true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerFall(LivingFallEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.getEntityLiving()))
+                    ability.applyFall((PlayerEntity) event.getEntityLiving(), event);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onDeath(LivingDeathEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.getEntityLiving()))
+                    ability.applyDeath((PlayerEntity) event.getEntityLiving(), event);
+            }
+        }
+        if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.getSource().getTrueSource()))
+                    ability.applyKill((PlayerEntity) event.getSource().getTrueSource(), event);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerJump(LivingJumpEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.getEntityLiving()))
+                    ability.applyJump((PlayerEntity) event.getEntityLiving(), event);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onSpellCast(SpellCastEvent.Post event) {
+        if (event.caster instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.caster))
+                    ability.applySpellCast((PlayerEntity) event.caster, event);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPreSpellCast(SpellCastEvent.Pre event) {
+        if (event.caster instanceof PlayerEntity) {
+            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+                if (ability.canApply((PlayerEntity) event.caster))
+                    ability.applyPreSpellCast((PlayerEntity) event.caster, event);
+            }
+        }
+    }
 }

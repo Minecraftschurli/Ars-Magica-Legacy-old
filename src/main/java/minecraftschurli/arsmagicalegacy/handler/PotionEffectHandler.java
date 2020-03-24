@@ -26,9 +26,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
-
 public class PotionEffectHandler {
-
     private static final float DEFAULT_HEIGHT = 1.8F;
     private static final float DEFAULT_WIDTH = 0.6F;
 
@@ -70,15 +68,12 @@ public class PotionEffectHandler {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void entityDamageEvent(LivingHurtEvent event) {
         if (event.isCanceled()) return;
-
         if (event.getSource().damageType.equals(DamageSource.OUT_OF_WORLD.damageType)) return;
-
         if (event.getEntityLiving().isPotionActive(ModEffects.MAGIC_SHIELD.get()))
             event.setAmount(event.getAmount() * 0.25f);
 
 		/*float damage = EntityExtension.For(event.getEntityLiving()).protect(event.getAmount());
 		event.setAmount(damage);*/
-
     }
 
     @SubscribeEvent
@@ -134,7 +129,6 @@ public class PotionEffectHandler {
             float oldWidth = entity.getWidth();
 			/*entity.getWidth() = width;
 			entity.height = height;*/
-
             double halfWidth = width / 2;
             if (entity.getWidth() < oldWidth) {
                 entity.setBoundingBox(new AxisAlignedBB(
@@ -218,5 +212,4 @@ public class PotionEffectHandler {
 			GL11.glPopMatrix();
 		}
 	}*/
-
 }

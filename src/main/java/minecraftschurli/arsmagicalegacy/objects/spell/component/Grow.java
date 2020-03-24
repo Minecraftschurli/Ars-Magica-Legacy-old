@@ -36,7 +36,6 @@ import net.minecraftforge.eventbus.api.Event;
 
 public class Grow extends SpellComponent {
     private final static List<BushBlock> flowers = new ArrayList<>();
-
     static {
         flowers.add(ModBlocks.AUM.get());
         flowers.add(ModBlocks.CERUBLOSSOM.get());
@@ -44,7 +43,6 @@ public class Grow extends SpellComponent {
         flowers.add(ModBlocks.TARMA_ROOT.get());
         flowers.add(ModBlocks.WAKEBLOOM.get());
     }
-
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         BlockState block = world.getBlockState(pos);

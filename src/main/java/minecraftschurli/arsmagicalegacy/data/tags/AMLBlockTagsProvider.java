@@ -30,7 +30,6 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
                 ModTags.Blocks.ORES_TOPAZ,
                 ModTags.Blocks.ORES_VINTEUM
         );
-
         getBuilder(ModTags.Blocks.STORAGE_BLOCKS_CHIMERITE).add(ModBlocks.CHIMERITE_BLOCK.get());
         getBuilder(ModTags.Blocks.STORAGE_BLOCKS_SUNSTONE).add(ModBlocks.SUNSTONE_BLOCK.get());
         getBuilder(ModTags.Blocks.STORAGE_BLOCKS_MOONSTONE).add(ModBlocks.MOONSTONE_BLOCK.get());
@@ -43,7 +42,6 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
                 ModTags.Blocks.STORAGE_BLOCKS_TOPAZ,
                 ModTags.Blocks.STORAGE_BLOCKS_VINTEUM
         );
-
         getBuilder(BlockTags.WOODEN_DOORS).add(ModBlocks.WITCHWOOD_DOOR.get());
         getBuilder(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.WITCHWOOD_TRAPDOOR.get());
         getBuilder(BlockTags.WOODEN_FENCES).add(ModBlocks.WITCHWOOD_FENCE.get());
@@ -61,9 +59,7 @@ public class AMLBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.STRIPPED_WITCHWOOD_WOOD.get()
         );
         getBuilder(BlockTags.LOGS).add(ModTags.Blocks.LOGS_WITCHWOOD);
-
         getBuilder(BlockTags.SAPLINGS).add(ModBlocks.WITCHWOOD_SAPLING.get());
-
         getBuilder(BlockTags.RAILS).add(
                 ModBlocks.GOLD_INLAY.get(),
                 ModBlocks.IRON_INLAY.get(),

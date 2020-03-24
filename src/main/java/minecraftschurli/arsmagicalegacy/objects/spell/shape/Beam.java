@@ -102,7 +102,9 @@ public class Beam extends SpellShape {
             int color = -1;
             if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
                 List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
-                for (SpellModifier mod : mods) if (mod instanceof Color) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
+                for (SpellModifier mod : mods)
+                    if (mod instanceof Color)
+                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
             }
 //            if (beam != null){
 //                if (!beam.isAlive() || caster.getDistanceSq(beam.getPosX(), beam.getPosY(), beam.getPosZ()) > 4) beams.remove(caster.getEntityId());

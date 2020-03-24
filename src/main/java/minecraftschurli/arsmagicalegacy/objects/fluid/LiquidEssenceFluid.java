@@ -97,7 +97,6 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
     }
 
     public static class Source extends LiquidEssenceFluid {
-
         public Source() {
             super();
         }
@@ -114,7 +113,6 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
     }
 
     public static class Flowing extends LiquidEssenceFluid {
-
         public Flowing() {
             super();
             setDefaultState(getStateContainer().getBaseState().with(LEVEL_1_8, 7));
