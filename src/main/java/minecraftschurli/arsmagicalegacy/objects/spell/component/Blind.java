@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -61,11 +65,11 @@ public class Blind extends SpellComponent {
         }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.ENDER);
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ENDER.get());
+    }
+
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
@@ -80,21 +84,21 @@ public class Blind extends SpellComponent {
         };
     }
 
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.05f;
+    }
+
     //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.05f;
-//    }
-//
-//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
 //
-//    @Override
-//    public int getReagentSearchRadius() {
-//        return 3;
-//    }
-//
+    @Override
+    public float getReagentSearchRadius() {
+        return 3;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

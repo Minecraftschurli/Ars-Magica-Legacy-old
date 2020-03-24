@@ -1,14 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -76,12 +80,11 @@ public class Forge extends SpellComponent {
 //        }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.FIRE);
-//    }
-//
-    @SuppressWarnings("deprecated")
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.FIRE.get());
+    }
+
     private boolean applyFurnaceToBlockAtCoords(LivingEntity entity, World world, BlockPos pos) {
         Block block = world.getBlockState(pos).getBlock();
         if (block.equals(Blocks.AIR)) return false;
@@ -114,11 +117,11 @@ public class Forge extends SpellComponent {
         };
     }
 
-    //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.01f;
-//    }
-//
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

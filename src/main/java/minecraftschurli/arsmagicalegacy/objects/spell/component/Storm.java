@@ -1,14 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -92,11 +96,11 @@ public class Storm extends SpellComponent {
 //        }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.LIGHTNING, Affinity.NATURE);
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.LIGHTNING.get(), ModSpellParts.NATURE.get());
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -106,11 +110,11 @@ public class Storm extends SpellComponent {
         };
     }
 
-    //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.00001f;
-//    }
-//
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.00001f;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

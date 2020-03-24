@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -21,8 +25,8 @@ public class ManaShield extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_FOCUS.get())),
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.BATTLEMAGE_CHESTPLATE.get())),
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGE_CHESTPLATE.get()))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BATTLEMAGE_CHESTPLATE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGE_CHESTPLATE.get()))
         };
     }
 
@@ -58,16 +62,16 @@ public class ManaShield extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.ARCANE);
-//    }
-//
-//    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.01f;
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
+    }
+
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;

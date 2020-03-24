@@ -1,7 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -11,6 +14,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.CreatureEntity;
@@ -27,7 +31,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-@SuppressWarnings("deprecated")
 public class Summon extends SpellComponent {
     public LivingEntity summonCreature(ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z) {
         LivingEntity entity = null;
@@ -99,16 +102,16 @@ public class Summon extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.ENDER, Affinity.LIFE);
-//    }
-//
-//    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.01f;
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.LIFE.get(), ModSpellParts.ENDER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

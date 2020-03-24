@@ -1,8 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -10,6 +13,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -78,11 +82,11 @@ public class DivineIntervention extends SpellComponent {
         }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.ENDER);
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ENDER.get());
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -92,11 +96,11 @@ public class DivineIntervention extends SpellComponent {
         };
     }
 
-    //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.4f;
-//    }
-//
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.4f;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

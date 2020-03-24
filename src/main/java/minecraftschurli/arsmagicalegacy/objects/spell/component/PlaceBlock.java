@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,7 +29,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-@SuppressWarnings("deprecated")
 public class PlaceBlock extends SpellComponent {
     private static final String KEY_BLOCKID = "PlaceBlockID";
 
@@ -110,16 +113,16 @@ public class PlaceBlock extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.EARTH, Affinity.ENDER);
-//    }
-//
-//    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.05f;
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.EARTH.get(), ModSpellParts.ENDER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.05f;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

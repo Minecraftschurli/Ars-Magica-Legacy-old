@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -66,11 +70,11 @@ public class GravityWell extends SpellComponent {
         }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.EARTH, Affinity.ENDER);
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.EARTH.get(), ModSpellParts.ENDER.get());
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -80,13 +84,12 @@ public class GravityWell extends SpellComponent {
         };
     }
 
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return affinity == ModSpellParts.EARTH.get() ? 0.03f : 0.01f;
+    }
+
     //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        if (affinity == Affinity.EARTH) return 0.03f;
-//        else return 0.01f;
-//    }
-//
-//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
@@ -98,11 +101,11 @@ public class GravityWell extends SpellComponent {
         };
     }
 
-    //    @Override
-//    public int getReagentSearchRadius() {
-//        return 3;
-//    }
-//
+    @Override
+    public float getReagentSearchRadius() {
+        return 3;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

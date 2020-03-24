@@ -1,12 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -82,11 +86,11 @@ public class Rift extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.NONE);
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NONE.get());
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -97,12 +101,12 @@ public class Rift extends SpellComponent {
         };
     }
 
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0;
+    }
+
     //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0;
-//    }
-//
-//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.corruption;
 //    }
@@ -115,11 +119,11 @@ public class Rift extends SpellComponent {
         };
     }
 
-    //    @Override
-//    public int getReagentSearchRadius() {
-//        return 3;
-//    }
-//
+    @Override
+    public float getReagentSearchRadius() {
+        return 3;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }

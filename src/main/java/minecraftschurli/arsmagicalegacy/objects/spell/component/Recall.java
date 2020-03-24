@@ -1,14 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-@SuppressWarnings("deprecated")
 public class Recall extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
@@ -72,11 +75,11 @@ public class Recall extends SpellComponent {
         }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.ARCANE);
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -87,12 +90,12 @@ public class Recall extends SpellComponent {
         };
     }
 
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.1f;
+    }
+
     //    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.1f;
-//    }
-//
-//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.ringedCross;
 //    }
@@ -106,8 +109,8 @@ public class Recall extends SpellComponent {
         };
     }
 
-    //    @Override
-//    public int getReagentSearchRadius() {
+    //        @Override
+//    public float getReagentSearchRadius() {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }
 //

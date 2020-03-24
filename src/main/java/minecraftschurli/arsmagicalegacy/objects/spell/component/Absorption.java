@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -57,16 +61,16 @@ public class Absorption extends SpellComponent {
         }
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.LIFE);
-//    }
-//
-//    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.05F;
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.LIFE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.05F;
+    }
+
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
@@ -97,9 +101,9 @@ public class Absorption extends SpellComponent {
                 new ItemStack(Items.GOLD_NUGGET)
         };
     }
-//
-//    @Override
-//    public int getReagentSearchRadius() {
-//        return 3;
-//    }
+
+    @Override
+    public float getReagentSearchRadius() {
+        return 3;
+    }
 }

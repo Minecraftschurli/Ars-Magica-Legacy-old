@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.entity.ThrownRockEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
@@ -27,7 +31,7 @@ public class FallingStar extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-//                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET))
         };
     }
@@ -76,16 +80,16 @@ public class FallingStar extends SpellComponent {
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
     }
 
-    //    @Override
-//    public Set<Affinity> getAffinity() {
-//        return Sets.newHashSet(Affinity.ARCANE);
-//    }
-//
-//    @Override
-//    public float getAffinityShift(Affinity affinity) {
-//        return 0.05f;
-//    }
-//
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.05f;
+    }
+
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
