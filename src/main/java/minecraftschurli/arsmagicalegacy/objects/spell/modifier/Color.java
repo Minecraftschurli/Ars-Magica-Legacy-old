@@ -1,10 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
-import minecraftschurli.arsmagicalegacy.api.util.NBTUtils;
+import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.util.NBTUtils;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
@@ -14,8 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
-
-import java.util.EnumSet;
 
 public class Color extends SpellModifier {
 

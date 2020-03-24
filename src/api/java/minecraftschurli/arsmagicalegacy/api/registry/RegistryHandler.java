@@ -14,8 +14,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
-
 /**
  * @author Minecraftschurli
  * @version 2020-03-04

@@ -1,10 +1,13 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
-import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.Random;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -24,10 +27,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.Random;
 
 public class Forge extends SpellComponent {
     @Override

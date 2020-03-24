@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,10 +34,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * @author Minecraftschurli

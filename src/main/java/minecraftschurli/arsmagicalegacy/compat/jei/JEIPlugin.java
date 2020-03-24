@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.compat.jei;
 
+import java.util.Objects;
+import javax.annotation.Nonnull;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -10,9 +12,6 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
-import java.util.Objects;
 
 /**
  * @author Minecraftschurli

@@ -1,6 +1,11 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
@@ -15,12 +20,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

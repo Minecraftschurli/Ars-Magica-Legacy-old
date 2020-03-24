@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.util;
 
+import java.util.List;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import java.util.List;
 
 /**
  * @author Minecraftschurli

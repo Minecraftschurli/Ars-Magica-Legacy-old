@@ -3,31 +3,31 @@ package minecraftschurli.arsmagicalegacy.data;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import minecraftschurli.arsmagicalegacy.*;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Set;
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.MagicLevelTrigger;
 import minecraftschurli.arsmagicalegacy.api.advancements.SilverSkillTrigger;
-import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli
