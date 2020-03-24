@@ -227,7 +227,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSpellPart(ModSpellParts.ABSORPTION, "Absorption", "Like a slightly flimsier shield.");
         addSpellPart(ModSpellParts.ACCELERATE, "Accelerate", "Seems like you won't be catching me anytime soon.");
         addSpellPart(ModSpellParts.AOE, "AoE", "Zone control.");
-        addSpellPart(ModSpellParts.APPROPRIATON, "Appropriation", "That's mine.");
         addSpellPart(ModSpellParts.ASTRAL_DISTORTION, "Astral Distortion", "Going nowhere...");
         addSpellPart(ModSpellParts.ATTRACT, "Attract", "Come closer... or not, just stay where you are.");
         addSpellPart(ModSpellParts.BANISH_RAIN, "Banish Rain", "Come back latter. Or don't. It would be kind.");
@@ -586,7 +585,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("mechanic", "spell_creation", 0, "First, learn some parts at the occulus. Then, go to your Inscription Table and make a spell recipe (see the Inscription Table entry for more information on how to do this). With the recipe in your inventory, head to your crafting altar and put it onto the altar's lectern. Throw in the items that appear above the lectern - it always starts with a blank rune and ends with a spell parchment. If etherium is required, make sure you have an etherium source of the correct type connected to the altar, then switch the lever. It will draw the amount it needs automatically, no more, no less. Then, have fun with your newly created spell!");
         addTextPage("component", "absorption", 0, "Gives the target the Absorption effect.");
         addTextPage("component", "accelerate", 0, "Entities affected with this move faster, and machines work quicker.");
-        addTextPage("component", "appropriation", 0, "This appropriates stuff. However, consider not using it, as it might corrupt your entire world.");
         addTextPage("component", "astral_distortion", 0, "Gives the target the Astral Distortion effect. Astral Distortion blocks interventions, so it's most useful if used on other mages.");
         addTextPage("component", "attract", 0, "Attracts nearby mobs and animals.");
         addTextPage("component", "banish_rain", 0, "Just as the name says.");

@@ -227,7 +227,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSpellPart(ModSpellParts.ABSORPTION, "Absorption", "Wie ein Schild, nur nicht so dick.");
         addSpellPart(ModSpellParts.ACCELERATE, "Beschleunigung", "Du fängst mich demnächst nicht mehr so schnell.");
         addSpellPart(ModSpellParts.AOE, "Flächeneffekt", "Kontrolle. Schichtenweise.");
-        addSpellPart(ModSpellParts.APPROPRIATON, "Beschlagnahmung", "Meins! Meins!");
         addSpellPart(ModSpellParts.ASTRAL_DISTORTION, "Astrale Verkrümmung", "Auf dem Weg ins Nirgendwo...");
         addSpellPart(ModSpellParts.ATTRACT, "Attraktion", "Komm näher... oder egal, bleib wo du bist.");
         addSpellPart(ModSpellParts.BANISH_RAIN, "Regentanz", "Komm später wieder. Oder gar nicht.");
@@ -586,7 +585,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addTextPage("mechanic", "spell_creation", 0, "Zuerst muss man einige Teile am Okkulus erlernen. Dann mass man am magischen Schreibtisch ein Zauberrezept machen (siehe dessen Eintrag für nähere Informationen diesbezüglich). Lege das Rezept aufs Lesepult des Altars. Wirf die Items hinein, die über dem Lesepult erscheinen - es beginnt immer mit einer Rune und endet mit einem magischen Pergament. Wenn Etherium benötigt wird, stelle eine Verbindung zum richtigen Etheriumtyp her, dann betätige den Schalter. Die benötigte Menge wird genommen, dann geht es weiter. Wenn du den Zauber fertig gecraftet hast, ist er sofort einsatzbereit! Viel Spaß mit deinem Zauber!");
         addTextPage("component", "absorption", 0, "Gibt dem Ziel den Absorptionseffekt.");
         addTextPage("component", "accelerate", 0, "Tiere und Monster unter Einfluss dieses Zaubers bewegen sich schneller, und Maschinen arbeiten schneller.");
-        addTextPage("component", "appropriation", 0, "Nimmt diverse Sachen in Besitz. ACHTUNG! Kann die Weltdateien zerstören und wird möglicherweise wieder entfernt.");
         addTextPage("component", "astral_distortion", 0, "Gibt dem Ziel den Astrale Verwirrung-Effekt. Astrale Verwirrung schränkt Interventionen ein, daher ist es vor allem an anderen Magiern nützlich.");
         addTextPage("component", "attract", 0, "Lockt Monster und Tiere an.");
         addTextPage("component", "banish_rain", 0, "Wie der Name sagt...");
