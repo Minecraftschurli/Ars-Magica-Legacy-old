@@ -28,9 +28,7 @@ public class PotionBundleItem extends PotionItem {
     public PotionBundleItem(Properties properties) {
         super(properties);
         this.addPropertyOverride(new ResourceLocation("uses"), (stack, world, entity) -> {
-            //noinspection ConstantConditions
-            if (!stack.hasTag() || !stack.getTag().contains(USES_KEY))
-                return 0;
+            if (!stack.hasTag() || !stack.getTag().contains(USES_KEY)) return 0;
             return stack.getTag().getInt(USES_KEY);
         });
     }
@@ -38,20 +36,13 @@ public class PotionBundleItem extends PotionItem {
     @Nonnull
     @Override
     public ItemStack onItemUseFinish(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull LivingEntity entity) {
-        //noinspection ConstantConditions
-        if(!stack.hasTag() || !stack.getTag().contains(USES_KEY) || PotionUtils.getPotionFromItem(stack) == Potions.EMPTY)
-            return stack;
+        if(!stack.hasTag() || !stack.getTag().contains(USES_KEY) || PotionUtils.getPotionFromItem(stack) == Potions.EMPTY) return stack;
         PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
-        if (playerentity instanceof ServerPlayerEntity) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
-        }
+        if (playerentity instanceof ServerPlayerEntity) CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
         if (!world.isRemote) {
             for(EffectInstance effectinstance : PotionUtils.getEffectsFromStack(stack)) {
-                if (effectinstance.getPotion().isInstant()) {
-                    effectinstance.getPotion().affectEntity(playerentity, playerentity, entity, effectinstance.getAmplifier(), 1.0D);
-                } else {
-                    entity.addPotionEffect(new EffectInstance(effectinstance));
-                }
+                if (effectinstance.getPotion().isInstant()) effectinstance.getPotion().affectEntity(playerentity, playerentity, entity, effectinstance.getAmplifier(), 1);
+                else entity.addPotionEffect(new EffectInstance(effectinstance));
             }
         }
         CompoundNBT tag = stack.getTag();
@@ -59,24 +50,18 @@ public class PotionBundleItem extends PotionItem {
             playerentity.addStat(Stats.ITEM_USED.get(this));
             tag.putInt(USES_KEY, tag.getInt(USES_KEY) - 1);
         }
-        if (playerentity != null) {
-            ItemHandlerHelper.giveItemToPlayer(playerentity, new ItemStack(Items.GLASS_BOTTLE));
-        }
-        if(tag.getInt(USES_KEY) == 1)
-            return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION, 1), PotionUtils.getPotionFromItem(stack));
+        if (playerentity != null) ItemHandlerHelper.giveItemToPlayer(playerentity, new ItemStack(Items.GLASS_BOTTLE));
+        if(tag.getInt(USES_KEY) == 0) return new ItemStack(Items.STRING);
         return stack;
     }
 
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
-        if (this.isInGroup(group)) {
-            for (Potion potion : ForgeRegistries.POTION_TYPES) {
-                if (potion == Potions.EMPTY)
-                    continue;
-                ItemStack stack = PotionUtils.addPotionToItemStack(new ItemStack(this), potion);
-                stack.getOrCreateTag().putInt(USES_KEY, 3);
-                items.add(stack);
-            }
+        if (this.isInGroup(group)) for (Potion potion : ForgeRegistries.POTION_TYPES) {
+            if (potion == Potions.EMPTY) continue;
+            ItemStack stack = PotionUtils.addPotionToItemStack(new ItemStack(this), potion);
+            stack.getOrCreateTag().putInt(USES_KEY, 3);
+            items.add(stack);
         }
     }
 }
