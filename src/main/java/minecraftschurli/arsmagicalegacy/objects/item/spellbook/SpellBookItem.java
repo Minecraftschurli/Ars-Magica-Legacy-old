@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -16,9 +17,12 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
@@ -97,37 +101,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
                 .orElse(ItemStack.EMPTY);
     }
 
-    @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        /*final PlayerEntity player = context.getPlayer();
-        final Hand hand = context.getHand();
-        final World world = context.getWorld();
-        final ItemStack stack = player.getHeldItem(hand);
-        if (player.isSneaking()) {
-            if (!world.isRemote && player instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-                    @Override
-                    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-                        return new SpellBookContainer(id, playerInventory, new SpellBookInventory());
-                    }
-
-                    @Override
-                    public ITextComponent getDisplayName() {
-                        return stack.getDisplayName();
-                    }
-                });
-                return ActionResultType.SUCCESS;
-            }
-        } else {
-            return getActiveScroll(stack)
-                    .map(spellItem -> spellItem.onItemUse(context))
-                    .orElse(ActionResultType.FAIL);
-        }
-        return ActionResultType.FAIL;*/
-        return ActionResultType.PASS;
-    }
-
-
     public void setActiveSlot(ItemStack itemStack, int slot) {
         if (itemStack.getTag() == null) {
             itemStack.setTag(new CompoundNBT());
@@ -190,20 +163,17 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     }
 
     @Override
-    public void addInformation(ItemStack stackIn, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        /* TODO
-        SpellItem activeScroll = getActiveScroll(stackIn);
-        ItemStack stack = GetActiveItemStack(stackIn);
+    public void addInformation(ItemStack stackIn, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        // TODO
+        Optional<SpellItem> activeScroll = getActiveScroll(stackIn);
+        ItemStack stack = getActiveItemStack(stackIn);
 
-        // String s = StatCollector.translateToLocal("am2.tooltip.open");
-        tooltip.add((new StringBuilder()).append("\2477").append(s).toString());
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID+".tooltip.open"));
 
-        if (activeScroll != null){
-            activeScroll.addInformation(stack, par2EntityPlayer, par3List, par4);
-        }
+        activeScroll.ifPresent(spellItem -> spellItem.addInformation(stack, worldIn, tooltip, flagIn));
 
-        tooltip.add("\247c" + StatCollector.translateToLocal("am2.tooltip.spellbookWarning1") + "\247f");
-        tooltip.add("\247c" + StatCollector.translateToLocal("am2.tooltip.spellbookWarning2") + "\247f");*/
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID+".tooltip.spellbook_warning_1"));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID+".tooltip.spellbook_warning_2"));
     }
 
     @Override
