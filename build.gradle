@@ -63,6 +63,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
 
             ideaModule "${project.name}.main"
 
@@ -79,6 +80,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
 
             ideaModule "${project.name}.main"
 
@@ -95,6 +97,7 @@ minecraft {
 
             //property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
 
             args '--mod', modBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -191,7 +194,7 @@ task uploadJars(dependsOn: build) {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: mcs_maven_url){
+                repository(url: mcs_maven_url) {
                     authentication(userName: mcs_maven_user, password: mcs_maven_pass)
                 }
             }
