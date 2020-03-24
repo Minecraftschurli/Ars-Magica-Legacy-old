@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import java.util.EnumSet;
+import java.util.Random;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -22,9 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-
-import java.util.EnumSet;
-import java.util.Random;
 
 @SuppressWarnings("deprecated")
 public class PlaceBlock extends SpellComponent {

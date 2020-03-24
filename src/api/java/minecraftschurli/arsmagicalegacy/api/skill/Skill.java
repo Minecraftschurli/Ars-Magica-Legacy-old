@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
+import java.util.ArrayList;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -7,9 +9,6 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Minecraftschurli

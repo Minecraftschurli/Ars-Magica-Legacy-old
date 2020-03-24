@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -18,10 +21,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
 
 public class Attract extends SpellComponent {
     public Attract() {

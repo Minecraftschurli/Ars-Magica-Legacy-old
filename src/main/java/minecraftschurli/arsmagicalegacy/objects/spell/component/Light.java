@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -18,10 +21,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
 
 public class Light extends SpellComponent {
     @Override

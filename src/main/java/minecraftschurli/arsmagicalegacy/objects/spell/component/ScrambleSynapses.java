@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
+import java.util.EnumSet;
+import java.util.Random;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -13,9 +15,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.EnumSet;
-import java.util.Random;
 
 public class ScrambleSynapses extends SpellComponent {
     @Override

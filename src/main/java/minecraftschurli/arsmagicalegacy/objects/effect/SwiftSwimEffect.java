@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
+import java.util.UUID;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.potion.EffectType;
-
-import java.util.UUID;
 
 /**
  * @author Minecraftschurli
