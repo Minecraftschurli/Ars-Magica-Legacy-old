@@ -7,9 +7,10 @@
 - [x] add spell execution system
 - [x] update to 1.15.2
 - [ ] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
+- [ ] add Etherium System
 - [ ] add Affinity-Ability System
-- [ ] add leveling system
-- [ ] add spell entities
+- [ ] add Leveling System
+- [ ] add Spell-Entities
 - [ ] (API-FREEZE) no more API breaking changes
 - [ ] first **_alpha_** release or Forgecraft (2020-04-20)   
 - [ ] bugfixes
