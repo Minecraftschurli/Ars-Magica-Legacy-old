@@ -325,7 +325,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSpellPart(ModSpellParts.SWIFT_SWIM, "Swift Swim", "No more swimming for hours.");
         addSpellPart(ModSpellParts.TARGET_NON_SOLID_BLOCKS, "Target Non-Solid Blocks", "And I decided that I would fight the water.");
         addSpellPart(ModSpellParts.TELEKINESIS, "Telekinesis", "Up, down, up, down, I think you get and idea.");
-        addSpellPart(ModSpellParts.TOGGLE, "Toggle", "On, off, on, off...");
         addSpellPart(ModSpellParts.TOUCH, "Touch", "Someone in there?");
         addSpellPart(ModSpellParts.TRANSPLACE, "Transplace", "From point A to point B.");
         addSpellPart(ModSpellParts.TRUE_SIGHT, "True Sight", "Reveal what is hidden.");
@@ -531,7 +530,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addSectionTitle("shape", "projectile", "Projectile");
         addSectionTitle("shape", "rune", "Rune");
         addSectionTitle("shape", "self", "Self");
-        addSectionTitle("shape", "toggle", "Toggle");
         addSectionTitle("shape", "touch", "Touch");
         addSectionTitle("shape", "wall", "Wall");
         addSectionTitle("shape", "wave", "Wave");
@@ -630,8 +628,8 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("component", "heal", 0, "Like an instant health potion.");
         addTextPage("component", "ignition", 0, "Sets the target on fire.");
         addTextPage("component", "invisibility", 0, "Gives the target the Invisibility effect.");
+        addTextPage("component", "jump_boost", 0, "Gives the target the Jump Boost effect.");
         addTextPage("component", "knockback", 0, "Knocks back the target.");
-        addTextPage("component", "leap", 0, "Gives the target the Jump Boost effect.");
         addTextPage("component", "levitation", 0, "Gives the target the Levitation effect.");
         addTextPage("component", "life_drain", 0, "Also known as vampirism, takes life from the target in order to heal the caster.");
         addTextPage("component", "life_tap", 0, "This is an unknown component that doesn't work yet.");
@@ -695,7 +693,6 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ArsM
         addTextPage("shape", "projectile", 0, "Forms magic into a projectile which is shot like an arrow.");
         addTextPage("shape", "rune", 0, "Places down a rune on the targeted block, executing the spell when touching the runed block.");
         addTextPage("shape", "self", 0, "Uses the said magic on yourself. Consider not to combine this with damage spells or bad potion spells.");
-        addTextPage("shape", "toggle", 0, "This is an unknown shape that doesn't work yet.");
         addTextPage("shape", "touch", 0, "Performs the spell on a block or entity right next to you (below 1 block distance).");
         addTextPage("shape", "wall", 0, "Summons a temporary wall. When something touches the wall, the spell gets executed on it.");
         addTextPage("shape", "wave", 0, "Radiates a magic wave around you, executing the spell on anything it can find.");

@@ -325,7 +325,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSpellPart(ModSpellParts.SWIFT_SWIM, "Schwimmgeschwindigkeit", "Nie wieder stundenlang schwimmen.");
         addSpellPart(ModSpellParts.TARGET_NON_SOLID_BLOCKS, "Durchlässige Ziele", "Und ich wollte gegen Wasser kämpfen.");
         addSpellPart(ModSpellParts.TELEKINESIS, "Telekinese", "Rauf, runter, rauf, runter...");
-        addSpellPart(ModSpellParts.TOGGLE, "Schalten", "An, aus, an, aus...");
         addSpellPart(ModSpellParts.TOUCH, "Berührung", "Klopf klopf? Jemand da?");
         addSpellPart(ModSpellParts.TRANSPLACE, "Teleportation", "Von A nach B.");
         addSpellPart(ModSpellParts.TRUE_SIGHT, "Klarsicht", "Sieh das Versteckte.");
@@ -526,7 +525,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addSectionTitle("shape", "projectile", "Projektil");
         addSectionTitle("shape", "rune", "Rune");
         addSectionTitle("shape", "self", "Selbst");
-        addSectionTitle("shape", "toggle", "Schalten");
         addSectionTitle("shape", "touch", "Berührung");
         addSectionTitle("shape", "wall", "Mauer");
         addSectionTitle("shape", "wave", "Welle");
@@ -626,7 +624,7 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addTextPage("component", "ignition", 0, "Entzündet das Ziel.");
         addTextPage("component", "invisibility", 0, "Gibt dem Ziel den Unsichtbarkeitseffekt.");
         addTextPage("component", "knockback", 0, "Stößt das Ziel weg.");
-        addTextPage("component", "leap", 0, "Gibt dem Ziel den Sprungkrafteffekt.");
+        addTextPage("component", "jump_boost", 0, "Gibt dem Ziel den Sprungkrafteffekt.");
         addTextPage("component", "levitation", 0, "Gibt dem Ziel den Levitationseffekt.");
         addTextPage("component", "life_drain", 0, "Auch bekannt als Vampirismus: Nimmt dem Ziel Lebenskraft, um dich zu heilen.");
         addTextPage("component", "life_tap", 0, "Diese unbekannte Komponente funktioniert noch nicht.");
@@ -690,7 +688,6 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ArsMa
         addTextPage("shape", "projectile", 0, "Formt ein magisches Projektil, das wie ein Pfeil geschossen wird.");
         addTextPage("shape", "rune", 0, "Plaziert eine Rune auf den Zielblock. Der Zauber wird bei Berührung mit der Rune ausgeführt.");
         addTextPage("shape", "self", 0, "Wendet die Magie auf dich selbst ein. Ist eventuell schlecht in Verbindung mit Schadenszaubern oder schlechten Trankeffekten.");
-        addTextPage("shape", "toggle", 0, "Diese unbekannte Form funktioniert noch nicht.");
         addTextPage("shape", "touch", 0, "Nutzt den Zauber an einem Block oder einem Tier/Monster direkt neben dir (unter einem Block Abstand).");
         addTextPage("shape", "wall", 0, "Beschwört temporär eine Mauer. Der Zauber wird bei Berührung der Mauer ausgeführt.");
         addTextPage("shape", "wave", 0, "Sendet eine Welle aus, die den Zauber auf alles anwendet, das sie berührt.");

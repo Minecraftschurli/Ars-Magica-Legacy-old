@@ -43,7 +43,6 @@ import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Projectile;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Rune;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Self;
-import minecraftschurli.arsmagicalegacy.objects.spell.shape.Toggle;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Touch;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Wall;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Wave;
@@ -106,7 +105,6 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellShape> PROJECTILE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "projectile", SKILL_POINT_1, Projectile::new, OFFENSE, 300, 45);
     public static final RegistryObject<SpellShape> RUNE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "rune", SKILL_POINT_2, Rune::new, DEFENSE, 157, 315, "arsmagicalegacy:accelerate", "arsmagicalegacy:entangle");
     public static final RegistryObject<SpellShape> SELF = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "self", SKILL_POINT_1, Self::new, DEFENSE, 267, 45);
-    public static final RegistryObject<SpellShape> TOGGLE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "toggle", SKILL_POINT_3, Toggle::new, UTILITY, 315, 345, "arsmagicalegacy:channel");
     public static final RegistryObject<SpellShape> TOUCH = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "touch", SKILL_POINT_1, Touch::new, UTILITY, 275, 75);
     public static final RegistryObject<SpellShape> WALL = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "wall", SKILL_POINT_2, Wall::new, DEFENSE, 87, 200, "arsmagicalegacy:repel");
     public static final RegistryObject<SpellShape> WAVE = SpellRegistry.registerSpellShape(ArsMagicaAPI.MODID, "wave", SKILL_POINT_3, Wave::new, OFFENSE, 367, 315, "arsmagicalegacy:beam", "arsmagicalegacy:fling");
