@@ -61,7 +61,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<RotatedPillarBlock> WITCHWOOD_WOOD = BLOCKS.register("witchwood_wood", () -> new RotatedPillarBlock(Block.Properties.from(WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<LogBlock> STRIPPED_WITCHWOOD_LOG = BLOCKS.register("stripped_witchwood_log", () -> new LogBlock(MaterialColor.PURPLE, Block.Properties.from(WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_WITCHWOOD_WOOD = BLOCKS.register("stripped_witchwood_wood", () -> new RotatedPillarBlock(Block.Properties.from(WITCHWOOD_PLANKS.get())));
-    public static final RegistryObject<LeavesBlock> WITCHWOOD_LEAVES = BLOCKS.register("witchwood_leaves", () -> new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f)));
+    public static final RegistryObject<LeavesBlock> WITCHWOOD_LEAVES = BLOCKS.register("witchwood_leaves", () -> new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f).sound(SoundType.PLANT)));
     public static final RegistryObject<SlabBlock> WITCHWOOD_SLAB = BLOCKS.register("witchwood_slab", () -> new SlabBlock(Block.Properties.from(WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<StairsBlock> WITCHWOOD_STAIRS = BLOCKS.register("witchwood_stairs", () -> new StairsBlock(ModBlocks.WITCHWOOD_PLANKS.lazyMap(Block::getDefaultState), Block.Properties.from(ModBlocks.WITCHWOOD_PLANKS.get())));
     public static final RegistryObject<FenceBlock> WITCHWOOD_FENCE = BLOCKS.register("witchwood_fence", () -> new FenceBlock(Block.Properties.from(ModBlocks.WITCHWOOD_PLANKS.get())));
