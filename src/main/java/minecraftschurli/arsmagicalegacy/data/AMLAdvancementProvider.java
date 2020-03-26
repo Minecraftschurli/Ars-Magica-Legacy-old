@@ -46,7 +46,7 @@ public class AMLAdvancementProvider implements IDataProvider {
         return pathIn.resolve("data/" + advancementIn.getId().getNamespace() + "/advancements/" + advancementIn.getId().getPath() + ".json");
     }
 
-    public void act(DirectoryCache cache) throws IOException {
+    public void act(DirectoryCache cache) {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = new HashSet<>();
         Consumer<Advancement> consumer = (p_204017_3_) -> {
