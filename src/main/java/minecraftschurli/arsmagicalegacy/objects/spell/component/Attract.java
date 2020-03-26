@@ -13,11 +13,10 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -26,65 +25,44 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
-public class Attract extends SpellComponent {
-    public Attract() {
-    }
-
+public final class Attract extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        doTKExtrapolated(stack, world, impactX, impactY, impactZ, caster);
-        return true;
-    }
-
-    private boolean doTKExtrapolated(ItemStack stack, World world, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (caster instanceof PlayerEntity) {
-//            double range = EntityExtension.For(caster).getTKDistance();
-//            RayTraceResult mop = null;//((SpellItem) ModItems.SPELL).getMovingObjectPosition(caster, world, range, false, false);
-//            if (mop == null) {
-//                impactX = caster.getPosX() + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactZ = caster.getPosZ() + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactY = caster.getPosY() + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
-//            }
+        AxisAlignedBB bb = new AxisAlignedBB(impactX - 16, impactY - 16, impactZ - 16, impactX + 16, impactY + 16, impactZ + 16);
+        List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, bb);
+        LivingEntity target = null;
+        Vec3i point = new Vec3i(impactX, impactY, impactZ);
+        for (LivingEntity e : entities) {
+            if (e == caster) continue;
+            if (target == null || point.distanceSq(e.getPosition()) < point.distanceSq(target.getPosition())) target = e;
         }
-        LivingEntity target = getClosestEntityToPointWithin(caster, world, new Vec3i(impactX, impactY, impactZ), 16);
         if (target == null) return false;
         Vec3d movement = new Vec3d(target.getPosition().subtract(new Vec3i(impactX, impactY, impactZ))).normalize();
         if (!world.isRemote) {
-            double x = -(movement.getX() * 0.75);
-            double y = -(movement.getY() * 0.75);
-            double z = -(movement.getZ() * 0.75);
+            double x = -movement.getX() * 0.75;
+            double y = -movement.getY() * 0.75;
+            double z = -movement.getZ() * 0.75;
             target.addVelocity(x, y, z);
-            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2))
-                target.setMotion(x, target.getMotion().getY(), target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getY()) > Math.abs(x * 2))
-                target.setMotion(target.getMotion().getX(), y, target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getZ()) > Math.abs(x * 2))
-                target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z);
+            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2)) target.setMotion(x, target.getMotion().getY(), target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getY()) > Math.abs(y * 2)) target.setMotion(target.getMotion().getX(), y, target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getZ()) > Math.abs(z * 2)) target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z);
         }
         return true;
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
-    }
-
-    private LivingEntity getClosestEntityToPointWithin(LivingEntity caster, World world, Vec3i point, double radius) {
-        AxisAlignedBB bb = new AxisAlignedBB(point.getX() - radius, point.getY() - radius, point.getZ() - radius, point.getX() + radius, point.getY() + radius, point.getZ() + radius);
-        List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, bb);
-        LivingEntity closest = null;
-        for (LivingEntity e : entities) {
-            if (e == caster) continue;
-            if (closest == null || point.distanceSq(e.getPosition()) < point.distanceSq(closest.getPosition()))
-                closest = e;
-        }
-        return closest;
     }
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        doTKExtrapolated(stack, world, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
-        return true;
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NONE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 1;
     }
 
     @Override
@@ -93,24 +71,8 @@ public class Attract extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[0];
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "arcane", x, y, z);
-//        if (effect != null) {
-//            effect.addRandomOffset(1, 1, 1);
-//            effect.AddParticleController(new ParticleApproachPoint(effect, x, y, z, 0.025f, 0.025f, 1, false));
-//            effect.setRGBColorF(0.8f, 0.3f, 0.7f);
-//            if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NONE.get());
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override
@@ -122,11 +84,13 @@ public class Attract extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 1;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "arcane", x, y, z);
+//        if (effect != null) {
+//            effect.addRandomOffset(1, 1, 1);
+//            effect.AddParticleController(new ParticleApproachPoint(effect, x, y, z, 0.025f, 0.025f, 1, false));
+//            effect.setRGBColorF(0.8f, 0.3f, 0.7f);
+//            if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//        }
     }
 }

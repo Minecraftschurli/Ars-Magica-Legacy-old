@@ -12,23 +12,39 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
-public class Accelerate extends SpellComponent {
+public final class Accelerate extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        if (world.rand.nextDouble() < 0.5 && world.isAirBlock(blockPos)) {
+            world.getBlockState(blockPos).getBlock().animateTick(world.getBlockState(blockPos), world, blockPos, world.rand);
+            return true;
+        }
+        return true;
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         caster.setAIMoveSpeed(caster.getAIMoveSpeed() * 1.6f);
         return true;
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.AIR.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return affinity == ModSpellParts.AIR.get() ? 1 : 0;
     }
 
     @Override
@@ -37,8 +53,17 @@ public class Accelerate extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[0];
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE)
+        };
     }
 
     @Override
@@ -49,42 +74,5 @@ public class Accelerate extends SpellComponent {
 //            particle.setMaxAge(25 + rand.nextInt(10));
 //            if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //        }
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE)
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return affinity == ModSpellParts.AIR.get() ? 1 : 0;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (world.rand.nextDouble() < 0.5) {
-            Block block = world.getBlockState(blockPos).getBlock();
-            if (block != Blocks.AIR) block.animateTick(world.getBlockState(blockPos), world, blockPos, world.rand);
-        }
-        return true;
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.AIR.get());
     }
 }

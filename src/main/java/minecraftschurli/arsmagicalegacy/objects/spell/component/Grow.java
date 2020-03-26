@@ -17,6 +17,7 @@ import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,7 +29,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,7 +38,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.eventbus.api.Event;
 
-public class Grow extends SpellComponent {
+public final class Grow extends SpellComponent {
     private final static List<BushBlock> flowers = new ArrayList<>();
     static {
         flowers.add(ModBlocks.AUM.get());
@@ -47,6 +47,7 @@ public class Grow extends SpellComponent {
         flowers.add(ModBlocks.TARMA_ROOT.get());
         flowers.add(ModBlocks.WAKEBLOOM.get());
     }
+
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         BlockState block = world.getBlockState(pos);
@@ -62,34 +63,25 @@ public class Grow extends SpellComponent {
                 }
         }
         if (block.getBlock() instanceof MushroomBlock) {
-            if (!world.isRemote && world.rand.nextInt(10) < 1)
-                ((MushroomBlock) block.getBlock()).grow((ServerWorld) world, world.rand, pos, block);
+            if (!world.isRemote && world.rand.nextInt(10) < 1) ((MushroomBlock) block.getBlock()).grow((ServerWorld) world, world.rand, pos, block);
             return true;
         }
-        if (block.getBlock() == Blocks.WATER) {
-            if (world.getBlockState(pos.up()).getBlock() == Blocks.AIR) {
-                if (!world.isRemote && world.rand.nextInt(100) < 3)
-                    world.setBlockState(pos.up(), ModBlocks.WAKEBLOOM.get().getDefaultState());
+        if (block.getBlock() == Blocks.TALL_GRASS) {
+            if (Blocks.TALL_GRASS.canSustainPlant(Blocks.TALL_GRASS.getDefaultState(), world, pos, null, (IPlantable) Blocks.TALL_GRASS)) {
+                if (!world.isRemote && world.rand.nextInt(10) < 2) world.setBlockState(pos, Blocks.TALL_GRASS.getDefaultState());
                 return true;
             }
         }
-//        if (block.getBlock() == Blocks.TALL_GRASS) {
-//            if (Blocks.TALL_GRASS.canBlockStay(world, pos, Blocks.TALL_GRASS.getDefaultState())) {
-//                if (!world.isRemote && world.rand.nextInt(10) < 2) world.setBlockState(pos, Blocks.TALL_GRASS.getDefaultState());
-//                return true;
-//            }
-//        }
-//        if (block.getBlock() == Blocks.DEAD_BUSH) {
-//            if (Blocks.DEAD_BUSH.canBlockStay(world, pos, Blocks.DEAD_BUSH.getDefaultState())) {
-//                if (!world.isRemote && world.rand.nextInt(10) < 2) world.setBlockState(pos, Blocks.DEAD_BUSH.getDefaultState());
-//                return true;
-//            }
-//        }
+        if (block.getBlock() == Blocks.DEAD_BUSH) {
+            if (Blocks.TALL_GRASS.canSustainPlant(Blocks.DEAD_BUSH.getDefaultState(), world, pos, null, (IPlantable) Blocks.DEAD_BUSH)) {
+                if (!world.isRemote && world.rand.nextInt(10) < 2) world.setBlockState(pos, Blocks.DEAD_BUSH.getDefaultState());
+                return true;
+            }
+        }
         if (block instanceof IGrowable) {
             IGrowable igrowable = (IGrowable) block;
             if (igrowable.canGrow(world, pos, block, world.isRemote)) {
-                if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block))
-                    igrowable.grow((ServerWorld) world, world.rand, pos, block);
+                if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block)) igrowable.grow((ServerWorld) world, world.rand, pos, block);
                 return true;
             }
         }
@@ -97,13 +89,18 @@ public class Grow extends SpellComponent {
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return false;
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NATURE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.02f;
     }
 
     @Override
@@ -112,29 +109,8 @@ public class Grow extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x + 0.5, y + 1, z + 0.5);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.1f, 1, false));
-//                particle.AddParticleController(new ParticleOrbitPoint(particle, x + 0.5, y + 0.5, z + 0.5, 2, false).setIgnoreYCoordinate(true).SetOrbitSpeed(0.1f).SetTargetDistance(0.3f + rand.nextDouble() * 0.3));
-//                particle.AddParticleController(new ParticleFadeOut(particle, 1, false).setFadeSpeed(0.05f).setKillParticleOnFinish(true));
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NATURE.get());
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override
@@ -147,11 +123,18 @@ public class Grow extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.02f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 25; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x + 0.5, y + 1, z + 0.5);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 1, 1);
+//                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.1f, 1, false));
+//                particle.AddParticleController(new ParticleOrbitPoint(particle, x + 0.5, y + 0.5, z + 0.5, 2, false).setIgnoreYCoordinate(true).SetOrbitSpeed(0.1f).SetTargetDistance(0.3f + rand.nextDouble() * 0.3));
+//                particle.AddParticleController(new ParticleFadeOut(particle, 1, false).setFadeSpeed(0.05f).setKillParticleOnFinish(true));
+//                particle.setMaxAge(20);
+//                particle.setParticleScale(0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

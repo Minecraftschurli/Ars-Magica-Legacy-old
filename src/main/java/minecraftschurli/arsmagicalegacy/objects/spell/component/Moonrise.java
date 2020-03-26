@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
 import java.util.EnumSet;
-import java.util.Random;
 import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -16,40 +15,28 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Moonrise extends SpellComponent {
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
-        };
-    }
-
+public final class Moonrise extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (!world.isDaytime()) return false;
-        if (!world.isRemote) {
-            long curTime = world.getGameTime();
-            int day = (int) Math.floor(curTime / 24000);
-            world.setGameTime((day * 24000) + 13250);
-        }
+        if (!world.isRemote) world.setGameTime(world.getGameTime() - world.getGameTime() % 24000 + 13250);
         return true;
     }
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!world.isDaytime()) return false;
-        if (!world.isRemote) {
-            long curTime = world.getGameTime();
-            int day = (int) Math.floor(curTime / 24000);
-            world.setGameTime((day * 24000) + 13250);
-        }
+        if (!world.isRemote) world.setGameTime(world.getGameTime() - world.getGameTime() % 24000 + 13250);
         return true;
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NONE.get());
     }
 
     @Override
@@ -63,25 +50,10 @@ public class Moonrise extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NONE.get());
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE)
+        };
     }
 }

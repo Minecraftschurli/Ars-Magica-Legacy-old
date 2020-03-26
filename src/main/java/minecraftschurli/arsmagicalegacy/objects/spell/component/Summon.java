@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
 import java.util.EnumSet;
-import java.util.Random;
 import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
@@ -25,32 +24,52 @@ import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Summon extends SpellComponent {
-    public LivingEntity summonCreature(ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z) {
-        LivingEntity entity = null;
+public final class Summon extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        CreatureEntity entity;
         try {
             entity = new SkeletonEntity(EntityType.SKELETON, world);
         } catch (Throwable t) {
             t.printStackTrace();
-            return null;
+            return false;
         }
         entity.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.BOW));
-        entity.setPosition(x, y, z);
+        entity.setPosition(impactX, impactY, impactZ);
         world.addEntity(entity);
-        if (caster instanceof PlayerEntity)
-            EntityUtils.makeSummonPlayerFaction((CreatureEntity) entity, (PlayerEntity) caster, false);
-        else EntityUtils.makeSummonMonsterFaction((CreatureEntity) entity, false);
+        if (caster instanceof PlayerEntity) EntityUtils.makeSummonPlayerFaction(entity, (PlayerEntity) caster, false);
+        else EntityUtils.makeSummonMonsterFaction(entity, false);
         EntityUtils.setOwner(entity, caster);
-        int duration = SpellUtils.getModifiedIntMul(4800, stack, caster, target, world, SpellModifiers.DURATION);
+        int duration = SpellUtils.getModifiedIntMul(4800, stack, caster, caster, world, SpellModifiers.DURATION);
         EntityUtils.setSummonDuration(entity, duration);
         SpellUtils.applyStageToEntity(stack, caster, world, entity, false);
-        return entity;
+        return true;
+    }
+
+    @Override
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+        if (target instanceof LivingEntity && EntityUtils.isSummon((LivingEntity) target)) return false;
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.LIFE.get(), ModSpellParts.ENDER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
+    }
+
+    @Override
+    public float getManaCost(LivingEntity caster) {
+        return 400;
     }
 
     @Override
@@ -67,52 +86,5 @@ public class Summon extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MONSTER_FOCUS.get())),
                 new EtheriumSpellIngredient(1500, EtheriumType.DARK)
         };
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (!world.isRemote) {
-//            if (EntityExtension.For(caster).getCanHaveMoreSummons()) return summonCreature(stack, caster, caster, world, impactX, impactY, impactZ) != null;
-//            else if (caster instanceof PlayerEntity) caster.sendMessage(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".chat.noSummons"));
-        }
-        return true;
-    }
-
-    @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity && EntityUtils.isSummon((LivingEntity) target)) return false;
-        if (!world.isRemote) {
-//            if (EntityExtension.For(caster).getCanHaveMoreSummons()) return summonCreature(stack, caster, caster, world, target.posX, target.posY, target.posZ) != null;
-//            else if (caster instanceof PlayerEntity) caster.sendMessage(new TranslationTextComponent("ArsMagicaLegacy.MODID + ".chat.noSummons"));
-        }
-        return true;
-    }
-
-    @Override
-    public float getManaCost(LivingEntity caster) {
-        return 400;
-    }
-
-    @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[0];
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.LIFE.get(), ModSpellParts.ENDER.get());
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

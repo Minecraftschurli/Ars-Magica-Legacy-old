@@ -13,46 +13,25 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class Telekinesis extends SpellComponent {
+public final class Telekinesis extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return doTKExtrapolated(stack, world, impactX, impactY, impactZ, caster);
-    }
-
-    @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return doTKExtrapolated(stack, world, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
-    }
-
-    private boolean doTKExtrapolated(ItemStack stack, World world, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        if (caster instanceof PlayerEntity) {
-//            double range = ((EntityExtension) EntityExtension.For(caster)).getTKDistance();
-//            RayTraceResult mop = ModItems.SPELL.getMovingObjectPosition(caster, world, range, false, false);
-//            if (mop == null) {
-//                impactX = caster.posX + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactZ = caster.posZ + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                impactY = caster.posY + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
-//            }
-        }
-        double distance = 16;
-        int hDist = 3;
-        List<Entity> entities = new ArrayList<Entity>();
-        entities.addAll(world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(impactX - distance, impactY - hDist, impactZ - distance, impactX + distance, impactY + hDist, impactZ + distance)));
-        entities.addAll(world.getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(impactX - distance, impactY - hDist, impactZ - distance, impactX + distance, impactY + hDist, impactZ + distance)));
+        List<Entity> entities = new ArrayList<>();
+        entities.addAll(world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(impactX - 16, impactY - 3, impactZ - 16, impactX + 16, impactY + 3, impactZ + 16)));
+        entities.addAll(world.getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(impactX - 16, impactY - 3, impactZ - 16, impactX + 16, impactY + 3, impactZ + 16)));
         for (Entity e : entities) {
             if (e.ticksExisted < 20) continue;
             Vec3d movement = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ()).subtract(new Vec3d(impactX, impactY, impactZ)).normalize();
@@ -63,15 +42,27 @@ public class Telekinesis extends SpellComponent {
                 double y = -(movement.getY() * factor);
                 double z = -(movement.getZ() * factor);
                 e.addVelocity(x, y, z);
-                if (Math.abs(e.getMotion().getX()) > Math.abs(x * 2))
-                    e.setMotion(x, e.getMotion().getY(), e.getMotion().getZ());
-                if (Math.abs(e.getMotion().getY()) > Math.abs(y * 2))
-                    e.setMotion(e.getMotion().getX(), y, e.getMotion().getZ());
-                if (Math.abs(e.getMotion().getZ()) > Math.abs(z * 2))
-                    e.setMotion(e.getMotion().getX(), e.getMotion().getY(), z);
+                if (Math.abs(e.getMotion().getX()) > Math.abs(x * 2)) e.setMotion(x, e.getMotion().getY(), e.getMotion().getZ());
+                if (Math.abs(e.getMotion().getY()) > Math.abs(y * 2)) e.setMotion(e.getMotion().getX(), y, e.getMotion().getZ());
+                if (Math.abs(e.getMotion().getZ()) > Math.abs(z * 2)) e.setMotion(e.getMotion().getX(), e.getMotion().getY(), z);
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.001f;
     }
 
     @Override
@@ -80,37 +71,8 @@ public class Telekinesis extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.noneOf(SpellModifiers.class);
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        if (caster instanceof PlayerEntity) {
-//            double range = EntityExtension.For(caster).getTKDistance();
-//            RayTraceResult mop = ModItems.SPELL.getMovingObjectPosition(caster, world, range, false, false);
-//            if (mop == null) {
-//                x = caster.posX + (Math.cos(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                z = caster.posZ + (Math.sin(Math.toRadians(caster.rotationYaw + 90)) * range);
-//                y = caster.posY + caster.getEyeHeight() + (-Math.sin(Math.toRadians(caster.rotationPitch)) * range);
-//            }
-        }
-//        AMParticle effect = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x - 0.5 + rand.nextDouble(), y - 0.5 + rand.nextDouble(), z - 0.5 + rand.nextDouble());
-//        if (effect != null) {
-//            effect.AddParticleController(new ParticleApproachPoint(effect, x, y, z, 0.025f, 0.025f, 1, false));
-//            effect.setRGBColorF(0.8f, 0.3f, 0.7f);
-//            if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.ARCANE.get());
     }
 
     @Override
@@ -123,11 +85,12 @@ public class Telekinesis extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.001f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        AMParticle effect = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x - 0.5 + rand.nextDouble(), y - 0.5 + rand.nextDouble(), z - 0.5 + rand.nextDouble());
+//        if (effect != null) {
+//            effect.AddParticleController(new ParticleApproachPoint(effect, x, y, z, 0.025f, 0.025f, 1, false));
+//            effect.setRGBColorF(0.8f, 0.3f, 0.7f);
+//            if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//        }
     }
 }

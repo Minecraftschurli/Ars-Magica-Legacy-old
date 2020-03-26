@@ -16,34 +16,33 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Knockback extends SpellComponent {
+public final class Knockback extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        return false;
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            double speed = 1.5;
-            speed = SpellUtils.getModifiedDoubleAdd(speed, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED);
-            double vertSpeed = 0.325;
-            LivingEntity curEntity = (LivingEntity) target;
-            double deltaZ = curEntity.getPosZ() - caster.getPosZ();
-            double deltaX = curEntity.getPosX() - caster.getPosX();
-            double angle = Math.atan2(deltaZ, deltaX);
-            double radians = angle;
-            /*if (curEntity instanceof PlayerEntity) AMNetHandler.INSTANCE.sendVelocityAddPacket(world, curEntity, speed * Math.cos(radians), vertSpeed, speed * Math.sin(radians));
-            else*/
-            curEntity.setMotion(curEntity.getMotion().getX() + speed * Math.cos(radians), curEntity.getMotion().getY() + vertSpeed, curEntity.getMotion().getZ() + speed * Math.sin(radians));
+            target.setMotion(target.getMotion().getX() + SpellUtils.getModifiedDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.cos(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())), target.getMotion().getY() + 0.325, target.getMotion().getZ() + SpellUtils.getModifiedDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.sin(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())));
             return true;
         }
         return false;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.VELOCITY_ADDED);
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.WATER.get(), ModSpellParts.EARTH.get(), ModSpellParts.AIR.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
     }
 
     @Override
@@ -52,13 +51,21 @@ public class Knockback extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.VELOCITY_ADDED);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.PISTON)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
+        };
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
+//        for (int i = 0; i < 25; ++i) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 2, 1);
@@ -70,33 +77,6 @@ public class Knockback extends SpellComponent {
 //                particle.setMaxAge(20);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.WATER.get(), ModSpellParts.EARTH.get(), ModSpellParts.AIR.get());
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.PISTON))
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return false;
+//        }
     }
 }

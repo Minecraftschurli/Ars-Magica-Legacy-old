@@ -17,12 +17,16 @@ import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ManaDrain extends SpellComponent {
+public final class ManaDrain extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        return false;
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
@@ -35,8 +39,13 @@ public class ManaDrain extends SpellComponent {
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
     }
 
     @Override
@@ -45,27 +54,8 @@ public class ManaDrain extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        /*for (int i = 0; i < 15; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 1, 1);
-//                particle.setIgnoreMaxAge(true);
-//                particle.AddParticleController(new ParticleArcToEntity(particle, 1, caster, false).SetSpeed(0.03f).generateControlPoints());
-//                particle.setRGBColorF(0, 0.4f, 1);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }*/
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override
@@ -78,16 +68,16 @@ public class ManaDrain extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return false;
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 15; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 1, 1);
+//                particle.setIgnoreMaxAge(true);
+//                particle.AddParticleController(new ParticleArcToEntity(particle, 1, caster, false).SetSpeed(0.03f).generateControlPoints());
+//                particle.setRGBColorF(0, 0.4f, 1);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

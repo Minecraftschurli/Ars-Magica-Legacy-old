@@ -51,14 +51,16 @@ public abstract class SpellComponent extends AbstractSpellPart {
      * Gets any reagents that must be present in the caster's inventory in order
      * to cast the spell.
      */
-    public abstract ItemStack[] getReagents(LivingEntity caster);
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return null;
+    }
 
     /**
      * Spawn visual effects for the component
      *
      * @param colorModifier The color from the color modifier.  -1 if missing.
      */
-    public abstract void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier);
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {}
 
     /**
      * Gets the affinity of the spell
@@ -88,6 +90,6 @@ public abstract class SpellComponent extends AbstractSpellPart {
      * Gets the radius (in blocks) to search for reagents
      */
     public float getReagentSearchRadius() {
-        return 0;
+        return 3;
     }
 }

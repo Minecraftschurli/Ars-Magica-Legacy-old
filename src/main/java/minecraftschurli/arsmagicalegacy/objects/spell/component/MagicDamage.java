@@ -14,15 +14,14 @@ import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MagicDamage extends SpellComponent {
+public final class MagicDamage extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
@@ -31,17 +30,17 @@ public class MagicDamage extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        float baseDamage = 6;
-        double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
-        float mod = 0;
-        if (target instanceof PlayerEntity) {
-            for (ItemStack item : ((PlayerEntity) target).inventory.armorInventory) {
-                if (item == null) continue;
-//                if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item) > 0) mod = mod + (0.04f * EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item));
-            }
-        }
-        damage = damage - (damage * mod);
-        return false;//SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeMagicDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
+        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), SpellUtils.modifyDamage(caster, (float)SpellUtils.getModifiedDoubleAdd(6, stack, caster, target, world, SpellModifiers.DAMAGE)));
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get(), ModSpellParts.ENDER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return affinity == ModSpellParts.ENDER.get() ? 0.005f : 0.01f;
     }
 
     @Override
@@ -50,29 +49,8 @@ public class MagicDamage extends SpellComponent {
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 5; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 0.5, 1);
-//                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
-//                particle.setAffectedByGravity();
-//                particle.setDontRequireControllers();
-//                particle.setMaxAge(5);
-//                particle.setParticleScale(0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }
-    }
-
-    @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DAMAGE);
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.ARCANE.get(), ModSpellParts.ENDER.get());
     }
 
     @Override
@@ -86,16 +64,18 @@ public class MagicDamage extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return affinity == ModSpellParts.ENDER.get() ? 0.005f : 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 5; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x, y, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 0.5, 1);
+//                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
+//                particle.setAffectedByGravity();
+//                particle.setDontRequireControllers();
+//                particle.setMaxAge(5);
+//                particle.setParticleScale(0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

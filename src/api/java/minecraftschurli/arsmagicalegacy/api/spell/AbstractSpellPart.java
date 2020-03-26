@@ -16,7 +16,7 @@ public abstract class AbstractSpellPart extends ForgeRegistryEntry<AbstractSpell
      */
     public abstract ISpellIngredient[] getRecipe();
 
-    public abstract void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe);
+    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {}
 
     /**
      * What modifier affect this spell part?

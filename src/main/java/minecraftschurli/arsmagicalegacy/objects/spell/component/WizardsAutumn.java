@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
 import java.util.EnumSet;
-import java.util.Random;
 import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -21,31 +20,18 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
-public class WizardsAutumn extends SpellComponent {
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.STICK)),
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON)
-        };
-    }
-
+public final class WizardsAutumn extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (!world.isRemote) {
-            int radius = 2;
-            radius = SpellUtils.getModifiedIntMul(radius, stack, caster, null, world, SpellModifiers.RADIUS);
-            for (int i = -radius; i <= radius; ++i) {
-                for (int j = -radius; j <= radius; ++j) {
-                    for (int k = -radius; k <= radius; ++k) {
+            for (int i = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); i <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); ++i) {
+                for (int j = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); j <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); ++j) {
+                    for (int k = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); k <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); ++k) {
                         BlockPos pos = blockPos.add(i, j, k);
                         BlockState state = world.getBlockState(pos);
                         Block block = state.getBlock();
@@ -65,21 +51,7 @@ public class WizardsAutumn extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return applyEffectBlock(stack, world, target.getPosition(), null, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
-    }
-
-    @Override
-    public float getManaCost(LivingEntity caster) {
-        return 15;
-    }
-
-    @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override
@@ -93,11 +65,22 @@ public class WizardsAutumn extends SpellComponent {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public float getManaCost(LivingEntity caster) {
+        return 15;
     }
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.RADIUS);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.STICK)),
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON)
+        };
     }
 }

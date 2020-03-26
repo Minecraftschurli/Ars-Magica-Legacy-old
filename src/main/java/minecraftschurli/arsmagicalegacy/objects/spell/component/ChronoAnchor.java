@@ -18,24 +18,35 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ChronoAnchor extends SpellComponent {
+public final class ChronoAnchor extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        return false;
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity) {
-            int duration = SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
-            if (!world.isRemote) {
-                ((LivingEntity) target).getActivePotionEffects().remove(TemporalAnchorEffect.class);
-                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.TEMPORAL_ANCHOR.get(), duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-                return true;
-            }
+        if (target instanceof LivingEntity && !world.isRemote) {
+            ((LivingEntity) target).getActivePotionEffects().remove(TemporalAnchorEffect.class);
+            ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.TEMPORAL_ANCHOR.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            return true;
         }
         return false;
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.ARCANE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.15f;
     }
 
     @Override
@@ -44,13 +55,22 @@ public class ChronoAnchor extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[0];
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
+                new ItemStackSpellIngredient(new ItemStack(Items.NETHER_STAR)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
+        };
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
+//        for (int i = 0; i < 25; ++i) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "clock", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 2, 1);
@@ -60,39 +80,6 @@ public class ChronoAnchor extends SpellComponent {
 //                particle.setMaxAge(40);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.ARCANE.get());
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
-                new ItemStackSpellIngredient(new ItemStack(Items.NETHER_STAR))
-        };
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.15f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return false;
+//        }
     }
 }

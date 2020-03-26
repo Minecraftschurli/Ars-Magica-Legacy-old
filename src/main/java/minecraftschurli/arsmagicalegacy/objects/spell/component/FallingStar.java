@@ -3,7 +3,6 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 import com.google.common.collect.Sets;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -18,66 +17,31 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class FallingStar extends SpellComponent {
+public final class FallingStar extends SpellComponent {
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET))
-        };
-    }
-
-    private boolean spawnStar(ItemStack spellStack, LivingEntity caster, Entity target, World world, double x, double y, double z) {
-        List<ThrownRockEntity> rocks = world.getEntitiesWithinAABB(ThrownRockEntity.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
-        int damageMultitplier = SpellUtils.getModifiedIntMul(15, spellStack, caster, target, world, SpellModifiers.DAMAGE);
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        List<ThrownRockEntity> rocks = world.getEntitiesWithinAABB(ThrownRockEntity.class, new AxisAlignedBB(impactX - 10, impactY + 40, impactZ - 10, impactX + 10, impactY + 60, impactZ + 10));
+        int damageMultitplier = SpellUtils.getModifiedIntMul(15, stack, caster, caster, world, SpellModifiers.DAMAGE);
         for (ThrownRockEntity rock : rocks) if (rock.getIsShootingStar()) return false;
         if (!world.isRemote) {
             ThrownRockEntity star = new ThrownRockEntity(world);
-            star.setPosition(x, world.getActualHeight(), z);
+            star.setPosition(impactX, world.getActualHeight(), impactZ);
             star.setShootingStar(2 * damageMultitplier);
             star.setThrowingEntity(caster);
-            star.setSpellStack(spellStack.copy());
+            star.setSpellStack(stack.copy());
             world.addEntity(star);
         }
         return true;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.DAMAGE, SpellModifiers.COLOR);
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return spawnStar(stack, caster, caster, world, impactX, impactY + 50, impactZ);
-    }
-
-    @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return spawnStar(stack, caster, target, world, target.getPosX(), target.getPosY() + 50, target.getPosZ());
-    }
-
-    @Override
-    public float getManaCost(LivingEntity caster) {
-        return 400;
-    }
-
-    @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override
@@ -91,6 +55,23 @@ public class FallingStar extends SpellComponent {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public float getManaCost(LivingEntity caster) {
+        return 400;
+    }
+
+    @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.DAMAGE, SpellModifiers.COLOR);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET))
+        };
     }
 }

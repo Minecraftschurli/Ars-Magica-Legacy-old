@@ -16,13 +16,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Drown extends SpellComponent {
+public final class Drown extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
@@ -30,11 +29,19 @@ public class Drown extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (!(target instanceof LivingEntity) || ((LivingEntity) target).canBreatheUnderwater() || ((LivingEntity) target).isEntityUndead())
-            return false;
-        float baseDamage = 12;
-        double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
+        if (!(target instanceof LivingEntity) || ((LivingEntity) target).canBreatheUnderwater() || ((LivingEntity) target).isEntityUndead()) return false;
+        double damage = SpellUtils.getModifiedDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE);
         return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectDamage(caster, caster), SpellUtils.modifyDamage(caster, (float) damage));
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.WATER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
     }
 
     @Override
@@ -43,18 +50,24 @@ public class Drown extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DAMAGE);
     }
 
     @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.STRING)),
+                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get()))
+        };
+    }
+
+    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
+//        for (int i = 0; i < 25; ++i) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "bubbles", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 0.5, 1);
@@ -65,31 +78,6 @@ public class Drown extends SpellComponent {
 //                particle.setParticleScale(0.1f);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.WATER.get());
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.STRING)),
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET))
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+//        }
     }
 }

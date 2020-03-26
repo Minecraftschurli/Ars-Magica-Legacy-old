@@ -11,32 +11,28 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import net.minecraft.block.Block;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CauldronBlock;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class CreateWater extends SpellComponent {
+public final class CreateWater extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        Block block = world.getBlockState(pos).getBlock();
-        if (block == Blocks.CAULDRON) {
+        if (world.getBlockState(pos).getBlock() == Blocks.CAULDRON) {
             world.setBlockState(pos, Blocks.CAULDRON.getDefaultState().with(CauldronBlock.LEVEL, 3));
             return true;
         }
         pos = pos.offset(blockFace);
-        block = world.getBlockState(pos).getBlock();
-        if (world.isAirBlock(pos) || block == Blocks.SNOW || world.getFluidState(pos).getFluid() == Fluids.FLOWING_WATER || world.getFluidState(pos).getFluid() == Fluids.WATER || block instanceof FlowerBlock) {
+        if (world.isAirBlock(pos) || world.getFluidState(pos).getFluid() == Fluids.FLOWING_WATER || world.getFluidState(pos).getFluid() == Fluids.WATER) {
             world.setBlockState(pos, Blocks.WATER.getDefaultState());
             return true;
         }
@@ -45,7 +41,17 @@ public class CreateWater extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return false;
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.WATER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.001f;
     }
 
     @Override
@@ -54,19 +60,8 @@ public class CreateWater extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; ++i)
-            world.addParticle(ParticleTypes.SPLASH, x - 0.5 + rand.nextDouble(), y, z - 0.5 + rand.nextDouble(), 0.5 - rand.nextDouble(), 0.1, 0.5 - rand.nextDouble());
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.WATER.get());
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override
@@ -78,16 +73,7 @@ public class CreateWater extends SpellComponent {
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.001f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+        for (int i = 0; i < 15; ++i) world.addParticle(ParticleTypes.SPLASH, x - 0.5 + rand.nextDouble(), y, z - 0.5 + rand.nextDouble(), 0.5 - rand.nextDouble(), 0.1, 0.5 - rand.nextDouble());
     }
 }

@@ -9,7 +9,6 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
@@ -17,14 +16,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class WaterBreathing extends SpellComponent {
+public final class WaterBreathing extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
@@ -32,17 +29,17 @@ public class WaterBreathing extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity) {
-            int duration = SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
-//            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
-//                duration += (3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1));
-//                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
-//            }
-            if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-            return true;
-        }
-        return false;
+        return SpellUtils.doPotionSpell(Effects.WATER_BREATHING, stack, world, caster, target);
+    }
+
+    @Override
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.WATER.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.05f;
     }
 
     @Override
@@ -51,24 +48,15 @@ public class WaterBreathing extends SpellComponent {
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "water_ball", x, y - 1, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.1f, 1, false));
-//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.5f, 2, false).setIgnoreYCoordinate(true).SetTargetDistance(0.3f + rand.nextDouble() * 0.3));
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.1f);
-//                particle.SetParticleAlpha(0.2f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
     }
 
     @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.WATER.get());
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return new ItemStack[]{
+                new ItemStack(Items.SUGAR_CANE)
+        };
     }
 
     @Override
@@ -80,34 +68,24 @@ public class WaterBreathing extends SpellComponent {
         };
     }
 
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
 //
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[]{
-                new ItemStack(Items.SUGAR_CANE)
-        };
-    }
-
-    @Override
-    public float getReagentSearchRadius() {
-        return 3;
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 25; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "water_ball", x, y - 1, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 1, 1);
+//                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.1f, 1, false));
+//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.5f, 2, false).setIgnoreYCoordinate(true).SetTargetDistance(0.3f + rand.nextDouble() * 0.3));
+//                particle.setMaxAge(20);
+//                particle.setParticleScale(0.1f);
+//                particle.SetParticleAlpha(0.2f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

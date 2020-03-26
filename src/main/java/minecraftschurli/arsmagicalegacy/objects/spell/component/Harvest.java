@@ -11,6 +11,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
@@ -19,32 +20,35 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Harvest extends SpellComponent {
+public final class Harvest extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         BlockState block = world.getBlockState(pos);
         if (!(block.getBlock() instanceof IGrowable)) return false;
         if (!world.isRemote) {
             block.getBlock().harvestBlock(world, (PlayerEntity) caster, pos, block, null, stack);
-//            block.getBlock().dropBlockAsItem(world, pos, block, 0);
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
         }
         return true;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return false;
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NATURE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.02f;
     }
 
     @Override
@@ -53,29 +57,8 @@ public class Harvest extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x, y + 1, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.3f, 1, false));
-//                particle.setAffectedByGravity();
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.1f);
-//                particle.setRGBColorF(0.7f, 0.2f, 0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NATURE.get());
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override
@@ -87,11 +70,18 @@ public class Harvest extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.02f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 25; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x, y + 1, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 1, 1);
+//                particle.AddParticleController(new ParticleFloatUpward(particle, 0, 0.3f, 1, false));
+//                particle.setAffectedByGravity();
+//                particle.setMaxAge(20);
+//                particle.setParticleScale(0.1f);
+//                particle.setRGBColorF(0.7f, 0.2f, 0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

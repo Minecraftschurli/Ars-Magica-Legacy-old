@@ -3,7 +3,6 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -19,14 +18,18 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Dispel extends SpellComponent {
+public final class Dispel extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        return false;
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
@@ -37,27 +40,28 @@ public class Dispel extends SpellComponent {
             }
         }
         List<EffectInstance> effectsToRemove = new ArrayList<>();
-        int magnitudeLeft = 6;
-        Iterator<EffectInstance> iter = ((LivingEntity) target).getActivePotionEffects().iterator();
-        while (iter.hasNext()) {
-            EffectInstance pe = iter.next();
-            int magnitudeCost = pe.getAmplifier();
-            if (magnitudeLeft >= magnitudeCost) {
-                magnitudeLeft -= magnitudeCost;
+        int left = 6;
+        for (EffectInstance pe : ((LivingEntity) target).getActivePotionEffects()) {
+            int amplifier = pe.getAmplifier();
+            if (left >= amplifier) {
+                left -= amplifier;
                 if (!world.isRemote) ((LivingEntity) target).removePotionEffect(pe.getPotion());
                 effectsToRemove.add(pe);
             }
         }
-        if (effectsToRemove.size() == 0/* && EntityExtension.For((LivingEntity) target).getCurrentSummons() == 0*/)
-            return false;
-        if (!world.isRemote)
-            for (EffectInstance e : effectsToRemove) ((LivingEntity) target).removePotionEffect(e.getPotion());
+        if (effectsToRemove.size() == 0) return false;
+        if (!world.isRemote) for (EffectInstance e : effectsToRemove) ((LivingEntity) target).removePotionEffect(e.getPotion());
         return true;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NONE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0;
     }
 
     @Override
@@ -66,28 +70,8 @@ public class Dispel extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 2, 1);
-//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.1f + rand.nextFloat() * 0.1f, 1, false));
-//                if (rand.nextBoolean()) particle.setRGBColorF(0.7f, 0.1f, 0.7f);
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NONE.get());
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override
@@ -101,17 +85,17 @@ public class Dispel extends SpellComponent {
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace,
-                                    double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return false;
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 25; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 2, 1);
+//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.1f + rand.nextFloat() * 0.1f, 1, false));
+//                if (rand.nextBoolean()) particle.setRGBColorF(0.7f, 0.1f, 0.7f);
+//                particle.setMaxAge(20);
+//                particle.setParticleScale(0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

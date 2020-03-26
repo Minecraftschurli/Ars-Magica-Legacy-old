@@ -26,26 +26,36 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Forge extends SpellComponent {
+public final class Forge extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        applyFurnaceToBlockAtCoords(caster, world, pos);
+        Block block = world.getBlockState(pos).getBlock();
+        if (world.isAirBlock(pos)) return false;
+        Optional<FurnaceRecipe> recipe = world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(new ItemStack(block)), world);
+        if (!recipe.isPresent()) return false;
+        ItemStack smelted = recipe.get().getRecipeOutput();
+        if (!world.isRemote) {
+            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
+            else {
+                ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, smelted.copy());
+                item.setMotion(world.rand.nextGaussian() * 0.05, world.rand.nextGaussian() * 0.05 + 0.2, world.rand.nextGaussian() * 0.05);
+                world.addEntity(item);
+                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            }
+        }
         return true;
     }
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof VillagerEntity/* && ArsMagicaLegacy.config.forgeSmeltsVillagers()*/) {
-            if (!world.isRemote && !EntityUtils.isSummon((LivingEntity) target))
-                target.entityDropItem(new ItemStack(Items.EMERALD, 1));
-            if (caster instanceof PlayerEntity)
-                target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 5000);
+        if (target instanceof VillagerEntity) {
+            if (!world.isRemote && !EntityUtils.isSummon((LivingEntity) target)) target.entityDropItem(new ItemStack(Items.EMERALD, 1));
+            if (caster instanceof PlayerEntity) target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 5000);
             else target.attackEntityFrom(DamageSource.causeMobDamage(caster), 5000);
             return true;
         }
@@ -53,8 +63,13 @@ public class Forge extends SpellComponent {
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.FIRE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
     }
 
     @Override
@@ -63,8 +78,16 @@ public class Forge extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.FURNACE))
+        };
     }
 
     @Override
@@ -78,51 +101,5 @@ public class Forge extends SpellComponent {
 //            particle.SetParticleAlpha(0.1f);
 //            if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.FIRE.get());
-    }
-
-    private boolean applyFurnaceToBlockAtCoords(LivingEntity entity, World world, BlockPos pos) {
-        Block block = world.getBlockState(pos).getBlock();
-        if (block.equals(Blocks.AIR)) return false;
-        if (block.equals(Blocks.ICE)) {
-            if (!world.isRemote) world.setBlockState(pos, Blocks.WATER.getDefaultState());
-            return true;
-        }
-        Optional<FurnaceRecipe> recipe = world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(new ItemStack(block)), world);
-        if (!recipe.isPresent()) return false;
-        ItemStack smelted = recipe.get().getRecipeOutput();
-        if (!world.isRemote) {
-            if (smelted.getItem() instanceof BlockItem)
-                world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
-            else {
-                ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5F, smelted.copy());
-                float f3 = 0.05F;
-                item.setMotion(world.rand.nextGaussian() * f3, world.rand.nextGaussian() * f3 + 0.2F, world.rand.nextGaussian() * f3);
-                world.addEntity(item);
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.FURNACE))
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

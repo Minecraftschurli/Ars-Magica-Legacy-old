@@ -18,50 +18,22 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
-public class LightningDamage extends SpellComponent {
+public final class LightningDamage extends SpellComponent {
+    @Override
+    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
+        return false;
+    }
+
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        float baseDamage = 12;
-        double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
-        return false;//SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeLightningDamage(caster), SpellUtils.modifyDamage(caster, (float) damage));
-    }
-
-    @Override
-    public float getManaCost(LivingEntity caster) {
-        return 180;
-    }
-
-    @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 5; ++i) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "lightning_hand", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 0.5, 1);
-//                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
-//                particle.setAffectedByGravity();
-//                particle.setDontRequireControllers();
-//                particle.setMaxAge(5);
-//                particle.setParticleScale(0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-        }
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.DAMAGE);
+        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.LIGHTNING_BOLT, SpellUtils.modifyDamage(caster, (float)SpellUtils.getModifiedDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE)));
     }
 
     @Override
@@ -70,12 +42,18 @@ public class LightningDamage extends SpellComponent {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public float getAffinityShift(Affinity affinity) {
+        return 0.01f;
     }
 
     @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.01f;
+    public float getManaCost(LivingEntity caster) {
+        return 180;
+    }
+
+    @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.DAMAGE);
     }
 
     @Override
@@ -89,7 +67,18 @@ public class LightningDamage extends SpellComponent {
     }
 
     @Override
-    public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        return false;
+    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+//        for (int i = 0; i < 5; ++i) {
+//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "lightning_hand", x, y, z);
+//            if (particle != null) {
+//                particle.addRandomOffset(1, 0.5, 1);
+//                particle.addVelocity(rand.nextDouble() * 0.2 - 0.1, rand.nextDouble() * 0.2, rand.nextDouble() * 0.2 - 0.1);
+//                particle.setAffectedByGravity();
+//                particle.setDontRequireControllers();
+//                particle.setMaxAge(5);
+//                particle.setParticleScale(0.1f);
+//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
+//            }
+//        }
     }
 }

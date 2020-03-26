@@ -11,27 +11,29 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.GravelBlock;
+import net.minecraft.block.SnowyDirtBlock;
 import net.minecraft.block.TallGrassBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Drought extends SpellComponent {
+public final class Drought extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         Block block = world.getBlockState(pos).getBlock();
         if (block instanceof FlowerBlock || block instanceof TallGrassBlock) {
             world.setBlockState(pos, Blocks.DEAD_BUSH.getDefaultState());
             return true;
-        } else if (block == Blocks.GRASS || block == Blocks.MYCELIUM || block == Blocks.SANDSTONE || block == Blocks.DIRT) {
+        } else if (block == Blocks.GRASS || block == Blocks.MYCELIUM || block == Blocks.COARSE_DIRT || block == Blocks.DIRT || block instanceof SnowyDirtBlock || block instanceof GravelBlock) {
             world.setBlockState(pos, Blocks.SAND.getDefaultState());
             return true;
         } else if (block == Blocks.STONE) {
@@ -40,8 +42,7 @@ public class Drought extends SpellComponent {
         } else if (block == Blocks.STONE_BRICKS) {
             world.setBlockState(pos, Blocks.CRACKED_STONE_BRICKS.getDefaultState());
             return true;
-        }
-        if (block == Blocks.WATER) {
+        } else if (block == Blocks.WATER) {
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             return true;
         } else {
@@ -56,13 +57,18 @@ public class Drought extends SpellComponent {
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
+        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override
-    public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return false;
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.FIRE.get(), ModSpellParts.AIR.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return affinity == ModSpellParts.FIRE.get() ? 0.008f : 0.004f;
     }
 
     @Override
@@ -71,8 +77,17 @@ public class Drought extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.DEAD_BUSH)),
+                new ItemStackSpellIngredient(new ItemStack(Items.SAND)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get()))
+        };
     }
 
     @Override
@@ -90,28 +105,5 @@ public class Drought extends SpellComponent {
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
         }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.FIRE.get(), ModSpellParts.AIR.get());
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.DEAD_BUSH)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SAND))
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return affinity == ModSpellParts.FIRE.get() ? 0.008f : 0.004f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

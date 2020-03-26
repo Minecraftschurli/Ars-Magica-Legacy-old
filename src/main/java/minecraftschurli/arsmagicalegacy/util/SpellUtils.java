@@ -25,7 +25,6 @@ import minecraftschurli.arsmagicalegacy.api.util.NBTUtils;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
 import net.minecraft.entity.Entity;
@@ -36,6 +35,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -118,7 +119,7 @@ public class SpellUtils {
     public static boolean attackTargetSpecial(ItemStack spellStack, Entity target, DamageSource damagesource, float magnitude) {
         if (target.world.isRemote)
             return true;
-        PlayerEntity dmgSrcPlayer = null;
+//        PlayerEntity dmgSrcPlayer = null;
         if (damagesource.getTrueSource() != null) {
             if (damagesource.getTrueSource() instanceof LivingEntity) {
                 LivingEntity source = (LivingEntity) damagesource.getTrueSource();
@@ -878,5 +879,22 @@ public class SpellUtils {
     public static void setShapeGroup(ItemStack stack, int newShapeGroupOrdinal) {
         if (stack.hasTag())
             NBTUtils.getAM2Tag(stack.getTag()).putInt("CurrentShapeGroup", newShapeGroupOrdinal);
+    }
+
+    public static boolean doPotionSpell(Effect effect, ItemStack stack, World world, LivingEntity caster, Entity target) {
+        if(target instanceof LivingEntity) {
+            int duration = SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
+//            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
+                duration += 3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1);
+//                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
+//            }
+            if (!world.isRemote) ((LivingEntity)target).addPotionEffect(new EffectInstance(effect, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean doBlockWithEntity(SpellComponent component, ItemStack stack, World world, LivingEntity caster, Entity target) {
+        return component.applyEffectBlock(stack, world, target.getPosition(), null, target.getPosX(), target.getPosY(), target.getPosZ(), caster);
     }
 }

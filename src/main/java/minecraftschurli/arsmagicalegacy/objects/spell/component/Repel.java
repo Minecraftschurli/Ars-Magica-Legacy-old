@@ -16,13 +16,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class Repel extends SpellComponent {
+public final class Repel extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
@@ -32,17 +31,19 @@ public class Repel extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target == null) return false;
         if (target == caster) {
-            LivingEntity source = caster;
-            if (target instanceof LivingEntity) source = (LivingEntity) target;
-            List<Entity> ents = world.getEntitiesWithinAABB(Entity.class, source.getBoundingBox().expand(2, 2, 2));
-            for (Entity e : ents) performRepel(world, caster, e);
+            List<Entity> ents = world.getEntitiesWithinAABB(Entity.class, caster.getBoundingBox().expand(2, 2, 2));
+            for (Entity e : ents) {
+                Vec3d casterPos = new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ());
+                Vec3d ePos = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ());
+                double distance = casterPos.distanceTo(ePos) + 0.1D;
+                Vec3d delta = new Vec3d(ePos.getX() - casterPos.getX(), ePos.getY() - casterPos.getY(), ePos.getZ() - casterPos.getZ());
+                double dX = delta.getX() / 2.5D / distance;
+                double dY = delta.getY() / 2.5D / distance;
+                double dZ = delta.getZ() / 2.5D / distance;
+                e.setMotion(e.getPosition().getX() + dX, e.getPosition().getY() + dY, e.getPosition().getZ() + dZ);
+            }
             return true;
         }
-        performRepel(world, caster, target);
-        return true;
-    }
-
-    private void performRepel(World world, LivingEntity caster, Entity target) {
         Vec3d casterPos = new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ());
         Vec3d targetPos = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ());
         double distance = casterPos.distanceTo(targetPos) + 0.1D;
@@ -50,13 +51,13 @@ public class Repel extends SpellComponent {
         double dX = delta.getX() / 2.5D / distance;
         double dY = delta.getY() / 2.5D / distance;
         double dZ = delta.getZ() / 2.5D / distance;
-//        if (target instanceof PlayerEntity) AMNetHandler.INSTANCE.sendVelocityAddPacket(world, (PlayerEntity) target, dX, dY, dZ);
         target.setMotion(target.getPosition().getX() + dX, target.getPosition().getY() + dY, target.getPosition().getZ() + dZ);
+        return true;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.NONE.get());
     }
 
     @Override
@@ -65,8 +66,16 @@ public class Repel extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET))
+        };
     }
 
     @Override
@@ -81,27 +90,5 @@ public class Repel extends SpellComponent {
 //                if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
 //        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NONE.get());
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET))
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

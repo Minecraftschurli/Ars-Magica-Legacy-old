@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.Random;
 import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -15,12 +16,12 @@ import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Heal extends SpellComponent {
+public final class Heal extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
@@ -31,24 +32,25 @@ public class Heal extends SpellComponent {
         if (target instanceof LivingEntity) {
             if (((LivingEntity) target).isEntityUndead()) {
                 int healing = SpellUtils.getModifiedIntMul(10, stack, caster, target, world, SpellModifiers.HEALING);
-                target.setFire(2);
-//                return SpellUtils.attackTargetSpecial(stack, target, DamageSources.causeHolyDamage(caster), (float) (healing * (0.5f + 2 * AffinityData.For(caster).getAffinityDepth(Affinity.LIFE))));
+                return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), (float) (healing * (0.5f + 2 * CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get()))));
             } else {
                 int healing = SpellUtils.getModifiedIntMul(2, stack, caster, target, world, SpellModifiers.HEALING);
-//                if (caster.isNonBoss()) healing *= 1F + AffinityData.For(caster).getAffinityDepth(Affinity.LIFE);
-//                if (EntityExtension.For((LivingEntity) target).getHealCooldown() == 0) {
-//                    ((LivingEntity) target).heal(healing);
-//                    EntityExtension.For((LivingEntity) target).setHealCooldown(60);
-//                    return true;
-//                }
+                if (caster.isNonBoss()) healing *= 1 + CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get());
+                ((LivingEntity) target).heal(healing);
+                return true;
             }
         }
         return false;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.HEALING);
+    public Set<Affinity> getAffinity() {
+        return Sets.newHashSet(ModSpellParts.LIFE.get());
+    }
+
+    @Override
+    public float getAffinityShift(Affinity affinity) {
+        return 0.05f;
     }
 
     @Override
@@ -57,14 +59,22 @@ public class Heal extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.HEALING);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
+        };
     }
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        if (target instanceof LivingEntity && ((LivingEntity) target).isEntityUndead()) {
-            for (int i = 0; i < 25; ++i) {
+//        if (target instanceof LivingEntity && ((LivingEntity) target).isEntityUndead()) {
+//            for (int i = 0; i < 25; ++i) {
 //                AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "symbols", x, y - 1, z);
 //                if (particle != null) {
 //                    particle.addRandomOffset(1, 1, 1);
@@ -74,9 +84,9 @@ public class Heal extends SpellComponent {
 //                    particle.setParticleScale(0.1f);
 //                    particle.setRGBColorF(1f, 0.2f, 0.2f);
 //                }
-            }
-        } else {
-            for (int i = 0; i < 25; ++i) {
+//            }
+//        } else {
+//            for (int i = 0; i < 25; ++i) {
 //                AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle", x, y - 1, z);
 //                if (particle != null) {
 //                    particle.addRandomOffset(1, 1, 1);
@@ -87,29 +97,7 @@ public class Heal extends SpellComponent {
 //                    particle.setRGBColorF(0.1f, 1f, 0.1f);
 //                    if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //                }
-            }
-        }
-    }
-
-    @Override
-    public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.LIFE.get());
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get()))
-        };
-    }
-
-    @Override
-    public float getAffinityShift(Affinity affinity) {
-        return 0.05f;
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+//            }
+//        }
     }
 }
