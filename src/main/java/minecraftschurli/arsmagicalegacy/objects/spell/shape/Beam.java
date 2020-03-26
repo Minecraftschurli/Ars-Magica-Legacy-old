@@ -43,7 +43,7 @@ public class Beam extends SpellShape {
     @Override
     public float manaCostMultiplier(ItemStack spellStack) {
         int stages = SpellUtils.numStages(spellStack);
-        for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i) {
+        for (int i = SpellUtils.currentStage(spellStack); i < stages; i++) {
             SpellShape shape = SpellUtils.getShapeForStage(spellStack, i);
             if (!shape.equals(this)) continue;
             if (shape.getClass() == Beam.class) return 1;
@@ -119,7 +119,7 @@ public class Beam extends SpellShape {
 //                    }
 //                }
 //            }
-//            for (int i = 0; i < ArsMagica2.config.getGFXLevel() + 1; ++i){
+//            for (int i = 0; i < ArsMagica2.config.getGFXLevel() + 1; i++){
 //                AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(affinity), beamHitVec.getX(), beamHitVec.getY(), beamHitVec.getZ());
 //                if (particle != null){
 //                    particle.setMaxAge(2);

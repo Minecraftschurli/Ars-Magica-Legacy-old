@@ -68,7 +68,7 @@ public final class Plow extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 10; ++i) {
+//        for (int i = 0; i < 10; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "rock", x, y + 1, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);

@@ -39,7 +39,7 @@ public class AoE extends SpellShape {
     public float manaCostMultiplier(ItemStack spellStack) {
         int radius = 0;
         int stages = SpellUtils.numStages(spellStack);
-        for (int i = SpellUtils.currentStage(spellStack); i < stages; ++i) {
+        for (int i = SpellUtils.currentStage(spellStack); i < stages; i++) {
             if (!SpellUtils.getShapeForStage(spellStack, i).equals(this)) continue;
             List<SpellModifier> mods = SpellUtils.getModifiersForStage(spellStack, i);
             for (SpellModifier modifier : mods)
@@ -134,8 +134,8 @@ public class AoE extends SpellShape {
     }
 
     private SpellCastResult applyStageHorizontal(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, int gravityMagnitude, boolean giveXP) {
-        for (int i = -radius; i <= radius; ++i)
-            for (int j = -radius; j <= radius; ++j) {
+        for (int i = -radius; i <= radius; i++)
+            for (int j = -radius; j <= radius; j++) {
                 BlockPos lookPos = pos.add(i, 0, j);
                 int searchDist = 0;
                 if (gravityMagnitude > 0) while (world.isAirBlock(lookPos) && searchDist < gravityMagnitude) {
@@ -150,8 +150,8 @@ public class AoE extends SpellShape {
     }
 
     private SpellCastResult applyStageVerticalX(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, boolean giveXP) {
-        for (int i = -radius; i <= radius; ++i)
-            for (int j = -radius; j <= radius; ++j) {
+        for (int i = -radius; i <= radius; i++)
+            for (int j = -radius; j <= radius; j++) {
                 BlockPos lookPos = pos.add(0, j, i);
                 if (world.isAirBlock(lookPos)) continue;
                 SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);
@@ -161,8 +161,8 @@ public class AoE extends SpellShape {
     }
 
     private SpellCastResult applyStageVerticalZ(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction face, int radius, boolean giveXP) {
-        for (int i = -radius; i <= radius; ++i)
-            for (int j = -radius; j <= radius; ++j) {
+        for (int i = -radius; i <= radius; i++)
+            for (int j = -radius; j <= radius; j++) {
                 BlockPos lookPos = pos.add(i, j, 0);
                 if (world.isAirBlock(lookPos)) continue;
                 SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, lookPos, face, lookPos.getX(), lookPos.getY(), lookPos.getZ(), giveXP);

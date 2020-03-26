@@ -65,7 +65,7 @@ public final class PhysicalDamage extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 5; ++i) {
+//        for (int i = 0; i < 5; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "ember", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 0.5, 1);

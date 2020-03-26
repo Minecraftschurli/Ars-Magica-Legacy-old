@@ -74,7 +74,7 @@ public final class AstralDistortion extends SpellComponent {
 //
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 10; ++i) {
+//        for (int i = 0; i < 10; i++) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "pulse", x, y, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(5, 4, 5);

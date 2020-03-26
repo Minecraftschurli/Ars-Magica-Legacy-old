@@ -32,15 +32,15 @@ public class SpellValidator {
 
     public ValidationResult spellDefIsValid(List<List<AbstractSpellPart>> shapeGroups, List<List<AbstractSpellPart>> segmented) {
         boolean noParts = true;
-        for (int i = 0; i < shapeGroups.size(); ++i)
+        for (int i = 0; i < shapeGroups.size(); i++)
             if (shapeGroups.get(i).size() > 0)
                 noParts = false;
-        for (int i = 0; i < segmented.size(); ++i)
+        for (int i = 0; i < segmented.size(); i++)
             if (segmented.get(i).size() > 0)
                 noParts = false;
         if (noParts) return new ValidationResult(null, "");
         boolean validatedAny = false;
-        for (int x = 0; x < shapeGroups.size(); ++x) {
+        for (int x = 0; x < shapeGroups.size(); x++) {
             if (shapeGroups.get(x).size() > 0) {
                 if (segmented.size() == 0) {
                     ValidationResult result = internalValidation(splitToStages(shapeGroups.get(x)));
@@ -49,7 +49,7 @@ public class SpellValidator {
                 }
                 ArrayList<AbstractSpellPart> concatenated = new ArrayList<AbstractSpellPart>();
                 concatenated.addAll(shapeGroups.get(x));
-                for (int i = 0; i < segmented.size(); ++i) {
+                for (int i = 0; i < segmented.size(); i++) {
                     concatenated.addAll(segmented.get(i));
                 }
                 ValidationResult result = internalValidation(splitToStages(concatenated));
@@ -67,7 +67,7 @@ public class SpellValidator {
     }
 
     private ValidationResult internalValidation(List<List<AbstractSpellPart>> segmented) {
-        for (int i = 0; i < segmented.size(); ++i) {
+        for (int i = 0; i < segmented.size(); i++) {
             StageValidations result = validateStage(segmented.get(i), i == segmented.size() - 1);
             if (result == StageValidations.NOT_VALID) {
                 return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.validate.invalid").getFormattedText());

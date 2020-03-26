@@ -53,7 +53,7 @@ public final class PlaceBlock extends SpellComponent {
                 if (spellStack.getTag().get("Lore") == null) spellStack.getTag().put("Lore", new ListNBT());
                 ItemStack blockspellStack = new ItemStack(world.getBlockState(pos).getBlock());
                 ListNBT tagList = spellStack.getTag().getList("Lore", Constants.NBT.TAG_COMPOUND);
-                for (int i = 0; i < tagList.size(); ++i) {
+                for (int i = 0; i < tagList.size(); i++) {
                     String str = tagList.getString(i);
                     if (str.startsWith(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.placeBlockSpell").toString()))
                         tagList.remove(i);

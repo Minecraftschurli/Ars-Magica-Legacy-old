@@ -91,7 +91,7 @@ public final class Transplace extends SpellComponent {
 //
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; ++i) {
+//        for (int i = 0; i < 15; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", caster.getPosX(), caster.getPosY() + caster.getEyeHeight(), caster.getPosZ());
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);
@@ -102,7 +102,7 @@ public final class Transplace extends SpellComponent {
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
 //        }
-//        for (int i = 0; i < 15; ++i) {
+//        for (int i = 0; i < 15; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ());
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);

@@ -224,7 +224,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
                 }
                 //spell stage groups
                 int sg = this.container.getNumStageGroups();
-                for (int i = 0; i < sg; ++i) {
+                for (int i = 0; i < sg; i++) {
                     int SGX = shapeGroupX + ((shapeGroupWidth + shapeGroupPadding) * i);
                     int SGY = shapeGroupY;
                     if (x >= SGX && x <= SGX + shapeGroupWidth) {
@@ -247,7 +247,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 //		drawRectangle(l + IIconXStart_lower, i1 + IIconYStart_lower, 150, 20, 0xFF0000);
 //
 //		int sg = ((InscriptionTableContainer)this.container).getNumStageGroups();
-//		for (int i = 0; i < sg; ++i){
+//		for (int i = 0; i < sg; i++){
 //			int SGX = l + shapeGroupX + ((shapeGroupWidth + shapeGroupPadding) * i);
 //			int SGY = i1 + shapeGroupY;
 //
@@ -291,7 +291,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         blit(l, i1, 0, 0, xSize, 165);
         blit(l + 22, i1 + 165, 0, 165, 176, 87);
         int offsetX = l + shapeGroupX;
-        for (int sg = 0; sg < InscriptionTableTileEntity.MAX_STAGE_GROUPS; ++sg) {
+        for (int sg = 0; sg < InscriptionTableTileEntity.MAX_STAGE_GROUPS; sg++) {
             if (sg >= this.container.getNumStageGroups())
                 GL14.glColor3f(0.5f, 0.5f, 0.5f);
             blit(offsetX + (sg * (shapeGroupWidth + shapeGroupPadding)), i1 + shapeGroupY, 176, 165, 37, 37);
@@ -397,7 +397,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         boolean hovering = false;
         int index = 0;
         //main recipe
-        for (int i = 0; i < this.container.getCurrentRecipeSize(); ++i) {
+        for (int i = 0; i < this.container.getCurrentRecipeSize(); i++) {
             AbstractSpellPart part = this.container.getRecipeItemAt(i);
             if (Objects.equals(part.getRegistryName(), SpellRegistry.MISSING_SHAPE))
                 continue;
@@ -411,8 +411,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             index++;
         }
         //shape groups
-        for (int i = 0; i < this.container.getNumStageGroups(); ++i) {
-            for (int n = 0; n < this.container.getShapeGroupSize(i); ++n) {
+        for (int i = 0; i < this.container.getNumStageGroups(); i++) {
+            for (int n = 0; n < this.container.getShapeGroupSize(i); n++) {
                 AbstractSpellPart part = this.container.getShapeGroupPartAt(i, n);
                 String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
                 int SGX = shapeGroupX + ((shapeGroupWidth + shapeGroupPadding) * i) + 1;
@@ -467,8 +467,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
     private boolean spellPartIsValidAddition(AbstractSpellPart part) {
         boolean hasShape = false;
-        for (int i = 0; i < this.container.getNumStageGroups(); ++i) {
-            for (int n = 0; n < this.container.getShapeGroupSize(i); ++n) {
+        for (int i = 0; i < this.container.getNumStageGroups(); i++) {
+            for (int n = 0; n < this.container.getShapeGroupSize(i); n++) {
                 AbstractSpellPart groupPart = this.container.getShapeGroupPartAt(i, n);
                 if (groupPart instanceof SpellShape) {
                     hasShape = true;
@@ -627,7 +627,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             this.fillGradient(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1 + 3 - 1, i2, j2);
             this.fillGradient(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
             this.fillGradient(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
-            for (int k2 = 0; k2 < tooltip.size(); ++k2) {
+            for (int k2 = 0; k2 < tooltip.size(); k2++) {
                 String s1 = tooltip.get(k2);
                 font.drawStringWithShadow(s1, i1, j1, -1);
                 if (k2 == 0) {

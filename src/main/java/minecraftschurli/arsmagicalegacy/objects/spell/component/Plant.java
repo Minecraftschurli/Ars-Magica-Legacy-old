@@ -33,7 +33,7 @@ public final class Plant extends SpellComponent {
         Block soil = world.getBlockState(pos).getBlock();
         IInventory inventory = ((PlayerEntity) caster).inventory;
         HashMap<Integer, ItemStack> seeds = new HashMap<>();
-        for (int i = 0; i < inventory.getSizeInventory(); ++i) {
+        for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack slotStack = inventory.getStackInSlot(i);
             Item item = slotStack.getItem();
             if (!(item instanceof IPlantable)) continue;
@@ -95,7 +95,7 @@ public final class Plant extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; ++i) {
+//        for (int i = 0; i < 15; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x, y + 1, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);

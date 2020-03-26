@@ -75,7 +75,7 @@ public final class Absorption extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; ++i) {
+//        for (int i = 0; i < 15; i++) {
 //            world.addParticle((IParticleData) ModParticles.LENS_FLARE.get(), x, y, z, 0, 0, 0);
 //            SimpleParticle particle = new SimpleParticle(world, x, y, z);
 //            particle.setMaxAge(25 + rand.nextInt(10));

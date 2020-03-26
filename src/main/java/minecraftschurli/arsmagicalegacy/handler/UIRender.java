@@ -83,7 +83,7 @@ public class UIRender {
         setBlitOffset(-5);
         drawTexturedModalRect(spellBookUIX, spellBookUIY, 0, 0, 106, 15, spellBookUIWidth, spellBookUIHeight);
         List<ItemStack> activeScrolls = ((SpellBookItem) bookStack.getItem()).getActiveInventory(bookStack);
-        for (int n = 0; n < 8; ++n) {
+        for (int n = 0; n < 8; n++) {
             float iconX = spellBookUIX + 1.5f + n * 12.9f;
             ItemStack stackItem = activeScrolls.get(n);
             if (stackItem == null) {

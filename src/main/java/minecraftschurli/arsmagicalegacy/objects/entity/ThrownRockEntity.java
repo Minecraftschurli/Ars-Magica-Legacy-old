@@ -196,7 +196,7 @@ public class ThrownRockEntity extends Entity {
                             finalColor = MathUtilities.colorFloatsToInt(0.24f * clrMod, 0.58f * clrMod, 0.71f * clrMod);
                         else{
                             float[] colors = MathUtilities.colorIntToFloats(color);
-                            for (int c = 0; c < colors.length; ++c)
+                            for (int c = 0; c < colors.length; c++)
                                 colors[c] = colors[c] * clrMod;
                             finalColor = MathUtilities.colorFloatsToInt(colors[0], colors[1], colors[2]);
                         }
@@ -286,7 +286,7 @@ public class ThrownRockEntity extends Entity {
                     }
                     this.world.createExplosion(this, this.target.getX(), this.target.getY(), this.target.getZ(), 0.8f, Explosion.Mode.NONE /*ArsMagica2.config.moonstoneMeteorsDestroyTerrain()*/);
                     int numOres = rand.nextInt(4) + 1;
-                    for (int i = 0; i < numOres; ++i) {
+                    for (int i = 0; i < numOres; i++) {
                         generateSurfaceOreAtOffset(world, new BlockPos(target), i == 0);
                     }
 //					if (this.world.isRemote){

@@ -48,7 +48,7 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; i++) {
             ItemStack stack = container.getInventory().get(i);
             if (stack.isEmpty()) {
                 continue;

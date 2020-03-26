@@ -33,11 +33,11 @@ public class SpellBookContainer extends Container {
         this.bookSlot = inventoryplayer.currentItem;
         int slotIndex = 0;
         //Spell Book Pages - active spells
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; i++) {
             addSlot(new SpellBookSlot(spellBookInventory, slotIndex++, 18, 5 + (i * 18)));
         }
         //Spell Book Pages - reserve spells
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
             for (int k = 0; k < 8; k++) {
                 addSlot(new SpellBookSlot(spellBookInventory, slotIndex++, 138 + (i * 26), 5 + (k * 18)));
             }

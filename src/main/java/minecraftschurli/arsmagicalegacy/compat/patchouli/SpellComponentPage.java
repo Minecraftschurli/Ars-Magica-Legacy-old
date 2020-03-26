@@ -121,7 +121,7 @@ public class SpellComponentPage implements ICustomComponent {
     private void renderRecipe(IComponentRenderContext context, int cx, int cy, int mousex, int mousey) {
         if (part == null || part.getRecipe() == null) return;
         float angleStep = (360.0f / part.getRecipe().length);
-        for (int i = 0; i < part.getRecipe().length; ++i) {
+        for (int i = 0; i < part.getRecipe().length; i++) {
             float angle = (float) (Math.toRadians((angleStep * i) + (context.getTicksInBook() * 0.5) % 360));
             float nextangle = (float) (Math.toRadians((angleStep * ((i + 1) % part.getRecipe().length)) + (context.getTicksInBook() * 0.5) % 360));
             float dist = 45;

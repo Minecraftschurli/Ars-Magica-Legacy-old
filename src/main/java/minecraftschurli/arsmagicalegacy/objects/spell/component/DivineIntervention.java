@@ -90,7 +90,7 @@ public final class DivineIntervention extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 100; ++i) {
+//        for (int i = 0; i < 100; i++) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "arcane", x, y - 1, z);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 1, 1);

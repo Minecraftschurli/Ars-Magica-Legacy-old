@@ -29,9 +29,9 @@ public final class WizardsAutumn extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (!world.isRemote) {
-            for (int i = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); i <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); ++i) {
-                for (int j = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); j <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); ++j) {
-                    for (int k = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); k <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); ++k) {
+            for (int i = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); i <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); i++) {
+                for (int j = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); j <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); j++) {
+                    for (int k = -SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); k <= SpellUtils.getModifiedIntMul(2, stack, caster, null, world, SpellModifiers.RADIUS); k++) {
                         BlockPos pos = blockPos.add(i, j, k);
                         BlockState state = world.getBlockState(pos);
                         Block block = state.getBlock();

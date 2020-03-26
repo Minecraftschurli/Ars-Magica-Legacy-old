@@ -87,7 +87,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         modifierCount = new HashMap<>();
         shapeGroups = new ArrayList<>();
         currentSpellName = "";
-        for (int i = 0; i < MAX_STAGE_GROUPS; ++i) {
+        for (int i = 0; i < MAX_STAGE_GROUPS; i++) {
             shapeGroups.add(new ArrayList<>());
         }
         resetModifierCount();
@@ -266,96 +266,94 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void candleUpdate() {
-        /*ticksToNextParticle--; //TODO @IchHabeHunger54
-
-        if (isRenderingLeft()){
-            if (ticksToNextParticle == 0 || ticksToNextParticle == 15){
-
-                double particleX = 0;
-                double particleZ = 0;
-
-                switch (world.getBlockState(pos).getValue(BlockInscriptionTable.FACING)){
-                    case SOUTH:
-                        particleX = this.pos.getX() + 0.15;
-                        particleZ = this.getPos().getZ() + 0.22;
-                        break;
-                    case NORTH:
-                        particleX = this.getPos().getX() + 0.22;
-                        particleZ = this.getPos().getZ() + 0.85;
-                        break;
-                    case WEST:
-                        particleX = this.getPos().getX() + 0.78;
-                        particleZ = this.getPos().getZ() + 0.85;
-                        break;
-                    case EAST:
-                        particleX = this.getPos().getX() + 0.79;
-                        particleZ = this.getPos().getZ() + 0.15;
-                        break;
-                }
-
-                ticksToNextParticle = 30;
-                AMParticle effect = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "fire", particleX, getPos().getY() + 1.32, particleZ);
-                if (effect != null){
-                    effect.setParticleScale(0.025f, 0.1f, 0.025f);
-                    effect.AddParticleController(new ParticleHoldPosition(effect, 29, 1, false));
-                    effect.setIgnoreMaxAge(false);
-                    effect.setMaxAge(400);
-                }
-
-                if (world.rand.nextInt(100) > 80){
-                    AMParticle smoke = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "smoke", particleX, getPos().getY() + 1.4, particleZ);
-                    if (smoke != null){
-                        smoke.setParticleScale(0.025f);
-                        smoke.AddParticleController(new ParticleFloatUpward(smoke, 0.01f, 0.01f, 1, false));
-                        smoke.setIgnoreMaxAge(false);
-                        smoke.setMaxAge(20 + world.rand.nextInt(10));
-                    }
-                }
-            }
-            if (ticksToNextParticle == 10 || ticksToNextParticle == 25){
-
-
-                double particleX = 0;
-                double particleZ = 0;
-
-                switch (world.getBlockState(pos).getValue(BlockInscriptionTable.FACING)){
-                    case SOUTH:
-                        particleX = this.getPos().getX() + 0.59;
-                        particleZ = this.getPos().getZ() - 0.72;
-                        break;
-                    case NORTH:
-                        particleX = this.getPos().getX() - 0.72;
-                        particleZ = this.getPos().getZ() + 0.41;
-                        break;
-                    case EAST:
-                        particleX = this.getPos().getX() + 0.41;
-                        particleZ = this.getPos().getZ() + 1.72;
-                        break;
-                    case WEST:
-                        particleX = this.getPos().getX() + 1.72;
-                        particleZ = this.getPos().getZ() + 0.41;
-                        break;
-                }
-
-                AMParticle effect = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "fire", particleX, getPos().getY() + 1.26, particleZ);
-                if (effect != null){
-                    effect.setParticleScale(0.025f, 0.1f, 0.025f);
-                    effect.AddParticleController(new ParticleHoldPosition(effect, 29, 1, false));
-                    effect.setIgnoreMaxAge(false);
-                    effect.setMaxAge(400);
-                }
-
-                if (world.rand.nextInt(100) > 80){
-                    AMParticle smoke = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "smoke", particleX, getPos().getY() + 1.4, particleZ);
-                    if (smoke != null){
-                        smoke.setParticleScale(0.025f);
-                        smoke.AddParticleController(new ParticleFloatUpward(smoke, 0.01f, 0.01f, 1, false));
-                        smoke.setIgnoreMaxAge(false);
-                        smoke.setMaxAge(20 + world.rand.nextInt(10));
-                    }
-                }
-            }
-        }*/
+//        if (isRenderingLeft()){
+//            if (ticksToNextParticle == 0 || ticksToNextParticle == 15){
+//
+//                double particleX = 0;
+//                double particleZ = 0;
+//
+//                switch (world.getBlockState(pos).getValue(BlockInscriptionTable.FACING)){
+//                    case SOUTH:
+//                        particleX = this.pos.getX() + 0.15;
+//                        particleZ = this.getPos().getZ() + 0.22;
+//                        break;
+//                    case NORTH:
+//                        particleX = this.getPos().getX() + 0.22;
+//                        particleZ = this.getPos().getZ() + 0.85;
+//                        break;
+//                    case WEST:
+//                        particleX = this.getPos().getX() + 0.78;
+//                        particleZ = this.getPos().getZ() + 0.85;
+//                        break;
+//                    case EAST:
+//                        particleX = this.getPos().getX() + 0.79;
+//                        particleZ = this.getPos().getZ() + 0.15;
+//                        break;
+//                }
+//
+//                ticksToNextParticle = 30;
+//                AMParticle effect = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "fire", particleX, getPos().getY() + 1.32, particleZ);
+//                if (effect != null){
+//                    effect.setParticleScale(0.025f, 0.1f, 0.025f);
+//                    effect.AddParticleController(new ParticleHoldPosition(effect, 29, 1, false));
+//                    effect.setIgnoreMaxAge(false);
+//                    effect.setMaxAge(400);
+//                }
+//
+//                if (world.rand.nextInt(100) > 80){
+//                    AMParticle smoke = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "smoke", particleX, getPos().getY() + 1.4, particleZ);
+//                    if (smoke != null){
+//                        smoke.setParticleScale(0.025f);
+//                        smoke.AddParticleController(new ParticleFloatUpward(smoke, 0.01f, 0.01f, 1, false));
+//                        smoke.setIgnoreMaxAge(false);
+//                        smoke.setMaxAge(20 + world.rand.nextInt(10));
+//                    }
+//                }
+//            }
+//            if (ticksToNextParticle == 10 || ticksToNextParticle == 25){
+//
+//
+//                double particleX = 0;
+//                double particleZ = 0;
+//
+//                switch (world.getBlockState(pos).getValue(BlockInscriptionTable.FACING)){
+//                    case SOUTH:
+//                        particleX = this.getPos().getX() + 0.59;
+//                        particleZ = this.getPos().getZ() - 0.72;
+//                        break;
+//                    case NORTH:
+//                        particleX = this.getPos().getX() - 0.72;
+//                        particleZ = this.getPos().getZ() + 0.41;
+//                        break;
+//                    case EAST:
+//                        particleX = this.getPos().getX() + 0.41;
+//                        particleZ = this.getPos().getZ() + 1.72;
+//                        break;
+//                    case WEST:
+//                        particleX = this.getPos().getX() + 1.72;
+//                        particleZ = this.getPos().getZ() + 0.41;
+//                        break;
+//                }
+//
+//                AMParticle effect = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "fire", particleX, getPos().getY() + 1.26, particleZ);
+//                if (effect != null){
+//                    effect.setParticleScale(0.025f, 0.1f, 0.025f);
+//                    effect.AddParticleController(new ParticleHoldPosition(effect, 29, 1, false));
+//                    effect.setIgnoreMaxAge(false);
+//                    effect.setMaxAge(400);
+//                }
+//
+//                if (world.rand.nextInt(100) > 80){
+//                    AMParticle smoke = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "smoke", particleX, getPos().getY() + 1.4, particleZ);
+//                    if (smoke != null){
+//                        smoke.setParticleScale(0.025f);
+//                        smoke.AddParticleController(new ParticleFloatUpward(smoke, 0.01f, 0.01f, 1, false));
+//                        smoke.setIgnoreMaxAge(false);
+//                        smoke.setMaxAge(20 + world.rand.nextInt(10));
+//                    }
+//                }
+//            }
+//        }
     }
 
     @Nullable
@@ -455,7 +453,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         currentSpellName = "";
         this.currentSpellName = stack.getDisplayName().getFormattedText();
         int numStages = SpellUtils.numStages(stack);
-        for (int i = 0; i < numStages; ++i) {
+        for (int i = 0; i < numStages; i++) {
             SpellShape shape = SpellUtils.getShapeForStage(stack, i);
             this.currentRecipe.add(shape);
             List<SpellComponent> components = SpellUtils.getComponentsForStage(stack, i);
@@ -464,7 +462,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             this.currentRecipe.addAll(modifiers);
         }
         int numShapeGroups = SpellUtils.numShapeGroups(stack);
-        for (int i = 0; i < numShapeGroups; ++i) {
+        for (int i = 0; i < numShapeGroups; i++) {
             List<AbstractSpellPart> parts = SpellUtils.getShapeGroupParts(stack, i);
             for (AbstractSpellPart partID : parts) {
                 if (partID != null)
@@ -535,7 +533,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             String[][] shapeGroupCombos = new String[shapeGroups.size()][];
             for (List<AbstractSpellPart> shapeGroup : shapeGroups) {
                 if (shapeGroup.isEmpty()) continue;
-                sb.append("Shape Group ").append(++sgCount).append("\n\n");
+                sb.append("Shape Group ").append(sgCount++).append("\n\n");
                 Iterator<AbstractSpellPart> it = shapeGroup.iterator();
                 shapeGroupCombos[sgCount - 1] = spellPartListToStringBuilder(it, sb, " -");
                 sb.append(NEWPAGE);
@@ -653,7 +651,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
                 currentRecipe.clear();
                 int partLength = rdr.getInt();
-                for (int i = 0; i < partLength; ++i){
+                for (int i = 0; i < partLength; i++){
                     AbstractSpellPart spellPart = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(rdr.getString()));
                     if (spellPart != null)
                         this.currentRecipe.add(spellPart);
@@ -661,7 +659,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
                 this.shapeGroups.clear();
                 int numGroups = rdr.getInt();
-                for (int i = 0; i < numGroups; ++i){
+                for (int i = 0; i < numGroups; i++){
                     ArrayList<AbstractSpellPart> group = new ArrayList<>();
                     String[] partData = rdr.getStringArray();
                     for (String n : partData){
@@ -701,14 +699,14 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         if (this.currentPlayerUsing != null) writer.add(this.currentPlayerUsing.getEntityId());
 
         writer.add(this.currentRecipe.size());
-        for (int i = 0; i < this.currentRecipe.size(); ++i){
+        for (int i = 0; i < this.currentRecipe.size(); i++){
             writer.add(ArsMagicaAPI.getSkillRegistry().getId(this.currentRecipe.get(i).getRegistryName()));
         }
 
         writer.add(this.shapeGroups.size());
         for (ArrayList<AbstractSpellPart> shapeGroup : this.shapeGroups){
             int[] groupData = new int[shapeGroup.size()];
-            for (int i = 0; i < shapeGroup.size(); ++i){
+            for (int i = 0; i < shapeGroup.size(); i++){
                 groupData[i] = ArsMagicaAPI.getSkillRegistry().getId(shapeGroup.get(i).getRegistryName());
             }
             writer.add(groupData);
@@ -750,7 +748,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     public void removeMultipleSpellPartsFromStageGroup(int startIndex, int length, int groupIndex) {
         List<AbstractSpellPart> group = this.shapeGroups.get(groupIndex);
         if (!currentSpellIsReadOnly) {
-            for (int i = 0; i <= length; ++i)
+            for (int i = 0; i <= length; i++)
                 group.remove(startIndex);
             countModifiers();
             if (this.world.isRemote)
@@ -778,7 +776,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
     public void removeMultipleSpellParts(int startIndex, int length) {
         if (!currentSpellIsReadOnly) {
-            for (int i = 0; i <= length; ++i)
+            for (int i = 0; i <= length; i++)
                 this.getCurrentRecipe().remove(startIndex);
             countModifiers();
             if (this.world.isRemote)

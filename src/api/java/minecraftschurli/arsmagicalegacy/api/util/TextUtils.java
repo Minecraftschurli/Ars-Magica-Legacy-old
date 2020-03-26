@@ -17,7 +17,6 @@ import net.minecraft.util.text.TranslationTextComponent;
  * @version 2020-03-21
  */
 public class TextUtils {
-
     public static final String NEWPAGE = "<newpage>";
 
     public static List<ITextComponent> getLocalized(String key, Object... args) {
@@ -70,7 +69,16 @@ public class TextUtils {
                 parts.add(StringNBT.valueOf(currentPage));
                 currentPage = word;
                 if (getStringOverallLength(currentPage) > 256) {
-                    currentPage = currentPage.substring(0, getStringSplitIndex(currentPage, 255));
+                    int length = 0;
+                    int index = 0;
+                    for (int i = 0; i < currentPage.length(); i++) {
+                        char c = currentPage.charAt(i);
+                        if (c == '\n') length += length % 19;
+                        else length++;
+                        index++;
+                    }
+                    if(length <= 255) index--;
+                    currentPage = currentPage.substring(0, index);
                     parts.add(StringNBT.valueOf(currentPage));
                     currentPage = "";
                 }
@@ -85,24 +93,11 @@ public class TextUtils {
 
     private static int getStringOverallLength(String s) {
         int length = 0;
-        for (int i = 0; i < s.length(); ++i) {
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c == '\n') length += length % 19;
             else length++;
         }
         return length;
-    }
-
-    private static int getStringSplitIndex(String s, int splitpoint) {
-        int length = 0;
-        int index = 0;
-        for (int i = 0; i < s.length(); ++i) {
-            char c = s.charAt(i);
-            if (c == '\n') length += length % 19;
-            else length++;
-            if (length > splitpoint) return index;
-            else index++;
-        }
-        return index - 1;
     }
 }

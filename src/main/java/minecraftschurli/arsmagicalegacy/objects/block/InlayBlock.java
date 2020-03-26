@@ -29,14 +29,8 @@ public class InlayBlock extends AbstractRailBlock {
 
     protected void updateState(BlockState state, World world, BlockPos pos, Block block) {
         int rails = 0;
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            if (AbstractRailBlock.isRail(world, pos.offset(direction))) {
-                ++rails;
-            }
-        }
-        if (block.getDefaultState().canProvidePower() && rails == 3) {
-            this.getUpdatedState(world, pos, state, false);
-        }
+        for (Direction direction : Direction.Plane.HORIZONTAL) if (AbstractRailBlock.isRail(world, pos.offset(direction))) rails++;
+        if (block.getDefaultState().canProvidePower() && rails == 3) this.getUpdatedState(world, pos, state, false);
     }
 
     @Override
