@@ -14,17 +14,22 @@ import net.minecraft.world.World;
 
 public class MissingShape extends SpellShape {
     @Override
+    public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
+        return null;
+    }
+
+    @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.noneOf(SpellModifiers.class);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[0];
+    }
+
+    @Override
     public boolean isChanneled() {
-        return false;
-    }
-
-    @Override
-    public float manaCostMultiplier(ItemStack spellStack) {
-        return 0;
-    }
-
-    @Override
-    public boolean isTerminusShape() {
         return false;
     }
 
@@ -34,21 +39,12 @@ public class MissingShape extends SpellShape {
     }
 
     @Override
-    public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        return null;
+    public boolean isTerminusShape() {
+        return false;
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[0];
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
-
-    @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.noneOf(SpellModifiers.class);
+    public float manaCostMultiplier(ItemStack spellStack) {
+        return 0;
     }
 }

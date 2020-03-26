@@ -20,26 +20,6 @@ import net.minecraft.world.World;
 
 public class Projectile extends SpellShape {
     @Override
-    public boolean isChanneled() {
-        return false;
-    }
-
-    @Override
-    public float manaCostMultiplier(ItemStack spellStack) {
-        return 1.25f;
-    }
-
-    @Override
-    public boolean isTerminusShape() {
-        return false;
-    }
-
-    @Override
-    public boolean isPrincipumShape() {
-        return false;
-    }
-
-    @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote) {
             double projectileSpeed = SpellUtils.getModifiedDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
@@ -62,6 +42,11 @@ public class Projectile extends SpellShape {
     }
 
     @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.GRAVITY, SpellModifiers.DURATION, SpellModifiers.COLOR, SpellModifiers.HOMING, SpellModifiers.TARGET_NONSOLID_BLOCKS, SpellModifiers.SPEED, SpellModifiers.BOUNCE, SpellModifiers.PIERCING);
+    }
+
+    @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
@@ -71,11 +56,22 @@ public class Projectile extends SpellShape {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public boolean isChanneled() {
+        return false;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.GRAVITY, SpellModifiers.DURATION, SpellModifiers.COLOR, SpellModifiers.HOMING, SpellModifiers.TARGET_NONSOLID_BLOCKS, SpellModifiers.SPEED, SpellModifiers.BOUNCE, SpellModifiers.PIERCING);
+    public boolean isPrincipumShape() {
+        return false;
+    }
+
+    @Override
+    public boolean isTerminusShape() {
+        return false;
+    }
+
+    @Override
+    public float manaCostMultiplier(ItemStack spellStack) {
+        return 1.25f;
     }
 }

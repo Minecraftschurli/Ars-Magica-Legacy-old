@@ -19,28 +19,8 @@ import net.minecraftforge.common.Tags;
 
 public class Zone extends SpellShape {
     @Override
-    public boolean isChanneled() {
-        return false;
-    }
-
-    @Override
-    public float manaCostMultiplier(ItemStack spellStack) {
-        return 4.5f;
-    }
-
-    @Override
-    public boolean isTerminusShape() {
-        return false;
-    }
-
-    @Override
-    public boolean isPrincipumShape() {
-        return true;
-    }
-
-    @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        if (world.isRemote) return SpellCastResult.SUCCESS;
+//        if (world.isRemote) return SpellCastResult.SUCCESS;
 //        EntitySpellEffect zone = new EntitySpellEffect(world);
 //        zone.setRadius(SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
 //        zone.setTicksToExist(SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
@@ -62,11 +42,27 @@ public class Zone extends SpellShape {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public EnumSet<SpellModifiers> getModifiers() {
+        return null;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return null;
+    public boolean isChanneled() {
+        return false;
+    }
+
+    @Override
+    public boolean isPrincipumShape() {
+        return true;
+    }
+
+    @Override
+    public boolean isTerminusShape() {
+        return false;
+    }
+
+    @Override
+    public float manaCostMultiplier(ItemStack spellStack) {
+        return 4.5f;
     }
 }

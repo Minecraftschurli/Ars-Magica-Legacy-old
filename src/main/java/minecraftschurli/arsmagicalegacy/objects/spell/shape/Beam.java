@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import java.util.EnumSet;
 import java.util.List;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -36,32 +37,6 @@ public class Beam extends SpellShape {
 //    }
 
     @Override
-    public boolean isChanneled() {
-        return true;
-    }
-
-    @Override
-    public float manaCostMultiplier(ItemStack spellStack) {
-        int stages = SpellUtils.numStages(spellStack);
-        for (int i = SpellUtils.currentStage(spellStack); i < stages; i++) {
-            SpellShape shape = SpellUtils.getShapeForStage(spellStack, i);
-            if (!shape.equals(this)) continue;
-            if (shape.getClass() == Beam.class) return 1;
-        }
-        return 0.2f;
-    }
-
-    @Override
-    public boolean isTerminusShape() {
-        return false;
-    }
-
-    @Override
-    public boolean isPrincipumShape() {
-        return false;
-    }
-
-    @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         boolean shouldApplyEffectBlock = useCount % 5 == 0;
         boolean shouldApplyEffectEntity = useCount % 10 == 0;
@@ -71,10 +46,7 @@ public class Beam extends SpellShape {
         SpellCastResult result = null;
         Vec3d beamHitVec;
         Vec3d spellVec;
-        if (mop == null) {
-            beamHitVec = EntityUtils.extrapolateEntityLook(caster, range);
-            spellVec = beamHitVec;
-        } else if (mop.getType() == RayTraceResult.Type.ENTITY) {
+        if (mop.getType() == RayTraceResult.Type.ENTITY) {
             if (shouldApplyEffectEntity && !world.isRemote) {
                 Entity e = ((EntityRayTraceResult) mop).getEntity();
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
@@ -98,7 +70,7 @@ public class Beam extends SpellShape {
             double startX = caster.getPosX();
             double startY = caster.getPosY() + caster.getEyeHeight() - 0.2f;
             double startZ = caster.getPosZ();
-//            Affinity affinity = AffinityShiftUtils.getMainShiftForStack(stack);
+//            Affinity affinity = SpellUtils.getMainShiftForStack(stack);
             int color = -1;
             if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, stack)) {
                 List<SpellModifier> mods = SpellUtils.getModifiersForStage(stack, -1);
@@ -131,9 +103,14 @@ public class Beam extends SpellShape {
 //            }
         }
         if (result != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
-//            ItemStack newItemStack = SpellUtils.popStackStage(stack);
-            return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), mop != null ? ((BlockRayTraceResult) mop).getFace() : null, world, true, giveXP, 0);
+            SpellUtils.popStackStage(stack);
+            return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
         } else return SpellCastResult.SUCCESS_REDUCE_MANA;
+    }
+
+    @Override
+    public EnumSet<SpellModifiers> getModifiers() {
+        return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.TARGET_NONSOLID_BLOCKS);
     }
 
     @Override
@@ -149,11 +126,28 @@ public class Beam extends SpellShape {
     }
 
     @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
+    public boolean isChanneled() {
+        return true;
     }
 
     @Override
-    public EnumSet<SpellModifiers> getModifiers() {
-        return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.TARGET_NONSOLID_BLOCKS);
+    public boolean isPrincipumShape() {
+        return false;
+    }
+
+    @Override
+    public boolean isTerminusShape() {
+        return false;
+    }
+
+    @Override
+    public float manaCostMultiplier(ItemStack spellStack) {
+        int stages = SpellUtils.numStages(spellStack);
+        for (int i = SpellUtils.currentStage(spellStack); i < stages; i++) {
+            SpellShape shape = SpellUtils.getShapeForStage(spellStack, i);
+            if (!shape.equals(this)) continue;
+            if (shape.getClass() == Beam.class) return 1;
+        }
+        return 0.2f;
     }
 }
