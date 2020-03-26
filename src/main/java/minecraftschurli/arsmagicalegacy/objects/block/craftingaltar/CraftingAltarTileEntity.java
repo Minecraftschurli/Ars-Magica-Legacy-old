@@ -303,7 +303,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         }
         shapeGroups = ImmutableList.copyOf(shapeGroups);
         //noinspection ConstantConditions
-        ItemStack stack = SpellUtils.createSpellStack(
+        ItemStack stack = SpellUtils.makeSpellStack(
                 shapeGroups,
                 getBook().getTag()
                         .getList("output_combo", Constants.NBT.TAG_STRING)

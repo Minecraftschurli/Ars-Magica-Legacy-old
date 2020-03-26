@@ -31,8 +31,8 @@ public final class Drown extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity) || ((LivingEntity) target).canBreatheUnderwater() || ((LivingEntity) target).isEntityUndead())
             return false;
-        double damage = SpellUtils.getModifiedDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE);
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectDamage(caster, caster), SpellUtils.modifyDamage(caster, (float) damage));
+        double damage = SpellUtils.modifyDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE);
+        return SpellUtils.attackWithType(stack, target, DamageSource.causeIndirectDamage(caster, caster), SpellUtils.modifyDamage(caster, (float) damage));
     }
 
     @Override

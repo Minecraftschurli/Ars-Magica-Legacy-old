@@ -28,7 +28,7 @@ public final class Fling extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        double velocity = SpellUtils.getModifiedDoubleAdd(1.05f, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED);
+        double velocity = SpellUtils.modifyDoubleAdd(1.05f, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED);
         target.addVelocity(0, velocity, 0);
         return true;
     }

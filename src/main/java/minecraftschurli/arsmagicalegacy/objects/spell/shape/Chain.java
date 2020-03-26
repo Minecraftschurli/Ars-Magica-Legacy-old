@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -12,7 +11,6 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -30,8 +28,8 @@ public class Chain extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         RayTraceResult mop = EntityUtils.getMovingObjectPosition(caster, world, 8, true, false);
-        double range = SpellUtils.getModifiedDoubleMul(8, stack, caster, target, world, SpellModifiers.RANGE);
-        int num_targets = SpellUtils.getModifiedIntAdd(3, stack, caster, target, world, SpellModifiers.PROCS);
+        double range = SpellUtils.modifyDoubleMul(8, stack, caster, target, world, SpellModifiers.RANGE);
+        int num_targets = SpellUtils.modifyIntAdd(3, stack, caster, target, world, SpellModifiers.PROCS);
         ArrayList<LivingEntity> targets = new ArrayList<>();
         if (target != null) mop = new EntityRayTraceResult(target);
         if (mop.getType() == RayTraceResult.Type.ENTITY) {
@@ -60,8 +58,10 @@ public class Chain extends SpellShape {
             result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
             SpellUtils.applyStackStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
             if (world.isRemote) {
-                if (prevEntity == null) spawnChainParticles(world, x, y, z, e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
-                else spawnChainParticles(world, prevEntity.getPosX(), prevEntity.getPosY() + e.getEyeHeight(), prevEntity.getPosZ(), e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
+                if (prevEntity == null)
+                    spawnChainParticles(world, x, y, z, e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
+                else
+                    spawnChainParticles(world, prevEntity.getPosX(), prevEntity.getPosY() + e.getEyeHeight(), prevEntity.getPosZ(), e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
             }
             prevEntity = e;
             if (result == SpellCastResult.SUCCESS) atLeastOneApplication = true;
@@ -107,11 +107,11 @@ public class Chain extends SpellShape {
     }
 
     private void spawnChainParticles(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, ItemStack spellStack) {
-        int color = -1;
-        if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, spellStack)) {
-            List<SpellModifier> mods = SpellUtils.getModifiersForStage(spellStack, -1);
-            for (SpellModifier mod : mods) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spellStack.getTag());
-        }
+//        int color = -1;
+//        if (SpellUtils.hasModifier(SpellModifiers.COLOR, spellStack)) {
+//            List<SpellModifier> mods = SpellUtils.getModifiers(spellStack, -1);
+//            for (SpellModifier mod : mods) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spellStack.getTag());
+//        }
 //        Affinity aff = AffinityShiftUtils.getMainShiftForStack(spellStack);
 //        if (aff.equals(Affinity.LIGHTNING)) ArsMagica2.proxy.particleManager.BoltFromPointToPoint(world, startX, startY, startZ, endX, endY, endZ, 1, color);
 //        else {

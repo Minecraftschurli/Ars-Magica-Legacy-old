@@ -12,7 +12,6 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.objects.effect.TemporalAnchorEffect;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -32,8 +31,8 @@ public final class ChronoAnchor extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity && !world.isRemote) {
-            ((LivingEntity) target).getActivePotionEffects().remove(TemporalAnchorEffect.class);
-            ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.TEMPORAL_ANCHOR.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            ((LivingEntity) target).getActivePotionEffects().remove(new EffectInstance(ModEffects.TEMPORAL_ANCHOR.get()));
+            ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.TEMPORAL_ANCHOR.get(), SpellUtils.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;

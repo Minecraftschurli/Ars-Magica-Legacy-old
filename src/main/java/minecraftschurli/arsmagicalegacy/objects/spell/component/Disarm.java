@@ -13,13 +13,13 @@ import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
@@ -35,12 +35,13 @@ public final class Disarm extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        double damage = SpellUtils.getModifiedIntMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
+        double damage = SpellUtils.modifyIntMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
         if (!world.isRemote) {
-            if (target instanceof PlayerEntity && Minecraft.getInstance().getIntegratedServer().isPVPEnabled())
+            if (target instanceof PlayerEntity && ((ServerPlayerEntity) target).server.isPVPEnabled())
                 return false;
             ItemEntity item = new ItemEntity(world, target.getPosX(), target.getPosY(), target.getPosZ());
-            ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
+            ItemStack dropstack = ItemStack.EMPTY;
+            if (target instanceof MobEntity) dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
             if (dropstack.getMaxDamage() > 0)
                 dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
             item.setItem(dropstack);

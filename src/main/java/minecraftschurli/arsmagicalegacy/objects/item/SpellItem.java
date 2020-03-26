@@ -55,7 +55,7 @@ public class SpellItem extends Item {
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         if (worldIn.isRemote)
             return;
-        SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
+        SpellShape shape = SpellUtils.getShape(stack, 0);
         if (!stack.hasTag()) return;
         if (shape != null) {
             if (!shape.isChanneled()) {
@@ -70,7 +70,7 @@ public class SpellItem extends Item {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        SpellShape shape = SpellUtils.getShapeForStage(stack, 0);
+        SpellShape shape = SpellUtils.getShape(stack, 0);
         if (shape.isChanneled())
             SpellUtils.applyStackStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);
         super.onUsingTick(stack, player, count);
@@ -85,7 +85,7 @@ public class SpellItem extends Item {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (!stack.hasTag()) return;
-        float manaCost = SpellUtils.getManaCost(stack, ArsMagicaLegacy.proxy.getLocalPlayer());
+        float manaCost = SpellUtils.getMana(stack, ArsMagicaLegacy.proxy.getLocalPlayer());
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.manacost", manaCost));
     }
 }

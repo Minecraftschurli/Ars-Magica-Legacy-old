@@ -29,7 +29,7 @@ public final class Knockback extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            target.setMotion(target.getMotion().getX() + SpellUtils.getModifiedDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.cos(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())), target.getMotion().getY() + 0.325, target.getMotion().getZ() + SpellUtils.getModifiedDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.sin(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())));
+            target.setMotion(target.getMotion().getX() + SpellUtils.modifyDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.cos(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())), target.getMotion().getY() + 0.325, target.getMotion().getZ() + SpellUtils.modifyDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.sin(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())));
             return true;
         }
         return false;

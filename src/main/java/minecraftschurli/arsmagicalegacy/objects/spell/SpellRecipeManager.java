@@ -11,7 +11,7 @@ import java.util.Map;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
-import minecraftschurli.arsmagicalegacy.api.util.NBTUtils;
+import minecraftschurli.arsmagicalegacy.util.NBTUtils;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.profiler.IProfiler;

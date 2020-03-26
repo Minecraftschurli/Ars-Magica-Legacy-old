@@ -44,7 +44,7 @@ public final class Ignition extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target.isBurning()) return false;
-        target.setFire(SpellUtils.getModifiedIntMul(3, stack, caster, target, world, SpellModifiers.DURATION));
+        target.setFire(SpellUtils.modifyIntMul(3, stack, caster, target, world, SpellModifiers.DURATION));
         return true;
     }
 

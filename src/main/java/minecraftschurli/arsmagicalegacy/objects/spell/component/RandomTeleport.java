@@ -35,7 +35,7 @@ public final class RandomTeleport extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        Vec3d origin = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ()).add(new Vec3d((world.rand.nextDouble() - 0.5) * SpellUtils.getModifiedDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtils.getModifiedDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtils.getModifiedDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE)));
+        Vec3d origin = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ()).add(new Vec3d((world.rand.nextDouble() - 0.5) * SpellUtils.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtils.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtils.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE)));
         if (target instanceof LivingEntity) {
             EnderTeleportEvent event = new EnderTeleportEvent((LivingEntity) target, origin.getX(), origin.getY(), origin.getZ(), 0);
             if (MinecraftForge.EVENT_BUS.post(event)) return false;
@@ -51,7 +51,7 @@ public final class RandomTeleport extends SpellComponent {
         boolean targetBlockIsSolid = false;
         while (!targetBlockIsSolid && pos.getY() > 0) {
             l = target.world.getBlockState(pos.down()).getBlock();
-            if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos))
+            if (l != Blocks.AIR && l.isSolid(target.world.getBlockState(pos.down())))
                 targetBlockIsSolid = true;
             else {
                 target.setPosition(target.getPosX(), target.getPosY() - 1, target.getPosZ());

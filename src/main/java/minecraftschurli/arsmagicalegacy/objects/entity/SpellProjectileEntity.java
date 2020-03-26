@@ -109,7 +109,7 @@ public class SpellProjectileEntity extends Entity {
         if (facing == null) {
             this.setMotion(this.getMotion().inverse());
         } else {
-            double projectileSpeed = SpellUtils.getModifiedDoubleMul(1, getSpell(), getShooter(), null, world, SpellModifiers.VELOCITY_ADDED);
+            double projectileSpeed = SpellUtils.modifyDoubleMul(1, getSpell(), getShooter(), null, world, SpellModifiers.VELOCITY_ADDED);
             double newMotionX = getMotion().x / projectileSpeed;
             double newMotionY = getMotion().y / projectileSpeed;
             double newMotionZ = getMotion().z / projectileSpeed;
@@ -139,7 +139,7 @@ public class SpellProjectileEntity extends Entity {
                     } else {
                         SpellUtils.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
                         SpellUtils.applyStackStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
-                        if (this.getPierces() == 1 || !SpellUtils.modifierIsPresent(SpellModifiers.PIERCING, this.getSpell()))
+                        if (this.getPierces() == 1 || !SpellUtils.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
                             this.remove();
                         else
                             this.currentPierces++;
@@ -162,7 +162,7 @@ public class SpellProjectileEntity extends Entity {
                     }
                 }
                 if (effSize != 0) {
-                    if (this.getPierces() == 1 || !SpellUtils.modifierIsPresent(SpellModifiers.PIERCING, this.getSpell()))
+                    if (this.getPierces() == 1 || !SpellUtils.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
                         this.remove();
                     else
                         this.currentPierces++;

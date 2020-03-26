@@ -11,11 +11,11 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredie
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SummonUtils;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -42,18 +42,18 @@ public final class Summon extends SpellComponent {
         entity.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.BOW));
         entity.setPosition(impactX, impactY, impactZ);
         world.addEntity(entity);
-        if (caster instanceof PlayerEntity) EntityUtils.makeSummonPlayerFaction(entity, (PlayerEntity) caster, false);
-        else EntityUtils.makeSummonMonsterFaction(entity, false);
-        EntityUtils.setOwner(entity, caster);
-        int duration = SpellUtils.getModifiedIntMul(4800, stack, caster, caster, world, SpellModifiers.DURATION);
-        EntityUtils.setSummonDuration(entity, duration);
+        if (caster instanceof PlayerEntity) SummonUtils.makeSummonPlayerFaction(entity, (PlayerEntity) caster, false);
+        else SummonUtils.makeSummonMonsterFaction(entity, false);
+        SummonUtils.setOwner(entity, caster);
+        int duration = SpellUtils.modifyIntMul(4800, stack, caster, caster, world, SpellModifiers.DURATION);
+        SummonUtils.setSummonDuration(entity, duration);
         SpellUtils.applyStageToEntity(stack, caster, world, entity, false);
         return true;
     }
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity && EntityUtils.isSummon((LivingEntity) target)) return false;
+        if (target instanceof LivingEntity && SummonUtils.isSummon((LivingEntity) target)) return false;
         return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
     }
 

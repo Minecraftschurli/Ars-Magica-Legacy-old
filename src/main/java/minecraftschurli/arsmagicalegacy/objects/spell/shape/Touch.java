@@ -27,7 +27,7 @@ public class Touch extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (target != null) return SpellUtils.applyStageToEntity(stack, caster, world, target, giveXP);
-        boolean targetWater = SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
+        boolean targetWater = SpellUtils.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
         RayTraceResult mop = EntityUtils.getMovingObjectPosition(caster, world, 2.5f, true, targetWater);
         if (mop.getType() == RayTraceResult.Type.ENTITY) {
             Entity e = ((EntityRayTraceResult) mop).getEntity();

@@ -29,7 +29,7 @@ public final class Regeneration extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.REGENERATION, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.REGENERATION, stack, world, caster, target);
     }
 
     @Override

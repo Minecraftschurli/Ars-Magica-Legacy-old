@@ -30,8 +30,8 @@ public final class LifeTap extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        if (!world.isRemote && (caster).attackEntityFrom(DamageSource.OUT_OF_WORLD, (int) Math.floor(SpellUtils.getModifiedDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
-            CapabilityHelper.increaseMana(caster, (float) (SpellUtils.getModifiedDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE) * 0.01 * CapabilityHelper.getMaxMana(caster)));
+        if (!world.isRemote && (caster).attackEntityFrom(DamageSource.OUT_OF_WORLD, (int) Math.floor(SpellUtils.modifyDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
+            CapabilityHelper.increaseMana(caster, (float) (SpellUtils.modifyDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE) * 0.01 * CapabilityHelper.getMaxMana(caster)));
             return true;
         }
         return false;

@@ -29,7 +29,7 @@ public final class JumpBoost extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.JUMP_BOOST, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.JUMP_BOOST, stack, world, caster, target);
     }
 
     @Override

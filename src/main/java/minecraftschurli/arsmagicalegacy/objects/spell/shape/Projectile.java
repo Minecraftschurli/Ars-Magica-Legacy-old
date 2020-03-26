@@ -21,18 +21,18 @@ public class Projectile extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote) {
-            double projectileSpeed = SpellUtils.getModifiedDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
-            float projectileGravity = (float) SpellUtils.getModifiedDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY);
-            int projectileBounce = SpellUtils.getModifiedIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE);
+            double projectileSpeed = SpellUtils.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
+            float projectileGravity = (float) SpellUtils.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY);
+            int projectileBounce = SpellUtils.modifyIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE);
             SpellProjectileEntity projectile = new SpellProjectileEntity(world);
             projectile.setPosition(caster.getPosX(), caster.getEyeHeight() + caster.getPosY(), caster.getPosZ());
             projectile.setMotion(caster.getLookVec().getX() * projectileSpeed, caster.getLookVec().getY() * projectileSpeed, caster.getLookVec().getZ() * projectileSpeed);
-            if (SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) projectile.setTargetWater();
+            if (SpellUtils.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) projectile.setTargetWater();
             projectile.setGravity(projectileGravity);
             projectile.setBounces(projectileBounce);
             projectile.setNumPierces((SpellUtils.countModifiers(SpellModifiers.PIERCING, stack) * 2) * 2);
             projectile.setShooter(caster);
-            projectile.setHoming(SpellUtils.modifierIsPresent(SpellModifiers.HOMING, stack));
+            projectile.setHoming(SpellUtils.hasModifier(SpellModifiers.HOMING, stack));
             projectile.setSpell(stack);
 //            projectile.setIcon(AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(stack)));
             world.addEntity(projectile);

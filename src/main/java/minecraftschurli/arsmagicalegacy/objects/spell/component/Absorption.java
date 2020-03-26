@@ -29,7 +29,7 @@ public final class Absorption extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.ABSORPTION, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.ABSORPTION, stack, world, caster, target);
     }
 
     @Override

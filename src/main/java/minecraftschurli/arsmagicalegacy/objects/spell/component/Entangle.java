@@ -29,7 +29,7 @@ public final class Entangle extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(ModEffects.ENTANGLE.get(), stack, world, caster, target);
+        return SpellUtils.potionSpell(ModEffects.ENTANGLE.get(), stack, world, caster, target);
     }
 
     @Override

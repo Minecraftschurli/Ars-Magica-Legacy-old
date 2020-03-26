@@ -31,8 +31,8 @@ public final class PhysicalDamage extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
         float baseDamage = 8;
-        double damage = SpellUtils.getModifiedDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectDamage(target, caster), SpellUtils.modifyDamage(caster, (float) damage));
+        double damage = SpellUtils.modifyDoubleAdd(baseDamage, stack, caster, target, world, SpellModifiers.DAMAGE);
+        return SpellUtils.attackWithType(stack, target, DamageSource.causeIndirectDamage(target, caster), SpellUtils.modifyDamage(caster, (float) damage));
     }
 
     @Override

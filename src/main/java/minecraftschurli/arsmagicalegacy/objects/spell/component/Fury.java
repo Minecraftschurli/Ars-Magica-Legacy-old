@@ -32,7 +32,7 @@ public final class Fury extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(ModEffects.FURY.get(), stack, world, caster, target);
+        return SpellUtils.potionSpell(ModEffects.FURY.get(), stack, world, caster, target);
     }
 
     @Override

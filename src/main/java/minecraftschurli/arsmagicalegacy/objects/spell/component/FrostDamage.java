@@ -35,7 +35,7 @@ public final class FrostDamage extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
         ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.FROST.get(), 200, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeMobDamage(caster), SpellUtils.modifyDamage(caster, (float) SpellUtils.getModifiedDoubleAdd(10, stack, caster, target, world, SpellModifiers.DAMAGE)));
+        return SpellUtils.attackWithType(stack, target, DamageSource.causeMobDamage(caster), SpellUtils.modifyDamage(caster, (float) SpellUtils.modifyDoubleAdd(10, stack, caster, target, world, SpellModifiers.DAMAGE)));
     }
 
     @Override

@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class Channel extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        if (useCount % 10 == 0 || SpellUtils.componentIsPresent(stack, Telekinesis.class) || SpellUtils.componentIsPresent(stack, Attract.class) || SpellUtils.componentIsPresent(stack, Repel.class))
+        if (useCount % 10 == 0 || SpellUtils.hasComponent(stack, Telekinesis.class) || SpellUtils.hasComponent(stack, Attract.class) || SpellUtils.hasComponent(stack, Repel.class))
             return SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
         return SpellCastResult.SUCCESS;
     }

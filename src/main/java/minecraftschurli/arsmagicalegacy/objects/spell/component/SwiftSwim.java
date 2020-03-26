@@ -29,7 +29,7 @@ public final class SwiftSwim extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(ModEffects.SWIFT_SWIM.get(), stack, world, caster, target);
+        return SpellUtils.potionSpell(ModEffects.SWIFT_SWIM.get(), stack, world, caster, target);
     }
 
     @Override

@@ -27,13 +27,13 @@ public final class Dig extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         if (world.isRemote) return true;
-        if (SpellUtils.modifierIsPresent(SpellModifiers.SILKTOUCH_LEVEL, stack) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) <= 0)
+        if (SpellUtils.hasModifier(SpellModifiers.SILKTOUCH_LEVEL, stack) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) <= 0)
             stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
-        else if (SpellUtils.modifierIsPresent(SpellModifiers.FORTUNE_LEVEL, stack) && EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) <= 0)
+        else if (SpellUtils.hasModifier(SpellModifiers.FORTUNE_LEVEL, stack) && EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) <= 0)
             stack.addEnchantment(Enchantments.FORTUNE, SpellUtils.countModifiers(SpellModifiers.FORTUNE_LEVEL, stack));
         BlockState state = world.getBlockState(blockPos);
         float hardness = state.getBlockHardness(world, blockPos);
-        if (hardness != -1 && state.getBlock().getHarvestLevel(state) <= SpellUtils.getModifiedIntAdd(2, stack, caster, null, world, SpellModifiers.MINING_POWER)) {
+        if (hardness != -1 && state.getBlock().getHarvestLevel(state) <= SpellUtils.modifyIntAdd(2, stack, caster, null, world, SpellModifiers.MINING_POWER)) {
             state.getBlock().harvestBlock(world, (PlayerEntity) caster, blockPos, state, null, stack);
             world.destroyBlock(blockPos, false);
             CapabilityHelper.decreaseMana(caster, hardness * 1.28f);

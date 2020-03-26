@@ -1,7 +1,6 @@
-package minecraftschurli.arsmagicalegacy.api.data;
+package minecraftschurli.arsmagicalegacy.api;
 
 import java.util.function.Supplier;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
@@ -12,7 +11,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
  * @author Minecraftschurli
  * @version 2020-01-15
  */
-public interface ArsMagicaLanguagePlugin {
+public interface LanguagePlugin {
     /**
      * Creates a new language provider, based on the vanilla language provider.
      * @param part        the data generator

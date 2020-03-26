@@ -30,7 +30,7 @@ public final class MagicDamage extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), SpellUtils.modifyDamage(caster, (float) SpellUtils.getModifiedDoubleAdd(6, stack, caster, target, world, SpellModifiers.DAMAGE)));
+        return SpellUtils.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), SpellUtils.modifyDamage(caster, (float) SpellUtils.modifyDoubleAdd(6, stack, caster, target, world, SpellModifiers.DAMAGE)));
     }
 
     @Override

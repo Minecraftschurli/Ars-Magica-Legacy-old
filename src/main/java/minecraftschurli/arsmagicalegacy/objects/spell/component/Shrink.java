@@ -30,7 +30,7 @@ public final class Shrink extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(ModEffects.SHRINK.get(), stack, world, caster, target);
+        return SpellUtils.potionSpell(ModEffects.SHRINK.get(), stack, world, caster, target);
     }
 
     @Override

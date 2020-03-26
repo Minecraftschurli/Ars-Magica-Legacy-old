@@ -31,7 +31,7 @@ public final class SpellReflect extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return !((LivingEntity) target).isPotionActive(ModEffects.MAGIC_SHIELD.get()) && SpellUtils.doPotionSpell(ModEffects.SPELL_REFLECT.get(), stack, world, caster, target);
+        return !((LivingEntity) target).isPotionActive(ModEffects.MAGIC_SHIELD.get()) && SpellUtils.potionSpell(ModEffects.SPELL_REFLECT.get(), stack, world, caster, target);
     }
 
     @Override

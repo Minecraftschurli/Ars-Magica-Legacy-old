@@ -31,7 +31,7 @@ public final class Blind extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.BLINDNESS, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.BLINDNESS, stack, world, caster, target);
     }
 
     @Override

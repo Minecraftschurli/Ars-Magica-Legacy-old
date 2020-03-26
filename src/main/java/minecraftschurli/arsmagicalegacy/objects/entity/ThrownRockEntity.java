@@ -271,7 +271,7 @@ public class ThrownRockEntity extends Entity {
                 if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
                 if (this.getDistance(e) < 12)
                     //noinspection ConstantConditions
-                    SpellUtils.attackTargetSpecial(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
+                    SpellUtils.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
             }
         } else {
             if (movingobjectposition.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {
@@ -306,7 +306,6 @@ public class ThrownRockEntity extends Entity {
         while (!world.isAirBlock(pos) && pos.getY() < world.getActualHeight())
             pos = pos.up();
         if (rand.nextInt(4) < 2 || force)
-            //noinspection ConstantConditions
             world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());
         else
             world.setBlockState(pos, Blocks.STONE.getDefaultState());

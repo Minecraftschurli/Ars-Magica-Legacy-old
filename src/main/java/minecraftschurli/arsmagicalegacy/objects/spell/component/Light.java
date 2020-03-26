@@ -48,7 +48,7 @@ public final class Light extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
             if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ILLUMINATION.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ILLUMINATION.get(), SpellUtils.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;
@@ -121,8 +121,8 @@ public final class Light extends SpellComponent {
 
     private int getColor(ItemStack spell) {
         int dye_color_num = 15;
-        if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, spell)) {
-            List<SpellModifier> modifiers = SpellUtils.getModifiersForStage(spell, -1);
+        if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) {
+            List<SpellModifier> modifiers = SpellUtils.getModifiers(spell, -1);
             for (SpellModifier mod : modifiers)
                 if (mod instanceof Color) dye_color_num = spell.getTag().getInt("Color");
         }

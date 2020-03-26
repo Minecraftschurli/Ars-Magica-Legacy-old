@@ -29,7 +29,7 @@ public final class Shield extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return !((LivingEntity) target).isPotionActive(ModEffects.SPELL_REFLECT.get()) && SpellUtils.doPotionSpell(ModEffects.MAGIC_SHIELD.get(), stack, world, caster, target);
+        return !((LivingEntity) target).isPotionActive(ModEffects.SPELL_REFLECT.get()) && SpellUtils.potionSpell(ModEffects.MAGIC_SHIELD.get(), stack, world, caster, target);
     }
 
     @Override

@@ -30,7 +30,7 @@ public final class Flight extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(ModEffects.FLIGHT.get(), stack, world, caster, target);
+        return SpellUtils.potionSpell(ModEffects.FLIGHT.get(), stack, world, caster, target);
     }
 
     @Override

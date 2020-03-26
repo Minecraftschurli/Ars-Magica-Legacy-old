@@ -11,9 +11,9 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.SummonUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -33,8 +33,8 @@ public final class Dispel extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        if (EntityUtils.isSummon((LivingEntity) target)) {
-            if (EntityUtils.getOwner((LivingEntity) target) == caster.getEntityId()) {
+        if (SummonUtils.isSummon((LivingEntity) target)) {
+            if (SummonUtils.getOwner((LivingEntity) target) == caster.getEntityId()) {
                 target.attackEntityFrom(DamageSource.MAGIC, 50000);
                 return true;
             }

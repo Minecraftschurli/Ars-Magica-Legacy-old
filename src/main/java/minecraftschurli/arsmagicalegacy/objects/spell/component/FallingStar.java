@@ -26,7 +26,7 @@ public final class FallingStar extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         List<ThrownRockEntity> rocks = world.getEntitiesWithinAABB(ThrownRockEntity.class, new AxisAlignedBB(impactX - 10, impactY + 40, impactZ - 10, impactX + 10, impactY + 60, impactZ + 10));
-        int damageMultitplier = SpellUtils.getModifiedIntMul(15, stack, caster, caster, world, SpellModifiers.DAMAGE);
+        int damageMultitplier = SpellUtils.modifyIntMul(15, stack, caster, caster, world, SpellModifiers.DAMAGE);
         for (ThrownRockEntity rock : rocks) if (rock.getIsShootingStar()) return false;
         if (!world.isRemote) {
             ThrownRockEntity star = new ThrownRockEntity(world);

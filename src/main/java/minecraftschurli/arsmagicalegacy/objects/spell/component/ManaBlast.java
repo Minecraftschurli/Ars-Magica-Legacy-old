@@ -40,7 +40,7 @@ public final class ManaBlast extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         float consumed = CapabilityHelper.getMana(caster);
         CapabilityHelper.decreaseMana(caster, consumed);
-        SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, caster), SpellUtils.modifyDamage(caster, (float) SpellUtils.getModifiedDoubleMul((consumed / 50), stack, caster, target, world, SpellModifiers.DAMAGE)));
+        SpellUtils.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, caster), SpellUtils.modifyDamage(caster, (float) SpellUtils.modifyDoubleMul((consumed / 50), stack, caster, target, world, SpellModifiers.DAMAGE)));
         return true;
     }
 

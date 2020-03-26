@@ -31,7 +31,7 @@ public final class NightVision extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.NIGHT_VISION, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.NIGHT_VISION, stack, world, caster, target);
     }
 
     @Override

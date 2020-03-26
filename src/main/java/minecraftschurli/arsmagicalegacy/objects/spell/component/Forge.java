@@ -10,9 +10,9 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.SummonUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -55,7 +55,7 @@ public final class Forge extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof VillagerEntity) {
-            if (!world.isRemote && !EntityUtils.isSummon((LivingEntity) target))
+            if (!world.isRemote && !SummonUtils.isSummon((LivingEntity) target))
                 target.entityDropItem(new ItemStack(Items.EMERALD, 1));
             if (caster instanceof PlayerEntity)
                 target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 5000);

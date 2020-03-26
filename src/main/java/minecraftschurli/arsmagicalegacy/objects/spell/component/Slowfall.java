@@ -31,7 +31,7 @@ public final class Slowfall extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.SLOW_FALLING, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.SLOW_FALLING, stack, world, caster, target);
     }
 
     @Override

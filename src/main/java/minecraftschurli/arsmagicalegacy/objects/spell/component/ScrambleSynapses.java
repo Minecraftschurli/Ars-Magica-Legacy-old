@@ -25,7 +25,7 @@ public final class ScrambleSynapses extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(ModEffects.SCRAMBLE_SYNAPSES.get(), stack, world, caster, target);
+        return SpellUtils.potionSpell(ModEffects.SCRAMBLE_SYNAPSES.get(), stack, world, caster, target);
     }
 
     @Override

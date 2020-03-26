@@ -57,7 +57,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
-import static minecraftschurli.arsmagicalegacy.api.util.TextUtils.NEWPAGE;
 
 /**
  * @author Minecraftschurli
@@ -65,6 +64,7 @@ import static minecraftschurli.arsmagicalegacy.api.util.TextUtils.NEWPAGE;
  */
 public class InscriptionTableTileEntity extends TileEntity implements IInventory, ITickableTileEntity {
     public static final int MAX_STAGE_GROUPS = 5;
+    public static final String NEWPAGE = "<newpage>";
     private static final String ID_KEY = "ID";
     private static final String SLOT_KEY = "Slot";
     private static final String CURRENT_RECIPE_KEY = "CurrentRecipe";
@@ -103,6 +103,61 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         this(ModTileEntities.INSCRIPTION_TABLE.get());
     }
 
+    private static List<StringNBT> splitStoryPartIntoPages(String storyPart) {
+        ArrayList<StringNBT> parts = new ArrayList<>();
+        String[] words = storyPart.split(" ");
+        String currentPage = "";
+        for (String word : words) {
+            if (word.contains(NEWPAGE)) {
+                int idx = word.indexOf(NEWPAGE);
+                String preNewPage = word.substring(0, idx);
+                String postNewPage = word.substring(idx + NEWPAGE.length());
+                while (preNewPage.endsWith("\n")) preNewPage = preNewPage.substring(0, preNewPage.lastIndexOf('\n'));
+                if (getStringOverallLength(currentPage + preNewPage) > 256) {
+                    parts.add(StringNBT.valueOf(currentPage));
+                    currentPage = preNewPage.trim();
+                } else currentPage += " " + preNewPage.trim();
+                parts.add(StringNBT.valueOf(currentPage));
+                while (postNewPage.startsWith("\n")) postNewPage = postNewPage.replaceFirst("\n", "");
+                currentPage = postNewPage.trim();
+                continue;
+            }
+            if (getStringOverallLength(currentPage + word) > 256) {
+                parts.add(StringNBT.valueOf(currentPage));
+                currentPage = word;
+                if (getStringOverallLength(currentPage) > 256) {
+                    int length = 0;
+                    int index = 0;
+                    for (int i = 0; i < currentPage.length(); i++) {
+                        char c = currentPage.charAt(i);
+                        if (c == '\n') length += length % 19;
+                        else length++;
+                        index++;
+                    }
+                    if (length <= 255) index--;
+                    currentPage = currentPage.substring(0, index);
+                    parts.add(StringNBT.valueOf(currentPage));
+                    currentPage = "";
+                }
+                continue;
+            }
+            if (currentPage.equals("")) currentPage = word.trim();
+            else currentPage += " " + word;
+        }
+        parts.add(StringNBT.valueOf(currentPage));
+        return parts;
+    }
+
+    private static int getStringOverallLength(String s) {
+        int length = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '\n') length += length % 19;
+            else length++;
+        }
+        return length;
+    }
+
     private void resetModifierCount() {
         modifierCount.clear();
         for (SpellModifiers modifier : SpellModifiers.values()) {
@@ -114,9 +169,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         return this.currentRecipe;
     }
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
     @Override
     public int getSizeInventory() {
         return 4;
@@ -127,23 +179,12 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         return inscriptionTableItemStacks.isEmpty() || inscriptionTableItemStacks.stream().allMatch(ItemStack::isEmpty);
     }
 
-    /**
-     * Returns the stack in the given slot.
-     *
-     * @param index
-     */
     @Nonnull
     @Override
     public ItemStack getStackInSlot(int index) {
         return inscriptionTableItemStacks.get(index);
     }
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     *
-     * @param index
-     * @param count
-     */
     @Nonnull
     @Override
     public ItemStack decrStackSize(int index, int count) {
@@ -163,11 +204,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }
     }
 
-    /**
-     * Removes a stack from the given slot and returns it.
-     *
-     * @param index
-     */
     @Nonnull
     @Override
     public ItemStack removeStackFromSlot(int index) {
@@ -180,12 +216,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }
     }
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     *
-     * @param index
-     * @param stack
-     */
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         inscriptionTableItemStacks.set(index, stack);
@@ -199,11 +229,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         return 64;
     }
 
-    /**
-     * Don't rename this method to canInteractWith due to conflicts with Container
-     *
-     * @param player
-     */
     @Override
     public boolean isUsableByPlayer(PlayerEntity player) {
         if (player.world.getTileEntity(pos) != this) {
@@ -218,8 +243,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
     public void setInUse(PlayerEntity player) {
         this.currentPlayerUsing = player;
-        if (!this.world.isRemote) {
-            this.markDirty();
+        if (!world.isRemote) {
+            markDirty();
             //world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), world.getBlockState(pos), world.getBlockState(pos), 3);
         }
     }
@@ -452,18 +477,18 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }
         currentSpellName = "";
         this.currentSpellName = stack.getDisplayName().getFormattedText();
-        int numStages = SpellUtils.numStages(stack);
+        int numStages = SpellUtils.stageNum(stack);
         for (int i = 0; i < numStages; i++) {
-            SpellShape shape = SpellUtils.getShapeForStage(stack, i);
+            SpellShape shape = SpellUtils.getShape(stack, i);
             this.currentRecipe.add(shape);
-            List<SpellComponent> components = SpellUtils.getComponentsForStage(stack, i);
+            List<SpellComponent> components = SpellUtils.getComponents(stack, i);
             this.currentRecipe.addAll(components);
-            List<SpellModifier> modifiers = SpellUtils.getModifiersForStage(stack, i);
+            List<SpellModifier> modifiers = SpellUtils.getModifiers(stack, i);
             this.currentRecipe.addAll(modifiers);
         }
         int numShapeGroups = SpellUtils.numShapeGroups(stack);
         for (int i = 0; i < numShapeGroups; i++) {
-            List<AbstractSpellPart> parts = SpellUtils.getShapeGroupParts(stack, i);
+            List<AbstractSpellPart> parts = SpellUtils.getGroupParts(stack, i);
             for (AbstractSpellPart partID : parts) {
                 if (partID != null)
                     this.shapeGroups.get(i).add(partID);
@@ -484,8 +509,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
     public void incrementUpgradeState() {
         this.numStageGroups++;
-        if (!this.world.isRemote) {
-            List<ServerPlayerEntity> players = this.world.getEntitiesWithinAABB(ServerPlayerEntity.class, new AxisAlignedBB(pos).expand(256, 256, 256));
+        if (!world.isRemote) {
+            List<ServerPlayerEntity> players = world.getEntitiesWithinAABB(ServerPlayerEntity.class, new AxisAlignedBB(pos).expand(256, 256, 256));
             for (ServerPlayerEntity player : players) {
                 player.connection.sendPacket(getUpdatePacket());
             }
@@ -501,7 +526,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 return bookstack;
             if (!bookstack.hasTag())
                 bookstack.setTag(new CompoundNBT());
-            else if (bookstack.getTag().getBoolean("spellFinalized")) //don't overwrite a completed spell
+            else if (bookstack.getTag().getBoolean("spellFinalized"))
                 return bookstack;
             SpellIngredientList materialsList = new SpellIngredientList();
             materialsList.add(new ItemStackSpellIngredient(new ItemStack(ModItems.RUNE.get(), 1)));
@@ -541,13 +566,13 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             sb.append("Combination:\n\n");
             Iterator<AbstractSpellPart> it = currentRecipe.iterator();
             String[] outputData = spellPartListToStringBuilder(it, sb, null);
-            List<StringNBT> pages = minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString());
+            List<StringNBT> pages = splitStoryPartIntoPages(sb.toString());
             sb = new StringBuilder();
             sb.append("Materials List:\n\n");
             sb.append(materialsList.getTooltip().stream()
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.joining("\n")));
-            pages.addAll(minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString()));
+            pages.addAll(splitStoryPartIntoPages(sb.toString()));
 //            ArsMagicaLegacy.LOGGER.debug("before write: {}", pages);
             sb = new StringBuilder();
             sb.append("Affinity Breakdown:\n\n");
@@ -574,12 +599,18 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 sb.append(String.format("%s: %.2f%%", aff.getName().getFormattedText(), pct));
                 sb.append("\n");
             }
-            pages.addAll(minecraftschurli.arsmagicalegacy.api.util.TextUtils.splitStoryPartIntoPages(sb.toString()));
-            minecraftschurli.arsmagicalegacy.api.util.TextUtils.writePartToNBT(bookstack.getTag(), pages);
-//            ArsMagicaLegacy.LOGGER.debug("after write: {}", bookstack.getTag());
-            if (currentSpellName.equals(""))
-                currentSpellName = "Spell Recipe";
-            minecraftschurli.arsmagicalegacy.api.util.TextUtils.finalizeStory(bookstack, new StringTextComponent(currentSpellName), player.getName().getFormattedText());
+            pages.addAll(splitStoryPartIntoPages(sb.toString()));
+            ListNBT pageslist = new ListNBT();
+            for (StringNBT page : pages) {
+                StringNBT newPage = StringNBT.valueOf("{\"text\":\"" + page.getString() + "\"}");
+                pageslist.add(newPage);
+            }
+            bookstack.getTag().put("pages", pageslist);
+            if (currentSpellName.equals("")) currentSpellName = "Spell Recipe";
+            if (bookstack.getTag() == null) return bookstack;
+            bookstack.getTag().put("title", StringNBT.valueOf(new StringTextComponent(currentSpellName).getUnformattedComponentText()));
+            bookstack.setDisplayName(new StringTextComponent(currentSpellName));
+            bookstack.getTag().put("author", StringNBT.valueOf(player.getName().getFormattedText()));
 //            ArsMagicaLegacy.LOGGER.debug("after finalize: {}", bookstack.getTag());
             bookstack.getTag().put("spell_combo", materialsList.serializeNBT());
             ListNBT list = new ListNBT();
@@ -599,7 +630,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 group.clear();
             this.currentSpellName = "";
             bookstack.getTag().putBoolean("spellFinalized", true);
-//            ArsMagicaLegacy.LOGGER.debug("fin: {}", bookstack.getTag());
             //world.playSound(getPos().getX(), getPos().getY(), getPos().getZ(), "arsmagica2:misc.inscriptiontable.takebook", 1, 1, true);
             this.markDirty();
             //world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), world.getBlockState(pos), world.getBlockState(pos), 2);
@@ -729,18 +759,18 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         List<AbstractSpellPart> group = this.shapeGroups.get(groupIndex);
         if (!currentSpellIsReadOnly && group.size() < 4 && !(part instanceof SpellComponent)) {
             group.add(part);
-            if (this.world.isRemote)
-                this.sendDataToServer();
+            if (world.isRemote)
+                sendDataToServer();
             countModifiers();
         }
     }
 
     public void removeSpellPartFromStageGroup(int index, int groupIndex) {
         List<AbstractSpellPart> group = this.shapeGroups.get(groupIndex);
-        if (!this.currentSpellIsReadOnly) {
+        if (!currentSpellIsReadOnly) {
             group.remove(index);
-            if (this.world.isRemote)
-                this.sendDataToServer();
+            if (world.isRemote)
+                sendDataToServer();
             countModifiers();
         }
     }
@@ -751,25 +781,25 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             for (int i = 0; i <= length; i++)
                 group.remove(startIndex);
             countModifiers();
-            if (this.world.isRemote)
-                this.sendDataToServer();
+            if (world.isRemote)
+                sendDataToServer();
         }
     }
 
     public void addSpellPart(AbstractSpellPart part) {
-        if (!currentSpellIsReadOnly && this.currentRecipe.size() < 16) {
-            this.currentRecipe.add(part);
-            if (this.world.isRemote)
-                this.sendDataToServer();
+        if (!currentSpellIsReadOnly && currentRecipe.size() < 16) {
+            currentRecipe.add(part);
+            if (world.isRemote)
+                sendDataToServer();
             countModifiers();
         }
     }
 
     public void removeSpellPart(int index) {
-        if (!this.currentSpellIsReadOnly) {
-            this.currentRecipe.remove(index);
-            if (this.world.isRemote)
-                this.sendDataToServer();
+        if (!currentSpellIsReadOnly) {
+            currentRecipe.remove(index);
+            if (world.isRemote)
+                sendDataToServer();
             countModifiers();
         }
     }
@@ -777,27 +807,23 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     public void removeMultipleSpellParts(int startIndex, int length) {
         if (!currentSpellIsReadOnly) {
             for (int i = 0; i <= length; i++)
-                this.getCurrentRecipe().remove(startIndex);
+                getCurrentRecipe().remove(startIndex);
             countModifiers();
-            if (this.world.isRemote)
-                this.sendDataToServer();
+            if (world.isRemote)
+                sendDataToServer();
         }
     }
 
     public int getNumStageGroups() {
-        return this.numStageGroups;
+        return numStageGroups;
     }
 
     private void countModifiers() {
         resetModifierCount();
-        for (List<AbstractSpellPart> shapeGroup : this.shapeGroups) {
-            countModifiersInList(shapeGroup);
-        }
+        for (List<AbstractSpellPart> shapeGroup : shapeGroups) countModifiersInList(shapeGroup);
         List<List<AbstractSpellPart>> stages = SpellValidator.splitToStages(currentRecipe);
         if (stages.size() == 0) return;
-        for (List<AbstractSpellPart> currentStage : stages) {
-            countModifiersInList(currentStage);
-        }
+        for (List<AbstractSpellPart> currentStage : stages) countModifiersInList(currentStage);
         //ArrayList<AbstractSpellPart> currentStage = stages.get(stages.size() - 1);
         //countModifiersInList(currentStage);
     }
@@ -833,7 +859,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         for (List<AbstractSpellPart> arr : shapeGroups) {
             shapeGroupSetup.add(new Pair<>(arr, new CompoundNBT()));
         }
-        ItemStack stack = SpellUtils.createSpellStack(shapeGroupSetup, curRecipeSetup);
+        ItemStack stack = SpellUtils.makeSpellStack(shapeGroupSetup, curRecipeSetup);
         stack.getTag().putString("suggestedName", currentSpellName);
         player.inventory.addItemStackToInventory(stack);
         //}

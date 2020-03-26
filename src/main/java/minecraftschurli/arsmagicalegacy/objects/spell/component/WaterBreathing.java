@@ -29,7 +29,7 @@ public final class WaterBreathing extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doPotionSpell(Effects.WATER_BREATHING, stack, world, caster, target);
+        return SpellUtils.potionSpell(Effects.WATER_BREATHING, stack, world, caster, target);
     }
 
     @Override
