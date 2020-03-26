@@ -7,13 +7,10 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class Rune extends SpellShape {

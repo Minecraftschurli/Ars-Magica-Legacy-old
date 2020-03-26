@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
 import java.util.EnumSet;
 import java.util.List;
-import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -22,7 +21,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
