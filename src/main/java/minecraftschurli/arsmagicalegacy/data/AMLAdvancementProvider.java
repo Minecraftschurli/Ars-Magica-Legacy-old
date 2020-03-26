@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class AMLAdvancementProvider implements IDataProvider {
 
     public void act(DirectoryCache cache) throws IOException {
         Path path = this.generator.getOutputFolder();
-        Set<ResourceLocation> set = Sets.newHashSet();
+        Set<ResourceLocation> set = new HashSet<>();
         Consumer<Advancement> consumer = (p_204017_3_) -> {
             if (!set.add(p_204017_3_.getId())) {
                 throw new IllegalStateException("Duplicate advancement " + p_204017_3_.getId());

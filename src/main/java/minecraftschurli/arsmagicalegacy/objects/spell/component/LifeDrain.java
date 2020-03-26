@@ -30,7 +30,8 @@ public final class LifeDrain extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (world.isRemote || !(target instanceof LivingEntity) || ((LivingEntity) target).isEntityUndead()) return true;
+        if (world.isRemote || !(target instanceof LivingEntity) || ((LivingEntity) target).isEntityUndead())
+            return true;
         if (SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, caster), SpellUtils.modifyDamage(caster, SpellUtils.getModifiedIntAdd(4, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
             caster.heal((int) Math.ceil(SpellUtils.getModifiedIntAdd(4, stack, caster, target, world, SpellModifiers.DAMAGE) / 4f));
             return true;

@@ -60,7 +60,6 @@ public class SkillTreeRegistry {
     static void onSkillTreeRegister(RegistryEvent.Register<?> event)
     {
         if (event.getGenericType() == RegistryHandler.getSkillTreeRegistry().getRegistrySuperType()) {
-            @SuppressWarnings("unchecked")
             IForgeRegistry<SkillTree> reg = (IForgeRegistry<SkillTree>)event.getRegistry();
             for (Map.Entry<RegistryObject<SkillTree>, Supplier<? extends SkillTree>> e : entries.entrySet()) {
                 reg.register(e.getValue().get());

@@ -68,7 +68,6 @@ public class AffinityRegistry {
 
     static void onAffinityRegister(RegistryEvent.Register<?> event) {
         if (event.getGenericType() == RegistryHandler.getAffinityRegistry().getRegistrySuperType()) {
-            @SuppressWarnings("unchecked")
             IForgeRegistry<Affinity> reg = (IForgeRegistry<Affinity>)event.getRegistry();
             for (Map.Entry<RegistryObject<Affinity>, Supplier<? extends Affinity>> e : entries.entrySet()) {
                 reg.register(e.getValue().get());

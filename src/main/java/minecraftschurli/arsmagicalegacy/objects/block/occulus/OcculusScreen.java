@@ -36,7 +36,6 @@ import net.minecraft.util.text.TranslationTextComponent;
  * @author Minecraftschurli
  * @version 2019-12-02
  */
-@SuppressWarnings("FieldCanBeLocal")
 public class OcculusScreen extends Screen {
     int xSize = 210;
     int ySize = 210;
@@ -410,7 +409,7 @@ public class OcculusScreen extends Screen {
         return false;
     }
 
-    private void drawSkillPointBackground(int startX, int startY, int width, @SuppressWarnings("SameParameterValue") int height) {
+    private void drawSkillPointBackground(int startX, int startY, int width, int height) {
         int posX = 210;
         int posY = 0;
         //blit(startX + posX, startY + posY, 0, 0, 4, 4);

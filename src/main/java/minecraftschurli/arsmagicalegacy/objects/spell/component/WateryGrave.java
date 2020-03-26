@@ -71,7 +71,7 @@ public final class WateryGrave extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

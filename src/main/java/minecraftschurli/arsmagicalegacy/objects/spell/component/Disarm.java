@@ -37,10 +37,12 @@ public final class Disarm extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         double damage = SpellUtils.getModifiedIntMul(1, stack, caster, target, world, SpellModifiers.DAMAGE);
         if (!world.isRemote) {
-            if(target instanceof PlayerEntity && Minecraft.getInstance().getIntegratedServer().isPVPEnabled()) return false;
+            if (target instanceof PlayerEntity && Minecraft.getInstance().getIntegratedServer().isPVPEnabled())
+                return false;
             ItemEntity item = new ItemEntity(world, target.getPosX(), target.getPosY(), target.getPosZ());
             ItemStack dropstack = ((MobEntity) target).getHeldItemMainhand().copy();
-            if (dropstack.getMaxDamage() > 0) dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
+            if (dropstack.getMaxDamage() > 0)
+                dropstack.setDamage((int) Math.floor(dropstack.getMaxDamage() * (0.8f + (world.rand.nextFloat() * 0.19f))));
             item.setItem(dropstack);
             item.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
             item.setPickupDelay(15);

@@ -53,7 +53,6 @@ public class ThrownRockEntity extends Entity {
         this.noClip = true;
     }
 
-    @SuppressWarnings("unused")
     public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed) {
         this(world);
         this.noClip = true;
@@ -83,7 +82,6 @@ public class ThrownRockEntity extends Entity {
         this.damage = damage;
     }
 
-    @SuppressWarnings("unused")
     public void setMoonstoneMeteorTarget(Vec3d target) {
         this.target = target;
     }
@@ -125,7 +123,6 @@ public class ThrownRockEntity extends Entity {
         this.dataManager.register(OWNER, 0);
     }
 
-    @SuppressWarnings("unused")
     private ItemStack getSpellStack() {
         return this.dataManager.get(SPELL_STACK);
     }

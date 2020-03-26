@@ -32,16 +32,18 @@ public final class Recall extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get()) || ((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) if (caster instanceof PlayerEntity) {
-            caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noRecall"));
-            return false;
-        }
+        if (caster.isPotionActive(ModEffects.ASTRAL_DISTORTION.get()) || ((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get()))
+            if (caster instanceof PlayerEntity) {
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noRecall"));
+                return false;
+            }
 //        if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
 //            ItemStack[] ritualRunes = RitualShapeHelper.instance.checkForRitual(this, world, target.getPosition());
 //            if (ritualRunes != null) return handleRitualReagents(ritualRunes, world, target.getPosition(), caster, target);
 //        }
         if (caster.dimension.getId() == -512) {
-            if (caster instanceof PlayerEntity && !world.isRemote) caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noRecall"));
+            if (caster instanceof PlayerEntity && !world.isRemote)
+                caster.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noRecall"));
             return false;
         }
         if (!world.isRemote) target.setPositionAndUpdate(caster.getPosX(), caster.getPosY(), caster.getPosZ());
@@ -87,7 +89,7 @@ public final class Recall extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public float getReagentSearchRadius() {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }

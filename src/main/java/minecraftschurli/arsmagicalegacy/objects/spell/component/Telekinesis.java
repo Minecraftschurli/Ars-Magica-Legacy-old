@@ -42,9 +42,12 @@ public final class Telekinesis extends SpellComponent {
                 double y = -(movement.getY() * factor);
                 double z = -(movement.getZ() * factor);
                 e.addVelocity(x, y, z);
-                if (Math.abs(e.getMotion().getX()) > Math.abs(x * 2)) e.setMotion(x, e.getMotion().getY(), e.getMotion().getZ());
-                if (Math.abs(e.getMotion().getY()) > Math.abs(y * 2)) e.setMotion(e.getMotion().getX(), y, e.getMotion().getZ());
-                if (Math.abs(e.getMotion().getZ()) > Math.abs(z * 2)) e.setMotion(e.getMotion().getX(), e.getMotion().getY(), z);
+                if (Math.abs(e.getMotion().getX()) > Math.abs(x * 2))
+                    e.setMotion(x, e.getMotion().getY(), e.getMotion().getZ());
+                if (Math.abs(e.getMotion().getY()) > Math.abs(y * 2))
+                    e.setMotion(e.getMotion().getX(), y, e.getMotion().getZ());
+                if (Math.abs(e.getMotion().getZ()) > Math.abs(z * 2))
+                    e.setMotion(e.getMotion().getX(), e.getMotion().getY(), z);
             }
         }
         return true;

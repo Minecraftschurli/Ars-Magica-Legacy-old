@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data.loot;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -43,7 +42,7 @@ public class AMLBlockLootTables extends BlockLootTables {
 
     @Override
     public void accept(BiConsumer<ResourceLocation, LootTable.Builder> p_accept_1_) {
-        Set<ResourceLocation> set = Sets.newHashSet();
+        Set<ResourceLocation> set = new HashSet<>();
         for (Block block : getKnownBlocks()) {
             ResourceLocation resourcelocation = block.getLootTable();
             if (resourcelocation != LootTables.EMPTY && set.add(resourcelocation)) {

@@ -29,7 +29,6 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Minecraftschurli
  * @version 2019-11-07
  */
-@SuppressWarnings("unused")
 public final class ModItems implements IInit {
     public static final Item.Properties ITEM_64 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64);
     public static final Item.Properties ITEM_1 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1);
@@ -194,13 +193,11 @@ public final class ModItems implements IInit {
     public static void register() {
     }
 
-    @SuppressWarnings("unchecked")
     private static RegistryObject<Item> stackableBlockItem64(final RegistryObject<? extends Block> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), block.lazyMap(b -> new BlockItem(b, ITEM_64)));
     }
 
-    @SuppressWarnings({"unchecked", "SameParameterValue"})
     private static RegistryObject<Item> blockItem(final RegistryObject<? extends Block> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), block.lazyMap(b -> new BlockItem(b, ITEM_1)));

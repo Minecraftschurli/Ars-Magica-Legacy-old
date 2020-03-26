@@ -35,7 +35,8 @@ public final class Heal extends SpellComponent {
                 return SpellUtils.attackTargetSpecial(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), (float) (healing * (0.5f + 2 * CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get()))));
             } else {
                 int healing = SpellUtils.getModifiedIntMul(2, stack, caster, target, world, SpellModifiers.HEALING);
-                if (caster.isNonBoss()) healing *= 1 + CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get());
+                if (caster.isNonBoss())
+                    healing *= 1 + CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get());
                 ((LivingEntity) target).heal(healing);
                 return true;
             }

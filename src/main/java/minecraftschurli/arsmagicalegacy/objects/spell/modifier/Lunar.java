@@ -21,7 +21,6 @@ public class Lunar extends SpellModifier {
         return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.HEALING);
     }
 
-    @SuppressWarnings("incomplete_switch")
     @Override
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         switch (type) {

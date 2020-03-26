@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -652,7 +651,7 @@ public class SpellUtils {
             }
             return mods;
         } catch (Exception e) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
     }
 
@@ -682,7 +681,7 @@ public class SpellUtils {
             }
             return mods;
         } catch (Exception e) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
     }
 
@@ -829,7 +828,7 @@ public class SpellUtils {
             }
             return mods;
         } catch (Exception e) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
     }
 
@@ -882,13 +881,14 @@ public class SpellUtils {
     }
 
     public static boolean doPotionSpell(Effect effect, ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if(target instanceof LivingEntity) {
+        if (target instanceof LivingEntity) {
             int duration = SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
 //            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
-                duration += 3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1);
+            duration += 3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1);
 //                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
 //            }
-            if (!world.isRemote) ((LivingEntity)target).addPotionEffect(new EffectInstance(effect, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            if (!world.isRemote)
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(effect, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;

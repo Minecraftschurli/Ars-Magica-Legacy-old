@@ -50,7 +50,8 @@ public final class Dispel extends SpellComponent {
             }
         }
         if (effectsToRemove.size() == 0) return false;
-        if (!world.isRemote) for (EffectInstance e : effectsToRemove) ((LivingEntity) target).removePotionEffect(e.getPotion());
+        if (!world.isRemote)
+            for (EffectInstance e : effectsToRemove) ((LivingEntity) target).removePotionEffect(e.getPotion());
         return true;
     }
 

@@ -67,7 +67,7 @@ public final class Slow extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

@@ -33,7 +33,7 @@ public final class LightningDamage extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.LIGHTNING_BOLT, SpellUtils.modifyDamage(caster, (float)SpellUtils.getModifiedDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE)));
+        return SpellUtils.attackTargetSpecial(stack, target, DamageSource.LIGHTNING_BOLT, SpellUtils.modifyDamage(caster, (float) SpellUtils.getModifiedDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE)));
     }
 
     @Override

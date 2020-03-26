@@ -24,7 +24,6 @@ import net.minecraftforge.registries.IForgeRegistry;
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-@SuppressWarnings("unchecked")
 public class SpellRegistry {
     public static final ResourceLocation MISSING_SHAPE = new ResourceLocation(ArsMagicaAPI.MODID, "null");
 

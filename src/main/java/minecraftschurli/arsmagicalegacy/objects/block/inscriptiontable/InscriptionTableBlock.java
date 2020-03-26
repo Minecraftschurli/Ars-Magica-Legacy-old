@@ -40,7 +40,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
  * @version 2019-12-09
  */
 @ParametersAreNonnullByDefault
-@SuppressWarnings("deprecation")
 public class InscriptionTableBlock extends Block {
     public static final IntegerProperty TIER = IntegerProperty.create("tier", 0, 3);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;

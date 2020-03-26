@@ -51,7 +51,8 @@ public final class RandomTeleport extends SpellComponent {
         boolean targetBlockIsSolid = false;
         while (!targetBlockIsSolid && pos.getY() > 0) {
             l = target.world.getBlockState(pos.down()).getBlock();
-            if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos)) targetBlockIsSolid = true;
+            if (l != Blocks.AIR && l.isOpaqueCube(target.world.getBlockState(pos.down()), target.world, pos))
+                targetBlockIsSolid = true;
             else {
                 target.setPosition(target.getPosX(), target.getPosY() - 1, target.getPosZ());
                 pos = pos.down();
@@ -59,7 +60,8 @@ public final class RandomTeleport extends SpellComponent {
         }
         if (targetBlockIsSolid) {
             target.setPosition(target.getPosX(), target.getPosY(), target.getPosZ());
-            if (target.world.getEmptyCollisionShapes(target, target.getBoundingBox(), new HashSet<>()).toArray().length == 0) locationValid = true;
+            if (target.world.getEmptyCollisionShapes(target, target.getBoundingBox(), new HashSet<>()).toArray().length == 0)
+                locationValid = true;
         }
         if (!locationValid) {
             target.setPosition(x, y, z);

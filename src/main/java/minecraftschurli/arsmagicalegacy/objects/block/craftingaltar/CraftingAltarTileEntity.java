@@ -66,7 +66,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private final Supplier<BlockState> stairBottom4 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
     private final Supplier<BlockState> stairBottom5 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
     private final Supplier<BlockState> stairBottom6 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
-    @SuppressWarnings("unchecked")
     final Structure STRUCTURE = new CraftingAltarStructure(new Supplier[][][]{{
             {main::get, main::get, main::get, main::get, main::get},
             {main::get, main::get, main::get, main::get, main::get},

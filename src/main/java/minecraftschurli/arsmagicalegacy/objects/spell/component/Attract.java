@@ -34,7 +34,8 @@ public final class Attract extends SpellComponent {
         Vec3i point = new Vec3i(impactX, impactY, impactZ);
         for (LivingEntity e : entities) {
             if (e == caster) continue;
-            if (target == null || point.distanceSq(e.getPosition()) < point.distanceSq(target.getPosition())) target = e;
+            if (target == null || point.distanceSq(e.getPosition()) < point.distanceSq(target.getPosition()))
+                target = e;
         }
         if (target == null) return false;
         Vec3d movement = new Vec3d(target.getPosition().subtract(new Vec3i(impactX, impactY, impactZ))).normalize();
@@ -43,9 +44,12 @@ public final class Attract extends SpellComponent {
             double y = -movement.getY() * 0.75;
             double z = -movement.getZ() * 0.75;
             target.addVelocity(x, y, z);
-            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2)) target.setMotion(x, target.getMotion().getY(), target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getY()) > Math.abs(y * 2)) target.setMotion(target.getMotion().getX(), y, target.getMotion().getZ());
-            if (Math.abs(target.getMotion().getZ()) > Math.abs(z * 2)) target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z);
+            if (Math.abs(target.getMotion().getX()) > Math.abs(x * 2))
+                target.setMotion(x, target.getMotion().getY(), target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getY()) > Math.abs(y * 2))
+                target.setMotion(target.getMotion().getX(), y, target.getMotion().getZ());
+            if (Math.abs(target.getMotion().getZ()) > Math.abs(z * 2))
+                target.setMotion(target.getMotion().getX(), target.getMotion().getY(), z);
         }
         return true;
     }

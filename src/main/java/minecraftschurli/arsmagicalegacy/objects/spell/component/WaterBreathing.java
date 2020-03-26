@@ -68,7 +68,7 @@ public final class WaterBreathing extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

@@ -68,7 +68,6 @@ public final class Entangle extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(Items.VINE))
         };
     }
-
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;

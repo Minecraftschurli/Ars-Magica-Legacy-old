@@ -21,7 +21,6 @@ public class Solar extends SpellModifier {
         return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.HEALING);
     }
 
-    @SuppressWarnings("incomplete-switch")
     @Override
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         switch (type) {

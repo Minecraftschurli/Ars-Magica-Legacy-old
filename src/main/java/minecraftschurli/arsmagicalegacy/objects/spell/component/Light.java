@@ -47,7 +47,8 @@ public final class Light extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            if (!world.isRemote) ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ILLUMINATION.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+            if (!world.isRemote)
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ILLUMINATION.get(), SpellUtils.getModifiedIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;

@@ -70,7 +70,6 @@ public final class Flight extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(Items.NETHER_STAR))
         };
     }
-
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;

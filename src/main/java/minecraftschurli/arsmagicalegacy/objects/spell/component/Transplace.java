@@ -84,7 +84,7 @@ public final class Transplace extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.ringedCross;
 //    }

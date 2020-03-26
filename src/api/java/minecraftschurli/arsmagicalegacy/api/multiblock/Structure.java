@@ -16,7 +16,6 @@ import net.minecraft.world.World;
  * @author Minecraftschurli
  * @version 2019-12-16
  */
-@SuppressWarnings("UnstableApiUsage")
 @ParametersAreNonnullByDefault
 public class Structure {
 

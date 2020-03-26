@@ -35,20 +35,24 @@ public final class EnderIntervention extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (world.isRemote) return true;
         if (target instanceof LivingEntity && ((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
-            if (target instanceof PlayerEntity) target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionDistortion"));
+            if (target instanceof PlayerEntity)
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionDistortion"));
             return false;
         }
         if (target.dimension.getId() == 1) {
-            if (target instanceof PlayerEntity) target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noIntervention"));
+            if (target instanceof PlayerEntity)
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noIntervention"));
             return false;
         }
         if (target.dimension.getId() == -1) {
-            if (target instanceof PlayerEntity) target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionNether"));
+            if (target instanceof PlayerEntity)
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noInterventionNether"));
             return false;
         }
         target.changeDimension(DimensionType.THE_END);
         BlockPos coords = new BlockPos(world.rand.nextInt(50), 63, world.rand.nextInt(50));
-        while (world.getBlockState(coords).getBlock() != Blocks.AIR && world.getBlockState(coords.up()).getBlock() != Blocks.AIR) coords = coords.up();
+        while (world.getBlockState(coords).getBlock() != Blocks.AIR && world.getBlockState(coords.up()).getBlock() != Blocks.AIR)
+            coords = coords.up();
         target.setPositionAndUpdate(coords.getX() + 0.5, coords.getY(), coords.getZ() + 0.5);
         return true;
     }

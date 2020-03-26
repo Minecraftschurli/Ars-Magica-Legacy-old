@@ -23,7 +23,6 @@ public class AffinityTomeItem extends Item {
         super(ModItems.ITEM_64);
     }
 
-    @SuppressWarnings("ConstantConditions")
     public static Affinity getAffinity(ItemStack stack) {
         ResourceLocation affinity;
         if (!stack.hasTag() || !stack.getTag().contains(AFFINITY_KEY))

@@ -40,7 +40,8 @@ public final class Forge extends SpellComponent {
         if (!recipe.isPresent()) return false;
         ItemStack smelted = recipe.get().getRecipeOutput();
         if (!world.isRemote) {
-            if (smelted.getItem() instanceof BlockItem) world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
+            if (smelted.getItem() instanceof BlockItem)
+                world.setBlockState(pos, ((BlockItem) smelted.getItem()).getBlock().getDefaultState());
             else {
                 ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, smelted.copy());
                 item.setMotion(world.rand.nextGaussian() * 0.05, world.rand.nextGaussian() * 0.05 + 0.2, world.rand.nextGaussian() * 0.05);
@@ -54,8 +55,10 @@ public final class Forge extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof VillagerEntity) {
-            if (!world.isRemote && !EntityUtils.isSummon((LivingEntity) target)) target.entityDropItem(new ItemStack(Items.EMERALD, 1));
-            if (caster instanceof PlayerEntity) target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 5000);
+            if (!world.isRemote && !EntityUtils.isSummon((LivingEntity) target))
+                target.entityDropItem(new ItemStack(Items.EMERALD, 1));
+            if (caster instanceof PlayerEntity)
+                target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 5000);
             else target.attackEntityFrom(DamageSource.causeMobDamage(caster), 5000);
             return true;
         }

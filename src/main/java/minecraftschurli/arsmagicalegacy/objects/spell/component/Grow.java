@@ -47,7 +47,6 @@ public final class Grow extends SpellComponent {
         flowers.add(ModBlocks.TARMA_ROOT.get());
         flowers.add(ModBlocks.WAKEBLOOM.get());
     }
-
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         BlockState block = world.getBlockState(pos);
@@ -63,25 +62,29 @@ public final class Grow extends SpellComponent {
                 }
         }
         if (block.getBlock() instanceof MushroomBlock) {
-            if (!world.isRemote && world.rand.nextInt(10) < 1) ((MushroomBlock) block.getBlock()).grow((ServerWorld) world, world.rand, pos, block);
+            if (!world.isRemote && world.rand.nextInt(10) < 1)
+                ((MushroomBlock) block.getBlock()).grow((ServerWorld) world, world.rand, pos, block);
             return true;
         }
         if (block.getBlock() == Blocks.TALL_GRASS) {
             if (Blocks.TALL_GRASS.canSustainPlant(Blocks.TALL_GRASS.getDefaultState(), world, pos, null, (IPlantable) Blocks.TALL_GRASS)) {
-                if (!world.isRemote && world.rand.nextInt(10) < 2) world.setBlockState(pos, Blocks.TALL_GRASS.getDefaultState());
+                if (!world.isRemote && world.rand.nextInt(10) < 2)
+                    world.setBlockState(pos, Blocks.TALL_GRASS.getDefaultState());
                 return true;
             }
         }
         if (block.getBlock() == Blocks.DEAD_BUSH) {
             if (Blocks.TALL_GRASS.canSustainPlant(Blocks.DEAD_BUSH.getDefaultState(), world, pos, null, (IPlantable) Blocks.DEAD_BUSH)) {
-                if (!world.isRemote && world.rand.nextInt(10) < 2) world.setBlockState(pos, Blocks.DEAD_BUSH.getDefaultState());
+                if (!world.isRemote && world.rand.nextInt(10) < 2)
+                    world.setBlockState(pos, Blocks.DEAD_BUSH.getDefaultState());
                 return true;
             }
         }
         if (block instanceof IGrowable) {
             IGrowable igrowable = (IGrowable) block;
             if (igrowable.canGrow(world, pos, block, world.isRemote)) {
-                if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block)) igrowable.grow((ServerWorld) world, world.rand, pos, block);
+                if (!world.isRemote && world.rand.nextInt(10) < 3 && igrowable.canUseBonemeal(world, world.rand, pos, block))
+                    igrowable.grow((ServerWorld) world, world.rand, pos, block);
                 return true;
             }
         }

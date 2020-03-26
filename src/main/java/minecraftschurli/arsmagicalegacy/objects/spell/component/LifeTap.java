@@ -31,7 +31,7 @@ public final class LifeTap extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
         if (!world.isRemote && (caster).attackEntityFrom(DamageSource.OUT_OF_WORLD, (int) Math.floor(SpellUtils.getModifiedDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
-            CapabilityHelper.increaseMana(caster, (float)(SpellUtils.getModifiedDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE) * 0.01 * CapabilityHelper.getMaxMana(caster)));
+            CapabilityHelper.increaseMana(caster, (float) (SpellUtils.getModifiedDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE) * 0.01 * CapabilityHelper.getMaxMana(caster)));
             return true;
         }
         return false;
@@ -41,6 +41,7 @@ public final class LifeTap extends SpellComponent {
     public float getAffinityShift(Affinity affinity) {
         return 0.01f;
     }
+
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DAMAGE);
@@ -71,7 +72,6 @@ public final class LifeTap extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
         };
     }
-
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.corruption;

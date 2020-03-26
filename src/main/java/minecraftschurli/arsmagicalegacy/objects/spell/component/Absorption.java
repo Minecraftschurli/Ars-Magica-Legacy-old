@@ -68,7 +68,6 @@ public final class Absorption extends SpellComponent {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
         };
     }
-
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;

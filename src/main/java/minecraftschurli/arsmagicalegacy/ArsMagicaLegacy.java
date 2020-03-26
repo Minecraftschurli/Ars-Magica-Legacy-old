@@ -81,7 +81,6 @@ public final class ArsMagicaLegacy {
         }
     };
     public static final Logger LOGGER = LogManager.getLogger();
-    @SuppressWarnings("Convert2MethodRef")
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
     private final SpellRecipeManager spellRecipeManager;

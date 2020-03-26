@@ -70,7 +70,7 @@ public final class TrueSight extends SpellComponent {
         };
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

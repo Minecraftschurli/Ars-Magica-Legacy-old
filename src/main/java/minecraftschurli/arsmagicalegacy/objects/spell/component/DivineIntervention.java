@@ -37,16 +37,19 @@ public final class DivineIntervention extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (world.isRemote || !(target instanceof LivingEntity)) return true;
         if (((LivingEntity) target).isPotionActive(ModEffects.ASTRAL_DISTORTION.get())) {
-            if (target instanceof PlayerEntity) target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleportDistortion"));
+            if (target instanceof PlayerEntity)
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleportDistortion"));
             return false;
         }
         if (target.dimension.getId() == 1) {
-            if (target instanceof PlayerEntity) target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleport"));
+            if (target instanceof PlayerEntity)
+                target.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.noTeleport"));
             return false;
         }
         if (!(target.dimension.getId() == 0)) target.changeDimension(DimensionType.OVERWORLD);
         BlockPos coords = target instanceof PlayerEntity ? ((PlayerEntity) target).getBedLocation(target.dimension) : world.getSpawnPoint();
-        while (world.getBlockState(coords).getBlock() != Blocks.AIR && world.getBlockState(coords.up()).getBlock() != Blocks.AIR) coords = coords.up();
+        while (world.getBlockState(coords).getBlock() != Blocks.AIR && world.getBlockState(coords.up()).getBlock() != Blocks.AIR)
+            coords = coords.up();
         target.setPositionAndUpdate(coords.getX() + 0.5, coords.getY(), coords.getZ() + 0.5);
         return true;
     }
