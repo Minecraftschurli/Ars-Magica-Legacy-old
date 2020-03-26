@@ -22,13 +22,13 @@ public class Damage extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 2.2f;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1.3f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1.3f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 2.2f;
     }
 
     @Override
@@ -38,9 +38,5 @@ public class Damage extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD)),
                 new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HARMING))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

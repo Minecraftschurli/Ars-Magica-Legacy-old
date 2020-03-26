@@ -20,12 +20,12 @@ public class TargetNonSolidBlocks extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
         return 1;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 1;
     }
 
@@ -38,9 +38,5 @@ public class TargetNonSolidBlocks extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(Items.POPPY)),
                 new ItemStackSpellIngredient(new ItemStack(Items.POTION))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

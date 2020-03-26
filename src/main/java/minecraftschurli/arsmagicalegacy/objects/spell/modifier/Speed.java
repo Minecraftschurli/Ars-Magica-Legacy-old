@@ -22,13 +22,13 @@ public class Speed extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 2.6f;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1.15f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1.15f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 2.6f;
     }
 
     @Override
@@ -39,9 +39,5 @@ public class Speed extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(Items.CARROT)),
                 new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potion.getPotionTypeForName("swiftness")))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

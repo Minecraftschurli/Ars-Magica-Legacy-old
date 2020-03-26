@@ -18,28 +18,18 @@ import net.minecraftforge.common.Tags;
 
 public class Color extends SpellModifier {
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemTagSpellIngredient(Tags.Items.DYES, 1)
-        };
+    public EnumSet<SpellModifiers> getAspectsModified() {
+        return EnumSet.of(SpellModifiers.COLOR);
     }
 
     @Override
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-        for (Object obj : recipe) {
-            if (obj instanceof ItemStack) {
-                ItemStack is = (ItemStack) obj;
-                if (Tags.Items.DYES.contains(is.getItem())) {
-                    NBTUtils.addTag(tag, SpellUtils.SPELL_DATA).putInt("Color", ((DyeItem) is.getItem()).getDyeColor().ordinal());
-                }
-            }
-        }
+        for (Object o : recipe) if (o instanceof ItemStack && Tags.Items.DYES.contains(((ItemStack)o).getItem())) NBTUtils.addTag(tag, SpellUtils.SPELL_DATA).putInt("Color", ((DyeItem) ((ItemStack)o).getItem()).getDyeColor().ordinal());
     }
 
     @Override
-    public EnumSet<SpellModifiers> getAspectsModified() {
-        return EnumSet.of(SpellModifiers.COLOR);
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1F;
     }
 
     @Override
@@ -51,7 +41,10 @@ public class Color extends SpellModifier {
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1F;
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
+                new ItemTagSpellIngredient(Tags.Items.DYES, 1)
+        };
     }
 }

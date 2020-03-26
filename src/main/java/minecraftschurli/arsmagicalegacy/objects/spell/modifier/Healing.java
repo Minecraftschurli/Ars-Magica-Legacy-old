@@ -22,13 +22,13 @@ public class Healing extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 2;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 2;
     }
 
     @Override
@@ -38,9 +38,5 @@ public class Healing extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(Items.EGG)),
                 new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

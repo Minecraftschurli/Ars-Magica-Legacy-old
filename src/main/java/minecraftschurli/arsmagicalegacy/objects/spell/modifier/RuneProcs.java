@@ -19,13 +19,13 @@ public class RuneProcs extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 4;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1.65f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1.65f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 4;
     }
 
     @Override
@@ -37,9 +37,5 @@ public class RuneProcs extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

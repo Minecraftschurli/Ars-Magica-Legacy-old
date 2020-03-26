@@ -21,13 +21,13 @@ public class BuffPower extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 1;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1.25f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1.25f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 1;
     }
 
     @Override
@@ -42,9 +42,5 @@ public class BuffPower extends SpellModifier {
                 new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
                 new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

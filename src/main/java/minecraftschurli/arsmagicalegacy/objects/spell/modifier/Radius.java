@@ -22,13 +22,13 @@ public class Radius extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 0.7f;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 2.5f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 2.5f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 0.7f;
     }
 
     @Override
@@ -38,9 +38,5 @@ public class Radius extends SpellModifier {
                 new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
                 new ItemStackSpellIngredient(new ItemStack(Items.TNT))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

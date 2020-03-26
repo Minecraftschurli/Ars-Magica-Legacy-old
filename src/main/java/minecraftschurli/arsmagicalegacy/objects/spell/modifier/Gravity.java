@@ -20,13 +20,13 @@ public class Gravity extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return -0.06f;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return -0.06f;
     }
 
     @Override
@@ -35,9 +35,5 @@ public class Gravity extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.EARTH_ESSENCE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.COMPASS))
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

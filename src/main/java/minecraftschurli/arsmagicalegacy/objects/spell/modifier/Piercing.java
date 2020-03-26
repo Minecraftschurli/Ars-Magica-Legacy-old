@@ -22,13 +22,13 @@ public class Piercing extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 2;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1.5f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1.5f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 2;
     }
 
     @Override
@@ -38,9 +38,5 @@ public class Piercing extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
                 new ItemTagSpellIngredient(Tags.Items.GEMS_EMERALD)
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

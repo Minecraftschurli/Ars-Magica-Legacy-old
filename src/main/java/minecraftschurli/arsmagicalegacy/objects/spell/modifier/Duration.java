@@ -21,13 +21,13 @@ public class Duration extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 2.2f;
+    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
+        return 1.25f * quantity;
     }
 
     @Override
-    public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1.25f * quantity;
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 2.2f;
     }
 
     @Override
@@ -36,9 +36,5 @@ public class Duration extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get())),
                 new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE)
         };
-    }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
     }
 }

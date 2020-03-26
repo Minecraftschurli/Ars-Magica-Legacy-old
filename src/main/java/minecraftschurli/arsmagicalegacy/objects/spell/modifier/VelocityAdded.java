@@ -40,8 +40,4 @@ public class VelocityAdded extends SpellModifier {
                 new ItemStackSpellIngredient(new ItemStack(Items.OAK_BOAT))
         };
     }
-
-    @Override
-    public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
-    }
 }
