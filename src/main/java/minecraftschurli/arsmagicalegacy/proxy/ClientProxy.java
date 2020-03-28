@@ -24,14 +24,9 @@ public class ClientProxy implements IProxy {
 
     @Override
     public void init() {
-        //noinspection RedundantCast,ConstantConditions
+        // noinspection RedundantCast
         ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
-        //noinspection RedundantCast,ConstantConditions
+        // noinspection RedundantCast
         ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
-    }
-
-    @Override
-    public PlayerEntity getLocalPlayer() {
-        return Minecraft.getInstance().player;
     }
 }

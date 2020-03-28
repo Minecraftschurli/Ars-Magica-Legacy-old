@@ -18,7 +18,7 @@ public class ArsMagicaAPI {
     public static final String MODID = "arsmagicalegacy";
     public static final String MODNAME = "Ars Magica: Legacy";
 
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger(MODID+"-api");
 
     public static void setup() {
         RegistryHandler.setup();

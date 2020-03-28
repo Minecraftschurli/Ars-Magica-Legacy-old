@@ -1,6 +1,10 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
+import java.util.HashSet;
 import java.util.Map.Entry;
+
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.AbstractAffinityAbility;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -16,7 +20,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class AffinityAbilityHelper {
 	
@@ -76,10 +79,21 @@ public class AffinityAbilityHelper {
 		GameRegistry.register(new AbilityWaterWeakness(Affinity.LIGHTNING));
 	}*/
 
+    @SuppressWarnings("UnstableApiUsage")
+    private static final Multimap<AbstractAffinityAbility.AbilityListenerType, AbstractAffinityAbility> listeners = MultimapBuilder.enumKeys(AbstractAffinityAbility.AbilityListenerType.class).hashSetValues().build();
+
+    public static void registerListeners() {
+        for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
+            for (AbstractAffinityAbility.AbilityListenerType type : ability.registerListeners(new HashSet<>())) {
+                listeners.put(type, ability);
+            }
+        }
+    }
+
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
+        for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.KEY_PRESS)) {
             if (ability.getKey() != null && event.getKey() == ability.getKey().getKey().getKeyCode()) {
                 //if (FMLCommonHandler.instance().getMinecraftServerInstance() == null)
                 //	return;
@@ -101,7 +115,7 @@ public class AffinityAbilityHelper {
                         CapabilityHelper.addAbilityCooldown(event.getEntityLiving(), entry.getKey(), entry.getValue() - 1);
                 }
             }
-            for (AbstractAffinityAbility ability : RegistryHandler.getAffinityAbilityRegistry().getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.TICK)) {
                 if (ability.canApply((PlayerEntity) event.getEntityLiving()))
                     ability.applyTick((PlayerEntity) event.getEntityLiving());
                 else
@@ -113,15 +127,15 @@ public class AffinityAbilityHelper {
     @SubscribeEvent
     public void onPlayerHurt(LivingHurtEvent event) {
         if (event.getEntityLiving() instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.HURT)) {
                 if (ability.canApply((PlayerEntity) event.getEntityLiving()))
-                    ability.applyHurt((PlayerEntity) event.getEntityLiving(), event, false);
+                    ability.applyHurt((PlayerEntity) event.getEntityLiving(), event);
             }
         }
         if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.HURTING)) {
                 if (ability.canApply((PlayerEntity) event.getSource().getTrueSource()))
-                    ability.applyHurt((PlayerEntity) event.getSource().getTrueSource(), event, true);
+                    ability.applyHurting((PlayerEntity) event.getSource().getTrueSource(), event);
             }
         }
     }
@@ -129,7 +143,7 @@ public class AffinityAbilityHelper {
     @SubscribeEvent
     public void onPlayerFall(LivingFallEvent event) {
         if (event.getEntityLiving() instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.FALL)) {
                 if (ability.canApply((PlayerEntity) event.getEntityLiving()))
                     ability.applyFall((PlayerEntity) event.getEntityLiving(), event);
             }
@@ -139,13 +153,13 @@ public class AffinityAbilityHelper {
     @SubscribeEvent
     public void onDeath(LivingDeathEvent event) {
         if (event.getEntityLiving() instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.DEATH)) {
                 if (ability.canApply((PlayerEntity) event.getEntityLiving()))
                     ability.applyDeath((PlayerEntity) event.getEntityLiving(), event);
             }
         }
         if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.KILL)) {
                 if (ability.canApply((PlayerEntity) event.getSource().getTrueSource()))
                     ability.applyKill((PlayerEntity) event.getSource().getTrueSource(), event);
             }
@@ -155,7 +169,7 @@ public class AffinityAbilityHelper {
     @SubscribeEvent
     public void onPlayerJump(LivingJumpEvent event) {
         if (event.getEntityLiving() instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.JUMP)) {
                 if (ability.canApply((PlayerEntity) event.getEntityLiving()))
                     ability.applyJump((PlayerEntity) event.getEntityLiving(), event);
             }
@@ -165,7 +179,7 @@ public class AffinityAbilityHelper {
     @SubscribeEvent
     public void onSpellCast(SpellCastEvent.Post event) {
         if (event.caster instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.SPELL_CAST)) {
                 if (ability.canApply((PlayerEntity) event.caster))
                     ability.applySpellCast((PlayerEntity) event.caster, event);
             }
@@ -175,7 +189,7 @@ public class AffinityAbilityHelper {
     @SubscribeEvent
     public void onPreSpellCast(SpellCastEvent.Pre event) {
         if (event.caster instanceof PlayerEntity) {
-            for (AbstractAffinityAbility ability : GameRegistry.findRegistry(AbstractAffinityAbility.class).getValues()) {
+            for (AbstractAffinityAbility ability : listeners.get(AbstractAffinityAbility.AbilityListenerType.PRE_SPELL_CAST)) {
                 if (ability.canApply((PlayerEntity) event.caster))
                     ability.applyPreSpellCast((PlayerEntity) event.caster, event);
             }

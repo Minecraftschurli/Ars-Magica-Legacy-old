@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.affinity;
 
+import java.util.Collection;
 import java.util.Objects;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -67,17 +68,14 @@ public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<Abstrac
 			return depth >= getMinimumDepth();
 		return depth >= getMinimumDepth() && depth <= getMaximumDepth();
 	}
-	
-	/**
-	 * The thing that this ability does
-	 * 
-	 * @param player : the current player
-	 */
+
 	public void applyTick(PlayerEntity player) {}
 	
 	public void applyKeyPress(PlayerEntity player) {};
-	
-	public void applyHurt(PlayerEntity player, LivingHurtEvent event, boolean isAttacker) {}
+
+	public void applyHurt(PlayerEntity player, LivingHurtEvent event) {}
+
+	public void applyHurting(PlayerEntity player, LivingHurtEvent event) {}
 	
 	public void applyFall(PlayerEntity player, LivingFallEvent event) {}
 	
@@ -92,6 +90,7 @@ public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<Abstrac
 	public void applyJump(PlayerEntity player, LivingJumpEvent event) {}
 	
 	public void removeEffects(PlayerEntity player) {}
+
 	/**
 	 * For internal use
 	 */
@@ -102,6 +101,8 @@ public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<Abstrac
 	public boolean hasMax() {
 		return getMaximumDepth() >= 0F && getMaximumDepth() <= 1F && getMaximumDepth() > getMinimumDepth();
 	}
+
+	public Collection<AbilityListenerType> registerListeners(Collection<AbilityListenerType> types) { return types;}
 	
 	private static class Apply implements Runnable {
 		
@@ -117,5 +118,18 @@ public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<Abstrac
 		public void run() {
 			ability.applyKeyPress(player);
 		}
+	}
+
+	public enum AbilityListenerType {
+		TICK,
+		KEY_PRESS,
+		HURT,
+		FALL,
+		SPELL_CAST,
+		PRE_SPELL_CAST,
+		DEATH,
+		KILL,
+		HURTING,
+		JUMP
 	}
 }

@@ -12,6 +12,7 @@ import minecraftschurli.arsmagicalegacy.capabilities.MagicCapability;
 import minecraftschurli.arsmagicalegacy.capabilities.ManaCapability;
 import minecraftschurli.arsmagicalegacy.capabilities.ResearchCapability;
 import minecraftschurli.arsmagicalegacy.capabilities.RiftStorageCapability;
+import minecraftschurli.arsmagicalegacy.handler.AffinityAbilityHelper;
 import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.handler.TickHandler;
 import minecraftschurli.arsmagicalegacy.init.IInit;
@@ -80,7 +81,7 @@ public final class ArsMagicaLegacy {
             return getCompendium();
         }
     };
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger(ArsMagicaAPI.MODID);
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
     private final SpellRecipeManager spellRecipeManager;
@@ -141,6 +142,7 @@ public final class ArsMagicaLegacy {
                 .map(ICustomFeatureBiome.class::cast)
                 .forEach(ICustomFeatureBiome::init);*/
         ModBiomes.WITCHWOOD_FOREST.get().init();
+        AffinityAbilityHelper.registerListeners();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
