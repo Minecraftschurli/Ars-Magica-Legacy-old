@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.LanguagePlugin;
+import minecraftschurli.arsmagicalegacy.api.data.ILanguagePlugin;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.init.ModBiomes;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
@@ -18,7 +18,7 @@ import net.minecraftforge.common.data.LanguageProvider;
  * @author Minecraftschurli
  * @version 2020-01-06
  */
-public class AMLGermanLanguageProvider extends LanguageProvider implements LanguagePlugin {
+public class AMLGermanLanguageProvider extends LanguageProvider implements ILanguagePlugin {
     public AMLGermanLanguageProvider(DataGenerator gen) {
         super(gen, ArsMagicaAPI.MODID, "de_de");
     }

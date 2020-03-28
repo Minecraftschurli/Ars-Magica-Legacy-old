@@ -104,6 +104,7 @@ public final class ArsMagicaLegacy {
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
         preInit();
     }
+
     //region =========LIFECYCLE=========
 
     public static SpellRecipeManager getSpellRecipeManager() {
@@ -166,6 +167,7 @@ public final class ArsMagicaLegacy {
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getCutout());
     }
     //endregion
+
     //region =========EVENTS=========
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -196,6 +198,7 @@ public final class ArsMagicaLegacy {
         event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
     }
     //endregion
+
     //region =========UTIL=========
 
     private void registerItemColorHandler(final ColorHandlerEvent.Item event) {

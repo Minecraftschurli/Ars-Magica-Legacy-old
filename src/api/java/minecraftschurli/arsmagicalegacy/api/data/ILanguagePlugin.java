@@ -1,6 +1,8 @@
-package minecraftschurli.arsmagicalegacy.api;
+package minecraftschurli.arsmagicalegacy.api.data;
 
 import java.util.function.Supplier;
+
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
@@ -11,7 +13,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
  * @author Minecraftschurli
  * @version 2020-01-15
  */
-public interface LanguagePlugin {
+public interface ILanguagePlugin {
     /**
      * Creates a new language provider, based on the vanilla language provider.
      * @param part        the data generator
@@ -157,5 +159,8 @@ public interface LanguagePlugin {
         add("item.minecraft.tipped_arrow.effect." + key, tippedArrow);
     }
 
+    /**
+     * Proxy method to make {@link net.minecraftforge.common.data.LanguageProvider#add(String,String) LanguageProvider#add} available to this interface
+     */
     void add(String key, String value);
 }
