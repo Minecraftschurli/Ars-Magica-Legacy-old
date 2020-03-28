@@ -37,7 +37,7 @@ apply plugin: 'idea'
 
 version = "${mcVersion}-${modVersion}"
 group = modGroup
-archivesBaseName = modBaseName
+archivesBaseName = modName
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = JavaVersion.VERSION_1_8
 
