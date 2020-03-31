@@ -51,9 +51,9 @@ public class BlizzardEntity extends Entity {
 
     @Override
     protected void registerData() {
+        dataManager.register(DAMAGE_DATA, 1f);
         dataManager.register(RADIUS_DATA, 3f);
         dataManager.register(STACK_DATA, new ItemStack(Items.GOLDEN_APPLE));
-        dataManager.register(DAMAGE_DATA, 1f);
     }
 
     @Override
