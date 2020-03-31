@@ -61,16 +61,13 @@ public class BlizzardEntity extends Entity {
         if (caster != null) caster.tick();
         float radius = dataManager.get(RADIUS_DATA);
         if (world.isRemote) {
-//            if (spellStack == null) {
-//                spellStack = dataManager.get(WATCHER_STACK);
-//                if (spellStack == null) return;
-//            }
+//            if (spell == null) spell = dataManager.get(STACK_DATA);
 //            int color = 0xFFFFFF;
-//            if (SpellUtils.hasModifier(SpellModifiers.COLOR, spellStack)) {
-//                List<SpellModifier> mods = SpellUtils.getModifiers(spellStack, -1);
+//            if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) {
+//                List<SpellModifier> mods = SpellUtils.getModifiers(spell, -1);
 //                for (SpellModifier mod : mods)
 //                    if (mod instanceof Color)
-//                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spellStack.getTag());
+//                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
 //            }
 //            for (int i = 0; i < 20; ++i) {
 //                double x = getPosX() - radius + (rand.nextDouble() * radius * 2);
@@ -112,7 +109,7 @@ public class BlizzardEntity extends Entity {
                     double lastVelZ = e.getMotion().z;
                     if (SpellUtils.attackWithType(spell, e, DamageSource.causeIndirectMagicDamage(caster, null), damage) && !(e instanceof PlayerEntity))
                         e.hurtResistantTime = 15;
-                    e.addVelocity(-(e.getMotion().x - lastVelX), -(e.getMotion().y - lastVelY), -(e.getMotion().z - lastVelZ));
+                    e.addVelocity(-e.getMotion().x + lastVelX, -e.getMotion().y + lastVelY, -e.getMotion().z + lastVelZ);
                 }
             }
             if (rand.nextInt(10) < 2) {
