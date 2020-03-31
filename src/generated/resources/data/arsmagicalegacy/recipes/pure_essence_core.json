@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "arsmagicalegacy:arcane_ash"
+    }
+  ],
+  "result": {
+    "item": "arsmagicalegacy:pure_essence_core"
+  }
+}

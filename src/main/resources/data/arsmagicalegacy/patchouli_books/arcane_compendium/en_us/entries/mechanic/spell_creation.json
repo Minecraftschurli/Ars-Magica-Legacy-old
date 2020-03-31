@@ -6,6 +6,10 @@
     {
       "type": "text",
       "text": "compendium.entries.mechanic.spell_creation.page.0"
+    },
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.spell_creation.page.1"
     }
   ]
 }

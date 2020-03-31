@@ -804,6 +804,12 @@ public class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('W', ModItems.MAGIC_WALL.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_MOONSTONE).build()))
                 .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURE_ESSENCE_CORE.get())
+                .addIngredient(Tags.Items.GEMS_DIAMOND)
+                .addIngredient(Items.ENDER_EYE)
+                .addIngredient(ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GEMS_DIAMOND).build()))
+                .build(consumer);
         BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.GEMS_CHIMERITE), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.LESSER_MANA_POTION.get()));
         BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.GEMS_TOPAZ), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.MANA_POTION.get()));
         BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.DUSTS_VINTEUM), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.GREATER_MANA_POTION.get()));

@@ -1,15 +1,15 @@
 {
-  "name": "compendium.entries.item.gentle_rain_flicker_focus.name",
+  "name": "compendium.entries.item.flicker_focus.gentle_rain.name",
   "category": "item/flicker_focus",
-  "icon": "arsmagicalegacy:gentle_rain_flicker_focus",
+  "icon": "arsmagicalegacy:flicker_focus.gentle_rain",
   "pages": [
     {
       "type": "text",
-      "text": "compendium.entries.item.gentle_rain_flicker_focus.page.0"
+      "text": "compendium.entries.item.flicker_focus.gentle_rain.page.0"
     },
     {
       "type": "crafting",
-      "recipe": "arsmagicalegacy:gentle_rain_flicker_focus"
+      "recipe": "arsmagicalegacy:flicker_focus.gentle_rain"
     }
   ]
 }
