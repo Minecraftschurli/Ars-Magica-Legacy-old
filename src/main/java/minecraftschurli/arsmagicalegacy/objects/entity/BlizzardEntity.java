@@ -113,10 +113,7 @@ public class BlizzardEntity extends Entity {
                 }
             }
             if (rand.nextInt(10) < 2) {
-                int pX = (int) (getPosX() - radius + rand.nextInt((int) Math.ceil(radius) * 2));
-                int pY = (int) getPosY() + rand.nextInt(2);
-                int pZ = (int) (getPosZ() - radius + rand.nextInt((int) Math.ceil(radius) * 2));
-                BlockPos pos = new BlockPos(pX, pY, pZ);
+                BlockPos pos = new BlockPos(getPosX() - radius + rand.nextInt((int) Math.ceil(radius) * 2), getPosY() + rand.nextInt(2), getPosZ() - radius + rand.nextInt((int) Math.ceil(radius) * 2));
                 if (world.isAirBlock(pos) && !world.isAirBlock(pos.down()) && world.getBlockState(pos).isOpaqueCube(null, pos))
                     world.setBlockState(pos, Blocks.SNOW.getDefaultState());
             }
@@ -124,7 +121,7 @@ public class BlizzardEntity extends Entity {
         if (!world.isRemote && ticksExisted >= ticksToExist) remove();
     }
 
-    @Override
+        @Override
     protected void writeAdditional(CompoundNBT compound) {
     }
 
