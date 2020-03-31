@@ -5,6 +5,7 @@ import minecraftschurli.arsmagicalegacy.objects.entity.FireRainEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.ThrownRockEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.WallEntity;
+import minecraftschurli.arsmagicalegacy.objects.entity.WaveEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,7 @@ public final class ModEntities implements IInit {
     public static final RegistryObject<EntityType<Entity>> BLIZZARD = ENTITIES.register("blizzard", () -> EntityType.Builder.create(BlizzardEntity::new, EntityClassification.MISC).build("blizzard"));
     public static final RegistryObject<EntityType<Entity>> FIRE_RAIN = ENTITIES.register("fire_rain", () -> EntityType.Builder.create(FireRainEntity::new, EntityClassification.MISC).build("fire_rain"));
     public static final RegistryObject<EntityType<Entity>> WALL = ENTITIES.register("wall", () -> EntityType.Builder.create(WallEntity::new, EntityClassification.MISC).build("wall"));
+    public static final RegistryObject<EntityType<Entity>> WAVE = ENTITIES.register("wave", () -> EntityType.Builder.create(WaveEntity::new, EntityClassification.MISC).build("wave4"));
 
     public static void register() {
     }

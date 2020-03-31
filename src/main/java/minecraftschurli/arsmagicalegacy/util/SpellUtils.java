@@ -91,14 +91,9 @@ public final class SpellUtils {
             }
         }
         if (result == null) {
-            ItemStack stack2 = stack.copy();
-            NBTUtils.getAMLTag(stack2.getTag()).putInt("CurrentGroup", group + 1);
-            if (group == 0)
-                result = shape.beginStackStage(stack.getItem(), stack2, caster, target, world, x, y, z, side, giveXP, ticksUsed);
-            else {
-                NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
-                result = shape.beginStackStage(stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
-            }
+            NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
+            if (group != 0) NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
+            result = shape.beginStackStage(stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
         }
         SpellCastEvent.Post post = new SpellCastEvent.Post(stack, stack.getItem(), caster, manaCost, burnoutCost, shape == ModSpellParts.CHANNEL.get(), result);
         MinecraftForge.EVENT_BUS.post(post);

@@ -10,6 +10,8 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
+import minecraftschurli.arsmagicalegacy.objects.entity.WaveEntity;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,16 +21,15 @@ import net.minecraft.world.World;
 public class Wave extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-//        if (world.isRemote) return SpellCastResult.SUCCESS;
-//        EntitySpellEffect wave = new EntitySpellEffect(world);
-//        wave.setRadius((float)SpellUtils.getModifiedDoubleAdd(1, stack, caster, target, world, SpellModifiers.RADIUS));
-//        wave.setTicksToExist(SpellUtils.getModifiedIntMul(20, stack, caster, target, world, SpellModifiers.DURATION));
-//        wave.SetCasterAndStack(caster, stack);
-//        wave.setPosition(x, y + 1, z);
-//        wave.setWave(caster.rotationYaw, (float)SpellUtils.getModifiedDoubleAdd(1f, stack, caster, target, world, SpellModifiers.SPEED) * 0.5f);
-//        wave.noClip = SpellUtils.modifierIsPresent(SpellModifiers.PIERCING, stack);
-//        wave.setGravity(SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack) * 0.5f);
-//        world.spawnEntityInWorld(wave);
+        if (world.isRemote) return SpellCastResult.SUCCESS;
+        WaveEntity wave = new WaveEntity(world);
+        wave.setRadius((float)SpellUtils.modifyDoubleAdd(1, stack, caster, target, world, SpellModifiers.RADIUS));
+        wave.setTicksToExist(SpellUtils.modifyIntMul(20, stack, caster, target, world, SpellModifiers.DURATION));
+        wave.setCasterAndStack(caster, stack);
+        wave.setPosition(x, y + 1, z);
+        wave.noClip = SpellUtils.hasModifier(SpellModifiers.PIERCING, stack);
+        wave.setGravity(SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack) * 0.5f);
+        world.addEntity(wave);
         return SpellCastResult.SUCCESS;
     }
 
