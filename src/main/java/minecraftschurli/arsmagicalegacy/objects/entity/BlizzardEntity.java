@@ -103,13 +103,8 @@ public class BlizzardEntity extends Entity {
                         e = ((EnderDragonPartEntity) e).dragon;
                     if (e instanceof LivingEntity)
                         ((LivingEntity) e).addPotionEffect(new EffectInstance(ModEffects.FROST.get(), 80, 3));
-                    float damage = dataManager.get(DAMAGE_DATA);
-                    double lastVelX = e.getMotion().x;
-                    double lastVelY = e.getMotion().y;
-                    double lastVelZ = e.getMotion().z;
-                    if (SpellUtils.attackWithType(spell, e, DamageSource.causeIndirectMagicDamage(caster, null), damage) && !(e instanceof PlayerEntity))
+                    if (SpellUtils.attackWithType(spell, e, DamageSource.causeIndirectMagicDamage(caster, null), dataManager.get(DAMAGE_DATA)) && !(e instanceof PlayerEntity))
                         e.hurtResistantTime = 15;
-                    e.addVelocity(-e.getMotion().x + lastVelX, -e.getMotion().y + lastVelY, -e.getMotion().z + lastVelZ);
                 }
             }
             if (rand.nextInt(10) < 2) {
