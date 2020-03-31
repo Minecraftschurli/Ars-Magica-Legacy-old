@@ -121,7 +121,7 @@ public class BlizzardEntity extends Entity {
         if (!world.isRemote && ticksExisted >= ticksToExist) remove();
     }
 
-        @Override
+    @Override
     protected void writeAdditional(CompoundNBT compound) {
     }
 
