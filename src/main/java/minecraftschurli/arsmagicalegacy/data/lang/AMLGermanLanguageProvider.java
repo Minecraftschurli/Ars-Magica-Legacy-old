@@ -193,6 +193,8 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ILang
         addEntityType(ModEntities.BLIZZARD, "Blizzard");
         addEntityType(ModEntities.FIRE_RAIN, "Feuerregen");
         addEntityType(ModEntities.WALL, "Magiemauer");
+        addEntityType(ModEntities.WAVE, "Magiewelle");
+        addEntityType(ModEntities.ZONE, "Magiezone");
         addEffect(ModEffects.ASTRAL_DISTORTION, "Astrale Verkrümmung");
         addEffect(ModEffects.SHRINK, "Schrumpfung");
         addEffect(ModEffects.CLARITY, "Klarheit");

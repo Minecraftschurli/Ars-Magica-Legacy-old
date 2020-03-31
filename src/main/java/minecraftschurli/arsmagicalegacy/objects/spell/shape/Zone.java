@@ -9,6 +9,8 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
+import minecraftschurli.arsmagicalegacy.objects.entity.ZoneEntity;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,14 +21,14 @@ import net.minecraftforge.common.Tags;
 public class Zone extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-//        if (world.isRemote) return SpellCastResult.SUCCESS;
-//        EntitySpellEffect zone = new EntitySpellEffect(world);
-//        zone.setRadius(SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
-//        zone.setTicksToExist(SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
-//        zone.setGravity(SpellUtils.getModifiedDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
-//        zone.SetCasterAndStack(caster, stack);
-//        zone.setPosition(x, y, z);
-//        world.spawnEntityInWorld(zone);
+        if (world.isRemote) return SpellCastResult.SUCCESS;
+        ZoneEntity zone = new ZoneEntity(world);
+        zone.setRadius(SpellUtils.modifyIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
+        zone.setTicksToExist(SpellUtils.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
+        zone.setGravity(SpellUtils.modifyDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
+        zone.setCasterAndStack(caster, stack);
+        zone.setPosition(x, y, z);
+        world.addEntity(zone);
         return SpellCastResult.SUCCESS;
     }
 

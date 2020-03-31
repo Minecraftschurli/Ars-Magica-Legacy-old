@@ -193,6 +193,8 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ILan
         addEntityType(ModEntities.BLIZZARD, "Blizzard");
         addEntityType(ModEntities.FIRE_RAIN, "Fire Rain");
         addEntityType(ModEntities.WALL, "Wall");
+        addEntityType(ModEntities.WAVE, "Wave");
+        addEntityType(ModEntities.ZONE, "Zone");
         addEffect(ModEffects.AGILITY, "Agility");
         addEffect(ModEffects.ASTRAL_DISTORTION, "Astral Distortion");
         addEffect(ModEffects.BURNOUT_REDUCTION, "Chillout");
