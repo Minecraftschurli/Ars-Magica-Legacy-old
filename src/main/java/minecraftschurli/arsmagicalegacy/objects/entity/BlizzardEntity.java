@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
@@ -96,8 +95,7 @@ public class BlizzardEntity extends Entity {
 //            }
             //TODO: SoundHelper.instance.loopSound(world, (float)getPosX(), (float)getPosY(), (float)getPosZ(), "arsmagica2:spell.loop.air", 1.0f);
         } else {
-            List<Entity> possibleTargets = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius));
-            for (Entity e : possibleTargets) {
+            for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e != caster) {
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                         e = ((EnderDragonPartEntity) e).dragon;
