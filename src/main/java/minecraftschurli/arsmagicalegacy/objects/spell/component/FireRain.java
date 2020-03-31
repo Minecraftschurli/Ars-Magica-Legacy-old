@@ -10,31 +10,31 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.objects.entity.FireRainEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public final class FireRain extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-//        List<EntitySpellEffect> zones = world.getEntitiesWithinAABB(EntitySpellEffect.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
-//        for (EntitySpellEffect zone : zones) if (zone.isRainOfFire()) return false;
-//        if (!world.isRemote) {
-//            EntitySpellEffect fire = new EntitySpellEffect(world);
-//            fire.setPosition(x, y, z);
-//            fire.setRainOfFire(false);
-//            fire.setRadius(SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS) / 2 + 1);
-//            fire.setDamageBonus(SpellUtils.getModifiedDoubleMul(1, stack, caster, target, world, SpellModifiers.DAMAGE));
-//            fire.setTicksToExist(SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
-//            fire.SetCasterAndStack(caster, stack);
-//            world.addEntity(fire);
-//        }
-        return false;//true;
+        if (!world.getEntitiesWithinAABB(FireRainEntity.class, new AxisAlignedBB(impactX - 10, impactY - 10, impactZ - 10, impactX + 10, impactY + 10, impactZ + 10)).isEmpty()) return false;
+        if (!world.isRemote) {
+            FireRainEntity fire = new FireRainEntity(world);
+            fire.setPosition(impactX, impactY, impactZ);
+            fire.setRadius(SpellUtils.modifyIntAdd(2, stack, caster, caster, world, SpellModifiers.RADIUS) / 2f + 1);
+            fire.setDamage((float)SpellUtils.modifyDoubleMul(1, stack, caster, caster, world, SpellModifiers.DAMAGE));
+            fire.setTicksToExist(SpellUtils.modifyIntMul(100, stack, caster, caster, world, SpellModifiers.DURATION));
+            fire.setCasterAndStack(caster, stack);
+            world.addEntity(fire);
+        }
+        return true;
     }
 
     @Override

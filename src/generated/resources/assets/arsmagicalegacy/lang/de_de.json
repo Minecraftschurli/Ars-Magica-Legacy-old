@@ -533,6 +533,8 @@
   "effect.arsmagicalegacy.temporal_anchor": "Zeitanker",
   "effect.arsmagicalegacy.true_sight": "Klarsicht",
   "effect.arsmagicalegacy.watery_grave": "Wassergrab",
+  "entity.arsmagicalegacy.blizzard": "Blizzard",
+  "entity.arsmagicalegacy.fire_rain": "Feuerregen",
   "entity.arsmagicalegacy.spell_projectile": "Zaubergeschoss",
   "entity.arsmagicalegacy.thrown_rock": "Magischer Meteor",
   "item.arsmagicalegacy.air_essence": "Luftessenz",

@@ -190,6 +190,8 @@ public class AMLEnglishLanguageProvider extends LanguageProvider implements ILan
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Witchwood Forest");
         addEntityType(ModEntities.SPELL_PROJECTILE, "Spell Projectile");
         addEntityType(ModEntities.THROWN_ROCK, "Thrown Rock");
+        addEntityType(ModEntities.BLIZZARD, "Blizzard");
+        addEntityType(ModEntities.FIRE_RAIN, "Fire Rain");
         addEffect(ModEffects.AGILITY, "Agility");
         addEffect(ModEffects.ASTRAL_DISTORTION, "Astral Distortion");
         addEffect(ModEffects.BURNOUT_REDUCTION, "Chillout");

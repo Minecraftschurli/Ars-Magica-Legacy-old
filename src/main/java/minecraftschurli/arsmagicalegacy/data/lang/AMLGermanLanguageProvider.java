@@ -190,6 +190,8 @@ public class AMLGermanLanguageProvider extends LanguageProvider implements ILang
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Hexenwald");
         addEntityType(ModEntities.SPELL_PROJECTILE, "Zaubergeschoss");
         addEntityType(ModEntities.THROWN_ROCK, "Magischer Meteor");
+        addEntityType(ModEntities.BLIZZARD, "Blizzard");
+        addEntityType(ModEntities.FIRE_RAIN, "Feuerregen");
         addEffect(ModEffects.ASTRAL_DISTORTION, "Astrale Verkrümmung");
         addEffect(ModEffects.SHRINK, "Schrumpfung");
         addEffect(ModEffects.CLARITY, "Klarheit");
