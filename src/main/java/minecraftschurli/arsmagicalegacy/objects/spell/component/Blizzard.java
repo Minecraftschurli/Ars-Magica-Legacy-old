@@ -10,31 +10,31 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.objects.entity.BlizzardEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public final class Blizzard extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-//        List<EntitySpellEffect> zones = world.getEntitiesWithinAABB(EntitySpellEffect.class, new AxisAlignedBB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
-//        for (EntitySpellEffect zone : zones) if (zone.isBlizzard()) return false;
-//        if (!world.isRemote) {
-//            EntitySpellEffect blizzard = new EntitySpellEffect(world);
-//            blizzard.setPosition(x, y, z);
-//            blizzard.setBlizzard();
-//            blizzard.setRadius(SpellUtils.getModifiedIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
-//            blizzard.setTicksToExist(SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
-//            blizzard.setDamageBonus(SpellUtils.getModifiedDoubleMul(1, stack, caster, target, world, SpellModifiers.DAMAGE));
-//            blizzard.SetCasterAndStack(caster, stack);
-//            world.addEntity(blizzard);
-//        }
-        return false;//true;
+        if(!world.getEntitiesWithinAABB(BlizzardEntity.class, new AxisAlignedBB(impactX - 10, impactY - 10, impactZ - 10, impactX + 10, impactY + 10, impactZ + 10)).isEmpty()) return false;
+        if (!world.isRemote) {
+            BlizzardEntity blizzard = new BlizzardEntity(world);
+            blizzard.setPosition(impactX, impactY, impactZ);
+            blizzard.setRadius(SpellUtils.modifyIntAdd(2, stack, caster, caster, world, SpellModifiers.RADIUS));
+            blizzard.setTicksToExist(SpellUtils.modifyIntMul(100, stack, caster, caster, world, SpellModifiers.DURATION));
+            blizzard.setDamage((float)SpellUtils.modifyDoubleMul(1, stack, caster, caster, world, SpellModifiers.DAMAGE));
+            blizzard.setCasterAndStack(caster, stack);
+            world.addEntity(blizzard);
+        }
+        return true;
     }
 
     @Override
