@@ -10,6 +10,8 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
+import minecraftschurli.arsmagicalegacy.objects.entity.WallEntity;
+import minecraftschurli.arsmagicalegacy.util.SpellUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,15 +23,14 @@ import net.minecraftforge.common.Tags;
 public class Wall extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-//        if (world.isRemote) return SpellCastResult.SUCCESS;
-//        EntitySpellEffect wall = new EntitySpellEffect(world);
-//        wall.setRadius(SpellUtils.getModifiedIntMul(3, stack, caster, target, world, SpellModifiers.RADIUS));
-//        wall.setTicksToExist(SpellUtils.getModifiedDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
-//        wall.setGravity(SpellUtils.getModifiedIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
-//        wall.SetCasterAndStack(caster, stack);
-//        wall.setPosition(x, y, z);
-//        wall.setWall(caster.rotationYaw);
-//        world.addEntity(wall);
+        if (world.isRemote) return SpellCastResult.SUCCESS;
+        WallEntity wall = new WallEntity(world);
+        wall.setRadius((float)SpellUtils.modifyDoubleAdd(3, stack, caster, target, world, SpellModifiers.RADIUS));
+        wall.setTicksToExist(SpellUtils.modifyIntAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
+        wall.setGravity(SpellUtils.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
+        wall.setCasterAndStack(caster, stack);
+        wall.setPosition(x, y, z);
+        world.addEntity(wall);
         return SpellCastResult.SUCCESS;
     }
 

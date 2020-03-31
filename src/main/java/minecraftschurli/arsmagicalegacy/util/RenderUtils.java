@@ -42,6 +42,19 @@ public final class RenderUtils {
         world.addParticle(new SimpleParticleData(type.get(), getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
     }
 
+    public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
+        Vec3d vVector1 = view.subtract(a);
+        Vec3d vVector2 = b.subtract(a).normalize();
+        float d = (float)a.distanceTo(b);
+        double t = vVector2.dotProduct(vVector1);
+        if (t <= 0)
+            return a;
+        if (t >= d)
+            return b;
+        Vec3d vVector3 = vVector2.scale(t);
+        return a.add(vVector3);
+    }
+
     public static void color(int color) {
         RenderSystem.color4f(getRed(color), getGreen(color), getBlue(color), 0.5F);
     }
