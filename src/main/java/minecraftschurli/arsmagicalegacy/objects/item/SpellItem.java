@@ -1,13 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,6 +20,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -55,11 +56,11 @@ public class SpellItem extends Item {
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         if (worldIn.isRemote)
             return;
-        SpellShape shape = SpellUtils.getShape(stack, 0);
+        SpellShape shape = SpellUtil.getShape(stack, 0);
         if (!stack.hasTag()) return;
         if (shape != null) {
             if (!shape.isChanneled()) {
-                SpellCastResult result = SpellUtils.applyStackStage(stack, entityLiving, null, entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), Direction.UP, worldIn, true, true, 0);
+                SpellCastResult result = SpellUtil.applyStackStage(stack, entityLiving, null, entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), Direction.UP, worldIn, true, true, 0);
                 ArsMagicaLegacy.LOGGER.debug(result);
             }
             /*if (worldIn.isRemote && shape.isChanneled()){
@@ -70,9 +71,9 @@ public class SpellItem extends Item {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        SpellShape shape = SpellUtils.getShape(stack, 0);
+        SpellShape shape = SpellUtil.getShape(stack, 0);
         if (shape.isChanneled())
-            SpellUtils.applyStackStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);
+            SpellUtil.applyStackStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);
         super.onUsingTick(stack, player, count);
     }
 
@@ -85,7 +86,7 @@ public class SpellItem extends Item {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (!stack.hasTag()) return;
-        float manaCost = SpellUtils.getMana(stack, ArsMagicaAPI.getLocalPlayer());
+        float manaCost = SpellUtil.getMana(stack, ArsMagicaAPI.getLocalPlayer());
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.manacost", manaCost));
     }
 }

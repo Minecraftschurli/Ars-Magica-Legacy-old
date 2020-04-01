@@ -18,7 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
  * @version 2019-11-12
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ArsMagicaAPI.MODID)
-public class DataGenerators {
+public final class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();

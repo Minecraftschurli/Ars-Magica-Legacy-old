@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
@@ -18,6 +15,10 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

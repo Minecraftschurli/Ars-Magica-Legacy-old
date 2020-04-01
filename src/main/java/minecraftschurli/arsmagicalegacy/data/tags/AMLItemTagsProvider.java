@@ -12,7 +12,7 @@ import net.minecraftforge.common.Tags;
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-public class AMLItemTagsProvider extends ItemTagsProvider {
+public final class AMLItemTagsProvider extends ItemTagsProvider {
     public AMLItemTagsProvider(DataGenerator generator) {
         super(generator);
     }

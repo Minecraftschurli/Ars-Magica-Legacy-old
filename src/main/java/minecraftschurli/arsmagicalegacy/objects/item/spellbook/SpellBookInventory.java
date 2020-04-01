@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import java.util.stream.IntStream;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -9,6 +7,9 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+
+import javax.annotation.Nonnull;
+import java.util.stream.IntStream;
 
 /**
  * @author Minecraftschurli

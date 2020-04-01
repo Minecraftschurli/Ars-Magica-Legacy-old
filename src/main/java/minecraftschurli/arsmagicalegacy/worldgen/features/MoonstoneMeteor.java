@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.worldgen.features;
 
-import java.util.Random;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,6 +12,8 @@ import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.common.Tags;
+
+import java.util.Random;
 
 /**
  * @author Minecraftschurli

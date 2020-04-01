@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -11,19 +10,21 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+
 public class Self extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        SpellCastResult result = SpellUtils.applyStageToEntity(stack, caster, world, caster, giveXP);
+        SpellCastResult result = SpellUtil.applyStageToEntity(stack, caster, world, caster, giveXP);
         if (result != SpellCastResult.SUCCESS) return result;
-        return SpellUtils.applyStackStage(stack, caster, target, x, y, z, null, world, true, giveXP, 0);
+        return SpellUtil.applyStackStage(stack, caster, target, x, y, z, null, world, true, giveXP, 0);
     }
 
     @Override

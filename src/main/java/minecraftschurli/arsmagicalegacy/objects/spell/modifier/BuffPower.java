@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
-import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -13,6 +12,8 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
+
+import java.util.EnumSet;
 
 public class BuffPower extends SpellModifier {
     @Override

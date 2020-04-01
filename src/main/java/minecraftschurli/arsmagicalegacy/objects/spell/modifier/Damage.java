@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
-import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
@@ -14,6 +13,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
 
 public class Damage extends SpellModifier {
     @Override

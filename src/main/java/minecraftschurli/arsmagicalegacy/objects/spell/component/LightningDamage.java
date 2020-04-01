@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -13,7 +10,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredien
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -24,6 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
+
 public final class LightningDamage extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
@@ -33,7 +34,7 @@ public final class LightningDamage extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        return SpellUtils.attackWithType(stack, target, DamageSource.LIGHTNING_BOLT, SpellUtils.modifyDamage(caster, (float) SpellUtils.modifyDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE)));
+        return SpellUtil.attackWithType(stack, target, DamageSource.LIGHTNING_BOLT, SpellUtil.modifyDamage(caster, (float) SpellUtil.modifyDoubleAdd(12, stack, caster, target, world, SpellModifiers.DAMAGE)));
     }
 
     @Override

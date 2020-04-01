@@ -25,7 +25,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
 
-public final class RenderUtils {
+public final class RenderUtil {
     public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
         world.addParticle(new SimpleParticleData(type.get(), r, g, b, 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
@@ -45,7 +45,7 @@ public final class RenderUtils {
     public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
         Vec3d vVector1 = view.subtract(a);
         Vec3d vVector2 = b.subtract(a).normalize();
-        float d = (float)a.distanceTo(b);
+        float d = (float) a.distanceTo(b);
         double t = vVector2.dotProduct(vVector1);
         if (t <= 0)
             return a;

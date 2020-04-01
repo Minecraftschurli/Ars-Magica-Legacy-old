@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -12,7 +9,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -20,6 +17,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class LifeTap extends SpellComponent {
     @Override
@@ -30,8 +31,8 @@ public final class LifeTap extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (!(target instanceof LivingEntity)) return false;
-        if (!world.isRemote && (caster).attackEntityFrom(DamageSource.OUT_OF_WORLD, (int) Math.floor(SpellUtils.modifyDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
-            CapabilityHelper.increaseMana(caster, (float) (SpellUtils.modifyDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE) * 0.01 * CapabilityHelper.getMaxMana(caster)));
+        if (!world.isRemote && (caster).attackEntityFrom(DamageSource.OUT_OF_WORLD, (int) Math.floor(SpellUtil.modifyDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
+            CapabilityHelper.increaseMana(caster, (float) (SpellUtil.modifyDoubleMul(2, stack, caster, target, world, SpellModifiers.DAMAGE) * 0.01 * CapabilityHelper.getMaxMana(caster)));
             return true;
         }
         return false;

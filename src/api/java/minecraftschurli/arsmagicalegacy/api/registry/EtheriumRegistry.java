@@ -1,14 +1,15 @@
 package minecraftschurli.arsmagicalegacy.api.registry;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

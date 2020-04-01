@@ -1,12 +1,13 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Minecraftschurli

@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.worldgen.features;
 
-import java.util.Random;
-import javax.annotation.Nonnull;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.Direction;
@@ -11,6 +9,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 /**
  * @author Minecraftschurli

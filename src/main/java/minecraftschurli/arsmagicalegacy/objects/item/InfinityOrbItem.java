@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import java.util.Comparator;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
@@ -20,6 +17,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * @author IchHabeHunger54

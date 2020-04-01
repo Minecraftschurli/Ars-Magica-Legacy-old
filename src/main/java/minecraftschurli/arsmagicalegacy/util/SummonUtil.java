@@ -5,7 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public final class SummonUtils {
+public final class SummonUtil {
     private static final String IS_SUMMON = "Is_Summon";
     private static final String SUMMON_DURATION = "Summon_Duration";
     private static final String SUMMON_ENTITY_IDS = "Summon_Entity_IDs";
@@ -99,6 +99,12 @@ public final class SummonUtils {
         return false;
     }
 
+    public static void setGuardSpawnLocation(CreatureEntity entity, double x, double y, double z) {
+//        float speed = entity.getAIMoveSpeed();
+//        if (speed <= 0) speed = 1;
+//        entity.tasks.addTask(1, new EntityAIGuardSpawnLocation(entity, speed, 3, 16, new Vec3d(x, y, z)));
+    }
+
     public static void setOwner(LivingEntity entityliving, LivingEntity owner) {
         if (owner == null) {
             entityliving.getPersistentData().remove(SUMMON_OWNER);
@@ -115,4 +121,11 @@ public final class SummonUtils {
     public static void setSummonDuration(LivingEntity entity, int duration) {
         entity.getPersistentData().putInt(SUMMON_DURATION, duration);
     }
+
+//    public static void setTileSpawned(LivingEntity entityliving, TileEntitySummoner summoner){
+//        entityliving.getPersistentData().putInt(summonTileXKey, summoner.getPos().getX());
+//        entityliving.getPersistentData().putInt(summonTileYKey, summoner.getPos().getY());
+//        entityliving.getPersistentData().putInt(summonTileZKey, summoner.getPos().getZ());
+//    }
+//
 }

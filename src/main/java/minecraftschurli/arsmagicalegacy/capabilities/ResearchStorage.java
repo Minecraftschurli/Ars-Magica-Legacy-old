@@ -1,17 +1,18 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import com.google.common.collect.ImmutableList;
+import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
+import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.skill.Skill;
+import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nonnull;
-import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
-import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
-import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Minecraftschurli

@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -13,7 +10,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredien
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -21,6 +18,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class LifeDrain extends SpellComponent {
     @Override
@@ -32,8 +33,8 @@ public final class LifeDrain extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (world.isRemote || !(target instanceof LivingEntity) || ((LivingEntity) target).isEntityUndead())
             return true;
-        if (SpellUtils.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, caster), SpellUtils.modifyDamage(caster, SpellUtils.modifyIntAdd(4, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
-            caster.heal((int) Math.ceil(SpellUtils.modifyIntAdd(4, stack, caster, target, world, SpellModifiers.DAMAGE) / 4f));
+        if (SpellUtil.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, caster), SpellUtil.modifyDamage(caster, SpellUtil.modifyIntAdd(4, stack, caster, target, world, SpellModifiers.DAMAGE)))) {
+            caster.heal((int) Math.ceil(SpellUtil.modifyIntAdd(4, stack, caster, target, world, SpellModifiers.DAMAGE) / 4f));
             return true;
         }
         return false;

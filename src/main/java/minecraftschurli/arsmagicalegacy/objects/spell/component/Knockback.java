@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -11,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -19,6 +16,10 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class Knockback extends SpellComponent {
     @Override
@@ -29,7 +30,7 @@ public final class Knockback extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            target.setMotion(target.getMotion().getX() + SpellUtils.modifyDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.cos(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())), target.getMotion().getY() + 0.325, target.getMotion().getZ() + SpellUtils.modifyDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.sin(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())));
+            target.setMotion(target.getMotion().getX() + SpellUtil.modifyDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.cos(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())), target.getMotion().getY() + 0.325, target.getMotion().getZ() + SpellUtil.modifyDoubleAdd(1.5, stack, caster, target, world, SpellModifiers.VELOCITY_ADDED) * Math.sin(Math.atan2(target.getPosZ() - caster.getPosZ(), target.getPosX() - caster.getPosX())));
             return true;
         }
         return false;

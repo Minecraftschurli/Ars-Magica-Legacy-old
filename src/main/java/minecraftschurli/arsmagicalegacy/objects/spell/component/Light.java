@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -15,7 +11,7 @@ import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -25,6 +21,11 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public final class Light extends SpellComponent {
     @Override
@@ -48,7 +49,7 @@ public final class Light extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
             if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ILLUMINATION.get(), SpellUtils.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ILLUMINATION.get(), SpellUtil.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtil.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;
@@ -121,8 +122,8 @@ public final class Light extends SpellComponent {
 
     private int getColor(ItemStack spell) {
         int dye_color_num = 15;
-        if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) {
-            List<SpellModifier> modifiers = SpellUtils.getModifiers(spell, -1);
+        if (SpellUtil.hasModifier(SpellModifiers.COLOR, spell)) {
+            List<SpellModifier> modifiers = SpellUtil.getModifiers(spell, -1);
             for (SpellModifier mod : modifiers)
                 if (mod instanceof Color) dye_color_num = spell.getTag().getInt("Color");
         }

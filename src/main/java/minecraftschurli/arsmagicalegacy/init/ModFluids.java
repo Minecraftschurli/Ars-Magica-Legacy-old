@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import java.awt.Color;
 import minecraftschurli.arsmagicalegacy.objects.fluid.LiquidEssenceFluid;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
@@ -13,6 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
+
+import java.awt.Color;
 
 /**
  * @author Minecraftschurli

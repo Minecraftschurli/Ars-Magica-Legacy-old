@@ -1,14 +1,6 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -22,7 +14,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredie
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
@@ -33,6 +25,15 @@ import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -129,8 +130,8 @@ public class SpellComponentPage implements ICustomComponent {
             float y = (float) (cy - Math.sin(angle) * dist);
             float nextx = (float) (cx - Math.cos(nextangle) * dist);
             float nexty = (float) (cy - Math.sin(nextangle) * dist);
-            RenderUtils.line2d(x + 8, y + 8, cx + 8, cy + 8, context.getGui().getBlitOffset(), 0x0000DD);
-            RenderUtils.gradientline2d(x + 8, y + 8, nextx + 8, nexty + 8, context.getGui().getBlitOffset(), 0x0000DD, 0xDD00DD);
+            RenderUtil.line2d(x + 8, y + 8, cx + 8, cy + 8, context.getGui().getBlitOffset(), 0x0000DD);
+            RenderUtil.gradientline2d(x + 8, y + 8, nextx + 8, nexty + 8, context.getGui().getBlitOffset(), 0x0000DD, 0xDD00DD);
             renderCraftingComponent(context, i, x, y, mousex, mousey);
         }
     }
@@ -150,7 +151,7 @@ public class SpellComponentPage implements ICustomComponent {
             renderEssence(context, mousex, mousey, sx, sy, ((EtheriumSpellIngredient) craftingComponent));
             return;
         } else return;
-        RenderUtils.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset() + 1);
+        RenderUtil.renderItemIntoGUI(context.getGui().getMinecraft().getItemRenderer(), context.getGui().getMinecraft().getTextureManager(), stack, sx, sy, context.getGui().getBlitOffset() + 1);
         if (context.isAreaHovered(mousex, mousey, (int) sx, (int) sy, 16, 16)) {
             context.setHoverTooltip(context.getGui().getTooltipFromItem(stack));
         }

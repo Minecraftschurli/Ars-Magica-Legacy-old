@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.armor;
 
-import java.util.function.Supplier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
@@ -10,6 +9,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.function.Supplier;
 
 public class ArmorMaterial implements IArmorMaterial {
     private static final int[] MAX_DAMAGE = new int[]{13, 15, 16, 11};

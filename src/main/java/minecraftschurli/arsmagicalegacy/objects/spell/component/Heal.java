@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -12,7 +9,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -20,6 +17,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class Heal extends SpellComponent {
     @Override
@@ -31,10 +32,10 @@ public final class Heal extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
             if (((LivingEntity) target).isEntityUndead()) {
-                int healing = SpellUtils.modifyIntMul(10, stack, caster, target, world, SpellModifiers.HEALING);
-                return SpellUtils.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), (float) (healing * (0.5f + 2 * CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get()))));
+                int healing = SpellUtil.modifyIntMul(10, stack, caster, target, world, SpellModifiers.HEALING);
+                return SpellUtil.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), (float) (healing * (0.5f + 2 * CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get()))));
             } else {
-                int healing = SpellUtils.modifyIntMul(2, stack, caster, target, world, SpellModifiers.HEALING);
+                int healing = SpellUtil.modifyIntMul(2, stack, caster, target, world, SpellModifiers.HEALING);
                 if (caster.isNonBoss())
                     healing *= 1 + CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get());
                 ((LivingEntity) target).heal(healing);

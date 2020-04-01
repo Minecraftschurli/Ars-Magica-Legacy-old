@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -12,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.SummonUtils;
+import minecraftschurli.arsmagicalegacy.util.SummonUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -30,6 +26,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 
 public final class Forge extends SpellComponent {
     @Override
@@ -55,7 +56,7 @@ public final class Forge extends SpellComponent {
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof VillagerEntity) {
-            if (!world.isRemote && !SummonUtils.isSummon((LivingEntity) target))
+            if (!world.isRemote && !SummonUtil.isSummon((LivingEntity) target))
                 target.entityDropItem(new ItemStack(Items.EMERALD, 1));
             if (caster instanceof PlayerEntity)
                 target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) caster), 5000);

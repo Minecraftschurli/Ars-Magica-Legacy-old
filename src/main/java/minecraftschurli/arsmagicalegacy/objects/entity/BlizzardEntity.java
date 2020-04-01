@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.entity;
 
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,12 +23,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlizzardEntity extends Entity {
-    private int ticksToExist;
-    private ItemStack spell;
-    private PlayerEntity caster;
     private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.ITEMSTACK);
     private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.FLOAT);
+    private int ticksToExist;
+    private ItemStack spell;
+    private PlayerEntity caster;
 
     public BlizzardEntity(World world) {
         this(ModEntities.BLIZZARD.get(), world);
@@ -101,7 +101,7 @@ public class BlizzardEntity extends Entity {
                         e = ((EnderDragonPartEntity) e).dragon;
                     if (e instanceof LivingEntity)
                         ((LivingEntity) e).addPotionEffect(new EffectInstance(ModEffects.FROST.get(), 80, 3));
-                    if (SpellUtils.attackWithType(spell, e, DamageSource.causeIndirectMagicDamage(caster, null), dataManager.get(DAMAGE_DATA)) && !(e instanceof PlayerEntity))
+                    if (SpellUtil.attackWithType(spell, e, DamageSource.causeIndirectMagicDamage(caster, null), dataManager.get(DAMAGE_DATA)) && !(e instanceof PlayerEntity))
                         e.hurtResistantTime = 15;
                 }
             }

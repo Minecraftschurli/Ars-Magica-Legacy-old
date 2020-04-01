@@ -1,12 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -17,7 +11,7 @@ import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -38,8 +32,16 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.eventbus.api.Event;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 public final class Grow extends SpellComponent {
     private final static List<BushBlock> flowers = new ArrayList<>();
+
     static {
         flowers.add(ModBlocks.AUM.get());
         flowers.add(ModBlocks.CERUBLOSSOM.get());
@@ -47,6 +49,7 @@ public final class Grow extends SpellComponent {
         flowers.add(ModBlocks.TARMA_ROOT.get());
         flowers.add(ModBlocks.WAKEBLOOM.get());
     }
+
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         BlockState block = world.getBlockState(pos);
@@ -93,7 +96,7 @@ public final class Grow extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
+        return SpellUtil.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override

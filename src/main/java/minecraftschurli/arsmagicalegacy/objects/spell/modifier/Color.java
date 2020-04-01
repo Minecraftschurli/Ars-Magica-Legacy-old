@@ -1,13 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.modifier;
 
-import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.NBTUtils;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.NBTUtil;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.DyeItem;
@@ -15,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
+
+import java.util.EnumSet;
 
 public class Color extends SpellModifier {
     @Override
@@ -26,7 +27,7 @@ public class Color extends SpellModifier {
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {
         for (Object o : recipe)
             if (o instanceof ItemStack && Tags.Items.DYES.contains(((ItemStack) o).getItem()))
-                NBTUtils.addTag(tag, SpellUtils.SPELL_DATA).putInt("Color", ((DyeItem) ((ItemStack) o).getItem()).getDyeColor().ordinal());
+                NBTUtil.addTag(tag, SpellUtil.SPELL_DATA).putInt("Color", ((DyeItem) ((ItemStack) o).getItem()).getDyeColor().ordinal());
     }
 
     @Override
@@ -37,7 +38,7 @@ public class Color extends SpellModifier {
     @Override
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         if (type == SpellModifiers.COLOR) {
-            return NBTUtils.addTag(nbt, SpellUtils.SPELL_DATA).getInt("Color");
+            return NBTUtil.addTag(nbt, SpellUtil.SPELL_DATA).getInt("Color");
         }
         return 0;
     }

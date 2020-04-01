@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,6 +21,8 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -109,7 +110,7 @@ public class SpellProjectileEntity extends Entity {
         if (facing == null) {
             this.setMotion(this.getMotion().inverse());
         } else {
-            double projectileSpeed = SpellUtils.modifyDoubleMul(1, getSpell(), getShooter(), null, world, SpellModifiers.VELOCITY_ADDED);
+            double projectileSpeed = SpellUtil.modifyDoubleMul(1, getSpell(), getShooter(), null, world, SpellModifiers.VELOCITY_ADDED);
             double newMotionX = getMotion().x / projectileSpeed;
             double newMotionY = getMotion().y / projectileSpeed;
             double newMotionZ = getMotion().z / projectileSpeed;
@@ -137,9 +138,9 @@ public class SpellProjectileEntity extends Entity {
                     if (getBounces() > 0) {
                         bounce(((BlockRayTraceResult) mop).getFace());
                     } else {
-                        SpellUtils.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
-                        SpellUtils.applyStackStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
-                        if (this.getPierces() == 1 || !SpellUtils.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
+                        SpellUtil.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
+                        SpellUtil.applyStackStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
+                        if (this.getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
                             this.remove();
                         else
                             this.currentPierces++;
@@ -154,15 +155,15 @@ public class SpellProjectileEntity extends Entity {
                             effSize--;
                             continue;
                         }
-                        SpellUtils.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
-                        SpellUtils.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
+                        SpellUtil.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
+                        SpellUtil.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
                         break;
                     } else {
                         effSize--;
                     }
                 }
                 if (effSize != 0) {
-                    if (this.getPierces() == 1 || !SpellUtils.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
+                    if (this.getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
                         this.remove();
                     else
                         this.currentPierces++;

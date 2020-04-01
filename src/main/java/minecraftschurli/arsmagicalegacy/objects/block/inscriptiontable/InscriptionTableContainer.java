@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import java.util.EnumSet;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -15,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.WritableBookItem;
 import net.minecraft.network.PacketBuffer;
+
+import javax.annotation.Nonnull;
+import java.util.EnumSet;
 
 /**
  * @author Minecraftschurli

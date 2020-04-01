@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import java.util.HashSet;
-import java.util.Map.Entry;
-
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
@@ -20,6 +17,9 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import java.util.HashSet;
+import java.util.Map.Entry;
 
 public class AffinityAbilityHelper {
 	

@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -14,6 +13,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Minecraftschurli

@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -14,8 +12,8 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredien
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
-import minecraftschurli.arsmagicalegacy.util.SummonUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
+import minecraftschurli.arsmagicalegacy.util.SummonUtil;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -28,6 +26,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 public final class Summon extends SpellComponent {
     @Override
@@ -42,19 +43,19 @@ public final class Summon extends SpellComponent {
         entity.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.BOW));
         entity.setPosition(impactX, impactY, impactZ);
         world.addEntity(entity);
-        if (caster instanceof PlayerEntity) SummonUtils.makeSummonPlayerFaction(entity, (PlayerEntity) caster, false);
-        else SummonUtils.makeSummonMonsterFaction(entity, false);
-        SummonUtils.setOwner(entity, caster);
-        int duration = SpellUtils.modifyIntMul(4800, stack, caster, caster, world, SpellModifiers.DURATION);
-        SummonUtils.setSummonDuration(entity, duration);
-        SpellUtils.applyStageToEntity(stack, caster, world, entity, false);
+        if (caster instanceof PlayerEntity) SummonUtil.makeSummonPlayerFaction(entity, (PlayerEntity) caster, false);
+        else SummonUtil.makeSummonMonsterFaction(entity, false);
+        SummonUtil.setOwner(entity, caster);
+        int duration = SpellUtil.modifyIntMul(4800, stack, caster, caster, world, SpellModifiers.DURATION);
+        SummonUtil.setSummonDuration(entity, duration);
+        SpellUtil.applyStageToEntity(stack, caster, world, entity, false);
         return true;
     }
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if (target instanceof LivingEntity && SummonUtils.isSummon((LivingEntity) target)) return false;
-        return SpellUtils.doBlockWithEntity(this, stack, world, caster, target);
+        if (target instanceof LivingEntity && SummonUtil.isSummon((LivingEntity) target)) return false;
+        return SpellUtil.doBlockWithEntity(this, stack, world, caster, target);
     }
 
     @Override

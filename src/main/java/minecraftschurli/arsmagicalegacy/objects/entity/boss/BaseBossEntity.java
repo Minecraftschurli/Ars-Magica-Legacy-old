@@ -3,7 +3,6 @@ package minecraftschurli.arsmagicalegacy.objects.entity.boss;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
 
 /**

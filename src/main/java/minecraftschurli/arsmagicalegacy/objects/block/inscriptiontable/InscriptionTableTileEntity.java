@@ -1,19 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 import javafx.util.Pair;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.event.SpellRecipeItemsEvent;
@@ -33,7 +20,7 @@ import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.spell.SpellValidator;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -57,6 +44,20 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -477,18 +478,18 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }
         currentSpellName = "";
         this.currentSpellName = stack.getDisplayName().getFormattedText();
-        int numStages = SpellUtils.stageNum(stack);
+        int numStages = SpellUtil.stageNum(stack);
         for (int i = 0; i < numStages; i++) {
-            SpellShape shape = SpellUtils.getShape(stack, i);
+            SpellShape shape = SpellUtil.getShape(stack, i);
             this.currentRecipe.add(shape);
-            List<SpellComponent> components = SpellUtils.getComponents(stack, i);
+            List<SpellComponent> components = SpellUtil.getComponents(stack, i);
             this.currentRecipe.addAll(components);
-            List<SpellModifier> modifiers = SpellUtils.getModifiers(stack, i);
+            List<SpellModifier> modifiers = SpellUtil.getModifiers(stack, i);
             this.currentRecipe.addAll(modifiers);
         }
-        int numShapeGroups = SpellUtils.numShapeGroups(stack);
+        int numShapeGroups = SpellUtil.numShapeGroups(stack);
         for (int i = 0; i < numShapeGroups; i++) {
-            List<AbstractSpellPart> parts = SpellUtils.getGroupParts(stack, i);
+            List<AbstractSpellPart> parts = SpellUtil.getGroupParts(stack, i);
             for (AbstractSpellPart partID : parts) {
                 if (partID != null)
                     this.shapeGroups.get(i).add(partID);
@@ -859,7 +860,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         for (List<AbstractSpellPart> arr : shapeGroups) {
             shapeGroupSetup.add(new Pair<>(arr, new CompoundNBT()));
         }
-        ItemStack stack = SpellUtils.makeSpellStack(shapeGroupSetup, curRecipeSetup);
+        ItemStack stack = SpellUtil.makeSpellStack(shapeGroupSetup, curRecipeSetup);
         stack.getTag().putString("suggestedName", currentSpellName);
         player.inventory.addItemStackToInventory(stack);
         //}

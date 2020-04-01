@@ -1,8 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,14 +20,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class WallEntity extends Entity {
-    private int ticksToEffect = 20;
-    private int ticksToExist = 100;
-    private ItemStack spell;
-    private PlayerEntity caster;
     private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.ITEMSTACK);
     private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Float> GRAVITY_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
+    private int ticksToEffect = 20;
+    private int ticksToExist = 100;
+    private ItemStack spell;
+    private PlayerEntity caster;
 
     public WallEntity(World world) {
         this(ModEntities.WALL.get(), world);
@@ -102,10 +102,11 @@ public class WallEntity extends Entity {
                     Vec3d a = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * radius);
                     Vec3d b = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * -radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * -radius);
                     Vec3d target = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ());
-                    Vec3d closest = RenderUtils.closestPointOnLine(target, a, b);
+                    Vec3d closest = RenderUtil.closestPointOnLine(target, a, b);
                     target = new Vec3d(target.x, 0, target.z);
                     closest = new Vec3d(closest.x, 0, closest.z);
-                    if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(this.getPosY() - e.getPosY()) < 2) SpellUtils.applyStackStage(spell, caster, (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
+                    if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(this.getPosY() - e.getPosY()) < 2)
+                        SpellUtil.applyStackStage(spell, caster, (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
                 }
             }
         }

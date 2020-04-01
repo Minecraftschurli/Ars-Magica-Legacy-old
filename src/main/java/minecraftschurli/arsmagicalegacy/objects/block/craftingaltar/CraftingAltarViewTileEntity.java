@@ -1,12 +1,13 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

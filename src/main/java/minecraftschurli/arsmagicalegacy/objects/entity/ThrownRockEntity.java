@@ -1,12 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -28,6 +25,10 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -271,7 +272,7 @@ public class ThrownRockEntity extends Entity {
                 if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
                 if (this.getDistance(e) < 12)
                     //noinspection ConstantConditions
-                    SpellUtils.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
+                    SpellUtil.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
             }
         } else {
             if (movingobjectposition.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {

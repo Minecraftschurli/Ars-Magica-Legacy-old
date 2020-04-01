@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.affinity;
 
-import java.util.Collection;
-import java.util.Objects;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import net.minecraft.client.settings.KeyBinding;
@@ -13,6 +10,10 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Objects;
 
 public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<AbstractAffinityAbility> {
 	

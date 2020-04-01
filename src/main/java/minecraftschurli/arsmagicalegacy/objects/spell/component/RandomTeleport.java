@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -12,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -27,6 +23,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 public final class RandomTeleport extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
@@ -35,7 +36,7 @@ public final class RandomTeleport extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        Vec3d origin = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ()).add(new Vec3d((world.rand.nextDouble() - 0.5) * SpellUtils.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtils.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtils.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE)));
+        Vec3d origin = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ()).add(new Vec3d((world.rand.nextDouble() - 0.5) * SpellUtil.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtil.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE), (world.rand.nextDouble() - 0.5) * SpellUtil.modifyDoubleMul(9, stack, caster, target, world, SpellModifiers.RANGE)));
         if (target instanceof LivingEntity) {
             EnderTeleportEvent event = new EnderTeleportEvent((LivingEntity) target, origin.getX(), origin.getY(), origin.getZ(), 0);
             if (MinecraftForge.EVENT_BUS.post(event)) return false;

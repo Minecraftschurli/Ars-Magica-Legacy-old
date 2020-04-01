@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.util;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +13,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
-public final class EntityUtils {
+import java.lang.reflect.Method;
+import java.util.List;
+
+public final class EntityUtil {
 //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
 //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedAITasks = new HashMap<>();
     private static Method ptrSetSize = null;
@@ -34,26 +34,6 @@ public final class EntityUtils {
         return false;
     }
 
-    public static int deductXP(int amount, PlayerEntity player) {
-        int i = player.experienceTotal;
-        if (amount > i) amount = i;
-        player.experienceTotal -= amount;
-        player.experience = 0;
-        player.experienceLevel = 0;
-        int addedXP = 0;
-        while (addedXP < player.experienceTotal) {
-            int toAdd = player.experienceTotal - addedXP;
-            toAdd = Math.min(toAdd, player.xpBarCap());
-            player.experience = toAdd / (float) player.xpBarCap();
-            if (player.experience == 1f) {
-                player.experienceLevel++;
-                player.experience = 0;
-            }
-            addedXP += toAdd;
-        }
-        return amount;
-    }
-
     public static Vec3d extrapolateEntityLook(LivingEntity entity, double range) {
         float pitch = entity.rotationPitch;
         float yaw = entity.rotationYaw;
@@ -66,18 +46,6 @@ public final class EntityUtils {
         float f3 = -MathHelper.cos(-pitch * 0.017453292f);
         float f4 = MathHelper.sin(-pitch * 0.017453292f);
         return vec.add(f2 * f3 * range, f4 * range, f1 * f3 * range);
-    }
-
-    public static int getLevelFromXP(float xp) {
-        int level = 0;
-        xp = (int) Math.floor(xp);
-        while (true) {
-            int cap = xpBarCap(level);
-            xp -= cap;
-            if (xp < 0) break;
-            level++;
-        }
-        return level;
     }
 
     public static RayTraceResult getMovingObjectPosition(LivingEntity caster, World world, double range, boolean includeEntities, boolean targetWater) {
@@ -131,12 +99,6 @@ public final class EntityUtils {
         return pointedEntity;
     }
 
-    public static int getXPFromLevel(int level) {
-        int totalXP = 0;
-        for (int i = 0; i < level; i++) totalXP += xpBarCap(i);
-        return totalXP;
-    }
-
     public static float invertEyePos(float floatIn, Entity entityIn) {
         float curHeight = floatIn;
         if (entityIn instanceof PlayerEntity) {
@@ -174,12 +136,6 @@ public final class EntityUtils {
         return Math.abs(yaw % 360);
     }
 
-    public static void setGuardSpawnLocation(CreatureEntity entity, double x, double y, double z) {
-//        float speed = entity.getAIMoveSpeed();
-//        if (speed <= 0) speed = 1;
-//        entity.tasks.addTask(1, new EntityAIGuardSpawnLocation(entity, speed, 3, 16, new Vec3d(x, y, z)));
-    }
-
     public static void setSize(LivingEntity entityliving, float width, float height) {
         if (entityliving.getWidth() == width && entityliving.getHeight() == height) return;
         if (ptrSetSize == null) try {
@@ -193,15 +149,5 @@ public final class EntityUtils {
         } catch (Throwable t) {
             t.printStackTrace();
         }
-    }
-
-//    public static void setTileSpawned(LivingEntity entityliving, TileEntitySummoner summoner){
-//        entityliving.getPersistentData().putInt(summonTileXKey, summoner.getPos().getX());
-//        entityliving.getPersistentData().putInt(summonTileYKey, summoner.getPos().getY());
-//        entityliving.getPersistentData().putInt(summonTileZKey, summoner.getPos().getZ());
-//    }
-//
-    public static int xpBarCap(int experienceLevel) {
-        return experienceLevel >= 30 ? 112 + (experienceLevel - 30) * 9 : (experienceLevel >= 15 ? 37 + (experienceLevel - 15) * 5 : 7 + experienceLevel * 2);
     }
 }

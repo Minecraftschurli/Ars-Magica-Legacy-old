@@ -11,7 +11,7 @@ import net.minecraftforge.common.Tags;
  * @author Minecraftschurli
  * @version 2019-11-12
  */
-public class AMLBlockTagsProvider extends BlockTagsProvider {
+public final class AMLBlockTagsProvider extends BlockTagsProvider {
     public AMLBlockTagsProvider(DataGenerator generator) {
         super(generator);
     }

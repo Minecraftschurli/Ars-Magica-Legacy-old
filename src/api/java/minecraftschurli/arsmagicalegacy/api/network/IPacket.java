@@ -1,8 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.network;
 
-import javax.annotation.Nonnull;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

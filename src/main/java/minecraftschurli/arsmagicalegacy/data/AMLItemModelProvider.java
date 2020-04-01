@@ -9,7 +9,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
  * @author Minecraftschurli
  * @version 2020-01-04
  */
-public class AMLItemModelProvider extends ItemModelProvider {
+public final class AMLItemModelProvider extends ItemModelProvider {
     public AMLItemModelProvider(DataGenerator gen, ExistingFileHelper helper) {
         super(gen, ArsMagicaAPI.MODID, helper);
     }

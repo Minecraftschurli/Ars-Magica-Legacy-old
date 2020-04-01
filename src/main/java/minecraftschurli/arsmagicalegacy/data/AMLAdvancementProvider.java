@@ -2,12 +2,6 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Consumer;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.MagicLevelTrigger;
@@ -29,11 +23,18 @@ import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+
 /**
  * @author Minecraftschurli
  * @version 2020-02-28
  */
-public class AMLAdvancementProvider implements IDataProvider {
+public final class AMLAdvancementProvider implements IDataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private final DataGenerator generator;

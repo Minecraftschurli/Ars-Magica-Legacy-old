@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,12 +21,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class FireRainEntity extends Entity {
-    private int ticksToExist = 100;
-    private ItemStack spell;
-    private PlayerEntity caster;
     private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(FireRainEntity.class, DataSerializers.ITEMSTACK);
     private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(FireRainEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(FireRainEntity.class, DataSerializers.FLOAT);
+    private int ticksToExist = 100;
+    private ItemStack spell;
+    private PlayerEntity caster;
 
     public FireRainEntity(World world) {
         this(ModEntities.FIRE_RAIN.get(), world);
@@ -54,7 +54,7 @@ public class FireRainEntity extends Entity {
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         if (caster != null)
             caster.tick();
         float radius = dataManager.get(RADIUS_DATA);
@@ -81,16 +81,16 @@ public class FireRainEntity extends Entity {
 //            }
             //TODO: SoundHelper.instance.loopSound(world, (float)getPosX(), (float)getPosY(), (float)getPosZ(), "arsmagica2:spell.loop.fire", 1.0f);
         } else {
-            for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))){
-                if (e != caster){
+            for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
+                if (e != caster) {
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
-                        e = ((EnderDragonPartEntity)e).dragon;
-                    if (SpellUtils.attackWithType(null, e, DamageSource.ON_FIRE, 0.75f * dataManager.get(DAMAGE_DATA)) && !(e instanceof PlayerEntity))
+                        e = ((EnderDragonPartEntity) e).dragon;
+                    if (SpellUtil.attackWithType(null, e, DamageSource.ON_FIRE, 0.75f * dataManager.get(DAMAGE_DATA)) && !(e instanceof PlayerEntity))
                         e.hurtResistantTime = 10;
                 }
             }
-            if (rand.nextInt(10) < 2){
-                BlockPos pos = new BlockPos(getPosX() - radius + rand.nextInt((int)Math.ceil(radius) * 2), getPosY(), getPosZ() - radius + rand.nextInt((int)Math.ceil(radius) * 2));
+            if (rand.nextInt(10) < 2) {
+                BlockPos pos = new BlockPos(getPosX() - radius + rand.nextInt((int) Math.ceil(radius) * 2), getPosY(), getPosZ() - radius + rand.nextInt((int) Math.ceil(radius) * 2));
                 if (world.isAirBlock(pos))
                     world.setBlockState(pos, Blocks.FIRE.getDefaultState());
             }
@@ -109,15 +109,15 @@ public class FireRainEntity extends Entity {
             dataManager.set(STACK_DATA, stack);
     }
 
-    public void setDamage(float damage){
+    public void setDamage(float damage) {
         dataManager.set(DAMAGE_DATA, damage);
     }
 
-    public void setRadius(float radius){
+    public void setRadius(float radius) {
         dataManager.set(RADIUS_DATA, radius);
     }
 
-    public void setTicksToExist(int ticks){
+    public void setTicksToExist(int ticks) {
         ticksToExist = ticks;
     }
 }

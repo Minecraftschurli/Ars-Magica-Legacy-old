@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import java.util.Map;
 import net.minecraft.nbt.ByteArrayNBT;
 import net.minecraft.nbt.ByteNBT;
 import net.minecraft.nbt.CollectionNBT;
@@ -22,11 +21,13 @@ import net.minecraft.nbt.ShortNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.Map;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-public final class NBTUtils {
+public final class NBTUtil {
     public static ListNBT addCompoundList(CompoundNBT upper, String name) {
         if (upper == null) throw new IllegalStateException("Base Tag must exist");
         upper.getList(name, 10);

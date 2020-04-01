@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -9,11 +8,11 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredie
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
+import minecraftschurli.arsmagicalegacy.api.util.EntityUtil;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.NBTUtils;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.NBTUtil;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
@@ -26,6 +25,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+
 public class Beam extends SpellShape {
 //    private final HashMap<Integer, AMBeam> beams;
 //    public Beam() {
@@ -36,9 +37,9 @@ public class Beam extends SpellShape {
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         boolean shouldApplyEffectBlock = useCount % 5 == 0;
         boolean shouldApplyEffectEntity = useCount % 10 == 0;
-        double range = SpellUtils.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.RANGE);
-        boolean targetWater = SpellUtils.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
-        RayTraceResult mop = EntityUtils.getMovingObjectPosition(caster, world, range, true, targetWater);
+        double range = SpellUtil.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.RANGE);
+        boolean targetWater = SpellUtil.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
+        RayTraceResult mop = EntityUtil.getMovingObjectPosition(caster, world, range, true, targetWater);
         SpellCastResult result = null;
         Vec3d beamHitVec;
         Vec3d spellVec;
@@ -47,15 +48,15 @@ public class Beam extends SpellShape {
                 Entity e = ((EntityRayTraceResult) mop).getEntity();
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
-                result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
+                result = SpellUtil.applyStageToEntity(stack, caster, world, e, giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
             float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ()));
-            beamHitVec = EntityUtils.extrapolateEntityLook(caster, rng);
+            beamHitVec = EntityUtil.extrapolateEntityLook(caster, rng);
             spellVec = beamHitVec;
         } else {
             if (shouldApplyEffectBlock && !world.isRemote) {
-                result = SpellUtils.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
+                result = SpellUtil.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
 //            beamHitVec = mop.getHitVec();
@@ -97,9 +98,9 @@ public class Beam extends SpellShape {
 //            }
 //        }
         if (result != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
-            NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentGroup", NBTUtils.getAMLTag(stack.getTag()).getInt("CurrentGroup") + 1);
+            NBTUtil.getAMLTag(stack.getTag()).putInt("CurrentGroup", NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup") + 1);
             if (mop instanceof BlockRayTraceResult)
-                return SpellUtils.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
+                return SpellUtil.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
         }
         return SpellCastResult.SUCCESS_REDUCE_MANA;
     }
@@ -138,9 +139,9 @@ public class Beam extends SpellShape {
 
     @Override
     public float manaCostMultiplier(ItemStack spellStack) {
-        int stages = SpellUtils.stageNum(spellStack);
-        for (int i = SpellUtils.currentStage(spellStack); i < stages; i++) {
-            SpellShape shape = SpellUtils.getShape(spellStack, i);
+        int stages = SpellUtil.stageNum(spellStack);
+        for (int i = SpellUtil.currentStage(spellStack); i < stages; i++) {
+            SpellShape shape = SpellUtil.getShape(spellStack, i);
             if (!shape.equals(this)) continue;
             if (shape.getClass() == Beam.class) return 1;
         }

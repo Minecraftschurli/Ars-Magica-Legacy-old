@@ -1,17 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.util.EntityUtils;
+import minecraftschurli.arsmagicalegacy.api.util.EntityUtil;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
@@ -24,12 +21,16 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+
 public class Chain extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        RayTraceResult mop = EntityUtils.getMovingObjectPosition(caster, world, 8, true, false);
-        double range = SpellUtils.modifyDoubleMul(8, stack, caster, target, world, SpellModifiers.RANGE);
-        int num_targets = SpellUtils.modifyIntAdd(3, stack, caster, target, world, SpellModifiers.PROCS);
+        RayTraceResult mop = EntityUtil.getMovingObjectPosition(caster, world, 8, true, false);
+        double range = SpellUtil.modifyDoubleMul(8, stack, caster, target, world, SpellModifiers.RANGE);
+        int num_targets = SpellUtil.modifyIntAdd(3, stack, caster, target, world, SpellModifiers.PROCS);
         ArrayList<LivingEntity> targets = new ArrayList<>();
         if (target != null) mop = new EntityRayTraceResult(target);
         if (mop.getType() == RayTraceResult.Type.ENTITY) {
@@ -55,8 +56,8 @@ public class Chain extends SpellShape {
         LivingEntity prevEntity = null;
         for (LivingEntity e : targets) {
             if (e == caster) continue;
-            result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
-            SpellUtils.applyStackStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
+            result = SpellUtil.applyStageToEntity(stack, caster, world, e, giveXP);
+            SpellUtil.applyStackStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
             if (world.isRemote) {
                 if (prevEntity == null)
                     spawnChainParticles(world, x, y, z, e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);

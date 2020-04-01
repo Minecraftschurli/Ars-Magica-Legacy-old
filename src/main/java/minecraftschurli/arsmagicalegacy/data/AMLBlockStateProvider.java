@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.AbstractRailBlock;
@@ -21,11 +19,14 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
+
 /**
  * @author Minecraftschurli
  * @version 2019-12-14
  */
-public class AMLBlockStateProvider extends BlockStateProvider {
+public final class AMLBlockStateProvider extends BlockStateProvider {
     public AMLBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
         super(gen, ArsMagicaAPI.MODID, exFileHelper);
     }

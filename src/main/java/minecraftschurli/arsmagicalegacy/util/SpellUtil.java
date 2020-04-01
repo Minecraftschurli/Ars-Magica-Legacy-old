@@ -1,12 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import javafx.util.Pair;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -44,7 +38,14 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public final class SpellUtils {
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public final class SpellUtil {
     public static final String TYPE_SHAPE = "Shape";
     public static final String TYPE_COMPONENT = "Component";
     public static final String TYPE_MODIFIER = "Modifier";
@@ -56,7 +57,7 @@ public final class SpellUtils {
 
     public static Map<Affinity, Float> affinityFor(ItemStack stack) {
         Map<Affinity, Float> customDepthMap = new HashMap<>();
-        List<SpellComponent> components = SpellUtils.getComponents(stack, -1);
+        List<SpellComponent> components = SpellUtil.getComponents(stack, -1);
         for (SpellComponent component : components) {
             for (Affinity aff1 : component.getAffinity()) {
                 if (customDepthMap.get(aff1) != null)
@@ -70,7 +71,7 @@ public final class SpellUtils {
     public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, @Nullable Direction side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed) {
         if (caster.isPotionActive(ModEffects.SILENCE.get()))
             return SpellCastResult.SILENCED;
-        int group = NBTUtils.getAMLTag(stack.getTag()).getInt("CurrentGroup");
+        int group = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup");
         if (group == 0) stack = merge(stack.copy());
         SpellShape shape = getShape(stack, group);
         if (!(caster instanceof PlayerEntity))
@@ -91,8 +92,8 @@ public final class SpellUtils {
             }
         }
         if (result == null) {
-            NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
-            if (group != 0) NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
+            NBTUtil.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
+            if (group != 0) NBTUtil.getAMLTag(stack.getTag()).putInt("CurrentGroup", group + 1);
             result = shape.beginStackStage(stack.getItem(), stack, caster, target, world, x, y, z, side, giveXP, ticksUsed);
         }
         SpellCastEvent.Post post = new SpellCastEvent.Post(stack, stack.getItem(), caster, manaCost, burnoutCost, shape == ModSpellParts.CHANNEL.get(), result);
@@ -110,18 +111,18 @@ public final class SpellUtils {
     }
 
     public static SpellCastResult applyStageOnUsing(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, World world, boolean consumeMBR, boolean giveXP, int ticks) {
-        if (SpellUtils.stageNum(stack) == 0) return SpellCastResult.SUCCESS;
-        if (!SpellUtils.getShape(stack).isChanneled()) return SpellCastResult.EFFECT_FAILED;
+        if (SpellUtil.stageNum(stack) == 0) return SpellCastResult.SUCCESS;
+        if (!SpellUtil.getShape(stack).isChanneled()) return SpellCastResult.EFFECT_FAILED;
         return applyStackStage(stack, caster, target, x, y, z, null, world, consumeMBR, giveXP, ticks);
     }
 
     public static SpellCastResult applyStageToEntity(ItemStack stack, LivingEntity caster, World world, Entity target, boolean shiftAffinityAndXP) {
-        SpellShape stageShape = SpellUtils.getShape(stack, 0);
+        SpellShape stageShape = SpellUtil.getShape(stack, 0);
         if (stageShape == null) return SpellCastResult.MALFORMED_SPELL_STACK;
         if (target instanceof ServerPlayerEntity && ((ServerPlayerEntity) target).abilities.isCreativeMode)
             return SpellCastResult.EFFECT_FAILED;
-        int group = NBTUtils.getAMLTag(stack.getTag()).getInt("CurrentGroup");
-        List<SpellComponent> components = SpellUtils.getComponents(stack, group);
+        int group = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup");
+        List<SpellComponent> components = SpellUtil.getComponents(stack, group);
         boolean appliedOneComponent = false;
         for (SpellComponent component : components) {
             if (caster instanceof PlayerEntity && CapabilityHelper.getLearnedSkills((PlayerEntity) caster).contains(component))
@@ -132,11 +133,11 @@ public final class SpellUtils {
                 appliedOneComponent = true;
                 if (world.isRemote) {
                     int color = -1;
-                    if (SpellUtils.hasModifier(SpellModifiers.COLOR, stack)) {
-                        List<SpellModifier> mods = SpellUtils.getModifiers(stack, -1);
+                    if (SpellUtil.hasModifier(SpellModifiers.COLOR, stack)) {
+                        List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
                         for (SpellModifier mod : mods)
                             if (mod instanceof Color)
-                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, target, world, NBTUtils.getAMLTag(stack.getTag()));
+                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, target, world, NBTUtil.getAMLTag(stack.getTag()));
                     }
                     component.spawnParticles(world, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, caster, target, world.rand, color);
                 }
@@ -150,12 +151,12 @@ public final class SpellUtils {
     }
 
     public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
-        SpellShape stageShape = SpellUtils.getShape(stack, 0);
+        SpellShape stageShape = SpellUtil.getShape(stack, 0);
         if (stageShape == null || Objects.equals(stageShape.getRegistryName(), SpellRegistry.MISSING_SHAPE))
             return SpellCastResult.MALFORMED_SPELL_STACK;
         boolean isPlayer = caster instanceof PlayerEntity;
-        int group = NBTUtils.getAMLTag(stack.getTag()).getInt("CurrentGroup");
-        List<SpellComponent> components = SpellUtils.getComponents(stack, group);
+        int group = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup");
+        List<SpellComponent> components = SpellUtil.getComponents(stack, group);
         for (SpellComponent component : components) {
             if (component.applyEffectBlock(stack, world, pos, blockFace, impactX, impactY, impactZ, caster)) {
                 if (isPlayer && !world.isRemote && component.getAffinity() != null)
@@ -163,10 +164,10 @@ public final class SpellUtils {
                 if (world.isRemote) {
                     int color = -1;
                     if (hasModifier(SpellModifiers.COLOR, stack)) {
-                        List<SpellModifier> mods = SpellUtils.getModifiers(stack, -1);
+                        List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
                         for (SpellModifier mod : mods)
                             if (mod instanceof Color)
-                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtils.getAMLTag(stack.getTag()));
+                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtil.getAMLTag(stack.getTag()));
                     }
                     component.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), caster, caster, world.rand, color);
                 }
@@ -196,7 +197,7 @@ public final class SpellUtils {
 //                if (equipped != null && equipped.getItem() == ItemDefs.arcaneSpellbook) magnitude *= 1.1f;
 //            }
         }
-        if (target instanceof LivingEntity && SummonUtils.isSummon((LivingEntity) target) && damagesource.damageType.equals("magic"))
+        if (target instanceof LivingEntity && SummonUtil.isSummon((LivingEntity) target) && damagesource.damageType.equals("magic"))
             magnitude *= 3;
         return target.attackEntityFrom(damagesource, magnitude);
     }
@@ -257,14 +258,14 @@ public final class SpellUtils {
     }
 
     public static int currentStage(ItemStack spellStack) {
-        return NBTUtils.getAMLTag(spellStack.getTag()).getInt("CurrentGroup");
+        return NBTUtil.getAMLTag(spellStack.getTag()).getInt("CurrentGroup");
     }
 
     public static int cycleShapeGroup(ItemStack stack) {
         if (!stack.hasTag())
             return 0;
-        int current = NBTUtils.getAMLTag(stack.getTag()).getInt("CurrentShapeGroup");
-        int max = NBTUtils.getAMLTag(stack.getTag()).getInt("NumShapeGroups");
+        int current = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentShapeGroup");
+        int max = NBTUtil.getAMLTag(stack.getTag()).getInt("NumShapeGroups");
         if (max == 0)
             return 0;
         return (current + 1) % max;
@@ -274,8 +275,8 @@ public final class SpellUtils {
         if (toDecode == null) return null;
         try {
             ArrayList<AbstractSpellPart> parts = new ArrayList<>();
-            for (int j = 0; j < NBTUtils.getAMLTag(toDecode).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(toDecode), STAGE + j);
+            for (int j = 0; j < NBTUtil.getAMLTag(toDecode).getInt("StageNum"); j++) {
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(toDecode), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tmp = stageTag.getCompound(i);
                     String type = tmp.getString(TYPE);
@@ -301,7 +302,7 @@ public final class SpellUtils {
         group.put(SPELL_DATA, toEncode.getValue());
         int stage = 0;
         for (AbstractSpellPart part : toEncode.getKey()) {
-            ListNBT stageTag = NBTUtils.addCompoundList(group, STAGE + stage);
+            ListNBT stageTag = NBTUtil.addCompoundList(group, STAGE + stage);
             CompoundNBT tmp = new CompoundNBT();
             String id = SpellRegistry.getSkillFromPart(part).getID();
             tmp.putString(ID, id);
@@ -323,8 +324,8 @@ public final class SpellUtils {
         ItemStack mergedStack = merge(stack);
         try {
             float cost = 0;
-            for (int j = 0; j < NBTUtils.getAMLTag(mergedStack.getTag()).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(mergedStack.getTag()), STAGE + j);
+            for (int j = 0; j < NBTUtil.getAMLTag(mergedStack.getTag()).getInt("StageNum"); j++) {
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(mergedStack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tmp = stageTag.getCompound(i);
                     String type = tmp.getString(TYPE);
@@ -349,8 +350,8 @@ public final class SpellUtils {
         try {
             float cost = 0;
             float modMultiplier = 1;
-            for (int j = 0; j < NBTUtils.getAMLTag(mergedStack.getTag()).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(mergedStack.getTag()), STAGE + j);
+            for (int j = 0; j < NBTUtil.getAMLTag(mergedStack.getTag()).getInt("StageNum"); j++) {
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(mergedStack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tmp = stageTag.getCompound(i);
                     String type = tmp.getString(TYPE);
@@ -395,7 +396,7 @@ public final class SpellUtils {
         try {
             List<SpellComponent> mods = new ArrayList<>();
             if (stage != -1) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + stage);
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + stage);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
                     String tagType = tag.getString(TYPE);
@@ -403,8 +404,8 @@ public final class SpellUtils {
                         mods.add(SpellRegistry.getComponentFromName(tag.getString(ID)));
                 }
             } else {
-                for (int j = 0; j <= NBTUtils.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
-                    ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + j);
+                for (int j = 0; j <= NBTUtil.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
+                    ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + j);
                     for (int i = 0; i < stageTag.size(); i++) {
                         CompoundNBT tag = stageTag.getCompound(i);
                         String tagType = tag.getString(TYPE);
@@ -422,9 +423,9 @@ public final class SpellUtils {
     public static ArrayList<AbstractSpellPart> getGroupParts(ItemStack stack, int shapeGroup) {
         try {
             ArrayList<AbstractSpellPart> mods = new ArrayList<>();
-            CompoundNBT tag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), "ShapeGroups").getCompound(shapeGroup);
+            CompoundNBT tag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), "ShapeGroups").getCompound(shapeGroup);
             for (int j = 0; j <= tag.getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(tag, STAGE + j);
+                ListNBT stageTag = NBTUtil.addCompoundList(tag, STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tmp = stageTag.getCompound(i);
                     mods.add(SpellRegistry.getComponentFromName(tmp.getString(ID)));
@@ -441,7 +442,7 @@ public final class SpellUtils {
         if (stack.getTag() == null)
             return mods;
         if (stage != -1) {
-            ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + stage);
+            ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + stage);
             for (int i = 0; i < stageTag.size(); i++) {
                 CompoundNBT tag = stageTag.getCompound(i);
                 String tagType = tag.getString(TYPE);
@@ -449,8 +450,8 @@ public final class SpellUtils {
                     mods.add(SpellRegistry.getModifierFromName(tag.getString(ID)));
             }
         } else {
-            for (int j = 0; j <= NBTUtils.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + j);
+            for (int j = 0; j <= NBTUtil.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
                     String tagType = tag.getString(TYPE);
@@ -465,8 +466,8 @@ public final class SpellUtils {
     public static ArrayList<AbstractSpellPart> getParts(ItemStack stack) {
         try {
             ArrayList<AbstractSpellPart> mods = new ArrayList<>();
-            for (int j = 0; j <= NBTUtils.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + j);
+            for (int j = 0; j <= NBTUtil.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
                     mods.add(RegistryHandler.getSpellPartRegistry().getValue(new ResourceLocation(tag.getString(ID))));
@@ -481,9 +482,9 @@ public final class SpellUtils {
     public static List<AbstractSpellPart> getParts(ItemStack stack, int group) {
         List<AbstractSpellPart> mods = new ArrayList<>();
         try {
-            CompoundNBT compound = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), "ShapeGroups").getCompound(NBTUtils.getAMLTag(stack.getTag()).getInt("CurrentShapeGroup")).copy();
+            CompoundNBT compound = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), "ShapeGroups").getCompound(NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentShapeGroup")).copy();
             for (int j = 0; j <= compound.getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(compound, STAGE + j);
+                ListNBT stageTag = NBTUtil.addCompoundList(compound, STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
                     String tagType = tag.getString(TYPE);
@@ -503,8 +504,8 @@ public final class SpellUtils {
         if (is == null || !is.hasTag())
             return (SpellShape) RegistryHandler.getSpellPartRegistry().getValue(SpellRegistry.MISSING_SHAPE);
         ItemStack stack = merge(is.copy());
-        CompoundNBT am2Tag = NBTUtils.getAMLTag(stack.getTag());
-        ListNBT stageTag = NBTUtils.addCompoundList(am2Tag, STAGE + stage);
+        CompoundNBT am2Tag = NBTUtil.getAMLTag(stack.getTag());
+        ListNBT stageTag = NBTUtil.addCompoundList(am2Tag, STAGE + stage);
         String shapeName = "null";
         for (int i = 0; i < stageTag.size(); i++)
             if (stageTag.getCompound(i).getString(TYPE).equals(TYPE_SHAPE)) {
@@ -519,7 +520,7 @@ public final class SpellUtils {
     }
 
     public static String getSpellTag(ItemStack stack, String string) {
-        return NBTUtils.addTag(NBTUtils.getAMLTag(stack.getTag()), SPELL_DATA).getString(string);
+        return NBTUtil.addTag(NBTUtil.getAMLTag(stack.getTag()), SPELL_DATA).getString(string);
     }
 
     public static boolean hasComponent(ItemStack stack, Class<? extends SpellComponent> clazz) {
@@ -564,9 +565,9 @@ public final class SpellUtils {
     public static ItemStack makeSpellStack(List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroups, List<AbstractSpellPart> spellDef, CompoundNBT encodedData) {
         ItemStack stack = new ItemStack(ModItems.SPELL.get());
         CompoundNBT tag = new CompoundNBT();
-        CompoundNBT aml = NBTUtils.getAMLTag(tag);
+        CompoundNBT aml = NBTUtil.getAMLTag(tag);
         aml.put(SPELL_DATA, encodedData);
-        ListNBT shapeGroupList = NBTUtils.addCompoundList(aml, "ShapeGroups");
+        ListNBT shapeGroupList = NBTUtil.addCompoundList(aml, "ShapeGroups");
         for (Pair<List<AbstractSpellPart>, CompoundNBT> shapeGroup : shapeGroups) {
             if (shapeGroup.getKey().isEmpty()) continue;
             CompoundNBT group = new CompoundNBT();
@@ -575,7 +576,7 @@ public final class SpellUtils {
             boolean lastWasShape = false;
             for (AbstractSpellPart part : shapeGroup.getKey()) {
                 ArsMagicaLegacy.LOGGER.debug(part);
-                ListNBT stageTag = NBTUtils.addCompoundList(group, STAGE + stage);
+                ListNBT stageTag = NBTUtil.addCompoundList(group, STAGE + stage);
                 CompoundNBT tmp = new CompoundNBT();
                 String id = part.getRegistryName().toString();
                 tmp.putString(ID, id);
@@ -597,7 +598,7 @@ public final class SpellUtils {
         }
         int stage = 0;
         for (AbstractSpellPart part : spellDef) {
-            ListNBT stageTag = NBTUtils.addCompoundList(aml, STAGE + stage);
+            ListNBT stageTag = NBTUtil.addCompoundList(aml, STAGE + stage);
             CompoundNBT tmp = new CompoundNBT();
             String id = SpellRegistry.getSkillFromPart(part).getID();
             tmp.putString(ID, id);
@@ -623,16 +624,16 @@ public final class SpellUtils {
 
     public static ItemStack merge(ItemStack spellIn) {
         if (spellIn.getTag() == null) return spellIn;
-        if (NBTUtils.getAMLTag(spellIn.getTag()).getInt("CurrentShapeGroup") == -1) return spellIn;
+        if (NBTUtil.getAMLTag(spellIn.getTag()).getInt("CurrentShapeGroup") == -1) return spellIn;
         ItemStack newStack = spellIn.copy();
         if (spellIn.getItem() != ModItems.SPELL.get())
             newStack = new ItemStack(ModItems.SPELL.get(), newStack.getCount(), newStack.getTag());
-        CompoundNBT group = NBTUtils.addCompoundList(NBTUtils.getAMLTag(newStack.getOrCreateTag()), "ShapeGroups").getCompound(NBTUtils.getAMLTag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
+        CompoundNBT group = NBTUtil.addCompoundList(NBTUtil.getAMLTag(newStack.getOrCreateTag()), "ShapeGroups").getCompound(NBTUtil.getAMLTag(newStack.getTag()).getInt("CurrentShapeGroup")).copy();
         int stageNum = stageNum(newStack);
         for (int i = 0; i < stageNum; i++) {
-            ListNBT list = NBTUtils.addCompoundList(NBTUtils.getAMLTag(newStack.getTag()), STAGE + i).copy();
+            ListNBT list = NBTUtil.addCompoundList(NBTUtil.getAMLTag(newStack.getTag()), STAGE + i).copy();
             if (i == 0 && !group.getBoolean("LastWasShape")) {
-                ListNBT newList = NBTUtils.addCompoundList(group, "Stage_" + group.getInt("StageNum")).copy();
+                ListNBT newList = NBTUtil.addCompoundList(group, "Stage_" + group.getInt("StageNum")).copy();
                 for (int j = 0; j < list.size(); j++) newList.add(list.getCompound(j));
                 list = newList;
             }
@@ -640,8 +641,8 @@ public final class SpellUtils {
         }
         group.putInt("StageNum", group.getInt("StageNum") + stageNum);
         group.putInt("CurrentShapeGroup", -1);
-        group.getCompound(SPELL_DATA).merge(NBTUtils.getAMLTag(newStack.getTag()).getCompound(SPELL_DATA));
-        newStack.setTag(NBTUtils.addTag(new CompoundNBT(), group, "AM2"));
+        group.getCompound(SPELL_DATA).merge(NBTUtil.getAMLTag(newStack.getTag()).getCompound(SPELL_DATA));
+        newStack.setTag(NBTUtil.addTag(new CompoundNBT(), group, "AM2"));
         return newStack;
     }
 
@@ -717,7 +718,7 @@ public final class SpellUtils {
     public static double modifyStat(double defaultValue, int operation, ItemStack stack, LivingEntity caster, Entity target, World world, int stage, SpellModifiers modified) {
         double val = defaultValue;
         if (stage != -1) {
-            ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + stack);
+            ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + stack);
             for (int i = 0; i < stageTag.size(); i++) {
                 CompoundNBT tag = stageTag.getCompound(i);
                 String tagType = tag.getString(TYPE);
@@ -729,8 +730,8 @@ public final class SpellUtils {
                 }
             }
         } else {
-            for (int j = 0; j < NBTUtils.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
-                ListNBT stageTag = NBTUtils.addCompoundList(NBTUtils.getAMLTag(stack.getTag()), STAGE + j);
+            for (int j = 0; j < NBTUtil.getAMLTag(stack.getTag()).getInt("StageNum"); j++) {
+                ListNBT stageTag = NBTUtil.addCompoundList(NBTUtil.getAMLTag(stack.getTag()), STAGE + j);
                 for (int i = 0; i < stageTag.size(); i++) {
                     CompoundNBT tag = stageTag.getCompound(i);
                     String tagType = tag.getString(TYPE);
@@ -751,18 +752,18 @@ public final class SpellUtils {
     }
 
     public static int numShapeGroups(ItemStack stack) {
-        return NBTUtils.getAMLTag(stack.getTag()).getInt("NumShapeGroups");
+        return NBTUtil.getAMLTag(stack.getTag()).getInt("NumShapeGroups");
     }
 
     public static boolean potionSpell(Effect effect, ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            int duration = SpellUtils.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
+            int duration = SpellUtil.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
 //            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
-            duration += 3600 * (SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1);
+            duration += 3600 * (SpellUtil.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1);
 //                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());
 //            }
             if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new EffectInstance(effect, duration, SpellUtils.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(effect, duration, SpellUtil.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;
@@ -770,18 +771,18 @@ public final class SpellUtils {
 
     public static void setGroup(ItemStack stack, int newShapeGroupOrdinal) {
         if (stack.hasTag())
-            NBTUtils.getAMLTag(stack.getTag()).putInt("CurrentShapeGroup", newShapeGroupOrdinal);
+            NBTUtil.getAMLTag(stack.getTag()).putInt("CurrentShapeGroup", newShapeGroupOrdinal);
     }
 
     public static void setMetadata(ItemStack stack, String string, String s) {
-        NBTUtils.addTag(NBTUtils.getAMLTag(stack.getTag()), SPELL_DATA).putString(string, s);
+        NBTUtil.addTag(NBTUtil.getAMLTag(stack.getTag()), SPELL_DATA).putString(string, s);
     }
 
     public static void setMetadata(CompoundNBT stack, String string, String s) {
-        NBTUtils.addTag(NBTUtils.getAMLTag(stack), SPELL_DATA).putString(string, s);
+        NBTUtil.addTag(NBTUtil.getAMLTag(stack), SPELL_DATA).putString(string, s);
     }
 
     public static int stageNum(ItemStack stack) {
-        return NBTUtils.getAMLTag(stack.getTag()).getInt("StageNum");
+        return NBTUtil.getAMLTag(stack.getTag()).getInt("StageNum");
     }
 }

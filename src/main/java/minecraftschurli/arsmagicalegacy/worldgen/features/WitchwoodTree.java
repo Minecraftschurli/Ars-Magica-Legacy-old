@@ -1,11 +1,12 @@
 package minecraftschurli.arsmagicalegacy.worldgen.features;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.init.ModFeatures;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * @author Minecraftschurli

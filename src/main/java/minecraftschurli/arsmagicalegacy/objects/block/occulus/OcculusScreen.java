@@ -1,11 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -18,7 +13,7 @@ import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
@@ -31,6 +26,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -162,7 +163,7 @@ public class OcculusScreen extends Screen {
         RenderSystem.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
         if (currentTree != ModSpellParts.AFFINITY.get()) {
-            RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
+            RenderUtil.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             this.setBlitOffset(1);
             for (Skill s : skills) {
@@ -187,9 +188,9 @@ public class OcculusScreen extends Screen {
                     int color = (!CapabilityHelper.knows(player, s) ? s.getPoint().getColor() & 0x999999 : 0x00ff00);
                     if (!hasPrereq) color = 0x000000;
                     if (!(offsetX == posX + 7 || offsetX == posX + 203))
-                        RenderUtils.lineThick2d(offsetX, offsetY, offsetX, offsetY2, hasPrereq ? 0 : -1, color);
+                        RenderUtil.lineThick2d(offsetX, offsetY, offsetX, offsetY2, hasPrereq ? 0 : -1, color);
                     if (!(offsetY2 == posY + 7 || offsetY2 == posY + 203))
-                        RenderUtils.lineThick2d(offsetX, offsetY2, offsetX2, offsetY2, hasPrereq ? 0 : -1, color);
+                        RenderUtil.lineThick2d(offsetX, offsetY2, offsetX2, offsetY2, hasPrereq ? 0 : -1, color);
                 }
             }
             //Minecraft.getInstance().getTextureManager().bindTexture();
@@ -230,13 +231,13 @@ public class OcculusScreen extends Screen {
                 if (!hasPrereq)
                     RenderSystem.color3f(0.5F, 0.5F, 0.5F);
                 else if (!CapabilityHelper.knows(player, s))
-                    RenderSystem.color3f(Math.max(RenderUtils.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtils.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
+                    RenderSystem.color3f(Math.max(RenderUtil.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtil.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtil.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
 
                 /*if (ArsMagicaLegacy.disabledSkills.isSkillDisabled(s.getID()))
                     RenderSystem.color3f(0.3f, 0.3f, 0.3f);*/
                 //blit((int) (offsetX + xStartMod), (int) (offsetY + yStartMod), 0, 0, 0, (int) renderSize, (int) renderSize, (int) renderSize, (int) renderSize);
                 RenderSystem.enableBlend();
-                RenderUtils.drawBox(offsetX + xStartMod,
+                RenderUtil.drawBox(offsetX + xStartMod,
                         offsetY + yStartMod,
                         renderSize - xStartMod - xEndMod,
                         renderSize - yStartMod - yEndMod,
@@ -320,7 +321,7 @@ public class OcculusScreen extends Screen {
             }
         } else {
             boolean isShiftDown = player.func_226563_dT_();
-            RenderUtils.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), 0, 0, 1, 1);
+            RenderUtil.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), 0, 0, 1, 1);
             int affNum = RegistryHandler.getAffinityRegistry().getValues().size() - 1;
             int portion = 360 / affNum;
             int currentID = 0;
@@ -347,13 +348,13 @@ public class OcculusScreen extends Screen {
                 currentID++;
                 int displace = (int) ((Math.max(affStartX1, affStartX2) - Math.min(affStartX1, affStartX2) + Math.max(affStartY1, affStartY2) - Math.min(affStartY1, affStartY2)) / 2);
                 if (depth > 0.01F) {
-                    RenderUtils.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 0.8F);
-                    RenderUtils.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 0.8F);
-                    RenderUtils.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 1.1F);
-                    RenderUtils.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 1.1F);
+                    RenderUtil.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 0.8F);
+                    RenderUtil.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 0.8F);
+                    RenderUtil.fractalLine2dd(affStartX1 + cX, affStartY1 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 1.1F);
+                    RenderUtil.fractalLine2dd(affStartX2 + cX, affStartY2 + cY, affEndX + cX, affEndY + cY, getBlitOffset(), aff.getColor(), displace, 1.1F);
                 } else {
-                    RenderUtils.line2d((float) affStartX1 + cX, (float) affStartY1 + cY, (float) affEndX + cX, (float) affEndY + cY, getBlitOffset(), aff.getColor());
-                    RenderUtils.line2d((float) affStartX2 + cX, (float) affStartY2 + cY, (float) affEndX + cX, (float) affEndY + cY, getBlitOffset(), aff.getColor());
+                    RenderUtil.line2d((float) affStartX1 + cX, (float) affStartY1 + cY, (float) affEndX + cX, (float) affEndY + cY, getBlitOffset(), aff.getColor());
+                    RenderUtil.line2d((float) affStartX2 + cX, (float) affStartY2 + cY, (float) affEndX + cX, (float) affEndY + cY, getBlitOffset(), aff.getColor());
                 }
                 this.getMinecraft().fontRenderer.drawString("" + (float) Math.round(depth * 10000) / 100F, (int) ((affDrawTextX * 0.9) + cX), (int) ((affDrawTextY * 0.9) + cY), aff.getColor());
                 //Minecraft.getInstance().fontRendererObj.drawString("" + (float)Math.round(depth * 10000) / 100F, , aff.getColor());

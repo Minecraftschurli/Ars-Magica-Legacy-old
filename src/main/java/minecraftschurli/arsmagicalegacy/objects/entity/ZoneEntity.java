@@ -1,8 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
-import java.util.ArrayList;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -21,16 +20,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+
 public class ZoneEntity extends Entity {
+    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> GRAVITY_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
     private boolean firstApply = true;
     private int ticksToEffect = 20;
     private int ticksToExist = 100;
     private ItemStack spell;
     private PlayerEntity caster;
-    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> GRAVITY_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
 
     public ZoneEntity(World world) {
         this(ModEntities.WALL.get(), world);
@@ -96,13 +97,13 @@ public class ZoneEntity extends Entity {
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
                 if (e instanceof LivingEntity)
-                    SpellUtils.applyStageToEntity(spell, caster, world, e, false);
-                SpellUtils.applyStackStage(spell.copy(), caster, (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
+                    SpellUtil.applyStageToEntity(spell, caster, world, e, false);
+                SpellUtil.applyStackStage(spell.copy(), caster, (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
             }
             if (dataManager.get(GRAVITY_DATA) < 0 && !firstApply)
-                SpellUtils.applyStackStage(spell.copy(), caster, null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
+                SpellUtil.applyStackStage(spell.copy(), caster, null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
             else
-                SpellUtils.applyStackStage(spell.copy(), caster, null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
+                SpellUtil.applyStackStage(spell.copy(), caster, null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
             firstApply = false;
             for (float i = -radius; i <= radius; i++) {
                 for (int j = -3; j <= 3; j++) {
@@ -120,9 +121,11 @@ public class ZoneEntity extends Entity {
                             stepZ = 0;
                         curPos = new Vec3d(curPos.x + stepX, curPos.y, curPos.z + stepZ);
                         Vec3d tempPos = curPos.add(Vec3d.ZERO);
-                        if (!vecs.contains(tempPos)) for (int k = 0; k < getHeight(); k++) vecs.add(new Vec3d(tempPos.x, tempPos.y + k, tempPos.z));
+                        if (!vecs.contains(tempPos)) for (int k = 0; k < getHeight(); k++)
+                            vecs.add(new Vec3d(tempPos.x, tempPos.y + k, tempPos.z));
                     }
-                    for (Vec3d vec : vecs) SpellUtils.applyStageToGround(spell.copy(), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
+                    for (Vec3d vec : vecs)
+                        SpellUtil.applyStageToGround(spell.copy(), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
                 }
             }
         }

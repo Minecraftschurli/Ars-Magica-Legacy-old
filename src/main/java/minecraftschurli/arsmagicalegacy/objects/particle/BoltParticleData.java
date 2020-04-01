@@ -2,14 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
@@ -20,6 +13,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class BoltParticleData implements IParticleData {
     public static final IParticleData.IDeserializer<BoltParticleData> DESERIALIZER = new IParticleData.IDeserializer<BoltParticleData>() {
@@ -77,7 +78,7 @@ public class BoltParticleData implements IParticleData {
         rand = new Random(seed);
         numsegments0 = 1;
         increment = 1;
-        length = RenderUtils.copyVec(end).subtract(start).length();
+        length = RenderUtil.copyVec(end).subtract(start).length();
         maxAge = 30;
         multiplier = 1;
         age = (int) -length * 3;
@@ -174,7 +175,7 @@ public class BoltParticleData implements IParticleData {
         Segment prev;
         for (Segment segment : oldsegments) {
             prev = segment.prev;
-            Vec3d subsegment = RenderUtils.copyVec(segment.diff).scale(1 / splits);
+            Vec3d subsegment = RenderUtil.copyVec(segment.diff).scale(1 / splits);
             BoltPoint[] newpoints = new BoltPoint[splits + 1];
             Vec3d startpoint = segment.startpoint.point;
             newpoints[0] = segment.startpoint;
@@ -182,7 +183,7 @@ public class BoltParticleData implements IParticleData {
             for (int i = 1; i < splits; i++) {
                 Vec3d randoff = segment.diff.rotatePitch(rand.nextFloat() * 360);
                 randoff.scale((rand.nextFloat() - 0.5F) * amount);
-                Vec3d basepoint = RenderUtils.copyVec(startpoint).add(RenderUtils.copyVec(subsegment).scale(i));
+                Vec3d basepoint = RenderUtil.copyVec(startpoint).add(RenderUtil.copyVec(subsegment).scale(i));
                 newpoints[i] = new BoltPoint(basepoint, randoff);
             }
             for (int i = 0; i < splits; i++) {
@@ -190,10 +191,10 @@ public class BoltParticleData implements IParticleData {
                 next.prev = prev;
                 if (prev != null) prev.next = next;
                 if ((i != 0) && (rand.nextFloat() < splitchance)) {
-                    Vec3d diff = RenderUtils.copyVec(next.diff).rotatePitch((rand.nextFloat() * 0.66F + 0.33F) * splitangle).scale(splitlength);
+                    Vec3d diff = RenderUtil.copyVec(next.diff).rotatePitch((rand.nextFloat() * 0.66F + 0.33F) * splitangle).scale(splitlength);
                     numsplits += 1;
                     splitparents.put(numsplits, next.splitno);
-                    Segment split = new Segment(newpoints[i], new BoltPoint(newpoints[(i + 1)].basepoint, RenderUtils.copyVec(newpoints[(i + 1)].offsetvec).add(diff)), segment.light / 2, next.segmentno, numsplits);
+                    Segment split = new Segment(newpoints[i], new BoltPoint(newpoints[(i + 1)].basepoint, RenderUtil.copyVec(newpoints[(i + 1)].offsetvec).add(diff)), segment.light / 2, next.segmentno, numsplits);
                     split.prev = prev;
                     segments.add(split);
                 }
@@ -333,26 +334,26 @@ public class BoltParticleData implements IParticleData {
         }
 
         public void calcDiff() {
-            diff = RenderUtils.copyVec(endpoint.point).subtract(startpoint.point);
+            diff = RenderUtil.copyVec(endpoint.point).subtract(startpoint.point);
         }
 
         public void calcEndDiffs() {
             if (prev != null) {
-                Vec3d prevdiffnorm = RenderUtils.copyVec(prev.diff).normalize();
-                Vec3d thisdiffnorm = RenderUtils.copyVec(diff).normalize();
+                Vec3d prevdiffnorm = RenderUtil.copyVec(prev.diff).normalize();
+                Vec3d thisdiffnorm = RenderUtil.copyVec(diff).normalize();
                 prevdiff = thisdiffnorm.add(prevdiffnorm).normalize();
 //                sinprev = (float)Math.sin(Vec3d.anglePreNorm(thisdiffnorm, prevdiffnorm.scale(-1)) / 2);
             } else {
-                prevdiff = RenderUtils.copyVec(diff).normalize();
+                prevdiff = RenderUtil.copyVec(diff).normalize();
                 sinprev = 1;
             }
             if (next != null) {
-                Vec3d nextdiffnorm = RenderUtils.copyVec(next.diff).normalize();
-                Vec3d thisdiffnorm = RenderUtils.copyVec(diff).normalize();
+                Vec3d nextdiffnorm = RenderUtil.copyVec(next.diff).normalize();
+                Vec3d thisdiffnorm = RenderUtil.copyVec(diff).normalize();
                 nextdiff = thisdiffnorm.add(nextdiffnorm).normalize();
 //                sinnext = (float)Math.sin(Vec3d.anglePreNorm(thisdiffnorm, nextdiffnorm.scale(-1)) / 2);
             } else {
-                nextdiff = RenderUtils.copyVec(diff).normalize();
+                nextdiff = RenderUtil.copyVec(diff).normalize();
                 sinnext = 1;
             }
         }

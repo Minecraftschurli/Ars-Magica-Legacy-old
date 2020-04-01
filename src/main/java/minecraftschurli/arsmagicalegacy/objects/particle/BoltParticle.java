@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
@@ -138,7 +138,7 @@ public class BoltParticle extends Particle {
                 buffer.pos(rx1 + diff1.x, ry1 + diff1.y, rz1 + diff1.z).tex(0.5f, 1).color(particleRed, particleGreen, particleBlue, mainalpha * rendersegment.light).endVertex();
                 buffer.pos(rx2 + diff2.x, ry2 + diff2.y, rz2 + diff2.z).tex(0.5f, 1).color(particleRed, particleGreen, particleBlue, mainalpha * rendersegment.light).endVertex();
                 if (rendersegment.next == null) {
-                    Vec3d roundend = RenderUtils.copyVec(rendersegment.endpoint.point).add(RenderUtils.copyVec(rendersegment.diff).normalize().scale(width));
+                    Vec3d roundend = RenderUtil.copyVec(rendersegment.endpoint.point).add(RenderUtil.copyVec(rendersegment.diff).normalize().scale(width));
                     float rx3 = (float) (roundend.x - posX);
                     float ry3 = (float) (roundend.y - posY);
                     float rz3 = (float) (roundend.z - posZ);
@@ -148,7 +148,7 @@ public class BoltParticle extends Particle {
                     buffer.pos(rx3 + diff2.x, ry3 + diff2.y, rz3 + diff2.z).tex(0, 1).color(particleRed, particleGreen, particleBlue, mainalpha * rendersegment.light).endVertex();
                 }
                 if (rendersegment.prev == null) {
-                    Vec3d roundend = RenderUtils.copyVec(rendersegment.startpoint.point).subtract(RenderUtils.copyVec(rendersegment.diff)).normalize().scale(width);
+                    Vec3d roundend = RenderUtil.copyVec(rendersegment.startpoint.point).subtract(RenderUtil.copyVec(rendersegment.diff)).normalize().scale(width);
                     float rx3 = (float) (roundend.x - posX);
                     float ry3 = (float) (roundend.y - posY);
                     float rz3 = (float) (roundend.z - posZ);
@@ -219,9 +219,9 @@ public class BoltParticle extends Particle {
                 break;
         }
         if (overrideColor != -1) {
-            particleRed = RenderUtils.getRed(overrideColor);
-            particleGreen = RenderUtils.getGreen(overrideColor);
-            particleBlue = RenderUtils.getBlue(overrideColor);
+            particleRed = RenderUtil.getRed(overrideColor);
+            particleGreen = RenderUtil.getGreen(overrideColor);
+            particleBlue = RenderUtil.getBlue(overrideColor);
         }
 //        try{
 //            Minecraft.getInstance().worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -275,9 +275,9 @@ public class BoltParticle extends Particle {
                 break;
         }
         if (overrideColor != -1) {
-            particleRed = RenderUtils.getRed(overrideColor);
-            particleGreen = RenderUtils.getGreen(overrideColor);
-            particleBlue = RenderUtils.getBlue(overrideColor);
+            particleRed = RenderUtil.getRed(overrideColor);
+            particleGreen = RenderUtil.getGreen(overrideColor);
+            particleBlue = RenderUtil.getBlue(overrideColor);
         }
 //		try{
 //			worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -331,9 +331,9 @@ public class BoltParticle extends Particle {
                 break;
         }
         if (overrideColor != -1) {
-            particleRed = RenderUtils.getRed(overrideColor);
-            particleGreen = RenderUtils.getGreen(overrideColor);
-            particleBlue = RenderUtils.getBlue(overrideColor);
+            particleRed = RenderUtil.getRed(overrideColor);
+            particleGreen = RenderUtil.getGreen(overrideColor);
+            particleBlue = RenderUtil.getBlue(overrideColor);
         }
 //		try{
 //			worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);

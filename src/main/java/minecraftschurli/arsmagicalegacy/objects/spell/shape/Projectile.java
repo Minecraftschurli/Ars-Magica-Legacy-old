@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -9,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredi
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
-import minecraftschurli.arsmagicalegacy.util.SpellUtils;
+import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,22 +16,24 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+
 public class Projectile extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote) {
-            double projectileSpeed = SpellUtils.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
-            float projectileGravity = (float) SpellUtils.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY);
-            int projectileBounce = SpellUtils.modifyIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE);
+            double projectileSpeed = SpellUtil.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
+            float projectileGravity = (float) SpellUtil.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY);
+            int projectileBounce = SpellUtil.modifyIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE);
             SpellProjectileEntity projectile = new SpellProjectileEntity(world);
             projectile.setPosition(caster.getPosX(), caster.getEyeHeight() + caster.getPosY(), caster.getPosZ());
             projectile.setMotion(caster.getLookVec().getX() * projectileSpeed, caster.getLookVec().getY() * projectileSpeed, caster.getLookVec().getZ() * projectileSpeed);
-            if (SpellUtils.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) projectile.setTargetWater();
+            if (SpellUtil.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) projectile.setTargetWater();
             projectile.setGravity(projectileGravity);
             projectile.setBounces(projectileBounce);
-            projectile.setNumPierces((SpellUtils.countModifiers(SpellModifiers.PIERCING, stack) * 2) * 2);
+            projectile.setNumPierces((SpellUtil.countModifiers(SpellModifiers.PIERCING, stack) * 2) * 2);
             projectile.setShooter(caster);
-            projectile.setHoming(SpellUtils.hasModifier(SpellModifiers.HOMING, stack));
+            projectile.setHoming(SpellUtil.hasModifier(SpellModifiers.HOMING, stack));
             projectile.setSpell(stack);
 //            projectile.setIcon(AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(stack)));
             world.addEntity(projectile);

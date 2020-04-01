@@ -1,10 +1,11 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.HashMap;
-import java.util.Map;
 import minecraftschurli.arsmagicalegacy.api.capability.IAffinityStorage;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Minecraftschurli

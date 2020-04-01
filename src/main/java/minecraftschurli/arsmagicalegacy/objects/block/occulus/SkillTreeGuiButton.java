@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
-import minecraftschurli.arsmagicalegacy.util.RenderUtils;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
@@ -27,12 +27,12 @@ public class SkillTreeGuiButton extends Button {
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/occulus/overlay.png"));
             float f = 0.00390625F;
             if (inverted)
-                RenderUtils.drawBox(x, y, 22, 22, getBlitOffset(), 22 * f, 210 * f + 22 * f, 0, 210 * f);
+                RenderUtil.drawBox(x, y, 22, 22, getBlitOffset(), 22 * f, 210 * f + 22 * f, 0, 210 * f);
             else
-                RenderUtils.drawBox(x, y, 22, 22, getBlitOffset(), 0, 210 * f, 22 * f, 210 * f + 22 * f);
+                RenderUtil.drawBox(x, y, 22, 22, getBlitOffset(), 0, 210 * f, 22 * f, 210 * f + 22 * f);
             //blit(x, y, 0, 210, 22, 22);
             Minecraft.getInstance().getTextureManager().bindTexture(tree.getIcon());
-            RenderUtils.drawBox(x + 2F, y + 2F, 18, 18, getBlitOffset(), 0, 0, 1, 1);
+            RenderUtil.drawBox(x + 2F, y + 2F, 18, 18, getBlitOffset(), 0, 0, 1, 1);
         }
     }
 
