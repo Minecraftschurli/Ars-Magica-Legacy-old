@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "arsmagicalegacy:cerublossom"
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:wheat"
     },
     {
       "item": "arsmagicalegacy:aum"
     },
     {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:wheat"
+      "item": "arsmagicalegacy:cerublossom"
     }
   ],
   "result": {

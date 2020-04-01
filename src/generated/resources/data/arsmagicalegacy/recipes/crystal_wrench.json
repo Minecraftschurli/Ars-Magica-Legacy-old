@@ -6,17 +6,17 @@
     " I "
   ],
   "key": {
-    "C": {
-      "item": "arsmagicalegacy:cerublossom"
-    },
-    "D": {
-      "item": "arsmagicalegacy:desert_nova"
-    },
     "I": {
       "tag": "forge:ingots/iron"
     },
+    "C": {
+      "item": "arsmagicalegacy:cerublossom"
+    },
     "V": {
       "tag": "forge:dusts/vinteum"
+    },
+    "D": {
+      "item": "arsmagicalegacy:desert_nova"
     }
   },
   "result": {

@@ -2,28 +2,28 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:stone"
-    },
-    {
-      "item": "minecraft:netherrack"
-    },
-    {
-      "tag": "forge:dusts/redstone"
+      "tag": "forge:dusts/glowstone"
     },
     {
       "tag": "forge:dusts/glowstone"
     },
     {
-      "item": "minecraft:stone"
-    },
-    {
-      "item": "minecraft:netherrack"
+      "tag": "forge:dusts/redstone"
     },
     {
       "tag": "forge:dusts/redstone"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "tag": "forge:netherrack"
+    },
+    {
+      "tag": "forge:netherrack"
+    },
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "tag": "forge:stone"
     }
   ],
   "result": {

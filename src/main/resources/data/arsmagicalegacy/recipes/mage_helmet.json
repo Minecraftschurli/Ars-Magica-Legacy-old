@@ -6,7 +6,7 @@
   ],
   "key": {
     "W": {
-      "item": "minecraft:brown_wool"
+      "tag": "minecraft:wool"
     },
     "L": {
       "item": "minecraft:leather"

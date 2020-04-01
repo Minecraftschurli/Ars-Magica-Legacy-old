@@ -2,6 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
+      "tag": "forge:rods/wooden"
+    },
+    {
       "item": "minecraft:ice"
     },
     {
@@ -9,9 +12,6 @@
     },
     {
       "item": "minecraft:sugar"
-    },
-    {
-      "tag": "forge:rods/wooden"
     },
     {
       "item": "minecraft:potion"

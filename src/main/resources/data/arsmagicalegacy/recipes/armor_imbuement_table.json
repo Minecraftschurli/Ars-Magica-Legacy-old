@@ -6,17 +6,17 @@
     "OOO"
   ],
   "key": {
+    "A": {
+      "item": "arsmagicalegacy:altar_core"
+    },
     "C": {
       "tag": "minecraft:carpets"
-    },
-    "E": {
-      "item": "minecraft:enchanting_table"
     },
     "O": {
       "tag": "forge:obsidian"
     },
-    "A": {
-      "item": "arsmagicalegacy:altar_core"
+    "E": {
+      "item": "minecraft:enchanting_table"
     }
   },
   "result": {

@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "arsmagicalegacy:cerublossom"
-    },
-    {
-      "item": "arsmagicalegacy:desert_nova"
-    },
-    {
       "tag": "forge:dusts/vinteum"
     },
     {
       "item": "arsmagicalegacy:arcane_ash"
+    },
+    {
+      "item": "arsmagicalegacy:cerublossom"
+    },
+    {
+      "item": "arsmagicalegacy:desert_nova"
     }
   ],
   "result": {
