@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.api.util;
+package minecraftschurli.arsmagicalegacy.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
