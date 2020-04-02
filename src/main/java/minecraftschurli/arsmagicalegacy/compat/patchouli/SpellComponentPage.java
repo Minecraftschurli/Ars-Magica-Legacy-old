@@ -1,6 +1,12 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -26,15 +32,6 @@ import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 /**
  * @author Minecraftschurli
  * @version 2020-02-20
@@ -54,7 +51,7 @@ public class SpellComponentPage implements ICustomComponent {
     @Override
     public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
         int cx = x + 50;
-        int cy = y + 76;
+        int cy = y + 70;
         RenderSystem.pushMatrix();
         /*RenderSystem.enableBlend();
         context.getGui().getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/arcane_compendium_gui_extras.png"));
@@ -64,24 +61,28 @@ public class SpellComponentPage implements ICustomComponent {
         drawTexturedModalRectClassic(x, y , 112, 175, 60, 40, 40, 40, context.getGui().getBlitOffset());
         context.getGui().setBlitOffset(context.getGui().getBlitOffset()-1);
         RenderSystem.disableBlend();*/
+        List<SpellModifier> modifiers = cacheModifiers();
+        if (modifiers.isEmpty())
+            cy -= 16;
+        else cy += ((modifiers.size() / 7) * 16) + 8;
         renderRecipe(context, cx, cy, mouseX, mouseY);
         RenderSystem.enableBlend();
         Skill skill = SpellRegistry.getSkillFromPart(part);
         context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
         RenderSystem.color4f(1, 1, 1, 1);
-        drawTexturedModalRectClassic(cx, cy, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
-        if (context.isAreaHovered(mouseX, mouseY, cx, cy, 16, 16)) {
+        drawTexturedModalRectClassic(cx-2, cy-2, 0, 0, 20, 20, 256, 256, context.getGui().getBlitOffset());
+        if (context.isAreaHovered(mouseX, mouseY, cx-2, cy-2, 20, 20)) {
             context.setHoverTooltip(skill.getTooltip()
                     .stream()
                     .map(ITextComponent::getFormattedText)
                     .collect(Collectors.toList()));
         }
-        renderModifiers(context, x, y, mouseX, mouseY);
+        renderModifiers(context, x, y, mouseX, mouseY, modifiers);
         RenderSystem.disableBlend();
         RenderSystem.popMatrix();
     }
 
-    private void renderModifiers(IComponentRenderContext context, int posX, int posY, int mouseX, int mouseY) {
+    private List<SpellModifier> cacheModifiers() {
         ArrayList<SpellModifier> modifiers = new ArrayList<>();
         EnumSet<SpellModifiers> mods = part.getModifiers();
         for (AbstractSpellPart modifier : RegistryHandler.getSpellPartRegistry()) {
@@ -96,16 +97,24 @@ public class SpellComponentPage implements ICustomComponent {
                 }
             }
         }
-        int startX = 58 - (8 * modifiers.size());
-        int yOffset = 10;
-        if (!modifiers.isEmpty()) {
-            String shapeName = new TranslationTextComponent(ArsMagicaAPI.MODID + (part instanceof SpellComponent ? ".gui.modifies" : ".gui.modified_by")).getUnformattedComponentText();
-            context.getFont().drawString(shapeName, posX + 58 - (context.getFont().getStringWidth(shapeName) / 2f), posY, 0);
-            RenderSystem.color3f(1.0f, 1.0f, 1.0f);
-        }
-        for (SpellModifier mod : modifiers) {
-            Skill skill = SpellRegistry.getSkillFromPart(mod);
+        return modifiers;
+    }
+
+    private void renderModifiers(IComponentRenderContext context, int posX, int posY, int mouseX, int mouseY, List<SpellModifier> modifiers) {
+        if (modifiers.isEmpty())
+            return;
+        String shapeName = new TranslationTextComponent(ArsMagicaAPI.MODID + (part instanceof SpellComponent ? ".gui.modifies" : ".gui.modified_by")).getUnformattedComponentText();
+        context.getFont().drawString(shapeName, posX + 58 - (context.getFont().getStringWidth(shapeName) / 2f), posY, 0);
+        RenderSystem.color3f(1.0f, 1.0f, 1.0f);
+        int startX = 0;
+        int yOffset = -6;
+        for (int i = 0; i < modifiers.size(); i++) {
+            Skill skill = SpellRegistry.getSkillFromPart(modifiers.get(i));
             context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
+            if (i % 7 == 0) {
+                startX = (114 / 2) - ((Math.min(7, modifiers.size()-i) * 16) / 2)/*(modifiers.size() - i) * 16 - 40*/;
+                yOffset += 16;
+            }
             RenderSystem.enableBlend();
             drawTexturedModalRectClassic(posX + startX, posY + yOffset, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
             RenderSystem.disableBlend();
@@ -120,24 +129,29 @@ public class SpellComponentPage implements ICustomComponent {
     }
 
     private void renderRecipe(IComponentRenderContext context, int cx, int cy, int mousex, int mousey) {
-        if (part == null || part.getRecipe() == null) return;
-        float angleStep = (360.0f / part.getRecipe().length);
-        for (int i = 0; i < part.getRecipe().length; i++) {
-            float angle = (float) (Math.toRadians((angleStep * i) + (context.getTicksInBook() * 0.5) % 360));
-            float nextangle = (float) (Math.toRadians((angleStep * ((i + 1) % part.getRecipe().length)) + (context.getTicksInBook() * 0.5) % 360));
-            float dist = 45;
-            float x = (float) (cx - Math.cos(angle) * dist);
-            float y = (float) (cy - Math.sin(angle) * dist);
-            float nextx = (float) (cx - Math.cos(nextangle) * dist);
-            float nexty = (float) (cy - Math.sin(nextangle) * dist);
+        if (part == null) return;
+        ISpellIngredient[] recipe = ArsMagicaLegacy.getSpellRecipeManager().getRecipe(part.getRegistryName());
+        if (recipe == null || recipe.length <= 0) return;
+        final float angleStep = 360.0f / recipe.length;
+        final float dist = 45;
+        float lastAngle = (angleStep * (recipe.length-1) + (context.getTicksInBook()*0.5f)) % 360f;
+        float lastX = (float) (cx - Math.cos(Math.toRadians(lastAngle)) * dist);
+        float lastY = (float) (cy - Math.sin(Math.toRadians(lastAngle)) * dist);
+        for (int i = 0; i <= recipe.length; i++) {
+            float angle = (lastAngle + angleStep) % 360f;
+            float x = (float) (cx - (Math.cos(Math.toRadians(angle)) * dist));
+            float y = (float) (cy - (Math.sin(Math.toRadians(angle)) * dist));
             RenderUtil.line2d(x + 8, y + 8, cx + 8, cy + 8, context.getGui().getBlitOffset(), 0x0000DD);
-            RenderUtil.gradientline2d(x + 8, y + 8, nextx + 8, nexty + 8, context.getGui().getBlitOffset(), 0x0000DD, 0xDD00DD);
-            renderCraftingComponent(context, i, x, y, mousex, mousey);
+            RenderUtil.gradientline2d(lastX + 8, lastY + 8, x + 8, y + 8, context.getGui().getBlitOffset(), 0x0000DD, 0xDD00DD);
+            if (i < recipe.length)
+                renderCraftingComponent(context, recipe[i], x, y, mousex, mousey);
+            lastX = x;
+            lastY = y;
+            lastAngle = angle;
         }
     }
 
-    private void renderCraftingComponent(IComponentRenderContext context, int index, float sx, float sy, int mousex, int mousey) {
-        ISpellIngredient craftingComponent = part.getRecipe()[index];
+    private void renderCraftingComponent(IComponentRenderContext context, ISpellIngredient craftingComponent, float sx, float sy, int mousex, int mousey) {
         if (craftingComponent == null) return;
         ItemStack stack;
         if (craftingComponent instanceof ItemStackSpellIngredient) {

@@ -66,6 +66,6 @@ public final class Rune extends SpellShape {
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
-        return null;
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 }

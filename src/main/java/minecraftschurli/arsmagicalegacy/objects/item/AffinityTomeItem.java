@@ -45,6 +45,8 @@ public class AffinityTomeItem extends Item {
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (isInGroup(group)) {
             for (Affinity affinity : RegistryHandler.getAffinityRegistry()) {
+                if (Affinity.NONE.equals(affinity.getRegistryName()))
+                    continue;
                 items.add(setAffinity(new ItemStack(this), affinity));
             }
         }

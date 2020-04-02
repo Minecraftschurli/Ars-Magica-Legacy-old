@@ -7,12 +7,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Minecraftschurli
  * @version 2020-01-20
  */
 public class RiftStorage implements IRiftStorage {
-    private NonNullList<ItemStack> storage = NonNullList.withSize(54, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> storage = NonNullList.withSize(54, ItemStack.EMPTY);
     private int accessLevel;
 
     @Override
@@ -37,6 +39,15 @@ public class RiftStorage implements IRiftStorage {
         nbt.putInt("access_level", getAccessLevel());
     }
 
+    @Override
+    public void setFrom(IRiftStorage riftStorage) {
+        storage.clear();
+        for (int i = 0; i < riftStorage.getSizeInventory(); i++) {
+            this.setInventorySlotContents(i, riftStorage.getStackInSlot(i));
+        }
+        setAccessLevel(riftStorage.getAccessLevel());
+    }
+
     /**
      * Returns the number of slots in the inventory.
      */
@@ -55,6 +66,7 @@ public class RiftStorage implements IRiftStorage {
      *
      * @param index
      */
+    @Nonnull
     @Override
     public ItemStack getStackInSlot(int index) {
         return storage.get(index);
@@ -66,6 +78,7 @@ public class RiftStorage implements IRiftStorage {
      * @param index
      * @param count
      */
+    @Nonnull
     @Override
     public ItemStack decrStackSize(int index, int count) {
         return storage.get(index).split(count);
@@ -76,6 +89,7 @@ public class RiftStorage implements IRiftStorage {
      *
      * @param index
      */
+    @Nonnull
     @Override
     public ItemStack removeStackFromSlot(int index) {
         return storage.remove(index);

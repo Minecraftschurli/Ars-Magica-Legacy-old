@@ -45,7 +45,7 @@ public final class Zone extends SpellShape {
 
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
-        return null;
+        return EnumSet.noneOf(SpellModifiers.class);
     }
 
     @Override

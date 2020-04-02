@@ -67,6 +67,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private final Supplier<BlockState> stairBottom4 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.SOUTH);
     private final Supplier<BlockState> stairBottom5 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.EAST);
     private final Supplier<BlockState> stairBottom6 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.WEST);
+    @SuppressWarnings("unchecked")
     final Structure STRUCTURE = new CraftingAltarStructure(new Supplier[][][]{{
             {main::get, main::get, main::get, main::get, main::get},
             {main::get, main::get, main::get, main::get, main::get},
@@ -343,7 +344,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     @Nonnull
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT write(@Nonnull CompoundNBT compound) {
         super.write(compound);
         if (lecternPos != null)
             compound.put("lectern", NBTUtil.writeBlockPos(lecternPos));
@@ -355,7 +356,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(@Nonnull CompoundNBT compound) {
         super.read(compound);
         if (compound.contains("lectern"))
             lecternPos = NBTUtil.readBlockPos(compound.getCompound("lectern"));

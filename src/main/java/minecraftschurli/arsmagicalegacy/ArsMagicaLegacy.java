@@ -1,16 +1,11 @@
 package minecraftschurli.arsmagicalegacy;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.Config;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.capabilities.AbilityCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.AffinityCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.BurnoutCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.MagicCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.ManaCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.ResearchCapability;
-import minecraftschurli.arsmagicalegacy.capabilities.RiftStorageCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.*;
 import minecraftschurli.arsmagicalegacy.handler.AffinityAbilityHelper;
 import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.handler.TickHandler;
@@ -85,7 +80,7 @@ public final class ArsMagicaLegacy {
         }
     };
     public static final Logger LOGGER = LogManager.getLogger(ArsMagicaAPI.MODID);
-    public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
     private final SpellRecipeManager spellRecipeManager;
 
@@ -139,6 +134,8 @@ public final class ArsMagicaLegacy {
         RiftStorageCapability.register();
         AffinityCapability.register();
         AbilityCapability.register();
+        ContingencyCapability.register();
+
         /*ForgeRegistries.BIOMES.getValues()
                 .stream()
                 .filter(Predicates.instanceOf(ICustomFeatureBiome.class))
@@ -189,6 +186,7 @@ public final class ArsMagicaLegacy {
             event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "rift_storage"), new RiftStorageCapability());
             event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "affinity"), new AffinityCapability());
             event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "affinity_ability"), new AbilityCapability());
+            event.addCapability(new ResourceLocation(ArsMagicaAPI.MODID, "contingency"), new ContingencyCapability());
         }
     }
 
@@ -222,11 +220,6 @@ public final class ArsMagicaLegacy {
         ModFeatures.register();
         ModBiomes.register();
         ModSpellParts.register();
-//        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.GEMS_CHIMERITE), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.LESSER_MANA_POTION.get()));
-//        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.GEMS_TOPAZ), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.MANA_POTION.get()));
-//        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromTag(ModTags.Items.DUSTS_VINTEUM), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.GREATER_MANA_POTION.get()));
-//        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromItems(ModItems.ARCANE_ASH.get()), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.EPIC_MANA_POTION.get()));
-//        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromItems(ModItems.PURIFIED_VINTEUM.get()), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModEffects.LEGENDARY_MANA_POTION.get()));
     }
 
     public IModInfo getModInfo() {

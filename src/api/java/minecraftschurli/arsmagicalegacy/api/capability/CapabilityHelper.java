@@ -543,6 +543,26 @@ public class CapabilityHelper {
         getAbilityCapability(entity).addCooldown(key, value);
     }
 
+    public static boolean getAbilityState(PlayerEntity player, ResourceLocation ability) {
+        return getAbilityCapability(player).getState(ability);
+    }
+
+    public static void setAbilityState(PlayerEntity player, ResourceLocation ability, boolean state) {
+        getAbilityCapability(player).setState(ability, state);
+    }
+
+    //endregion
+
+    //region =========CONTINGENCY=========
+
+    public static ResourceLocation getContingency(LivingEntity entity) {
+        return getContingencyCapability(entity).getContingency();
+    }
+
+    public static void setContingency(LivingEntity entity, ResourceLocation contingency) {
+        getContingencyCapability(entity).setContingency(contingency);
+    }
+
     //endregion
 
     //region =========EVENT=========
@@ -584,6 +604,9 @@ public class CapabilityHelper {
             CapabilityHelper.getResearchCapability(newPlayer).setFrom(CapabilityHelper.getResearchCapability(oldPlayer));
             CapabilityHelper.getMagicCapability(newPlayer).setFrom(CapabilityHelper.getMagicCapability(oldPlayer));
             CapabilityHelper.getAffinityCapability(newPlayer).setFrom(CapabilityHelper.getAffinityCapability(oldPlayer));
+            CapabilityHelper.getAbilityCapability(newPlayer).setFrom(CapabilityHelper.getAbilityCapability(oldPlayer));
+            CapabilityHelper.getRiftStorageCapability(newPlayer).setFrom(CapabilityHelper.getRiftStorageCapability(oldPlayer));
+            CapabilityHelper.getContingencyCapability(newPlayer).setFrom(CapabilityHelper.getContingencyCapability(oldPlayer));
         }
     }
 
@@ -616,6 +639,8 @@ public class CapabilityHelper {
     static Capability<IAffinityStorage> AFFINITY = null;
     @CapabilityInject(IAbilityStorage.class)
     static Capability<IAbilityStorage> ABILITY = null;
+    @CapabilityInject(IAbilityStorage.class)
+    static Capability<IContingencyStorage> CONTINGENCY = null;
 
     public static Capability<IRiftStorage> getRiftStorageCapability() {
         return RIFT_STORAGE;
@@ -643,6 +668,10 @@ public class CapabilityHelper {
 
     public static Capability<IAbilityStorage> getAbilityCapability() {
         return ABILITY;
+    }
+
+    public static Capability<IContingencyStorage> getContingencyCapability() {
+        return CONTINGENCY;
     }
 
     private static IManaStorage getManaCapability(LivingEntity entity) {
@@ -685,6 +714,12 @@ public class CapabilityHelper {
         Objects.requireNonNull(entity);
         return entity.getCapability(ABILITY)
                 .orElseThrow(() -> new IllegalStateException("No Ability Capability present!"));
+    }
+
+    private static IContingencyStorage getContingencyCapability(LivingEntity entity) {
+        Objects.requireNonNull(entity);
+        return entity.getCapability(CONTINGENCY)
+                .orElseThrow(() -> new IllegalStateException("No Contingency Capability present!"));
     }
 
     private static void syncMana(ServerPlayerEntity player) {

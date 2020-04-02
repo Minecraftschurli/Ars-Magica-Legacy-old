@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.api.etherium;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.registry.EtheriumRegistry;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -14,9 +15,9 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  * @version 2019-11-19
  */
 public class EtheriumType extends ForgeRegistryEntry<EtheriumType> {
-    public static final RegistryObject<EtheriumType> DARK = EtheriumRegistry.registerEtherium(ArsMagicaAPI.MODID, "dark", 0xffffff);
-    public static final RegistryObject<EtheriumType> LIGHT = EtheriumRegistry.registerEtherium(ArsMagicaAPI.MODID, "light", 0xffffff);
-    public static final RegistryObject<EtheriumType> NEUTRAL = EtheriumRegistry.registerEtherium(ArsMagicaAPI.MODID, "neutral", 0xffffff);
+    public static final RegistryObject<EtheriumType> DARK = RegistryObject.of(new ResourceLocation(ArsMagicaAPI.MODID,"dark"), () -> EtheriumType.class);
+    public static final RegistryObject<EtheriumType> LIGHT = RegistryObject.of(new ResourceLocation(ArsMagicaAPI.MODID, "light"), () -> EtheriumType.class);
+    public static final RegistryObject<EtheriumType> NEUTRAL = RegistryObject.of(new ResourceLocation(ArsMagicaAPI.MODID, "neutral"), () -> EtheriumType.class);
 
     private final int color;
 
@@ -38,6 +39,6 @@ public class EtheriumType extends ForgeRegistryEntry<EtheriumType> {
 
     @Override
     public String toString() {
-        return "EssenceType("+getRegistryName().toString()+")";
+        return "EtheriumType("+getRegistryName().toString()+")";
     }
 }

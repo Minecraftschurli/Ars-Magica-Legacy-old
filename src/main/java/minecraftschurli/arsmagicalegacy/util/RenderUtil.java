@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
+import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
     public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
@@ -45,7 +46,7 @@ public final class RenderUtil {
     public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
         Vec3d vVector1 = view.subtract(a);
         Vec3d vVector2 = b.subtract(a).normalize();
-        float d = (float) a.distanceTo(b);
+        float d = (float)a.distanceTo(b);
         double t = vVector2.dotProduct(vVector1);
         if (t <= 0)
             return a;
@@ -146,16 +147,23 @@ public final class RenderUtil {
     }
 
     public static void gradientline2d(float src_x, float src_y, float dst_x, float dst_y, float zLevel, int color1, int color2) {
+        gradientline2d(src_x, src_y, dst_x, dst_y, zLevel, color1, color2, 1f);
+    }
+
+    public static void gradientline2d(float src_x, float src_y, float dst_x, float dst_y, float zLevel, int color1, int color2, float width) {
+        RenderSystem.pushMatrix();
         RenderSystem.disableTexture();
-//        RenderSystem.shadeModel(RenderSystem.SMOOTH);
-        RenderSystem.lineWidth(1f);
-        BufferBuilder buf = Tessellator.getInstance().getBuffer();
-//        buf.begin(RenderSystem.LINES, DefaultVertexFormats.POSITION_COLOR);
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
+        RenderSystem.lineWidth(width);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buf = tessellator.getBuffer();
+        buf.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
         buf.pos(src_x, src_y, zLevel).color(getRed(color1), getGreen(color1), getBlue(color1), 0xFF).endVertex();
         buf.pos(dst_x, dst_y, zLevel).color(getRed(color2), getGreen(color2), getBlue(color2), 0xFF).endVertex();
-        Tessellator.getInstance().draw();
-//        RenderSystem.shadeModel(RenderSystem.FLAT);
+        tessellator.draw();
+        RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.enableTexture();
+        RenderSystem.popMatrix();
     }
 
     public static void line2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {
@@ -163,19 +171,7 @@ public final class RenderUtil {
     }
 
     public static void line2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color, float width) {
-        RenderSystem.pushMatrix();
-        RenderSystem.disableTexture();
-        RenderSystem.enableDepthTest();
-        RenderSystem.lineWidth(width);
-        RenderSystem.color3f(getRed(color), getGreen(color), getBlue(color));
-        RenderSystem.beginInitialization();
-//        RenderSystem.vertex3f(xStart, yStart, zLevel);
-//        RenderSystem.vertex3f(xEnd, yEnd, zLevel);
-        RenderSystem.finishInitialization();
-        RenderSystem.color3f(1, 1, 1);
-        RenderSystem.disableDepthTest();
-        RenderSystem.enableTexture();
-        RenderSystem.popMatrix();
+        gradientline2d(xStart, yStart, xEnd, yEnd, zLevel, color, color, width);
     }
 
     public static void lineThick2d(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color) {

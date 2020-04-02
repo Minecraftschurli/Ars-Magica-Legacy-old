@@ -16,4 +16,6 @@ public interface IRiftStorage extends IInventory {
     void load(CompoundNBT nbt);
 
     void save(CompoundNBT nbt);
+
+    void setFrom(IRiftStorage riftStorage);
 }

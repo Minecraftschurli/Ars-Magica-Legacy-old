@@ -1,6 +1,6 @@
 ####TODO
-- add content to arcane compendium
-- lock content with advancements:
+-[x] add content to arcane compendium
+-[x] lock content with advancements:
 -[ ] Level 5: Soulbound Enchantment, Magic Resistance Enchantment
 -[ ] Level 10: Armor, Journal
 -[ ] Level 15: Water Guardian, Earth Guardian

@@ -3,11 +3,7 @@ package minecraftschurli.arsmagicalegacy.init;
 import com.google.common.collect.ImmutableSet;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
-import minecraftschurli.arsmagicalegacy.api.registry.AffinityRegistry;
-import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.api.registry.SkillRegistry;
-import minecraftschurli.arsmagicalegacy.api.registry.SkillTreeRegistry;
-import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
+import minecraftschurli.arsmagicalegacy.api.registry.*;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
@@ -56,6 +52,12 @@ import java.util.function.Supplier;
  * @version 2019-11-16
  */
 public final class ModSpellParts implements IInit {
+
+    static {
+        EtheriumRegistry.registerEtherium(ArsMagicaAPI.MODID, "dark", 0xffffff);
+        EtheriumRegistry.registerEtherium(ArsMagicaAPI.MODID, "light", 0xffffff);
+        EtheriumRegistry.registerEtherium(ArsMagicaAPI.MODID, "neutral", 0xffffff);
+    }
     public static final Supplier<SkillPoint> SILVER_POINT = SkillPointRegistry.registerSkillPoint(-1, new SkillPoint(TextFormatting.GRAY, 0x999999, -1, -1).disableRender());
     public static final Supplier<SkillPoint> SKILL_POINT_1 = SkillPointRegistry.registerSkillPoint(0, new SkillPoint(TextFormatting.BLUE, 0x0000ff, 0, 1));
     public static final Supplier<SkillPoint> SKILL_POINT_2 = SkillPointRegistry.registerSkillPoint(1, new SkillPoint(TextFormatting.GREEN, 0x00ff00, 20, 2));
