@@ -13,7 +13,7 @@
       "item": "arsmagicalegacy:standard_focus"
     },
     "F": {
-      "item": "minecraft:feather"
+      "tag": "forge:feathers"
     },
     "W": {
       "tag": "minecraft:wool"

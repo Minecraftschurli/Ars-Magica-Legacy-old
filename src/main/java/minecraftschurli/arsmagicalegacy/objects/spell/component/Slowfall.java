@@ -65,8 +65,8 @@ public final class Slowfall extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemTagSpellIngredient(Tags.Items.FEATHERS)
+                new ItemTagSpellIngredient(Tags.Items.FEATHERS),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
     }
 

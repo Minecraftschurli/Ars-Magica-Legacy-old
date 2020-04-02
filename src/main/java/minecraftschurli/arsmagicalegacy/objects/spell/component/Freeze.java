@@ -70,15 +70,15 @@ public final class Freeze extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(Blocks.ICE)
+                new ItemStack(Items.ICE)
         };
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.SNOW))
+                new ItemStackSpellIngredient(new ItemStack(Items.SNOW)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

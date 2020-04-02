@@ -19,11 +19,11 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Channel extends SpellShape {
+public final class Channel extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (useCount % 10 == 0 || SpellUtil.hasComponent(stack, Telekinesis.class) || SpellUtil.hasComponent(stack, Attract.class) || SpellUtil.hasComponent(stack, Repel.class))
-            return SpellUtil.applyStageToEntity(stack, caster, world, caster, giveXP);
+            return SpellUtil.applyStageEntity(stack, caster, world, caster, giveXP);
         return SpellCastResult.SUCCESS;
     }
 
@@ -36,8 +36,8 @@ public class Channel extends SpellShape {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get())),
                 new EtheriumSpellIngredient(500)
         };
     }

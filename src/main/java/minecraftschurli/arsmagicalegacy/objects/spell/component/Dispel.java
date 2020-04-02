@@ -6,8 +6,10 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.util.SummonUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -79,10 +81,10 @@ public final class Dispel extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
+                new ItemStackSpellIngredient(new ItemStack(Items.MILK_BUCKET)),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.MILK_BUCKET))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
         };
     }
 

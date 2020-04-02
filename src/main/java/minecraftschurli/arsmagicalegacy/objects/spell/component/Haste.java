@@ -65,9 +65,9 @@ public final class Haste extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
                 new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
         };
     }
 

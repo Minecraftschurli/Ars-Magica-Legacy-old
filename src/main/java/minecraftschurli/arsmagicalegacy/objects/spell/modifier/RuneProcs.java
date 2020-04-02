@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class RuneProcs extends SpellModifier {
+public final class RuneProcs extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.PROCS);

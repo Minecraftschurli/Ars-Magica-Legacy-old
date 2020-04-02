@@ -59,8 +59,8 @@ public final class PhysicalDamage extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD))
+                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
         };
     }
 

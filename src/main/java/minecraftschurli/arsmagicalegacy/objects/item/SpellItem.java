@@ -60,7 +60,7 @@ public class SpellItem extends Item {
         if (!stack.hasTag()) return;
         if (shape != null) {
             if (!shape.isChanneled()) {
-                SpellCastResult result = SpellUtil.applyStackStage(stack, entityLiving, null, entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), Direction.UP, worldIn, true, true, 0);
+                SpellCastResult result = SpellUtil.applyStage(stack, entityLiving, null, entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), Direction.UP, worldIn, true, true, 0);
                 ArsMagicaLegacy.LOGGER.debug(result);
             }
             /*if (worldIn.isRemote && shape.isChanneled()){
@@ -73,7 +73,7 @@ public class SpellItem extends Item {
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         SpellShape shape = SpellUtil.getShape(stack, 0);
         if (shape.isChanneled())
-            SpellUtil.applyStackStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);
+            SpellUtil.applyStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);
         super.onUsingTick(stack, player, count);
     }
 

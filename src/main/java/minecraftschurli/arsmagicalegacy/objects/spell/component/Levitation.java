@@ -64,8 +64,8 @@ public final class Levitation extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
     }
 

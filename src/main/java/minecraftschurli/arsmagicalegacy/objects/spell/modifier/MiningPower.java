@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class MiningPower extends SpellModifier {
+public final class MiningPower extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.MINING_POWER);
@@ -33,8 +33,8 @@ public class MiningPower extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.EARTH_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.DIAMOND_PICKAXE))
+                new ItemStackSpellIngredient(new ItemStack(Items.DIAMOND_PICKAXE)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.EARTH_ESSENCE.get()))
         };
     }
 }

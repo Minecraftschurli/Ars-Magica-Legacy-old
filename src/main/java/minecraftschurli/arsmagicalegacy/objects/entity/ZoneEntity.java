@@ -97,13 +97,13 @@ public class ZoneEntity extends Entity {
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
                 if (e instanceof LivingEntity)
-                    SpellUtil.applyStageToEntity(spell, caster, world, e, false);
-                SpellUtil.applyStackStage(spell.copy(), caster, (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
+                    SpellUtil.applyStageEntity(spell, caster, world, e, false);
+                SpellUtil.applyStage(spell.copy(), caster, (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
             }
             if (dataManager.get(GRAVITY_DATA) < 0 && !firstApply)
-                SpellUtil.applyStackStage(spell.copy(), caster, null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
+                SpellUtil.applyStage(spell.copy(), caster, null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
             else
-                SpellUtil.applyStackStage(spell.copy(), caster, null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
+                SpellUtil.applyStage(spell.copy(), caster, null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
             firstApply = false;
             for (float i = -radius; i <= radius; i++) {
                 for (int j = -3; j <= 3; j++) {
@@ -125,7 +125,7 @@ public class ZoneEntity extends Entity {
                             vecs.add(new Vec3d(tempPos.x, tempPos.y + k, tempPos.z));
                     }
                     for (Vec3d vec : vecs)
-                        SpellUtil.applyStageToGround(spell.copy(), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
+                        SpellUtil.applyStageBlock(spell.copy(), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
                 }
             }
         }

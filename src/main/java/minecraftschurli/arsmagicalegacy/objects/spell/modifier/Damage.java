@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Damage extends SpellModifier {
+public final class Damage extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.DAMAGE);
@@ -35,8 +35,8 @@ public class Damage extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ENDER_ESSENCE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ENDER_ESSENCE.get())),
                 new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HARMING))
         };
     }

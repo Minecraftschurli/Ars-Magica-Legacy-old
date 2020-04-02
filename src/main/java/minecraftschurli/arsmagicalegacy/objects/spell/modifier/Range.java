@@ -16,7 +16,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Range extends SpellModifier {
+public final class Range extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.RANGE);
@@ -35,10 +35,10 @@ public class Range extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
                 new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL))
+                new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
+                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get()))
         };
     }
 }

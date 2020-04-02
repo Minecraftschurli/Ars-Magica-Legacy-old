@@ -75,8 +75,8 @@ public final class BanishRain extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_GOLD)
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_GOLD),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

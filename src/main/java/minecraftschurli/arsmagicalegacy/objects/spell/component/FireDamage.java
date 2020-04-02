@@ -27,7 +27,7 @@ import java.util.Set;
 public final class FireDamage extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        //TODO transform obelisk into black aurem
+        //TODO transform obelisk to black aurem
 //        Block block = world.getBlockState(pos).getBlock();
 //        if (block == ModBlocks.OBELISK && RitualShapeHelper.instance.matchesRitual(this, world, pos)) {
 //            if (!world.isRemote) {
@@ -78,9 +78,9 @@ public final class FireDamage extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
                 new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL))
+                new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
         };
     }
 

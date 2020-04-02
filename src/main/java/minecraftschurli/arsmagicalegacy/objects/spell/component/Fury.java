@@ -59,8 +59,8 @@ public final class Fury extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.SWIFTNESS),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRENGTH)
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRENGTH),
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.SWIFTNESS)
         };
     }
 

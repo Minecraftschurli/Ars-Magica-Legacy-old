@@ -60,10 +60,10 @@ public final class LightningDamage extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get())),
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
                 new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
-                new ItemStackSpellIngredient(new ItemStack(Items.STICK))
+                new ItemTagSpellIngredient(Tags.Items.RODS_WOODEN),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
         };
     }
 

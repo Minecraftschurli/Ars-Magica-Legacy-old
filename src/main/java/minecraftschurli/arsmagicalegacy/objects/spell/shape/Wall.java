@@ -21,7 +21,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Wall extends SpellShape {
+public final class Wall extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (world.isRemote) return SpellCastResult.SUCCESS;
@@ -43,10 +43,10 @@ public class Wall extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get(), 2)),
-                new ItemStackSpellIngredient(new ItemStack(Items.COBBLESTONE_WALL)),
                 new ItemTagSpellIngredient(Tags.Items.FENCES_WOODEN),
+                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
+                new ItemStackSpellIngredient(new ItemStack(Items.COBBLESTONE_WALL)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get(), 2)),
                 new EtheriumSpellIngredient(2500)
         };
     }

@@ -68,8 +68,8 @@ public final class CreateWater extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET))
+                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

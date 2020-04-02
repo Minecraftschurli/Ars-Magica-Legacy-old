@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.entity.FireRainEntity;
@@ -18,6 +19,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -67,11 +69,10 @@ public final class FireRain extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
+                new ItemTagSpellIngredient(Tags.Items.NETHERRACK),
                 new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(Items.NETHERRACK))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get(), 2))
         };
     }
 }

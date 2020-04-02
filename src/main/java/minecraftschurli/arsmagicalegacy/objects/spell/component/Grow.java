@@ -23,6 +23,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -33,6 +34,7 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.eventbus.api.Event;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -40,14 +42,10 @@ import java.util.Random;
 import java.util.Set;
 
 public final class Grow extends SpellComponent {
-    private final static List<BushBlock> flowers = new ArrayList<>();
+    private final static List<Block> flowers = new ArrayList<>();
 
     static {
-        flowers.add(ModBlocks.AUM.get());
-        flowers.add(ModBlocks.CERUBLOSSOM.get());
-        flowers.add(ModBlocks.DESERT_NOVA.get());
-        flowers.add(ModBlocks.TARMA_ROOT.get());
-        flowers.add(ModBlocks.WAKEBLOOM.get());
+        flowers.addAll(BlockTags.FLOWERS.getAllElements());
     }
 
     @Override
@@ -122,9 +120,9 @@ public final class Grow extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
+                new ItemTagSpellIngredient(ModTags.Items.LOGS_WITCHWOOD),
                 new ItemStackSpellIngredient(new ItemStack(Items.BONE_MEAL)),
-                new ItemTagSpellIngredient(ModTags.Items.LOGS_WITCHWOOD)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
         };
     }
 

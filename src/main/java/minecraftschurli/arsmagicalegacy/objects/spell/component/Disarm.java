@@ -108,8 +108,8 @@ public final class Disarm extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD))
+                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get()))
         };
     }
 

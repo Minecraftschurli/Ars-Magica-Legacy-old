@@ -48,7 +48,7 @@ public final class Summon extends SpellComponent {
         SummonUtil.setOwner(entity, caster);
         int duration = SpellUtil.modifyIntMul(4800, stack, caster, caster, world, SpellModifiers.DURATION);
         SummonUtil.setSummonDuration(entity, duration);
-        SpellUtil.applyStageToEntity(stack, caster, world, entity, false);
+        SpellUtil.applyStageEntity(stack, caster, world, entity, false);
         return true;
     }
 
@@ -82,9 +82,9 @@ public final class Summon extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.MONSTER_FOCUS.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new EtheriumSpellIngredient(1500, EtheriumType.DARK)
         };
     }

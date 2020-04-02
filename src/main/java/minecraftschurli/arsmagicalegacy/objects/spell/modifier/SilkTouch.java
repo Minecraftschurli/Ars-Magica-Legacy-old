@@ -16,7 +16,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class SilkTouch extends SpellModifier {
+public final class SilkTouch extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.SILKTOUCH_LEVEL);
@@ -35,9 +35,9 @@ public class SilkTouch extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(Tags.Items.FEATHERS),
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get())),
-                new ItemTagSpellIngredient(Tags.Items.FEATHERS)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get()))
         };
     }
 }

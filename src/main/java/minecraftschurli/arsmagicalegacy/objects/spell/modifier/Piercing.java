@@ -16,7 +16,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Piercing extends SpellModifier {
+public final class Piercing extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.PIERCING);
@@ -35,9 +35,9 @@ public class Piercing extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get())),
+                new ItemTagSpellIngredient(Tags.Items.GEMS_EMERALD),
                 new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
-                new ItemTagSpellIngredient(Tags.Items.GEMS_EMERALD)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get()))
         };
     }
 }

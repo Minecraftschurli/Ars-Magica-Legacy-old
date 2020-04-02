@@ -88,9 +88,9 @@ public final class Invisiblity extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.INVISIBILITY)),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE)
+                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.INVISIBILITY))
         };
     }
 }

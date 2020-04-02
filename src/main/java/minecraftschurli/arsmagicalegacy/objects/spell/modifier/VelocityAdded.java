@@ -11,12 +11,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class VelocityAdded extends SpellModifier {
+public final class VelocityAdded extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.VELOCITY_ADDED);
@@ -35,10 +36,10 @@ public class VelocityAdded extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get())),
+                new ItemTagSpellIngredient(ItemTags.BOATS),
                 new ItemTagSpellIngredient(Tags.Items.FEATHERS),
                 new ItemStackSpellIngredient(new ItemStack(Items.MINECART)),
-                new ItemStackSpellIngredient(new ItemStack(Items.OAK_BOAT))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get()))
         };
     }
 }

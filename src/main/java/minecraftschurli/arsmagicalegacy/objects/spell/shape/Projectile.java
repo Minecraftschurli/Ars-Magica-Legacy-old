@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Projectile extends SpellShape {
+public final class Projectile extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote) {
@@ -51,7 +51,7 @@ public class Projectile extends SpellShape {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
                 new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL)),
+                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL))
         };
     }
 

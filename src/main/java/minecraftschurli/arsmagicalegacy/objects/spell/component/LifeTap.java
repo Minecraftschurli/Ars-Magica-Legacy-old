@@ -61,8 +61,8 @@ public final class LifeTap extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(ModItems.MONSTER_FOCUS.get()),
-                new ItemStack(ModItems.ENDER_ESSENCE.get())
+                new ItemStack(ModItems.ENDER_ESSENCE.get()),
+                new ItemStack(ModItems.MONSTER_FOCUS.get())
         };
     }
 

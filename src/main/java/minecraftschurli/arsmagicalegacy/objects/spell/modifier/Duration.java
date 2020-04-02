@@ -15,7 +15,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Duration extends SpellModifier {
+public final class Duration extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.DURATION);
@@ -34,8 +34,8 @@ public class Duration extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get())),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE)
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get()))
         };
     }
 }

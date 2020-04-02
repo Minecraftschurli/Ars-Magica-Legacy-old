@@ -89,8 +89,8 @@ public final class Forge extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.FURNACE))
+                new ItemStackSpellIngredient(new ItemStack(Items.FURNACE)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
         };
     }
 

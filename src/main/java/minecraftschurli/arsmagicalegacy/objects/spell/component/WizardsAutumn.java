@@ -18,6 +18,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -78,10 +79,10 @@ public final class WizardsAutumn extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.STICK)),
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON)
+                new ItemTagSpellIngredient(ItemTags.SAPLINGS),
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
+                new ItemTagSpellIngredient(Tags.Items.RODS_WOODEN),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
         };
     }
 }

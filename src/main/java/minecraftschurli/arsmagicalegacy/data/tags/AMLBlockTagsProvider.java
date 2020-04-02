@@ -65,5 +65,19 @@ public final class AMLBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.IRON_INLAY.get(),
                 ModBlocks.REDSTONE_INLAY.get()
         );
+        getBuilder(BlockTags.FLOWERS).add(
+                ModBlocks.AUM.get(),
+                ModBlocks.CERUBLOSSOM.get(),
+                ModBlocks.DESERT_NOVA.get(),
+                ModBlocks.TARMA_ROOT.get(),
+                ModBlocks.WAKEBLOOM.get()
+        );
+        getBuilder(BlockTags.SMALL_FLOWERS).add(
+                ModBlocks.AUM.get(),
+                ModBlocks.CERUBLOSSOM.get(),
+                ModBlocks.DESERT_NOVA.get(),
+                ModBlocks.TARMA_ROOT.get(),
+                ModBlocks.WAKEBLOOM.get()
+        );
     }
 }

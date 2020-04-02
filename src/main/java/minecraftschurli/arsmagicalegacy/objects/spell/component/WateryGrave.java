@@ -59,16 +59,16 @@ public final class WateryGrave extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(Blocks.STONE)
+                new ItemStack(Items.STONE)
         };
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
+                new ItemTagSpellIngredient(Tags.Items.STONE),
                 new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                new ItemTagSpellIngredient(Tags.Items.STONE)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

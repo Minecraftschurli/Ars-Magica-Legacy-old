@@ -52,23 +52,23 @@ public final class SpellUtil {
     public static final String TYPE = "Type";
     public static final String ID = "ID";
     public static final String SHAPE_GROUP = "ShapeGroup";
-    public static final String STAGE = "Stage_";
+    public static final String STAGE = "Stage";
     public static final String SPELL_DATA = "SpellData";
 
     public static Map<Affinity, Float> affinityFor(ItemStack stack) {
-        Map<Affinity, Float> customDepthMap = new HashMap<>();
+        Map<Affinity, Float> depth = new HashMap<>();
         List<SpellComponent> components = SpellUtil.getComponents(stack, -1);
         for (SpellComponent component : components) {
             for (Affinity aff1 : component.getAffinity()) {
-                if (customDepthMap.get(aff1) != null)
-                    customDepthMap.put(aff1, customDepthMap.get(aff1) + component.getAffinityShift(aff1));
-                else customDepthMap.put(aff1, component.getAffinityShift(aff1));
+                if (depth.get(aff1) != null)
+                    depth.put(aff1, depth.get(aff1) + component.getAffinityShift(aff1));
+                else depth.put(aff1, component.getAffinityShift(aff1));
             }
         }
-        return customDepthMap;
+        return depth;
     }
 
-    public static SpellCastResult applyStackStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, @Nullable Direction side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed) {
+    public static SpellCastResult applyStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, @Nullable Direction side, World world, boolean consumeMBR, boolean giveXP, int ticksUsed) {
         if (caster.isPotionActive(ModEffects.SILENCE.get()))
             return SpellCastResult.SILENCED;
         int group = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup");
@@ -110,13 +110,33 @@ public final class SpellUtil {
         return result;
     }
 
-    public static SpellCastResult applyStageOnUsing(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, World world, boolean consumeMBR, boolean giveXP, int ticks) {
-        if (SpellUtil.stageNum(stack) == 0) return SpellCastResult.SUCCESS;
-        if (!SpellUtil.getShape(stack).isChanneled()) return SpellCastResult.EFFECT_FAILED;
-        return applyStackStage(stack, caster, target, x, y, z, null, world, consumeMBR, giveXP, ticks);
+    public static SpellCastResult applyStageBlock(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
+        SpellShape stageShape = SpellUtil.getShape(stack, 0);
+        if (stageShape == null || Objects.equals(stageShape.getRegistryName(), SpellRegistry.MISSING_SHAPE))
+            return SpellCastResult.MALFORMED_SPELL_STACK;
+        boolean isPlayer = caster instanceof PlayerEntity;
+        int group = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup");
+        List<SpellComponent> components = SpellUtil.getComponents(stack, group);
+        for (SpellComponent component : components) {
+            if (component.applyEffectBlock(stack, world, pos, blockFace, impactX, impactY, impactZ, caster)) {
+                if (isPlayer && !world.isRemote && component.getAffinity() != null)
+                    CapabilityHelper.doAffinityShift(caster, component, stageShape);
+                if (world.isRemote) {
+                    int color = -1;
+                    if (hasModifier(SpellModifiers.COLOR, stack)) {
+                        List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
+                        for (SpellModifier mod : mods)
+                            if (mod instanceof Color)
+                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtil.getAMLTag(stack.getTag()));
+                    }
+                    component.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), caster, caster, world.rand, color);
+                }
+            }
+        }
+        return SpellCastResult.SUCCESS;
     }
 
-    public static SpellCastResult applyStageToEntity(ItemStack stack, LivingEntity caster, World world, Entity target, boolean shiftAffinityAndXP) {
+    public static SpellCastResult applyStageEntity(ItemStack stack, LivingEntity caster, World world, Entity target, boolean shiftAffinityAndXP) {
         SpellShape stageShape = SpellUtil.getShape(stack, 0);
         if (stageShape == null) return SpellCastResult.MALFORMED_SPELL_STACK;
         if (target instanceof ServerPlayerEntity && ((ServerPlayerEntity) target).abilities.isCreativeMode)
@@ -150,30 +170,10 @@ public final class SpellUtil {
             return SpellCastResult.EFFECT_FAILED;
     }
 
-    public static SpellCastResult applyStageToGround(ItemStack stack, LivingEntity caster, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, boolean consumeMBR) {
-        SpellShape stageShape = SpellUtil.getShape(stack, 0);
-        if (stageShape == null || Objects.equals(stageShape.getRegistryName(), SpellRegistry.MISSING_SHAPE))
-            return SpellCastResult.MALFORMED_SPELL_STACK;
-        boolean isPlayer = caster instanceof PlayerEntity;
-        int group = NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup");
-        List<SpellComponent> components = SpellUtil.getComponents(stack, group);
-        for (SpellComponent component : components) {
-            if (component.applyEffectBlock(stack, world, pos, blockFace, impactX, impactY, impactZ, caster)) {
-                if (isPlayer && !world.isRemote && component.getAffinity() != null)
-                    CapabilityHelper.doAffinityShift(caster, component, stageShape);
-                if (world.isRemote) {
-                    int color = -1;
-                    if (hasModifier(SpellModifiers.COLOR, stack)) {
-                        List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
-                        for (SpellModifier mod : mods)
-                            if (mod instanceof Color)
-                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtil.getAMLTag(stack.getTag()));
-                    }
-                    component.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), caster, caster, world.rand, color);
-                }
-            }
-        }
-        return SpellCastResult.SUCCESS;
+    public static SpellCastResult applyUsingStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, World world, boolean consumeMBR, boolean giveXP, int ticks) {
+        if (SpellUtil.stageNum(stack) == 0) return SpellCastResult.SUCCESS;
+        if (!SpellUtil.getShape(stack).isChanneled()) return SpellCastResult.EFFECT_FAILED;
+        return applyStage(stack, caster, target, x, y, z, null, world, consumeMBR, giveXP, ticks);
     }
 
     public static boolean attackWithType(ItemStack spellStack, Entity target, DamageSource damagesource, float magnitude) {

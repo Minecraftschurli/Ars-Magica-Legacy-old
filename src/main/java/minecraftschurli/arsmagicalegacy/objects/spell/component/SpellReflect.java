@@ -19,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -58,10 +59,10 @@ public final class SpellReflect extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.GLASS)),
+                new ItemTagSpellIngredient(Tags.Items.GLASS),
+                new ItemTagSpellIngredient(ModTags.Items.LOGS_WITCHWOOD),
                 new ItemStackSpellIngredient(new ItemStack(Items.IRON_BLOCK)),
-                new ItemTagSpellIngredient(ModTags.Items.LOGS_WITCHWOOD)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
     }
 

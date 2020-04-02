@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Lunar extends SpellModifier {
+public final class Lunar extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.HEALING);
@@ -38,9 +38,7 @@ public class Lunar extends SpellModifier {
                 return modifyValueOnTime(world, 2);
             case RADIUS:
             case RANGE:
-                long boundedTime = world.getGameTime() % 24000;
-                int phase = 8 - world.getMoonPhase();
-                if (boundedTime > 12500 && boundedTime < 23500) return 3 + (phase / 2f);
+                if (world.getGameTime() % 24000 > 12500 && world.getGameTime() % 24000 < 23500) return 3 + ((8 - world.getMoonPhase()) / 2f);
                 return 2;
         }
         return 1;
@@ -50,8 +48,8 @@ public class Lunar extends SpellModifier {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.NATURE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
+                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.NATURE_ESSENCE.get()))
         };
     }
 

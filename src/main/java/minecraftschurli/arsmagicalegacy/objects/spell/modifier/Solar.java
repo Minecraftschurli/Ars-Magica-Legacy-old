@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Solar extends SpellModifier {
+public final class Solar extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.RANGE, SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.HEALING);
@@ -33,9 +33,9 @@ public class Solar extends SpellModifier {
             case DAMAGE:
                 return modifyValueOnTime(world, 2.4f);
             case DURATION:
-                return modifyValueOnTime(world, 5f);
+                return modifyValueOnTime(world, 5);
             case HEALING:
-                return modifyValueOnTime(world, 2f);
+                return modifyValueOnTime(world, 2);
             case RANGE:
             case RADIUS:
                 return 2;
@@ -47,14 +47,13 @@ public class Solar extends SpellModifier {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.NATURE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
+                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.NATURE_ESSENCE.get()))
         };
     }
 
     private float modifyValueOnTime(World world, float value) {
-        long x = world.getGameTime() % 24000;
-        float multiplierFromTime = (float) (Math.cos(((x / 3800f) * (x / 24000f) - 13000f) * (180f / Math.PI)) * 1.5f) + 1;
+        float multiplierFromTime = (float) (Math.cos((((world.getGameTime() % 24000) / 3800f) * ((world.getGameTime() % 24000) / 24000f) - 13000f) * (180f / Math.PI)) * 1.5f) + 1;
         if (multiplierFromTime < 0)
             multiplierFromTime *= -0.5f;
         return value * multiplierFromTime;

@@ -34,7 +34,7 @@ public final class FallingStar extends SpellComponent {
             star.setPosition(impactX, world.getActualHeight(), impactZ);
             star.setShootingStar(2 * damageMultitplier);
             star.setThrowingEntity(caster);
-            star.setSpellStack(stack.copy());
+            star.setSpellStack(stack);
             world.addEntity(star);
         }
         return true;
@@ -68,11 +68,10 @@ public final class FallingStar extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET)),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get(), 2)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get()))
         };
     }
 }

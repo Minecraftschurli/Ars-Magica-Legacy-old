@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Rune extends SpellShape {
+public final class Rune extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
 //        int procs = SpellUtils.getModifiedIntAdd(1, stack, caster, target, world, SpellModifiers.PROCS);
@@ -34,12 +34,12 @@ public class Rune extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
         };
     }

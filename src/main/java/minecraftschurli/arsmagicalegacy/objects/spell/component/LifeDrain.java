@@ -63,9 +63,9 @@ public final class LifeDrain extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get()))
         };
     }
 

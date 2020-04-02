@@ -10,11 +10,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class TargetNonSolidBlocks extends SpellModifier {
+public final class TargetNonSolidBlocks extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.TARGET_NONSOLID_BLOCKS);
@@ -33,11 +35,11 @@ public class TargetNonSolidBlocks extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WATER_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.BROWN_MUSHROOM)),
                 new ItemStackSpellIngredient(new ItemStack(Items.POPPY)),
-                new ItemStackSpellIngredient(new ItemStack(Items.POTION))
+                new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WATER_ESSENCE.get())),
+                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER))
         };
     }
 }

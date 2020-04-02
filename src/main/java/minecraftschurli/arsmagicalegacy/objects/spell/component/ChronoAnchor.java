@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
@@ -18,6 +19,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -62,8 +64,8 @@ public final class ChronoAnchor extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(Tags.Items.NETHER_STARS),
                 new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
-                new ItemStackSpellIngredient(new ItemStack(Items.NETHER_STAR)),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
     }

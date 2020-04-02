@@ -63,9 +63,9 @@ public final class SwiftSwim extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.COD)),
-                new ItemStackSpellIngredient(new ItemStack(Items.FISHING_ROD))
+                new ItemStackSpellIngredient(new ItemStack(Items.FISHING_ROD)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

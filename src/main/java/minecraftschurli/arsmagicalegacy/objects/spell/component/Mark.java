@@ -59,8 +59,8 @@ public final class Mark extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.MAP))
+                new ItemStackSpellIngredient(new ItemStack(Items.MAP)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
         };
     }
 

@@ -56,8 +56,8 @@ public final class Regeneration extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.GOLDEN_APPLE))
+                new ItemStackSpellIngredient(new ItemStack(Items.GOLDEN_APPLE)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

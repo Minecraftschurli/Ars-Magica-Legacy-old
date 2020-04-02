@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
@@ -18,10 +19,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -87,10 +90,9 @@ public final class Plant extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WITCHWOOD_SAPLING.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.WHEAT_SEEDS)),
-                new ItemStackSpellIngredient(new ItemStack(Items.WHEAT_SEEDS)),
+                new ItemTagSpellIngredient(ItemTags.SAPLINGS),
+                new ItemTagSpellIngredient(Tags.Items.SEEDS, 2),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
         };
     }
 

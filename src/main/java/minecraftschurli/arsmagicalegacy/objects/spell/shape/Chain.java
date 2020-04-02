@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class Chain extends SpellShape {
+public final class Chain extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         RayTraceResult mop = EntityUtil.getMovingObjectPosition(caster, world, 8, true, false);
@@ -56,14 +56,9 @@ public class Chain extends SpellShape {
         LivingEntity prevEntity = null;
         for (LivingEntity e : targets) {
             if (e == caster) continue;
-            result = SpellUtil.applyStageToEntity(stack, caster, world, e, giveXP);
-            SpellUtil.applyStackStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
-            if (world.isRemote) {
-                if (prevEntity == null)
-                    spawnChainParticles(world, x, y, z, e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
-                else
-                    spawnChainParticles(world, prevEntity.getPosX(), prevEntity.getPosY() + e.getEyeHeight(), prevEntity.getPosZ(), e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
-            }
+            result = SpellUtil.applyStageEntity(stack, caster, world, e, giveXP);
+            SpellUtil.applyStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
+            if (world.isRemote) spawnParticles(world, prevEntity == null ? x : prevEntity.getPosX(), prevEntity == null ? y : prevEntity.getPosY(), prevEntity == null ? z : prevEntity.getPosZ(), e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
             prevEntity = e;
             if (result == SpellCastResult.SUCCESS) atLeastOneApplication = true;
         }
@@ -79,10 +74,10 @@ public class Chain extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
                 new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
+                new ItemTagSpellIngredient(Tags.Items.STRING),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
                 new ItemStackSpellIngredient(new ItemStack(Items.LEAD)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STRING)),
                 new ItemStackSpellIngredient(new ItemStack(Items.TRIPWIRE_HOOK))
         };
     }
@@ -107,7 +102,7 @@ public class Chain extends SpellShape {
         return 1.5f;
     }
 
-    private void spawnChainParticles(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, ItemStack spellStack) {
+    private void spawnParticles(World world, double startX, double startY, double startZ, double endX, double endY, double endZ, ItemStack spellStack) {
 //        int color = -1;
 //        if (SpellUtils.hasModifier(SpellModifiers.COLOR, spellStack)) {
 //            List<SpellModifier> mods = SpellUtils.getModifiers(spellStack, -1);

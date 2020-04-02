@@ -63,8 +63,8 @@ public final class FrostDamage extends SpellComponent {
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL))
+                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

@@ -24,23 +24,23 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Touch extends SpellShape {
+public final class Touch extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        if (target != null) return SpellUtil.applyStageToEntity(stack, caster, world, target, giveXP);
+        if (target != null) return SpellUtil.applyStageEntity(stack, caster, world, target, giveXP);
         boolean targetWater = SpellUtil.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack);
         RayTraceResult mop = EntityUtil.getMovingObjectPosition(caster, world, 2.5f, true, targetWater);
         if (mop.getType() == RayTraceResult.Type.ENTITY) {
             Entity e = ((EntityRayTraceResult) mop).getEntity();
             if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                 e = ((EnderDragonPartEntity) e).dragon;
-            SpellCastResult result = SpellUtil.applyStageToEntity(stack, caster, world, e, giveXP);
+            SpellCastResult result = SpellUtil.applyStageEntity(stack, caster, world, e, giveXP);
             if (result != SpellCastResult.SUCCESS) return result;
-            return SpellUtil.applyStackStage(stack, caster, target, mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), null, world, true, giveXP, 0);
+            return SpellUtil.applyStage(stack, caster, target, mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), null, world, true, giveXP, 0);
         } else if (mop.getType() == RayTraceResult.Type.BLOCK) {
-            SpellCastResult result = SpellUtil.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
+            SpellCastResult result = SpellUtil.applyStageBlock(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
             if (result != SpellCastResult.SUCCESS) return result;
-            return SpellUtil.applyStackStage(stack, caster, target, ((BlockRayTraceResult) mop).getPos().getX(), ((BlockRayTraceResult) mop).getPos().getY(), ((BlockRayTraceResult) mop).getPos().getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
+            return SpellUtil.applyStage(stack, caster, target, ((BlockRayTraceResult) mop).getPos().getX(), ((BlockRayTraceResult) mop).getPos().getY(), ((BlockRayTraceResult) mop).getPos().getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
         } else return SpellCastResult.EFFECT_FAILED;
     }
 
@@ -52,10 +52,10 @@ public class Touch extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(Tags.Items.FEATHERS),
                 new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
                 new ItemStackSpellIngredient(new ItemStack(Items.CLAY_BALL)),
-                new ItemStackSpellIngredient(new ItemStack(Items.COD)),
-                new ItemTagSpellIngredient(Tags.Items.FEATHERS)
+                new ItemStackSpellIngredient(new ItemStack(Items.COD))
         };
     }
 

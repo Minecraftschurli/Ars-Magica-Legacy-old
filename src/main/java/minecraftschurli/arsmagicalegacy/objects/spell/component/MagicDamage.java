@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
@@ -17,6 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -57,10 +59,10 @@ public final class MagicDamage extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
+                new ItemTagSpellIngredient(Tags.Items.GEMS_LAPIS),
                 new ItemStackSpellIngredient(new ItemStack(Items.BOOK)),
-                new ItemStackSpellIngredient(new ItemStack(Items.LAPIS_LAZULI)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_SWORD))
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_SWORD)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
         };
     }
 

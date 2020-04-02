@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Speed extends SpellModifier {
+public final class Speed extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.SPEED);
@@ -35,9 +35,9 @@ public class Speed extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.LIGHTNING_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
                 new ItemStackSpellIngredient(new ItemStack(Items.CARROT)),
+                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.LIGHTNING_ESSENCE.get())),
                 new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potion.getPotionTypeForName("swiftness")))
         };
     }

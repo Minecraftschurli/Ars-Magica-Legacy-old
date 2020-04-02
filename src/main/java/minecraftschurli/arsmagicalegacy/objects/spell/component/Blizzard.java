@@ -6,8 +6,10 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.objects.entity.BlizzardEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
@@ -67,8 +69,8 @@ public final class Blizzard extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
                 new ItemStackSpellIngredient(new ItemStack(Items.ICE)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TOPAZ.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get(), 2))
         };
     }

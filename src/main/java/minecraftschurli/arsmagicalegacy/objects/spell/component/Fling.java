@@ -57,8 +57,8 @@ public final class Fling extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.PISTON))
+                new ItemStackSpellIngredient(new ItemStack(Items.PISTON)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
     }
 

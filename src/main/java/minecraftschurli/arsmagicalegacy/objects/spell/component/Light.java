@@ -78,8 +78,8 @@ public final class Light extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(ModItems.MOONSTONE.get()),
-                new ItemStack(ModItems.MANA_FOCUS.get())
+                new ItemStack(ModItems.MANA_FOCUS.get()),
+                new ItemStack(ModItems.MOONSTONE.get())
         };
     }
 

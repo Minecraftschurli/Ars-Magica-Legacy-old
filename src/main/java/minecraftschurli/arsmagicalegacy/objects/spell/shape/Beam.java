@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Beam extends SpellShape {
+public final class Beam extends SpellShape {
 //    private final HashMap<Integer, AMBeam> beams;
 //    public Beam() {
 //        beams = new HashMap<Integer, AMBeam>();
@@ -48,7 +48,7 @@ public class Beam extends SpellShape {
                 Entity e = ((EntityRayTraceResult) mop).getEntity();
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
-                result = SpellUtil.applyStageToEntity(stack, caster, world, e, giveXP);
+                result = SpellUtil.applyStageEntity(stack, caster, world, e, giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
             float rng = (float) mop.getHitVec().distanceTo(new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ()));
@@ -56,7 +56,7 @@ public class Beam extends SpellShape {
             spellVec = beamHitVec;
         } else {
             if (shouldApplyEffectBlock && !world.isRemote) {
-                result = SpellUtil.applyStageToGround(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
+                result = SpellUtil.applyStageBlock(stack, caster, world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), mop.getHitVec().getX(), mop.getHitVec().getY(), mop.getHitVec().getZ(), giveXP);
                 if (result != SpellCastResult.SUCCESS) return result;
             }
 //            beamHitVec = mop.getHitVec();
@@ -100,7 +100,7 @@ public class Beam extends SpellShape {
         if (result != null && (mop.getType() == RayTraceResult.Type.ENTITY ? shouldApplyEffectEntity : shouldApplyEffectBlock)) {
             NBTUtil.getAMLTag(stack.getTag()).putInt("CurrentGroup", NBTUtil.getAMLTag(stack.getTag()).getInt("CurrentGroup") + 1);
             if (mop instanceof BlockRayTraceResult)
-                return SpellUtil.applyStackStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
+                return SpellUtil.applyStage(stack, caster, target, spellVec.getX(), spellVec.getY(), spellVec.getZ(), ((BlockRayTraceResult) mop).getFace(), world, true, giveXP, 0);
         }
         return SpellCastResult.SUCCESS_REDUCE_MANA;
     }
@@ -113,10 +113,9 @@ public class Beam extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ, 2),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.STANDARD_FOCUS.get())),
                 new EtheriumSpellIngredient(500, EtheriumType.NEUTRAL)
         };

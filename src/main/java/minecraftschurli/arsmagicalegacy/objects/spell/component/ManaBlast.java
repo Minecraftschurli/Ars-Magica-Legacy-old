@@ -29,15 +29,6 @@ public final class ManaBlast extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREATER_FOCUS.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_FOCUS.get()))
-        };
-    }
-
-    @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         float consumed = CapabilityHelper.getMana(caster);
         CapabilityHelper.decreaseMana(caster, consumed);
@@ -68,6 +59,15 @@ public final class ManaBlast extends SpellComponent {
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DAMAGE);
+    }
+
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREATER_FOCUS.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_FOCUS.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
+        };
     }
 
     @Override

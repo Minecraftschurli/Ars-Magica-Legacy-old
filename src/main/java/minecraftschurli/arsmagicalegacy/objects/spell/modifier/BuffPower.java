@@ -15,7 +15,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class BuffPower extends SpellModifier {
+public final class BuffPower extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.BUFF_POWER);
@@ -34,13 +34,13 @@ public class BuffPower extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
+                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
                 new ItemTagSpellIngredient(Tags.Items.GEMS_EMERALD),
+                new ItemTagSpellIngredient(Tags.Items.GUNPOWDER),
                 new ItemStackSpellIngredient(new ItemStack(Items.GHAST_TEAR)),
                 new ItemStackSpellIngredient(new ItemStack(Items.GLASS_BOTTLE)),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.GUNPOWDER)),
                 new ItemStackSpellIngredient(new ItemStack(Items.NETHER_WART)),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
                 new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE))
         };
     }

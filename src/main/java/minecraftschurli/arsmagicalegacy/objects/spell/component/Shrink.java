@@ -64,12 +64,12 @@ public final class Shrink extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.BONE)),
+                new ItemTagSpellIngredient(Tags.Items.BONES),
+                new ItemTagSpellIngredient(Tags.Items.NUGGETS_GOLD),
                 new ItemStackSpellIngredient(new ItemStack(Items.BROWN_MUSHROOM)),
                 new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE)),
                 new ItemStackSpellIngredient(new ItemStack(Items.STONE_BUTTON)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_CAKE.get())),
-                new ItemTagSpellIngredient(Tags.Items.NUGGETS_GOLD)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_CAKE.get()))
         };
     }
 //

@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.entity.Entity;
@@ -15,6 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -66,22 +68,22 @@ public final class Transplace extends SpellComponent {
     @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(ModItems.PURIFIED_VINTEUM.get()),
-                new ItemStack(ModItems.PLAYER_FOCUS.get()),
-                new ItemStack(ModItems.MAGE_HELMET.get()),
+                new ItemStack(ModItems.MAGE_BOOTS.get()),
                 new ItemStack(ModItems.MAGE_CHESTPLATE.get()),
+                new ItemStack(ModItems.MAGE_HELMET.get()),
                 new ItemStack(ModItems.MAGE_LEGGINGS.get()),
-                new ItemStack(ModItems.MAGE_BOOTS.get())
+                new ItemStack(ModItems.PLAYER_FOCUS.get()),
+                new ItemStack(ModItems.PURIFIED_VINTEUM.get())
         };
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
+                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
                 new ItemStackSpellIngredient(new ItemStack(Items.COMPASS)),
-                new ItemStackSpellIngredient(new ItemStack(Items.ENDER_PEARL)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
         };
     }
 

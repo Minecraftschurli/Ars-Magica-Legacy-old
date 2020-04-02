@@ -138,8 +138,8 @@ public class SpellProjectileEntity extends Entity {
                     if (getBounces() > 0) {
                         bounce(((BlockRayTraceResult) mop).getFace());
                     } else {
-                        SpellUtil.applyStageToGround(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
-                        SpellUtil.applyStackStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
+                        SpellUtil.applyStageBlock(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
+                        SpellUtil.applyStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
                         if (this.getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
                             this.remove();
                         else
@@ -155,8 +155,8 @@ public class SpellProjectileEntity extends Entity {
                             effSize--;
                             continue;
                         }
-                        SpellUtil.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
-                        SpellUtil.applyStackStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
+                        SpellUtil.applyStageEntity(getSpell(), getShooter(), world, entity, true);
+                        SpellUtil.applyStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
                         break;
                     } else {
                         effSize--;

@@ -7,6 +7,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -86,9 +88,9 @@ public final class EnderIntervention extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.ENDER_PEARL)),
+                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
+                new ItemTagSpellIngredient(Tags.Items.OBSIDIAN, 2),
                 new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL)),
-                new ItemStackSpellIngredient(new ItemStack(Items.OBSIDIAN, 2)),
                 new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
         };
     }

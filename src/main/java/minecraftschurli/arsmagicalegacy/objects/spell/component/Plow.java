@@ -62,8 +62,8 @@ public final class Plow extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_HOE))
+                new ItemStackSpellIngredient(new ItemStack(Items.STONE_HOE)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
         };
     }
 

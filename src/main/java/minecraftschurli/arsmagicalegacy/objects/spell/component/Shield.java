@@ -63,8 +63,8 @@ public final class Shield extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_CHESTPLATE))
+                new ItemStackSpellIngredient(new ItemStack(Items.IRON_CHESTPLATE)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
         };
     }
 

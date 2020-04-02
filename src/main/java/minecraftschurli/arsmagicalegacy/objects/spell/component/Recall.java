@@ -7,6 +7,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
+import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
@@ -19,6 +20,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -72,29 +74,27 @@ public final class Recall extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.COMPASS)),
-                new ItemStackSpellIngredient(new ItemStack(Items.ENDER_PEARL)),
-                new ItemStackSpellIngredient(new ItemStack(Items.MAP))
-        };
-    }
-
-    @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
-                new ItemStack(ModItems.RUNE.get()),
-                new ItemStack(ModItems.RUNE.get()),
-                new ItemStack(ModItems.RUNE.get())
+                new ItemStack(ModItems.RUNE.get(), 3)
         };
     }
 
-    //    @Override
+//    @Override
 //    public float getReagentSearchRadius() {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }
 //
+    @Override
+    public ISpellIngredient[] getRecipe() {
+        return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
+                new ItemStackSpellIngredient(new ItemStack(Items.COMPASS)),
+                new ItemStackSpellIngredient(new ItemStack(Items.MAP)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get()))
+        };
+    }
+
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.ringedCross;

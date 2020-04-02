@@ -72,8 +72,8 @@ public final class Ignition extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL))
+                new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get()))
         };
     }
 

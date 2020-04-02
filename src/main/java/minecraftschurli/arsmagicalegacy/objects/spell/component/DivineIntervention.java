@@ -83,9 +83,9 @@ public final class DivineIntervention extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
                 new ItemTagSpellIngredient(ItemTags.BEDS),
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS)
+                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
         };
     }
 

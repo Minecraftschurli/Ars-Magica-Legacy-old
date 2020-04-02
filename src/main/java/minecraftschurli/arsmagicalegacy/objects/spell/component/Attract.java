@@ -83,8 +83,8 @@ public final class Attract extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON)
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get()))
         };
     }
 

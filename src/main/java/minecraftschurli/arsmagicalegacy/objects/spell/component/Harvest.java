@@ -65,8 +65,8 @@ public final class Harvest extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.SHEARS))
+                new ItemStackSpellIngredient(new ItemStack(Items.SHEARS)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
         };
     }
 

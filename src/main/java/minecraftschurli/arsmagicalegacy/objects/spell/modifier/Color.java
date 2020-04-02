@@ -17,7 +17,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Color extends SpellModifier {
+public final class Color extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.COLOR);
@@ -37,17 +37,15 @@ public class Color extends SpellModifier {
 
     @Override
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        if (type == SpellModifiers.COLOR) {
-            return NBTUtil.addTag(nbt, SpellUtil.SPELL_DATA).getInt("Color");
-        }
+        if (type == SpellModifiers.COLOR) return NBTUtil.addTag(nbt, SpellUtil.SPELL_DATA).getInt("Color");
         return 0;
     }
 
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemTagSpellIngredient(Tags.Items.DYES, 1)
+                new ItemTagSpellIngredient(Tags.Items.DYES),
+                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE)
         };
     }
 }

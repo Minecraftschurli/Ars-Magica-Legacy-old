@@ -82,9 +82,9 @@ public final class Telekinesis extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
                 new ItemStackSpellIngredient(new ItemStack(Items.CHEST)),
                 new ItemStackSpellIngredient(new ItemStack(Items.STICKY_PISTON)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
         };
     }
 

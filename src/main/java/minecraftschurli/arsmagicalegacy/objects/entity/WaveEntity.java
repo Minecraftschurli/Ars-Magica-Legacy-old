@@ -112,7 +112,7 @@ public class WaveEntity extends Entity {
                     target = new Vec3d(target.x, 0, target.z);
                     closest = new Vec3d(closest.x, 0, closest.z);
                     if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(this.getPosY() - e.getPosY()) < 2)
-                        SpellUtil.applyStackStage(spell, caster, (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
+                        SpellUtil.applyStage(spell, caster, (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
                 }
             }
         }
@@ -141,7 +141,7 @@ public class WaveEntity extends Entity {
                     for (int i = 0; i < this.getHeight(); ++i) vecs.add(new Vec3d(tempPos.x, tempPos.y + i, tempPos.z));
             }
             for (Vec3d vec : vecs)
-                SpellUtil.applyStageToGround(dataManager.get(STACK_DATA), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
+                SpellUtil.applyStageBlock(dataManager.get(STACK_DATA), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
         }
         if (!world.isRemote && this.ticksExisted >= this.ticksToExist) this.remove();
     }

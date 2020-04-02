@@ -19,7 +19,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Zone extends SpellShape {
+public final class Zone extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (world.isRemote) return SpellCastResult.SUCCESS;
@@ -36,10 +36,10 @@ public class Zone extends SpellShape {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
+                new ItemTagSpellIngredient(Tags.Items.GEMS_DIAMOND),
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
                 new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get())),
-                new ItemTagSpellIngredient(Tags.Items.GEMS_DIAMOND)
+                new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get()))
         };
     }
 

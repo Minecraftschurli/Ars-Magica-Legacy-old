@@ -19,12 +19,12 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Self extends SpellShape {
+public final class Self extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
-        SpellCastResult result = SpellUtil.applyStageToEntity(stack, caster, world, caster, giveXP);
+        SpellCastResult result = SpellUtil.applyStageEntity(stack, caster, world, caster, giveXP);
         if (result != SpellCastResult.SUCCESS) return result;
-        return SpellUtil.applyStackStage(stack, caster, target, x, y, z, null, world, true, giveXP, 0);
+        return SpellUtil.applyStage(stack, caster, target, x, y, z, null, world, true, giveXP, 0);
     }
 
     @Override

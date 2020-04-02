@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class MissingShape extends SpellShape {
+public final class MissingShape extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         return null;

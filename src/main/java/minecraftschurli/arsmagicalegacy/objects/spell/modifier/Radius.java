@@ -16,7 +16,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Radius extends SpellModifier {
+public final class Radius extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.RADIUS);
@@ -35,9 +35,9 @@ public class Radius extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get())),
                 new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.TNT))
+                new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get()))
         };
     }
 }

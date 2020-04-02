@@ -16,7 +16,7 @@
       "tag": "minecraft:wool"
     },
     "L": {
-      "item": "minecraft:leather"
+      "tag": "forge:leather"
     }
   },
   "result": {

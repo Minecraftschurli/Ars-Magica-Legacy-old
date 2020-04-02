@@ -13,7 +13,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
-public class Prosperity extends SpellModifier {
+public final class Prosperity extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.FORTUNE_LEVEL);
@@ -32,8 +32,7 @@ public class Prosperity extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_GOLD),
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_GOLD)
+                new ItemTagSpellIngredient(Tags.Items.INGOTS_GOLD, 2)
         };
     }
 }

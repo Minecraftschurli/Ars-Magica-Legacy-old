@@ -36,22 +36,22 @@ public final class Repel extends SpellComponent {
             for (Entity e : ents) {
                 Vec3d casterPos = new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ());
                 Vec3d ePos = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ());
-                double distance = casterPos.distanceTo(ePos) + 0.1D;
+                double distance = casterPos.distanceTo(ePos) + 0.1;
                 Vec3d delta = new Vec3d(ePos.getX() - casterPos.getX(), ePos.getY() - casterPos.getY(), ePos.getZ() - casterPos.getZ());
-                double dX = delta.getX() / 2.5D / distance;
-                double dY = delta.getY() / 2.5D / distance;
-                double dZ = delta.getZ() / 2.5D / distance;
+                double dX = delta.getX() / 2.5 / distance;
+                double dY = delta.getY() / 2.5 / distance;
+                double dZ = delta.getZ() / 2.5 / distance;
                 e.setMotion(e.getPosition().getX() + dX, e.getPosition().getY() + dY, e.getPosition().getZ() + dZ);
             }
             return true;
         }
         Vec3d casterPos = new Vec3d(caster.getPosX(), caster.getPosY(), caster.getPosZ());
         Vec3d targetPos = new Vec3d(target.getPosX(), target.getPosY(), target.getPosZ());
-        double distance = casterPos.distanceTo(targetPos) + 0.1D;
+        double distance = casterPos.distanceTo(targetPos) + 0.1;
         Vec3d delta = new Vec3d(targetPos.getX() - casterPos.getX(), targetPos.getY() - casterPos.getY(), targetPos.getZ() - casterPos.getZ());
-        double dX = delta.getX() / 2.5D / distance;
-        double dY = delta.getY() / 2.5D / distance;
-        double dZ = delta.getZ() / 2.5D / distance;
+        double dX = delta.getX() / 2.5 / distance;
+        double dY = delta.getY() / 2.5 / distance;
+        double dZ = delta.getZ() / 2.5 / distance;
         target.setMotion(target.getPosition().getX() + dX, target.getPosition().getY() + dY, target.getPosition().getZ() + dZ);
         return true;
     }
@@ -74,8 +74,8 @@ public final class Repel extends SpellComponent {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET))
+                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
         };
     }
 

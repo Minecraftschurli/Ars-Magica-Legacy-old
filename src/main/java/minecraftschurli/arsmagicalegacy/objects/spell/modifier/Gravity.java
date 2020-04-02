@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.EnumSet;
 
-public class Gravity extends SpellModifier {
+public final class Gravity extends SpellModifier {
     @Override
     public EnumSet<SpellModifiers> getAspectsModified() {
         return EnumSet.of(SpellModifiers.GRAVITY);
@@ -33,8 +33,8 @@ public class Gravity extends SpellModifier {
     @Override
     public ISpellIngredient[] getRecipe() {
         return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.EARTH_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.COMPASS))
+                new ItemStackSpellIngredient(new ItemStack(Items.COMPASS)),
+                new ItemStackSpellIngredient(new ItemStack(ModItems.EARTH_ESSENCE.get()))
         };
     }
 }
