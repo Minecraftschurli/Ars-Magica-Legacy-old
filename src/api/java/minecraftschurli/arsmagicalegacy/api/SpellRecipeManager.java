@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.spell;
+package minecraftschurli.arsmagicalegacy.api;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.IngredientTypes;
-import minecraftschurli.arsmagicalegacy.util.NBTUtil;
+import minecraftschurli.arsmagicalegacy.api.util.NBTUtil;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.profiler.IProfiler;

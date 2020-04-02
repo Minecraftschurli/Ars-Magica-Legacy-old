@@ -12,17 +12,15 @@ import java.util.EnumSet;
  */
 public abstract class AbstractSpellPart extends ForgeRegistryEntry<AbstractSpellPart> {
     /**
-     *
-     * @return
+     * @deprecated use json recipes instead (data/&lt;modid&gt;/spell_recipes/&lt;part_name&gt;.json)
      */
+    @Deprecated
     public abstract ISpellIngredient[] getRecipe();
 
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {}
 
     /**
-     * What modifier affect this spell part?
-     *
-     * @return
+     * @return the {@link EnumSet} of Modifires that affect this {@link AbstractSpellPart SpellPart}
      */
     public abstract EnumSet<SpellModifiers> getModifiers();
 }

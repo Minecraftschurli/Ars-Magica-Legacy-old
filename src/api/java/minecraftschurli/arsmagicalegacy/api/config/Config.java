@@ -1,5 +1,6 @@
-package minecraftschurli.arsmagicalegacy.api;
+package minecraftschurli.arsmagicalegacy.api.config;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;

@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import com.google.common.collect.ImmutableList;
 import javafx.util.Pair;
-import minecraftschurli.arsmagicalegacy.api.CraftingAltarStructureMaterials;
+import minecraftschurli.arsmagicalegacy.api.config.CraftingAltarStructureMaterials;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.network.TEClientSyncPacket;

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
@@ -739,8 +739,8 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.EVIL_BOOK.get())
                 .addIngredient(ModItems.WOODEN_LEG.get())
-                .addIngredient(Ingredient.fromStacks(ArsMagicaLegacy.getCompendium()))
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WOODEN_LEG.get(), ArsMagicaLegacy.getCompendium().getItem()))
+                .addIngredient(Ingredient.fromStacks(ArsMagicaAPI.getCompendium()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WOODEN_LEG.get(), ArsMagicaAPI.getCompendium().getItem()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_BOOK.get())
                 .patternLine("SLL")

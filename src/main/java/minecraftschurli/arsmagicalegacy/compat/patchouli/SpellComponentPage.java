@@ -6,7 +6,6 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -130,7 +129,7 @@ public class SpellComponentPage implements ICustomComponent {
 
     private void renderRecipe(IComponentRenderContext context, int cx, int cy, int mousex, int mousey) {
         if (part == null) return;
-        ISpellIngredient[] recipe = ArsMagicaLegacy.getSpellRecipeManager().getRecipe(part.getRegistryName());
+        ISpellIngredient[] recipe = ArsMagicaAPI.getSpellRecipeManager().getRecipe(part.getRegistryName());
         if (recipe == null || recipe.length <= 0) return;
         final float angleStep = 360.0f / recipe.length;
         final float dist = 45;

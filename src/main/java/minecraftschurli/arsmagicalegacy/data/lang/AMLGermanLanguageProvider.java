@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.ILanguagePlugin;
+import minecraftschurli.arsmagicalegacy.api.data.ILanguagePlugin;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.init.ModBiomes;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;

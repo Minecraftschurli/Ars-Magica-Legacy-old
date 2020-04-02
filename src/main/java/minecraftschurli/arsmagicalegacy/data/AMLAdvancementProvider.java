@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.MagicLevelTrigger;
 import minecraftschurli.arsmagicalegacy.api.advancements.SilverSkillTrigger;
@@ -66,8 +65,8 @@ public final class AMLAdvancementProvider implements IDataProvider {
     }
 
     private void addAdvancements(Consumer<Advancement> consumer) {
-        Advancement root = registerAdvancement(ArsMagicaLegacy.getCompendium(), "compendium", new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/vinteum_ore.png"), FrameType.TASK, false, false, true)
-                .withCriterion("got_compendium", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ArsMagicaLegacy.getCompendium().getItem()).nbt(ArsMagicaLegacy.getCompendium().getTag()).build()))
+        Advancement root = registerAdvancement(ArsMagicaAPI.getCompendium(), "compendium", new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/vinteum_ore.png"), FrameType.TASK, false, false, true)
+                .withCriterion("got_compendium", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ArsMagicaAPI.getCompendium().getItem()).nbt(ArsMagicaAPI.getCompendium().getTag()).build()))
                 .register(consumer, ArsMagicaAPI.MODID + ":compendium");
         Advancement silver = registerAdvancement(root, InfinityOrbItem.getWithSkillPoint(ModSpellParts.SILVER_POINT.get()), "silver", FrameType.CHALLENGE, false, false, true)
                 .withCriterion("got_silver_skill", SilverSkillTrigger.Instance.create())

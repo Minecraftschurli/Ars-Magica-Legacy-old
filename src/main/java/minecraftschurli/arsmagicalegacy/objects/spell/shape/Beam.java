@@ -11,7 +11,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredien
 import minecraftschurli.arsmagicalegacy.util.EntityUtil;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
-import minecraftschurli.arsmagicalegacy.util.NBTUtil;
+import minecraftschurli.arsmagicalegacy.api.util.NBTUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

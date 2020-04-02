@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.event.SpellRecipeItemsEvent;
 import minecraftschurli.arsmagicalegacy.api.network.InscriptionTablePacket;
@@ -543,7 +544,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                     ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe part is null!");
                     return bookstack;
                 }
-                ISpellIngredient[] recipeItems = ArsMagicaLegacy.getSpellRecipeManager().getRecipe(part.getRegistryName());
+                ISpellIngredient[] recipeItems = ArsMagicaAPI.getSpellRecipeManager().getRecipe(part.getRegistryName());
                 SpellRecipeItemsEvent event = new SpellRecipeItemsEvent(SpellRegistry.getSkillFromPart(part).getID(), recipeItems);
                 MinecraftForge.EVENT_BUS.post(event);
                 recipeItems = event.recipeItems;

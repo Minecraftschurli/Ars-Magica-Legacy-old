@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy;
 
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.Config;
+import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
@@ -25,9 +25,6 @@ import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
 import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.spell.SpellRecipeManager;
-import minecraftschurli.arsmagicalegacy.proxy.ClientProxy;
-import minecraftschurli.arsmagicalegacy.proxy.ServerProxy;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -61,9 +58,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli
@@ -76,17 +70,17 @@ public final class ArsMagicaLegacy {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
-            return getCompendium();
+            return ArsMagicaAPI.getCompendium();
         }
     };
     public static final Logger LOGGER = LogManager.getLogger(ArsMagicaAPI.MODID);
+    @SuppressWarnings("Convert2MethodRef")
     public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
-    private final SpellRecipeManager spellRecipeManager;
 
     public ArsMagicaLegacy() {
         instance = this;
-        spellRecipeManager = new SpellRecipeManager();
+
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
@@ -105,16 +99,8 @@ public final class ArsMagicaLegacy {
 
     //region =========LIFECYCLE=========
 
-    public static SpellRecipeManager getSpellRecipeManager() {
-        return instance.spellRecipeManager;
-    }
-
-    public static ItemStack getCompendium() {
-        return PatchouliAPI.instance.getBookStack(new ResourceLocation(ArsMagicaAPI.MODID, "arcane_compendium"));
-    }
-
     private void preInit() {
-        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.setup();
+        ArsMagicaAPI.setup();
         Config.setup();
         proxy.preInit();
         IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
@@ -122,7 +108,7 @@ public final class ArsMagicaLegacy {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.debug("Common Setup");
-        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.init();
+        ArsMagicaAPI.init();
         WorldGenerator.setupBiomeGen();
         WorldGenerator.setupModFeatures();
         proxy.init();
@@ -135,7 +121,6 @@ public final class ArsMagicaLegacy {
         AffinityCapability.register();
         AbilityCapability.register();
         ContingencyCapability.register();
-
         /*ForgeRegistries.BIOMES.getValues()
                 .stream()
                 .filter(Predicates.instanceOf(ICustomFeatureBiome.class))
@@ -195,7 +180,7 @@ public final class ArsMagicaLegacy {
     }
 
     private void beforeServerLoad(final FMLServerAboutToStartEvent event) {
-        event.getServer().getResourceManager().addReloadListener(this.spellRecipeManager);
+        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.beforeServerLoad(event);
     }
     //endregion
 

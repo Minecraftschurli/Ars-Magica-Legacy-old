@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.util;
+package minecraftschurli.arsmagicalegacy.api.util;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
