@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.data.AdvancementProvider;
 import minecraftschurli.arsmagicalegacy.data.lang.AMLEnglishLanguageProvider;
 import minecraftschurli.arsmagicalegacy.data.lang.AMLGermanLanguageProvider;
 import minecraftschurli.arsmagicalegacy.data.loot.AMLLootTableProvider;
