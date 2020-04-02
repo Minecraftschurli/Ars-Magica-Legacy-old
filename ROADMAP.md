@@ -6,9 +6,9 @@
 - [x] add spell creation system
 - [x] add spell execution system
 - [x] update to 1.15.2
-- [ ] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
+- [x] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
+- [x] add Affinity-Ability System
 - [ ] add Etherium System
-- [ ] add Affinity-Ability System
 - [ ] add Leveling System
 - [ ] add Spell-Entities
 - [ ] (API-FREEZE) no more API breaking changes
@@ -18,7 +18,7 @@
 - [ ] finish implementing all Potion-Effects
 - [ ] finish implementing all Spell-Parts
 - [ ] second **_alpha_** release (2020-05-20)
-- [ ] add npcs and bosses
+- [ ] add npcs, mobs and bosses
 - [ ] first **_beta_** release (2020-07-10)
 
 ### Milestones:
