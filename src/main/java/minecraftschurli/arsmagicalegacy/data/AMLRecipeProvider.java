@@ -544,26 +544,26 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('E', ModItems.AIR_ESSENCE.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
                 .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.PINK_DYE)
-                .addIngredient(ModItems.AUM.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.AUM.get()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.BLUE_DYE)
-                .addIngredient(ModItems.CERUBLOSSOM.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.CERUBLOSSOM.get()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.RED_DYE)
-                .addIngredient(ModItems.DESERT_NOVA.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.DESERT_NOVA.get()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.BROWN_DYE)
-                .addIngredient(ModItems.TARMA_ROOT.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.TARMA_ROOT.get()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGENTA_DYE)
-                .addIngredient(ModItems.WAKEBLOOM.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WAKEBLOOM.get()))
-                .build(consumer);
+//        ShapelessRecipeBuilder.shapelessRecipe(Items.PINK_DYE)
+//                .addIngredient(ModItems.AUM.get())
+//                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.AUM.get()))
+//                .build(consumer);
+//        ShapelessRecipeBuilder.shapelessRecipe(Items.BLUE_DYE)
+//                .addIngredient(ModItems.CERUBLOSSOM.get())
+//                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.CERUBLOSSOM.get()))
+//                .build(consumer);
+//        ShapelessRecipeBuilder.shapelessRecipe(Items.RED_DYE)
+//                .addIngredient(ModItems.DESERT_NOVA.get())
+//                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.DESERT_NOVA.get()))
+//                .build(consumer);
+//        ShapelessRecipeBuilder.shapelessRecipe(Items.BROWN_DYE)
+//                .addIngredient(ModItems.TARMA_ROOT.get())
+//                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.TARMA_ROOT.get()))
+//                .build(consumer);
+//        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGENTA_DYE)
+//                .addIngredient(ModItems.WAKEBLOOM.get())
+//                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WAKEBLOOM.get()))
+//                .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.INSCRIPTION_UPGRADE.get())
                 .addIngredient(Tags.Items.FEATHERS)
                 .addIngredient(Tags.Items.STRING)
