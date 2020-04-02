@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.rift.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/rift.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/rift.png",
   "pages": [
     {
       "type": "text",

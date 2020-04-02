@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.divine_intervention.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/divine_intervention.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/divine_intervention.png",
   "pages": [
     {
       "type": "text",

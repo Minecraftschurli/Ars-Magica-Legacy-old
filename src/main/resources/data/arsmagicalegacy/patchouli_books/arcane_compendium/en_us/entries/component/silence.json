@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.silence.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/silence.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/silence.png",
   "pages": [
     {
       "type": "text",

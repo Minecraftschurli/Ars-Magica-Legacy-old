@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.aoe.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/aoe.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/aoe.png",
   "pages": [
     {
       "type": "text",

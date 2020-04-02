@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.transplace.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/transplace.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/transplace.png",
   "pages": [
     {
       "type": "text",

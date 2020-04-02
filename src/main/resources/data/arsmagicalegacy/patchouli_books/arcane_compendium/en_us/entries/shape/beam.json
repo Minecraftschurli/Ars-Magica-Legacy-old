@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.beam.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/beam.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/beam.png",
   "pages": [
     {
       "type": "text",

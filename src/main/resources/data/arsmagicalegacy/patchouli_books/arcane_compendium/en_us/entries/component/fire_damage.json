@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.fire_damage.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/fire_damage.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/fire_damage.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.fury.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/fury.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/fury.png",
   "pages": [
     {
       "type": "text",

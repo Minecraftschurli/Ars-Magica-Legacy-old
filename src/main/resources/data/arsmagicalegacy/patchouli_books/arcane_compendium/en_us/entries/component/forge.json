@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.forge.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/forge.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/forge.png",
   "pages": [
     {
       "type": "text",

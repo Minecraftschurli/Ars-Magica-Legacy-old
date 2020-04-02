@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.charm.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/charm.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/charm.png",
   "pages": [
     {
       "type": "text",

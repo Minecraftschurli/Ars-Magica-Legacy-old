@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.buff_power.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/buff_power.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/buff_power.png",
   "pages": [
     {
       "type": "text",

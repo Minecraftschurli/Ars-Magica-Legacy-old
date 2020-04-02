@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.watery_grave.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/watery_grave.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/watery_grave.png",
   "pages": [
     {
       "type": "text",

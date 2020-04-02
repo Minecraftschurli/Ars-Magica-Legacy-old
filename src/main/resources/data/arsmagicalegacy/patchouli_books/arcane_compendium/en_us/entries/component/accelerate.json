@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.accelerate.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/accelerate.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/accelerate.png",
   "pages": [
     {
       "type": "text",

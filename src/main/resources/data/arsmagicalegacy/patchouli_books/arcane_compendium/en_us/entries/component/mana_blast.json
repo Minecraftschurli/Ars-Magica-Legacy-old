@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.mana_blast.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/mana_blast.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/mana_blast.png",
   "pages": [
     {
       "type": "text",

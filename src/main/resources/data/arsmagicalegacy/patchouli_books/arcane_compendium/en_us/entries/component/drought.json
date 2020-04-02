@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.drought.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/drought.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/drought.png",
   "pages": [
     {
       "type": "text",

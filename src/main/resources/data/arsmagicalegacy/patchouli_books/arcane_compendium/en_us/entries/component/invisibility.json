@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.invisibility.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/invisibility.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/invisibility.png",
   "pages": [
     {
       "type": "text",

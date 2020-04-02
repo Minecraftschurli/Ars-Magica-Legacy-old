@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.slowfall.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/slowfall.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/slowfall.png",
   "pages": [
     {
       "type": "text",

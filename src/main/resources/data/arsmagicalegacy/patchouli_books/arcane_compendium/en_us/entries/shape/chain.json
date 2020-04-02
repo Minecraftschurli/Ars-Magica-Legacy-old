@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.chain.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/chain.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/chain.png",
   "pages": [
     {
       "type": "text",

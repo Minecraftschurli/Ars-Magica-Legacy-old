@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.dismembering.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/dismembering.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/dismembering.png",
   "pages": [
     {
       "type": "text",

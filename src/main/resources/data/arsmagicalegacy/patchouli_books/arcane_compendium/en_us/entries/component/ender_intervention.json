@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.ender_intervention.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/ender_intervention.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/ender_intervention.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.blink.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/blink.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/blink.png",
   "pages": [
     {
       "type": "text",

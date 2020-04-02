@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.astral_distortion.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/astral_distortion.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/astral_distortion.png",
   "pages": [
     {
       "type": "text",

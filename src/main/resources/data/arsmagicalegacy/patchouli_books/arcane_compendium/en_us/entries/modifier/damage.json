@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.damage.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/damage.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/damage.png",
   "pages": [
     {
       "type": "text",

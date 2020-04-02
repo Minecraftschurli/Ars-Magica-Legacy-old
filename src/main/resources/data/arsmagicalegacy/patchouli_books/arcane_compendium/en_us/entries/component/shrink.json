@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.shrink.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/shrink.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/shrink.png",
   "pages": [
     {
       "type": "text",

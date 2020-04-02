@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.shield.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/shield.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/shield.png",
   "pages": [
     {
       "type": "text",

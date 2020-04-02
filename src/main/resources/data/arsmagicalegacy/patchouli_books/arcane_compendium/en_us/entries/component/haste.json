@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.haste.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/haste.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/haste.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.chrono_anchor.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/chrono_anchor.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/chrono_anchor.png",
   "pages": [
     {
       "type": "text",

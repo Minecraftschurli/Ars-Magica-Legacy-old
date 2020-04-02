@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.lightning.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/lightning.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/lightning_damage.png",
   "pages": [
     {
       "type": "text",
@@ -9,7 +9,7 @@
     },
     {
       "type": "spell_component",
-      "component": "arsmagicalegacy:lightning"
+      "component": "arsmagicalegacy:lightning_damage"
     }
   ]
 }

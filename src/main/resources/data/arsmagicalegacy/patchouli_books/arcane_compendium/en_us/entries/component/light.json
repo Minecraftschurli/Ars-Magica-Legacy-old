@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.light.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/light.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/light.png",
   "pages": [
     {
       "type": "text",

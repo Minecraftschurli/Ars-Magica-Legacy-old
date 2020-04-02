@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.mining_power.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/mining_power.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/mining_power.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.banish_rain.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/banish_rain.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/banish_rain.png",
   "pages": [
     {
       "type": "text",

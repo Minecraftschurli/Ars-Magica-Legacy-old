@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.life_tap.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/life_tap.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/life_tap.png",
   "pages": [
     {
       "type": "text",

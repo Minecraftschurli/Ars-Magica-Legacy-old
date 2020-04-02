@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.frost_damage.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/frost_damage.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/frost_damage.png",
   "pages": [
     {
       "type": "text",
