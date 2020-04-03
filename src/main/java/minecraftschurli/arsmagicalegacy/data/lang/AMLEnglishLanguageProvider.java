@@ -490,7 +490,7 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addSectionTitle("component", "life_drain", "Life Drain");
         addSectionTitle("component", "life_tap", "Life Tap");
         addSectionTitle("component", "light", "Light");
-        addSectionTitle("component", "lightning_damage", "Lightning Damage");
+        addSectionTitle("component", "lightning", "Lightning Damage");
         addSectionTitle("component", "magic_damage", "Magic Damage");
         addSectionTitle("component", "mana_blast", "Mana Blast");
         addSectionTitle("component", "mana_drain", "Mana Drain");
@@ -507,7 +507,7 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addSectionTitle("component", "recall", "Recall");
         addSectionTitle("component", "regeneration", "Regeneration");
         addSectionTitle("component", "repel", "Repel");
-        addSectionTitle("component", "rift_storage", "Rift Storage");
+        addSectionTitle("component", "rift", "Rift Storage");
         addSectionTitle("component", "shield", "Shield");
         addSectionTitle("component", "shrink", "Shrink");
         addSectionTitle("component", "silence", "Silence");
