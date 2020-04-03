@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.knockback.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/knockback.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/knockback.png",
   "pages": [
     {
       "type": "text",

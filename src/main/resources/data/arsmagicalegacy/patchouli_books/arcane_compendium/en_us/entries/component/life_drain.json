@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.life_drain.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/life_drain.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/life_drain.png",
   "pages": [
     {
       "type": "text",

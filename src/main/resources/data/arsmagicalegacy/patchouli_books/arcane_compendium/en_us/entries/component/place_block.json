@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.place_block.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/place_block.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/place_block.png",
   "pages": [
     {
       "type": "text",

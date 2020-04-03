@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.channel.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/channel.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/channel.png",
   "pages": [
     {
       "type": "text",

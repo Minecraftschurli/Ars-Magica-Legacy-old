@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.spell_reflect.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/spell_reflect.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/spell_reflect.png",
   "pages": [
     {
       "type": "text",

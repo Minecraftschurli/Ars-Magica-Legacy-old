@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.target_non_solid_blocks.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/target_non_solid_blocks.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/target_non_solid.png",
   "pages": [
     {
       "type": "text",

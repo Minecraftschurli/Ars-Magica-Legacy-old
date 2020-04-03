@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.freeze.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/freeze.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/freeze.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.random_teleport.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/random_teleport.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/random_teleport.png",
   "pages": [
     {
       "type": "text",

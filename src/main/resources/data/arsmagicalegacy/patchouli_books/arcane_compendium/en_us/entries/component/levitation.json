@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.levitation.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/levitation.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/levitation.png",
   "pages": [
     {
       "type": "text",

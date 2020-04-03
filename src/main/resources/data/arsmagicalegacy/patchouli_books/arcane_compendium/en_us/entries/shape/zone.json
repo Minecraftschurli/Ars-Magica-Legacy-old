@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.zone.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/zone.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/zone.png",
   "pages": [
     {
       "type": "text",

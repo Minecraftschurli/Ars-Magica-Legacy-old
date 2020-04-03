@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.dispel.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/dispel.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/dispel.png",
   "pages": [
     {
       "type": "text",

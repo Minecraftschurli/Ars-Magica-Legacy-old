@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.gravity_well.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/gravity_well.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/gravity_well.png",
   "pages": [
     {
       "type": "text",

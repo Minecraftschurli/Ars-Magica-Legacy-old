@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.repel.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/repel.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/repel.png",
   "pages": [
     {
       "type": "text",

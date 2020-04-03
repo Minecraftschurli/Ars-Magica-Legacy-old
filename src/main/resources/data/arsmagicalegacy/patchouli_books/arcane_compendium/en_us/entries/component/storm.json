@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.storm.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/storm.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/storm.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.summon.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/summon.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/summon.png",
   "pages": [
     {
       "type": "text",

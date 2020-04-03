@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.telekinesis.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/telekinesis.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/telekinesis.png",
   "pages": [
     {
       "type": "text",

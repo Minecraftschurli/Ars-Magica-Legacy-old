@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.entangle.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/entangle.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/entangle.png",
   "pages": [
     {
       "type": "text",

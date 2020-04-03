@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.harvest.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/harvest.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/harvest.png",
   "pages": [
     {
       "type": "text",

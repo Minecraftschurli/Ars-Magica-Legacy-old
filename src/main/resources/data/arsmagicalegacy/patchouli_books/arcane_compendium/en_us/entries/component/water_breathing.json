@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.water_breathing.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/water_breathing.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/water_breathing.png",
   "pages": [
     {
       "type": "text",

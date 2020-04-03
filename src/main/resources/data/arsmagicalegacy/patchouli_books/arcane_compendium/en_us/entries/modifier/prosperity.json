@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.prosperity.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/prosperity.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/prosperity.png",
   "pages": [
     {
       "type": "text",

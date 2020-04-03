@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.lunar.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/lunar.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/lunar.png",
   "pages": [
     {
       "type": "text",

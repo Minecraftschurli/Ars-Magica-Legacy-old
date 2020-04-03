@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.fling.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/fling.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/fling.png",
   "pages": [
     {
       "type": "text",

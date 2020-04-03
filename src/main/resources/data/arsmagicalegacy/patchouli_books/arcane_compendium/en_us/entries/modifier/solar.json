@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.modifier.solar.name",
   "category": "modifier",
-  "icon": "arsmagicalegacy:icon/modifier/solar.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/modifier/solar.png",
   "pages": [
     {
       "type": "text",

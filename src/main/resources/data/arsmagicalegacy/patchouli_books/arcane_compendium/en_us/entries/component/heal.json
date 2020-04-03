@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.heal.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/heal.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/heal.png",
   "pages": [
     {
       "type": "text",

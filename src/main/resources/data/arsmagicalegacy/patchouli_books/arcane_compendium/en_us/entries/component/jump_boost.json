@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.jump_boost.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/jump_boost.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/jump_boost.png",
   "pages": [
     {
       "type": "text",

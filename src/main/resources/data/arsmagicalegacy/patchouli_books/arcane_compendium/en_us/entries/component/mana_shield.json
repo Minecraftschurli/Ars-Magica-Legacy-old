@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.mana_shield.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/mana_shield.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/mana_shield.png",
   "pages": [
     {
       "type": "text",

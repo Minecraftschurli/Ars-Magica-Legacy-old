@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.blind.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/blind.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/blind.png",
   "pages": [
     {
       "type": "text",

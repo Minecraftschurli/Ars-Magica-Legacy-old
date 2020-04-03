@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.rune.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/rune.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/rune.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.grow.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/grow.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/grow.png",
   "pages": [
     {
       "type": "text",

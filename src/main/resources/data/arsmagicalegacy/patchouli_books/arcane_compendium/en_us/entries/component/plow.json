@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.plow.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/plow.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/plow.png",
   "pages": [
     {
       "type": "text",

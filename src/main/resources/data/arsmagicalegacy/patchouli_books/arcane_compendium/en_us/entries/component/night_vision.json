@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.night_vision.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/night_vision.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/night_vision.png",
   "pages": [
     {
       "type": "text",

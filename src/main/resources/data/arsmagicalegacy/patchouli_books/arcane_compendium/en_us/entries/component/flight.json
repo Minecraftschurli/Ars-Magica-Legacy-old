@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.flight.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/flight.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/flight.png",
   "pages": [
     {
       "type": "text",

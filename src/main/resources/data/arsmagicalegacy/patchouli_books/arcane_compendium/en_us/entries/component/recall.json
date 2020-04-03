@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.recall.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/recall.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/recall.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.absorption.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/absorption.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/absorption.png",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.true_sight.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/true_sight.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/true_sight.png",
   "pages": [
     {
       "type": "text",

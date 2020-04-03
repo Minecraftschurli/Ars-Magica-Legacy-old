@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.wall.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/wall.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/wall.png",
   "pages": [
     {
       "type": "text",

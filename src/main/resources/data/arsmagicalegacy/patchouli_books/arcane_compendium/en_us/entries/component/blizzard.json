@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.blizzard.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/blizzard.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/blizzard.png",
   "pages": [
     {
       "type": "text",

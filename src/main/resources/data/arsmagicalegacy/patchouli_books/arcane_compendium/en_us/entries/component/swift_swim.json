@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.swift_swim.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/swift_swim.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/swift_swim.png",
   "pages": [
     {
       "type": "text",

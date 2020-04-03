@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.dig.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/dig.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/dig.png",
   "pages": [
     {
       "type": "text",

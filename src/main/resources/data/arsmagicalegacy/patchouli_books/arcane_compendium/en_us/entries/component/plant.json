@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.plant.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/plant.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/plant.png",
   "pages": [
     {
       "type": "text",

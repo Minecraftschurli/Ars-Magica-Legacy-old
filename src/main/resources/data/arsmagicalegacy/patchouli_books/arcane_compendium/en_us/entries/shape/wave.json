@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.shape.wave.name",
   "category": "shape",
-  "icon": "arsmagicalegacy:icon/shape/wave.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/shape/wave.png",
   "pages": [
     {
       "type": "text",

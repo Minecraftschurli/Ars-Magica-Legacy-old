@@ -1,7 +1,7 @@
 {
   "name": "compendium.entries.component.daylight.name",
   "category": "component",
-  "icon": "arsmagicalegacy:icon/component/daylight.png",
+  "icon": "arsmagicalegacy:textures/icon/spell/component/daylight.png",
   "pages": [
     {
       "type": "text",
