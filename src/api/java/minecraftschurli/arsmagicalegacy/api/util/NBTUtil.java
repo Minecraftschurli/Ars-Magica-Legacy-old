@@ -167,9 +167,11 @@ public final class NBTUtil {
         return new Vec3d(nbt.getDouble("X"), nbt.getDouble("Y"), nbt.getDouble("Z"));
     }
 
-    public static void writeVecToNBT(Vec3d vec, CompoundNBT nbt) {
+    public static CompoundNBT writeVecToNBT(Vec3d vec) {
+        CompoundNBT nbt = new CompoundNBT();
         nbt.putDouble("X", vec.x);
         nbt.putDouble("Y", vec.y);
         nbt.putDouble("Z", vec.z);
+        return nbt;
     }
 }
