@@ -96,5 +96,15 @@
       <option name="name" value="MavenLocal" />
       <option name="url" value="file:/$MAVEN_REPOSITORY$" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="GitHubPackages" />
+      <option name="name" value="GitHubPackages" />
+      <option name="url" value="https://maven.pkg.github.com/Minecraftschurli/Ars-Magica-Legacy" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="GitHubPackages" />
+      <option name="name" value="GitHubPackages" />
+      <option name="url" value="https://maven.pkg.github.com/Minecraftschurli/SimpleOreLib" />
+    </remote-repository>
   </component>
 </project>

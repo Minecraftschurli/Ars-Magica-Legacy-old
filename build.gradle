@@ -23,9 +23,17 @@ repositories {
         name = "JaredMaven"
         url = "https://maven.blamejared.com"
     }
-    maven {
+    /*maven {
         name = "MinecraftschurliMaven"
         url = "${mcs_maven_url}"
+    }*/
+    maven {
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/Minecraftschurli/SimpleOreLib"
+        credentials {
+            username = gpr_user
+            password = gpr_token
+        }
     }
     maven {
         name = "ModMaven"
@@ -34,6 +42,7 @@ repositories {
 }
 
 apply plugin: 'idea'
+apply plugin: 'maven-publish'
 
 version = "${mcVersion}-${modVersion}"
 group = modGroup
@@ -122,7 +131,7 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}")
 
-    compile fg.deobf("minecraftschurli:simpleorelib:${mcVersion}-1.0.0.0")
+    compile fg.deobf("minecraftschurli:SimpleOreLib:${mcVersion}-1.1")
 }
 
 jar {
@@ -188,7 +197,28 @@ artifacts {
     archives apiJar
 }
 
-task uploadJars(dependsOn: build) {
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Minecraftschurli/Ars-Magica-Legacy")
+            credentials {
+                username = gpr_user
+                password = gpr_token
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact apiJar
+            artifact javadocJar
+        }
+    }
+}
+
+/*task uploadJars(dependsOn: build) {
     description = "uploads JARs"
     apply plugin: "maven"
     uploadArchives {
@@ -200,4 +230,4 @@ task uploadJars(dependsOn: build) {
             }
         }
     }
-}
+}*/
