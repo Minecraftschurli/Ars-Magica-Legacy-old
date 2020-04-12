@@ -50,16 +50,6 @@ public final class Touch extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.FEATHERS),
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLAY_BALL)),
-                new ItemStackSpellIngredient(new ItemStack(Items.COD))
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

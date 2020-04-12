@@ -72,17 +72,6 @@ public final class Chain extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
-                new ItemTagSpellIngredient(Tags.Items.STRING),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.LEAD)),
-                new ItemStackSpellIngredient(new ItemStack(Items.TRIPWIRE_HOOK))
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

@@ -57,16 +57,6 @@ public final class MagicDamage extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.GEMS_LAPIS),
-                new ItemStackSpellIngredient(new ItemStack(Items.BOOK)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_SWORD)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 5; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x, y, z);

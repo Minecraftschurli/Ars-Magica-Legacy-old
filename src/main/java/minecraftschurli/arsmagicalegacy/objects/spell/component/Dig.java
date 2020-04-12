@@ -66,13 +66,4 @@ public final class Dig extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.FORTUNE_LEVEL, SpellModifiers.MINING_POWER);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_AXE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_PICKAXE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SHOVEL))
-        };
-    }
 }

@@ -57,14 +57,6 @@ public final class Mark extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.MAP)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        makeParticle(world, caster.getPosX() - 0.5f, caster.getPosY() + 1, caster.getPosZ(), 0.2, 0, colorModifier);
 //        makeParticle(world, caster.getPosX() + 0.5f, caster.getPosY() + 1, caster.getPosZ(), -0.2, 0, colorModifier);

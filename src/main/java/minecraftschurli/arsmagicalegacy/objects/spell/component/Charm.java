@@ -55,14 +55,11 @@ public final class Charm extends SpellComponent {
         return EnumSet.of(SpellModifiers.DURATION);
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.LIFE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
-        };
-    }
-
+//    @Override
+//    public MultiblockStructureDefinition getRitualShape() {
+//        return RitualShapeHelper.instance.hourglass;
+//    }
+//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 10; i++) {
@@ -75,9 +72,4 @@ public final class Charm extends SpellComponent {
 //            }
 //        }
     }
-//
-//    @Override
-//    public MultiblockStructureDefinition getRitualShape() {
-//        return RitualShapeHelper.instance.hourglass;
-//    }
 }

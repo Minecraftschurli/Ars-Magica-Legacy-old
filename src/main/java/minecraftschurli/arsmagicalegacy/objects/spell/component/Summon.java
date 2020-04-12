@@ -77,15 +77,4 @@ public final class Summon extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DURATION);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MONSTER_FOCUS.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
-                new EtheriumSpellIngredient(1500, EtheriumType.DARK)
-        };
-    }
 }

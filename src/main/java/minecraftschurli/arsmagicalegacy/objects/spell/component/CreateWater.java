@@ -66,14 +66,6 @@ public final class CreateWater extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         for (int i = 0; i < 15; i++)
             world.addParticle(ParticleTypes.SPLASH, x - 0.5 + rand.nextDouble(), y, z - 0.5 + rand.nextDouble(), 0.5 - rand.nextDouble(), 0.1, 0.5 - rand.nextDouble());

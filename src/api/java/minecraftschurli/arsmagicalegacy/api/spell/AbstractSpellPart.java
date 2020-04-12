@@ -15,7 +15,9 @@ public abstract class AbstractSpellPart extends ForgeRegistryEntry<AbstractSpell
      * @deprecated use json recipes instead (data/&lt;modid&gt;/spell_recipes/&lt;part_name&gt;.json)
      */
     @Deprecated
-    public abstract ISpellIngredient[] getRecipe();
+    public ISpellIngredient[] getRecipe() {
+        return null;
+    }
 
     public void encodeBasicData(CompoundNBT tag, ISpellIngredient[] recipe) {}
 

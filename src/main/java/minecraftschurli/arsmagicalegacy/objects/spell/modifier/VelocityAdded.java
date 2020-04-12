@@ -24,22 +24,12 @@ public final class VelocityAdded extends SpellModifier {
     }
 
     @Override
-    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
-        return 0.5f;
-    }
-
-    @Override
     public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
         return 1.3f * quantity;
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ItemTags.BOATS),
-                new ItemTagSpellIngredient(Tags.Items.FEATHERS),
-                new ItemStackSpellIngredient(new ItemStack(Items.MINECART)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get()))
-        };
+    public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
+        return 0.5f;
     }
 }

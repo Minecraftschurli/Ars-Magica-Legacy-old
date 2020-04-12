@@ -50,12 +50,4 @@ public final class Daylight extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.noneOf(SpellModifiers.class);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
-        };
-    }
 }

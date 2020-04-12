@@ -91,14 +91,4 @@ public final class PlaceBlock extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.noneOf(SpellModifiers.class);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.CHEST)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_AXE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_PICKAXE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_SHOVEL))
-        };
-    }
 }

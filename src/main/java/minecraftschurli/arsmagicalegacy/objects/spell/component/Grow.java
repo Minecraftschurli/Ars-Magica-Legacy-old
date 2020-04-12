@@ -118,15 +118,6 @@ public final class Grow extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.LOGS_WITCHWOOD),
-                new ItemStackSpellIngredient(new ItemStack(Items.BONE_MEAL)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x + 0.5, y + 1, z + 0.5);

@@ -65,14 +65,4 @@ public final class FireRain extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.COLOR);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.NETHERRACK),
-                new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get(), 2))
-        };
-    }
 }

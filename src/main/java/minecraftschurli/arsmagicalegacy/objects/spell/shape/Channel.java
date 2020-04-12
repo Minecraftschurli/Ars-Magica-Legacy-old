@@ -33,16 +33,6 @@ public final class Channel extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get())),
-                new EtheriumSpellIngredient(500)
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return true;
     }

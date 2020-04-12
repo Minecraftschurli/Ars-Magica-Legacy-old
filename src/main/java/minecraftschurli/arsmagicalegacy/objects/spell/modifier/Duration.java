@@ -30,12 +30,4 @@ public final class Duration extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 2.2f;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get()))
-        };
-    }
 }

@@ -40,12 +40,4 @@ public final class Color extends SpellModifier {
         if (type == SpellModifiers.COLOR) return NBTUtil.addTag(nbt, SpellUtil.SPELL_DATA).getInt("Color");
         return 0;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DYES),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE)
-        };
-    }
 }

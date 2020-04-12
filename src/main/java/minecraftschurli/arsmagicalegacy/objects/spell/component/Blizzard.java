@@ -65,13 +65,4 @@ public final class Blizzard extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.RADIUS, SpellModifiers.DAMAGE, SpellModifiers.DURATION, SpellModifiers.COLOR);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemStackSpellIngredient(new ItemStack(Items.ICE)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get(), 2))
-        };
-    }
 }

@@ -64,14 +64,4 @@ public final class FallingStar extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.DAMAGE, SpellModifiers.COLOR);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.LAVA_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get(), 2)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_BATTERY.get()))
-        };
-    }
 }

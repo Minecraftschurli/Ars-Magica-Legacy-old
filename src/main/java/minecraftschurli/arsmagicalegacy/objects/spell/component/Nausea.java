@@ -50,11 +50,4 @@ public final class Nausea extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.END_PORTAL_FRAME))
-        };
-    }
 }

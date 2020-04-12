@@ -60,17 +60,6 @@ public final class Drown extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.STRING),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "bubbles", x, y, z);

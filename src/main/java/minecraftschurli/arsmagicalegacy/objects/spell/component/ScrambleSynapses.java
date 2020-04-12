@@ -48,9 +48,4 @@ public final class ScrambleSynapses extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[0];
-    }
 }

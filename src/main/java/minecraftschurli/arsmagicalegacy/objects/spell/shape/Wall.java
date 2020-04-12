@@ -41,17 +41,6 @@ public final class Wall extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.FENCES_WOODEN),
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemStackSpellIngredient(new ItemStack(Items.COBBLESTONE_WALL)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get(), 2)),
-                new EtheriumSpellIngredient(2500)
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

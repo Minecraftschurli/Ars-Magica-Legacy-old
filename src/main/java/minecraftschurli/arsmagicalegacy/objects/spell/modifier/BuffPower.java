@@ -30,18 +30,4 @@ public final class BuffPower extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 1;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemTagSpellIngredient(Tags.Items.GEMS_EMERALD),
-                new ItemTagSpellIngredient(Tags.Items.GUNPOWDER),
-                new ItemStackSpellIngredient(new ItemStack(Items.GHAST_TEAR)),
-                new ItemStackSpellIngredient(new ItemStack(Items.GLASS_BOTTLE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.NETHER_WART)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE))
-        };
-    }
 }

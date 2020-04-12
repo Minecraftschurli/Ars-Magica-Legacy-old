@@ -57,14 +57,6 @@ public final class PhysicalDamage extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 5; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "ember", x, y, z);

@@ -66,14 +66,6 @@ public final class Heal extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        if (target instanceof LivingEntity && ((LivingEntity) target).isEntityUndead()) {
 //            for (int i = 0; i < 25; i++) {

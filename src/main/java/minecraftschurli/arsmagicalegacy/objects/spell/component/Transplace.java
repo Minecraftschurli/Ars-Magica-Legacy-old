@@ -77,17 +77,7 @@ public final class Transplace extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
-                new ItemStackSpellIngredient(new ItemStack(Items.COMPASS)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.ringedCross;
 //    }

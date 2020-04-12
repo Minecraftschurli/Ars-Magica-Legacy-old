@@ -62,15 +62,7 @@ public final class Slow extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.SLIMEBALLS),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

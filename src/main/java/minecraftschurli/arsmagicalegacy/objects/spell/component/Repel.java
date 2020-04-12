@@ -72,14 +72,6 @@ public final class Repel extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.WATER_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < ArsMagicaLegacy.config.getGFXLevel() * 2; i++) {
 //            AMParticle effect = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle", x, y, z);

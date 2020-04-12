@@ -85,16 +85,6 @@ public final class Recall extends SpellComponent {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }
 //
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
-                new ItemStackSpellIngredient(new ItemStack(Items.COMPASS)),
-                new ItemStackSpellIngredient(new ItemStack(Items.MAP)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get()))
-        };
-    }
-
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.ringedCross;

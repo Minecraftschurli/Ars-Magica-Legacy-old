@@ -83,17 +83,7 @@ public final class Light extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.TORCH)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.VINTEUM_TORCH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        MultiblockStructureDefinition newDef = new MultiblockStructureDefinition("celestialPurification");
 //        newDef.groups = Lists.newArrayList(RitualShapeHelper.instance.purification.groups);

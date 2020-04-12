@@ -40,15 +40,6 @@ public final class Wave extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGIC_WALL.get())),
-                new EtheriumSpellIngredient(2500)
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

@@ -32,19 +32,6 @@ public final class Rune extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

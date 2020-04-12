@@ -34,16 +34,6 @@ public final class Zone extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.GEMS_DIAMOND),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.TARMA_ROOT.get()))
-        };
-    }
-
-    @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.noneOf(SpellModifiers.class);
     }

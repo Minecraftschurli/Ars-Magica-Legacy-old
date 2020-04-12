@@ -28,15 +28,4 @@ public final class RuneProcs extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 4;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
-        };
-    }
 }

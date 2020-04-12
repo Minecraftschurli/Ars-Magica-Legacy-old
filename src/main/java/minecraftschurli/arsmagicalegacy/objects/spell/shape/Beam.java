@@ -111,17 +111,6 @@ public final class Beam extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ, 2),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURIFIED_VINTEUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.STANDARD_FOCUS.get())),
-                new EtheriumSpellIngredient(500, EtheriumType.NEUTRAL)
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return true;
     }

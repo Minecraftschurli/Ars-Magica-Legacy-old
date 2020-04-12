@@ -31,13 +31,4 @@ public final class Piercing extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 2;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.GEMS_EMERALD),
-                new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ICE_ESSENCE.get()))
-        };
-    }
 }

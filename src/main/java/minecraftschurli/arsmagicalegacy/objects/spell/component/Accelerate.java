@@ -59,15 +59,6 @@ public final class Accelerate extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle", x, y, z);
 //        if (particle != null) {

@@ -29,12 +29,4 @@ public final class MiningPower extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 1;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.DIAMOND_PICKAXE)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.EARTH_ESSENCE.get()))
-        };
-    }
 }

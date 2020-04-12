@@ -63,19 +63,11 @@ public final class Entangle extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.SLIMEBALLS),
-                new ItemStackSpellIngredient(new ItemStack(Items.VINE)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.RED_RUNE.get()))
-        };
-    }
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
-
+//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {

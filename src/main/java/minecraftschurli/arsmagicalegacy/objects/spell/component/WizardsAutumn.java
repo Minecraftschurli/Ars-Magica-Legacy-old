@@ -37,12 +37,9 @@ public final class WizardsAutumn extends SpellComponent {
                         BlockPos pos = blockPos.add(i, j, k);
                         BlockState state = world.getBlockState(pos);
                         Block block = state.getBlock();
-                        if (block instanceof LeavesBlock) {
-                            if (block.removedByPlayer(state, world, pos, (PlayerEntity) caster, true, null)) {
-                                block.onPlayerDestroy(world, pos, state);
-                                block.harvestBlock(world, (PlayerEntity) caster, pos, state, null, stack);
-                                //TODO play sound
-                            }
+                        if (block instanceof LeavesBlock && block.removedByPlayer(state, world, pos, (PlayerEntity) caster, true, null)) {
+                            block.onPlayerDestroy(world, pos, state);
+                            block.harvestBlock(world, (PlayerEntity) caster, pos, state, null, stack);
                         }
                     }
                 }
@@ -74,15 +71,5 @@ public final class WizardsAutumn extends SpellComponent {
     @Override
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.RADIUS);
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ItemTags.SAPLINGS),
-                new ItemTagSpellIngredient(Tags.Items.INGOTS_IRON),
-                new ItemTagSpellIngredient(Tags.Items.RODS_WOODEN),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
-        };
     }
 }

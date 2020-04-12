@@ -60,15 +60,6 @@ public final class ManaDrain extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 15; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", x, y, z);

@@ -79,16 +79,6 @@ public final class Dispel extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemStackSpellIngredient(new ItemStack(Items.MILK_BUCKET)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "sparkle2", x, y, z);

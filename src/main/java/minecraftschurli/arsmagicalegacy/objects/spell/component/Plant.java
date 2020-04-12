@@ -88,15 +88,6 @@ public final class Plant extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ItemTags.SAPLINGS),
-                new ItemTagSpellIngredient(Tags.Items.SEEDS, 2),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 15; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "plant", x, y + 1, z);

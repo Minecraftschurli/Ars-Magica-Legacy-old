@@ -31,14 +31,4 @@ public final class Speed extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 2.6f;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.CARROT)),
-                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.LIGHTNING_ESSENCE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potion.getPotionTypeForName("swiftness")))
-        };
-    }
 }

@@ -49,12 +49,4 @@ public final class Moonrise extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.noneOf(SpellModifiers.class);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK))
-        };
-    }
 }

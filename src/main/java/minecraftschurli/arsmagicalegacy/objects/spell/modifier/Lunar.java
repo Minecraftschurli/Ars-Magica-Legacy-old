@@ -44,15 +44,6 @@ public final class Lunar extends SpellModifier {
         return 1;
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.NATURE_ESSENCE.get()))
-        };
-    }
-
     private float modifyValueOnTime(World world, float value) {
         long x = world.getGameTime() % 24000;
         float multiplierFromTime = (float) (Math.sin(((x / 4600f) * (x / 21000f) - 900) * (180 / Math.PI)) * 3) + 1;

@@ -81,15 +81,6 @@ public final class DivineIntervention extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ItemTags.BEDS),
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 100; i++) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "arcane", x, y - 1, z);

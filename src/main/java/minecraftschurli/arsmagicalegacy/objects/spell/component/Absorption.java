@@ -61,19 +61,11 @@ public final class Absorption extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.GOLDEN_APPLE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SHIELD)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
-        };
-    }
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
-
+//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 15; i++) {

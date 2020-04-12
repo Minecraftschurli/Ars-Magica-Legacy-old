@@ -78,16 +78,6 @@ public final class Rift extends SpellComponent {
                 new ItemStack(ModItems.MONSTER_FOCUS.get())
         };
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(Items.CHEST)),
-                new ItemStackSpellIngredient(new ItemStack(Items.ENDER_EYE))
-        };
-    }
 //
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {

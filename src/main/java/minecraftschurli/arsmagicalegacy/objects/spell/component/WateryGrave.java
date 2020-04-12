@@ -63,16 +63,7 @@ public final class WateryGrave extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.STONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.LEATHER_BOOTS)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

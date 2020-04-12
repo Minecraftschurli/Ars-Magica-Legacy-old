@@ -31,13 +31,4 @@ public final class Damage extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 2.2f;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_SWORD)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ENDER_ESSENCE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HARMING))
-        };
-    }
 }

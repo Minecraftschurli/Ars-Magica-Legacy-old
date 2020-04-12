@@ -57,13 +57,4 @@ public final class ManaShield extends SpellComponent {
     public EnumSet<SpellModifiers> getModifiers() {
         return EnumSet.of(SpellModifiers.BUFF_POWER);
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BATTLEMAGE_CHESTPLATE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_FOCUS.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MAGE_CHESTPLATE.get()))
-        };
-    }
 }

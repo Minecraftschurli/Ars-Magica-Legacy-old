@@ -60,16 +60,7 @@ public final class WaterBreathing extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.SUGAR_CANE)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLUE_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WAKEBLOOM.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

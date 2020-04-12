@@ -55,15 +55,11 @@ public final class Blind extends SpellComponent {
         return EnumSet.of(SpellModifiers.DURATION, SpellModifiers.BUFF_POWER);
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.NIGHT_VISION)),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WEAKNESS))
-        };
-    }
-
+//    @Override
+//    public MultiblockStructureDefinition getRitualShape() {
+//        return RitualShapeHelper.instance.hourglass;
+//    }
+//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 15; i++) {
@@ -76,9 +72,4 @@ public final class Blind extends SpellComponent {
 //            }
 //        }
     }
-//
-//    @Override
-//    public MultiblockStructureDefinition getRitualShape() {
-//        return RitualShapeHelper.instance.hourglass;
-//    }
 }

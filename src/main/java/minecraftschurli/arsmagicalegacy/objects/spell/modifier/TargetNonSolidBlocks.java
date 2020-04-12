@@ -31,15 +31,4 @@ public final class TargetNonSolidBlocks extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 1;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.BROWN_MUSHROOM)),
-                new ItemStackSpellIngredient(new ItemStack(Items.POPPY)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.CERUBLOSSOM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WATER_ESSENCE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER))
-        };
-    }
 }

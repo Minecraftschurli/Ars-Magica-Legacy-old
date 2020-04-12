@@ -57,16 +57,6 @@ public final class SpellReflect extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.GLASS),
-                new ItemTagSpellIngredient(ModTags.Items.LOGS_WITCHWOOD),
-                new ItemStackSpellIngredient(new ItemStack(Items.IRON_BLOCK)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.WHITE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "lens_flare", x, y, z);

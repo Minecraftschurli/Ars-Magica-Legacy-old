@@ -60,15 +60,7 @@ public final class AstralDistortion extends SpellComponent {
         return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.corruption;
 //    }

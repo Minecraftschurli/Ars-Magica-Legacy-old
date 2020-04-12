@@ -94,14 +94,6 @@ public final class RandomTeleport extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         world.addParticle(ParticleTypes.PORTAL, target.getPosX() + (rand.nextDouble() - 0.5D) * target.getWidth(), target.getPosY() + rand.nextDouble() * target.getHeight() - 0.25D, target.getPosZ() + (rand.nextDouble() - 0.5D) * target.getWidth(), (rand.nextDouble() - 0.5D) * 2, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2);
     }

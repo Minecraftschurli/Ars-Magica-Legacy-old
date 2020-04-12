@@ -66,18 +66,11 @@ public final class LifeTap extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
-        };
-    }
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.corruption;
 //    }
-
+//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {

@@ -64,7 +64,7 @@ public final class Fury extends SpellComponent {
         };
     }
 
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
@@ -81,13 +81,5 @@ public final class Fury extends SpellComponent {
 //                particle.setMaxAge(10);
 //            }
 //        }
-    }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(Items.COD, 14)),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE)
-        };
     }
 }

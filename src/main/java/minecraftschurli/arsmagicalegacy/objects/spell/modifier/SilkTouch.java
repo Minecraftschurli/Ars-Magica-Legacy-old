@@ -31,13 +31,4 @@ public final class SilkTouch extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 1;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.FEATHERS),
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get()))
-        };
-    }
 }

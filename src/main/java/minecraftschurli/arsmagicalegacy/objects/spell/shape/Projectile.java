@@ -47,15 +47,6 @@ public final class Projectile extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.DUSTS_VINTEUM),
-                new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL))
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

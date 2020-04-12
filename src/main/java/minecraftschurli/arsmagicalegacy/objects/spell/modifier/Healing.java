@@ -33,13 +33,4 @@ public final class Healing extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 2;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.EGGS),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.LIFE_ESSENCE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING))
-        };
-    }
 }

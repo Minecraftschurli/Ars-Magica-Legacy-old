@@ -61,15 +61,6 @@ public final class LifeDrain extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AUM.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 15; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "ember", x, y, z);

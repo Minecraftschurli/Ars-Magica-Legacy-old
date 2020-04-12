@@ -62,15 +62,6 @@ public final class ManaBlast extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREATER_FOCUS.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_FOCUS.get())),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        double snapAngle = (2 * Math.PI) / (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5;
 //        for (int j = 0; j < 4; j++) {

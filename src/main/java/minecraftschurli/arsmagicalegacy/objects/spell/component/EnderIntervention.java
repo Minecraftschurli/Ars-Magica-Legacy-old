@@ -86,16 +86,6 @@ public final class EnderIntervention extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.ENDER_PEARLS),
-                new ItemTagSpellIngredient(Tags.Items.OBSIDIAN, 2),
-                new ItemStackSpellIngredient(new ItemStack(Items.FLINT_AND_STEEL)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.PURPLE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 100; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "ghost", x, y - 1, z);

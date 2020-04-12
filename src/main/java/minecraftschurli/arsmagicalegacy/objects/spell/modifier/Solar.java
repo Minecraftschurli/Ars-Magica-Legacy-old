@@ -43,15 +43,6 @@ public final class Solar extends SpellModifier {
         return 1;
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_SUNSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.CLOCK)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.NATURE_ESSENCE.get()))
-        };
-    }
-
     private float modifyValueOnTime(World world, float value) {
         float multiplierFromTime = (float) (Math.cos((((world.getGameTime() % 24000) / 3800f) * ((world.getGameTime() % 24000) / 24000f) - 13000f) * (180f / Math.PI)) * 1.5f) + 1;
         if (multiplierFromTime < 0)

@@ -91,15 +91,6 @@ public final class AoE extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_MOONSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.AIR_ESSENCE.get()))
-        };
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

@@ -60,18 +60,6 @@ public final class Shrink extends SpellComponent {
                 new ItemStack(Items.BLAZE_ROD)
         };
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.BONES),
-                new ItemTagSpellIngredient(Tags.Items.NUGGETS_GOLD),
-                new ItemStackSpellIngredient(new ItemStack(Items.BROWN_MUSHROOM)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SPIDER_EYE)),
-                new ItemStackSpellIngredient(new ItemStack(Items.STONE_BUTTON)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.MANA_CAKE.get()))
-        };
-    }
 //
 //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {

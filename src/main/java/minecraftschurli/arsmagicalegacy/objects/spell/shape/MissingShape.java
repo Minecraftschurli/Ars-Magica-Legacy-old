@@ -24,11 +24,6 @@ public final class MissingShape extends SpellShape {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[0];
-    }
-
-    @Override
     public boolean isChanneled() {
         return false;
     }

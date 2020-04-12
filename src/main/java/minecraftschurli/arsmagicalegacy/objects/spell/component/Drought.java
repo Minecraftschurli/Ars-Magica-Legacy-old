@@ -85,17 +85,8 @@ public final class Drought extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.SAND),
-                new ItemStackSpellIngredient(new ItemStack(Items.DEAD_BUSH)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ORANGE_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; i++) {
+//        for (int i = 0; i < 25; i++) {
 //            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "ember", x + 0.5, y + 1, z + 0.5);
 //            if (particle != null) {
 //                particle.addRandomOffset(1, 0, 1);
@@ -107,6 +98,6 @@ public final class Drought extends SpellComponent {
 //                particle.setParticleScale(0.1f);
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
-        }
+//        }
     }
 }

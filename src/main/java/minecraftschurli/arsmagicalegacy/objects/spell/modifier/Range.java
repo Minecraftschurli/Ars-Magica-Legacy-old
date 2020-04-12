@@ -31,14 +31,4 @@ public final class Range extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 4;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.ARROW)),
-                new ItemStackSpellIngredient(new ItemStack(Items.SNOWBALL)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ESSENCE.get()))
-        };
-    }
 }

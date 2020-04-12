@@ -62,16 +62,7 @@ public final class Haste extends SpellComponent {
         };
     }
 
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_REDSTONE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
-        };
-    }
-
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }

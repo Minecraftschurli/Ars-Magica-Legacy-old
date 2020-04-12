@@ -85,15 +85,6 @@ public final class Storm extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_TOPAZ),
-                new ItemStackSpellIngredient(new ItemStack(Items.GHAST_TEAR)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.YELLOW_RUNE.get()))
-        };
-    }
-
-    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "symbols", x, y - 1, z);
 //        if (particle != null) {

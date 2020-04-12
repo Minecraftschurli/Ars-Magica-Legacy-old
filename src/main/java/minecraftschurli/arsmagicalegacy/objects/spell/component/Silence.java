@@ -61,13 +61,4 @@ public final class Silence extends SpellComponent {
                 new ItemStack(ModItems.PURIFIED_VINTEUM.get())
         };
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ItemTags.WOOL, 2),
-                new ItemStackSpellIngredient(new ItemStack(Items.JUKEBOX)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.ARCANE_ASH.get()))
-        };
-    }
 }

@@ -30,12 +30,4 @@ public final class Dismembering extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 0.05f;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.BONES),
-                new ItemStackSpellIngredient(new ItemStack(Items.WITHER_SKELETON_SKULL))
-        };
-    }
 }

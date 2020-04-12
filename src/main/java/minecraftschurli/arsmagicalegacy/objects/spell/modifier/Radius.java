@@ -31,13 +31,4 @@ public final class Radius extends SpellModifier {
     public float getModifier(SpellModifiers type, LivingEntity caster, Entity target, World world, CompoundNBT nbt) {
         return 0.7f;
     }
-
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.DUSTS_GLOWSTONE),
-                new ItemStackSpellIngredient(new ItemStack(Items.TNT)),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.FIRE_ESSENCE.get()))
-        };
-    }
 }

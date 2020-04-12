@@ -58,6 +58,18 @@ public final class Invisiblity extends SpellComponent {
     }
 
     @Override
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return new ItemStack[]{
+                new ItemStack(Items.ENDER_EYE)
+        };
+    }
+
+//    @Override
+//    public MultiblockStructureDefinition getRitualShape() {
+//        return RitualShapeHelper.instance.hourglass;
+//    }
+//
+    @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 25; i++) {
 //            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "ember", x, y - 1, z);
@@ -71,26 +83,5 @@ public final class Invisiblity extends SpellComponent {
 //                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
 //            }
 //        }
-    }
-
-    @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[]{
-                new ItemStack(Items.ENDER_EYE)
-        };
-    }
-
-    //    @Override
-//    public MultiblockStructureDefinition getRitualShape() {
-//        return RitualShapeHelper.instance.hourglass;
-//    }
-//
-    @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(ModTags.Items.GEMS_CHIMERITE),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.BLACK_RUNE.get())),
-                new ItemStackSpellIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.INVISIBILITY))
-        };
     }
 }

@@ -56,22 +56,13 @@ public final class GravityWell extends SpellComponent {
     }
 
     @Override
-    public ISpellIngredient[] getRecipe() {
-        return new ISpellIngredient[]{
-                new ItemTagSpellIngredient(Tags.Items.STONE),
-                new ItemTagSpellIngredient(Tags.Items.STRING),
-                new ItemStackSpellIngredient(new ItemStack(ModItems.GREEN_RUNE.get()))
-        };
-    }
-
-    @Override
     public ItemStack[] getReagents(LivingEntity caster) {
         return new ItemStack[]{
                 new ItemStack(Items.BLAZE_POWDER)
         };
     }
 
-    //    @Override
+//    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
