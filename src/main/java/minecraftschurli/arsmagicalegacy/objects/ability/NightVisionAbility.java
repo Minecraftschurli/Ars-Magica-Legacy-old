@@ -4,7 +4,9 @@ import minecraftschurli.arsmagicalegacy.api.affinity.AbstractToggledAffinityAbil
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.*;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Collection;

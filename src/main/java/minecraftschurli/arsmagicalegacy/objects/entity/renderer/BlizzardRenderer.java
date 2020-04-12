@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity.renderer;
 
 import minecraftschurli.arsmagicalegacy.objects.entity.BlizzardEntity;
-import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

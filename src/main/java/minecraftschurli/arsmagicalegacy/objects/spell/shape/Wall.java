@@ -3,21 +3,13 @@ package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.objects.entity.WallEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 

@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;

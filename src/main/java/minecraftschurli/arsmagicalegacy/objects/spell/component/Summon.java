@@ -2,16 +2,9 @@ package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
-import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.EtheriumSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
-import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.init.ModTags;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import minecraftschurli.arsmagicalegacy.util.SummonUtil;
 import net.minecraft.entity.CreatureEntity;

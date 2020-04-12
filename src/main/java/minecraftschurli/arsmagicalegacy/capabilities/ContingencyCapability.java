@@ -1,12 +1,10 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.api.capability.IBurnoutStorage;
 import minecraftschurli.arsmagicalegacy.api.capability.IContingencyStorage;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;

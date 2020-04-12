@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.api.etherium;
 
-
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.registry.EtheriumRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;

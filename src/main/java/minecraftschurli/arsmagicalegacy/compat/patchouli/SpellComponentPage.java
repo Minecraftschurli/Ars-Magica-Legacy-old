@@ -1,11 +1,6 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -30,6 +25,16 @@ import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
