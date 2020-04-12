@@ -29,16 +29,16 @@ import java.util.List;
  * @version 2019-11-17
  */
 public class SpellProjectileEntity extends Entity {
-    private static final DataParameter<Integer> DW_BOUNCE_COUNTER = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Float> DW_GRAVITY = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<ItemStack> DW_EFFECT = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<String> DW_ICON_NAME = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.STRING);
-    private static final DataParameter<Integer> DW_PIERCE_COUNT = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> DW_COLOR = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> DW_SHOOTER = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> DW_TARGETGRASS = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> DW_HOMING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> DW_HOMING_TARGET = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> EFFECT = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<String> ICON = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.STRING);
+    private static final DataParameter<Integer> PIERCING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> SHOOTER = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> NONSOLID = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> HOMING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> HOMING_TARGET = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
     private int currentPierces;
 
     public SpellProjectileEntity(World worldIn) {
@@ -51,25 +51,25 @@ public class SpellProjectileEntity extends Entity {
 
     public void setTargetWater() {
         if (!this.world.isRemote)
-            this.getDataManager().set(DW_TARGETGRASS, true);
+            this.getDataManager().set(NONSOLID, true);
     }
 
     public boolean targetWater() {
-        return this.getDataManager().get(DW_TARGETGRASS);
+        return this.getDataManager().get(NONSOLID);
     }
 
     @Override
     protected void registerData() {
-        this.getDataManager().register(DW_BOUNCE_COUNTER, 0);
-        this.getDataManager().register(DW_GRAVITY, 0.f);
-        this.getDataManager().register(DW_EFFECT, ItemStack.EMPTY);
-        this.getDataManager().register(DW_ICON_NAME, "arcane");
-        this.getDataManager().register(DW_PIERCE_COUNT, 0);
-        this.getDataManager().register(DW_COLOR, 0xFFFFFF);
-        this.getDataManager().register(DW_SHOOTER, 0);
-        this.getDataManager().register(DW_TARGETGRASS, false);
-        this.getDataManager().register(DW_HOMING, false);
-        this.getDataManager().register(DW_HOMING_TARGET, -1);
+        this.getDataManager().register(BOUNCES, 0);
+        this.getDataManager().register(GRAVITY, 0.f);
+        this.getDataManager().register(EFFECT, ItemStack.EMPTY);
+        this.getDataManager().register(ICON, "arcane");
+        this.getDataManager().register(PIERCING, 0);
+        this.getDataManager().register(COLOR, 0xFFFFFF);
+        this.getDataManager().register(SHOOTER, 0);
+        this.getDataManager().register(NONSOLID, false);
+        this.getDataManager().register(HOMING, false);
+        this.getDataManager().register(HOMING_TARGET, -1);
     }
 
     @Override
@@ -83,23 +83,23 @@ public class SpellProjectileEntity extends Entity {
     }
 
     public int getBounces() {
-        return this.getDataManager().get(DW_BOUNCE_COUNTER);
+        return this.getDataManager().get(BOUNCES);
     }
 
     public void setBounces(int projectileBounce) {
-        this.getDataManager().set(DW_BOUNCE_COUNTER, projectileBounce);
+        this.getDataManager().set(BOUNCES, projectileBounce);
     }
 
     public int getPierces() {
-        return this.getDataManager().get(DW_PIERCE_COUNT) - this.currentPierces;
+        return this.getDataManager().get(PIERCING) - this.currentPierces;
     }
 
     public ItemStack getSpell() {
-        return this.getDataManager().get(DW_EFFECT);
+        return this.getDataManager().get(EFFECT);
     }
 
     public void setSpell(ItemStack stack) {
-        this.getDataManager().set(DW_EFFECT, stack);
+        this.getDataManager().set(EFFECT, stack);
         /*Affinity mainAff = AffinityShiftUtils.getMainShiftForStack(stack);
         if (mainAff.equals(Affinity.ENDER)) this.getDataManager().set(DW_COLOR, 0x550055);
         else if (mainAff.equals(Affinity.ICE)) this.getDataManager().set(DW_COLOR, 0x2299FF);
@@ -169,7 +169,7 @@ public class SpellProjectileEntity extends Entity {
                         this.currentPierces++;
                 }
             }
-            setMotion(getMotion().x, getMotion().y + this.getDataManager().get(DW_GRAVITY), getMotion().z);
+            setMotion(getMotion().x, getMotion().y + this.getDataManager().get(GRAVITY), getMotion().z);
             Vec3d newPos = getPositionVec().add(getMotion());
             setPosition(newPos.x, newPos.y, newPos.z);
         } catch (NullPointerException e) {
@@ -179,7 +179,7 @@ public class SpellProjectileEntity extends Entity {
 
     public LivingEntity getShooter() {
         try {
-            return (LivingEntity) world.getEntityByID(this.getDataManager().get(DW_SHOOTER));
+            return (LivingEntity) world.getEntityByID(this.getDataManager().get(SHOOTER));
         } catch (RuntimeException e) {
             this.remove();
             return null;
@@ -187,39 +187,39 @@ public class SpellProjectileEntity extends Entity {
     }
 
     public void setShooter(LivingEntity living) {
-        this.getDataManager().set(DW_SHOOTER, living.getEntityId());
+        this.getDataManager().set(SHOOTER, living.getEntityId());
     }
 
     @Override
     protected void readAdditional(CompoundNBT tagCompound) {
         CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaAPI.MODID);
-        dataManager.set(DW_BOUNCE_COUNTER, am2Tag.getInt("BounceCount"));
-        dataManager.set(DW_GRAVITY, am2Tag.getFloat("Gravity"));
-        dataManager.set(DW_EFFECT, ItemStack.read(am2Tag.getCompound("Effect")));
-        dataManager.set(DW_ICON_NAME, am2Tag.getString("IconName"));
-        dataManager.set(DW_PIERCE_COUNT, am2Tag.getInt("PierceCount"));
-        dataManager.set(DW_COLOR, am2Tag.getInt("Color"));
-        dataManager.set(DW_SHOOTER, am2Tag.getInt("Shooter"));
-        dataManager.set(DW_TARGETGRASS, am2Tag.getBoolean("TargetGrass"));
-        dataManager.set(DW_HOMING, am2Tag.getBoolean("Homing"));
-        dataManager.set(DW_HOMING_TARGET, am2Tag.getInt("HomingTarget"));
+        dataManager.set(BOUNCES, am2Tag.getInt("BounceCount"));
+        dataManager.set(GRAVITY, am2Tag.getFloat("Gravity"));
+        dataManager.set(EFFECT, ItemStack.read(am2Tag.getCompound("Effect")));
+        dataManager.set(ICON, am2Tag.getString("IconName"));
+        dataManager.set(PIERCING, am2Tag.getInt("PierceCount"));
+        dataManager.set(COLOR, am2Tag.getInt("Color"));
+        dataManager.set(SHOOTER, am2Tag.getInt("Shooter"));
+        dataManager.set(NONSOLID, am2Tag.getBoolean("TargetGrass"));
+        dataManager.set(HOMING, am2Tag.getBoolean("Homing"));
+        dataManager.set(HOMING_TARGET, am2Tag.getInt("HomingTarget"));
     }
 
     @Override
     protected void writeAdditional(CompoundNBT tagCompound) {
         CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaAPI.MODID);
-        am2Tag.putInt("BounceCount", dataManager.get(DW_BOUNCE_COUNTER));
-        am2Tag.putFloat("Gravity", dataManager.get(DW_GRAVITY));
+        am2Tag.putInt("BounceCount", dataManager.get(BOUNCES));
+        am2Tag.putFloat("Gravity", dataManager.get(GRAVITY));
         CompoundNBT tmp = new CompoundNBT();
-        dataManager.get(DW_EFFECT).write(tmp);
+        dataManager.get(EFFECT).write(tmp);
         am2Tag.put("Effect", tmp);
-        am2Tag.putString("IconName", dataManager.get(DW_ICON_NAME));
-        am2Tag.putInt("PierceCount", dataManager.get(DW_PIERCE_COUNT));
-        am2Tag.putInt("Color", dataManager.get(DW_COLOR));
-        am2Tag.putInt("Shooter", dataManager.get(DW_SHOOTER));
-        am2Tag.putBoolean("TargetGrass", dataManager.get(DW_TARGETGRASS));
-        am2Tag.putBoolean("Homing", dataManager.get(DW_HOMING));
-        am2Tag.putInt("HomingTarget", dataManager.get(DW_HOMING_TARGET));
+        am2Tag.putString("IconName", dataManager.get(ICON));
+        am2Tag.putInt("PierceCount", dataManager.get(PIERCING));
+        am2Tag.putInt("Color", dataManager.get(COLOR));
+        am2Tag.putInt("Shooter", dataManager.get(SHOOTER));
+        am2Tag.putBoolean("TargetGrass", dataManager.get(NONSOLID));
+        am2Tag.putBoolean("Homing", dataManager.get(HOMING));
+        am2Tag.putInt("HomingTarget", dataManager.get(HOMING_TARGET));
     }
 
     public void selectHomingTarget() {
@@ -238,36 +238,36 @@ public class SpellProjectileEntity extends Entity {
             }
         }
         if (target != null) {
-            this.getDataManager().set(DW_HOMING_TARGET, target.getEntityId());
+            this.getDataManager().set(HOMING_TARGET, target.getEntityId());
         }
     }
 
     public LivingEntity getHomingTarget() {
-        return (LivingEntity) world.getEntityByID(this.getDataManager().get(DW_HOMING_TARGET));
+        return (LivingEntity) world.getEntityByID(this.getDataManager().get(HOMING_TARGET));
     }
 
     public void setGravity(float projectileGravity) {
-        this.getDataManager().set(DW_GRAVITY, projectileGravity);
+        this.getDataManager().set(GRAVITY, projectileGravity);
     }
 
     public void setNumPierces(int pierces) {
-        this.getDataManager().set(DW_PIERCE_COUNT, pierces);
+        this.getDataManager().set(PIERCING, pierces);
         this.currentPierces = 0;
     }
 
     public void setHoming(boolean homing) {
-        this.getDataManager().set(DW_HOMING, homing);
+        this.getDataManager().set(HOMING, homing);
     }
 
     public String getIcon() {
-        return this.getDataManager().get(DW_ICON_NAME);
+        return this.getDataManager().get(ICON);
     }
 
     public void setIcon(String icon) {
-        this.getDataManager().set(DW_ICON_NAME, icon);
+        this.getDataManager().set(ICON, icon);
     }
 
     public int getColor() {
-        return this.getDataManager().get(DW_COLOR);
+        return this.getDataManager().get(COLOR);
     }
 }

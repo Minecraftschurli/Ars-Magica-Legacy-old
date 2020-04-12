@@ -23,9 +23,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlizzardEntity extends Entity {
-    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.FLOAT);
     private int ticksToExist;
     private ItemStack spell;
     private PlayerEntity caster;
@@ -93,7 +93,6 @@ public class BlizzardEntity extends Entity {
 //                particle.SetParticleAlpha(0.6f);
 //                particle.AddParticleController(new ParticleFleePoint(particle, new Vec3d(x, y, z), 0.1f, 3f, 1, false));
 //            }
-            //TODO: SoundHelper.instance.loopSound(world, (float)getPosX(), (float)getPosY(), (float)getPosZ(), "arsmagica2:spell.loop.air", 1.0f);
         } else {
             for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e != caster) {

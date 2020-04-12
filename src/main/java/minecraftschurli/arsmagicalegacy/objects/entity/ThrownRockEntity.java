@@ -35,9 +35,9 @@ import java.util.List;
  * @version 2019-11-28
  */
 public class ThrownRockEntity extends Entity {
-    private static final DataParameter<Boolean> IS_MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IS_SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<ItemStack> SPELL_STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Boolean> MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.VARINT);
     private int maxTicksToExist;
     private Vec3d target = null;
@@ -75,11 +75,11 @@ public class ThrownRockEntity extends Entity {
     }
 
     public void setMoonstoneMeteor() {
-        this.dataManager.set(IS_MOONSTONE_METEOR, true);
+        this.dataManager.set(MOONSTONE_METEOR, true);
     }
 
     public void setShootingStar(float damage) {
-        this.dataManager.set(IS_SHOOTING_STAR, true);
+        this.dataManager.set(SHOOTING_STAR, true);
         this.damage = damage;
     }
 
@@ -88,11 +88,11 @@ public class ThrownRockEntity extends Entity {
     }
 
     public boolean getIsMoonstoneMeteor() {
-        return dataManager.get(IS_MOONSTONE_METEOR);
+        return dataManager.get(MOONSTONE_METEOR);
     }
 
     public boolean getIsShootingStar() {
-        return dataManager.get(IS_SHOOTING_STAR);
+        return dataManager.get(SHOOTING_STAR);
     }
 
     public void setHeading(double movementX, double movementY, double movementZ, double projectileSpeed, double projectileSpeed2) {
@@ -118,18 +118,18 @@ public class ThrownRockEntity extends Entity {
 
     @Override
     protected void registerData() {
-        this.dataManager.register(IS_MOONSTONE_METEOR, false);
-        this.dataManager.register(IS_SHOOTING_STAR, false);
-        this.dataManager.register(SPELL_STACK, new ItemStack(ModItems.SPELL.get()));
+        this.dataManager.register(MOONSTONE_METEOR, false);
+        this.dataManager.register(SHOOTING_STAR, false);
+        this.dataManager.register(STACK, new ItemStack(ModItems.SPELL.get()));
         this.dataManager.register(OWNER, 0);
     }
 
     private ItemStack getSpellStack() {
-        return this.dataManager.get(SPELL_STACK);
+        return this.dataManager.get(STACK);
     }
 
     public void setSpellStack(ItemStack spellStack) {
-        this.dataManager.set(SPELL_STACK, spellStack);
+        this.dataManager.set(STACK, spellStack);
     }
 
     @Override

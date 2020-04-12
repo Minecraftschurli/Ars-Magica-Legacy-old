@@ -59,12 +59,12 @@ public class FireRainEntity extends Entity {
             caster.tick();
         float radius = dataManager.get(RADIUS_DATA);
         if (world.isRemote) {
-//            if (stack == null) stack = dataManager.get(STACK_DATA);
-//            stack = stack.copy();
+//            if (spell == null) spell = dataManager.get(spell_DATA);
+//            spell = spell.copy();
 //            int color = 0xFFFFFF;
-//            if (SpellUtils.hasModifier(SpellModifiers.COLOR, stack)){
-//                List<SpellModifier> mods = SpellUtils.getModifiers(stack, -1);
-//                for (SpellModifier mod : mods) if (mod instanceof Color) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
+//            if (SpellUtil.hasModifier(SpellModifiers.COLOR, spell)){
+//                List<SpellModifier> mods = SpellUtil.getModifiers(spell, -1);
+//                for (SpellModifier mod : mods) if (mod instanceof Color) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
 //            }
 //            for (int i = 0; i < 10; ++i){
 //                double x = getPosX() - radius + (rand.nextDouble() * radius * 2);
@@ -79,7 +79,6 @@ public class FireRainEntity extends Entity {
 //                    particle.setRGBColorI(color);
 //                }
 //            }
-            //TODO: SoundHelper.instance.loopSound(world, (float)getPosX(), (float)getPosY(), (float)getPosZ(), "arsmagica2:spell.loop.fire", 1.0f);
         } else {
             for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e != caster) {

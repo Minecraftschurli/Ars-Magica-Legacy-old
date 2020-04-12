@@ -20,10 +20,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class WallEntity extends Entity {
-    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> GRAVITY_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(WallEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(WallEntity.class, DataSerializers.FLOAT);
     private int ticksToEffect = 20;
     private int ticksToExist = 100;
     private ItemStack spell;
@@ -49,10 +49,10 @@ public class WallEntity extends Entity {
 
     @Override
     protected void registerData() {
-        this.dataManager.register(DAMAGE_DATA, 1f);
-        this.dataManager.register(GRAVITY_DATA, 0f);
-        this.dataManager.register(RADIUS_DATA, 3f);
-        this.dataManager.register(STACK_DATA, new ItemStack(Items.GOLDEN_APPLE));
+        this.dataManager.register(DAMAGE, 1f);
+        this.dataManager.register(GRAVITY, 0f);
+        this.dataManager.register(RADIUS, 3f);
+        this.dataManager.register(STACK, new ItemStack(Items.GOLDEN_APPLE));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class WallEntity extends Entity {
             }
             if (ticksToEffect <= 0) {
                 ticksToEffect = 5;
-                float radius = this.dataManager.get(RADIUS_DATA);
+                float radius = this.dataManager.get(RADIUS);
                 for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                     if (e == this || e == caster || e.getEntityId() == caster.getEntityId()) continue;
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
@@ -121,15 +121,15 @@ public class WallEntity extends Entity {
         if (entity instanceof PlayerEntity) caster = (PlayerEntity) entity;
         spell = stack;
         if (spell != null)
-            dataManager.set(STACK_DATA, spell);
+            dataManager.set(STACK, spell);
     }
 
     public void setGravity(float gravity) {
-        dataManager.set(GRAVITY_DATA, gravity);
+        dataManager.set(GRAVITY, gravity);
     }
 
     public void setRadius(float radius) {
-        this.dataManager.set(RADIUS_DATA, radius);
+        this.dataManager.set(RADIUS, radius);
     }
 
     public void setTicksToExist(int ticks) {

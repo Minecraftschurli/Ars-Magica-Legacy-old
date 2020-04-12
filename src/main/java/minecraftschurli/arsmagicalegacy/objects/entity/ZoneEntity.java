@@ -23,10 +23,10 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 public class ZoneEntity extends Entity {
-    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> GRAVITY_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
     private boolean firstApply = true;
     private int ticksToEffect = 20;
     private int ticksToExist = 100;
@@ -53,10 +53,10 @@ public class ZoneEntity extends Entity {
 
     @Override
     protected void registerData() {
-        dataManager.register(DAMAGE_DATA, 1f);
-        dataManager.register(GRAVITY_DATA, 0f);
-        dataManager.register(RADIUS_DATA, 3f);
-        dataManager.register(STACK_DATA, new ItemStack(Items.GOLDEN_APPLE));
+        dataManager.register(DAMAGE, 1f);
+        dataManager.register(GRAVITY, 0f);
+        dataManager.register(RADIUS, 3f);
+        dataManager.register(STACK, new ItemStack(Items.GOLDEN_APPLE));
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ZoneEntity extends Entity {
 //                }
 //            }
         }
-        moveForced(0, dataManager.get(GRAVITY_DATA), 0);
+        moveForced(0, dataManager.get(GRAVITY), 0);
         ticksToEffect--;
         if (spell == null) {
             if (!world.isRemote) remove();
@@ -92,7 +92,7 @@ public class ZoneEntity extends Entity {
         }
         if (ticksToEffect <= 0) {
             ticksToEffect = 20;
-            float radius = dataManager.get(RADIUS_DATA);
+            float radius = dataManager.get(RADIUS);
             for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 3, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
@@ -100,7 +100,7 @@ public class ZoneEntity extends Entity {
                     SpellUtil.applyStageEntity(spell, caster, world, e, false);
                 SpellUtil.applyStage(spell.copy(), caster, (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
             }
-            if (dataManager.get(GRAVITY_DATA) < 0 && !firstApply)
+            if (dataManager.get(GRAVITY) < 0 && !firstApply)
                 SpellUtil.applyStage(spell.copy(), caster, null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
             else
                 SpellUtil.applyStage(spell.copy(), caster, null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
@@ -140,15 +140,15 @@ public class ZoneEntity extends Entity {
         if (entity instanceof PlayerEntity) caster = (PlayerEntity) entity;
         spell = stack;
         if (spell != null)
-            dataManager.set(STACK_DATA, spell);
+            dataManager.set(STACK, spell);
     }
 
     public void setGravity(double gravity) {
-        dataManager.set(GRAVITY_DATA, (float) gravity);
+        dataManager.set(GRAVITY, (float) gravity);
     }
 
     public void setRadius(float radius) {
-        dataManager.set(RADIUS_DATA, radius);
+        dataManager.set(RADIUS, radius);
     }
 
     public void setTicksToExist(int ticks) {

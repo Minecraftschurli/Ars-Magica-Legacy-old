@@ -24,10 +24,10 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 public class WaveEntity extends Entity {
-    private static final DataParameter<ItemStack> STACK_DATA = EntityDataManager.createKey(WaveEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS_DATA = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> GRAVITY_DATA = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> DAMAGE_DATA = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(WaveEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
     private int ticksToEffect = 20;
     private int ticksToExist = 100;
     private float moveSpeed;
@@ -54,10 +54,10 @@ public class WaveEntity extends Entity {
 
     @Override
     protected void registerData() {
-        this.dataManager.register(RADIUS_DATA, 3f);
-        this.dataManager.register(STACK_DATA, new ItemStack(Items.GOLDEN_APPLE));
-        this.dataManager.register(GRAVITY_DATA, 0F);
-        this.dataManager.register(DAMAGE_DATA, 1.0f);
+        this.dataManager.register(RADIUS, 3f);
+        this.dataManager.register(STACK, new ItemStack(Items.GOLDEN_APPLE));
+        this.dataManager.register(GRAVITY, 0F);
+        this.dataManager.register(DAMAGE, 1.0f);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class WaveEntity extends Entity {
             }
             if (ticksToEffect <= 0) {
                 ticksToEffect = 5;
-                float radius = this.dataManager.get(RADIUS_DATA);
+                float radius = this.dataManager.get(RADIUS);
                 for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                     if (e == this || e == caster || e.getEntityId() == caster.getEntityId()) continue;
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
@@ -121,7 +121,7 @@ public class WaveEntity extends Entity {
         this.moveForced(dx * moveSpeed, 0, dz * moveSpeed);
         double dxH = Math.cos(Math.toRadians(this.rotationYaw));
         double dzH = Math.sin(Math.toRadians(this.rotationYaw));
-        float radius = this.dataManager.get(RADIUS_DATA);
+        float radius = this.dataManager.get(RADIUS);
         for (int j = -1; j <= 1; j++) {
             Vec3d a = new Vec3d((this.getPosX() + dx) - dxH * radius, this.getPosY() + j, (this.getPosZ() + dz) - dzH * radius);
             Vec3d b = new Vec3d((this.getPosX() + dx) - dxH * -radius, this.getPosY() + j, (this.getPosZ() + dz) - dzH * -radius);
@@ -141,7 +141,7 @@ public class WaveEntity extends Entity {
                     for (int i = 0; i < this.getHeight(); ++i) vecs.add(new Vec3d(tempPos.x, tempPos.y + i, tempPos.z));
             }
             for (Vec3d vec : vecs)
-                SpellUtil.applyStageBlock(dataManager.get(STACK_DATA), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
+                SpellUtil.applyStageBlock(dataManager.get(STACK), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
         }
         if (!world.isRemote && this.ticksExisted >= this.ticksToExist) this.remove();
     }
@@ -154,11 +154,11 @@ public class WaveEntity extends Entity {
         if (entity instanceof PlayerEntity) caster = (PlayerEntity) entity;
         spell = stack;
         if (spell != null)
-            dataManager.set(STACK_DATA, spell);
+            dataManager.set(STACK, spell);
     }
 
     public void setRadius(float newRadius) {
-        this.dataManager.set(RADIUS_DATA, newRadius);
+        this.dataManager.set(RADIUS, newRadius);
     }
 
     public void setTicksToExist(int ticks) {
@@ -166,6 +166,6 @@ public class WaveEntity extends Entity {
     }
 
     public void setGravity(double gravity) {
-        dataManager.set(GRAVITY_DATA, (float) gravity);
+        dataManager.set(GRAVITY, (float) gravity);
     }
 }
