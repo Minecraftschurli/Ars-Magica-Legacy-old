@@ -2,19 +2,19 @@
   "block.altar.component_added": {
     "category": "block",
     "sounds": [
-      "arsmagicalegacy:block/craftingaltar/component_added"
+      "arsmagicalegacy:block/altar_core/component_added"
     ]
   },
   "block.altar.create_spell": {
     "category": "block",
     "sounds": [
-      "arsmagicalegacy:block/craftingaltar/create_spell"
+      "arsmagicalegacy:block/altar_core/create_spell"
     ]
   },
   "block.arcane_reconstructor.complete": {
     "category": "block",
     "sounds": [
-      "arsmagicalegacy:block/reconstructor/complete"
+      "arsmagicalegacy:block/arcane_reconstructor/complete"
     ]
   },
   "block.gateway.open": {
@@ -26,7 +26,7 @@
   "block.inscription_table.take_book": {
     "category": "block",
     "sounds": [
-      "arsmagicalegacy:block/inscriptiontable/take_book"
+      "arsmagicalegacy:block/inscription_table/take_book"
     ]
   },
   "entity.arcane_guardian.death": {
@@ -384,13 +384,13 @@
   "spell.magic_level_up": {
     "category": "ambient",
     "sounds": [
-      "arsmagicalegacy:block/event/magic_level_up"
+      "arsmagicalegacy:spell/magic_level_up"
     ]
   },
   "spell.magic_unlocked": {
     "category": "ambient",
     "sounds": [
-      "arsmagicalegacy:block/event/magic_unlocked"
+      "arsmagicalegacy:spell/magic_unlocked"
     ]
   },
   "spell.mana_shield": {
