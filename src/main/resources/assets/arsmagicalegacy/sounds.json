@@ -1,560 +1,546 @@
 {
-	"misc.calefactor.burn": {
-	  "category": "block",
-	  "sounds": [
-	    "arsmagicalegacy:misc/calefactor/burn"
-	  ]
-	},
-	"misc.craftingaltar.create_spell": {
-	  "category": "block",
-	  "sounds": [
-	    "arsmagicalegacy:misc/craftingaltar/create_spell"
-	  ]
-	},
-	"misc.craftingaltar.component_added": {
-	  "category": "block",
-	  "sounds": [
-	    "arsmagicalegacy:misc/craftingaltar/component_added"
-	  ]
-	},
-	"misc.event.magic_unlocked": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:misc/event/magic_unlocked"
-	  ]
-	},
-	"misc.event.magic_level_up": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:misc/event/magic_level_up"
-	  ]
-	},
-	"misc.gateway.open": {
-	  "category": "block",
-	  "sounds": [
-	    "arsmagicalegacy:misc/gateway/open"
-	  ]
-	},
-	"misc.inscriptiontable.take_book": {
-	  "category": "block",
-	  "sounds": [
-	    "arsmagicalegacy:misc/inscriptiontable/take_book"
-	  ]
-	},
-	"misc.reconstructor.complete": {
-	  "category": "block",
-	  "sounds": [
-	    "arsmagicalegacy:misc/reconstructor/complete"
-	  ]
-	},
-	
-	
-	"mob.arcaneguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/arcaneguardian/death"
-	  ]
-	},
-	"mob.arcaneguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/arcaneguardian/hit"
-	  ]
-	},
-	"mob.arcaneguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/arcaneguardian/idle"
-	  ]
-	},
-	"mob.arcaneguardian.spell": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/arcaneguardian/spell1",
-		"arsmagicalegacy:mob/arcaneguardian/spell2",
-		"arsmagicalegacy:mob/arcaneguardian/spell3",
-		"arsmagicalegacy:mob/arcaneguardian/spell4",
-		"arsmagicalegacy:mob/arcaneguardian/spell5"
-	  ]
-	},
-	"mob.earthguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/earthguardian/death"
-	  ]
-	},
-	"mob.earthguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/earthguardian/hit"
-	  ]
-	},
-	"mob.earthguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/earthguardian/idle"
-	  ]
-	},
-	"mob.earthguardian.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/earthguardian/attack"
-	  ]
-	},
-	"mob.enderguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/enderguardian/death"
-	  ]
-	},
-	"mob.enderguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/enderguardian/hit"
-	  ]
-	},
-	"mob.enderguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/enderguardian/idle"
-	  ]
-	},
-	"mob.enderguardian.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/enderguardian/attack"
-	  ]
-	},
-	"mob.enderguardian.flap": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/enderguardian/flap"
-	  ]
-	},
-	"mob.enderguardian.roar": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/enderguardian/roar"
-	  ]
-	},
-	"mob.fireguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/fireguardian/death"
-	  ]
-	},
-	"mob.fireguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/fireguardian/hit"
-	  ]
-	},
-	"mob.fireguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/fireguardian/idle"
-	  ]
-	},
-	"mob.fireguardian.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/fireguardian/attack"
-	  ]
-	},
-	"mob.fireguardian.flamethrower": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/fireguardian/flamethrower"
-	  ]
-	},
-	"mob.fireguardian.nova": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/fireguardian/nova"
-	  ]
-	},
-	"mob.hecate.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/hecate/death"
-	  ]
-	},
-	"mob.hecate.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/hecate/idle1",
-		"arsmagicalegacy:mob/hecate/idle2",
-		"arsmagicalegacy:mob/hecate/idle3"
-	  ]
-	},
-	"mob.hecate.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/hecate/hit"
-	  ]
-	},
-	"mob.lifeguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lifeguardian/death"
-	  ]
-	},
-	"mob.lifeguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lifeguardian/hit"
-	  ]
-	},
-	"mob.lifeguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lifeguardian/idle"
-	  ]
-	},
-	"mob.lifeguardian.summon": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lifeguardian/summon"
-	  ]
-	},
-	"mob.lifeguardian.heal": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lifeguardian/heal"
-	  ]
-	},
-	"mob.lightningguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/death"
-	  ]
-	},
-	"mob.lightningguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/hit"
-	  ]
-	},
-	"mob.lightningguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/idle"
-	  ]
-	},
-	"mob.lightningguardian.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/attack"
-	  ]
-	},
-	"mob.lightningguardian.static": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/static"
-	  ]
-	},
-	"mob.lightningguardian.lightning_rod_start": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/lightning_rod_start"
-	  ]
-	},
-	"mob.lightningguardian.lightning_rod_1": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/lightning_rod_1"
-	  ]
-	},
-	"mob.lightningguardian.lightning_rod_2": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/lightningguardian/lightning_rod_2"
-	  ]
-	},
-	"mob.moo.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/moo/attack1",
-		"arsmagicalegacy:mob/moo/attack2",
-		"arsmagicalegacy:mob/moo/attack3",
-		"arsmagicalegacy:mob/moo/attack4",
-		"arsmagicalegacy:mob/moo/attack5",
-		"arsmagicalegacy:mob/moo/attack6"
-	  ]
-	},
-	"mob.moo.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/moo/death1",
-		"arsmagicalegacy:mob/moo/death2",
-		"arsmagicalegacy:mob/moo/death3",
-		"arsmagicalegacy:mob/moo/death4",
-		"arsmagicalegacy:mob/moo/death5"
-	  ]
-	},
-	"mob.moo.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/moo/hit1",
-		"arsmagicalegacy:mob/moo/hit2",
-		"arsmagicalegacy:mob/moo/hit3",
-		"arsmagicalegacy:mob/moo/hit4"
-	  ]
-	},
-	"mob.moo.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/moo/idle1",
-		"arsmagicalegacy:mob/moo/idle2",
-		"arsmagicalegacy:mob/moo/idle3",
-		"arsmagicalegacy:mob/moo/idle4",
-		"arsmagicalegacy:mob/moo/idle5"
-	  ]
-	},
-	"mob.natureguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/natureguardian/death"
-	  ]
-	},
-	"mob.natureguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/natureguardian/hit"
-	  ]
-	},
-	"mob.natureguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/natureguardian/idle"
-	  ]
-	},
-	"mob.natureguardian.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/natureguardian/attack"
-	  ]
-	},
-	"mob.natureguardian.whirlloop": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/natureguardian/whirlloop"
-	  ]
-	},
-	"mob.waterguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/waterguardian/death"
-	  ]
-	},
-	"mob.waterguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/waterguardian/idle"
-	  ]
-	},
-	"mob.winterguardian.death": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/winterguardian/death"
-	  ]
-	},
-	"mob.winterguardian.hit": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/winterguardian/hit"
-	  ]
-	},
-	"mob.winterguardian.idle": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/winterguardian/idle"
-	  ]
-	},
-	"mob.winterguardian.attack": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/winterguardian/attack"
-	  ]
-	},
-	"mob.winterguardian.launch_arm": {
-	  "category": "hostile",
-	  "sounds": [
-	    "arsmagicalegacy:mob/winterguardian/launch_arm"
-	  ]
-	},
-	
-	
-	"spell.binding.cast": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/binding/cast"
-	  ]
-	},
-	"spell.cast.air": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/air"
-	  ]
-	},
-	"spell.cast.arcane": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/arcane"
-	  ]
-	},
-	"spell.cast.earth": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/earth"
-	  ]
-	},
-	"spell.cast.ender": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/ender"
-	  ]
-	},
-	"spell.cast.fire": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/fire"
-	  ]
-	},
-	"spell.cast.ice": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/ice"
-	  ]
-	},
-	"spell.cast.life": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/life"
-	  ]
-	},
-	"spell.cast.lightning": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/lightning"
-	  ]
-	},
-	"spell.cast.nature": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/nature"
-	  ]
-	},
-	"spell.cast.none": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/none"
-	  ]
-	},
-	"spell.cast.water": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/cast/water"
-	  ]
-	},
-	"spell.contingency.cast": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/contingency/cast"
-	  ]
-	},
-	"spell.loop.air": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/air"
-	  ]
-	},
-	"spell.loop.arcane": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/arcane"
-	  ]
-	},
-	"spell.loop.earth": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/earth"
-	  ]
-	},
-	"spell.loop.ender": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/ender"
-	  ]
-	},
-	"spell.loop.fire": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/fire"
-	  ]
-	},
-	"spell.loop.ice": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/ice"
-	  ]
-	},
-	"spell.loop.life": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/life"
-	  ]
-	},
-	"spell.loop.lightning": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/lightning"
-	  ]
-	},
-	"spell.loop.nature": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/nature"
-	  ]
-	},
-	"spell.loop.none": {
-	  "category": "ambient",
-	  "sounds": []
-	},
-	"spell.loop.water": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/loop/water"
-	  ]
-	},
-	"spell.rune.cast": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/rune/cast"
-	  ]
-	},
-	"spell.special.mana_shield_block": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/special/mana_shield_block"
-	  ]
-	},
-	"spell.special.starfall": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/special/starfall"
-	  ]
-	},
-	"spell.summon.light": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/summon/light"
-	  ]
-	},
-	"spell.summon.scary": {
-	  "category": "ambient",
-	  "sounds": [
-	    "arsmagicalegacy:spell/summon/scary"
-	  ]
-	}
+  "block.altar.component_added": {
+    "category": "block",
+    "sounds": [
+      "arsmagicalegacy:block/craftingaltar/component_added"
+    ]
+  },
+  "block.altar.create_spell": {
+    "category": "block",
+    "sounds": [
+      "arsmagicalegacy:block/craftingaltar/create_spell"
+    ]
+  },
+  "block.arcane_reconstructor.complete": {
+    "category": "block",
+    "sounds": [
+      "arsmagicalegacy:block/reconstructor/complete"
+    ]
+  },
+  "block.gateway.open": {
+    "category": "block",
+    "sounds": [
+      "arsmagicalegacy:block/gateway/open"
+    ]
+  },
+  "block.inscription_table.take_book": {
+    "category": "block",
+    "sounds": [
+      "arsmagicalegacy:block/inscriptiontable/take_book"
+    ]
+  },
+  "entity.arcane_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/arcane_guardian/death"
+    ]
+  },
+  "entity.arcane_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/arcane_guardian/hit"
+    ]
+  },
+  "entity.arcane_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/arcane_guardian/idle"
+    ]
+  },
+  "entity.arcane_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/arcane_guardian/attack_0",
+      "arsmagicalegacy:entity/arcane_guardian/attack_1",
+      "arsmagicalegacy:entity/arcane_guardian/attack_2",
+      "arsmagicalegacy:entity/arcane_guardian/attack_3",
+      "arsmagicalegacy:entity/arcane_guardian/attack_4"
+    ]
+  },
+  "entity.earth_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/earth_guardian/death"
+    ]
+  },
+  "entity.earth_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/earth_guardian/hit"
+    ]
+  },
+  "entity.earth_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/earth_guardian/idle"
+    ]
+  },
+  "entity.earth_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/earth_guardian/attack"
+    ]
+  },
+  "entity.ender_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ender_guardian/death"
+    ]
+  },
+  "entity.ender_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ender_guardian/hit"
+    ]
+  },
+  "entity.ender_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ender_guardian/idle"
+    ]
+  },
+  "entity.ender_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ender_guardian/attack"
+    ]
+  },
+  "entity.ender_guardian.flap": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ender_guardian/flap"
+    ]
+  },
+  "entity.ender_guardian.roar": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ender_guardian/roar"
+    ]
+  },
+  "entity.fire_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/fire_guardian/death"
+    ]
+  },
+  "entity.fire_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/fire_guardian/hit"
+    ]
+  },
+  "entity.fire_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/fire_guardian/idle"
+    ]
+  },
+  "entity.fire_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/fire_guardian/attack"
+    ]
+  },
+  "entity.fire_guardian.flamethrower": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/fire_guardian/flamethrower"
+    ]
+  },
+  "entity.fire_guardian.nova": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/fire_guardian/nova"
+    ]
+  },
+  "entity.hecate.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/hecate/death"
+    ]
+  },
+  "entity.hecate.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/hecate/hit"
+    ]
+  },
+  "entity.hecate.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/hecate/idle_0",
+      "arsmagicalegacy:entity/hecate/idle_1",
+      "arsmagicalegacy:entity/hecate/idle_2"
+    ]
+  },
+  "entity.ice_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ice_guardian/death"
+    ]
+  },
+  "entity.ice_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ice_guardian/hit"
+    ]
+  },
+  "entity.ice_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ice_guardian/idle"
+    ]
+  },
+  "entity.ice_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ice_guardian/attack"
+    ]
+  },
+  "entity.ice_guardian.launch_arm": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/ice_guardian/launch_arm"
+    ]
+  },
+  "entity.life_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/life_guardian/death"
+    ]
+  },
+  "entity.life_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/life_guardian/hit"
+    ]
+  },
+  "entity.life_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/life_guardian/idle"
+    ]
+  },
+  "entity.life_guardian.summon": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/life_guardian/summon"
+    ]
+  },
+  "entity.life_guardian.heal": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/life_guardian/heal"
+    ]
+  },
+  "entity.lightning_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/death"
+    ]
+  },
+  "entity.lightning_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/hit"
+    ]
+  },
+  "entity.lightning_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/idle"
+    ]
+  },
+  "entity.lightning_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/attack"
+    ]
+  },
+  "entity.lightning_guardian.bolt_start": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/bolt_start"
+    ]
+  },
+  "entity.lightning_guardian.bolt_0": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/bolt_0"
+    ]
+  },
+  "entity.lightning_guardian.bolt_1": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/bolt_1"
+    ]
+  },
+  "entity.lightning_guardian.static": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/lightning_guardian/static"
+    ]
+  },
+  "entity.moo.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/moo/attack_0",
+      "arsmagicalegacy:entity/moo/attack_1",
+      "arsmagicalegacy:entity/moo/attack_2",
+      "arsmagicalegacy:entity/moo/attack_3",
+      "arsmagicalegacy:entity/moo/attack_4",
+      "arsmagicalegacy:entity/moo/attack_5"
+    ]
+  },
+  "entity.moo.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/moo/death_0",
+      "arsmagicalegacy:entity/moo/death_1",
+      "arsmagicalegacy:entity/moo/death_2",
+      "arsmagicalegacy:entity/moo/death_3",
+      "arsmagicalegacy:entity/moo/death_4"
+    ]
+  },
+  "entity.moo.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/moo/hit_0",
+      "arsmagicalegacy:entity/moo/hit_1",
+      "arsmagicalegacy:entity/moo/hit_2",
+      "arsmagicalegacy:entity/moo/hit_3"
+    ]
+  },
+  "entity.moo.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/moo/idle_0",
+      "arsmagicalegacy:entity/moo/idle_1",
+      "arsmagicalegacy:entity/moo/idle_2",
+      "arsmagicalegacy:entity/moo/idle_3",
+      "arsmagicalegacy:entity/moo/idle_4"
+    ]
+  },
+  "entity.nature_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/nature_guardian/death"
+    ]
+  },
+  "entity.nature_guardian.hit": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/nature_guardian/hit"
+    ]
+  },
+  "entity.nature_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/nature_guardian/idle"
+    ]
+  },
+  "entity.nature_guardian.attack": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/nature_guardian/attack"
+    ]
+  },
+  "entity.nature_guardian.loop": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/nature_guardian/loop"
+    ]
+  },
+  "entity.water_guardian.death": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/water_guardian/death"
+    ]
+  },
+  "entity.water_guardian.idle": {
+    "category": "hostile",
+    "sounds": [
+      "arsmagicalegacy:entity/water_guardian/idle"
+    ]
+  },
+  "spell.binding": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/binding"
+    ]
+  },
+  "spell.contingency": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/contingency"
+    ]
+  },
+  "spell.falling_star": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/falling_star"
+    ]
+  },
+  "spell.magic_level_up": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:block/event/magic_level_up"
+    ]
+  },
+  "spell.magic_unlocked": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:block/event/magic_unlocked"
+    ]
+  },
+  "spell.mana_shield": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/mana_shield"
+    ]
+  },
+  "spell.rune": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/rune"
+    ]
+  },
+  "spell.summon_light": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/summon_light"
+    ]
+  },
+  "spell.summon_scary": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/summon_scary"
+    ]
+  },
+  "spell.cast.air": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/air"
+    ]
+  },
+  "spell.cast.arcane": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/arcane"
+    ]
+  },
+  "spell.cast.earth": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/earth"
+    ]
+  },
+  "spell.cast.ender": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/ender"
+    ]
+  },
+  "spell.cast.fire": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/fire"
+    ]
+  },
+  "spell.cast.ice": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/ice"
+    ]
+  },
+  "spell.cast.life": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/life"
+    ]
+  },
+  "spell.cast.lightning": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/lightning"
+    ]
+  },
+  "spell.cast.nature": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/nature"
+    ]
+  },
+  "spell.cast.none": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/none"
+    ]
+  },
+  "spell.cast.water": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/cast/water"
+    ]
+  },
+  "spell.loop.air": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/air"
+    ]
+  },
+  "spell.loop.arcane": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/arcane"
+    ]
+  },
+  "spell.loop.earth": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/earth"
+    ]
+  },
+  "spell.loop.ender": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/ender"
+    ]
+  },
+  "spell.loop.fire": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/fire"
+    ]
+  },
+  "spell.loop.ice": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/ice"
+    ]
+  },
+  "spell.loop.life": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/life"
+    ]
+  },
+  "spell.loop.lightning": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/lightning"
+    ]
+  },
+  "spell.loop.nature": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/nature"
+    ]
+  },
+  "spell.loop.water": {
+    "category": "ambient",
+    "sounds": [
+      "arsmagicalegacy:spell/loop/water"
+    ]
+  }
 }
