@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
@@ -20,8 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public final class FireRainEntity extends Entity {
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(FireRainEntity.class, DataSerializers.VARINT);
@@ -101,7 +100,7 @@ public final class FireRainEntity extends Entity {
                 }
             }
             if (rand.nextInt(10) < 2) {
-                BlockPos pos = new BlockPos(getPosX() - dataManager.get(RADIUS) + rand.nextInt((int) Math.ceil(dataManager.get(RADIUS)) * 2), getPosY(), getPosZ() - dataManager.get(RADIUS) + rand.nextInt((int) Math.ceil(dataManager.get(RADIUS)) * 2));
+                BlockPos pos = new BlockPos(getPosX() - dataManager.get(RADIUS) + rand.nextInt(Math.abs((int) Math.ceil(dataManager.get(RADIUS)) * 2)), getPosY(), getPosZ() - dataManager.get(RADIUS) + rand.nextInt(Math.abs((int) Math.ceil(dataManager.get(RADIUS)) * 2)));
                 if (world.isAirBlock(pos))
                     world.setBlockState(pos, Blocks.FIRE.getDefaultState());
             }

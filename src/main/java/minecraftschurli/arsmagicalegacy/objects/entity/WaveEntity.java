@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
@@ -8,9 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -23,10 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-
-public class WaveEntity extends Entity {
+public final class WaveEntity extends Entity {
     private static final DataParameter<Integer> EFFECT = EntityDataManager.createKey(WaveEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(WaveEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> TICKS = EntityDataManager.createKey(WaveEntity.class, DataSerializers.VARINT);
@@ -99,8 +96,8 @@ public class WaveEntity extends Entity {
 //            int color = 0xFFFFFF;
 //            if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) for (SpellModifier mod : SpellUtils.getModifiers(spell, -1)) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
 //            for (float i = 0; i < dist; i += 0.5f) {
-//                double x = this.getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i;
-//                double z = this.getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i;
+//                double x = getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i;
+//                double z = getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i;
 //                AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
 //                if (effect != null) {
 //                    effect.setIgnoreMaxAge(false);
@@ -110,8 +107,8 @@ public class WaveEntity extends Entity {
 //                    effect.setRGBColorI(color);
 //                    effect.AddParticleController(new ParticleFloatUpward(effect, 0, 0.07f, 1, false));
 //                }
-//                x = this.getPosX() - Math.cos(Math.toRadians(rotationYaw)) * -i;
-//                z = this.getPosZ() - Math.sin(Math.toRadians(rotationYaw)) * -i;
+//                x = getPosX() - Math.cos(Math.toRadians(rotationYaw)) * -i;
+//                z = getPosZ() - Math.sin(Math.toRadians(rotationYaw)) * -i;
 //                effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
 //                if (effect != null) {
 //                    effect.setIgnoreMaxAge(false);
@@ -126,36 +123,35 @@ public class WaveEntity extends Entity {
             dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
             if (dataManager.get(EFFECT) <= 0) {
                 dataManager.set(EFFECT, 5);
-                float radius = this.dataManager.get(RADIUS);
-                for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
-                    if (e == this || e.getEntityId() == dataManager.get(OWNER)) continue;
+                for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - dataManager.get(RADIUS), getPosY() - 1, getPosZ() - dataManager.get(RADIUS), getPosX() + dataManager.get(RADIUS), getPosY() + 3, getPosZ() + dataManager.get(RADIUS)))) {
+                    if (e == this || e == getOwner()) continue;
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                         e = ((EnderDragonPartEntity) e).dragon;
-                    Vec3d a = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * radius);
-                    Vec3d b = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * -radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * -radius);
+                    Vec3d a = new Vec3d(getPosX() - Math.cos(3.1415926f / 180 * (rotationYaw)) * dataManager.get(RADIUS), getPosY(), getPosZ() - Math.sin(3.1415926f / 180 * (rotationYaw)) * dataManager.get(RADIUS));
+                    Vec3d b = new Vec3d(getPosX() - Math.cos(3.1415926f / 180 * (rotationYaw)) * -dataManager.get(RADIUS), getPosY(), getPosZ() - Math.sin(3.1415926f / 180 * (rotationYaw)) * -dataManager.get(RADIUS));
                     Vec3d target = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ());
                     Vec3d closest = RenderUtil.closestPointOnLine(target, a, b);
                     target = new Vec3d(target.x, 0, target.z);
                     closest = new Vec3d(closest.x, 0, closest.z);
-                    if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(this.getPosY() - e.getPosY()) < 2)
-                        SpellUtil.applyStage(dataManager.get(STACK), getOwner(), (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
+                    if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(getPosY() - e.getPosY()) < 2)
+                        SpellUtil.applyStage(dataManager.get(STACK), getOwner(), (LivingEntity) e, getPosX(), getPosY(), getPosZ(), null, world, false, false, 0);
                 }
             }
         }
-        double dx = Math.cos(Math.toRadians(this.rotationYaw + 90));
-        double dz = Math.sin(Math.toRadians(this.rotationYaw + 90));
-        this.moveForced(dx * dataManager.get(SPEED), 0, dz * dataManager.get(SPEED));
-        double dxH = Math.cos(Math.toRadians(this.rotationYaw));
-        double dzH = Math.sin(Math.toRadians(this.rotationYaw));
-        float radius = this.dataManager.get(RADIUS);
+        double dx = Math.cos(Math.toRadians(rotationYaw + 90));
+        double dz = Math.sin(Math.toRadians(rotationYaw + 90));
+        moveForced(dx * dataManager.get(SPEED), 0, dz * dataManager.get(SPEED));
+        double dxH = Math.cos(Math.toRadians(rotationYaw));
+        double dzH = Math.sin(Math.toRadians(rotationYaw));
+        float radius = dataManager.get(RADIUS);
         for (int j = -1; j <= 1; j++) {
-            Vec3d a = new Vec3d((this.getPosX() + dx) - dxH * radius, this.getPosY() + j, (this.getPosZ() + dz) - dzH * radius);
-            Vec3d b = new Vec3d((this.getPosX() + dx) - dxH * -radius, this.getPosY() + j, (this.getPosZ() + dz) - dzH * -radius);
+            Vec3d a = new Vec3d((getPosX() + dx) - dxH * radius, getPosY() + j, (getPosZ() + dz) - dzH * radius);
+            Vec3d b = new Vec3d((getPosX() + dx) - dxH * -radius, getPosY() + j, (getPosZ() + dz) - dzH * -radius);
             double stepX = a.x < b.x ? 0.2f : -0.2f;
             double stepZ = a.z < b.z ? 0.2f : -0.2f;
             ArrayList<Vec3d> vecs = new ArrayList<>();
             Vec3d curPos = new Vec3d(a.x, a.y, a.z);
-            for (int i = 0; i < this.getHeight(); ++i) vecs.add(new Vec3d(curPos.x, curPos.y + i, curPos.z));
+            for (int i = 0; i < getHeight(); ++i) vecs.add(new Vec3d(curPos.x, curPos.y + i, curPos.z));
             while (stepX != 0 || stepZ != 0) {
                 if ((stepX < 0 && curPos.x <= b.x) || (stepX > 0 && curPos.x >= b.x))
                     stepX = 0;
@@ -164,12 +160,12 @@ public class WaveEntity extends Entity {
                 curPos = new Vec3d(curPos.x + stepX, curPos.y, curPos.z + stepZ);
                 Vec3d tempPos = curPos.add(Vec3d.ZERO);
                 if (!vecs.contains(tempPos))
-                    for (int i = 0; i < this.getHeight(); ++i) vecs.add(new Vec3d(tempPos.x, tempPos.y + i, tempPos.z));
+                    for (int i = 0; i < getHeight(); ++i) vecs.add(new Vec3d(tempPos.x, tempPos.y + i, tempPos.z));
             }
             for (Vec3d vec : vecs)
                 SpellUtil.applyStageBlock(dataManager.get(STACK), getOwner(), world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
         }
-        if (!world.isRemote && this.ticksExisted >= dataManager.get(TICKS)) this.remove();
+        if (!world.isRemote && ticksExisted >= dataManager.get(TICKS)) remove();
     }
 
     public LivingEntity getOwner() {
@@ -198,7 +194,7 @@ public class WaveEntity extends Entity {
     }
 
     public void setSpeed(float speed) {
-        this.dataManager.set(SPEED, speed);
+        dataManager.set(SPEED, speed);
     }
 
     public void setStack(ItemStack stack) {

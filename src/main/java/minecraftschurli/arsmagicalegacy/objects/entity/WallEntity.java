@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
@@ -8,9 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -20,8 +19,6 @@ import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public final class WallEntity extends Entity {
     private static final DataParameter<Integer> EFFECT = EntityDataManager.createKey(WallEntity.class, DataSerializers.VARINT);
@@ -92,8 +89,8 @@ public final class WallEntity extends Entity {
 //            int color = 0xFFFFFF;
 //            if (SpellUtil.hasModifier(SpellModifiers.COLOR, spell)) for (SpellModifier mod : SpellUtil.getModifiers(spell, -1)) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
 //            for (float i = 0; i < dist; i += 0.5f) {
-//                double x = this.getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i;
-//                double z = this.getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i;
+//                double x = getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i;
+//                double z = getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i;
 //                AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
 //                if (effect != null) {
 //                    effect.setIgnoreMaxAge(false);
@@ -103,8 +100,8 @@ public final class WallEntity extends Entity {
 //                    effect.setRGBColorI(color);
 //                    effect.AddParticleController(new ParticleFloatUpward(effect, 0, 0.07f, 1, false));
 //                }
-//                x = this.getPosX() - Math.cos(Math.toRadians(rotationYaw)) * -i;
-//                z = this.getPosZ() - Math.sin(Math.toRadians(rotationYaw)) * -i;
+//                x = getPosX() - Math.cos(Math.toRadians(rotationYaw)) * -i;
+//                z = getPosZ() - Math.sin(Math.toRadians(rotationYaw)) * -i;
 //                effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
 //                if (effect != null) {
 //                    effect.setIgnoreMaxAge(false);
@@ -119,23 +116,22 @@ public final class WallEntity extends Entity {
             dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
             if (dataManager.get(EFFECT) <= 0) {
                 dataManager.set(EFFECT, 5);
-                float radius = this.dataManager.get(RADIUS);
-                for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
-                    if (e == this || e == getOwner() || e.getEntityId() == getOwner().getEntityId()) continue;
+                for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - dataManager.get(RADIUS), getPosY() - 1, getPosZ() - dataManager.get(RADIUS), getPosX() + dataManager.get(RADIUS), getPosY() + 3, getPosZ() + dataManager.get(RADIUS)))) {
+                    if (e == this || e == getOwner()) continue;
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                         e = ((EnderDragonPartEntity) e).dragon;
-                    Vec3d a = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * radius);
-                    Vec3d b = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * -radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * -radius);
+                    Vec3d a = new Vec3d(getPosX() - Math.cos(3.1415926f / 180 * (rotationYaw)) * dataManager.get(RADIUS), getPosY(), getPosZ() - Math.sin(3.1415926f / 180 * (rotationYaw)) * dataManager.get(RADIUS));
+                    Vec3d b = new Vec3d(getPosX() - Math.cos(3.1415926f / 180 * (rotationYaw)) * -dataManager.get(RADIUS), getPosY(), getPosZ() - Math.sin(3.1415926f / 180 * (rotationYaw)) * -dataManager.get(RADIUS));
                     Vec3d target = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ());
                     Vec3d closest = RenderUtil.closestPointOnLine(target, a, b);
                     target = new Vec3d(target.x, 0, target.z);
                     closest = new Vec3d(closest.x, 0, closest.z);
-                    if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(this.getPosY() - e.getPosY()) < 2)
-                        SpellUtil.applyStage(dataManager.get(STACK), getOwner(), (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
+                    if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(getPosY() - e.getPosY()) < 2)
+                        SpellUtil.applyStage(dataManager.get(STACK), getOwner(), (LivingEntity) e, getPosX(), getPosY(), getPosZ(), null, world, false, false, 0);
                 }
             }
         }
-        if (!world.isRemote && this.ticksExisted >= dataManager.get(TICKS)) this.remove();
+        if (!world.isRemote && ticksExisted >= dataManager.get(TICKS)) remove();
     }
 
     public LivingEntity getOwner() {

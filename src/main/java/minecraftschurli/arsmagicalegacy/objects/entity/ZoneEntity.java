@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
@@ -7,9 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -22,10 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-
-public class ZoneEntity extends Entity {
+public final class ZoneEntity extends Entity {
     private static final DataParameter<Boolean> FIRST = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> EFFECT = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.VARINT);
@@ -119,8 +116,8 @@ public class ZoneEntity extends Entity {
         dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
         if (dataManager.get(EFFECT) <= 0) {
             dataManager.set(EFFECT, 20);
-            float radius = dataManager.get(RADIUS);
-            for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 3, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
+            for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - dataManager.get(RADIUS), getPosY() - 3, getPosZ() - dataManager.get(RADIUS), getPosX() + dataManager.get(RADIUS), getPosY() + 3, getPosZ() + dataManager.get(RADIUS)))) {
+                if (e == this || e == getOwner()) continue;
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
                 if (e instanceof LivingEntity)
@@ -132,10 +129,10 @@ public class ZoneEntity extends Entity {
             else
                 SpellUtil.applyStage(dataManager.get(STACK), getOwner(), null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
             dataManager.set(FIRST, false);
-            for (float i = -radius; i <= radius; i++) {
+            for (float i = -dataManager.get(RADIUS); i <= dataManager.get(RADIUS); i++) {
                 for (int j = -3; j <= 3; j++) {
-                    Vec3d a = new Vec3d(getPosX() + i, getPosY() + j, getPosZ() - radius);
-                    Vec3d b = new Vec3d(getPosX() + i, getPosY() + j, getPosZ() + radius);
+                    Vec3d a = new Vec3d(getPosX() + i, getPosY() + j, getPosZ() - dataManager.get(RADIUS));
+                    Vec3d b = new Vec3d(getPosX() + i, getPosY() + j, getPosZ() + dataManager.get(RADIUS));
                     double stepX = a.x < b.x ? 0.2f : -0.2f;
                     double stepZ = a.z < b.z ? 0.2f : -0.2f;
                     ArrayList<Vec3d> vecs = new ArrayList<>();

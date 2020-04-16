@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import java.util.Collections;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
@@ -20,16 +22,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -190,13 +187,13 @@ public final class ThrownRockEntity extends Entity {
                 for (LivingEntity e : world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12))) {
                     if (e == world.getEntityByID(dataManager.get(OWNER))) continue;
                     if (getDistance(e) < 12)
-                        SpellUtil.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(dataManager.get(OWNER)), this), dataManager.get(DAMAGE));
+                        SpellUtil.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(getOwner(), this), dataManager.get(DAMAGE));
                 }
             } else {
                 if (mop.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) mop).getEntity() instanceof LivingEntity) {
                     if (((EntityRayTraceResult) mop).getEntity() == world.getEntityByID(dataManager.get(OWNER)) || world.getEntityByID(dataManager.get(OWNER)) == null)
                         return;
-                    ((EntityRayTraceResult) mop).getEntity().attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) world.getEntityByID(dataManager.get(OWNER))), 10);
+                    ((EntityRayTraceResult) mop).getEntity().attackEntityFrom(DamageSource.causeMobDamage(getOwner()), 10);
                 } else if (mop.getType() == RayTraceResult.Type.BLOCK) {
                     if (dataManager.get(MOONSTONE_METEOR)) {
                         if (target == null) target = mop.getHitVec();

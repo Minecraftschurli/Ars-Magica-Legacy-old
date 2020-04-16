@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
@@ -11,7 +12,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -23,8 +23,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public final class BlizzardEntity extends Entity {
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.VARINT);
@@ -127,7 +125,7 @@ public final class BlizzardEntity extends Entity {
                 }
             }
             if (rand.nextInt(10) < 2) {
-                BlockPos pos = new BlockPos(getPosX() - radius + rand.nextInt((int) Math.ceil(radius) * 2), getPosY() + rand.nextInt(2), getPosZ() - radius + rand.nextInt((int) Math.ceil(radius) * 2));
+                BlockPos pos = new BlockPos(getPosX() - radius + rand.nextInt(Math.abs((int) Math.ceil(radius) * 2)), getPosY() + rand.nextInt(2), getPosZ() - radius + rand.nextInt(Math.abs((int) Math.ceil(radius) * 2)));
                 if (world.isAirBlock(pos) && !world.isAirBlock(pos.down()) && world.getBlockState(pos).isOpaqueCube(world, pos))
                     world.setBlockState(pos, Blocks.SNOW.getDefaultState());
             }

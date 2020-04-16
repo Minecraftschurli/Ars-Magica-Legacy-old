@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import java.util.List;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
@@ -21,9 +23,6 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * @author Minecraftschurli
