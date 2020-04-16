@@ -101,7 +101,8 @@ public class EtheriumSpellIngredient implements ISpellIngredient {
 
     @Override
     public boolean consume(World world, BlockPos pos) {
-        TileEntity tile = world.getTileEntity(pos);
+        return true;
+        /*TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof IEtheriumConsumer) {
             BlockPos sourcePos = ((IEtheriumConsumer) tile).getEteriumSource();
             if (sourcePos == null) {
@@ -114,7 +115,7 @@ public class EtheriumSpellIngredient implements ISpellIngredient {
             }
             return source.getCapability(CapabilityHelper.getEtheriumCapability()).map(capability -> capability.consume(this.amount, false)).orElse(false);
         }
-        return false;
+        return false;*/
     }
 
     @Override
