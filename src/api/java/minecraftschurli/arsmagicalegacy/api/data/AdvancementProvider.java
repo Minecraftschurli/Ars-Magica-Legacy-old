@@ -2,6 +2,12 @@ package minecraftschurli.arsmagicalegacy.api.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
@@ -14,13 +20,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli

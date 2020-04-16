@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -14,10 +17,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
 
 public final class Chain extends SpellShape {
     @Override

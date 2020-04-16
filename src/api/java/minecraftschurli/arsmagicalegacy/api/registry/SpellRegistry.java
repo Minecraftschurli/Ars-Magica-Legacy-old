@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.registry;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
@@ -13,10 +16,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * Contains all spell parts, used for both registration<BR>

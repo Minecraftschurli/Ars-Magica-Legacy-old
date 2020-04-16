@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.ability;
 
+import java.util.Collection;
 import minecraftschurli.arsmagicalegacy.api.affinity.AbstractToggledAffinityAbility;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -8,8 +9,6 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.Collection;
 
 public class NightVisionAbility extends AbstractToggledAffinityAbility {
 

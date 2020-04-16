@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
@@ -16,8 +17,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-
-import javax.annotation.Nullable;
 
 public class BeamParticle extends SpriteTexturedParticle {
     private double dX, dY, dZ, uX, uY, uZ;

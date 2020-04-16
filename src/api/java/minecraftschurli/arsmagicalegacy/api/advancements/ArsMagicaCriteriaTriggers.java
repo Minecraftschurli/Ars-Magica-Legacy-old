@@ -1,10 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.advancements;
 
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.util.ResourceLocation;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.advancements.ICriterionTrigger;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Minecraftschurli

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -17,8 +18,6 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.EnumSet;
 
 public final class Beam extends SpellShape {
 //    private final HashMap<Integer, AMBeam> beams;

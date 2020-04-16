@@ -1,8 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import net.minecraft.util.ResourceLocation;
-
 import java.util.Map;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Minecraftschurli

@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.registry.AffinityRegistry;
@@ -49,8 +50,6 @@ import minecraftschurli.arsmagicalegacy.objects.spell.shape.Wave;
 import minecraftschurli.arsmagicalegacy.objects.spell.shape.Zone;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
-
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

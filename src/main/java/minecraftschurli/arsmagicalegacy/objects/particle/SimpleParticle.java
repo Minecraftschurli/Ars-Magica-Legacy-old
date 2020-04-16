@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
@@ -7,8 +8,6 @@ import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class SimpleParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite animatedSprite;

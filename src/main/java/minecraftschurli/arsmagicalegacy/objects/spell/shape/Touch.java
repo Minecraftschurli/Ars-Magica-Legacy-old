@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -15,8 +16,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
-import java.util.EnumSet;
 
 public final class Touch extends SpellShape {
     @Override

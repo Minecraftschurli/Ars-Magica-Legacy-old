@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.data;
 
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -21,9 +23,6 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ForgeRecipeProvider;
-
-import javax.annotation.Nonnull;
-import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli

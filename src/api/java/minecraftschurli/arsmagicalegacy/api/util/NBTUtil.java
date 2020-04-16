@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import java.util.Map;
 import net.minecraft.nbt.ByteArrayNBT;
 import net.minecraft.nbt.ByteNBT;
 import net.minecraft.nbt.CollectionNBT;
@@ -20,8 +21,6 @@ import net.minecraft.nbt.NumberNBT;
 import net.minecraft.nbt.ShortNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.math.Vec3d;
-
-import java.util.Map;
 
 /**
  * @author Minecraftschurli

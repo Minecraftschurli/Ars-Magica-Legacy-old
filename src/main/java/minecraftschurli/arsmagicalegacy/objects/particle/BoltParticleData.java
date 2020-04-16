@@ -2,6 +2,13 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
@@ -13,14 +20,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
 
 public class BoltParticleData implements IParticleData {
     public static final IParticleData.IDeserializer<BoltParticleData> DESERIALIZER = new IParticleData.IDeserializer<BoltParticleData>() {

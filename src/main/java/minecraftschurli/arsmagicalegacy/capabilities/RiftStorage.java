@@ -1,13 +1,12 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.capability.IRiftStorage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import java.util.Objects;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
@@ -22,9 +24,6 @@ import net.minecraft.item.TallBlockItem;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.fml.RegistryObject;
-
-import javax.annotation.Nonnull;
-import java.util.Objects;
 
 /**
  * @author Minecraftschurli

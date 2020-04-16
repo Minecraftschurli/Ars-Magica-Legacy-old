@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.util;
 
+import java.lang.reflect.Method;
+import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,9 +14,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-
-import java.lang.reflect.Method;
-import java.util.List;
 
 public final class EntityUtil {
 //    private static final HashMap<Integer, ArrayList<EntityAITasks.EntityAITaskEntry>> storedTasks = new HashMap<>();
