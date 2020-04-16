@@ -40,7 +40,7 @@ public final class Lunar extends SpellModifier {
 
     private float modifyValueOnTime(World world, float value) {
         long x = world.getGameTime() % 24000;
-        float multiplierFromTime = (float) (Math.sin(((x / 4600f) * (x / 21000f) - 900) * (180 / Math.PI)) * 3) + 1;
+        float multiplierFromTime = (float) (Math.sin(((x / 4600f) * (x / 21000f) - 900) * (180 / 3.14159265358979)) * 3) + 1;
         if (multiplierFromTime < 0) multiplierFromTime *= -0.5f;
         return value * multiplierFromTime;
     }

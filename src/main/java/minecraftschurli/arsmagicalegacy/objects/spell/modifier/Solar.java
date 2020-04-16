@@ -38,7 +38,7 @@ public final class Solar extends SpellModifier {
     }
 
     private float modifyValueOnTime(World world, float value) {
-        float multiplierFromTime = (float) (Math.cos((((world.getGameTime() % 24000) / 3800f) * ((world.getGameTime() % 24000) / 24000f) - 13000f) * (180f / Math.PI)) * 1.5f) + 1;
+        float multiplierFromTime = (float) (Math.cos((((world.getGameTime() % 24000) / 3800f) * ((world.getGameTime() % 24000) / 24000f) - 13000f) * (180f / 3.14159265358979)) * 1.5f) + 1;
         if (multiplierFromTime < 0)
             multiplierFromTime *= -0.5f;
         return value * multiplierFromTime;

@@ -41,8 +41,8 @@ public final class EntityUtil {
         double y = entity.getPosY() + 1.6 - entity.getYOffset();
         double z = entity.getPosZ();
         Vec3d vec = new Vec3d(x, y, z);
-        float f1 = MathHelper.cos(-yaw * 0.017453292f - (float) Math.PI);
-        float f2 = MathHelper.sin(-yaw * 0.017453292f - (float) Math.PI);
+        float f1 = MathHelper.cos(-yaw * 0.017453292f - 3.1415926f);
+        float f2 = MathHelper.sin(-yaw * 0.017453292f - 3.1415926f);
         float f3 = -MathHelper.cos(-pitch * 0.017453292f);
         float f4 = MathHelper.sin(-pitch * 0.017453292f);
         return vec.add(f2 * f3 * range, f4 * range, f1 * f3 * range);
@@ -61,8 +61,8 @@ public final class EntityUtil {
         double interpPosY = caster.prevPosY + (caster.getPosY() - caster.prevPosY) * factor + caster.getEyeHeight();
         double interpPosZ = caster.prevPosZ + (caster.getPosZ() - caster.prevPosZ) * factor;
         Vec3d vec3 = new Vec3d(interpPosX, interpPosY, interpPosZ);
-        float offsetYawCos = MathHelper.cos(-interpYaw * 0.017453292F - (float) Math.PI);
-        float offsetYawSin = MathHelper.sin(-interpYaw * 0.017453292F - (float) Math.PI);
+        float offsetYawCos = MathHelper.cos(-interpYaw * 0.017453292F - 3.1415926f);
+        float offsetYawSin = MathHelper.sin(-interpYaw * 0.017453292F - 3.1415926f);
         float offsetPitchCos = -MathHelper.cos(-interpPitch * 0.017453292F);
         float offsetPitchSin = MathHelper.sin(-interpPitch * 0.017453292F);
         float finalXOffset = offsetYawSin * offsetPitchCos;

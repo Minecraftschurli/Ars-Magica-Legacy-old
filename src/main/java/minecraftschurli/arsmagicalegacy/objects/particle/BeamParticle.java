@@ -55,8 +55,8 @@ public class BeamParticle extends SpriteTexturedParticle {
         double deltaY = posY - dY;
         double deltaZ = posZ - dZ;
         length = MathHelper.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-        yaw = ((float) (Math.atan2(deltaX, deltaZ) * 180 / Math.PI));
-        pitch = ((float) (Math.atan2(deltaY, MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ)) * 180 / Math.PI));
+        yaw = ((float) (Math.atan2(deltaX, deltaZ) * 180 / 3.14159265358979));
+        pitch = ((float) (Math.atan2(deltaY, MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ)) * 180 / 3.14159265358979));
     }
 
     public BeamParticle instant() {
@@ -90,7 +90,7 @@ public class BeamParticle extends SpriteTexturedParticle {
             if (fppc) {
                 PlayerEntity player = Minecraft.getInstance().player;
                 if (player != null) {
-                    double rotYaw = player.rotationYaw * Math.PI / 180;
+                    double rotYaw = player.rotationYaw * 3.14159265358979 / 180;
                     posX -= Math.cos(rotYaw) * 0.06f;
                     posZ -= Math.sin(rotYaw) * 0.06f;
                     posY += 0.06f;

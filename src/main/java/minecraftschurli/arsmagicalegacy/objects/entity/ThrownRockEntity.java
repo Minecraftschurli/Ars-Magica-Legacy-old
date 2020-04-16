@@ -219,7 +219,7 @@ public final class ThrownRockEntity extends Entity {
             remove();
         }
         setPosition(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
-        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180) / Math.PI);
+        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180) / 3.14159265358979);
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
     }

@@ -60,7 +60,7 @@ public final class ManaBlast extends SpellComponent {
 
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        double snapAngle = (2 * Math.PI) / (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5;
+//        double snapAngle = (2 * 3.14159265358979) / (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5;
 //        for (int j = 0; j < 4; j++) {
 //            for (int i = 0; i < (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5; i++) {
 //                double posX = x + (Math.cos(snapAngle * i) * (j * 0.5));

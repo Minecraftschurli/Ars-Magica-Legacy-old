@@ -99,8 +99,8 @@ public class WaveEntity extends Entity {
 //            int color = 0xFFFFFF;
 //            if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) for (SpellModifier mod : SpellUtils.getModifiers(spell, -1)) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
 //            for (float i = 0; i < dist; i += 0.5f) {
-//                double x = this.getPosX() - Math.cos(Math.PI / 180 * (rotationYaw)) * i;
-//                double z = this.getPosZ() - Math.sin(Math.PI / 180 * (rotationYaw)) * i;
+//                double x = this.getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i;
+//                double z = this.getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i;
 //                AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
 //                if (effect != null) {
 //                    effect.setIgnoreMaxAge(false);
