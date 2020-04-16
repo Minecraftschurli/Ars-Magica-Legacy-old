@@ -17,13 +17,14 @@ public final class Zone extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (world.isRemote) return SpellCastResult.SUCCESS;
-        ZoneEntity zone = new ZoneEntity(world);
-        zone.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
-        zone.setTicksToExist(SpellUtil.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
-        zone.setGravity(SpellUtil.modifyDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
-        zone.setCasterAndStack(caster, stack);
-        zone.setPosition(x, y, z);
-        world.addEntity(zone);
+        ZoneEntity entity = new ZoneEntity(world);
+        entity.setPosition(x, y, z);
+        entity.setGravity((float)SpellUtil.modifyDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
+        entity.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
+        entity.setTicks(SpellUtil.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
+        entity.setOwner(caster);
+        entity.setStack(stack);
+        world.addEntity(entity);
         return SpellCastResult.SUCCESS;
     }
 

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import java.util.EnumSet;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
@@ -11,27 +12,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
-import java.util.EnumSet;
-
 public final class Projectile extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (!world.isRemote) {
-            double projectileSpeed = SpellUtil.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED);
-            float projectileGravity = (float) SpellUtil.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY);
-            int projectileBounce = SpellUtil.modifyIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE);
-            SpellProjectileEntity projectile = new SpellProjectileEntity(world);
-            projectile.setPosition(caster.getPosX(), caster.getEyeHeight() + caster.getPosY(), caster.getPosZ());
-            projectile.setMotion(caster.getLookVec().getX() * projectileSpeed, caster.getLookVec().getY() * projectileSpeed, caster.getLookVec().getZ() * projectileSpeed);
-            if (SpellUtil.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) projectile.setTargetWater();
-            projectile.setGravity(projectileGravity);
-            projectile.setBounces(projectileBounce);
-            projectile.setNumPierces((SpellUtil.countModifiers(SpellModifiers.PIERCING, stack) * 2) * 2);
-            projectile.setShooter(caster);
-            projectile.setHoming(SpellUtil.hasModifier(SpellModifiers.HOMING, stack));
-            projectile.setSpell(stack);
-//            projectile.setIcon(AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(stack)));
-            world.addEntity(projectile);
+            SpellProjectileEntity entity = new SpellProjectileEntity(world);
+            entity.setPosition(caster.getPosX(), caster.getEyeHeight() + caster.getPosY(), caster.getPosZ());
+            entity.setMotion(caster.getLookVec().getX() * SpellUtil.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED), caster.getLookVec().getY() * SpellUtil.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED), caster.getLookVec().getZ() * SpellUtil.modifyDoubleAdd(stack, caster, target, world, SpellModifiers.SPEED));
+            if (SpellUtil.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) entity.setTargetNonSolid();
+            entity.setHoming(SpellUtil.hasModifier(SpellModifiers.HOMING, stack));
+            entity.setBounces(SpellUtil.modifyIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE));
+            entity.setGravity((float)SpellUtil.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY));
+            entity.setPierces((SpellUtil.countModifiers(SpellModifiers.PIERCING, stack) * 2) * 2);
+            entity.setOwner(caster);
+            entity.setStack(stack);
+//            entity.setIcon(AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(stack)));
+            world.addEntity(entity);
         }
         return SpellCastResult.SUCCESS;
     }

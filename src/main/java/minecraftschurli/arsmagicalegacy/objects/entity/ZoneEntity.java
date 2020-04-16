@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
@@ -14,24 +15,25 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class ZoneEntity extends Entity {
-    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Boolean> FIRST = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> EFFECT = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TICKS = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
-    private boolean firstApply = true;
-    private int ticksToEffect = 20;
-    private int ticksToExist = 100;
-    private ItemStack spell;
-    private PlayerEntity caster;
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ZoneEntity.class, DataSerializers.ITEMSTACK);
 
     public ZoneEntity(World world) {
         this(ModEntities.WALL.get(), world);
@@ -43,20 +45,49 @@ public class ZoneEntity extends Entity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
-        return null;
+    protected void readAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        dataManager.set(FIRST, tag.getBoolean("First"));
+        dataManager.set(EFFECT, tag.getInt("Effect"));
+        dataManager.set(OWNER, tag.getInt("Owner"));
+        dataManager.set(TICKS, tag.getInt("Ticks"));
+        dataManager.set(DAMAGE, tag.getFloat("Damage"));
+        dataManager.set(GRAVITY, tag.getFloat("Gravity"));
+        dataManager.set(RADIUS, tag.getFloat("Radius"));
+        dataManager.set(STACK, ItemStack.read(tag.getCompound("Stack")));
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
+    protected void writeAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        tag.putBoolean("First", dataManager.get(FIRST));
+        tag.putInt("Effect", dataManager.get(EFFECT));
+        tag.putInt("Owner", dataManager.get(OWNER));
+        tag.putInt("Ticks", dataManager.get(TICKS));
+        tag.putFloat("Damage", dataManager.get(DAMAGE));
+        tag.putFloat("Gravity", dataManager.get(GRAVITY));
+        tag.putFloat("Radius", dataManager.get(RADIUS));
+        CompoundNBT tmp = new CompoundNBT();
+        dataManager.get(STACK).write(tmp);
+        tag.put("Stack", tmp);
+    }
+
+    @Nonnull
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return new SSpawnObjectPacket(this, getOwner() == null ? 0 : getOwner().getEntityId());
     }
 
     @Override
     protected void registerData() {
+        dataManager.register(FIRST, true);
+        dataManager.register(EFFECT, 20);
+        dataManager.register(OWNER, 0);
+        dataManager.register(TICKS, 100);
         dataManager.register(DAMAGE, 1f);
         dataManager.register(GRAVITY, 0f);
         dataManager.register(RADIUS, 3f);
-        dataManager.register(STACK, new ItemStack(Items.GOLDEN_APPLE));
+        dataManager.register(STACK, ItemStack.EMPTY);
     }
 
     @Override
@@ -85,26 +116,22 @@ public class ZoneEntity extends Entity {
 //            }
         }
         moveForced(0, dataManager.get(GRAVITY), 0);
-        ticksToEffect--;
-        if (spell == null) {
-            if (!world.isRemote) remove();
-            return;
-        }
-        if (ticksToEffect <= 0) {
-            ticksToEffect = 20;
+        dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
+        if (dataManager.get(EFFECT) <= 0) {
+            dataManager.set(EFFECT, 20);
             float radius = dataManager.get(RADIUS);
             for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 3, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                     e = ((EnderDragonPartEntity) e).dragon;
                 if (e instanceof LivingEntity)
-                    SpellUtil.applyStageEntity(spell, caster, world, e, false);
-                SpellUtil.applyStage(spell.copy(), caster, (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
+                    SpellUtil.applyStageEntity(dataManager.get(STACK), getOwner(), world, e, false);
+                SpellUtil.applyStage(dataManager.get(STACK), getOwner(), (LivingEntity) e, e.getPosX(), e.getPosY() - 1, e.getPosZ(), null, world, false, false, ticksExisted);
             }
-            if (dataManager.get(GRAVITY) < 0 && !firstApply)
-                SpellUtil.applyStage(spell.copy(), caster, null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
+            if (dataManager.get(GRAVITY) < 0 && !dataManager.get(FIRST))
+                SpellUtil.applyStage(dataManager.get(STACK), getOwner(), null, getPosX(), getPosY() - 1, getPosZ(), null, world, false, false, ticksExisted);
             else
-                SpellUtil.applyStage(spell.copy(), caster, null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
-            firstApply = false;
+                SpellUtil.applyStage(dataManager.get(STACK), getOwner(), null, getPosX(), getPosY(), getPosZ(), null, world, false, false, ticksExisted);
+            dataManager.set(FIRST, false);
             for (float i = -radius; i <= radius; i++) {
                 for (int j = -3; j <= 3; j++) {
                     Vec3d a = new Vec3d(getPosX() + i, getPosY() + j, getPosZ() - radius);
@@ -125,33 +152,39 @@ public class ZoneEntity extends Entity {
                             vecs.add(new Vec3d(tempPos.x, tempPos.y + k, tempPos.z));
                     }
                     for (Vec3d vec : vecs)
-                        SpellUtil.applyStageBlock(spell.copy(), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
+                        SpellUtil.applyStageBlock(dataManager.get(STACK), getOwner(), world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
                 }
             }
         }
-        if (!world.isRemote && ticksExisted >= ticksToExist) remove();
+        if (!world.isRemote && ticksExisted >= dataManager.get(TICKS)) remove();
     }
 
-    @Override
-    protected void writeAdditional(CompoundNBT compound) {
+    public LivingEntity getOwner() {
+        try {
+            return (LivingEntity) world.getEntityByID(getDataManager().get(OWNER));
+        } catch (RuntimeException e) {
+            remove();
+            return null;
+        }
     }
 
-    public void setCasterAndStack(LivingEntity entity, ItemStack stack) {
-        if (entity instanceof PlayerEntity) caster = (PlayerEntity) entity;
-        spell = stack;
-        if (spell != null)
-            dataManager.set(STACK, spell);
+    public void setGravity(float gravity) {
+        dataManager.set(GRAVITY, gravity);
     }
 
-    public void setGravity(double gravity) {
-        dataManager.set(GRAVITY, (float) gravity);
+    public void setOwner(LivingEntity owner) {
+        dataManager.set(OWNER, owner.getEntityId());
     }
 
     public void setRadius(float radius) {
         dataManager.set(RADIUS, radius);
     }
 
-    public void setTicksToExist(int ticks) {
-        ticksToExist = ticks;
+    public void setStack(ItemStack stack) {
+        dataManager.set(STACK, stack);
+    }
+
+    public void setTicks(int ticks) {
+        dataManager.set(TICKS, ticks);
     }
 }

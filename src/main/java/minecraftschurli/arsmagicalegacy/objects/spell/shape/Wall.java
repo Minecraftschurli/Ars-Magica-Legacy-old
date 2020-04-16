@@ -17,13 +17,14 @@ public final class Wall extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (world.isRemote) return SpellCastResult.SUCCESS;
-        WallEntity wall = new WallEntity(world);
-        wall.setRadius((float) SpellUtil.modifyDoubleAdd(3, stack, caster, target, world, SpellModifiers.RADIUS));
-        wall.setTicksToExist(SpellUtil.modifyIntAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
-        wall.setGravity(SpellUtil.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
-        wall.setCasterAndStack(caster, stack);
-        wall.setPosition(x, y, z);
-        world.addEntity(wall);
+        WallEntity entity = new WallEntity(world);
+        entity.setPosition(x, y, z);
+        entity.setGravity(SpellUtil.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
+        entity.setRadius((float) SpellUtil.modifyDoubleAdd(3, stack, caster, target, world, SpellModifiers.RADIUS));
+        entity.setTicks(SpellUtil.modifyIntAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
+        entity.setOwner(caster);
+        entity.setStack(stack);
+        world.addEntity(entity);
         return SpellCastResult.SUCCESS;
     }
 

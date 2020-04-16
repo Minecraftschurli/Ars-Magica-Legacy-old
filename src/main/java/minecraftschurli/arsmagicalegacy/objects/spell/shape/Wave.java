@@ -17,14 +17,15 @@ public final class Wave extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
         if (world.isRemote) return SpellCastResult.SUCCESS;
-        WaveEntity wave = new WaveEntity(world);
-        wave.setRadius((float) SpellUtil.modifyDoubleAdd(1, stack, caster, target, world, SpellModifiers.RADIUS));
-        wave.setTicksToExist(SpellUtil.modifyIntMul(20, stack, caster, target, world, SpellModifiers.DURATION));
-        wave.setCasterAndStack(caster, stack);
-        wave.setPosition(x, y + 1, z);
-        wave.noClip = SpellUtil.hasModifier(SpellModifiers.PIERCING, stack);
-        wave.setGravity(SpellUtil.countModifiers(SpellModifiers.GRAVITY, stack) * 0.5f);
-        world.addEntity(wave);
+        WaveEntity entity = new WaveEntity(world);
+        entity.setPosition(x, y + 1, z);
+        entity.noClip = SpellUtil.hasModifier(SpellModifiers.PIERCING, stack);
+        entity.setGravity(SpellUtil.countModifiers(SpellModifiers.GRAVITY, stack) * 0.5f);
+        entity.setRadius((float) SpellUtil.modifyDoubleAdd(1, stack, caster, target, world, SpellModifiers.RADIUS));
+        entity.setTicks(SpellUtil.modifyIntMul(20, stack, caster, target, world, SpellModifiers.DURATION));
+        entity.setOwner(caster);
+        entity.setStack(stack);
+        world.addEntity(entity);
         return SpellCastResult.SUCCESS;
     }
 

@@ -24,13 +24,14 @@ public final class Blizzard extends SpellComponent {
         if (!world.getEntitiesWithinAABB(BlizzardEntity.class, new AxisAlignedBB(impactX - 10, impactY - 10, impactZ - 10, impactX + 10, impactY + 10, impactZ + 10)).isEmpty())
             return false;
         if (!world.isRemote) {
-            BlizzardEntity blizzard = new BlizzardEntity(world);
-            blizzard.setPosition(impactX, impactY, impactZ);
-            blizzard.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, caster, world, SpellModifiers.RADIUS));
-            blizzard.setTicksToExist(SpellUtil.modifyIntMul(100, stack, caster, caster, world, SpellModifiers.DURATION));
-            blizzard.setDamage((float) SpellUtil.modifyDoubleMul(1, stack, caster, caster, world, SpellModifiers.DAMAGE));
-            blizzard.setCasterAndStack(caster, stack);
-            world.addEntity(blizzard);
+            BlizzardEntity entity = new BlizzardEntity(world);
+            entity.setPosition(impactX, impactY, impactZ);
+            entity.setDamage((float) SpellUtil.modifyDoubleMul(1, stack, caster, caster, world, SpellModifiers.DAMAGE));
+            entity.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, caster, world, SpellModifiers.RADIUS));
+            entity.setTicks(SpellUtil.modifyIntMul(100, stack, caster, caster, world, SpellModifiers.DURATION));
+            entity.setOwner(caster);
+            entity.setStack(stack);
+            world.addEntity(entity);
         }
         return true;
     }

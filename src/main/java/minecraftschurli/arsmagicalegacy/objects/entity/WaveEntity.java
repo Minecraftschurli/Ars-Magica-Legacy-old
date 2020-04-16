@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
@@ -15,24 +16,25 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class WaveEntity extends Entity {
-    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(WaveEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Integer> EFFECT = EntityDataManager.createKey(WaveEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(WaveEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TICKS = EntityDataManager.createKey(WaveEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
-    private int ticksToEffect = 20;
-    private int ticksToExist = 100;
-    private float moveSpeed;
-    private ItemStack spell;
-    private PlayerEntity caster;
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> SPEED = EntityDataManager.createKey(WaveEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(WaveEntity.class, DataSerializers.ITEMSTACK);
 
     public WaveEntity(World world) {
         this(ModEntities.WAVE.get(), world);
@@ -44,25 +46,53 @@ public class WaveEntity extends Entity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
-        return null;
+    protected void readAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        dataManager.set(EFFECT, tag.getInt("Effect"));
+        dataManager.set(OWNER, tag.getInt("Owner"));
+        dataManager.set(TICKS, tag.getInt("Ticks"));
+        dataManager.set(DAMAGE, tag.getFloat("Damage"));
+        dataManager.set(GRAVITY, tag.getFloat("Gravity"));
+        dataManager.set(RADIUS, tag.getFloat("Radius"));
+        dataManager.set(SPEED, tag.getFloat("Speed"));
+        dataManager.set(STACK, ItemStack.read(tag.getCompound("Stack")));
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
+    protected void writeAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        tag.putInt("Effect", dataManager.get(EFFECT));
+        tag.putInt("Owner", dataManager.get(OWNER));
+        tag.putInt("Ticks", dataManager.get(TICKS));
+        tag.putFloat("Damage", dataManager.get(DAMAGE));
+        tag.putFloat("Gravity", dataManager.get(GRAVITY));
+        tag.putFloat("Radius", dataManager.get(RADIUS));
+        tag.putFloat("Speed", dataManager.get(SPEED));
+        CompoundNBT tmp = new CompoundNBT();
+        dataManager.get(STACK).write(tmp);
+        tag.put("Stack", tmp);
+    }
+
+    @Nonnull
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return new SSpawnObjectPacket(this, getOwner() == null ? 0 : getOwner().getEntityId());
     }
 
     @Override
     protected void registerData() {
-        this.dataManager.register(RADIUS, 3f);
-        this.dataManager.register(STACK, new ItemStack(Items.GOLDEN_APPLE));
-        this.dataManager.register(GRAVITY, 0F);
-        this.dataManager.register(DAMAGE, 1.0f);
+        dataManager.register(EFFECT, 20);
+        dataManager.register(OWNER, 0);
+        dataManager.register(TICKS, 100);
+        dataManager.register(DAMAGE, 1f);
+        dataManager.register(GRAVITY, 0f);
+        dataManager.register(RADIUS, 3f);
+        dataManager.register(SPEED, 0f);
+        dataManager.register(STACK, ItemStack.EMPTY);
     }
 
     @Override
     public void tick() {
-        ticksToEffect = 0;
         if (world.isRemote) {
 //            if (spell == null) spell = dataManager.get(STACK_DATA);
 //            double dist = dataManager.get(RADIUS_DATA);
@@ -93,16 +123,12 @@ public class WaveEntity extends Entity {
 //                }
 //            }
         } else {
-            ticksToEffect--;
-            if (spell == null) {
-                this.remove();
-                return;
-            }
-            if (ticksToEffect <= 0) {
-                ticksToEffect = 5;
+            dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
+            if (dataManager.get(EFFECT) <= 0) {
+                dataManager.set(EFFECT, 5);
                 float radius = this.dataManager.get(RADIUS);
                 for (Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
-                    if (e == this || e == caster || e.getEntityId() == caster.getEntityId()) continue;
+                    if (e == this || e.getEntityId() == dataManager.get(OWNER)) continue;
                     if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                         e = ((EnderDragonPartEntity) e).dragon;
                     Vec3d a = new Vec3d(this.getPosX() - Math.cos(3.141 / 180 * (rotationYaw)) * radius, this.getPosY(), this.getPosZ() - Math.sin(3.141 / 180 * (rotationYaw)) * radius);
@@ -112,13 +138,13 @@ public class WaveEntity extends Entity {
                     target = new Vec3d(target.x, 0, target.z);
                     closest = new Vec3d(closest.x, 0, closest.z);
                     if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(this.getPosY() - e.getPosY()) < 2)
-                        SpellUtil.applyStage(spell, caster, (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
+                        SpellUtil.applyStage(dataManager.get(STACK), getOwner(), (LivingEntity) e, this.getPosX(), this.getPosY(), this.getPosZ(), null, world, false, false, 0);
                 }
             }
         }
         double dx = Math.cos(Math.toRadians(this.rotationYaw + 90));
         double dz = Math.sin(Math.toRadians(this.rotationYaw + 90));
-        this.moveForced(dx * moveSpeed, 0, dz * moveSpeed);
+        this.moveForced(dx * dataManager.get(SPEED), 0, dz * dataManager.get(SPEED));
         double dxH = Math.cos(Math.toRadians(this.rotationYaw));
         double dzH = Math.sin(Math.toRadians(this.rotationYaw));
         float radius = this.dataManager.get(RADIUS);
@@ -127,7 +153,7 @@ public class WaveEntity extends Entity {
             Vec3d b = new Vec3d((this.getPosX() + dx) - dxH * -radius, this.getPosY() + j, (this.getPosZ() + dz) - dzH * -radius);
             double stepX = a.x < b.x ? 0.2f : -0.2f;
             double stepZ = a.z < b.z ? 0.2f : -0.2f;
-            ArrayList<Vec3d> vecs = new ArrayList<Vec3d>();
+            ArrayList<Vec3d> vecs = new ArrayList<>();
             Vec3d curPos = new Vec3d(a.x, a.y, a.z);
             for (int i = 0; i < this.getHeight(); ++i) vecs.add(new Vec3d(curPos.x, curPos.y + i, curPos.z));
             while (stepX != 0 || stepZ != 0) {
@@ -141,31 +167,45 @@ public class WaveEntity extends Entity {
                     for (int i = 0; i < this.getHeight(); ++i) vecs.add(new Vec3d(tempPos.x, tempPos.y + i, tempPos.z));
             }
             for (Vec3d vec : vecs)
-                SpellUtil.applyStageBlock(dataManager.get(STACK), caster, world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
+                SpellUtil.applyStageBlock(dataManager.get(STACK), getOwner(), world, new BlockPos(vec), Direction.UP, vec.x + 0.5, vec.y + 0.5, vec.z + 0.5, false);
         }
-        if (!world.isRemote && this.ticksExisted >= this.ticksToExist) this.remove();
+        if (!world.isRemote && this.ticksExisted >= dataManager.get(TICKS)) this.remove();
     }
 
-    @Override
-    protected void writeAdditional(CompoundNBT compound) {
+    public LivingEntity getOwner() {
+        try {
+            return (LivingEntity) world.getEntityByID(getDataManager().get(OWNER));
+        } catch (RuntimeException e) {
+            remove();
+            return null;
+        }
     }
 
-    public void setCasterAndStack(LivingEntity entity, ItemStack stack) {
-        if (entity instanceof PlayerEntity) caster = (PlayerEntity) entity;
-        spell = stack;
-        if (spell != null)
-            dataManager.set(STACK, spell);
+    public void setDamage(float damage) {
+        dataManager.set(DAMAGE, damage);
     }
 
-    public void setRadius(float newRadius) {
-        this.dataManager.set(RADIUS, newRadius);
+    public void setGravity(float gravity) {
+        dataManager.set(GRAVITY, gravity);
     }
 
-    public void setTicksToExist(int ticks) {
-        this.ticksToExist = ticks;
+    public void setOwner(LivingEntity owner) {
+        dataManager.set(OWNER, owner.getEntityId());
     }
 
-    public void setGravity(double gravity) {
-        dataManager.set(GRAVITY, (float) gravity);
+    public void setRadius(float radius) {
+        dataManager.set(RADIUS, radius);
+    }
+
+    public void setSpeed(float speed) {
+        this.dataManager.set(SPEED, speed);
+    }
+
+    public void setStack(ItemStack stack) {
+        dataManager.set(STACK, stack);
+    }
+
+    public void setTicks(int ticks) {
+        dataManager.set(TICKS, ticks);
     }
 }

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -34,305 +35,230 @@ import java.util.List;
  * @author Minecraftschurli
  * @version 2019-11-28
  */
-public class ThrownRockEntity extends Entity {
+public final class ThrownRockEntity extends Entity {
     private static final DataParameter<Boolean> MOONSTONE_METEOR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SHOOTING_STAR = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Integer> MAX_TICKS = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.VARINT);
-    private int maxTicksToExist;
-    private Vec3d target = null;
-    private float damage;
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ThrownRockEntity.class, DataSerializers.ITEMSTACK);
+    private Vec3d target;
 
-    public ThrownRockEntity(World worldIn) {
-        this(ModEntities.THROWN_ROCK.get(), worldIn);
+    public ThrownRockEntity(World world) {
+        this(ModEntities.THROWN_ROCK.get(), world);
     }
 
-    public ThrownRockEntity(EntityType<?> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
-        ticksExisted = 0;
-        maxTicksToExist = 120;
-        this.noClip = true;
+    public ThrownRockEntity(EntityType<?> type, World world) {
+        super(type, world);
+        noClip = true;
+        target = null;
     }
 
-    public ThrownRockEntity(World world, LivingEntity entityLiving, double projectileSpeed) {
-        this(world);
-        this.noClip = true;
-        setThrowingEntity(entityLiving);
-        //setSize(0.25F, 0.25F);
-        setLocationAndAngles(entityLiving.getPosX(), entityLiving.getPosY() + entityLiving.getEyeHeight(), entityLiving.getPosZ(), entityLiving.rotationYaw, entityLiving.rotationPitch);
-        double tmpX = getPosX() - MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
-        double tmpY = getPosY() - 0.10000000149011612D;
-        double tmpZ = getPosZ() - MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
-        setPosition(tmpX, tmpY, tmpZ);
-        float f = 0.05F;
-        setMotion(
-                -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F) * f,
-                -MathHelper.sin((rotationPitch / 180F) * 3.141593F) * f,
-                MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F) * f
-        );
-        maxTicksToExist = 100;
-        setHeading(getMotion().x, getMotion().y, getMotion().z, projectileSpeed, projectileSpeed);
+    @Override
+    public void readAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        dataManager.set(MAX_TICKS, tag.getInt("MaxTicks"));
+        dataManager.set(OWNER, tag.getInt("Owner"));
+        dataManager.set(DAMAGE, tag.getFloat("Damage"));
+        dataManager.set(STACK, ItemStack.read(tag.getCompound("Stack")));
+        if (tag.getBoolean("MoonstoneMeteor")) setMoonstoneMeteor();
+        if (tag.getBoolean("ShootingStar")) setShootingStar(getDataManager().get(DAMAGE));
     }
 
-    public void setMoonstoneMeteor() {
-        this.dataManager.set(MOONSTONE_METEOR, true);
+    @Override
+    public void writeAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        tag.putBoolean("MoonstoneMeteor", dataManager.get(MOONSTONE_METEOR));
+        tag.putBoolean("ShootingStar", dataManager.get(SHOOTING_STAR));
+        tag.putFloat("Damage", dataManager.get(DAMAGE));
+        tag.putInt("MaxTicks", dataManager.get(MAX_TICKS));
+        tag.putInt("Owner", dataManager.get(OWNER));
+        CompoundNBT tmp = new CompoundNBT();
+        dataManager.get(STACK).write(tmp);
+        tag.put("Stack", tmp);
     }
 
-    public void setShootingStar(float damage) {
-        this.dataManager.set(SHOOTING_STAR, true);
-        this.damage = damage;
+    @Override
+    public boolean attackEntityFrom(@Nonnull DamageSource source, float damage) {
+        return false;
     }
 
-    public void setMoonstoneMeteorTarget(Vec3d target) {
-        this.target = target;
-    }
-
-    public boolean getIsMoonstoneMeteor() {
-        return dataManager.get(MOONSTONE_METEOR);
-    }
-
-    public boolean getIsShootingStar() {
-        return dataManager.get(SHOOTING_STAR);
-    }
-
-    public void setHeading(double movementX, double movementY, double movementZ, double projectileSpeed, double projectileSpeed2) {
-        float f = MathHelper.sqrt(movementX * movementX + movementY * movementY + movementZ * movementZ);
-        movementX /= f;
-        movementY /= f;
-        movementZ /= f;
-        movementX += rand.nextGaussian() * 0.0074999998323619366D * projectileSpeed2;
-        movementY += rand.nextGaussian() * 0.0074999998323619366D * projectileSpeed2;
-        movementZ += rand.nextGaussian() * 0.0074999998323619366D * projectileSpeed2;
-        movementX *= projectileSpeed;
-        movementY *= projectileSpeed;
-        movementZ *= projectileSpeed;
-        setMotion(movementX, movementY, movementZ);
-        float f1 = MathHelper.sqrt(movementX * movementX + movementZ * movementZ);
-        prevRotationYaw = rotationYaw = (float) ((Math.atan2(movementX, movementZ) * 180D) / Math.PI);
-        prevRotationPitch = rotationPitch = (float) ((Math.atan2(movementY, f1) * 180D) / Math.PI);
-    }
-
-    public void setThrowingEntity(LivingEntity thrower) {
-        this.dataManager.set(OWNER, thrower.getEntityId());
+    @Nonnull
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return new SSpawnObjectPacket(this, getOwner() == null ? 0 : getOwner().getEntityId());
     }
 
     @Override
     protected void registerData() {
-        this.dataManager.register(MOONSTONE_METEOR, false);
-        this.dataManager.register(SHOOTING_STAR, false);
-        this.dataManager.register(STACK, new ItemStack(ModItems.SPELL.get()));
-        this.dataManager.register(OWNER, 0);
-    }
-
-    private ItemStack getSpellStack() {
-        return this.dataManager.get(STACK);
-    }
-
-    public void setSpellStack(ItemStack spellStack) {
-        this.dataManager.set(STACK, spellStack);
+        dataManager.register(MOONSTONE_METEOR, false);
+        dataManager.register(SHOOTING_STAR, false);
+        dataManager.register(DAMAGE, 0f);
+        dataManager.register(MAX_TICKS, 120);
+        dataManager.register(OWNER, 0);
+        dataManager.register(STACK, new ItemStack(ModItems.SPELL.get()));
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.target != null && this.getPosY() > this.target.y) {
-            double deltaX = this.getPosX() - target.x;
-            double deltaY = this.getPosY() - target.y;
-            double deltaZ = this.getPosZ() - target.z;
-            double angle = Math.atan2(deltaZ, deltaX);
-            double hDist = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-            double vAngle = Math.atan2(deltaY, hDist);
-            setMotion(-Math.cos(angle) * 0.2, -Math.sin(angle) * 0.2, -Math.sin(vAngle) * 2.5);
+        if (target != null && getPosY() > target.y) {
+            double x = getPosX() - target.x;
+            double z = getPosZ() - target.z;
+            double angle = Math.atan2(z, x);
+            setMotion(-Math.cos(angle) * 0.2, -Math.sin(angle) * 0.2, -Math.sin(Math.atan2(getPosY() - target.y, Math.sqrt(x * x + z * z))) * 2.5);
         }
-        if (!getIsMoonstoneMeteor() && !getIsShootingStar()) {
-            //noinspection ConstantConditions
-            if (!world.isRemote && (world.getEntityByID(getDataManager().get(OWNER)) == null || !world.getEntityByID(getDataManager().get(OWNER)).isAlive())) {
-                remove();
-            } else {
+        if (!dataManager.get(MOONSTONE_METEOR) && !isShootingStar()) {
+            if (!world.isRemote && (world.getEntityByID(dataManager.get(OWNER)) == null || !world.getEntityByID(dataManager.get(OWNER)).isAlive())) remove();
+            else {
                 ticksExisted++;
-                int maxTicksToLive = maxTicksToExist > -1 ? maxTicksToExist : 100;
+                int maxTicksToLive = getMaxTicks() > -1 ? getMaxTicks() : 100;
                 if (ticksExisted >= maxTicksToLive && !world.isRemote) {
                     remove();
                     return;
                 }
             }
         }
-        if (getIsShootingStar()) {
+        if (isShootingStar()) {
             setMotion(getMotion().add(0, -0.1f, 0));
             if (getMotion().y < -2f)
                 setMotion(getMotion().x, -2f, getMotion().z);
-        }//TODO: @IchHabeHunger54
-
-        /*if (worldObj.isRemote){
-            if (getIsMoonstoneMeteor()){
-                AMParticle fire = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "explosion_2", getPosX(), getPosY(), getPosZ());
-                if (fire != null){
-                    fire.setMaxAge(20);
-                    fire.setRGBColorF(1, 1, 1);
-                    fire.setParticleScale(2);
-                    fire.AddParticleController(new ParticleHoldPosition(fire, 20, 1, false));
-                    fire.AddParticleController(new ParticleColorShift(fire, 1, false).SetShiftSpeed(0.1f).SetColorTarget(0.01f, 0.01f, 0.01f).SetEndOnReachingTargetColor().setKillParticleOnFinish(false));
-                }
-            } else if (getIsShootingStar()){
-
-                int color = -1;
-                if (getSpellStack() != null){
-                    if (SpellUtils.modifierIsPresent(SpellModifiers.COLOR, getSpellStack())){
-                        List<SpellModifier> mods = SpellUtils.getModifiersForStage(getSpellStack(), -1);
-                        for (SpellModifier mod : mods){
-                            if (mod instanceof Color){
-                                color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, getSpellStack().getTagCompound());
-                            }
-                        }
-                    }
-                }
-
-                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f){
-                    AMParticle star = (AMParticle)ArsMagica2.proxy.particleManager.spawn(worldObj, "ember", getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
-                    if (star != null){
-                        star.setMaxAge(22);
-                        float clrMod = Minecraft.getMinecraft().theWorld.rand.nextFloat();
-                        int finalColor = -1;
-                        if (color == -1)
-                            finalColor = MathUtilities.colorFloatsToInt(0.24f * clrMod, 0.58f * clrMod, 0.71f * clrMod);
-                        else{
-                            float[] colors = MathUtilities.colorIntToFloats(color);
-                            for (int c = 0; c < colors.length; c++)
-                                colors[c] = colors[c] * clrMod;
-                            finalColor = MathUtilities.colorFloatsToInt(colors[0], colors[1], colors[2]);
-                        }
-                        star.setRGBColorI(finalColor);
-                        star.AddParticleController(new ParticleHoldPosition(star, 20, 1, false));
-                        star.AddParticleController(new ParticleChangeSize(star, 0.5f, 0.05f, 20, 1, false));
-                    }
-                }
-            }
-        }*/
+        }
+//        if (world.isRemote) {
+//            if (dataManager.get(MOONSTONE_METEOR)) {
+//                AMParticle fire = (AMParticle) ArsMagica2.proxy.particleManager.spawn(worldObj, "explosion_2", getPosX(), getPosY(), getPosZ());
+//                if (fire != null) {
+//                    fire.setMaxAge(20);
+//                    fire.setRGBColorF(1, 1, 1);
+//                    fire.setParticleScale(2);
+//                    fire.AddParticleController(new ParticleHoldPosition(fire, 20, 1, false));
+//                    fire.AddParticleController(new ParticleColorShift(fire, 1, false).SetShiftSpeed(0.1f).SetColorTarget(0.01f, 0.01f, 0.01f).SetEndOnReachingTargetColor().setKillParticleOnFinish(false));
+//                }
+//            } else if (isShootingStar()) {
+//                int color = -1;
+//                dataManager.get(STACK);
+//                if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
+//                    for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
+//                        if (mod instanceof Color)
+//                            color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
+//                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f) {
+//                    AMParticle star = (AMParticle) ArsMagica2.proxy.particleManager.spawn(worldObj, "ember", getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
+//                    if (star != null) {
+//                        star.setMaxAge(22);
+//                        float clrMod = Minecraft.getInstance().world.rand.nextFloat();
+//                        int finalColor = -1;
+//                        if (color == -1)
+//                            finalColor = MathUtilities.colorFloatsToInt(0.24f * clrMod, 0.58f * clrMod, 0.71f * clrMod);
+//                        else {
+//                            float[] colors = MathUtilities.colorIntToFloats(color);
+//                            for (int c = 0; c < colors.length; c++)
+//                                colors[c] = colors[c] * clrMod;
+//                            finalColor = MathUtilities.colorFloatsToInt(colors[0], colors[1], colors[2]);
+//                        }
+//                        star.setRGBColorI(finalColor);
+//                        star.AddParticleController(new ParticleHoldPosition(star, 20, 1, false));
+//                        star.AddParticleController(new ParticleChangeSize(star, 0.5f, 0.05f, 20, 1, false));
+//                    }
+//                }
+//            }
+//        }
         Vec3d vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
         Vec3d vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
-        RayTraceResult movingobjectposition = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+        RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
         vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
-        //vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
-        vec3d1 = new Vec3d(movingobjectposition.getHitVec().x, movingobjectposition.getHitVec().y, movingobjectposition.getHitVec().z);
+        vec3d1 = new Vec3d(mop.getHitVec().x, mop.getHitVec().y, mop.getHitVec().z);
         Entity entity = null;
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1, 1, 1));
         double d = 0;
-        for (Entity value : list) {
-            if (!value.canBeCollidedWith() || value.isEntityEqual(world.getEntityByID(getDataManager().get(OWNER))) && ticksExisted < 25) {
+        for (Entity value : world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1, 1, 1))) {
+            if (!value.canBeCollidedWith() || value.isEntityEqual(world.getEntityByID(dataManager.get(OWNER))) && ticksExisted < 25)
                 continue;
-            }
             float f2 = 0.3F;
             AxisAlignedBB axisalignedbb = value.getBoundingBox().expand(f2, f2, f2);
-            RayTraceResult movingobjectposition1 = AxisAlignedBB.rayTrace(Collections.singletonList(axisalignedbb), vec3d, vec3d1, getPosition());
-            if (movingobjectposition1 == null) {
-                continue;
-            }
-            double d1 = vec3d.distanceTo(movingobjectposition1.getHitVec());
+            RayTraceResult rtr = AxisAlignedBB.rayTrace(Collections.singletonList(axisalignedbb), vec3d, vec3d1, getPosition());
+            if (rtr == null) continue;
+            double d1 = vec3d.distanceTo(rtr.getHitVec());
             if (d1 < d || d == 0) {
                 entity = value;
                 d = d1;
             }
         }
-        if (entity != null) {
-            movingobjectposition = new EntityRayTraceResult(entity);
-        }
-        hitObject(movingobjectposition);
-        double tmpX = getPosX() + getMotion().x;
-        double tmpY = getPosY() + getMotion().y;
-        double tmpZ = getPosZ() + getMotion().z;
-        this.setPosition(tmpX, tmpY, tmpZ);
-        float f = MathHelper.sqrt(getMotion().x * getMotion().x + getMotion().z * getMotion().z);
-        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180D) / 3.1415927410125732D);
-        //noinspection StatementWithEmptyBody
-        for (rotationPitch = (float) ((Math.atan2(getMotion().y, f) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
-        }
-        //noinspection StatementWithEmptyBody
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {
-        }
-        //noinspection StatementWithEmptyBody
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {
-        }
-        //noinspection StatementWithEmptyBody
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {
-        }
-        rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
-        rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
-        setPosition(getPosX(), getPosY(), getPosZ());
-    }
-
-    protected void hitObject(RayTraceResult movingobjectposition) {
-        if (world.isRemote) {
-            return;
-        }
-        if (getIsShootingStar()) {
-            //AMNetHandler.INSTANCE.sendStarImpactToClients(getPosX(), getPosY() + ((movingobjectposition.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)movingobjectposition).getEntity().getEyeHeight() : 1.5f), getPosZ(), world, this.getSpellStack());
-            List<LivingEntity> ents = world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12));
-            this.setPosition(getPosX(), getPosY() + 1, getPosZ());
-            for (LivingEntity e : ents) {
-                if (e == world.getEntityByID(getDataManager().get(OWNER))) continue;
-                if (this.getDistance(e) < 12)
-                    //noinspection ConstantConditions
-                    SpellUtil.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(getDataManager().get(OWNER)), this), damage);
-            }
-        } else {
-            if (movingobjectposition.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) movingobjectposition).getEntity() instanceof LivingEntity) {
-                if (((EntityRayTraceResult) movingobjectposition).getEntity() == world.getEntityByID(getDataManager().get(OWNER)) || world.getEntityByID(getDataManager().get(OWNER)) == null)
-                    return;
-                //noinspection ConstantConditions
-                ((EntityRayTraceResult) movingobjectposition).getEntity().attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) world.getEntityByID(getDataManager().get(OWNER))), 10);
-            } else if (movingobjectposition.getType() == RayTraceResult.Type.BLOCK) {
-                if (this.getIsMoonstoneMeteor()) {
-                    if (this.target == null) {
-                        this.target = movingobjectposition.getHitVec();
+        if (entity != null) mop = new EntityRayTraceResult(entity);
+        if (!world.isRemote) {
+            if (isShootingStar()) {
+                //AMNetHandler.INSTANCE.sendStarImpactToClients(getPosX(), getPosY() + ((mop.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)mop).getEntity().getEyeHeight() : 1.5f), getPosZ(), world, getSpellStack());
+                setPosition(getPosX(), getPosY() + 1, getPosZ());
+                for (LivingEntity e : world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12))) {
+                    if (e == world.getEntityByID(dataManager.get(OWNER))) continue;
+                    if (getDistance(e) < 12)
+                        SpellUtil.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(world.getEntityByID(dataManager.get(OWNER)), this), dataManager.get(DAMAGE));
+                }
+            } else {
+                if (mop.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) mop).getEntity() instanceof LivingEntity) {
+                    if (((EntityRayTraceResult) mop).getEntity() == world.getEntityByID(dataManager.get(OWNER)) || world.getEntityByID(dataManager.get(OWNER)) == null)
+                        return;
+                    ((EntityRayTraceResult) mop).getEntity().attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) world.getEntityByID(dataManager.get(OWNER))), 10);
+                } else if (mop.getType() == RayTraceResult.Type.BLOCK) {
+                    if (dataManager.get(MOONSTONE_METEOR)) {
+                        if (target == null) target = mop.getHitVec();
+                        world.createExplosion(this, target.getX(), target.getY(), target.getZ(), 0.8f, Explosion.Mode.NONE);
+                        int numOres = rand.nextInt(4) + 1;
+                        for (int i = 0; i < numOres; i++) {
+                            BlockPos pos = new BlockPos(target);
+                            pos = pos.east(rand.nextInt(4) - 2);
+                            pos = pos.south(rand.nextInt(4) - 2);
+                            while (!world.isAirBlock(pos) && pos.getY() < world.getActualHeight())
+                                pos = pos.up();
+                            if (rand.nextInt(4) < 2 || i == 0)
+                                world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());
+                            else
+                                world.setBlockState(pos, Blocks.STONE.getDefaultState());
+                        }
                     }
-                    this.world.createExplosion(this, this.target.getX(), this.target.getY(), this.target.getZ(), 0.8f, Explosion.Mode.NONE /*ArsMagica2.config.moonstoneMeteorsDestroyTerrain()*/);
-                    int numOres = rand.nextInt(4) + 1;
-                    for (int i = 0; i < numOres; i++) {
-                        generateSurfaceOreAtOffset(world, new BlockPos(target), i == 0);
-                    }
-//					if (this.world.isRemote){
-//						for (Object player : world.playerEntities)
-//							if (((EntityPlayer)player).getDistanceSqToEntity(this) < 4096)
-//								CompendiumUnlockHandler.unlockEntry("moonstone_meteors");
-//					}
                 }
             }
+            remove();
         }
-        this.remove();
+        setPosition(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
+        rotationYaw = (float) ((Math.atan2(getMotion().x, getMotion().z) * 180) / Math.PI);
+        rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
+        rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
     }
 
-    private void generateSurfaceOreAtOffset(World world, BlockPos pos, boolean force) {
-        pos = pos.east(rand.nextInt(4) - 2);
-        pos = pos.south(rand.nextInt(4) - 2);
-        while (!world.isAirBlock(pos) && pos.getY() < world.getActualHeight())
-            pos = pos.up();
-        if (rand.nextInt(4) < 2 || force)
-            world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());
-        else
-            world.setBlockState(pos, Blocks.STONE.getDefaultState());
+    public int getMaxTicks() {
+        return dataManager.get(MAX_TICKS);
     }
 
-    @Override
-    public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
-        return false;
+    public LivingEntity getOwner() {
+        try {
+            return (LivingEntity) world.getEntityByID(getDataManager().get(OWNER));
+        } catch (RuntimeException e) {
+            remove();
+            return null;
+        }
     }
 
-    @Override
-    public void readAdditional(CompoundNBT compound) {
-        this.damage = compound.getFloat("star_damage");
-        if (compound.getBoolean("MoonstoneMeteor"))
-            this.setMoonstoneMeteor();
+    public boolean isShootingStar() {
+        return dataManager.get(SHOOTING_STAR);
     }
 
-    @Override
-    public void writeAdditional(CompoundNBT compound) {
-        compound.putFloat("star_damage", damage);
-        compound.putBoolean("MoonstoneMeteor", getIsMoonstoneMeteor());
+    public void setMoonstoneMeteor() {
+        dataManager.set(MOONSTONE_METEOR, true);
     }
 
-    @Nonnull
-    @Override
-    public IPacket<?> createSpawnPacket() {
-        return new SSpawnObjectPacket(this, getDataManager().get(OWNER));
+    public void setOwner(LivingEntity owner) {
+        dataManager.set(OWNER, owner.getEntityId());
+    }
+
+    public void setShootingStar(float damage) {
+        dataManager.set(SHOOTING_STAR, true);
+        dataManager.set(DAMAGE, 0f);
+    }
+
+    public void setStack(ItemStack stack) {
+        dataManager.set(STACK, stack);
+    }
+
+    public void setTarget(Vec3d target) {
+        this.target = target;
     }
 }

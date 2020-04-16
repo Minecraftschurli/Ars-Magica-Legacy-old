@@ -24,13 +24,14 @@ public final class FireRain extends SpellComponent {
         if (!world.getEntitiesWithinAABB(FireRainEntity.class, new AxisAlignedBB(impactX - 10, impactY - 10, impactZ - 10, impactX + 10, impactY + 10, impactZ + 10)).isEmpty())
             return false;
         if (!world.isRemote) {
-            FireRainEntity fire = new FireRainEntity(world);
-            fire.setPosition(impactX, impactY, impactZ);
-            fire.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, caster, world, SpellModifiers.RADIUS) / 2f + 1);
-            fire.setDamage((float) SpellUtil.modifyDoubleMul(1, stack, caster, caster, world, SpellModifiers.DAMAGE));
-            fire.setTicksToExist(SpellUtil.modifyIntMul(100, stack, caster, caster, world, SpellModifiers.DURATION));
-            fire.setCasterAndStack(caster, stack);
-            world.addEntity(fire);
+            FireRainEntity entity = new FireRainEntity(world);
+            entity.setPosition(impactX, impactY, impactZ);
+            entity.setDamage((float) SpellUtil.modifyDoubleMul(1, stack, caster, caster, world, SpellModifiers.DAMAGE));
+            entity.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, caster, world, SpellModifiers.RADIUS) / 2f + 1);
+            entity.setTicks(SpellUtil.modifyIntMul(100, stack, caster, caster, world, SpellModifiers.DURATION));
+            entity.setOwner(caster);
+            entity.setStack(stack);
+            world.addEntity(entity);
         }
         return true;
     }

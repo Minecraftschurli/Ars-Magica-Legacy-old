@@ -22,128 +22,115 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-17
  */
-public class SpellProjectileEntity extends Entity {
-    private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<ItemStack> EFFECT = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.ITEMSTACK);
-    private static final DataParameter<String> ICON = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.STRING);
-    private static final DataParameter<Integer> PIERCING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> SHOOTER = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> NONSOLID = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
+public final class SpellProjectileEntity extends Entity {
     private static final DataParameter<Boolean> HOMING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> NON_SOLID = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> CURRENT_PIERCES = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> HOMING_TARGET = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
-    private int currentPierces;
+    private static final DataParameter<Integer> PIERCING = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<String> ICON = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.STRING);
+    private static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(SpellProjectileEntity.class, DataSerializers.ITEMSTACK);
 
-    public SpellProjectileEntity(World worldIn) {
-        this(ModEntities.SPELL_PROJECTILE.get(), worldIn);
+    public SpellProjectileEntity(World world) {
+        this(ModEntities.SPELL_PROJECTILE.get(), world);
     }
 
-    public SpellProjectileEntity(EntityType<Entity> entityEntityType, World worldIn) {
-        super(entityEntityType, worldIn);
+    public SpellProjectileEntity(EntityType<Entity> type, World world) {
+        super(type, world);
     }
 
-    public void setTargetWater() {
-        if (!this.world.isRemote)
-            this.getDataManager().set(NONSOLID, true);
+    @Override
+    protected void readAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        dataManager.set(HOMING, tag.getBoolean("Homing"));
+        dataManager.set(NON_SOLID, tag.getBoolean("NonSolid"));
+        dataManager.set(BOUNCES, tag.getInt("Bounces"));
+        dataManager.set(COLOR, tag.getInt("Color"));
+        dataManager.set(CURRENT_PIERCES, tag.getInt("CurrentPierces"));
+        dataManager.set(HOMING_TARGET, tag.getInt("HomingTarget"));
+        dataManager.set(OWNER, tag.getInt("Owner"));
+        dataManager.set(PIERCING, tag.getInt("Piercing"));
+        dataManager.set(GRAVITY, tag.getFloat("Gravity"));
+        dataManager.set(ICON, tag.getString("Icon"));
+        dataManager.set(STACK, ItemStack.read(tag.getCompound("Stack")));
     }
 
-    public boolean targetWater() {
-        return this.getDataManager().get(NONSOLID);
+    @Override
+    protected void writeAdditional(CompoundNBT nbt) {
+        CompoundNBT tag = nbt.getCompound(ArsMagicaAPI.MODID);
+        tag.putBoolean("Homing", dataManager.get(HOMING));
+        tag.putBoolean("NonSolid", dataManager.get(NON_SOLID));
+        tag.putInt("Bounces", dataManager.get(BOUNCES));
+        tag.putInt("Color", dataManager.get(COLOR));
+        tag.putInt("CurrentPierces", dataManager.get(CURRENT_PIERCES));
+        tag.putInt("HomingTarget", dataManager.get(HOMING_TARGET));
+        tag.putInt("Owner", dataManager.get(OWNER));
+        tag.putInt("Piercing", dataManager.get(PIERCING));
+        tag.putFloat("Gravity", dataManager.get(GRAVITY));
+        tag.putString("Icon", dataManager.get(ICON));
+        CompoundNBT tmp = new CompoundNBT();
+        dataManager.get(STACK).write(tmp);
+        tag.put("Stack", tmp);
+    }
+
+    @Nonnull
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return new SSpawnObjectPacket(this, getOwner() == null ? 0 : getOwner().getEntityId());
     }
 
     @Override
     protected void registerData() {
-        this.getDataManager().register(BOUNCES, 0);
-        this.getDataManager().register(GRAVITY, 0.f);
-        this.getDataManager().register(EFFECT, ItemStack.EMPTY);
-        this.getDataManager().register(ICON, "arcane");
-        this.getDataManager().register(PIERCING, 0);
-        this.getDataManager().register(COLOR, 0xFFFFFF);
-        this.getDataManager().register(SHOOTER, 0);
-        this.getDataManager().register(NONSOLID, false);
-        this.getDataManager().register(HOMING, false);
-        this.getDataManager().register(HOMING_TARGET, -1);
-    }
-
-    @Override
-    public IPacket<?> createSpawnPacket() {
-        Entity entity = getShooter();
-        return new SSpawnObjectPacket(this, entity == null ? 0 : entity.getEntityId());
-    }
-
-    public void decreaseBounces() {
-        setBounces(getBounces() - 1);
-    }
-
-    public int getBounces() {
-        return this.getDataManager().get(BOUNCES);
-    }
-
-    public void setBounces(int projectileBounce) {
-        this.getDataManager().set(BOUNCES, projectileBounce);
-    }
-
-    public int getPierces() {
-        return this.getDataManager().get(PIERCING) - this.currentPierces;
-    }
-
-    public ItemStack getSpell() {
-        return this.getDataManager().get(EFFECT);
-    }
-
-    public void setSpell(ItemStack stack) {
-        this.getDataManager().set(EFFECT, stack);
-        /*Affinity mainAff = AffinityShiftUtils.getMainShiftForStack(stack);
-        if (mainAff.equals(Affinity.ENDER)) this.getDataManager().set(DW_COLOR, 0x550055);
-        else if (mainAff.equals(Affinity.ICE)) this.getDataManager().set(DW_COLOR, 0x2299FF);
-        else if (mainAff.equals(Affinity.LIFE)) this.getDataManager().set(DW_COLOR, 0x22FF44);*/
-    }
-
-    public void bounce(Direction facing) {
-        if (facing == null) {
-            this.setMotion(this.getMotion().inverse());
-        } else {
-            double projectileSpeed = SpellUtil.modifyDoubleMul(1, getSpell(), getShooter(), null, world, SpellModifiers.VELOCITY_ADDED);
-            double newMotionX = getMotion().x / projectileSpeed;
-            double newMotionY = getMotion().y / projectileSpeed;
-            double newMotionZ = getMotion().z / projectileSpeed;
-            if (facing.equals(Direction.UP) || facing.equals(Direction.DOWN)) {
-                newMotionY = -newMotionY;
-            } else if (facing.equals(Direction.NORTH) || facing.equals(Direction.SOUTH)) {
-                newMotionZ = -newMotionZ;
-            } else if (facing.equals(Direction.EAST) || facing.equals(Direction.WEST)) {
-                newMotionX = -newMotionX;
-            }
-            setMotion(newMotionX * projectileSpeed, newMotionY * projectileSpeed, newMotionZ * projectileSpeed);
-        }
-        decreaseBounces();
+        getDataManager().register(HOMING, false);
+        getDataManager().register(NON_SOLID, false);
+        getDataManager().register(BOUNCES, 0);
+        getDataManager().register(COLOR, 0xFFFFFF);
+        getDataManager().register(CURRENT_PIERCES, 0);
+        getDataManager().register(HOMING_TARGET, -1);
+        getDataManager().register(OWNER, 0);
+        getDataManager().register(PIERCING, 0);
+        getDataManager().register(GRAVITY, 0f);
+        getDataManager().register(ICON, "arcane");
+        getDataManager().register(STACK, ItemStack.EMPTY);
     }
 
     @Override
     public void tick() {
         try {
             if (ticksExisted > 200)
-                this.remove();
-            RayTraceResult mop = ProjectileHelper.rayTrace(this, true, false, getShooter(), RayTraceContext.BlockMode.COLLIDER);
+                remove();
+            RayTraceResult mop = ProjectileHelper.rayTrace(this, true, false, getOwner(), RayTraceContext.BlockMode.COLLIDER);
             if (mop.getType().equals(RayTraceResult.Type.BLOCK)) {
                 if (world.getBlockState(((BlockRayTraceResult) mop).getPos()).isSolid() || targetWater()) {
                     world.getBlockState(((BlockRayTraceResult) mop).getPos()).onEntityCollision(world, ((BlockRayTraceResult) mop).getPos(), this);
                     if (getBounces() > 0) {
-                        bounce(((BlockRayTraceResult) mop).getFace());
+                        Direction face = ((BlockRayTraceResult) mop).getFace();
+                        double projectileSpeed = SpellUtil.modifyDoubleMul(1, getStack(), getOwner(), null, world, SpellModifiers.VELOCITY_ADDED);
+                        double newMotionX = getMotion().x / projectileSpeed;
+                        double newMotionY = getMotion().y / projectileSpeed;
+                        double newMotionZ = getMotion().z / projectileSpeed;
+                        if (face.equals(Direction.UP) || face.equals(Direction.DOWN)) newMotionY = -newMotionY;
+                        else if (face.equals(Direction.NORTH) || face.equals(Direction.SOUTH)) newMotionZ = -newMotionZ;
+                        else if (face.equals(Direction.EAST) || face.equals(Direction.WEST)) newMotionX = -newMotionX;
+                        setMotion(newMotionX * projectileSpeed, newMotionY * projectileSpeed, newMotionZ * projectileSpeed);
+                        decreaseBounces();
                     } else {
-                        SpellUtil.applyStageBlock(getSpell(), getShooter(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
-                        SpellUtil.applyStage(getSpell(), getShooter(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
-                        if (this.getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
-                            this.remove();
-                        else
-                            this.currentPierces++;
+                        SpellUtil.applyStageBlock(getStack(), getOwner(), world, ((BlockRayTraceResult) mop).getPos(), ((BlockRayTraceResult) mop).getFace(), getPosX(), getPosY(), getPosZ(), true);
+                        SpellUtil.applyStage(getStack(), getOwner(), null, mop.getHitVec().x + getMotion().x, mop.getHitVec().y + getMotion().y, mop.getHitVec().z + getMotion().z, ((BlockRayTraceResult) mop).getFace(), world, false, true, 0);
+                        if (getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, getStack()))
+                            remove();
+                        else setCurrentPierces(getCurrentPierces() + 1);
                     }
                 }
             } else {
@@ -151,123 +138,109 @@ public class SpellProjectileEntity extends Entity {
                 int effSize = list.size();
                 for (Entity entity : list) {
                     if (entity instanceof LivingEntity) {
-                        if (entity.equals(getShooter())) {
+                        if (entity.equals(getOwner())) {
                             effSize--;
                             continue;
                         }
-                        SpellUtil.applyStageEntity(getSpell(), getShooter(), world, entity, true);
-                        SpellUtil.applyStage(getSpell(), getShooter(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
+                        SpellUtil.applyStageEntity(getStack(), getOwner(), world, entity, true);
+                        SpellUtil.applyStage(getStack(), getOwner(), (LivingEntity) entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), null, world, false, true, 0);
                         break;
-                    } else {
-                        effSize--;
-                    }
+                    } else effSize--;
                 }
                 if (effSize != 0) {
-                    if (this.getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, this.getSpell()))
-                        this.remove();
-                    else
-                        this.currentPierces++;
+                    if (getPierces() == 1 || !SpellUtil.hasModifier(SpellModifiers.PIERCING, getStack()))
+                        remove();
+                    else setCurrentPierces(getCurrentPierces() + 1);
                 }
             }
-            setMotion(getMotion().x, getMotion().y + this.getDataManager().get(GRAVITY), getMotion().z);
+            setMotion(getMotion().x, getMotion().y + getDataManager().get(GRAVITY), getMotion().z);
             Vec3d newPos = getPositionVec().add(getMotion());
             setPosition(newPos.x, newPos.y, newPos.z);
         } catch (NullPointerException e) {
-            this.remove();
+            remove();
         }
     }
 
-    public LivingEntity getShooter() {
+    public void decreaseBounces() {
+        setBounces(getBounces() - 1);
+    }
+
+    public int getBounces() {
+        return getDataManager().get(BOUNCES);
+    }
+
+    public int getColor() {
+        return getDataManager().get(COLOR);
+    }
+
+    public int getCurrentPierces() {
+        return getDataManager().get(CURRENT_PIERCES);
+    }
+
+    public String getIcon() {
+        return getDataManager().get(ICON);
+    }
+
+    public int getPierces() {
+        return getDataManager().get(PIERCING) - getCurrentPierces();
+    }
+
+    public LivingEntity getOwner() {
         try {
-            return (LivingEntity) world.getEntityByID(this.getDataManager().get(SHOOTER));
+            return (LivingEntity) world.getEntityByID(getDataManager().get(OWNER));
         } catch (RuntimeException e) {
-            this.remove();
+            remove();
             return null;
         }
     }
 
-    public void setShooter(LivingEntity living) {
-        this.getDataManager().set(SHOOTER, living.getEntityId());
+    public ItemStack getStack() {
+        return getDataManager().get(STACK);
     }
 
-    @Override
-    protected void readAdditional(CompoundNBT tagCompound) {
-        CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaAPI.MODID);
-        dataManager.set(BOUNCES, am2Tag.getInt("BounceCount"));
-        dataManager.set(GRAVITY, am2Tag.getFloat("Gravity"));
-        dataManager.set(EFFECT, ItemStack.read(am2Tag.getCompound("Effect")));
-        dataManager.set(ICON, am2Tag.getString("IconName"));
-        dataManager.set(PIERCING, am2Tag.getInt("PierceCount"));
-        dataManager.set(COLOR, am2Tag.getInt("Color"));
-        dataManager.set(SHOOTER, am2Tag.getInt("Shooter"));
-        dataManager.set(NONSOLID, am2Tag.getBoolean("TargetGrass"));
-        dataManager.set(HOMING, am2Tag.getBoolean("Homing"));
-        dataManager.set(HOMING_TARGET, am2Tag.getInt("HomingTarget"));
+    public void setBounces(int bounces) {
+        getDataManager().set(BOUNCES, bounces);
     }
 
-    @Override
-    protected void writeAdditional(CompoundNBT tagCompound) {
-        CompoundNBT am2Tag = tagCompound.getCompound(ArsMagicaAPI.MODID);
-        am2Tag.putInt("BounceCount", dataManager.get(BOUNCES));
-        am2Tag.putFloat("Gravity", dataManager.get(GRAVITY));
-        CompoundNBT tmp = new CompoundNBT();
-        dataManager.get(EFFECT).write(tmp);
-        am2Tag.put("Effect", tmp);
-        am2Tag.putString("IconName", dataManager.get(ICON));
-        am2Tag.putInt("PierceCount", dataManager.get(PIERCING));
-        am2Tag.putInt("Color", dataManager.get(COLOR));
-        am2Tag.putInt("Shooter", dataManager.get(SHOOTER));
-        am2Tag.putBoolean("TargetGrass", dataManager.get(NONSOLID));
-        am2Tag.putBoolean("Homing", dataManager.get(HOMING));
-        am2Tag.putInt("HomingTarget", dataManager.get(HOMING_TARGET));
+    public void setCurrentPierces(int pierces) {
+        getDataManager().set(CURRENT_PIERCES, pierces);
     }
 
-    public void selectHomingTarget() {
-        List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getCollisionBoundingBox().expand(10, 10, 10));
-        Vec3d pos = new Vec3d(getPosX(), getPosY(), getPosZ());
-        LivingEntity target = null;
-        double dist = 900;
-        for (Entity entity : entities) {
-            if (entity instanceof LivingEntity && !entity.equals(getShooter())) {
-                Vec3d ePos = new Vec3d(entity.getPosX(), entity.getPosY(), entity.getPosZ());
-                double eDist = pos.distanceTo(ePos);
-                if (eDist < dist) {
-                    dist = eDist;
-                    target = (LivingEntity) entity;
-                }
-            }
-        }
-        if (target != null) {
-            this.getDataManager().set(HOMING_TARGET, target.getEntityId());
-        }
-    }
-
-    public LivingEntity getHomingTarget() {
-        return (LivingEntity) world.getEntityByID(this.getDataManager().get(HOMING_TARGET));
-    }
-
-    public void setGravity(float projectileGravity) {
-        this.getDataManager().set(GRAVITY, projectileGravity);
-    }
-
-    public void setNumPierces(int pierces) {
-        this.getDataManager().set(PIERCING, pierces);
-        this.currentPierces = 0;
+    public void setGravity(float gravity) {
+        getDataManager().set(GRAVITY, gravity);
     }
 
     public void setHoming(boolean homing) {
-        this.getDataManager().set(HOMING, homing);
-    }
-
-    public String getIcon() {
-        return this.getDataManager().get(ICON);
+        getDataManager().set(HOMING, homing);
     }
 
     public void setIcon(String icon) {
-        this.getDataManager().set(ICON, icon);
+        getDataManager().set(ICON, icon);
     }
 
-    public int getColor() {
-        return this.getDataManager().get(COLOR);
+    public void setPierces(int pierces) {
+        getDataManager().set(PIERCING, pierces);
+        setCurrentPierces(0);
+    }
+
+    public void setOwner(LivingEntity owner) {
+        getDataManager().set(OWNER, owner.getEntityId());
+    }
+
+    public void setStack(ItemStack stack) {
+        getDataManager().set(STACK, stack);
+        /*Affinity mainAff = AffinityShiftUtils.getMainShiftForStack(stack);
+        if (mainAff.equals(Affinity.ENDER)) getDataManager().set(COLOR, 0x550055);
+        else if (mainAff.equals(Affinity.ICE)) getDataManager().set(COLOR, 0x2299FF);
+        else if (mainAff.equals(Affinity.LIFE)) getDataManager().set(COLOR, 0x22FF44);*/
+    }
+
+    public void setTargetNonSolid() {
+        if (!world.isRemote)
+            getDataManager().set(NON_SOLID, true);
+    }
+
+    public boolean targetWater() {
+        return getDataManager().get(NON_SOLID);
     }
 }

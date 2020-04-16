@@ -22,16 +22,14 @@ import java.util.Set;
 public final class FallingStar extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        List<ThrownRockEntity> rocks = world.getEntitiesWithinAABB(ThrownRockEntity.class, new AxisAlignedBB(impactX - 10, impactY + 40, impactZ - 10, impactX + 10, impactY + 60, impactZ + 10));
-        int damageMultitplier = SpellUtil.modifyIntMul(15, stack, caster, caster, world, SpellModifiers.DAMAGE);
-        for (ThrownRockEntity rock : rocks) if (rock.getIsShootingStar()) return false;
+        for (ThrownRockEntity rock : world.getEntitiesWithinAABB(ThrownRockEntity.class, new AxisAlignedBB(impactX - 10, impactY + 40, impactZ - 10, impactX + 10, impactY + 60, impactZ + 10))) if (rock.isShootingStar()) return false;
         if (!world.isRemote) {
-            ThrownRockEntity star = new ThrownRockEntity(world);
-            star.setPosition(impactX, world.getActualHeight(), impactZ);
-            star.setShootingStar(2 * damageMultitplier);
-            star.setThrowingEntity(caster);
-            star.setSpellStack(stack);
-            world.addEntity(star);
+            ThrownRockEntity entity = new ThrownRockEntity(world);
+            entity.setPosition(impactX, world.getActualHeight(), impactZ);
+            entity.setShootingStar(2 * SpellUtil.modifyIntMul(15, stack, caster, caster, world, SpellModifiers.DAMAGE));
+            entity.setOwner(caster);
+            entity.setStack(stack);
+            world.addEntity(entity);
         }
         return true;
     }
