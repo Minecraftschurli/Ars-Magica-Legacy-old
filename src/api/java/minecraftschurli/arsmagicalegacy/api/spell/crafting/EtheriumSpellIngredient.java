@@ -7,13 +7,16 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
+import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -29,8 +32,6 @@ public class EtheriumSpellIngredient implements ISpellIngredient {
     public static final String TYPE = "essence";
     private int amount;
     private Set<EtheriumType> essenceType;
-    private EtheriumConsumer consumer;
-    private boolean consuming;
 
     EtheriumSpellIngredient(CompoundNBT nbt) {
         deserializeNBT(nbt);
@@ -100,9 +101,20 @@ public class EtheriumSpellIngredient implements ISpellIngredient {
 
     @Override
     public boolean consume(World world, BlockPos pos) {
-        //TODO implement
-        this.consuming = !this.consumer.tick();
-        return !this.consuming;
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IEtheriumConsumer) {
+            BlockPos sourcePos = ((IEtheriumConsumer) tile).getEteriumSource();
+            if (sourcePos == null) {
+                return false;
+            }
+            TileEntity source = world.getTileEntity(sourcePos);
+            if (source == null) {
+                ((IEtheriumConsumer) tile).invalidateEtheriumSource();
+                return false;
+            }
+            return source.getCapability(CapabilityHelper.getEtheriumCapability()).map(capability -> capability.consume(this.amount, false)).orElse(false);
+        }
+        return false;
     }
 
     @Override

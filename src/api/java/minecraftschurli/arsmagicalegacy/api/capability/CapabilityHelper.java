@@ -8,6 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
+import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
@@ -638,8 +639,10 @@ public class CapabilityHelper {
     static Capability<IAffinityStorage> AFFINITY = null;
     @CapabilityInject(IAbilityStorage.class)
     static Capability<IAbilityStorage> ABILITY = null;
-    @CapabilityInject(IAbilityStorage.class)
+    @CapabilityInject(IContingencyStorage.class)
     static Capability<IContingencyStorage> CONTINGENCY = null;
+    @CapabilityInject(IEtheriumStorage.class)
+    static Capability<IEtheriumStorage> ETHERIUM = null;
 
     public static Capability<IRiftStorage> getRiftStorageCapability() {
         return RIFT_STORAGE;
@@ -671,6 +674,10 @@ public class CapabilityHelper {
 
     public static Capability<IContingencyStorage> getContingencyCapability() {
         return CONTINGENCY;
+    }
+
+    public static Capability<IEtheriumStorage> getEtheriumCapability() {
+        return ETHERIUM;
     }
 
     private static IManaStorage getManaCapability(LivingEntity entity) {

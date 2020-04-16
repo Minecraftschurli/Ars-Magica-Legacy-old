@@ -11,6 +11,7 @@ import javafx.util.Pair;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.config.CraftingAltarStructureMaterials;
+import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.network.TEClientSyncPacket;
@@ -50,7 +51,7 @@ import net.minecraftforge.common.util.Constants;
  * @author Minecraftschurli
  * @version 2019-12-13
  */
-public class CraftingAltarTileEntity extends TileEntity implements ITickableTileEntity {
+public class CraftingAltarTileEntity extends TileEntity implements ITickableTileEntity, IEtheriumConsumer {
     private static final Supplier<BlockState> AIR = Blocks.AIR::getDefaultState;
     private static final Supplier<BlockState> WALL = () -> ModBlocks.MAGIC_WALL.lazyMap(Block::getDefaultState).get();
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
@@ -107,6 +108,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private BlockPos lecternPos;
     private LecternTileEntity lectern;
     private ItemStack book;
+    private BlockPos linkedEtheriumSource;
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -409,5 +411,15 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     public boolean isMultiblockFormed() {
         return multiblockState;
+    }
+
+    @Override
+    public BlockPos getEteriumSource() {
+        return this.linkedEtheriumSource;
+    }
+
+    @Override
+    public void invalidateEtheriumSource() {
+        this.linkedEtheriumSource = null;
     }
 }
