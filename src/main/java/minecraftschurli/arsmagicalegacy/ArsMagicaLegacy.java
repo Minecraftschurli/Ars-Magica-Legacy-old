@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
+import minecraftschurli.arsmagicalegacy.api.config.CraftingAltarStructureMaterials;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
@@ -14,6 +15,8 @@ import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAlta
 import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
+import net.minecraft.block.Block;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -44,6 +47,8 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -152,6 +157,14 @@ public final class ArsMagicaLegacy {
 
     private void processIMC(final InterModProcessEvent event) {
         LOGGER.debug("IMC Process");
+        event.getIMCStream("addCraftingAltarMainMaterial"::equals).forEach(imcMessage -> {
+            Triple<Block, StairsBlock, Integer> message = imcMessage.<Triple<Block, StairsBlock, Integer>>getMessageSupplier().get();
+            CraftingAltarStructureMaterials.addMainMaterial(message.getLeft(),message.getMiddle(),message.getRight());
+        });
+        event.getIMCStream("addCraftingAltarCapMaterial"::equals).forEach(imcMessage -> {
+            Pair<Block, Integer> message = imcMessage.<Pair<Block, Integer>>getMessageSupplier().get();
+            CraftingAltarStructureMaterials.addCapMaterial(message.getLeft(),message.getRight());
+        });
     }
 
     private void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
