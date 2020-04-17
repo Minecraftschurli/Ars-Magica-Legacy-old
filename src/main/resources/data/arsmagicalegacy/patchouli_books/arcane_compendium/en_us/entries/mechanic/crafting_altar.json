@@ -6,6 +6,12 @@
     {
       "type": "text",
       "text": "compendium.entries.mechanic.crafting_altar.page.0"
+    },
+    {
+      "type": "multiblock",
+      "name": "compendium.entries.mechanic.crafting_altar.page.1.title",
+      "multiblock_id": "arsmagicalegacy:altar",
+      "text": "compendium.entries.mechanic.crafting_altar.page.1"
     }
   ]
 }

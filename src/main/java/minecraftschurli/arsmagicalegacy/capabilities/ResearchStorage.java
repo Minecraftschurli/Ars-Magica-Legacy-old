@@ -1,25 +1,25 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import com.google.common.collect.ImmutableList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-14
  */
 public class ResearchStorage implements IResearchStorage {
-    private Map<Integer, Integer> points = new HashMap<>();
-    private Set<ResourceLocation> learned = new HashSet<>();
+    private final Map<Integer, Integer> points = new HashMap<>();
+    private final Set<ResourceLocation> learned = new HashSet<>();
+
+    public ResearchStorage (){
+        add(0);
+    }
 
     @Override
     public int get(int tier) {

@@ -1,8 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.config;
 
-import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.StairsBlock;
+
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * @author Minecraftschurli
@@ -12,14 +14,6 @@ public class CraftingAltarStructureMaterials {
     private static final HashMap<Block, Integer> CAPS = new HashMap<>();
     private static final HashMap<Block, Integer> MAIN = new HashMap<>();
     private static final HashMap<Block, StairsBlock> STAIRS = new HashMap<>();
-
-    /*public static Tag<Block> getCapsTag() {
-        return new Tag<>(new ResourceLocation(ArsMagicaAPI.MODID, "altar_caps"), Collections.singletonList(new Tag.ListEntry<>(CAPS.keySet())),true);
-    }
-
-    public static Tag<Block> getMainTag() {
-        return new Tag<>(new ResourceLocation(ArsMagicaAPI.MODID, "altar_caps"), Collections.singletonList(new Tag.ListEntry<>(MAIN.keySet())),true);
-    }*/
 
     public static void addCapMaterial(Block block, int value) {
         CAPS.put(block, value);
@@ -48,5 +42,13 @@ public class CraftingAltarStructureMaterials {
 
     public static int getMainPower(Block block) {
         return MAIN.get(block);
+    }
+
+    public static Collection<Block> getAllCaps() {
+        return CAPS.keySet();
+    }
+
+    public static Collection<Block> getAllMainBlocks() {
+        return MAIN.keySet();
     }
 }

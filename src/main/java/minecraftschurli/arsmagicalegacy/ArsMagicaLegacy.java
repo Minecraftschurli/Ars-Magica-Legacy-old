@@ -1,27 +1,15 @@
 package minecraftschurli.arsmagicalegacy;
 
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliMultiblocks;
 import minecraftschurli.arsmagicalegacy.handler.AffinityAbilityHelper;
 import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.handler.TickHandler;
-import minecraftschurli.arsmagicalegacy.init.IInit;
-import minecraftschurli.arsmagicalegacy.init.ModBiomes;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModCommands;
-import minecraftschurli.arsmagicalegacy.init.ModContainers;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.init.ModFeatures;
-import minecraftschurli.arsmagicalegacy.init.ModFluids;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModParticles;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
+import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
 import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
@@ -58,6 +46,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli
@@ -129,6 +119,7 @@ public final class ArsMagicaLegacy {
                 .forEach(ICustomFeatureBiome::init);*/
         ModBiomes.WITCHWOOD_FOREST.get().init();
         AffinityAbilityHelper.registerListeners();
+        PatchouliMultiblocks.register();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
