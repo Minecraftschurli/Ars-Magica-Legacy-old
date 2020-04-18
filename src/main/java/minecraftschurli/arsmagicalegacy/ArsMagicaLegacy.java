@@ -10,13 +10,19 @@ import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliMultiblocks;
 import minecraftschurli.arsmagicalegacy.handler.AffinityAbilityHelper;
 import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
 import minecraftschurli.arsmagicalegacy.handler.TickHandler;
+import minecraftschurli.arsmagicalegacy.handler.UIRender;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
+import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
 import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
+import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -69,8 +75,6 @@ public final class ArsMagicaLegacy {
         }
     };
     public static final Logger LOGGER = LogManager.getLogger(ArsMagicaAPI.MODID);
-    @SuppressWarnings("Convert2MethodRef")
-    public static minecraftschurli.arsmagicalegacy.proxy.IProxy proxy = DistExecutor.runForDist(() -> () -> new minecraftschurli.arsmagicalegacy.proxy.ClientProxy(), () -> () -> new minecraftschurli.arsmagicalegacy.proxy.ServerProxy());
     public static ArsMagicaLegacy instance;
 
     public ArsMagicaLegacy() {
@@ -97,8 +101,13 @@ public final class ArsMagicaLegacy {
     private void preInit() {
         ArsMagicaAPI.setup();
         Config.setup();
-        proxy.preInit();
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> this::preInitClient);
         IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
+    }
+
+    private void preInitClient() {
+        MinecraftForge.EVENT_BUS.register(new UIRender());
+//        OBJLoader.INSTANCE.addDomain(ArsMagicaLegacy.MODID);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -106,7 +115,6 @@ public final class ArsMagicaLegacy {
         ArsMagicaAPI.init();
         WorldGenerator.setupBiomeGen();
         WorldGenerator.setupModFeatures();
-        proxy.init();
         NetworkHandler.registerMessages();
         ManaCapability.register();
         BurnoutCapability.register();
@@ -129,6 +137,10 @@ public final class ArsMagicaLegacy {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.debug("Client Setup");
+        // noinspection RedundantCast
+        ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
+        // noinspection RedundantCast
+        ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.AUM.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.CERUBLOSSOM.get(), RenderType.getCutout());
@@ -148,7 +160,6 @@ public final class ArsMagicaLegacy {
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getCutout());
     }
     //endregion
-
     //region =========EVENTS=========
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -188,11 +199,11 @@ public final class ArsMagicaLegacy {
         minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.beforeServerLoad(event);
     }
     //endregion
-
     //region =========UTIL=========
 
     private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
         event.getItemColors().register((stack, index) -> index == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
+        //noinspection ConstantConditions
         event.getItemColors().register((stack, index) -> index == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
         event.getItemColors().register((stack, index) -> index > 0 ? -1 : PotionUtils.getColor(stack), ModItems.POTION_BUNDLE.get());
         event.getItemColors().register((stack, index) -> index > 0 ? -1 : AffinityTomeItem.getAffinity(stack).getColor(), ModItems.AFFINITY_TOME.get());
@@ -213,6 +224,7 @@ public final class ArsMagicaLegacy {
     }
 
     public IModInfo getModInfo() {
+        //noinspection OptionalGetWithoutIsPresent
         return ModList.get().getModContainerById(ArsMagicaAPI.MODID).map(ModContainer::getModInfo).get();
     }
 
