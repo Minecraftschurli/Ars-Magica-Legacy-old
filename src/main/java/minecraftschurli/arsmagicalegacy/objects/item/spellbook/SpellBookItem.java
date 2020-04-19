@@ -1,11 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -28,6 +24,13 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import static minecraftschurli.arsmagicalegacy.init.ModItems.ITEM_1;
 
 /**
@@ -42,6 +45,8 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         final ItemStack stack = player.getHeldItem(hand);
+        if (CapabilityHelper.getCurrentLevel(player) <= 0 && !player.isCreative())
+            return ActionResult.resultPass(stack);
         if (player.func_226563_dT_()) {
             if (!world.isRemote && player instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
@@ -160,7 +165,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
 
     @Override
     public void addInformation(ItemStack stackIn, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        // TODO
         Optional<SpellItem> activeScroll = getActiveScroll(stackIn);
         ItemStack stack = getActiveItemStack(stackIn);
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".tooltip.open"));
