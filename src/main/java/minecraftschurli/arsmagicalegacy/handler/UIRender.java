@@ -1,7 +1,6 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -19,6 +18,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -49,6 +50,7 @@ public class UIRender {
         PlayerEntity player = (PlayerEntity) renderViewEntity;
         if (player == null)
             return;
+        if (CapabilityHelper.getCurrentLevel(player) <= 0) return;
         renderManaBar(player);
         renderBurnoutBar(player);
         if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))

@@ -7,10 +7,7 @@ import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliMultiblocks;
-import minecraftschurli.arsmagicalegacy.handler.AffinityAbilityHelper;
-import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
-import minecraftschurli.arsmagicalegacy.handler.TickHandler;
-import minecraftschurli.arsmagicalegacy.handler.UIRender;
+import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
@@ -93,6 +90,7 @@ public final class ArsMagicaLegacy {
         MinecraftForge.EVENT_BUS.addListener(this::beforeServerLoad);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
+        MinecraftForge.EVENT_BUS.register(LevelUpHandler.class);
         preInit();
     }
 

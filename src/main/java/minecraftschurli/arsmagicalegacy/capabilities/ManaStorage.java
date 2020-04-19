@@ -1,15 +1,14 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import minecraftschurli.arsmagicalegacy.api.capability.IManaStorage;
-import minecraftschurli.arsmagicalegacy.api.config.Config;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
 public class ManaStorage implements IManaStorage {
-    private float maxMana = Config.COMMON.DEFAULT_MAX_MANA.get();
-    private float mana = maxMana;
+    private float maxMana;
+    private float mana;
 
     @Override
     public float getMana() {
