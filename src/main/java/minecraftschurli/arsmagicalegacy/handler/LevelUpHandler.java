@@ -17,8 +17,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class LevelUpHandler {
     @SubscribeEvent
     public static void compendiumPickup(final PlayerEvent.ItemPickupEvent event) {
+        if (event.getPlayer().isCreative()) return;
         if (CapabilityHelper.getCurrentLevel(event.getPlayer()) > 0) return;
-        if (event.getStack().equals(ArsMagicaAPI.getCompendium())) {
+        if (ArsMagicaAPI.isCompendium(event.getStack())) {
             CapabilityHelper.addXP(event.getPlayer(), 0);
         }
     }
@@ -27,6 +28,7 @@ public class LevelUpHandler {
     public static void spellCast(final SpellCastEvent.Post event) {
         if (!(event.castResult == SpellCastResult.SUCCESS || event.castResult == SpellCastResult.SUCCESS_REDUCE_MANA)) return;
         if (!(event.caster instanceof PlayerEntity)) return;
+        if (((PlayerEntity) event.caster).isCreative()) return;
         if (CapabilityHelper.getCurrentLevel((PlayerEntity) event.caster) <= 0) return;
         final int complexity = SpellUtil.getParts(event.stack).size();
         final float manaCost = event.manaCost;

@@ -47,9 +47,12 @@ public class UIRender {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL)
             return;
         Entity renderViewEntity = mc.getRenderViewEntity();
-        PlayerEntity player = (PlayerEntity) renderViewEntity;
-        if (player == null)
+        if (renderViewEntity == null)
             return;
+        PlayerEntity player = (PlayerEntity) renderViewEntity;
+        if (!player.getCapability(CapabilityHelper.getMagicCapability()).isPresent()) return;
+        if (!player.getCapability(CapabilityHelper.getManaCapability()).isPresent()) return;
+        if (!player.getCapability(CapabilityHelper.getBurnoutCapability()).isPresent()) return;
         if (CapabilityHelper.getCurrentLevel(player) <= 0) return;
         renderManaBar(player);
         renderBurnoutBar(player);

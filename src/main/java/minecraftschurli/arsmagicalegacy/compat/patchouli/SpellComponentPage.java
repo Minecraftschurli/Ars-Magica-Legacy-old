@@ -1,15 +1,6 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -26,6 +17,7 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredien
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -35,6 +27,10 @@ import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 /**
  * @author Minecraftschurli
  * @version 2020-02-20
@@ -43,6 +39,8 @@ public class SpellComponentPage implements ICustomComponent {
     private String component;
     private transient int x, y;
     private transient AbstractSpellPart part;
+    private final Random random = new Random();
+    private ItemStack stack;
 
     @Override
     public void build(int x, int y, int num) {
@@ -160,10 +158,9 @@ public class SpellComponentPage implements ICustomComponent {
         if (craftingComponent instanceof ItemStackSpellIngredient) {
             stack = ((ItemStackSpellIngredient) craftingComponent).getStack().copy();
         } else if (craftingComponent instanceof ItemTagSpellIngredient) {
-            int size = (((ItemTagSpellIngredient) craftingComponent).getTag().getAllElements()).size();
-            if (size == 0)
-                return;
-            stack = new ItemStack(((ItemTagSpellIngredient) craftingComponent).getTag().getRandomElement(new Random()));
+            Collection<Item> tag = ((ItemTagSpellIngredient) craftingComponent).getTag().getAllElements();
+            if (tag.size() == 0) return;
+            stack = new ItemStack(tag.stream().findFirst().get());
         } else if (craftingComponent instanceof EtheriumSpellIngredient) {
             renderEssence(context, mousex, mousey, sx, sy, ((EtheriumSpellIngredient) craftingComponent));
             return;

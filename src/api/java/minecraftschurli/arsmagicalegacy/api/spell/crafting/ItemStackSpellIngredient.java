@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -12,6 +9,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * @author Minecraftschurli
@@ -47,7 +48,7 @@ public class ItemStackSpellIngredient implements ISpellIngredient {
 
     @Override
     public ISpellIngredient combine(ISpellIngredient other) {
-        ItemStack newStack = new ItemStack(stack.getItem(), stack.getCount(), stack.getTag());
+        ItemStack newStack = stack.copy();
         newStack.grow(((ItemStackSpellIngredient) other).stack.getCount());
         return new ItemStackSpellIngredient(newStack);
     }

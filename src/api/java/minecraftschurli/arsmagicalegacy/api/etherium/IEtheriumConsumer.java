@@ -10,4 +10,6 @@ public interface IEtheriumConsumer {
     BlockPos getEteriumSource();
 
     void invalidateEtheriumSource();
+
+    boolean shouldConsume();
 }

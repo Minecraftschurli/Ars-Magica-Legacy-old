@@ -50,6 +50,10 @@ public class ArsMagicaAPI {
         return stack;
     }
 
+    public static boolean isCompendium(ItemStack stack) {
+        return (MODID+":arcane_compendium").equals(stack.getOrCreateTag().getString("patchouli:book"));
+    }
+
     public static void beforeServerLoad(final FMLServerAboutToStartEvent event) {
         event.getServer().getResourceManager().addReloadListener(SPELL_RECIPE_MANAGER);
     }

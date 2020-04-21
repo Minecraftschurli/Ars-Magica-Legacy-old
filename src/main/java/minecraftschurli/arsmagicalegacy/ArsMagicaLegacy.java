@@ -99,7 +99,8 @@ public final class ArsMagicaLegacy {
     private void preInit() {
         ArsMagicaAPI.setup();
         Config.setup();
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> this::preInitClient);
+        //noinspection Convert2MethodRef
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> preInitClient());
         IInit.setEventBus(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
@@ -154,8 +155,8 @@ public final class ArsMagicaLegacy {
         RenderTypeLookup.setRenderLayer(ModBlocks.REDSTONE_INLAY.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.IRON_INLAY.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GOLD_INLAY.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
     }
     //endregion
     //region =========EVENTS=========

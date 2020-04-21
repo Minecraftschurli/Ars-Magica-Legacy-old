@@ -1,28 +1,25 @@
 package minecraftschurli.arsmagicalegacy.api.spell.crafting;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
-import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -113,7 +110,8 @@ public class EtheriumSpellIngredient implements ISpellIngredient {
                 ((IEtheriumConsumer) tile).invalidateEtheriumSource();
                 return false;
             }
-            return source.getCapability(CapabilityHelper.getEtheriumCapability()).map(capability -> capability.consume(this.amount, false)).orElse(false);
+            if (((IEtheriumConsumer) tile).shouldConsume())
+                return source.getCapability(CapabilityHelper.getEtheriumCapability()).map(capability -> capability.consume(this.amount, false)).orElse(false);
         }
         return false;*/
     }
