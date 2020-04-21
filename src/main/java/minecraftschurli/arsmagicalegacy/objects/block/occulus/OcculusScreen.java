@@ -1,11 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -31,6 +26,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -300,12 +301,12 @@ public class OcculusScreen extends Screen {
                         hasPrereq &= CapabilityHelper.knows(player, new ResourceLocation(subParent));
                     }
                     List<ITextComponent> list = new ArrayList<>();
-                    list.add(s.getName().applyTextStyle(s.getPoint().getChatColor()));
+                    list.add(s.getDisplayName().applyTextStyle(s.getPoint().getChatColor()));
                     /*if (ArsMagica2.disabledSkills.isSkillDisabled(s.getID()))
                         list.add(new TranslationTextComponent(ArsMagicaLegacy.MODID + ".occulus.disabled").setStyle(new Style().setColor(TextFormatting.DARK_RED)));
                     else*/
                     if (hasPrereq)
-                        list.add(s.getOcculusDesc().applyTextStyle(TextFormatting.DARK_GRAY));
+                        list.add(s.getDescription().applyTextStyle(TextFormatting.DARK_GRAY));
                     else
                         list.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
                     renderTooltip(list.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY, font);
@@ -365,7 +366,7 @@ public class OcculusScreen extends Screen {
                 int drawY = (int) ((affDrawTextY * 1.1) + cY + yMovement);
                 this.getMinecraft().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(aff.getEssence()), drawX, drawY);
                 if (mouseX > drawX && mouseX < drawX + 16 && mouseY > drawY && mouseY < drawY + 16) {
-                    drawString.add(aff.getName());
+                    drawString.add(aff.getDisplayName());
                     //List<AbstractAffinityAbility> abilites = Lists.newArrayList(ArsMagicaAPI.getAffinityAbilityRegistry().getValues());
                     /*abilites.sort(new Comparator<AbstractAffinityAbility>() {
 

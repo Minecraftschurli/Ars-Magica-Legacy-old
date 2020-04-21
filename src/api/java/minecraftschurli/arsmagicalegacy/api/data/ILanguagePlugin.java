@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.api.data;
 
-import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.util.ITranslatable;
+
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -30,27 +30,7 @@ public interface ILanguagePlugin {
      * @param description the description for the spell part
      */
     default void add(AbstractSpellPart part, String name, String description) {
-        add(SpellRegistry.getSkillFromPart(part), name, description);
-    }
-
-    /**
-     * Adds a skill translation
-     * @param skill       the skill supplier to add the translation for
-     * @param name        the name for the skill
-     * @param description the description for the skill
-     */
-    default void addSkill(Supplier<? extends Skill> skill, String name, String description) {
-        add(skill.get(), name, description);
-    }
-
-    /**
-     * Adds a skill translation
-     * @param skill       the skill to add the translation for
-     * @param name        the name for the skill
-     * @param description the description for the skill
-     */
-    default void add(Skill skill, String name, String description) {
-        addWithDescription(skill.getTranslationKey(), name, description);
+        addWithDescription(SpellRegistry.getSkillFromPart(part), name, description);
     }
 
     /**
@@ -72,31 +52,41 @@ public interface ILanguagePlugin {
     }
 
     /**
-     * Adds an affinities point translation
-     * @param affinity the skill point supplier to add the translation for
-     * @param name     the name for the skill point
+     * Adds the translation of the name and description of an {@link ITranslatable.WithDescription}
+     * @param translatable the translatable to add the translation for
+     * @param name         the name for the translatable
+     * @param description  the description for the translatable
      */
-    default void addAffinity(Supplier<SkillPoint> affinity, String name) {
-        add(affinity.get(), name);
+    default void addTranslatableWithDescription(Supplier<? extends ITranslatable.WithDescription<?>> translatable, String name, String description) {
+        addWithDescription(translatable.get(), name, description);
     }
 
     /**
-     * Adds an affinities point translation
-     * @param affinity the skill point to add the translation for
-     * @param name     the name for the skill point
+     * Adds the translation of the name and description of an {@link ITranslatable.WithDescription}
+     * @param translatable the translatable to add the translation for
+     * @param name         the name for the translatable
+     * @param description  the description for the translatable
      */
-    default void add(Affinity affinity, String name) {
-        add(affinity.getTranslationKey(), name);
+    default void addWithDescription(ITranslatable.WithDescription<?> translatable, String name, String description) {
+        addWithDescription(translatable.getTranslationKey(), name, description);
     }
 
     /**
-     * Adds the translation for the given category key
-     * @param key         the key of the category
-     * @param name        the translated name
-     * @param description the translated description
+     * Adds the translation of an {@link ITranslatable}
+     * @param translatable the translatable to add the translation for
+     * @param name         the name for the translatable
      */
-    default void addCategory(String key, String name, String description){
-        addWithDescription("compendium.categories."+key, name, description);
+    default void addTranslatable(Supplier<? extends ITranslatable<?>> translatable, String name) {
+        add(translatable.get(), name);
+    }
+
+    /**
+     * Adds the translation of an {@link ITranslatable}
+     * @param translatable the translatable to add the translation for
+     * @param name         the name for the translatable
+     */
+    default void add(ITranslatable<?> translatable, String name) {
+        add(translatable.getTranslationKey(), name);
     }
 
     /**
@@ -108,6 +98,16 @@ public interface ILanguagePlugin {
     default void addWithDescription(String key, String name, String description) {
         add(key+".name", name);
         add(key+".description", description);
+    }
+
+    /**
+     * Adds the translation for the given category key
+     * @param key         the key of the category
+     * @param name        the translated name
+     * @param description the translated description
+     */
+    default void addCategory(String key, String name, String description){
+        addWithDescription("compendium.categories."+key, name, description);
     }
 
     /**

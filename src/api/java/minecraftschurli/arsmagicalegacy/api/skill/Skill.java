@@ -1,25 +1,24 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
-import java.util.ArrayList;
-import java.util.List;
-import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.util.ITranslatable;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-27
  */
-public final class Skill extends ForgeRegistryEntry<Skill> {
-    private int posX, posY;
-    private SkillTree tree;
-    private String[] parents;
-    private ResourceLocation icon;
-    private SkillPoint point;
+public final class Skill extends ForgeRegistryEntry<Skill> implements ITranslatable.WithDescription<Skill> {
+    private final int posX, posY;
+    private final SkillTree tree;
+    private final String[] parents;
+    private final ResourceLocation icon;
+    private final SkillPoint point;
 
     public Skill(ResourceLocation icon, SkillPoint point, int posX, int posY, SkillTree tree, String... parents) {
         this.posX = posX;
@@ -67,21 +66,14 @@ public final class Skill extends ForgeRegistryEntry<Skill> {
         return getID();
     }
 
-    public String getTranslationKey() {
-        return Util.makeTranslationKey("skill", RegistryHandler.getSkillRegistry().getKey(this));
-    }
-
-    public ITextComponent getName() {
-        return new TranslationTextComponent(getTranslationKey() + ".name");
-    }
-
-    public ITextComponent getOcculusDesc() {
-        return new TranslationTextComponent(getTranslationKey() + ".description");
+    @Override
+    public String getType() {
+        return "skill";
     }
 
     public List<ITextComponent> getTooltip() {
         List<ITextComponent> list = new ArrayList<>();
-        list.add(getName());
+        list.add(getDisplayName());
         return list;
     }
 }

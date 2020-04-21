@@ -1,19 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 import javafx.util.Pair;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -22,11 +9,7 @@ import minecraftschurli.arsmagicalegacy.api.network.InscriptionTablePacket;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
@@ -58,6 +41,11 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -548,7 +536,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 MinecraftForge.EVENT_BUS.post(event);
                 recipeItems = event.recipeItems;
                 if (recipeItems == null) {
-                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getName().getUnformattedComponentText());
+                    ArsMagicaLegacy.LOGGER.error("Unable to write recipe to book. Recipe items are null for part {}!", SpellRegistry.getSkillFromPart(part).getDisplayName().getUnformattedComponentText());
                     return bookstack;
                 }
                 materialsList.addAll(Arrays.asList(recipeItems));
@@ -597,7 +585,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             sorted.putAll(affinityData);
             for (Affinity aff : sorted.keySet()) {
                 float pct = (float) sorted.get(aff) / (float) cpCount * 100f;
-                sb.append(String.format("%s: %.2f%%", aff.getName().getFormattedText(), pct));
+                sb.append(String.format("%s: %.2f%%", aff.getDisplayName().getFormattedText(), pct));
                 sb.append("\n");
             }
             pages.addAll(splitStoryPartIntoPages(sb.toString()));
@@ -642,7 +630,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         ArrayList<String> outputCombo = new ArrayList<>();
         while (it.hasNext()) {
             AbstractSpellPart part = it.next();
-            String displayName = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
+            String displayName = SpellRegistry.getSkillFromPart(part).getDisplayName().getFormattedText();
             if (prefix != null) {
                 sb.append(prefix).append(displayName).append("\n");
             } else {

@@ -1,28 +1,22 @@
 package minecraftschurli.arsmagicalegacy.api.affinity;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
+import minecraftschurli.arsmagicalegacy.api.util.ITranslatable;
 import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
  * @version 2020-02-13
  */
-public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable<Affinity> {
+public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable<Affinity>, ITranslatable<Affinity> {
     public static final ResourceLocation NONE = new ResourceLocation(ArsMagicaAPI.MODID, "none");
     public static final ResourceLocation ARCANE = new ResourceLocation(ArsMagicaAPI.MODID, "arcane");
     public static final ResourceLocation WATER = new ResourceLocation(ArsMagicaAPI.MODID, "water");
@@ -45,12 +39,9 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         this.color = color;
     }
 
-    public String getTranslationKey() {
-        return Util.makeTranslationKey("affinity", RegistryHandler.getAffinityRegistry().getKey(this));
-    }
-
-    public ITextComponent getName() {
-        return new TranslationTextComponent(this.getTranslationKey());
+    @Override
+    public String getType() {
+        return "affinity";
     }
 
     /**
