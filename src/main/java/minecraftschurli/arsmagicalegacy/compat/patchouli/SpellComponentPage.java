@@ -39,8 +39,6 @@ public class SpellComponentPage implements ICustomComponent {
     private String component;
     private transient int x, y;
     private transient AbstractSpellPart part;
-    private final Random random = new Random();
-    private ItemStack stack;
 
     @Override
     public void build(int x, int y, int num) {
