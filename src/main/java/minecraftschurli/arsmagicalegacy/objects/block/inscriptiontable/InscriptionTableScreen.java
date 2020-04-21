@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -34,6 +30,11 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL14;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -401,7 +402,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             AbstractSpellPart part = this.container.getRecipeItemAt(i);
             if (Objects.equals(part.getRegistryName(), SpellRegistry.MISSING_SHAPE))
                 continue;
-            String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
+            String name = SpellRegistry.getSkillFromPart(part).getDisplayName().getFormattedText();
             if (drawIcon(part, false)) {
                 labelText.add(name);
                 hovering = true;
@@ -414,7 +415,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         for (int i = 0; i < this.container.getNumStageGroups(); i++) {
             for (int n = 0; n < this.container.getShapeGroupSize(i); n++) {
                 AbstractSpellPart part = this.container.getShapeGroupPartAt(i, n);
-                String name = SpellRegistry.getSkillFromPart(part).getName().getFormattedText();
+                String name = SpellRegistry.getSkillFromPart(part).getDisplayName().getFormattedText();
                 int SGX = shapeGroupX + ((shapeGroupWidth + shapeGroupPadding) * i) + 1;
                 int SGY = shapeGroupY;
                 iconX = SGX + (n % 2) * iconStep;
@@ -451,7 +452,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             Skill part = RegistryHandler.getSkillRegistry().getValue(i);
             if (part == null || RegistryHandler.getSpellPartRegistry().getValue(part.getRegistryName()) == null)// && SkillTreeManager.instance.isSkillDisabled(part))
                 continue;
-            String name = part.getName().getFormattedText();
+            String name = part.getDisplayName().getFormattedText();
             String filterText = searchBar.getText().toLowerCase();
             if (!filterText.equals("") && !filterText.equals(defaultSearchLabel.toLowerCase()) && !name.toLowerCase().contains(filterText)) {
                 continue;

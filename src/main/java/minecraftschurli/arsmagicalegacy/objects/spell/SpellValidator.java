@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell;
 
-import java.util.ArrayList;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
@@ -10,6 +8,9 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.Summon;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpellValidator {
     public static final SpellValidator instance = new SpellValidator();
@@ -72,9 +73,9 @@ public class SpellValidator {
             if (result == StageValidations.NOT_VALID) {
                 return new ValidationResult(segmented.get(i).get(0), new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.validate.invalid").getFormattedText());
             } else if (result == StageValidations.PRINCIPUM && i == segmented.size() - 1) {
-                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.principum").getFormattedText()));
+                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getDisplayName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.principum").getFormattedText()));
             } else if (result == StageValidations.TERMINUS && i < segmented.size() - 1) {
-                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.terminus").getFormattedText()));
+                return new ValidationResult(segmented.get(i).get(0), String.format("%s %s", SpellRegistry.getSkillFromPart(segmented.get(i).get(0)).getDisplayName().getFormattedText(), new TranslationTextComponent(ArsMagicaAPI.MODID + "spell.validate.terminus").getFormattedText()));
             }
         }
         return null;

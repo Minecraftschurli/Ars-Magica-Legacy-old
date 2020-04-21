@@ -5,8 +5,6 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -20,6 +18,9 @@ import net.minecraft.command.arguments.ResourceLocationArgument;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -54,18 +55,18 @@ public class CommandResearch {
     }
 
     private static int list(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        context.getSource().sendFeedback(new StringTextComponent(CapabilityHelper.getLearnedSkills(EntityArgument.getPlayer(context, TARGET)).stream().map(Skill::getName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
+        context.getSource().sendFeedback(new StringTextComponent(CapabilityHelper.getLearnedSkills(EntityArgument.getPlayer(context, TARGET)).stream().map(Skill::getDisplayName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
         return 0;
     }
 
     private static int forget(CommandContext<CommandSource> context) throws CommandSyntaxException {
         Skill skill = RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"));
         if (skill == null) {
-            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", skill.getName()), false);
+            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", skill.getDisplayName()), false);
             return 1;
         }
         CapabilityHelper.forget(EntityArgument.getPlayer(context, TARGET), skill);
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgot", skill.getName()), false);
+        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgot", skill.getDisplayName()), false);
         return 0;
     }
 
@@ -83,7 +84,7 @@ public class CommandResearch {
         if (Objects.equals(skill.getRegistryName(), SpellRegistry.MISSING_SHAPE))
             return 0;
         CapabilityHelper.learn(EntityArgument.getPlayer(context, TARGET), skill);
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.learned", skill.getName()), false);
+        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.learned", skill.getDisplayName()), false);
         return 0;
     }
 
