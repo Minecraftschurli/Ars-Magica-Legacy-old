@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.Direction;
@@ -16,15 +17,15 @@ public class EtheriumCapability {
         CapabilityManager.INSTANCE.register(IEtheriumStorage.class, new Capability.IStorage<IEtheriumStorage>() {
                     @Override
                     public INBT writeNBT(Capability<IEtheriumStorage> capability, IEtheriumStorage instance, Direction side) {
-                        return IntNBT.valueOf(instance.getStoredAmount());
+                        return instance.serializeNBT();
                     }
 
                     @Override
                     public void readNBT(Capability<IEtheriumStorage> capability, IEtheriumStorage instance, Direction side, INBT nbt) {
                         if (!(instance instanceof EtheriumStorage))
                             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((EtheriumStorage)instance).amount = ((IntNBT)nbt).getInt();
+                        instance.deserializeNBT((CompoundNBT) nbt);
                     }
-                }, () -> new EtheriumStorage(1000));
+                }, EtheriumStorage::new);
     }
 }

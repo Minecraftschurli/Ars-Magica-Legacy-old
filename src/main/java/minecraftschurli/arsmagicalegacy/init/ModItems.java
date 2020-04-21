@@ -4,11 +4,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
-import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
-import minecraftschurli.arsmagicalegacy.objects.item.PotionBundleItem;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.item.*;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,6 +28,7 @@ import net.minecraftforge.fml.RegistryObject;
 public final class ModItems implements IInit {
     public static final Item.Properties ITEM_64 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64);
     public static final Item.Properties ITEM_1 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1);
+
     public static final RegistryObject<Item> CHIMERITE_ORE = stackableBlockItem64(ModBlocks.CHIMERITE_ORE);
     public static final RegistryObject<Item> CHIMERITE_BLOCK = stackableBlockItem64(ModBlocks.CHIMERITE_BLOCK);
     public static final RegistryObject<Item> CHIMERITE = stackableItem64("chimerite");
@@ -185,7 +182,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> JOURNAL = ITEMS.register("journal", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
-    public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
     public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> POTION_BUNDLE = ITEMS.register("potion_bundle", () -> new PotionBundleItem(new Item.Properties().maxStackSize(1).group(ItemGroup.BREWING)));

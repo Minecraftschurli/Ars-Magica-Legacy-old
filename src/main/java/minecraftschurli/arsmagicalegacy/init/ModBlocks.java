@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import minecraftschurli.arsmagicalegacy.capabilities.ResearchStorage;
 import minecraftschurli.arsmagicalegacy.objects.block.Button;
 import minecraftschurli.arsmagicalegacy.objects.block.Door;
 import minecraftschurli.arsmagicalegacy.objects.block.InlayBlock;
@@ -11,6 +12,7 @@ import minecraftschurli.arsmagicalegacy.objects.block.WallTorch;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
 import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import minecraftschurli.simpleorelib.Ore;
@@ -28,6 +30,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.item.ItemTier;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -41,16 +44,16 @@ import net.minecraftforge.fml.RegistryObject;
  */
 public final class ModBlocks implements IInit {
     public static final RegistryObject<Ore> CHIMERITE_ORE = BLOCKS.register("chimerite_ore", () -> new Ore(
-            Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE),
-            Ore.OreSpawnProperties.create(0, 0, 0, 0)));
+            Block.Properties.create(Material.ROCK).harvestLevel(ItemTier.IRON.getHarvestLevel()).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
+            Ore.OreSpawnProperties.create(8, 6, 10, 80)));
     public static final RegistryObject<Block> CHIMERITE_BLOCK = BLOCKS.register("chimerite_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Ore> TOPAZ_ORE = BLOCKS.register("topaz_ore", () -> new Ore(
-            Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE),
-            Ore.OreSpawnProperties.create(0, 0, 0, 0)));
+            Block.Properties.create(Material.ROCK).harvestLevel(ItemTier.IRON.getHarvestLevel()).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
+            Ore.OreSpawnProperties.create(8, 6, 10, 80)));
     public static final RegistryObject<Block> TOPAZ_BLOCK = BLOCKS.register("topaz_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Ore> VINTEUM_ORE = BLOCKS.register("vinteum_ore", () -> new Ore(
-            Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE),
-            Ore.OreSpawnProperties.create(0, 0, 0, 0)));
+            Block.Properties.create(Material.ROCK).harvestLevel(ItemTier.IRON.getHarvestLevel()).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
+            Ore.OreSpawnProperties.create(6, 4, 10, 45)));
     public static final RegistryObject<Block> VINTEUM_BLOCK = BLOCKS.register("vinteum_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> MOONSTONE_ORE = BLOCKS.register("moonstone_ore", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(2).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> MOONSTONE_BLOCK = BLOCKS.register("moonstone_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
@@ -101,6 +104,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Door> KEYSTONE_DOOR = BLOCKS.register("keystone_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Door> SPELL_SEALED_DOOR = BLOCKS.register("spell_sealed_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Trapdoor> KEYSTONE_TRAPDOOR = BLOCKS.register("keystone_trapdoor", () -> new Trapdoor(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<ObeliskBlock> OBELISK = BLOCKS.register("obelisk", ObeliskBlock::new);
 
     public static void register() {
     }

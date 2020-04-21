@@ -17,7 +17,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class LevelUpHandler {
     @SubscribeEvent
     public static void compendiumPickup(final PlayerEvent.ItemPickupEvent event) {
-        if (event.getPlayer().isCreative()) return;
+        if (event.getPlayer().isCreative() || event.getPlayer().isSpectator()) return;
         if (CapabilityHelper.getCurrentLevel(event.getPlayer()) > 0) return;
         if (ArsMagicaAPI.isCompendium(event.getStack())) {
             CapabilityHelper.addXP(event.getPlayer(), 0);
@@ -28,14 +28,15 @@ public class LevelUpHandler {
     public static void spellCast(final SpellCastEvent.Post event) {
         if (!(event.castResult == SpellCastResult.SUCCESS || event.castResult == SpellCastResult.SUCCESS_REDUCE_MANA)) return;
         if (!(event.caster instanceof PlayerEntity)) return;
-        if (((PlayerEntity) event.caster).isCreative()) return;
-        if (CapabilityHelper.getCurrentLevel((PlayerEntity) event.caster) <= 0) return;
+        PlayerEntity player = ((PlayerEntity) event.caster);
+        if (player.isCreative() || player.isSpectator()) return;
+        if (CapabilityHelper.getCurrentLevel(player) <= 0) return;
         final int complexity = SpellUtil.getParts(event.stack).size();
         final float manaCost = event.manaCost;
         final float burnout = event.burnout;
-        final float maxMana = CapabilityHelper.getMaxMana(event.caster);
-        final float maxBurnout = CapabilityHelper.getMaxBurnout(event.caster);
-        CapabilityHelper.addXP((PlayerEntity) event.caster, calculateXp(complexity, manaCost, maxMana, burnout, maxBurnout));
+        final float maxMana = CapabilityHelper.getMaxMana(player);
+        final float maxBurnout = CapabilityHelper.getMaxBurnout(player);
+        CapabilityHelper.addXP(player, calculateXp(complexity, manaCost, maxMana, burnout, maxBurnout));
     }
 
     private static float calculateXp(final int complexity, final float manaCost, final float maxMana, final float burnout, final float maxBurnout) {

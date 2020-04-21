@@ -441,6 +441,11 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     @Override
+    public void setEtheriumSource(BlockPos pos) {
+        this.linkedEtheriumSource = pos;
+    }
+
+    @Override
     public boolean shouldConsume() {
         return this.getLeverState();
     }

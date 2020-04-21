@@ -12,6 +12,8 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
+import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskContainer;
+import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskScreen;
 import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
@@ -134,12 +136,13 @@ public final class ArsMagicaLegacy {
         PatchouliMultiblocks.register();
     }
 
+    @SuppressWarnings("RedundantCast")
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.debug("Client Setup");
-        // noinspection RedundantCast
         ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
-        // noinspection RedundantCast
         ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
+        ScreenManager.registerFactory(ModContainers.OBELISK.get(), (ScreenManager.IScreenFactory<ObeliskContainer, ObeliskScreen>) ObeliskScreen::new);
+
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.AUM.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.CERUBLOSSOM.get(), RenderType.getCutout());

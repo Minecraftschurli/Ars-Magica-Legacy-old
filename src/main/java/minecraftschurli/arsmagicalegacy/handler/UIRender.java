@@ -50,16 +50,18 @@ public class UIRender {
         if (renderViewEntity == null)
             return;
         PlayerEntity player = (PlayerEntity) renderViewEntity;
+
         if (!player.getCapability(CapabilityHelper.getMagicCapability()).isPresent()) return;
-        if (!player.getCapability(CapabilityHelper.getManaCapability()).isPresent()) return;
-        if (!player.getCapability(CapabilityHelper.getBurnoutCapability()).isPresent()) return;
         if (CapabilityHelper.getCurrentLevel(player) <= 0) return;
-        renderManaBar(player);
-        renderBurnoutBar(player);
+
         if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.MAIN_HAND);
         else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.OFF_HAND);
+
+        if (player.isCreative() || player.isSpectator()) return;
+        renderManaBar(player);
+        renderBurnoutBar(player);
         renderMagicXp(player);
     }
 
@@ -107,32 +109,31 @@ public class UIRender {
     }
 
     private void renderMagicXp(PlayerEntity player) {
-        if (CapabilityHelper.getCurrentLevel(player) > 0) {
-            RenderSystem.pushMatrix();
-            RenderSystem.enableBlend();
-            float x = 0;
-            float y = 0;
-            Vec2f position = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPBarPosition(), i, j);*/
-            Vec2f dimensions = new Vec2f(182, 5);
-            Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
-            RenderSystem.color4f(0.5f, 0.5f, 1, 1);
-            //base XP bar
-            drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
-            if (CapabilityHelper.getCurrentXP(player) > 0) {
-                float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
-                if (pctXP > 1)
-                    pctXP = 1;
-                int width = (int) ((dimensions.x + 1) * pctXP);
-                drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
-            }
-            String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID + ".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
-            Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
-            Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
-            RenderSystem.popMatrix();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        float x = 0;
+        float y = 0;
+        Vec2f position = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPBarPosition(), i, j);*/
+        Vec2f dimensions = new Vec2f(182, 5);
+        Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
+        RenderSystem.color4f(0.5f, 0.5f, 1, 1);
+        //base XP bar
+        drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
+        if (CapabilityHelper.getCurrentXP(player) > 0) {
+            float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
+            if (pctXP > 1)
+                pctXP = 1;
+            int width = (int) ((dimensions.x + 1) * pctXP);
+            drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
         }
+        String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID + ".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
+        Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
+        Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
+        RenderSystem.popMatrix();
     }
 
     private void renderBurnoutBar(PlayerEntity player) {
+        if (!player.getCapability(CapabilityHelper.getBurnoutCapability()).isPresent()) return;
         int scaledWidth = mc.getMainWindow().getScaledWidth();
         int scaledHeight = mc.getMainWindow().getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
@@ -143,6 +144,7 @@ public class UIRender {
     }
 
     private void renderManaBar(PlayerEntity player) {
+        if (!player.getCapability(CapabilityHelper.getManaCapability()).isPresent()) return;
         int scaledWidth = mc.getMainWindow().getScaledWidth();
         int scaledHeight = mc.getMainWindow().getScaledHeight();
         int xStart = scaledWidth / 2 + 121;
