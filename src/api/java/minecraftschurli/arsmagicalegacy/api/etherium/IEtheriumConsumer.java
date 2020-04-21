@@ -12,4 +12,6 @@ public interface IEtheriumConsumer {
     void invalidateEtheriumSource();
 
     boolean shouldConsume();
+
+    void setEtheriumSource(BlockPos readPos);
 }

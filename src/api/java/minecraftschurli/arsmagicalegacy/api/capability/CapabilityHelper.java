@@ -1,9 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -11,12 +7,7 @@ import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
-import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
-import minecraftschurli.arsmagicalegacy.api.network.SyncAffinityPacket;
-import minecraftschurli.arsmagicalegacy.api.network.SyncBurnoutPacket;
-import minecraftschurli.arsmagicalegacy.api.network.SyncMagicPacket;
-import minecraftschurli.arsmagicalegacy.api.network.SyncManaPacket;
-import minecraftschurli.arsmagicalegacy.api.network.SyncResearchPacket;
+import minecraftschurli.arsmagicalegacy.api.network.*;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
@@ -35,6 +26,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Minecraftschurli
@@ -592,6 +588,7 @@ public class CapabilityHelper {
             syncResearch((ServerPlayerEntity) player);
             syncMana((ServerPlayerEntity) player);
             syncBurnout((ServerPlayerEntity) player);
+            syncMagic((ServerPlayerEntity) player);
         }
     }
 
