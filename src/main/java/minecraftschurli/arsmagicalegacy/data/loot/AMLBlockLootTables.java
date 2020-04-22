@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data.loot;
 
 import com.google.common.collect.Maps;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Block;
@@ -13,6 +9,11 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTables;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * @author Minecraftschurli
@@ -43,6 +44,7 @@ public final class AMLBlockLootTables extends BlockLootTables {
 
     @Override
     public void accept(BiConsumer<ResourceLocation, LootTable.Builder> p_accept_1_) {
+        addTables();
         Set<ResourceLocation> set = new HashSet<>();
         for (Block block : getKnownBlocks()) {
             ResourceLocation resourcelocation = block.getLootTable();
