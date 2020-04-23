@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import java.util.Locale;
+import javax.annotation.Nonnull;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -54,10 +55,12 @@ public class SimpleParticleData implements IParticleData {
         buffer.writeFloat(this.alpha);
     }
 
+    @Nonnull
     public String getParameters() {
         return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(this.getType()), this.red, this.green, this.blue, this.alpha);
     }
 
+    @Nonnull
     public ParticleType<SimpleParticleData> getType() {
         return type;
     }

@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.Tree;
 
 public class Sapling extends SaplingBlock {
-    public Sapling(Tree treeIn) {
-        super(treeIn, Block.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
+    public Sapling(Tree tree) {
+        super(tree, Block.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
     }
 }

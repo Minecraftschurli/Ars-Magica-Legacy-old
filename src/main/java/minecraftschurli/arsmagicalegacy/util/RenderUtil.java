@@ -27,20 +27,20 @@ import net.minecraftforge.fml.RegistryObject;
 import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
-    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
-        world.addParticle(new SimpleParticleData(type.get(), r, g, b, 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
+    public static void addParticle(World world, ParticleType<SimpleParticleData> type, float r, float g, float b, float a, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
+        world.addParticle(new SimpleParticleData(type, r, g, b, a), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
 
-    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, int color, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
-        world.addParticle(new SimpleParticleData(type.get(), getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
+    public static void addParticle(World world, ParticleType<SimpleParticleData> type, int color, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
+        world.addParticle(new SimpleParticleData(type, getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
 
-    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, float r, float g, float b, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type.get(), r, g, b, 1), x, y + 1.5, z, 0, 0, 0);
+    public static void addParticle(World world, ParticleType<SimpleParticleData> type, float r, float g, float b, double x, double y, double z) {
+        world.addParticle(new SimpleParticleData(type, r, g, b, 1), x, y + 1.5, z, 0, 0, 0);
     }
 
-    public static void addParticle(World world, RegistryObject<ParticleType<SimpleParticleData>> type, int color, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type.get(), getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
+    public static void addParticle(World world, ParticleType<SimpleParticleData> type, int color, double x, double y, double z) {
+        world.addParticle(new SimpleParticleData(type, getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
     }
 
     public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {

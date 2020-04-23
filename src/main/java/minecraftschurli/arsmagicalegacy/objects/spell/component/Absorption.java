@@ -7,7 +7,9 @@ import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -64,12 +66,13 @@ public final class Absorption extends SpellComponent {
 //
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
+            RenderUtil.addParticle(world, ModParticles.LENS_FLARE.get(), colorModifier > -1 ? RenderUtil.getRed(colorModifier) : 244, colorModifier > -1 ? RenderUtil.getGreen(colorModifier) : 200, colorModifier > -1 ? RenderUtil.getBlue(colorModifier) : 60, 1, x, y, z, 0, 0, 0);
 //            world.addParticle((IParticleData) ModParticles.LENS_FLARE.get(), x, y, z, 0, 0, 0);
 //            SimpleParticle particle = new SimpleParticle(world, x, y, z);
 //            particle.setMaxAge(25 + rand.nextInt(10));
 //            particle.setColor(244, 200, 60);
 //            if (colorModifier > -1) particle.setColor(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//        }
+        }
     }
 }

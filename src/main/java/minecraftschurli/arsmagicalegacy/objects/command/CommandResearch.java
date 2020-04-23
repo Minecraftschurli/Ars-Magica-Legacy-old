@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @version 2019-12-04
  */
 public class CommandResearch {
-    private static final SuggestionProvider<CommandSource> SUGGEST_RESEARCH = (context, builder) -> ISuggestionProvider.func_212476_a(RegistryHandler.getSkillRegistry().getValues().stream().map(Skill::getRegistryName), builder);
+    private static final SuggestionProvider<CommandSource> SUGGEST_RESEARCH = (ctx, builder) -> ISuggestionProvider.func_212476_a(RegistryHandler.getSkillRegistry().getValues().stream().map(Skill::getRegistryName), builder);
     private static final String TARGET = "target";
 
     public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
@@ -54,44 +54,42 @@ public class CommandResearch {
                 );
     }
 
-    private static int list(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        context.getSource().sendFeedback(new StringTextComponent(CapabilityHelper.getLearnedSkills(EntityArgument.getPlayer(context, TARGET)).stream().map(Skill::getDisplayName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
+    private static int list(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
+        ctx.getSource().sendFeedback(new StringTextComponent(CapabilityHelper.getLearnedSkills(EntityArgument.getPlayer(ctx, TARGET)).stream().map(Skill::getDisplayName).map(ITextComponent::getFormattedText).collect(Collectors.joining("\n"))), false);
         return 0;
     }
 
-    private static int forget(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        Skill skill = RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"));
+    private static int forget(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
+        Skill skill = RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(ctx, "id"));
         if (skill == null) {
-            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", skill.getDisplayName()), false);
+            ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", skill.getDisplayName()), false);
             return 1;
         }
-        CapabilityHelper.forget(EntityArgument.getPlayer(context, TARGET), skill);
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgot", skill.getDisplayName()), false);
+        CapabilityHelper.forget(EntityArgument.getPlayer(ctx, TARGET), skill);
+        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgot", skill.getDisplayName()), false);
         return 0;
     }
 
-    private static int forgetAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        CapabilityHelper.forgetAll(EntityArgument.getPlayer(context, TARGET));
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgotall"), false);
+    private static int forgetAll(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
+        CapabilityHelper.forgetAll(EntityArgument.getPlayer(ctx, TARGET));
+        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgotall"), false);
         return 0;
     }
 
-    private static int learn(CommandContext<CommandSource> context, Skill skill) throws CommandSyntaxException {
+    private static int learn(CommandContext<CommandSource> ctx, Skill skill) throws CommandSyntaxException {
         if (skill == null) {
-            context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(context, "id")), false);
+            ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillnotfound", ResourceLocationArgument.getResourceLocation(ctx, "id")), false);
             return 1;
         }
         if (Objects.equals(skill.getRegistryName(), SpellRegistry.MISSING_SHAPE))
             return 0;
-        CapabilityHelper.learn(EntityArgument.getPlayer(context, TARGET), skill);
-        context.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.learned", skill.getDisplayName()), false);
+        CapabilityHelper.learn(EntityArgument.getPlayer(ctx, TARGET), skill);
+        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.learned", skill.getDisplayName()), false);
         return 0;
     }
 
-    private static int learnAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        for (Skill skill : RegistryHandler.getSkillRegistry()) {
-            CommandResearch.learn(context, skill);
-        }
+    private static int learnAll(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
+        for (Skill skill : RegistryHandler.getSkillRegistry()) CommandResearch.learn(ctx, skill);
         return 0;
     }
 }

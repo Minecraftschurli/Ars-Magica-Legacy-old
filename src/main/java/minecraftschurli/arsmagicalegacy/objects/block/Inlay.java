@@ -19,10 +19,10 @@ import net.minecraft.world.World;
  * @author Minecraftschurli
  * @version 2020-01-15
  */
-public class InlayBlock extends AbstractRailBlock {
+public class Inlay extends AbstractRailBlock {
     public static final EnumProperty<RailShape> SHAPE = EnumProperty.create("shape", RailShape.class, ((Predicate<RailShape>) RailShape::isAscending).negate());
 
-    public InlayBlock(Block.Properties properties) {
+    public Inlay(Block.Properties properties) {
         super(false, properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(SHAPE, RailShape.NORTH_SOUTH));
     }

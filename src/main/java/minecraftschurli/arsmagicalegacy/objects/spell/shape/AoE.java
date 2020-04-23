@@ -135,6 +135,6 @@ public final class AoE extends SpellShape {
                 if (mod instanceof Color)
                     color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
         }
-        for (int i = 0; i < 360; i += 60) RenderUtil.addParticle(world, ModParticles.LENS_FLARE, color, x, y, z);
+        for (int i = 0; i < 360; i += 60) RenderUtil.addParticle(world, ModParticles.LENS_FLARE.get(), color, x, y, z);
     }
 }

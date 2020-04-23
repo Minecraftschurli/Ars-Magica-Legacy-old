@@ -19,11 +19,10 @@ public class WallTorch extends WallTorchBlock {
     @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         Direction direction = stateIn.get(HORIZONTAL_FACING);
-        double d0 = (double) pos.getX() + 0.5D;
-        double d1 = (double) pos.getY() + 0.7D;
-        double d2 = (double) pos.getZ() + 0.5D;
-        Direction direction1 = direction.getOpposite();
-        worldIn.addParticle(ParticleTypes.SMOKE, d0 + 0.27D * (double) direction1.getXOffset(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getZOffset(), 0, 0, 0);
-        //worldIn.addParticle(ModParticles.VINTEUM_FLAME, d0 + 0.27D * (double)direction1.getXOffset(), d1 + 0.22D, d2 + 0.27D * (double)direction1.getZOffset(), 0, 0, 0);
+        double x = (double) pos.getX() + 0.5;
+        double y = (double) pos.getY() + 0.7;
+        double z = (double) pos.getZ() + 0.5;
+        direction = direction.getOpposite();
+        worldIn.addParticle(ParticleTypes.SMOKE, x + 0.27 * (double) direction.getXOffset(), y + 0.22, z + 0.27 * (double) direction.getZOffset(), 0, 0, 0);
     }
 }
