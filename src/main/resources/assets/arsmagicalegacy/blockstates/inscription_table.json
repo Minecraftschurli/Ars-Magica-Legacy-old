@@ -4,7 +4,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "facing": "west"
@@ -20,7 +20,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "facing": "west"
@@ -36,7 +36,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -65,7 +65,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "OR": [
@@ -91,7 +91,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -117,7 +117,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "tier": 3
@@ -136,7 +136,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "tier": 3
@@ -155,7 +155,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "facing": "east"
@@ -171,7 +171,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "facing": "east"
@@ -187,7 +187,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -216,7 +216,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "OR": [
@@ -242,7 +242,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -268,7 +268,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "tier": 3
@@ -287,7 +287,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "tier": 3
@@ -306,7 +306,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "facing": "south"
@@ -321,7 +321,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "facing": "south"
@@ -336,7 +336,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -364,7 +364,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "OR": [
@@ -389,7 +389,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -414,7 +414,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "tier": 3
@@ -432,7 +432,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "tier": 3
@@ -450,7 +450,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "facing": "north"
@@ -466,7 +466,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "facing": "north"
@@ -482,7 +482,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -511,7 +511,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "OR": [
@@ -537,7 +537,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "OR": [
@@ -563,7 +563,7 @@
       "when": {
         "AND": [
           {
-            "left": "false"
+            "half": "right"
           },
           {
             "tier": 3
@@ -582,7 +582,7 @@
       "when": {
         "AND": [
           {
-            "left": "true"
+            "half": "left"
           },
           {
             "tier": 3

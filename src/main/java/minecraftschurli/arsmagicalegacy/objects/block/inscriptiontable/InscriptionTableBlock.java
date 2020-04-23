@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,8 +14,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -26,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -35,6 +33,10 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
  * @author Minecraftschurli
  * @version 2019-12-09
@@ -43,16 +45,16 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class InscriptionTableBlock extends Block {
     public static final IntegerProperty TIER = IntegerProperty.create("tier", 0, 3);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty LEFT = BooleanProperty.create("left");
+    public static final EnumProperty<InscriptionTableBlock.Half> HALF = EnumProperty.create("half", Half.class);
 
     public InscriptionTableBlock() {
         super(Properties.create(Material.WOOD).hardnessAndResistance(2, 2).lightValue(1).notSolid());
-        setDefaultState(getDefaultState().with(TIER, 0).with(FACING, Direction.NORTH).with(LEFT, false));
+        setDefaultState(getDefaultState().with(TIER, 0).with(FACING, Direction.NORTH).with(HALF, Half.RIGHT));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(TIER, FACING, LEFT);
+        builder.add(TIER, FACING, HALF);
     }
 
     @Nonnull
@@ -65,7 +67,7 @@ public class InscriptionTableBlock extends Block {
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.down();
         BlockState blockstate = worldIn.getBlockState(blockpos);
-        if (!state.get(LEFT)) {
+        if (state.get(HALF) != Half.LEFT) {
             return blockstate.isSolidSide(worldIn, blockpos, Direction.UP);
         } else {
             return blockstate.getBlock() == this;
@@ -74,7 +76,7 @@ public class InscriptionTableBlock extends Block {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        worldIn.setBlockState(pos.offset(state.get(FACING).rotateY()), state.with(LEFT, true), 3);
+        worldIn.setBlockState(pos.offset(state.get(FACING).rotateY()), state.with(HALF, Half.LEFT), 3);
     }
 
     @Nullable
@@ -86,9 +88,9 @@ public class InscriptionTableBlock extends Block {
     }
 
     /*public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos ceurrentPos, BlockPos facingPos) {
-        boolean doubleblockhalf = stateIn.get(LEFT);
+        boolean doubleblockhalf = stateIn.get(HALF);
         if (facing.getAxis() == Direction.Axis.Y && (!doubleblockhalf) == (facing == Direction.UP)) {
-            return facingState.getBlock() == this && facingState.get(LEFT) != doubleblockhalf ? stateIn.with(FACING, facingState.get(FACING)) : Blocks.AIR.getDefaultState();
+            return facingState.getBlock() == this && facingState.get(HALF) != doubleblockhalf ? stateIn.with(FACING, facingState.get(FACING)) : Blocks.AIR.getDefaultState();
         } else {
             return !doubleblockhalf && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
         }
@@ -101,15 +103,15 @@ public class InscriptionTableBlock extends Block {
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        boolean doubleblockhalf = state.get(LEFT);
+        boolean doubleblockhalf = state.get(HALF) == Half.LEFT;
         BlockPos blockpos = !doubleblockhalf ? pos.offset(state.get(FACING).rotateY()) : pos.offset(state.get(FACING).rotateYCCW());
         BlockState blockstate = worldIn.getBlockState(blockpos);
-        if (blockstate.getBlock() == this && blockstate.get(LEFT) != doubleblockhalf) {
+        if (blockstate.getBlock() == this && (blockstate.get(HALF) == Half.LEFT) != doubleblockhalf) {
             worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 35);
             worldIn.playEvent(player, 2001, blockpos, Block.getStateId(blockstate));
             ItemStack itemstack = player.getHeldItemMainhand();
             if (!worldIn.isRemote && !player.isCreative()) {
-                BlockPos tePos = state.get(LEFT) ? pos.offset(state.get(FACING).rotateY()) : pos;
+                BlockPos tePos = state.get(HALF) == Half.LEFT ? pos.offset(state.get(FACING).rotateY()) : pos;
                 InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
                 Block.spawnDrops(state, worldIn, pos, te, player, itemstack);
                 Block.spawnDrops(blockstate, worldIn, blockpos, te, player, itemstack);
@@ -120,7 +122,7 @@ public class InscriptionTableBlock extends Block {
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return !state.get(LEFT);
+        return state.get(HALF) != Half.LEFT;
     }
 
     @Nullable
@@ -137,7 +139,7 @@ public class InscriptionTableBlock extends Block {
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
         }
-        boolean left = state.get(LEFT);
+        boolean left = state.get(HALF) == Half.LEFT;
         BlockPos tePos = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos;
         InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
         if (te == null)
@@ -172,5 +174,14 @@ public class InscriptionTableBlock extends Block {
             }, tePos);
         }
         return ActionResultType.SUCCESS;
+    }
+
+    public enum Half implements IStringSerializable {
+        LEFT, RIGHT;
+
+        @Override
+        public String getName() {
+            return name().toLowerCase();
+        }
     }
 }

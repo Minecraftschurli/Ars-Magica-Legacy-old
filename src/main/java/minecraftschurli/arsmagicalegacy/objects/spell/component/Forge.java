@@ -1,14 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.util.SummonUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -27,6 +23,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 
 public final class Forge extends SpellComponent {
     @Override
@@ -64,7 +65,7 @@ public final class Forge extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.FIRE.get());
+        return Sets.newHashSet(ModAffinities.FIRE.get());
     }
 
     @Override

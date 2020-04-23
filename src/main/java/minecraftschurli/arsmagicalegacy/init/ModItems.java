@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import java.util.Objects;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.*;
@@ -10,16 +8,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.TallBlockItem;
-import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.fml.RegistryObject;
+
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 /**
  * @author Minecraftschurli
@@ -149,6 +143,9 @@ public final class ModItems implements IInit {
             return super.placeBlock(context, state);
         }
     });
+    public static final RegistryObject<Item> OBELISK = ITEMS.register("obelisk", () -> new TallBlockItem(ModBlocks.OBELISK.get(), ITEM_1));
+    public static final RegistryObject<Item> CELESTIAL_PRISM = blockItem(ModBlocks.CELESTIAL_PRISM);
+    public static final RegistryObject<Item> BLACK_AUREM = blockItem(ModBlocks.BLACK_AUREM);
     public static final RegistryObject<Item> ALTAR_CORE = stackableBlockItem64(ModBlocks.ALTAR_CORE);
     public static final RegistryObject<Item> MAGIC_WALL = stackableBlockItem64(ModBlocks.MAGIC_WALL);
     public static final RegistryObject<Item> OCCULUS = blockItem(ModBlocks.OCCULUS);

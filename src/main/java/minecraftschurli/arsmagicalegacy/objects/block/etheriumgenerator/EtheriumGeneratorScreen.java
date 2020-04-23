@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
+package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.client.Minecraft;
@@ -12,10 +12,10 @@ import org.lwjgl.opengl.GL14;
  * @author Minecraftschurli
  * @version 2020-04-21
  */
-public class ObeliskScreen extends ContainerScreen<ObeliskContainer> {
+public class EtheriumGeneratorScreen extends ContainerScreen<EtheriumGeneratorContainer> {
     private static final ResourceLocation background = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/obelisk_gui.png");
 
-    public ObeliskScreen(ObeliskContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public EtheriumGeneratorScreen(EtheriumGeneratorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         xSize = 176;
         ySize = 165;
@@ -23,6 +23,7 @@ public class ObeliskScreen extends ContainerScreen<ObeliskContainer> {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        this.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
         Minecraft.getInstance().getTextureManager().bindTexture(background);
         GL14.glColor4f(1, 1, 1, 1);
         int i = (width - xSize) / 2;

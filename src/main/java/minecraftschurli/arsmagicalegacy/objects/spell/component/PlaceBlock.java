@@ -1,13 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,6 +21,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 public final class PlaceBlock extends SpellComponent {
     private static final String KEY = "PlaceBlockID";
@@ -70,7 +71,7 @@ public final class PlaceBlock extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.EARTH.get(), ModSpellParts.ENDER.get());
+        return Sets.newHashSet(ModAffinities.EARTH.get(), ModAffinities.ENDER.get());
     }
 
     @Override

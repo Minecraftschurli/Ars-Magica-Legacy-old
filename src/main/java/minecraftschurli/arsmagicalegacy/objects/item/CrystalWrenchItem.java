@@ -2,18 +2,14 @@ package minecraftschurli.arsmagicalegacy.objects.item;
 
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumConsumer;
-import minecraftschurli.arsmagicalegacy.api.util.NBTUtil;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -40,6 +36,7 @@ public class CrystalWrenchItem extends Item {
         if (player.isShiftKeyDown()) {
             if (tileEntity instanceof IEtheriumConsumer) {
                 ((IEtheriumConsumer) tileEntity).setEtheriumSource(readPos(context.getItem()));
+                storePos(context.getItem(), null);
                 return ActionResultType.SUCCESS;
             } else if (tileEntity.getCapability(CapabilityHelper.getEtheriumCapability()).isPresent()) {
                 storePos(context.getItem(), pos);
@@ -50,6 +47,10 @@ public class CrystalWrenchItem extends Item {
     }
 
     public static void storePos(ItemStack stack, BlockPos pos) {
+        if (pos == null) {
+            stack.getOrCreateTag().remove("storedPos");
+            return;
+        }
         CompoundNBT posNBT = new CompoundNBT();
         posNBT.putInt("x", pos.getX());
         posNBT.putInt("y", pos.getY());

@@ -1,14 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -22,6 +18,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
+
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class RandomTeleport extends SpellComponent {
     @Override
@@ -68,7 +69,7 @@ public final class RandomTeleport extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.ENDER.get());
+        return Sets.newHashSet(ModAffinities.ENDER.get());
     }
 
     @Override

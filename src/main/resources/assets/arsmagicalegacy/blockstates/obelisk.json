@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "half=lower,facing=north": { "model": "arsmagicalegacy:block/obelisk" },
+    "half=lower,facing=east": { "model": "arsmagicalegacy:block/obelisk", "y": 90 },
+    "half=lower,facing=south": { "model": "arsmagicalegacy:block/obelisk", "y": 180 },
+    "half=lower,facing=west": { "model": "arsmagicalegacy:block/obelisk", "y": 270 },
+    "half=upper": { "model": "block/air" }
+  }
+}

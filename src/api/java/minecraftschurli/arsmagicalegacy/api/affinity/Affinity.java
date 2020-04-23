@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -172,5 +173,12 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
 
     public IItemProvider getEssence() {
         return this.essence;
+    }
+
+    @Nullable
+    public ResourceLocation getTextureLocation() {
+        ResourceLocation rl = getRegistryName();
+        if (rl == null || rl.equals(NONE)) return null;
+        return new ResourceLocation(rl.getNamespace(), rl.getPath()+"_tome");
     }
 }

@@ -12,7 +12,7 @@ import minecraftschurli.arsmagicalegacy.api.registry.SkillRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModSkillTrees;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -162,7 +162,7 @@ public class OcculusScreen extends Screen {
         }
         RenderSystem.color3f(1f, 1f, 1f);
         Minecraft.getInstance().getTextureManager().bindTexture(currentTree.getBackground());
-        if (currentTree != ModSpellParts.AFFINITY.get()) {
+        if (currentTree != ModSkillTrees.AFFINITY.get()) {
             RenderUtil.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), calcXOffest, calcYOffest, renderRatio + calcXOffest, renderRatio + calcYOffest);
             List<Skill> skills = SkillRegistry.getSkillsForTree(currentTree);
             this.setBlitOffset(1);

@@ -1,24 +1,18 @@
-package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
+package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableTileEntity;
-import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -27,19 +21,23 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 /**
- * @author Minecraftschurli
- * @version 2020-04-21
+ * @author Georg Burkl
+ * @version 2020-04-23
  */
-public class ObeliskBlock extends Block {
-    private static final VoxelShape SHAPE = makeCuboidShape(0,0,0,16,32,16);
-    public ObeliskBlock() {
-        super(Properties.create(Material.ROCK));
+public class EtheriumGeneratorBlock extends Block {
+    private final Supplier<TileEntityType<EtheriumGeneratorTileEntity>> tileEntityTypeSupplier;
+
+    public EtheriumGeneratorBlock(Block.Properties properties, Supplier<TileEntityType<EtheriumGeneratorTileEntity>> tileEntityTypeSupplier) {
+        super(properties);
+        this.tileEntityTypeSupplier = tileEntityTypeSupplier;
     }
 
+    @Nonnull
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit) {
         super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
@@ -55,16 +53,11 @@ public class ObeliskBlock extends Block {
             }
 
             @Override
-            public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-                return new ObeliskContainer(p_createMenu_1_, p_createMenu_2_, (ObeliskTileEntity) te);
+            public Container createMenu(int p_createMenu_1_, @Nonnull PlayerInventory p_createMenu_2_, @Nonnull PlayerEntity p_createMenu_3_) {
+                return new EtheriumGeneratorContainer(p_createMenu_1_, p_createMenu_2_, (EtheriumGeneratorTileEntity) te);
             }
         }, pos);
         return ActionResultType.SUCCESS;
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPE;
     }
 
     @Override
@@ -75,6 +68,6 @@ public class ObeliskBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new ObeliskTileEntity();
+        return tileEntityTypeSupplier.get().create();
     }
 }
