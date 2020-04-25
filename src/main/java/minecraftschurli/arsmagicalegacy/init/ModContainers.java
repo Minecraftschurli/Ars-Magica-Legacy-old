@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import net.minecraft.inventory.container.ContainerType;

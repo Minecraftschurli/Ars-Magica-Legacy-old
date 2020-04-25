@@ -1,9 +1,9 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.obelisk;
+package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorContainer;
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorBlock;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

@@ -1,12 +1,12 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.block.*;
+import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.celestialprism.CelestialPrismBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewBlock;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.blackaurem.BlackAuremBlock;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.celestialprism.CelestialPrismBlock;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.obelisk.ObeliskBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
 import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import minecraftschurli.simpleorelib.Ore;

@@ -1,7 +1,7 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.celestialprism;
+package minecraftschurli.arsmagicalegacy.objects.block.blackaurem;
 
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
@@ -15,18 +15,14 @@ import javax.annotation.Nonnull;
  * @author Minecraftschurli
  * @version 2020-04-23
  */
-public class CelestialPrismBlock extends EtheriumGeneratorBlock {
-    public CelestialPrismBlock() {
-        super(Properties.create(Material.GLASS).notSolid(), ModTileEntities.CELESTIAL_PRISM);
+public class BlackAuremBlock extends EtheriumGeneratorBlock {
+    public BlackAuremBlock() {
+        super(Properties.create(Material.ROCK).notSolid(), ModTileEntities.BLACK_AUREM);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public float getAmbientOcclusionLightValue(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
         return 1.0F;
-    }
-
-    public boolean propagatesSkylightDown(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos) {
-        return true;
     }
 }

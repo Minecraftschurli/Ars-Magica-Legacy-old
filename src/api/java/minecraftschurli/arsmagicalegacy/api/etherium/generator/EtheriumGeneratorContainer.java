@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
+package minecraftschurli.arsmagicalegacy.api.etherium.generator;
 
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
 import net.minecraft.entity.player.PlayerEntity;
