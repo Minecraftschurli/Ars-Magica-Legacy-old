@@ -6,7 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2020-04-22
  */
 public final class ModSkillTrees {

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2020-04-23
  */
 public class IMCHandler {

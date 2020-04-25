@@ -7,6 +7,10 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 
+/**
+ * @author Minecraftschurli
+ * @version 2020-04-23
+ */
 public class EtheriumGeneratorInventory extends ItemStackHandler implements IInventory {
     public EtheriumGeneratorInventory(){
         super(1);

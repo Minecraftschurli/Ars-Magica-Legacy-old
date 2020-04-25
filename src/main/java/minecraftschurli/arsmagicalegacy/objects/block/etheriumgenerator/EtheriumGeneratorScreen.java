@@ -23,7 +23,7 @@ public class EtheriumGeneratorScreen extends ContainerScreen<EtheriumGeneratorCo
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        this.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
+        this.renderBackground(0);
         Minecraft.getInstance().getTextureManager().bindTexture(background);
         GL14.glColor4f(1, 1, 1, 1);
         int i = (width - xSize) / 2;

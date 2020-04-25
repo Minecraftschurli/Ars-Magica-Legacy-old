@@ -118,6 +118,7 @@ public class OcculusScreen extends Screen {
 
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
+        renderBackground(0);
         int posX = width / 2 - xSize / 2;
         int posY = height / 2 - ySize / 2;
         float renderSize = 32F;

@@ -110,7 +110,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         createSpellButton = new Button(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.makeSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton = new Button(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.resetSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton.visible = false;
-        if (usingPlayer.abilities.isCreativeMode) {
+        if (usingPlayer.isCreative()) {
             this.addButton(createSpellButton);
         }
         this.addButton(resetSpellButton);
@@ -123,7 +123,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     protected void actionPerformed(Button par1GuiButton) {
-        if (par1GuiButton == createSpellButton && usingPlayer.abilities.isCreativeMode) {
+        if (par1GuiButton == createSpellButton && usingPlayer.isCreative()) {
             this.container.giveSpellToPlayer(usingPlayer);
         } else if (par1GuiButton == resetSpellButton) {
             this.container.resetSpellNameAndIcon();
@@ -284,7 +284,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        this.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
+        this.renderBackground(0);
         Minecraft.getInstance().getTextureManager().bindTexture(background);
         GL14.glColor4f(1, 1, 1, 1);
         int l = (width - xSize) / 2;

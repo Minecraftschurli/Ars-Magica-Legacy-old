@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2020-04-22
  */
 public class AffinityTomeModel extends BakedModelWrapper<IBakedModel> {

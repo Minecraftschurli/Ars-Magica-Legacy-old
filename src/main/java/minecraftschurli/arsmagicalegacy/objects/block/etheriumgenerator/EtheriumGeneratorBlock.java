@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -24,7 +25,7 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 /**
- * @author Georg Burkl
+ * @author Minecraftschurli
  * @version 2020-04-23
  */
 public class EtheriumGeneratorBlock extends Block {
@@ -69,5 +70,20 @@ public class EtheriumGeneratorBlock extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return tileEntityTypeSupplier.get().create();
+    }
+
+    @Override
+    public boolean canEntitySpawn(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull EntityType<?> type) {
+        return false;
+    }
+
+    @Override
+    public boolean causesSuffocation(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+        return false;
+    }
+
+    @Override
+    public boolean isNormalCube(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+        return false;
     }
 }

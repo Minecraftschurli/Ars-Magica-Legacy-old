@@ -7,11 +7,7 @@ import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -21,6 +17,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
@@ -234,5 +231,40 @@ public final class RenderUtil {
         RenderSystem.rotatef((float) rotation.z, 1, 0, 1);
 //        renderBlockModel(te, model, defaultState);
         RenderSystem.popMatrix();
+    }
+
+    public static void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel) {
+        final float uScale = 1f / 0x100;
+        final float vScale = 1f / 0x100;
+        Tessellator tessellator = Tessellator.getInstance();
+        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuffer().pos(dst_x, dst_y + dst_height, zLevel).tex((src_x) * uScale, (src_y + src_height) * vScale).endVertex();
+        tessellator.getBuffer().pos(dst_x + dst_width, dst_y + dst_height, zLevel).tex((src_x + src_width) * uScale, (src_y + src_height) * vScale).endVertex();
+        tessellator.getBuffer().pos(dst_x + dst_width, dst_y, zLevel).tex((src_x + src_width) * uScale, (src_y) * vScale).endVertex();
+        tessellator.getBuffer().pos(dst_x, dst_y, zLevel).tex((src_x) * uScale, (src_y) * vScale).endVertex();
+        tessellator.draw();
+    }
+
+    protected static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+    }, RenderSystem::disableBlend);
+    protected static final RenderState.AlphaState DEFAULT_ALPHA = new RenderState.AlphaState(0.003921569F);
+    protected static final RenderState.LightmapState LIGHTMAP_ENABLED = new RenderState.LightmapState(true);
+    protected static final RenderState.OverlayState OVERLAY_ENABLED = new RenderState.OverlayState(true);
+    protected static final RenderState.CullState CULL_DISABLED = new RenderState.CullState(false);
+    protected static final RenderState.DiffuseLightingState DIFFUSE_LIGHTING_ENABLED = new RenderState.DiffuseLightingState(true);
+
+    public static RenderType getPaneRenderType(ResourceLocation texture) {
+        RenderType.State rendertype$state = RenderType.State.getBuilder()
+                .texture(new RenderState.TextureState(texture, false, false))
+                .transparency(TRANSLUCENT_TRANSPARENCY)
+                .diffuseLighting(DIFFUSE_LIGHTING_ENABLED)
+                .alpha(DEFAULT_ALPHA)
+                .cull(CULL_DISABLED)
+                .lightmap(LIGHTMAP_ENABLED)
+                .overlay(OVERLAY_ENABLED)
+                .build(false);
+        return RenderType.makeType("pane", DefaultVertexFormats.POSITION_TEX, 7, 256, true, true, rendertype$state);
     }
 }

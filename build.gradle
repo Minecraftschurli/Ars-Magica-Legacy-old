@@ -131,7 +131,7 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mcVersion}-${patchouliVersion}")
 
-    compile fg.deobf("minecraftschurli:SimpleOreLib:${mcVersion}-1.2")
+    compile fg.deobf("minecraftschurli:SimpleOreLib:${mcVersion}-1.3")
 }
 
 jar {

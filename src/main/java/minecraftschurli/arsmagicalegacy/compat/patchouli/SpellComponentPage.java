@@ -15,15 +15,12 @@ import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemTagSpellIngredient;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
-import org.lwjgl.opengl.GL11;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 
@@ -69,7 +66,7 @@ public class SpellComponentPage implements ICustomComponent {
         Skill skill = SpellRegistry.getSkillFromPart(part);
         context.getGui().getMinecraft().getTextureManager().bindTexture(skill.getIcon());
         RenderSystem.color4f(1, 1, 1, 1);
-        drawTexturedModalRectClassic(cx-2, cy-2, 0, 0, 20, 20, 256, 256, context.getGui().getBlitOffset());
+        RenderUtil.drawTexturedModalRectClassic(cx-2, cy-2, 0, 0, 20, 20, 256, 256, context.getGui().getBlitOffset());
         if (context.isAreaHovered(mouseX, mouseY, cx-2, cy-2, 20, 20)) {
             context.setHoverTooltip(skill.getTooltip()
                     .stream()
@@ -115,7 +112,7 @@ public class SpellComponentPage implements ICustomComponent {
                 yOffset += 16;
             }
             RenderSystem.enableBlend();
-            drawTexturedModalRectClassic(posX + startX, posY + yOffset, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
+            RenderUtil.drawTexturedModalRectClassic(posX + startX, posY + yOffset, 0, 0, 16, 16, 256, 256, context.getGui().getBlitOffset());
             RenderSystem.disableBlend();
             if (context.isAreaHovered(mouseX, mouseY, posX + startX, posY + yOffset, 16, 16)) {
                 context.setHoverTooltip(skill.getTooltip()
@@ -178,18 +175,6 @@ public class SpellComponentPage implements ICustomComponent {
         if (context.isAreaHovered(mousex, mousey, (int) x, (int) y, 16, 16)) {
             context.setHoverTooltip(Collections.singletonList(ingredient.getTooltip().getFormattedText()));
         }
-    }
-
-    public void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel) {
-        final float uScale = 1f / 0x100;
-        final float vScale = 1f / 0x100;
-        Tessellator var9 = Tessellator.getInstance();
-        var9.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        var9.getBuffer().pos(dst_x, dst_y + dst_height, zLevel).tex((src_x) * uScale, (src_y + src_height) * vScale).endVertex();
-        var9.getBuffer().pos(dst_x + dst_width, dst_y + dst_height, zLevel).tex((src_x + src_width) * uScale, (src_y + src_height) * vScale).endVertex();
-        var9.getBuffer().pos(dst_x + dst_width, dst_y, zLevel).tex((src_x + src_width) * uScale, (src_y) * vScale).endVertex();
-        var9.getBuffer().pos(dst_x, dst_y, zLevel).tex((src_x) * uScale, (src_y) * vScale).endVertex();
-        var9.draw();
     }
 
     @Override
