@@ -6,7 +6,10 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorTileEntity;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
@@ -38,46 +41,38 @@ public class BlackAuremTER extends TileEntityRenderer<EtheriumGeneratorTileEntit
         float src_y = 0;
         float src_width = 256;
         float src_height = 256;
-        float nx = 0;
-        float ny = 0;
-        float nz = 1;
         matrixStack.translate(-0.5f, -0.5f, 0.5);
         matrixStack.scale(2f, 2f, 2f);
         matrixStack.translate(0.5f, 0.5f, 0f);
         matrixStack.rotate(Minecraft.getInstance().getRenderManager().getCameraOrientation());
-        matrixStack.rotate(new Quaternion(new Vector3f(0,0,1), Minecraft.getInstance().player.ticksExisted, true));
+        matrixStack.rotate(new Quaternion(Vector3f.ZP, Minecraft.getInstance().player.ticksExisted, true));
         matrixStack.translate(-0.5f, -0.5f, 0f);
         IVertexBuilder buffer = bufferIn.getBuffer(RenderUtil.getPaneRenderType(texture));
         MatrixStack.Entry matrixStackEntry = matrixStack.getLast();
         Matrix4f matrix = matrixStackEntry.getMatrix();
-        Matrix3f normalMatrix = matrixStackEntry.getNormal();
         buffer.pos(matrix, 0, 1, zLevel)
                 .color(1f,1f,1f,1f)
                 .tex((src_x) * uScale, (src_y + src_height) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
-//                .normal(normalMatrix, nx, ny, nz)
                 .endVertex();
         buffer.pos(matrix, 1, 1, zLevel)
                 .color(1f,1f,1f,1f)
                 .tex((src_x + src_width) * uScale, (src_y + src_height) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
-//                .normal(normalMatrix, nx, ny, nz)
                 .endVertex();
         buffer.pos(matrix, 1, 0, zLevel)
                 .color(1f,1f,1f,1f)
                 .tex((src_x + src_width) * uScale, (src_y) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
-//                .normal(normalMatrix, nx, ny, nz)
                 .endVertex();
         buffer.pos(matrix, 0, 0, zLevel)
                 .color(1f,1f,1f,1f)
                 .tex((src_x) * uScale, (src_y) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
-//                .normal(normalMatrix, nx, ny, nz)
                 .endVertex();
     }
 }
