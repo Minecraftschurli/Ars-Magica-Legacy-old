@@ -1,22 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.MushroomBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,6 +20,8 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.eventbus.api.Event;
+
+import java.util.*;
 
 public final class Grow extends SpellComponent {
     private final static List<Block> flowers = new ArrayList<>();
@@ -89,7 +81,7 @@ public final class Grow extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NATURE.get());
+        return Sets.newHashSet(ModAffinities.NATURE.get());
     }
 
     @Override

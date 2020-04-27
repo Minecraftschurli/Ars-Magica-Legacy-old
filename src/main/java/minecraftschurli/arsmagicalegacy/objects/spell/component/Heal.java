@@ -1,14 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,6 +14,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class Heal extends SpellComponent {
     @Override
@@ -29,11 +30,11 @@ public final class Heal extends SpellComponent {
         if (target instanceof LivingEntity) {
             if (((LivingEntity) target).isEntityUndead()) {
                 int healing = SpellUtil.modifyIntMul(10, stack, caster, target, world, SpellModifiers.HEALING);
-                return SpellUtil.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), (float) (healing * (0.5f + 2 * CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get()))));
+                return SpellUtil.attackWithType(stack, target, DamageSource.causeIndirectMagicDamage(caster, null), (float) (healing * (0.5f + 2 * CapabilityHelper.getAffinityDepth(caster, ModAffinities.LIFE.get()))));
             } else {
                 int healing = SpellUtil.modifyIntMul(2, stack, caster, target, world, SpellModifiers.HEALING);
                 if (caster.isNonBoss())
-                    healing *= 1 + CapabilityHelper.getAffinityDepth(caster, ModSpellParts.LIFE.get());
+                    healing *= 1 + CapabilityHelper.getAffinityDepth(caster, ModAffinities.LIFE.get());
                 ((LivingEntity) target).heal(healing);
                 return true;
             }
@@ -43,7 +44,7 @@ public final class Heal extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.LIFE.get());
+        return Sets.newHashSet(ModAffinities.LIFE.get());
     }
 
     @Override

@@ -1,13 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 public final class ScrambleSynapses extends SpellComponent {
     @Override
@@ -29,7 +30,7 @@ public final class ScrambleSynapses extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.LIGHTNING.get());
+        return Sets.newHashSet(ModAffinities.LIGHTNING.get());
     }
 
     @Override

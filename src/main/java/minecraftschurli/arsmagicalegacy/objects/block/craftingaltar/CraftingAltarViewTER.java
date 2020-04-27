@@ -29,6 +29,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
     }
 
     private void doRender(CraftingAltarTileEntity altar, CraftingAltarViewTileEntity view, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        //fixme
         ItemStack book = altar.getBook();
         SpellIngredientList recipe = altar.getRecipe();
         if (book.isEmpty() || recipe == null)
@@ -44,7 +45,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             drawNameplate(ingredient.getTooltip().getFormattedText(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
         matrixStackIn.pop();
-        matrixStackIn.rotate(new Quaternion(new Vector3f(0, 1, 0), view.itemRotation, true));
+        matrixStackIn.rotate(new Quaternion(Vector3f.YP, view.itemRotation, true));
         //RenderSystem.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1, 0, 0);
         ItemStack stack;
         if (!altar.hasEnoughPower()) {

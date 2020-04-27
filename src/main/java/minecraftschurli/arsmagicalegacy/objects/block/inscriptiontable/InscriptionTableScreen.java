@@ -18,12 +18,10 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -31,6 +29,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL14;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,8 +68,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private TextFieldWidget nameBar;
     private Button createSpellButton;
     private Button resetSpellButton;
-    private String defaultSearchLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.search").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
-    private String defaultNameLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.name").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
+    private final String defaultSearchLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.search").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
+    private final String defaultNameLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.name").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
 
     public InscriptionTableScreen(InscriptionTableContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
@@ -111,7 +110,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         createSpellButton = new Button(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.makeSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton = new Button(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.resetSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton.visible = false;
-        if (usingPlayer.abilities.isCreativeMode) {
+        if (usingPlayer.isCreative()) {
             this.addButton(createSpellButton);
         }
         this.addButton(resetSpellButton);
@@ -124,7 +123,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     protected void actionPerformed(Button par1GuiButton) {
-        if (par1GuiButton == createSpellButton && usingPlayer.abilities.isCreativeMode) {
+        if (par1GuiButton == createSpellButton && usingPlayer.isCreative()) {
             this.container.giveSpellToPlayer(usingPlayer);
         } else if (par1GuiButton == resetSpellButton) {
             this.container.resetSpellNameAndIcon();
@@ -266,7 +265,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     @Override
     public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
         InputMappings.Input mouseKey = InputMappings.getInputByCode(p_keyPressed_1_, p_keyPressed_2_);
-        if ((searchBar.isFocused() || nameBar.isFocused()) && (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)))
+        if ((searchBar.isFocused() || nameBar.isFocused()) && (Minecraft.getInstance().gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)))
             return true;
         return super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);
     }
@@ -285,6 +284,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+        this.renderBackground(0);
         Minecraft.getInstance().getTextureManager().bindTexture(background);
         GL14.glColor4f(1, 1, 1, 1);
         int l = (width - xSize) / 2;
@@ -317,7 +317,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
             hovering = true;
             lowerHover = false;
         }
-        if (drawCurrentRecipe(label, l, i1)) {
+        if (drawCurrentRecipe(label)) {
             hovering = true;
             lowerHover = true;
         }
@@ -350,9 +350,9 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     private void drawBookIcon() {
-        int x = this.container.getSlot(0).xPos;
+        /*int x = this.container.getSlot(0).xPos;
         int y = this.container.getSlot(0).yPos;
-        TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.WRITABLE_BOOK);
+        TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.WRITABLE_BOOK);*/
         //TODO
         /*if (AMGuiHelper.instance.getFastTicker() < 20)
             GL14.glColor4f(1, 1, 1, 0.4f);
@@ -392,7 +392,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         GL14.glColor4f(1, 1, 1, 1);*/
     }
 
-    private boolean drawCurrentRecipe(List<String> labelText, int l, int i1) {
+    private boolean drawCurrentRecipe(List<String> labelText) {
         iconX = iconXStartLower;
         iconY = iconYStartLower;
         boolean hovering = false;
@@ -434,13 +434,12 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private boolean drawAvailableParts(List<String> labelText) {
         iconX = iconXStartUpper;
         iconY = iconYStartUpper;
-        boolean b = drawPartIcons(labelText);
-        return b;
+        return drawPartIcons(labelText);
     }
 
     private boolean drawPartIcons(List<String> labelText) {
-        boolean hovering = false;
-        hovering |= drawIconSet(knownShapes, labelText);
+        boolean hovering;
+        hovering = drawIconSet(knownShapes, labelText);
         hovering |= drawIconSet(knownComponents, labelText);
         hovering |= drawIconSet(knownModifiers, labelText);
         return hovering;
@@ -589,7 +588,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     }
 
     @Override
-    public void renderTooltip(List<String> tooltip, int x, int y, FontRenderer font) {
+    public void renderTooltip(List<String> tooltip, int x, int y, @Nonnull FontRenderer font) {
         if (!tooltip.isEmpty()) {
             RenderSystem.pushMatrix();
             GL14.glDisable(GL12.GL_RESCALE_NORMAL);

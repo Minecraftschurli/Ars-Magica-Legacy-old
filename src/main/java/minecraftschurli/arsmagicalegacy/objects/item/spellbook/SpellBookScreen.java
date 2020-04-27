@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,8 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        minecraft.getTextureManager().bindTexture(background);
+        this.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
+        Minecraft.getInstance().getTextureManager().bindTexture(background);
         GL11.glColor4f(1, 1, 1, 1);
         int l = (width - xSize) / 2;
         int i1 = (height - ySize) / 2;
@@ -71,7 +73,7 @@ public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
         }
         int x = 16;
         int y = 3 + bookActiveSlot * 18;
-        minecraft.getTextureManager().bindTexture(extras);
+        Minecraft.getInstance().getTextureManager().bindTexture(extras);
         GL11.glColor4f(1, 1, 1, 1);
         blit(x, y, 0, 0, 20, 20);
         //special slot

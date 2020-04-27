@@ -1,13 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,6 +16,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class Harvest extends SpellComponent {
     @Override
@@ -39,7 +40,7 @@ public final class Harvest extends SpellComponent {
 
     @Override
     public Set<Affinity> getAffinity() {
-        return Sets.newHashSet(ModSpellParts.NATURE.get());
+        return Sets.newHashSet(ModAffinities.NATURE.get());
     }
 
     @Override

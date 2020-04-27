@@ -1,9 +1,9 @@
-package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
+package minecraftschurli.arsmagicalegacy.api.etherium.generator;
 
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.capabilities.EtheriumStorage;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -23,18 +23,15 @@ import javax.annotation.Nullable;
  * @author Minecraftschurli
  * @version 2020-04-21
  */
-public class ObeliskTileEntity extends TileEntity implements ITickableTileEntity {
-    private final LazyOptional<EtheriumStorage> etheriumStorage = LazyOptional.of(EtheriumStorage::new);
-    private final LazyOptional<ObeliskInventory> obeliskInventory = LazyOptional.of(ObeliskInventory::new);
+public class EtheriumGeneratorTileEntity extends TileEntity implements ITickableTileEntity {
+    private final LazyOptional<EtheriumStorage> etheriumStorage;
+    private final LazyOptional<EtheriumGeneratorInventory> obeliskInventory = LazyOptional.of(EtheriumGeneratorInventory::new);
     private int time;
     private int maxTime;
 
-    public ObeliskTileEntity(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
-    }
-
-    public ObeliskTileEntity() {
-        this(ModTileEntities.OBELISK.get());
+    public EtheriumGeneratorTileEntity(TileEntityType<? extends EtheriumGeneratorTileEntity> tileType, EtheriumType type) {
+        super(tileType);
+        etheriumStorage = LazyOptional.of(() -> new EtheriumStorage(5000, type));
     }
 
     @Override
@@ -51,8 +48,7 @@ public class ObeliskTileEntity extends TileEntity implements ITickableTileEntity
             });
         }
         if (time <= 0) return;
-        etheriumStorage.ifPresent(etherium -> etherium.add(1, false));
-        time--;
+        if (etheriumStorage.map(etherium -> etherium.add(1, false)).orElse(false)) time--;
     }
 
     @Nonnull
@@ -81,7 +77,7 @@ public class ObeliskTileEntity extends TileEntity implements ITickableTileEntity
 
     public static int getEtheriumValue(ItemStack stack) {
         if (stack.isEmpty()) return 0;
-        return 1;
+        return 120;
     }
 
     public static boolean isObeliskFuel(ItemStack stack) {
@@ -104,6 +100,7 @@ public class ObeliskTileEntity extends TileEntity implements ITickableTileEntity
     }
 
     public int getCookProgressScaled(int i) {
+        if (maxTime == 0) return 0;
         return time * i / maxTime;
     }
 }

@@ -1,6 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import javax.annotation.Nullable;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -15,6 +15,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nullable;
+
 /**
  * @author Minecraftschurli
  * @version 2019-12-13
@@ -26,8 +28,11 @@ public class CraftingAltarBlock extends Block {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (player.abilities.isCreativeMode && player.getHeldItem(handIn).getItem() == Items.NETHER_STAR)
+        if (player.isCreative() && player.getHeldItem(handIn).getItem() == Items.NETHER_STAR)
             ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
+        else if (player.isCreative()) {
+            ArsMagicaLegacy.LOGGER.info(((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).getEteriumSource().toString());
+        }
         return ActionResultType.SUCCESS;
     }
 

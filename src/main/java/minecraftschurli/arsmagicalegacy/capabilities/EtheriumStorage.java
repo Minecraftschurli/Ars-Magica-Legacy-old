@@ -16,13 +16,13 @@ public class EtheriumStorage implements IEtheriumStorage {
     private EtheriumType type;
 
     public EtheriumStorage (){
-        this(5000);
+        this(5000, EtheriumType.NEUTRAL.get());
     }
 
-    public EtheriumStorage(int maxStorage) {
+    public EtheriumStorage(int maxStorage, EtheriumType type) {
         this.maxStorage = maxStorage;
         this.amount = 0;
-        type = EtheriumType.NEUTRAL.get();
+        this.type = type;
     }
 
     @Override
@@ -56,10 +56,6 @@ public class EtheriumStorage implements IEtheriumStorage {
     @Override
     public EtheriumType getType() {
         return type;
-    }
-
-    public void setType(EtheriumType type) {
-        this.type = type;
     }
 
     @Override
