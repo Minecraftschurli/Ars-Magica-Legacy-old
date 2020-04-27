@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.celestialprism;
 
-import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
+import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
