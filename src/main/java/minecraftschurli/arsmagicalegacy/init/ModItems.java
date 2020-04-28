@@ -2,7 +2,12 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
-import minecraftschurli.arsmagicalegacy.objects.item.*;
+import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrenchItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
+import minecraftschurli.arsmagicalegacy.objects.item.PotionBundleItem;
+import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeItem;
+import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

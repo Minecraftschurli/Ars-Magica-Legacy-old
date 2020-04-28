@@ -1,11 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -22,17 +23,17 @@ import javax.annotation.Nullable;
  * @version 2019-12-13
  */
 public class CraftingAltarBlock extends Block {
+    public static final BooleanProperty FORMED = BooleanProperty.create("formed");
+
     public CraftingAltarBlock() {
         super(Block.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3).harvestTool(ToolType.PICKAXE));
+        setDefaultState(getDefaultState().with(FORMED, false));
     }
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player.isCreative() && player.getHeldItem(handIn).getItem() == Items.NETHER_STAR)
             ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
-        else if (player.isCreative()) {
-            ArsMagicaLegacy.LOGGER.info(((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).getEteriumSource().toString());
-        }
         return ActionResultType.SUCCESS;
     }
 
@@ -45,5 +46,10 @@ public class CraftingAltarBlock extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new CraftingAltarTileEntity();
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(FORMED);
     }
 }

@@ -1,12 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import javafx.util.Pair;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -14,13 +8,9 @@ import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
-import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
+import minecraftschurli.arsmagicalegacy.api.spell.*;
 import minecraftschurli.arsmagicalegacy.api.util.NBTUtil;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
@@ -44,6 +34,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+
+import javax.annotation.Nullable;
+import java.util.*;
 
 public final class SpellUtil {
     public static final String TYPE_SHAPE = "Shape";
@@ -784,5 +777,19 @@ public final class SpellUtil {
 
     public static int stageNum(ItemStack stack) {
         return NBTUtil.getAMLTag(stack.getTag()).getInt("StageNum");
+    }
+
+    public static Affinity getMainShiftForStack(ItemStack stack) {
+        Affinity aff = ModAffinities.NONE.get();
+        float maxDepth = 0F;
+        Map<Affinity, Float> customDepthMap = SpellUtil.affinityFor(stack);
+
+        for (Map.Entry<Affinity, Float> entry : customDepthMap.entrySet()) {
+            if (entry.getValue() > maxDepth) {
+                maxDepth = entry.getValue();
+                aff = entry.getKey();
+            }
+        }
+        return aff;
     }
 }
