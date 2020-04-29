@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -19,7 +19,7 @@ public class LevelUpHandler {
     public static void compendiumPickup(final PlayerEvent.ItemPickupEvent event) {
         if (event.getPlayer().isCreative() || event.getPlayer().isSpectator()) return;
         if (CapabilityHelper.getCurrentLevel(event.getPlayer()) > 0) return;
-        if (ArsMagicaAPI.isCompendium(event.getStack())) {
+        if (PatchouliCompat.isCompendium(event.getStack())) {
             CapabilityHelper.addXP(event.getPlayer(), 0);
         }
     }

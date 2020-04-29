@@ -7,7 +7,7 @@ import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
-import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliMultiblocks;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremTER;
@@ -72,7 +72,7 @@ public final class ArsMagicaLegacy {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
-            return ArsMagicaAPI.getCompendium();
+            return PatchouliCompat.getCompendiumStack();
         }
     };
     public static final Logger LOGGER = LogManager.getLogger(ArsMagicaAPI.MODID);
@@ -137,11 +137,13 @@ public final class ArsMagicaLegacy {
                 .forEach(ICustomFeatureBiome::init);*/
         ModBiomes.WITCHWOOD_FOREST.get().init();
         AffinityAbilityHelper.registerListeners();
-        PatchouliMultiblocks.register();
+        PatchouliCompat.init();
     }
 
     @SuppressWarnings("RedundantCast")
     private void clientSetup(final FMLClientSetupEvent event) {
+        PatchouliCompat.clientInit();
+
         ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
         ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
         ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<EtheriumGeneratorContainer, EtheriumGeneratorScreen>) EtheriumGeneratorScreen::new);

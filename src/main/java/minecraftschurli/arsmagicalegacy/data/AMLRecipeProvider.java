@@ -1,18 +1,12 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import java.util.function.Consumer;
-import javax.annotation.Nonnull;
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.data.CookingRecipeBuilder;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,6 +17,9 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ForgeRecipeProvider;
+
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli
@@ -738,8 +735,8 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.EVIL_BOOK.get())
                 .addIngredient(ModItems.WOODEN_LEG.get())
-                .addIngredient(Ingredient.fromStacks(ArsMagicaAPI.getCompendium()))
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WOODEN_LEG.get(), ArsMagicaAPI.getCompendium().getItem()))
+                .addIngredient(Ingredient.fromStacks(PatchouliCompat.getCompendiumStack()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.WOODEN_LEG.get(), PatchouliCompat.getCompendiumStack().getItem()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_BOOK.get())
                 .patternLine("SLL")

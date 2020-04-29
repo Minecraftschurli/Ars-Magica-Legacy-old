@@ -1,10 +1,10 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import java.util.function.Consumer;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.MagicLevelTrigger;
 import minecraftschurli.arsmagicalegacy.api.advancements.SilverSkillTrigger;
 import minecraftschurli.arsmagicalegacy.api.data.AdvancementProvider;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
@@ -14,6 +14,8 @@ import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli
@@ -26,8 +28,8 @@ public final class AMLAdvancementProvider extends AdvancementProvider {
 
     @Override
     protected void addAdvancements(Consumer<Advancement> consumer) {
-        Advancement root = registerAdvancement(ArsMagicaAPI.getCompendium(), "compendium", new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/vinteum_ore.png"), FrameType.TASK, false, false, true)
-                .withCriterion("got_compendium", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ArsMagicaAPI.getCompendium().getItem()).nbt(ArsMagicaAPI.getCompendium().getTag()).build()))
+        Advancement root = registerAdvancement(PatchouliCompat.getCompendiumStack(), "compendium", new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/vinteum_ore.png"), FrameType.TASK, false, false, true)
+                .withCriterion("got_compendium", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(PatchouliCompat.getCompendiumStack().getItem()).nbt(PatchouliCompat.getCompendiumStack().getTag()).build()))
                 .register(consumer, ArsMagicaAPI.MODID + ":compendium");
         Advancement silver = registerAdvancement(root, InfinityOrbItem.getWithSkillPoint(ModSpellParts.SILVER_POINT.get()), "silver", FrameType.CHALLENGE, false, false, true)
                 .withCriterion("got_silver_skill", SilverSkillTrigger.Instance.create())
