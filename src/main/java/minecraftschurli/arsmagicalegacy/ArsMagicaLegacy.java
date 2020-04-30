@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy;
 
+import com.google.common.collect.ImmutableList;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.IMCHandler;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
@@ -11,7 +12,7 @@ import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremTER;
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarTER;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarModel;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
 import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorScreen;
@@ -22,11 +23,14 @@ import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeMo
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IDyeableArmorItem;
@@ -39,6 +43,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -87,6 +92,8 @@ public final class ArsMagicaLegacy {
         modEventBus.addListener(IMCHandler::processIMC);
         modEventBus.addListener(this::registerItemColorHandler);
         modEventBus.addListener(EventPriority.LOW, this::onRegistrySetupFinish);
+        modEventBus.addListener(this::preStitch);
+        modEventBus.addListener(this::postStitch);
         modEventBus.register(Config.class);
 
         MinecraftForge.EVENT_BUS.addListener(this::onAttachPlayerCapabilities);
@@ -149,7 +156,7 @@ public final class ArsMagicaLegacy {
         ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<EtheriumGeneratorContainer, EtheriumGeneratorScreen>) EtheriumGeneratorScreen::new);
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_CORE.get(), CraftingAltarTER::new);
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_CORE.get(), CraftingAltarTER::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_AUREM.get(), BlackAuremTER::new);
 
         RenderTypeLookup.setRenderLayer(ModBlocks.AUM.get(), RenderType.getCutout());
@@ -171,6 +178,7 @@ public final class ArsMagicaLegacy {
         RenderTypeLookup.setRenderLayer(ModBlocks.BLACK_AUREM.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.ALTAR_CORE.get(), RenderType.getTranslucent());
     }
     //endregion
     //region =========EVENTS=========
@@ -202,11 +210,34 @@ public final class ArsMagicaLegacy {
             IBakedModel oldModel = event.getModelRegistry().get(key);
             event.getModelRegistry().put(key, new AffinityTomeModel(oldModel));
         }
+        {
+            ImmutableList<BlockState> states = ModBlocks.ALTAR_CORE.get().getStateContainer().getValidStates();
+            for (BlockState blockState : states) {
+                ModelResourceLocation key = BlockModelShapes.getModelLocation(blockState);
+                IBakedModel oldModel = event.getModelRegistry().get(key);
+                event.getModelRegistry().put(key, new CraftingAltarModel(oldModel));
+            }
+        }
         /*{
             ModelResourceLocation key = new ModelResourceLocation(ModItems.SPELL.getId(), "inventory");
             IBakedModel oldModel = event.getModelRegistry().get(key);
             event.getModelRegistry().put(key, new SpellModel(oldModel));
         }*/
+    }
+
+    private void preStitch(TextureStitchEvent.Pre event) {
+        if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) {
+            return;
+        }
+        event.addSprite(CraftingAltarModel.OVERLAY_LOC);
+    }
+
+    private void postStitch(TextureStitchEvent.Post event) {
+        if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) {
+            return;
+        }
+        AtlasTexture map = event.getMap();
+        CraftingAltarModel.OVERLAY = map.getSprite(CraftingAltarModel.OVERLAY_LOC);
     }
 
     private void onServerLoad(final FMLServerStartingEvent event) {

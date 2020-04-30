@@ -635,7 +635,7 @@ public final class SpellUtil {
         group.putInt("StageNum", group.getInt("StageNum") + stageNum);
         group.putInt("CurrentShapeGroup", -1);
         group.getCompound(SPELL_DATA).merge(NBTUtil.getAMLTag(newStack.getTag()).getCompound(SPELL_DATA));
-        newStack.setTag(NBTUtil.addTag(new CompoundNBT(), group, "AM2"));
+        newStack.setTag(NBTUtil.addTag(new CompoundNBT(), group, "AML"));
         return newStack;
     }
 

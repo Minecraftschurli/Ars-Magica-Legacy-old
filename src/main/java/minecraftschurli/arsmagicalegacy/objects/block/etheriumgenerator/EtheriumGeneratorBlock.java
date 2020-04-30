@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  * @author Minecraftschurli
  * @version 2020-04-23
  */
-public class EtheriumGeneratorBlock extends Block {
+public abstract class EtheriumGeneratorBlock extends Block {
     private final Supplier<TileEntityType<EtheriumGeneratorTileEntity>> tileEntityTypeSupplier;
 
     public EtheriumGeneratorBlock(Block.Properties properties, Supplier<TileEntityType<EtheriumGeneratorTileEntity>> tileEntityTypeSupplier) {
@@ -86,4 +86,6 @@ public class EtheriumGeneratorBlock extends Block {
     public boolean isNormalCube(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
         return false;
     }
+
+    public abstract float getMultiplier(World world, BlockState state, BlockPos pos);
 }

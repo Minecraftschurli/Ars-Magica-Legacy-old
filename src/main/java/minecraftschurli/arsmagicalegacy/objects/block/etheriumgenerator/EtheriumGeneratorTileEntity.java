@@ -42,7 +42,7 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
                 if (EtheriumGeneratorManager.isEtheriumGeneratorFuel(inv.getStackInSlot(0))) {
                     ItemStack stack = inv.decrStackSize(0, 1);
                     if (stack.isEmpty()) return;
-                    int amount = EtheriumGeneratorManager.getEtheriumValue(stack);
+                    int amount = Math.round(EtheriumGeneratorManager.getEtheriumValue(stack) * getMultiplier());
                     if (amount <= 0) return;
                     this.time = this.maxTime = amount;
                 }
@@ -50,6 +50,13 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
         }
         if (time <= 0) return;
         if (etheriumStorage.map(etherium -> etherium.add(1, false)).orElse(false)) time--;
+    }
+
+    protected float getMultiplier() {
+        if (getBlockState().getBlock() instanceof EtheriumGeneratorBlock) {
+            return Math.min(0.5f, ((EtheriumGeneratorBlock) getBlockState().getBlock()).getMultiplier(getWorld(), getBlockState(), getPos()));
+        }
+        return 0.5f;
     }
 
     @Nonnull

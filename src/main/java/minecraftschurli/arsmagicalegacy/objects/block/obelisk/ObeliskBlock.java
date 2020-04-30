@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
@@ -138,5 +139,17 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     @Override
     public boolean hasTileEntity(BlockState state) {
         return super.hasTileEntity(state);
+    }
+
+    @Override
+    public float getMultiplier(World world, BlockState state, BlockPos pos) {
+        int c = 0;
+        if (PatchouliCompat.OBELISK_CHALK.get().validate(world, pos) != null) {
+            c++;
+        }
+        if (PatchouliCompat.OBELISK_PILLARS.get().validate(world, pos) != null) {
+            c++;
+        }
+        return c * 0.5f + 0.5f;
     }
 }

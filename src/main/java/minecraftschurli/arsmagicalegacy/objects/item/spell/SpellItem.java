@@ -32,7 +32,7 @@ import java.util.List;
 public class SpellItem extends Item {
     public SpellItem() {
         //noinspection Convert2MethodRef
-        super(new Properties().maxStackSize(1).setISTER(() -> () -> new SpellISTER()));
+        super(new Properties().maxStackSize(1)/*.setISTER(() -> () -> new SpellISTER())*/);
     }
 
     @Override

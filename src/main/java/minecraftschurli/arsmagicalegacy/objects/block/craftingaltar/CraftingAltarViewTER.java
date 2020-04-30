@@ -40,8 +40,10 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             drawNameplate(new TranslationTextComponent(ArsMagicaAPI.MODID + ".altar.lowpower").getFormattedText(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         } else {
             ISpellIngredient ingredient = altar.getCurrentIngredient();
-            if (ingredient == null)
+            if (ingredient == null) {
+                matrixStackIn.pop();
                 return;
+            }
             drawNameplate(ingredient.getTooltip().getFormattedText(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
         matrixStackIn.pop();
@@ -66,21 +68,23 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
                 return;
             }
         }
+        matrixStackIn.translate(0,-0.1,0);
         //noinspection deprecation
-        Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, 0, 0, matrixStackIn, bufferIn);
+        Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
     }
 
     private void drawNameplate(String text, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.push();
-        matrixStackIn.translate(-0.5, -0.4, -0.5);
+        matrixStackIn.translate(0, 0.9, 0);
         matrixStackIn.rotate(this.renderDispatcher.renderInfo.getRotation());
         matrixStackIn.scale(-0.025F, -0.025F, 0.025F);
+        matrixStackIn.scale(1.2f, 1.2f, 1.2f);
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
         float f1 = Minecraft.getInstance().gameSettings.getTextBackgroundOpacity(0.25F);
         int j = (int) (f1 * 255) << 24;
         FontRenderer fontrenderer = this.renderDispatcher.fontRenderer;
         float f2 = (float) (-fontrenderer.getStringWidth(text) / 2);
-        fontrenderer.renderString(text, f2, 0, 553648127, false, matrix4f, bufferIn, true, j, combinedLightIn);
+        fontrenderer.renderString(text, f2, 0, 0xbbffffff, false, matrix4f, bufferIn, false, j, combinedLightIn);
         /*if (flag) {
             fontrenderer.renderString(text, f2, 0, -1, false, matrix4f, bufferIn, false, 0, packedLightIn);
         }*/

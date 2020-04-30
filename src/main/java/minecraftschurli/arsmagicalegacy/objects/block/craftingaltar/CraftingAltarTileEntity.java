@@ -31,6 +31,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
@@ -52,7 +54,6 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private static final String CRAFT_STATE_KEY = "craft_state";
     private static final String POWER_FLAG_KEY = "power_flag";
     private static final String BOOK_KEY = "book";
-    private static final String CAMO_STATE_KEY = "camo_state";
 
     private static final Supplier<BlockState> AIR = Blocks.AIR::getDefaultState;
     private static final Supplier<BlockState> WALL = () -> ModBlocks.MAGIC_WALL.lazyMap(Block::getDefaultState).get();
@@ -112,7 +113,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private ItemStack book;
     private BlockPos linkedEtheriumSource;
     private BlockPos leverPos;
-    private BlockState camoState;
+    private final ModelDataMap modelData = new ModelDataMap.Builder().withProperty(CraftingAltarModel.CAMO_STATE).build();
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -200,7 +201,8 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                     if (!isMultiblockFormed()) {
                         this.leverPos = getPos().offset(direction, 2).offset(direction.rotateY(), 2).down(2);
                         getWorld().setBlockState(te.getPos().up(), ModBlocks.ALTAR_VIEW.map(Block::getDefaultState).orElse(Blocks.AIR.getDefaultState()));
-                        getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true));
+                        getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true), 2);
+                        modelData.setData(CraftingAltarModel.CAMO_STATE, getWorld().getBlockState(getPos().down(4).north()));
                         //noinspection ConstantConditions
                         ((CraftingAltarViewTileEntity) getWorld().getTileEntity(te.getPos().up())).setAltarPos(getPos());
                         //ArsMagicaLegacy.LOGGER.debug("View1: {} {}", getWorld().getBlockState(te.getPos().up()), getWorld().getTileEntity(te.getPos().up()));
@@ -262,8 +264,9 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             //ArsMagicaLegacy.LOGGER.debug("View2: {}",getWorld().getTileEntity(pos));
             if (getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get())
                 getWorld().removeBlock(pos, false);
-            getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true));
+            getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, false), 2);
         }
+        modelData.setData(CraftingAltarModel.CAMO_STATE, null);
         this.powerFlag = false;
         this.currentStage = 0;
         this.lecternPos = null;
@@ -447,12 +450,9 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         return this.getLeverState();
     }
 
-    public BlockState getCamoState() {
-        World world = getWorld();
-        if (world == null) return null;
-        BlockPos pos = getPos();
-        if (pos == BlockPos.ZERO) return null;
-        BlockState state = world.getBlockState(pos.down(4).north());
-        return state;
+    @Nonnull
+    @Override
+    public IModelData getModelData() {
+        return modelData;
     }
 }

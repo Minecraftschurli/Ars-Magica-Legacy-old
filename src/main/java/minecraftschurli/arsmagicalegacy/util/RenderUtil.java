@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.util;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,7 +19,6 @@ import net.minecraft.particles.ParticleType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
 import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
@@ -267,5 +267,37 @@ public final class RenderUtil {
                 .overlay(OVERLAY_ENABLED)
                 .build(false);
         return RenderType.makeType("pane", DefaultVertexFormats.POSITION_TEX, 7, 256, true, true, rendertype$state);
+    }
+
+    public static void renderFlatTexture(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel, ResourceLocation texture, MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        final float uScale = 1f / 0x100;
+        final float vScale = 1f / 0x100;
+        IVertexBuilder buffer = bufferIn.getBuffer(getPaneRenderType(texture));
+        MatrixStack.Entry matrixStackEntry = matrixStack.getLast();
+        Matrix4f matrix = matrixStackEntry.getMatrix();
+        buffer.pos(matrix, dst_x, dst_y + dst_height, zLevel)
+                .color(1f,1f,1f,1f)
+                .tex((src_x) * uScale, (src_y + src_height) * vScale)
+                .lightmap(combinedLightIn)
+                .overlay(combinedOverlayIn)
+                .endVertex();
+        buffer.pos(matrix, dst_x + dst_width, dst_y + dst_height, zLevel)
+                .color(1f,1f,1f,1f)
+                .tex((src_x + src_width) * uScale, (src_y + src_height) * vScale)
+                .lightmap(combinedLightIn)
+                .overlay(combinedOverlayIn)
+                .endVertex();
+        buffer.pos(matrix, dst_x + dst_width, dst_y, zLevel)
+                .color(1f,1f,1f,1f)
+                .tex((src_x + src_width) * uScale, (src_y) * vScale)
+                .lightmap(combinedLightIn)
+                .overlay(combinedOverlayIn)
+                .endVertex();
+        buffer.pos(matrix, dst_x, dst_y, zLevel)
+                .color(1f,1f,1f,1f)
+                .tex((src_x) * uScale, (src_y) * vScale)
+                .lightmap(combinedLightIn)
+                .overlay(combinedOverlayIn)
+                .endVertex();
     }
 }
