@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.api.etherium.generator;
+package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

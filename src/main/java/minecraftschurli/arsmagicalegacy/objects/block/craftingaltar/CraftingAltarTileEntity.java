@@ -31,9 +31,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
-import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
@@ -50,15 +47,22 @@ import java.util.stream.Collectors;
  * @version 2019-12-13
  */
 public class CraftingAltarTileEntity extends TileEntity implements ITickableTileEntity, IEtheriumConsumer {
+    private static final String LECTERN_POS_KEY = "lectern";
+    private static final String LEVER_POS_KEY = "lever";
+    private static final String CRAFT_STATE_KEY = "craft_state";
+    private static final String POWER_FLAG_KEY = "power_flag";
+    private static final String BOOK_KEY = "book";
+    private static final String CAMO_STATE_KEY = "camo_state";
+
     private static final Supplier<BlockState> AIR = Blocks.AIR::getDefaultState;
     private static final Supplier<BlockState> WALL = () -> ModBlocks.MAGIC_WALL.lazyMap(Block::getDefaultState).get();
     private static final Supplier<BlockState> LECTERN = Blocks.LECTERN::getDefaultState;
     private static final Supplier<BlockState> LEVER = Blocks.LEVER::getDefaultState;
     private static final Supplier<BlockState> ALTAR = () -> ModBlocks.ALTAR_CORE.lazyMap(Block::getDefaultState).get();
-    private static final ModelProperty<ResourceLocation> CAMO_RL = new ModelProperty<>();
-    private final ModelDataMap modelData = new ModelDataMap.Builder().withInitial(CAMO_RL, ModBlocks.ALTAR_CORE.getId()).build();
+
     private final AtomicReference<BlockState> cap = new AtomicReference<>();
     private final AtomicReference<BlockState> main = new AtomicReference<>();
+
     private final Supplier<BlockState> stairBottom1 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.EAST);
     private final Supplier<BlockState> stairBottom2 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.TOP).with(StairsBlock.FACING, Direction.WEST);
     private final Supplier<BlockState> stairBottom3 = () -> CraftingAltarStructureMaterials.getStairForBlock(main.get().getBlock()).getDefaultState().with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.FACING, Direction.NORTH);
@@ -98,8 +102,8 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             {AIR, AIR, AIR, AIR, AIR}
     }}
     );
+
     private int checkTimer = 0;
-    private boolean multiblockState;
     private boolean powerFlag;
     private int currentStage;
     private boolean first = true;
@@ -108,6 +112,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     private ItemStack book;
     private BlockPos linkedEtheriumSource;
     private BlockPos leverPos;
+    private BlockState camoState;
 
     public CraftingAltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -193,10 +198,9 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                         sync();
                     }
                     if (!isMultiblockFormed()) {
-                        this.multiblockState = true;
                         this.leverPos = getPos().offset(direction, 2).offset(direction.rotateY(), 2).down(2);
-                        this.modelData.setData(CAMO_RL, getWorld().getBlockState(getPos().offset(direction.rotateY())).getBlock().getRegistryName());
                         getWorld().setBlockState(te.getPos().up(), ModBlocks.ALTAR_VIEW.map(Block::getDefaultState).orElse(Blocks.AIR.getDefaultState()));
+                        getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true));
                         //noinspection ConstantConditions
                         ((CraftingAltarViewTileEntity) getWorld().getTileEntity(te.getPos().up())).setAltarPos(getPos());
                         //ArsMagicaLegacy.LOGGER.debug("View1: {} {}", getWorld().getBlockState(te.getPos().up()), getWorld().getTileEntity(te.getPos().up()));
@@ -258,14 +262,13 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             //ArsMagicaLegacy.LOGGER.debug("View2: {}",getWorld().getTileEntity(pos));
             if (getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get())
                 getWorld().removeBlock(pos, false);
+            getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true));
         }
-        this.multiblockState = false;
         this.powerFlag = false;
         this.currentStage = 0;
         this.lecternPos = null;
         this.leverPos = null;
         this.lectern = null;
-        this.modelData.setData(CAMO_RL, ModBlocks.ALTAR_CORE.getId());
         sync();
     }
 
@@ -340,36 +343,30 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
 
     @Nonnull
     @Override
-    public IModelData getModelData() {
-        return modelData;
-    }
-
-    @Nonnull
-    @Override
     public CompoundNBT write(@Nonnull CompoundNBT compound) {
         super.write(compound);
+        compound.putInt(CRAFT_STATE_KEY, currentStage);
+        compound.putBoolean(POWER_FLAG_KEY, hasEnoughPower());
         if (lecternPos != null)
-            compound.put("lectern", NBTUtil.writeBlockPos(lecternPos));
+            compound.put(LECTERN_POS_KEY, NBTUtil.writeBlockPos(lecternPos));
         if (leverPos != null)
-            compound.put("lever", NBTUtil.writeBlockPos(leverPos));
-        compound.putInt("craft_state", currentStage);
-        compound.putBoolean("power_flag", hasEnoughPower());
+            compound.put(LEVER_POS_KEY, NBTUtil.writeBlockPos(leverPos));
         if (book != null)
-            compound.put("book", book.write(new CompoundNBT()));
+            compound.put(BOOK_KEY, book.write(new CompoundNBT()));
         return compound;
     }
 
     @Override
     public void read(@Nonnull CompoundNBT compound) {
         super.read(compound);
-        if (compound.contains("lectern"))
-            lecternPos = NBTUtil.readBlockPos(compound.getCompound("lectern"));
-        if (compound.contains("lever"))
-            leverPos = NBTUtil.readBlockPos(compound.getCompound("lever"));
-        this.currentStage = compound.getInt("craft_state");
-        this.powerFlag = compound.getBoolean("power_flag");
-        if (compound.contains("book"))
-            this.book = ItemStack.read(compound.getCompound("book"));
+        this.currentStage = compound.getInt(CRAFT_STATE_KEY);
+        this.powerFlag = compound.getBoolean(POWER_FLAG_KEY);
+        if (compound.contains(LECTERN_POS_KEY, Constants.NBT.TAG_COMPOUND))
+            this.lecternPos = NBTUtil.readBlockPos(compound.getCompound(LECTERN_POS_KEY));
+        if (compound.contains(LEVER_POS_KEY, Constants.NBT.TAG_COMPOUND))
+            this.leverPos = NBTUtil.readBlockPos(compound.getCompound(LEVER_POS_KEY));
+        if (compound.contains(BOOK_KEY, Constants.NBT.TAG_COMPOUND))
+            this.book = ItemStack.read(compound.getCompound(BOOK_KEY));
     }
 
     @Nonnull
@@ -427,7 +424,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     public boolean isMultiblockFormed() {
-        return multiblockState;
+        return getBlockState().has(CraftingAltarBlock.FORMED) && getBlockState().get(CraftingAltarBlock.FORMED);
     }
 
     @Override
@@ -448,5 +445,14 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     @Override
     public boolean shouldConsume() {
         return this.getLeverState();
+    }
+
+    public BlockState getCamoState() {
+        World world = getWorld();
+        if (world == null) return null;
+        BlockPos pos = getPos();
+        if (pos == BlockPos.ZERO) return null;
+        BlockState state = world.getBlockState(pos.down(4).north());
+        return state;
     }
 }

@@ -1,8 +1,5 @@
-package minecraftschurli.arsmagicalegacy.objects.item;
+package minecraftschurli.arsmagicalegacy.objects.item.spell;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
@@ -24,13 +21,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
 public class SpellItem extends Item {
     public SpellItem() {
-        super(new Properties().maxStackSize(1));
+        //noinspection Convert2MethodRef
+        super(new Properties().maxStackSize(1).setISTER(() -> () -> new SpellISTER()));
     }
 
     @Override
@@ -52,7 +54,7 @@ public class SpellItem extends Item {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void onPlayerStoppedUsing(@Nonnull ItemStack stack, World worldIn, @Nonnull LivingEntity entityLiving, int timeLeft) {
         if (worldIn.isRemote)
             return;
         SpellShape shape = SpellUtil.getShape(stack, 0);
@@ -77,13 +79,13 @@ public class SpellItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@Nonnull ItemStack stack) {
         return 72000;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         if (!stack.hasTag()) return;
         float manaCost = SpellUtil.getMana(stack, ArsMagicaAPI.getLocalPlayer());
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.manacost", manaCost));

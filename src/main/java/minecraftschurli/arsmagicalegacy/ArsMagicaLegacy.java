@@ -3,21 +3,22 @@ package minecraftschurli.arsmagicalegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.IMCHandler;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
-import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorContainer;
-import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorScreen;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.*;
-import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliMultiblocks;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.handler.*;
 import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremTER;
+import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarTER;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
+import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
+import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorScreen;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
-import minecraftschurli.arsmagicalegacy.objects.item.AffinityTomeModel;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeModel;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
@@ -71,7 +72,7 @@ public final class ArsMagicaLegacy {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
-            return ArsMagicaAPI.getCompendium();
+            return PatchouliCompat.getCompendiumStack();
         }
     };
     public static final Logger LOGGER = LogManager.getLogger(ArsMagicaAPI.MODID);
@@ -136,17 +137,21 @@ public final class ArsMagicaLegacy {
                 .forEach(ICustomFeatureBiome::init);*/
         ModBiomes.WITCHWOOD_FOREST.get().init();
         AffinityAbilityHelper.registerListeners();
-        PatchouliMultiblocks.register();
+        PatchouliCompat.init();
     }
 
     @SuppressWarnings("RedundantCast")
     private void clientSetup(final FMLClientSetupEvent event) {
+        PatchouliCompat.clientInit();
+
         ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
         ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
         ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<EtheriumGeneratorContainer, EtheriumGeneratorScreen>) EtheriumGeneratorScreen::new);
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_CORE.get(), CraftingAltarTER::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_AUREM.get(), BlackAuremTER::new);
+
         RenderTypeLookup.setRenderLayer(ModBlocks.AUM.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.CERUBLOSSOM.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DESERT_NOVA.get(), RenderType.getCutout());
@@ -192,9 +197,16 @@ public final class ArsMagicaLegacy {
     }
 
     private void replaceModel(final ModelBakeEvent event) {
-        ModelResourceLocation key = new ModelResourceLocation(ModItems.AFFINITY_TOME.getId(), "inventory");
-        IBakedModel oldModel = event.getModelRegistry().get(key);
-        event.getModelRegistry().put(key, new AffinityTomeModel(oldModel));
+        {
+            ModelResourceLocation key = new ModelResourceLocation(ModItems.AFFINITY_TOME.getId(), "inventory");
+            IBakedModel oldModel = event.getModelRegistry().get(key);
+            event.getModelRegistry().put(key, new AffinityTomeModel(oldModel));
+        }
+        /*{
+            ModelResourceLocation key = new ModelResourceLocation(ModItems.SPELL.getId(), "inventory");
+            IBakedModel oldModel = event.getModelRegistry().get(key);
+            event.getModelRegistry().put(key, new SpellModel(oldModel));
+        }*/
     }
 
     private void onServerLoad(final FMLServerStartingEvent event) {

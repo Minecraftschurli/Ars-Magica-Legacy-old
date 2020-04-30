@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.item;
+package minecraftschurli.arsmagicalegacy.objects.item.affinitytome;
 
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import net.minecraft.client.Minecraft;

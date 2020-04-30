@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.*;
@@ -16,7 +15,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -175,26 +173,28 @@ public final class RenderUtil {
         line2d(xStart, yStart, xEnd, yEnd, zLevel, color, 4f);
     }
 
-    public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState, MatrixStack matrixStack) {
+    /*public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState, MatrixStack matrixStack) {
         try {
             RenderSystem.pushMatrix();
             RenderSystem.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
             Tessellator t = Tessellator.getInstance();
             BufferBuilder wr = t.getBuffer();
             wr.begin(7, DefaultVertexFormats.BLOCK);
-//            World world = te.getWorld();
-//            if (world == null)
-//                world = Minecraft.getInstance().world;
-//            BlockState state = null;
-//            if (world != null) state = world.getBlockState(te.getPos());
-//            if (state.getBlock() != defaultState.getBlock()) state = defaultState;
-//            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), matrixStack, wr, true, world.rand, world.getSeed(), te.getModelData());
+            World world = te.getWorld();
+            if (world == null)
+                world = Minecraft.getInstance().world;
+            if (world == null)
+                return;
+            BlockState state;
+            state = world.getBlockState(te.getPos());
+            if (state.getBlock() != defaultState.getBlock()) state = defaultState;
+            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), matrixStack, wr, true, world.rand, world.getSeed(), 0, te.getModelData());
             t.draw();
             RenderSystem.popMatrix();
         } catch (Throwable t) {
             t.printStackTrace();
         }
-    }
+    }*/
 
     public static void renderItemIntoGUI(ItemRenderer renderer, TextureManager textureManager, ItemStack stack, float x, float y, int zLevel) {
         IBakedModel bakedmodel = renderer.getItemModelWithOverrides(stack, null, null);
@@ -224,14 +224,14 @@ public final class RenderUtil {
         RenderSystem.popMatrix();
     }
 
-    public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
+    /*public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
         RenderSystem.pushMatrix();
         RenderSystem.rotatef((float) rotation.x, 1, 0, 0);
         RenderSystem.rotatef((float) rotation.y, 1, 1, 0);
         RenderSystem.rotatef((float) rotation.z, 1, 0, 1);
 //        renderBlockModel(te, model, defaultState);
         RenderSystem.popMatrix();
-    }
+    }*/
 
     public static void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel) {
         final float uScale = 1f / 0x100;
@@ -245,6 +245,7 @@ public final class RenderUtil {
         tessellator.draw();
     }
 
+//    public static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
     protected static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

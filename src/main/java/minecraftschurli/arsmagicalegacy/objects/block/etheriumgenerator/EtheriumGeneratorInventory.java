@@ -1,5 +1,6 @@
-package minecraftschurli.arsmagicalegacy.api.etherium.generator;
+package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
+import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,7 +19,7 @@ public class EtheriumGeneratorInventory extends ItemStackHandler implements IInv
 
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-        return EtheriumGeneratorTileEntity.isObeliskFuel(stack);
+        return EtheriumGeneratorManager.isEtheriumGeneratorFuel(stack);
     }
 
     @Override

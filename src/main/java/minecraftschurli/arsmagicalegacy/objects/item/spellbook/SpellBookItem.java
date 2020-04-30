@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
-import minecraftschurli.arsmagicalegacy.objects.item.SpellItem;
+import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,19 +31,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static minecraftschurli.arsmagicalegacy.init.ModItems.ITEM_1;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
+@SuppressWarnings("unused")
 public class SpellBookItem extends Item implements IDyeableArmorItem {
     public SpellBookItem() {
-        super(ITEM_1);
+        //noinspection Convert2MethodRef
+        super(new Item.Properties().maxStackSize(1).setISTER(() -> () -> new SpellBookISTER()));
     }
 
+    @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, PlayerEntity player, @Nonnull Hand hand) {
         final ItemStack stack = player.getHeldItem(hand);
         if (CapabilityHelper.getCurrentLevel(player) <= 0 && !player.isCreative())
             return ActionResult.resultPass(stack);
@@ -51,10 +52,11 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
             if (!world.isRemote && player instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                     @Override
-                    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+                    public Container createMenu(int id, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
                         return new SpellBookContainer(id, playerInventory, new SpellBookInventory(getInventory(stack)));
                     }
 
+                    @Nonnull
                     @Override
                     public ITextComponent getDisplayName() {
                         return stack.getDisplayName();
@@ -69,8 +71,9 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         }
     }
 
+    @Nonnull
     @Override
-    public UseAction getUseAction(ItemStack itemstack) {
+    public UseAction getUseAction(@Nonnull ItemStack itemstack) {
         if (getUseDuration(itemstack) == 0) {
             return UseAction.NONE;
         }
@@ -78,35 +81,35 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@Nonnull ItemStack stack) {
         return getActiveScroll(stack)
                 .map(spellItem -> spellItem.getUseDuration(stack))
                 .orElse(0);
     }
 
-    public List<ItemStack> getActiveInventory(ItemStack itemStack) {
+    public static List<ItemStack> getActiveInventory(ItemStack itemStack) {
         return getInventory(itemStack).stream().limit(8).collect(Collectors.toList());
     }
 
-    private NonNullList<ItemStack> getInventory(ItemStack itemStack) {
+    private static NonNullList<ItemStack> getInventory(ItemStack itemStack) {
         return readFromStackTagCompound(itemStack);
     }
 
-    public Optional<SpellItem> getActiveScroll(ItemStack bookStack) {
+    public static Optional<SpellItem> getActiveScroll(ItemStack bookStack) {
         return Optional.of(getInventory(bookStack).get(getActiveSlot(bookStack)))
                 .filter(stack -> !stack.isEmpty())
                 .map(ItemStack::getItem)
                 .map(item -> (SpellItem) item);
     }
 
-    public ItemStack getActiveItemStack(ItemStack bookStack) {
+    public static ItemStack getActiveItemStack(ItemStack bookStack) {
         return Optional.of(getInventory(bookStack).get(getActiveSlot(bookStack)))
                 .filter(stack -> !stack.isEmpty())
                 .map(ItemStack::copy)
                 .orElse(ItemStack.EMPTY);
     }
 
-    public void setActiveSlot(ItemStack itemStack, int slot) {
+    public static void setActiveSlot(ItemStack itemStack, int slot) {
         if (itemStack.getTag() == null) {
             itemStack.setTag(new CompoundNBT());
         }
@@ -121,7 +124,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
             AMEnchantmentHelper.soulbindStack(itemStack);*/
     }
 
-    public int setNextSlot(ItemStack itemStack) {
+    public static int setNextSlot(ItemStack itemStack) {
         int slot = getActiveSlot(itemStack);
         int newSlot = slot;
         do {
@@ -132,7 +135,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         return slot;
     }
 
-    public int setPrevSlot(ItemStack itemStack) {
+    public static int setPrevSlot(ItemStack itemStack) {
         int slot = getActiveSlot(itemStack);
         int newSlot = slot;
         do {
@@ -143,7 +146,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         return slot;
     }
 
-    public int getActiveSlot(ItemStack itemStack) {
+    public static int getActiveSlot(ItemStack itemStack) {
         if (itemStack.getTag() == null) {
             setActiveSlot(itemStack, 0);
             return 0;
@@ -151,20 +154,20 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         return itemStack.getTag().getInt("spellbookactiveslot");
     }
 
-    public NonNullList<ItemStack> readFromStackTagCompound(ItemStack itemStack) {
+    public static NonNullList<ItemStack> readFromStackTagCompound(ItemStack itemStack) {
         NonNullList<ItemStack> list = NonNullList.withSize(8 * 4, ItemStack.EMPTY);
         if (itemStack.getTag() != null)
             ItemStackHelper.loadAllItems(itemStack.getTag(), list);
         return list;
     }
 
-    public ITextComponent getActiveSpellName(ItemStack bookStack) {
+    public static ITextComponent getActiveSpellName(ItemStack bookStack) {
         ItemStack stack = getActiveItemStack(bookStack);
         return stack.getDisplayName();
     }
 
     @Override
-    public void addInformation(ItemStack stackIn, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(@Nonnull ItemStack stackIn, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         Optional<SpellItem> activeScroll = getActiveScroll(stackIn);
         ItemStack stack = getActiveItemStack(stackIn);
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".tooltip.open"));
@@ -184,7 +187,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World worldIn, @Nonnull LivingEntity entityLiving, int timeLeft) {
         getActiveScroll(stack).ifPresent(spellItem -> spellItem.onPlayerStoppedUsing(getActiveItemStack(stack), worldIn, entityLiving, timeLeft));
     }
 }

@@ -1,5 +1,6 @@
-package minecraftschurli.arsmagicalegacy.api.etherium.generator;
+package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
+import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -52,13 +53,13 @@ public class EtheriumGeneratorContainer extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (i < PLAYER_INVENTORY_START) {
-                if (EtheriumGeneratorTileEntity.isObeliskFuel(itemstack)){
+                if (EtheriumGeneratorManager.isEtheriumGeneratorFuel(itemstack)){
                     if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
             } else if (i < PLAYER_ACTION_BAR_START) {
-                if (EtheriumGeneratorTileEntity.isObeliskFuel(itemstack)){
+                if (EtheriumGeneratorManager.isEtheriumGeneratorFuel(itemstack)){
                     if (!mergeItemStack(itemstack1, INVENTORY_STORAGE_START, PLAYER_INVENTORY_START, false)){
                         if (!mergeItemStack(itemstack1, PLAYER_ACTION_BAR_START, PLAYER_ACTION_BAR_END, false)){
                             return ItemStack.EMPTY;
@@ -66,7 +67,7 @@ public class EtheriumGeneratorContainer extends Container {
                     }
                 }
             } else if (i < PLAYER_ACTION_BAR_END) {
-                if (EtheriumGeneratorTileEntity.isObeliskFuel(itemstack)){
+                if (EtheriumGeneratorManager.isEtheriumGeneratorFuel(itemstack)){
                     if (!mergeItemStack(itemstack1, INVENTORY_STORAGE_START, PLAYER_ACTION_BAR_START - 1, false)){
                         return ItemStack.EMPTY;
                     }

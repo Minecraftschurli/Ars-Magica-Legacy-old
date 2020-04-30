@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -11,6 +12,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -31,17 +34,20 @@ public class CrystalWrenchItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         TileEntity tileEntity = world.getTileEntity(pos);
-        if (player == null || tileEntity == null)
-            return ActionResultType.PASS;
-        if (player.isShiftKeyDown()) {
+        if (player != null && tileEntity != null && player.isSneaking()) {
+            ITextComponent message;
             if (tileEntity instanceof IEtheriumConsumer) {
                 ((IEtheriumConsumer) tileEntity).setEtheriumSource(readPos(context.getItem()));
                 storePos(context.getItem(), null);
-                return ActionResultType.SUCCESS;
+                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalwrench.linked");
             } else if (tileEntity.getCapability(CapabilityHelper.getEtheriumCapability()).isPresent()) {
                 storePos(context.getItem(), pos);
-                return ActionResultType.SUCCESS;
+                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalwrench.saved").appendText("(x=" + pos.getX() + ", y=" + pos.getY() + ", z=" + pos.getZ() + ")");
+            } else {
+                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalwrench.failed");
             }
+            player.sendStatusMessage(message, true);
+            return ActionResultType.SUCCESS;
         }
         return ActionResultType.PASS;
     }

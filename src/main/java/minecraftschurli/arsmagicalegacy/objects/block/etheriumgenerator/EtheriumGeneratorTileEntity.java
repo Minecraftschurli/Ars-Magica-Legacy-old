@@ -1,9 +1,10 @@
-package minecraftschurli.arsmagicalegacy.api.etherium.generator;
+package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
 
+import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
+import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
 import minecraftschurli.arsmagicalegacy.capabilities.EtheriumStorage;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -24,7 +25,7 @@ import javax.annotation.Nullable;
  * @version 2020-04-21
  */
 public class EtheriumGeneratorTileEntity extends TileEntity implements ITickableTileEntity {
-    private final LazyOptional<EtheriumStorage> etheriumStorage;
+    private final LazyOptional<IEtheriumStorage> etheriumStorage;
     private final LazyOptional<EtheriumGeneratorInventory> obeliskInventory = LazyOptional.of(EtheriumGeneratorInventory::new);
     private int time;
     private int maxTime;
@@ -38,10 +39,10 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
     public void tick() {
         if (time <= 0) {
             obeliskInventory.ifPresent(inv -> {
-                if (isObeliskFuel(inv.getStackInSlot(0))) {
+                if (EtheriumGeneratorManager.isEtheriumGeneratorFuel(inv.getStackInSlot(0))) {
                     ItemStack stack = inv.decrStackSize(0, 1);
                     if (stack.isEmpty()) return;
-                    int amount = getEtheriumValue(stack);
+                    int amount = EtheriumGeneratorManager.getEtheriumValue(stack);
                     if (amount <= 0) return;
                     this.time = this.maxTime = amount;
                 }
@@ -73,16 +74,6 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
         return new SUpdateTileEntityPacket(getPos(), 300, write(new CompoundNBT()));
-    }
-
-    public static int getEtheriumValue(ItemStack stack) {
-        if (stack.isEmpty()) return 0;
-        return 120;
-    }
-
-    public static boolean isObeliskFuel(ItemStack stack) {
-        if (stack.isEmpty()) return false;
-        return stack.getItem() == ModItems.VINTEUM.get();
     }
 
     @Nonnull
