@@ -16,11 +16,11 @@ import java.util.Arrays;
  * Thanks tterrag!
  */
 @OnlyIn(Dist.CLIENT)
-public class BakedQuadRetextured extends BakedQuad {
+public class RetexturedBakedQuad extends BakedQuad {
 
     private final TextureAtlasSprite texture;
 
-    public BakedQuadRetextured(BakedQuad quad, TextureAtlasSprite textureIn) {
+    public RetexturedBakedQuad(BakedQuad quad, TextureAtlasSprite textureIn) {
         super(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.getTintIndex(), FaceBakery.getFacingFromVertexData(quad.getVertexData()), quad.func_187508_a(), quad.shouldApplyDiffuseLighting());
         this.texture = textureIn;
         this.remapQuad();

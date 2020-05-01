@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.objects.block.model.BakedQuadRetextured;
+import minecraftschurli.arsmagicalegacy.objects.block.model.RetexturedBakedQuad;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
@@ -45,7 +45,7 @@ public class CraftingAltarModel extends BakedModelWrapper<IBakedModel> {
                         .getModelForState(camoState)
                         .getQuads(camoState, side, rand, EmptyModelData.INSTANCE));
                 if (!quads.isEmpty() && side == Direction.DOWN) {
-                    quads.add(new BakedQuadRetextured(quads.get(0), OVERLAY));
+                    quads.add(new RetexturedBakedQuad(quads.get(0), OVERLAY));
                 }
                 return quads;
             }
