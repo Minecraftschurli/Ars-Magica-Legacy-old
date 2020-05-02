@@ -1,18 +1,20 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
+package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
-import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
-import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
 import minecraftschurli.arsmagicalegacy.capabilities.EtheriumStorage;
+import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -22,17 +24,15 @@ import javax.annotation.Nullable;
 
 /**
  * @author Minecraftschurli
- * @version 2020-04-21
+ * @version 2020-05-02
  */
-public class EtheriumGeneratorTileEntity extends TileEntity implements ITickableTileEntity {
-    private final LazyOptional<IEtheriumStorage> etheriumStorage;
-    private final LazyOptional<EtheriumGeneratorInventory> obeliskInventory = LazyOptional.of(EtheriumGeneratorInventory::new);
+public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements INamedContainerProvider {
+    private final LazyOptional<ObeliskInventory> obeliskInventory = LazyOptional.of(ObeliskInventory::new);
     private int time;
     private int maxTime;
 
-    public EtheriumGeneratorTileEntity(TileEntityType<? extends EtheriumGeneratorTileEntity> tileType, EtheriumType type) {
-        super(tileType);
-        etheriumStorage = LazyOptional.of(() -> new EtheriumStorage(5000, type));
+    public ObeliskTileEntity() {
+        super(ModTileEntities.OBELISK.get(), () -> new EtheriumStorage(5000, EtheriumType.NEUTRAL.get()));
     }
 
     @Override
@@ -49,14 +49,7 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
             });
         }
         if (time <= 0) return;
-        if (etheriumStorage.map(etherium -> etherium.add(1, false)).orElse(false)) time--;
-    }
-
-    protected float getMultiplier() {
-        if (getBlockState().getBlock() instanceof EtheriumGeneratorBlock) {
-            return Math.min(0.5f, ((EtheriumGeneratorBlock) getBlockState().getBlock()).getMultiplier(getWorld(), getBlockState(), getPos()));
-        }
-        return 0.5f;
+        if (addEtherium(1)) time--;
     }
 
     @Nonnull
@@ -65,32 +58,23 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
         super.write(compound);
         compound.putInt("time", time);
         obeliskInventory.ifPresent(inv -> compound.put("inventory", inv.serializeNBT()));
-        etheriumStorage.ifPresent(etherium -> compound.put("etherium", etherium.serializeNBT()));
         return compound;
     }
+
 
     @Override
     public void read(@Nonnull CompoundNBT compound) {
         super.read(compound);
         time = compound.getInt("time");
         obeliskInventory.ifPresent(inv -> inv.deserializeNBT(compound.getCompound("inventory")));
-        etheriumStorage.ifPresent(etherium -> etherium.deserializeNBT(compound.getCompound("etherium")));
-    }
-
-    @Nullable
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(getPos(), 300, write(new CompoundNBT()));
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityHelper.getEtheriumCapability())
-            return etheriumStorage.cast();
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return obeliskInventory.cast();
-        return LazyOptional.empty();
+        return super.getCapability(cap, side);
     }
 
     public IInventory getInv() {
@@ -100,5 +84,16 @@ public class EtheriumGeneratorTileEntity extends TileEntity implements ITickable
     public int getCookProgressScaled(int i) {
         if (maxTime == 0) return 0;
         return time * i / maxTime;
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new StringTextComponent("");
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+        return new ObeliskContainer(p_createMenu_1_, p_createMenu_2_, this);
     }
 }

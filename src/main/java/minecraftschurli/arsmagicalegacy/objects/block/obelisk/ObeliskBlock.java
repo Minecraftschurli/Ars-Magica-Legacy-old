@@ -1,19 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorBlock;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -27,8 +23,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -119,20 +113,9 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
             return ActionResultType.SUCCESS;
         }
         TileEntity te = worldIn.getTileEntity(state.get(HALF) == DoubleBlockHalf.LOWER ? pos : pos.down());
-        if (te == null)
+        if (!(te instanceof INamedContainerProvider))
             return ActionResultType.FAIL;
-        NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-            @Nonnull
-            @Override
-            public ITextComponent getDisplayName() {
-                return new StringTextComponent("");
-            }
-
-            @Override
-            public Container createMenu(int p_createMenu_1_, @Nonnull PlayerInventory p_createMenu_2_, @Nonnull PlayerEntity p_createMenu_3_) {
-                return new EtheriumGeneratorContainer(p_createMenu_1_, p_createMenu_2_, (EtheriumGeneratorTileEntity) te);
-            }
-        }, state.get(HALF) == DoubleBlockHalf.LOWER ? pos : pos.down());
+        NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, state.get(HALF) == DoubleBlockHalf.LOWER ? pos : pos.down());
         return ActionResultType.SUCCESS;
     }
 

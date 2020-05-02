@@ -1,15 +1,17 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
+import java.util.Set;
 
 /**
  * @author Minecraftschurli
@@ -48,14 +50,6 @@ public abstract class SpellComponent extends AbstractSpellPart {
     public abstract float getManaCost(LivingEntity caster);
 
     /**
-     * Gets any reagents that must be present in the caster's inventory in order
-     * to cast the spell.
-     */
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    /**
      * Spawn visual effects for the component
      *
      * @param colorModifier The color from the color modifier.  -1 if missing.
@@ -86,9 +80,27 @@ public abstract class SpellComponent extends AbstractSpellPart {
         return 0;
     }
 
+    public AbstractRitual getRitual(LivingEntity caster) {
+        return null;
+    }
+
+    /**
+     * Gets any reagents that must be present in the caster's inventory in order
+     * to cast the spell.
+     *
+     * @deprecated use the ritual registry and {@link SpellComponent#getRitual(LivingEntity)} instead
+     */
+    @Deprecated
+    public ItemStack[] getReagents(LivingEntity caster) {
+        return null;
+    }
+
     /**
      * Gets the radius (in blocks) to search for reagents
+     *
+     * @deprecated use the ritual registry and {@link SpellComponent#getRitual(LivingEntity)} instead
      */
+    @Deprecated
     public float getReagentSearchRadius() {
         return 3;
     }

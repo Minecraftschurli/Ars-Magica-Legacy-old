@@ -14,10 +14,10 @@ import minecraftschurli.arsmagicalegacy.init.*;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremTER;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarModel;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorScreen;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
+import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskContainer;
+import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskScreen;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeModel;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
@@ -153,7 +153,7 @@ public final class ArsMagicaLegacy {
 
         ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
         ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
-        ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<EtheriumGeneratorContainer, EtheriumGeneratorScreen>) EtheriumGeneratorScreen::new);
+        ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<ObeliskContainer, ObeliskScreen>) ObeliskScreen::new);
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_CORE.get(), CraftingAltarTER::new);

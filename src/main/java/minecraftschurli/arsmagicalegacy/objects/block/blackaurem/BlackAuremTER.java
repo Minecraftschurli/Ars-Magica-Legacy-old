@@ -2,7 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.blackaurem;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorTileEntity;
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

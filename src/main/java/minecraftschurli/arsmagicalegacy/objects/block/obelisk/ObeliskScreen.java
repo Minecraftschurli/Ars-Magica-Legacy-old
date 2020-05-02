@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
+package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.client.Minecraft;
@@ -12,10 +12,10 @@ import org.lwjgl.opengl.GL14;
  * @author Minecraftschurli
  * @version 2020-04-21
  */
-public class EtheriumGeneratorScreen extends ContainerScreen<EtheriumGeneratorContainer> {
+public class ObeliskScreen extends ContainerScreen<ObeliskContainer> {
     private static final ResourceLocation background = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/obelisk_gui.png");
 
-    public EtheriumGeneratorScreen(EtheriumGeneratorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public ObeliskScreen(ObeliskContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         xSize = 176;
         ySize = 165;

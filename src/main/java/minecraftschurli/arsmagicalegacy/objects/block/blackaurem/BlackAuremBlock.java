@@ -1,7 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.blackaurem;
 
+import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator.EtheriumGeneratorBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  * @author Minecraftschurli
  * @version 2020-04-23
  */
-public class BlackAuremBlock extends EtheriumGeneratorBlock {
+public class BlackAuremBlock extends EtheriumGeneratorBlock<BlackAuremTileEntity> {
     public BlackAuremBlock() {
         super(Properties.create(Material.ROCK).notSolid(), ModTileEntities.BLACK_AUREM);
     }

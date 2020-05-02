@@ -30,6 +30,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -80,7 +81,7 @@ public final class SpellUtil {
             else if (CapabilityHelper.isBurnedOut(caster, burnoutCost)) result = SpellCastResult.BURNED_OUT;
             else if (!hasReagents(caster, stack)) {
                 if (world.isRemote)
-                    caster.sendMessage(new StringTextComponent(missingReagents(caster, stack)));
+                    caster.sendMessage(missingReagents(caster, stack));
                 result = SpellCastResult.REAGENTS_MISSING;
             }
         }
@@ -639,11 +640,11 @@ public final class SpellUtil {
         return newStack;
     }
 
-    public static String missingReagents(LivingEntity caster, ItemStack spellStack) {
+    public static ITextComponent missingReagents(LivingEntity caster, ItemStack spellStack) {
         if (caster instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) caster;
-            if (player.isCreative()) return "";
-            StringBuilder string = new StringBuilder(new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.missingReagents").toString());
+            if (player.isCreative()) return new StringTextComponent("");
+            ITextComponent string = new TranslationTextComponent(ArsMagicaAPI.MODID + ".chat.missingReagents");
             boolean first = true;
             for (SpellComponent part : getComponents(spellStack, -1)) {
                 if (part.getReagents(caster) == null) continue;
@@ -661,15 +662,15 @@ public final class SpellUtil {
                             }
                         }
                         if (!foundMatch) {
-                            if (!first) string.append(", ");
-                            string.append(stack.getCount()).append("x ").append(stack.getDisplayName());
+                            if (!first) string.appendText(", ");
+                            string.appendText(stack.getCount()+"x ").appendSibling(stack.getDisplayName());
                             first = false;
                         }
                     }
             }
-            return string.toString();
+            return string;
         }
-        return "";
+        return new StringTextComponent("");
     }
 
     public static float modifyDamage(LivingEntity caster, float damage) {

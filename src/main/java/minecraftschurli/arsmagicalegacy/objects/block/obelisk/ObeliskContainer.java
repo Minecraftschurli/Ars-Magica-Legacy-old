@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
+package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
@@ -15,19 +15,19 @@ import javax.annotation.Nonnull;
  * @author Minecraftschurli
  * @version 2020-04-21
  */
-public class EtheriumGeneratorContainer extends Container {
+public class ObeliskContainer extends Container {
 
     private static final int INVENTORY_STORAGE_START = 0;
     private static final int PLAYER_INVENTORY_START = 1;
     private static final int PLAYER_ACTION_BAR_START = 28;
     private static final int PLAYER_ACTION_BAR_END = 37;
 
-    private final EtheriumGeneratorTileEntity tile;
+    private final ObeliskTileEntity tile;
 
-    public EtheriumGeneratorContainer(int id, PlayerInventory inventory, EtheriumGeneratorTileEntity tile) {
+    public ObeliskContainer(int id, PlayerInventory inventory, ObeliskTileEntity tile) {
         super(ModContainers.ETHERIUM_GENERATOR.get(), id);
         this.tile = tile;
-        addSlot(new EtheriumGeneratorSlot(tile, 79, 47));
+        addSlot(new ObeliskSlot(tile, 79, 47));
         //display player inventory
         for (int i = 0; i < 3; i++) {
             for (int k = 0; k < 9; k++) {
@@ -40,8 +40,8 @@ public class EtheriumGeneratorContainer extends Container {
         }
     }
 
-    public EtheriumGeneratorContainer(int id, PlayerInventory inventory, PacketBuffer additionalData) {
-        this(id, inventory, (EtheriumGeneratorTileEntity) inventory.player.world.getTileEntity(additionalData.readBlockPos()));
+    public ObeliskContainer(int id, PlayerInventory inventory, PacketBuffer additionalData) {
+        this(id, inventory, (ObeliskTileEntity) inventory.player.world.getTileEntity(additionalData.readBlockPos()));
     }
 
     @Nonnull

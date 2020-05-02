@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.block.etheriumgenerator;
+package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,8 +12,8 @@ import javax.annotation.Nonnull;
  * @author Minecraftschurli
  * @version 2020-04-23
  */
-public class EtheriumGeneratorInventory extends ItemStackHandler implements IInventory {
-    public EtheriumGeneratorInventory(){
+public class ObeliskInventory extends ItemStackHandler implements IInventory {
+    public ObeliskInventory(){
         super(1);
     }
 
