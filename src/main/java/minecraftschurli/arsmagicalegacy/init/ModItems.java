@@ -149,7 +149,7 @@ public final class ModItems implements IInit {
         }
     });
     public static final RegistryObject<Item> OBELISK = ITEMS.register("obelisk", () -> new TallBlockItem(ModBlocks.OBELISK.get(), ITEM_1));
-    public static final RegistryObject<Item> CELESTIAL_PRISM = blockItem(ModBlocks.CELESTIAL_PRISM);
+    public static final RegistryObject<Item> CELESTIAL_PRISM = ITEMS.register("celestial_prism", () -> new TallBlockItem(ModBlocks.CELESTIAL_PRISM.get(), ITEM_1));
     public static final RegistryObject<Item> BLACK_AUREM = blockItem(ModBlocks.BLACK_AUREM);
     public static final RegistryObject<Item> ALTAR_CORE = stackableBlockItem64(ModBlocks.ALTAR_CORE);
     public static final RegistryObject<Item> MAGIC_WALL = stackableBlockItem64(ModBlocks.MAGIC_WALL);

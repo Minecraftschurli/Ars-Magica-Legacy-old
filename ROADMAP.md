@@ -9,10 +9,11 @@
 - [x] add documentation using [Patchouli](https://github.com/Vazkii/Patchouli) by Vazkii
 - [x] add Affinity-Ability System
 - [x] add Leveling System
+- [x] add Etherium System
+- [ ] add Ritual System
 - [ ] add Spell-Entities
-- [ ] add Etherium System
 - [ ] finish commenting the api (API-FREEZE no more API breaking changes)
-- [ ] first **_alpha_** (0.0.1.0) release or Forgecraft (2020-04-20) (postponed)
+- [ ] first **_alpha_** (0.0.1.0) release or Forgecraft (2020-05-20)
 - [ ] bugfixes
 - [ ] finish implementing all Affinity-Abilities
 - [ ] finish implementing all Potion-Effects
@@ -22,8 +23,8 @@
 - [ ] first **_full_** (1.0.0.0) release (2020-??-??)
 
 ### Milestones:
-| Name         | Planned    | Actual     |
-| ------------ | ---------- | ---------- |
-| First Alpha  | 2020-04-20 |            |
-| First Beta   | 2020-07-10 |            |
+| Name         | Planned    | Postponed  | Actual     |
+| ------------ | ---------- | ---------- | ---------- |
+| First Alpha  | 2020-04-20 | 2020-05-20 |            |
+| First Beta   | 2020-07-10 |            |            |
 

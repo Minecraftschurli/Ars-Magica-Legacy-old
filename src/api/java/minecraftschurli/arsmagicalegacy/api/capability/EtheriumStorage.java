@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.capabilities;
+package minecraftschurli.arsmagicalegacy.api.capability;
 
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;

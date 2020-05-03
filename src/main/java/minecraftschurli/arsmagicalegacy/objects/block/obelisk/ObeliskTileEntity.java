@@ -3,7 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
-import minecraftschurli.arsmagicalegacy.capabilities.EtheriumStorage;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -27,12 +27,25 @@ import javax.annotation.Nullable;
  * @version 2020-05-02
  */
 public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements INamedContainerProvider {
+
     private final LazyOptional<ObeliskInventory> obeliskInventory = LazyOptional.of(ObeliskInventory::new);
     private int time;
     private int maxTime;
 
     public ObeliskTileEntity() {
-        super(ModTileEntities.OBELISK.get(), () -> new EtheriumStorage(5000, EtheriumType.NEUTRAL.get()));
+        super(ModTileEntities.OBELISK.get(), EtheriumType.NEUTRAL.get());
+    }
+
+    private float getMultiplier() {
+        if (world == null) return 0.5f;
+        int c = 0;
+        if (PatchouliCompat.OBELISK_CHALK.get().validate(world, pos) != null) {
+            c++;
+            if (PatchouliCompat.OBELISK_PILLARS.get().validate(world, pos) != null) {
+                c++;
+            }
+        }
+        return c * 0.5f + 0.5f;
     }
 
     @Override

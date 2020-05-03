@@ -1,9 +1,9 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
+import minecraftschurli.arsmagicalegacy.api.capability.EtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;

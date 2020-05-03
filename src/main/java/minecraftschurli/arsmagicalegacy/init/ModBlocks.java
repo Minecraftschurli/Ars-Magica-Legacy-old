@@ -102,6 +102,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Door> KEYSTONE_DOOR = BLOCKS.register("keystone_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Door> SPELL_SEALED_DOOR = BLOCKS.register("spell_sealed_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Trapdoor> KEYSTONE_TRAPDOOR = BLOCKS.register("keystone_trapdoor", () -> new Trapdoor(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> CHALK = BLOCKS.register("chalk", () -> new Block(Block.Properties.create(Material.ROCK)));
 
     public static void register() {
     }

@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.data.loot;
 import com.google.common.collect.Maps;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.objects.block.celestialprism.CelestialPrismBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskBlock;
 import net.minecraft.block.Block;
@@ -65,7 +66,9 @@ public final class AMLBlockLootTables extends BlockLootTables {
         registerDropSelfLootTable(ModBlocks.ALTAR_CORE);
         registerLootTable(ModBlocks.INSCRIPTION_TABLE, block -> droppingWhen(block, InscriptionTableBlock.HALF, InscriptionTableBlock.Half.RIGHT));
         registerDropSelfLootTable(ModBlocks.OCCULUS);
-        registerLootTable(ModBlocks.OBELISK, block -> droppingWhen(block, ObeliskBlock.HALF, DoubleBlockHalf.LOWER));
+        registerLootTable(ModBlocks.OBELISK, block -> droppingWhen(block, ObeliskBlock.PART, ObeliskBlock.Part.LOWER));
+        registerLootTable(ModBlocks.CELESTIAL_PRISM, block -> droppingWhen(block, CelestialPrismBlock.HALF, DoubleBlockHalf.LOWER));
+        registerDropSelfLootTable(ModBlocks.BLACK_AUREM);
     }
 
     private void registerGemDropLootTable(Supplier<? extends Block> block, Supplier<? extends Item> item) {

@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.compat.patchouli;
 import com.google.common.base.Strings;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.objects.block.celestialprism.CelestialPrismBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -38,50 +39,150 @@ public class PatchouliCompat {
 
     private static final ResourceLocation COMPENDIUM = new ResourceLocation(ArsMagicaAPI.MODID, "arcane_compendium");
 
+    public static final Supplier<IStateMatcher> CHALK_MATCHER = () -> PatchouliAPI.instance.strictBlockMatcher(ModBlocks.CHALK.get());
+
     public static final Supplier<IMultiblock> ALTAR = registerMultiblock("altar", patchouli ->
             patchouli.makeMultiblock(new String[][]{
-                            {" CEC ", " SMN ", " SAN ", " SMN ", " CWC "},
-                            {" MZM ", " I I ", "     ", " Y Y ", " MZM "},
-                            {" MZMV", "     ", "     ", "     ", " MZM "},
-                            {" MZM ", "     ", "  0  ", "     ", " MZML"},
-                            {"MMMMM", "MMMMM", "MMCMM", "MMMMM", "MMMMM"}},
-                    'C', new CapMatcher(),
-                            'M', new MainMatcher(),
-                            'V', PatchouliCompat.propertyMatcher(PatchouliAPI.instance, Blocks.LEVER.getDefaultState().with(LeverBlock.HORIZONTAL_FACING, Direction.SOUTH), LeverBlock.HORIZONTAL_FACING),
-                            'L', PatchouliCompat.propertyMatcher(PatchouliAPI.instance, Blocks.LECTERN.getDefaultState().with(LecternBlock.FACING, Direction.SOUTH), LecternBlock.FACING),
-                            'A', PatchouliAPI.instance.looseBlockMatcher(ModBlocks.ALTAR_CORE.get()),
-                            'Z', PatchouliAPI.instance.strictBlockMatcher(ModBlocks.MAGIC_WALL.get()),
-                            'S', new StairMatcher(Direction.SOUTH, Half.BOTTOM),
-                            'N', new StairMatcher(Direction.NORTH, Half.BOTTOM),
-                            'W', new StairMatcher(Direction.WEST, Half.BOTTOM),
-                            'E', new StairMatcher(Direction.EAST, Half.BOTTOM),
-                            'I', new StairMatcher(Direction.WEST, Half.TOP),
-                            'Y', new StairMatcher(Direction.EAST, Half.TOP)));
+                    {" CEC ", " SMN ", " SAN ", " SMN ", " CWC "},
+                    {" MZM ", " I I ", "     ", " Y Y ", " MZM "},
+                    {" MZMV", "     ", "     ", "     ", " MZM "},
+                    {" MZM ", "     ", "  0  ", "     ", " MZML"},
+                    {"MMMMM", "MMMMM", "MMCMM", "MMMMM", "MMMMM"}},
+            'C', new CapMatcher(),
+                    'M', new MainMatcher(),
+                    'V', propertyMatcher(PatchouliAPI.instance, Blocks.LEVER.getDefaultState().with(LeverBlock.HORIZONTAL_FACING, Direction.SOUTH), LeverBlock.HORIZONTAL_FACING),
+                    'L', propertyMatcher(PatchouliAPI.instance, Blocks.LECTERN.getDefaultState().with(LecternBlock.FACING, Direction.SOUTH), LecternBlock.FACING),
+                    'A', PatchouliAPI.instance.looseBlockMatcher(ModBlocks.ALTAR_CORE.get()),
+                    'Z', PatchouliAPI.instance.strictBlockMatcher(ModBlocks.MAGIC_WALL.get()),
+                    'S', new StairMatcher(Direction.SOUTH, Half.BOTTOM),
+                    'N', new StairMatcher(Direction.NORTH, Half.BOTTOM),
+                    'W', new StairMatcher(Direction.WEST, Half.BOTTOM),
+                    'E', new StairMatcher(Direction.EAST, Half.BOTTOM),
+                    'I', new StairMatcher(Direction.WEST, Half.TOP),
+                    'Y', new StairMatcher(Direction.EAST, Half.TOP)));
 
     public static final Supplier<IMultiblock> OBELISK_CHALK = registerMultiblock("obelisk_chalk", iPatchouliAPI ->
             iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"   ", " O ", "   "},
+                    {"   ", " U ", "   "},
+                    {"   ", " M ", "   "},
                     {"CCC", "C0C", "CCC"}},
-            '0', propertyMatcher(iPatchouliAPI, ModBlocks.OBELISK.get().getDefaultState(), ObeliskBlock.HALF),
-                    'O', propertyMatcher(iPatchouliAPI, ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.HALF, DoubleBlockHalf.UPPER), ObeliskBlock.HALF),
-                    'C', iPatchouliAPI.anyMatcher()
-                    ).setSymmetrical(true));
+            '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+                    'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.MIDDLE)),
+                    'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.UPPER)),
+                    'C', CHALK_MATCHER.get())
+                    .setSymmetrical(true));
 
     public static final Supplier<IMultiblock> OBELISK_PILLARS = registerMultiblock("obelisk_pillars", iPatchouliAPI ->
             iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"C   C", "     ", "     ", "     ", "C   C"},
-                    {"B   B", "     ", "  O  ", "     ", "B   B"},
-                    {"B   B", "     ", "  0  ", "     ", "B   B"}},
-            '0', propertyMatcher(iPatchouliAPI, ModBlocks.OBELISK.get().getDefaultState(), ObeliskBlock.HALF),
-                    'O', propertyMatcher(iPatchouliAPI, ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.HALF, DoubleBlockHalf.UPPER), ObeliskBlock.HALF),
+                    {"C   C", "     ", "  U  ", "     ", "C   C"},
+                    {"B   B", "     ", "  M  ", "     ", "B   B"},
+                    {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
+            '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+                    'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.MIDDLE)),
+                    'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.UPPER)),
                     'C', iPatchouliAPI.looseBlockMatcher(Blocks.CHISELED_STONE_BRICKS),
-                    'B', iPatchouliAPI.looseBlockMatcher(Blocks.STONE_BRICKS)
-            ).setSymmetrical(true));
+                    'B', iPatchouliAPI.looseBlockMatcher(Blocks.STONE_BRICKS),
+                    'C', CHALK_MATCHER.get())
+                    .setSymmetrical(true));
 
-    public static final Supplier<IMultiblock> CELESTIAL_PRISM = null; //TODO implement
-    public static final Supplier<IMultiblock> BLACK_AUREM = null; //TODO implement
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_CHALK = registerMultiblock("celestial_prism_chalk", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"   ", " P ", "   "},
+                    {"CCC", "C0C", "CCC"}},
+            'C', CHALK_MATCHER.get(),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
 
-    private static Supplier<IMultiblock> registerMultiblock(
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_1 = registerMultiblock("celestial_prism_pillar1", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"G   G", "     ", "     ", "     ", "G   G"},
+                    {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                    {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+            'C', CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'G', iPatchouliAPI.strictBlockMatcher(Blocks.GLASS),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_2 = registerMultiblock("celestial_prism_pillar2", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"G   G", "     ", "     ", "     ", "G   G"},
+                    {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                    {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+            'C', CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'G', iPatchouliAPI.strictBlockMatcher(Blocks.GOLD_BLOCK),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState())));
+
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_3 = registerMultiblock("celestial_prism_pillar3", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"D   D", "     ", "     ", "     ", "D   D"},
+                    {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                    {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+            'C', CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'D', iPatchouliAPI.strictBlockMatcher(Blocks.DIAMOND_BLOCK),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_4 = registerMultiblock("celestial_prism_pillar4", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"M   M", "     ", "     ", "     ", "M   M"},
+                    {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                    {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+            'C', CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'M', iPatchouliAPI.strictBlockMatcher(ModBlocks.MOONSTONE_BLOCK.get()),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+
+    public static final Supplier<IMultiblock> BLACK_AUREM_CHALK = registerMultiblock("black_aurem_chalk", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"   ", " B ", "   "},
+                    {"CCC", "C0C", "CCC"}},
+            'C', CHALK_MATCHER.get(),
+                    'B', iPatchouliAPI.strictBlockMatcher(ModBlocks.BLACK_AUREM.get()))
+                    .setSymmetrical(true));
+
+    public static final Supplier<IMultiblock> BLACK_AUREM_PILLAR_1 = registerMultiblock("black_aurem_pillar1", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"G   G", "     ", "     ", "     ", "G   G"},
+                    {"N   N", "     ", "  B  ", "     ", "N   N"},
+                    {"N   N", " CCC ", " C0C ", " CCC ", "N   N"}},
+            'C', CHALK_MATCHER.get(),
+                    'N', iPatchouliAPI.strictBlockMatcher(Blocks.NETHER_BRICKS),
+                    'G', iPatchouliAPI.strictBlockMatcher(Blocks.GOLD_BLOCK),
+                    'B', iPatchouliAPI.strictBlockMatcher(ModBlocks.BLACK_AUREM.get()))
+                    .setSymmetrical(true));
+
+    public static final Supplier<IMultiblock> BLACK_AUREM_PILLAR_2 = registerMultiblock("black_aurem_pillar2", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"D   D", "     ", "     ", "     ", "D   D"},
+                    {"N   N", "     ", "  B  ", "     ", "N   N"},
+                    {"N   N", " CCC ", " C0C ", " CCC ", "N   N"}},
+            'C', CHALK_MATCHER.get(),
+                    'N', iPatchouliAPI.strictBlockMatcher(Blocks.NETHER_BRICKS),
+                    'D', iPatchouliAPI.strictBlockMatcher(Blocks.DIAMOND_BLOCK),
+                    'B', iPatchouliAPI.strictBlockMatcher(ModBlocks.BLACK_AUREM.get()))
+                    .setSymmetrical(true));
+
+    public static final Supplier<IMultiblock> BLACK_AUREM_PILLAR_3 = registerMultiblock("black_aurem_pillar3", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"H   H", "     ", "     ", "     ", "H   H"},
+                    {"N   N", "     ", "  B  ", "     ", "N   N"},
+                    {"N   N", " CCC ", " C0C ", " CCC ", "N   N"}},
+            'C', CHALK_MATCHER.get(),
+                    'N', iPatchouliAPI.strictBlockMatcher(Blocks.NETHER_BRICKS),
+                    'H', iPatchouliAPI.strictBlockMatcher(ModBlocks.CHIMERITE_BLOCK.get()),
+                    'B', iPatchouliAPI.strictBlockMatcher(ModBlocks.BLACK_AUREM.get()))
+                    .setSymmetrical(true));
+
+    public static Supplier<IMultiblock> registerMultiblock(
             final String name,
             final Function<PatchouliAPI.IPatchouliAPI, IMultiblock> factory
     ) {

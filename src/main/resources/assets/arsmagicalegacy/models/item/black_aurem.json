@@ -1,3 +1,6 @@
 {
-  "parent": "arsmagicalegacy:block/black_aurem"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "arsmagicalegacy:block/black_aurem"
+  }
 }

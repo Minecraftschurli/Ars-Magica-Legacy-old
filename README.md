@@ -12,7 +12,7 @@ Please report any bugs here on [github](https://github.com/Minecraftschurli/ArsM
 ## Dependencies
 This mod requires 
 - [Patchouli by Vazkii](https://www.curseforge.com/minecraft/mc-mods/patchouli) on version 1.15.2-1.2-29 or higher
-- [SimpleOreLib](https://www.curseforge.com/minecraft/mc-mods/simpleorelib) version 1.2
+- [SimpleOreLib](https://www.curseforge.com/minecraft/mc-mods/simpleorelib) version 1.3
 
 ## Contributing
 **We still need help**  
@@ -26,8 +26,12 @@ To use it you just need to add the following to your `build.gradle`
 ```gradle
 repositories {
     maven {
-        name = "MinecraftschurliMaven"
-        url "http://minecraftschurli.ddns.net/archiva/repository/internal/"
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/Minecraftschurli/Ars-Magica-Legacy"
+        credentials {
+            username = <gpruser>
+            password = <gprtoken>
+        }
     }
 }
 

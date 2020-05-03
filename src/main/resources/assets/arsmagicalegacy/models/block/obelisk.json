@@ -1,7 +1,7 @@
 {
   "parent": "forge:item/default",
   "loader": "forge:obj",
-  "model": "arsmagicalegacy:models/obj/obelisk.obj",
+  "model": "arsmagicalegacy:models/obj/obelisk_high.obj",
   "textures": {
     "tex": "arsmagicalegacy:block/obelisk",
     "particle": "block/stone_bricks"

@@ -1,7 +1,7 @@
 {
   "parent": "forge:item/default",
   "loader": "forge:obj",
-  "model": "arsmagicalegacy:models/obj/celestial_prism.obj",
+  "model": "arsmagicalegacy:models/obj/celestial_prism_high.obj",
   "ambientToFullbright": true,
   "textures": {
     "tex": "arsmagicalegacy:block/celestial_prism",

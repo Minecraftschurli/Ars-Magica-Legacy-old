@@ -1,6 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.etherium.generator;
 
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.api.capability.EtheriumStorage;
+import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -10,7 +12,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullSupplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,20 +23,13 @@ import javax.annotation.Nullable;
 public abstract class EtheriumGeneratorTileEntity extends TileEntity implements ITickableTileEntity {
     private final LazyOptional<IEtheriumStorage> etheriumStorage;
 
-    public EtheriumGeneratorTileEntity(TileEntityType<? extends EtheriumGeneratorTileEntity> tileType, NonNullSupplier<IEtheriumStorage> storage) {
+    public EtheriumGeneratorTileEntity(TileEntityType<? extends EtheriumGeneratorTileEntity> tileType, EtheriumType type) {
         super(tileType);
-        etheriumStorage = LazyOptional.of(storage);
+        etheriumStorage = LazyOptional.of(() -> new EtheriumStorage(5000, type));
     }
 
     @Override
     public abstract void tick();
-
-    protected float getMultiplier() {
-        if (getBlockState().getBlock() instanceof EtheriumGeneratorBlock) {
-            return Math.min(0.5f, ((EtheriumGeneratorBlock) getBlockState().getBlock()).getMultiplier(getWorld(), getBlockState(), getPos()));
-        }
-        return 0.5f;
-    }
 
     @Nonnull
     @Override
