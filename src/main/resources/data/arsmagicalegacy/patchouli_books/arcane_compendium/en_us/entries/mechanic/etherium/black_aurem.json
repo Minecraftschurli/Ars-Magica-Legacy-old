@@ -1,0 +1,27 @@
+{
+  "name": "compendium.entries.mechanic.etherium.black_aurem.name",
+  "category": "mechanic/etherium",
+  "icon": "arsmagicalegacy:black_aurem",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.etherium.black_aurem.page.0"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_chalk"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillar1"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillar2"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillar3"
+    }
+  ]
+}

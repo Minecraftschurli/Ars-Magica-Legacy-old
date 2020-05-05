@@ -3,7 +3,6 @@ package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
-import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -38,13 +37,7 @@ public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements IN
 
     private float getMultiplier() {
         if (world == null) return 0.5f;
-        int c = 0;
-        if (PatchouliCompat.OBELISK_CHALK.get().validate(world, pos) != null) {
-            c++;
-            if (PatchouliCompat.OBELISK_PILLARS.get().validate(world, pos) != null) {
-                c++;
-            }
-        }
+        int c = getTier();
         return c * 0.5f + 0.5f;
     }
 

@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -47,7 +46,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
             drawNameplate(ingredient.getTooltip().getFormattedText(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
         matrixStackIn.pop();
-        matrixStackIn.rotate(new Quaternion(Vector3f.YP, view.itemRotation, true));
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(view.itemRotation));
         //RenderSystem.rotatef(this.rendererDispatcher.renderInfo.getPitch(), 1, 0, 0);
         ItemStack stack;
         if (!altar.hasEnoughPower()) {

@@ -1,6 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,9 +28,11 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import vazkii.patchouli.api.IMultiblock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -36,6 +40,29 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("deprecation")
 public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
+    public static final Supplier<IMultiblock> OBELISK_CHALK = PatchouliCompat.registerMultiblock("obelisk_chalk", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                            {"   ", " U ", "   "},
+                            {"   ", " M ", "   "},
+                            {"CCC", "C0C", "CCC"}},
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+                    'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
+                    'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
+                    'C', PatchouliCompat.CHALK_MATCHER.get())
+                    .setSymmetrical(true));
+    public static final Supplier<IMultiblock> OBELISK_PILLARS = PatchouliCompat.registerMultiblock("obelisk_pillars", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                            {"C   C", "     ", "  U  ", "     ", "C   C"},
+                            {"B   B", "     ", "  M  ", "     ", "B   B"},
+                            {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+                    'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
+                    'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
+                    'C', iPatchouliAPI.looseBlockMatcher(Blocks.CHISELED_STONE_BRICKS),
+                    'B', iPatchouliAPI.looseBlockMatcher(Blocks.STONE_BRICKS),
+                    'C', PatchouliCompat.CHALK_MATCHER.get())
+                    .setSymmetrical(true));
+
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -132,6 +159,18 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
     @Override
     public boolean hasTileEntity(BlockState state) {
         return state.get(PART) == Part.LOWER;
+    }
+
+    @Override
+    public int getTier(BlockState state, World world, BlockPos pos) {
+        int tier = 0;
+        if (OBELISK_CHALK.get().validate(world, pos) != null) {
+            tier = 1;
+            if (OBELISK_PILLARS.get().validate(world, pos) != null) {
+                tier = 2;
+            }
+        }
+        return tier;
     }
 
     public enum Part implements IStringSerializable {

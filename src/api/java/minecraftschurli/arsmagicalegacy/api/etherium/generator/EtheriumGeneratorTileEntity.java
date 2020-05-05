@@ -4,6 +4,8 @@ import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.capability.EtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -56,10 +58,19 @@ public abstract class EtheriumGeneratorTileEntity extends TileEntity implements 
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityHelper.getEtheriumCapability())
             return etheriumStorage.cast();
-        return LazyOptional.empty();
+        return super.getCapability(cap, side);
     }
 
     protected boolean addEtherium(final int amount) {
         return etheriumStorage.map(iEtheriumStorage -> iEtheriumStorage.add(amount, false)).orElse(false);
+    }
+
+    protected int getTier() {
+        BlockState state = getBlockState();
+        Block block = state.getBlock();
+        if (world != null && block instanceof EtheriumGeneratorBlock<?>) {
+            return ((EtheriumGeneratorBlock<?>)block).getTier(state, world, pos);
+        }
+        return 0;
     }
 }

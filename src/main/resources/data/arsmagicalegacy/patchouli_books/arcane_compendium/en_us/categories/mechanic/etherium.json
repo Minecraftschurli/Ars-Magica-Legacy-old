@@ -1,0 +1,6 @@
+{
+  "name": "compendium.categories.mechanic.etherium.name",
+  "description": "compendium.categories.mechanic.etherium.description",
+  "icon": "arsmagicalegacy:vinteum",
+  "parent": "mechanic"
+}

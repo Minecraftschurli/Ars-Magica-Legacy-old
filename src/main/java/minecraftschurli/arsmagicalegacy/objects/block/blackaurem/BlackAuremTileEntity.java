@@ -2,7 +2,6 @@ package minecraftschurli.arsmagicalegacy.objects.block.blackaurem;
 
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
-import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
@@ -29,11 +28,11 @@ public class BlackAuremTileEntity extends EtheriumGeneratorTileEntity {
         if (world == null || world.isRemote) return;
         int tier = getTier();
         if (timer <= 0) {
-            int r = getEntityRadius(tier);
+            int r = 5 + tier;
             BlockPos pos = getPos();
             List<LivingEntity> entitiesWithinAABB = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).expand(r, r, r));
             entitiesWithinAABB.sort(Comparator.comparingDouble(o -> o.getDistanceSq(pos.getX(), pos.getY(), pos.getZ())));
-            int c = getEntityCount(tier);
+            int c = Math.max(1, tier/2);;
             for (LivingEntity livingEntity : entitiesWithinAABB) {
                 if (livingEntity.isAlive()) {
                     if (livingEntity.attackable()) {
@@ -47,37 +46,9 @@ public class BlackAuremTileEntity extends EtheriumGeneratorTileEntity {
                     }
                 }
             }
-            timer = getTimer(tier);
+            timer = 5 / (tier+1);
         } else {
             timer--;
         }
-    }
-
-    private int getEntityCount(int tier) {
-        return Math.max(1, tier/2);
-    }
-
-    private int getTimer(int tier) {
-        return 5 / (tier+1);
-    }
-
-    private int getTier() {
-        int tier = 0;
-        if (PatchouliCompat.BLACK_AUREM_CHALK.get().validate(world, pos) != null) {
-            if (PatchouliCompat.BLACK_AUREM_PILLAR_1.get().validate(world, pos) != null) {
-                tier = 2;
-            } else if (PatchouliCompat.BLACK_AUREM_PILLAR_2.get().validate(world, pos) != null) {
-                tier = 3;
-            } else if (PatchouliCompat.BLACK_AUREM_PILLAR_3.get().validate(world, pos) != null) {
-                tier = 4;
-            } else {
-                tier = 1;
-            }
-        }
-        return tier;
-    }
-
-    private int getEntityRadius(int tier) {
-        return 5+tier;
     }
 }

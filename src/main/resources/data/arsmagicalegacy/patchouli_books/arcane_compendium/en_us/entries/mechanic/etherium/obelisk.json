@@ -1,0 +1,19 @@
+{
+  "name": "compendium.entries.mechanic.etherium.obelisk.name",
+  "category": "mechanic/etherium",
+  "icon": "arsmagicalegacy:obelisk",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.etherium.obelisk.page.0"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:obelisk_chalk"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:obelisk_pillar"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "compendium.entries.mechanic.etherium.celestial_prism.name",
+  "category": "mechanic/etherium",
+  "icon": "arsmagicalegacy:celestial_prism",
+  "pages": [
+    {
+      "type": "text",
+      "text": "compendium.entries.mechanic.etherium.celestial_prism.page.0"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:celestial_prism_chalk"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:celestial_prism_pillar1"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:celestial_prism_pillar2"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:celestial_prism_pillar3"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "arsmagicalegacy:celestial_prism_pillar4"
+    }
+  ]
+}

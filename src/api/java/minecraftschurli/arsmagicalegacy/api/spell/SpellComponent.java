@@ -80,6 +80,12 @@ public abstract class SpellComponent extends AbstractSpellPart {
         return 0;
     }
 
+    /**
+     * Gets the {@link AbstractRitual Ritual} associated with this {@link SpellComponent}
+     *
+     * @param  caster the caster of the spell
+     * @return the {@link AbstractRitual Ritual} associated with this {@link SpellComponent} or null
+     */
     public AbstractRitual getRitual(LivingEntity caster) {
         return null;
     }

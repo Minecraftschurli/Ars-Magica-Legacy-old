@@ -6,7 +6,6 @@ import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGenerator
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -36,7 +35,7 @@ public class BlackAuremTER extends TileEntityRenderer<EtheriumGeneratorTileEntit
         matrixStack.scale(2f, 2f, 2f);
         matrixStack.translate(0.5f, 0.5f, 0f);
         matrixStack.rotate(Minecraft.getInstance().getRenderManager().getCameraOrientation());
-        matrixStack.rotate(new Quaternion(Vector3f.ZP, Minecraft.getInstance().player.ticksExisted, true));
+        matrixStack.rotate(Vector3f.ZP.rotationDegrees(Minecraft.getInstance().player.ticksExisted));
         matrixStack.translate(-0.5f, -0.5f, 0f);
         RenderUtil.renderFlatTexture(0, 0, 0, 0, 1, 1, 256, 256, 0, TEXTURE, matrixStack, bufferIn, combinedLightIn, combinedOverlayIn);
     }

@@ -1,6 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.celestialprism;
 
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
+import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,15 +25,70 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.patchouli.api.IMultiblock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
  * @version 2020-04-23
  */
 public class CelestialPrismBlock extends EtheriumGeneratorBlock<CelestialPrismTileEntity> {
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_CHALK = PatchouliCompat.registerMultiblock("celestial_prism_chalk", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"   ", " P ", "   "},
+                    {"CCC", "C0C", "CCC"}},
+            'C', PatchouliCompat.CHALK_MATCHER.get(),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_1 = PatchouliCompat.registerMultiblock("celestial_prism_pillar1", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                            {"G   G", "     ", "     ", "     ", "G   G"},
+                            {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                            {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+                    'C', PatchouliCompat.CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'G', iPatchouliAPI.strictBlockMatcher(Blocks.GLASS),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_2 = PatchouliCompat.registerMultiblock("celestial_prism_pillar2", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                            {"G   G", "     ", "     ", "     ", "G   G"},
+                            {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                            {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+                    'C', PatchouliCompat.CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'G', iPatchouliAPI.strictBlockMatcher(Blocks.GOLD_BLOCK),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_3 = PatchouliCompat.registerMultiblock("celestial_prism_pillar3", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                            {"D   D", "     ", "     ", "     ", "D   D"},
+                            {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                            {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+                    'C', PatchouliCompat.CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'D', iPatchouliAPI.strictBlockMatcher(Blocks.DIAMOND_BLOCK),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+    public static final Supplier<IMultiblock> CELESTIAL_PRISM_PILLAR_4 = PatchouliCompat.registerMultiblock("celestial_prism_pillar4", iPatchouliAPI ->
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                            {"M   M", "     ", "     ", "     ", "M   M"},
+                            {"Q   Q", "     ", "  P  ", "     ", "Q   Q"},
+                            {"Q   Q", " CCC ", " C0C ", " CCC ", "Q   Q"}},
+                    'C', PatchouliCompat.CHALK_MATCHER.get(),
+                    'Q', iPatchouliAPI.strictBlockMatcher(Blocks.QUARTZ_PILLAR),
+                    'M', iPatchouliAPI.strictBlockMatcher(ModBlocks.MOONSTONE_BLOCK.get()),
+                    'P', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState().with(CelestialPrismBlock.HALF, DoubleBlockHalf.UPPER)),
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.CELESTIAL_PRISM.get().getDefaultState()))
+                    .setSymmetrical(true));
+
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
     public CelestialPrismBlock() {
@@ -114,5 +171,24 @@ public class CelestialPrismBlock extends EtheriumGeneratorBlock<CelestialPrismTi
     @Override
     public boolean hasTileEntity(BlockState state) {
         return state.get(HALF) == DoubleBlockHalf.LOWER;
+    }
+
+    @Override
+    public int getTier(BlockState state, World world, BlockPos pos) {
+        int tier = 0;
+        if (CELESTIAL_PRISM_CHALK.get().validate(world, pos) != null) {
+            if (CELESTIAL_PRISM_PILLAR_1.get().validate(world, pos) != null) {
+                tier = 2;
+            } else if (CELESTIAL_PRISM_PILLAR_2.get().validate(world, pos) != null) {
+                tier = 3;
+            } else if (CELESTIAL_PRISM_PILLAR_3.get().validate(world, pos) != null) {
+                tier = 4;
+            } else if (CELESTIAL_PRISM_PILLAR_4.get().validate(world, pos) != null) {
+                tier = 5;
+            } else {
+                tier = 1;
+            }
+        }
+        return tier;
     }
 }
