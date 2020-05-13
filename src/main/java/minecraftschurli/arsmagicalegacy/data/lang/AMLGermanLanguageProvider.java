@@ -337,6 +337,11 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addSkillPoint(ModSpellParts.SKILL_POINT_2, "Rot");
         addSkillPoint(ModSpellParts.SKILL_POINT_3, "Grün");
         addItemGroup(ArsMagicaAPI.MODID, ArsMagicaAPI.MODNAME);
+        addPotion("lesser_mana_potion", "Schwacher Manatrank", "Schwacher Manawurftrank", "Schwacher Manaverweiltrank", "Schwacher Manapfeil");
+        addPotion("mana_potion", "Manatrank", "Manawurftrank", "Manaverweiltrank", "Manapfeil");
+        addPotion("greater_mana_potion", "Starker Manatrank", "Starker Manawurftrank", "Starker Manaverweiltrank", "Starker Manapfeil");
+        addPotion("epic_mana_potion", "Epischer Manatrank", "Epischer Manawurftrank", "Epischer Manaverweiltrank", "Epischer Manapfeil");
+        addPotion("legendary_mana_potion", "Legendärer Manatrank", "Legendärer Manawurftrank", "Legendärer Manaverweiltrank", "Legendärer Manapfeil");
         addAdvancement("compendium", "Buch der Magie", "Finde das Geheimnis von Ars Magica.");
         addAdvancement("silver", "Silberne Zauber", "Die Besten der Besten.");
         addAdvancement("level5", "Neuling", "Erreiche Magielevel 5");
