@@ -21,9 +21,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
 public class WizardChalk extends Block {
-    private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
-    private static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
-    private static final Random rand = new Random();
+    public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
+    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
     public WizardChalk(Properties properties) {
         super(properties);
         setDefaultState(getDefaultState().with(TYPE, 0).with(FACING, Direction.NORTH));
@@ -38,7 +37,7 @@ public class WizardChalk extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getDefaultState().with(TYPE, rand.nextInt(15)).with(FACING, context.getPlacementHorizontalFacing());
+        return getDefaultState().with(TYPE, context.getWorld().rand.nextInt(15)).with(FACING, context.getPlacementHorizontalFacing());
     }
 
     @Override

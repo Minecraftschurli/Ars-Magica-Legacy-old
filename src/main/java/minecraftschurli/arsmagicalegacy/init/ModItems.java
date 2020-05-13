@@ -5,6 +5,7 @@ import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrenchItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
+import minecraftschurli.arsmagicalegacy.objects.item.WizardChalkItem;
 import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
@@ -184,7 +185,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
-    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", () -> new BlockItem(ModBlocks.WIZARD_CHALK.get(), ITEM_1));
+    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalkItem::new);
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
 
     public static void register() {
