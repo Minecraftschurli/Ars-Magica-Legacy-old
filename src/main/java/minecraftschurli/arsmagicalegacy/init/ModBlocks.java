@@ -86,6 +86,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<ObeliskBlock> OBELISK = BLOCKS.register("obelisk", ObeliskBlock::new);
     public static final RegistryObject<CelestialPrismBlock> CELESTIAL_PRISM = BLOCKS.register("celestial_prism", CelestialPrismBlock::new);
     public static final RegistryObject<BlackAuremBlock> BLACK_AUREM = BLOCKS.register("black_aurem", BlackAuremBlock::new);
+    public static final RegistryObject<WizardChalk> WIZARD_CHALK = BLOCKS.register("wizard_chalk", () -> new WizardChalk(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0).notSolid().doesNotBlockMovement()));
 
     public static final RegistryObject<CraftingAltarBlock> ALTAR_CORE = BLOCKS.register("altar_core", CraftingAltarBlock::new);
     public static final RegistryObject<CraftingAltarViewBlock> ALTAR_VIEW = BLOCKS.register("altar_view", CraftingAltarViewBlock::new);
@@ -102,7 +103,6 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Door> KEYSTONE_DOOR = BLOCKS.register("keystone_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Door> SPELL_SEALED_DOOR = BLOCKS.register("spell_sealed_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Trapdoor> KEYSTONE_TRAPDOOR = BLOCKS.register("keystone_trapdoor", () -> new Trapdoor(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> CHALK = BLOCKS.register("chalk", () -> new Block(Block.Properties.create(Material.ROCK)));
 
     public static void register() {
     }

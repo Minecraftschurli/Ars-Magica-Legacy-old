@@ -28,7 +28,7 @@ public class PatchouliCompat {
 
     private static final ResourceLocation COMPENDIUM = new ResourceLocation(ArsMagicaAPI.MODID, "arcane_compendium");
 
-    public static final Supplier<IStateMatcher> CHALK_MATCHER = () -> PatchouliAPI.instance.strictBlockMatcher(ModBlocks.CHALK.get());
+    public static final Supplier<IStateMatcher> CHALK_MATCHER = () -> PatchouliAPI.instance.strictBlockMatcher(ModBlocks.WIZARD_CHALK.get());
 
     public static Supplier<IMultiblock> registerMultiblock(
             final String name,

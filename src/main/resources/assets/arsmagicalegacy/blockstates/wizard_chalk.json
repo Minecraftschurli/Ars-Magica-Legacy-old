@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=north,type=0": {
+      "model": "arsmagicalegacy:block/wizard_chalk_0"
+    },
+    "facing=north,type=1": {
+      "model": "arsmagicalegacy:block/wizard_chalk_1"
+    },
+    "facing=north,type=2": {
+      "model": "arsmagicalegacy:block/wizard_chalk_2"
+    },
+    "facing=north,type=3": {
+      "model": "arsmagicalegacy:block/wizard_chalk_3"
+    },
+    "facing=north,type=4": {
+      "model": "arsmagicalegacy:block/wizard_chalk_4"
+    },
+    "facing=north,type=5": {
+      "model": "arsmagicalegacy:block/wizard_chalk_5"
+    },
+    "facing=north,type=6": {
+      "model": "arsmagicalegacy:block/wizard_chalk_6"
+    },
+    "facing=north,type=7": {
+      "model": "arsmagicalegacy:block/wizard_chalk_7"
+    },
+    "facing=north,type=8": {
+      "model": "arsmagicalegacy:block/wizard_chalk_8"
+    },
+    "facing=north,type=9": {
+      "model": "arsmagicalegacy:block/wizard_chalk_9"
+    },
+    "facing=north,type=10": {
+      "model": "arsmagicalegacy:block/wizard_chalk_10"
+    },
+    "facing=north,type=11": {
+      "model": "arsmagicalegacy:block/wizard_chalk_11"
+    },
+    "facing=north,type=12": {
+      "model": "arsmagicalegacy:block/wizard_chalk_12"
+    },
+    "facing=north,type=13": {
+      "model": "arsmagicalegacy:block/wizard_chalk_13"
+    },
+    "facing=north,type=14": {
+      "model": "arsmagicalegacy:block/wizard_chalk_14"
+    },
+    "facing=north,type=15": {
+      "model": "arsmagicalegacy:block/wizard_chalk_15"
+    },
+    "facing=east,type=0": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_0"
+    },
+    "facing=east,type=1": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_1"
+    },
+    "facing=east,type=2": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_2"
+    },
+    "facing=east,type=3": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_3"
+    },
+    "facing=east,type=4": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_4"
+    },
+    "facing=east,type=5": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_5"
+    },
+    "facing=east,type=6": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_6"
+    },
+    "facing=east,type=7": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_7"
+    },
+    "facing=east,type=8": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_8"
+    },
+    "facing=east,type=9": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_9"
+    },
+    "facing=east,type=10": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_10"
+    },
+    "facing=east,type=11": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_11"
+    },
+    "facing=east,type=12": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_12"
+    },
+    "facing=east,type=13": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_13"
+    },
+    "facing=east,type=14": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_14"
+    },
+    "facing=east,type=15": {
+      "y": 90,
+      "model": "arsmagicalegacy:block/wizard_chalk_15"
+    },
+    "facing=south,type=0": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_0"
+    },
+    "facing=south,type=1": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_1"
+    },
+    "facing=south,type=2": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_2"
+    },
+    "facing=south,type=3": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_3"
+    },
+    "facing=south,type=4": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_4"
+    },
+    "facing=south,type=5": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_5"
+    },
+    "facing=south,type=6": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_6"
+    },
+    "facing=south,type=7": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_7"
+    },
+    "facing=south,type=8": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_8"
+    },
+    "facing=south,type=9": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_9"
+    },
+    "facing=south,type=10": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_10"
+    },
+    "facing=south,type=11": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_11"
+    },
+    "facing=south,type=12": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_12"
+    },
+    "facing=south,type=13": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_13"
+    },
+    "facing=south,type=14": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_14"
+    },
+    "facing=south,type=15": {
+      "y": 180,
+      "model": "arsmagicalegacy:block/wizard_chalk_15"
+    },
+    "facing=west,type=0": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_0"
+    },
+    "facing=west,type=1": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_1"
+    },
+    "facing=west,type=2": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_2"
+    },
+    "facing=west,type=3": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_3"
+    },
+    "facing=west,type=4": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_4"
+    },
+    "facing=west,type=5": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_5"
+    },
+    "facing=west,type=6": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_6"
+    },
+    "facing=west,type=7": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_7"
+    },
+    "facing=west,type=8": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_8"
+    },
+    "facing=west,type=9": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_9"
+    },
+    "facing=west,type=10": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_10"
+    },
+    "facing=west,type=11": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_11"
+    },
+    "facing=west,type=12": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_12"
+    },
+    "facing=west,type=13": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_13"
+    },
+    "facing=west,type=14": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_14"
+    },
+    "facing=west,type=15": {
+      "y": 270,
+      "model": "arsmagicalegacy:block/wizard_chalk_15"
+    }
+  }
+}

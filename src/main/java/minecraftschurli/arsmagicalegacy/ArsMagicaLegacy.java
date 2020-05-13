@@ -36,7 +36,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -176,7 +175,7 @@ public final class ArsMagicaLegacy {
         RenderTypeLookup.setRenderLayer(ModBlocks.OBELISK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.CELESTIAL_PRISM.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.BLACK_AUREM.get(), RenderType.getCutout());
-//        RenderTypeLookup.setRenderLayer(ModBlocks.WIZARD_CHALK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WIZARD_CHALK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.ALTAR_CORE.get(), RenderType.getTranslucent());

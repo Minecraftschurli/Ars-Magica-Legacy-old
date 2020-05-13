@@ -179,12 +179,12 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> DEFICIT_CRYSTAL = stackableItem64("deficit_crystal");
     public static final RegistryObject<Item> RUNE_BAG = ITEMS.register("rune_bag", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> ESSENCE_BAG = ITEMS.register("essence_bag", () -> new Item(ITEM_1));
-    public static final RegistryObject<Item> HELL_COW_HORN = ITEMS.register("hell_cow_horn", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> HELL_COW_HORN = ITEMS.register("hell_cow_horn", ModItems::item64);
     public static final RegistryObject<Item> JOURNAL = ITEMS.register("journal", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
-    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", () -> new BlockItem(ModBlocks.WIZARD_CHALK.get(), ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
 
     public static void register() {
