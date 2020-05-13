@@ -179,7 +179,6 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addItem(ModItems.CRYSTAL_WRENCH, "Crystal Wrench");
         addItem(ModItems.WIZARD_CHALK, "Wizard's Chalk");
         addItem(ModItems.CRYSTAL_PHYLACTERY, "Crystal Phylactery");
-        addItem(ModItems.POTION_BUNDLE, "%s Potion Bundle");
         addItem(ModFluids.LIQUID_ESSENCE_BUCKET, "Liquid Essence Bucket");
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Witchwood Forest");
         addEntityType(ModEntities.SPELL_PROJECTILE, "Spell Projectile");

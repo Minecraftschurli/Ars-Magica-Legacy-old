@@ -26,7 +26,6 @@ public class JEIPlugin implements IModPlugin {
         registration.useNbtForSubtypes(ModItems.INFINITY_ORB.get());
         registration.useNbtForSubtypes(ModItems.INSCRIPTION_UPGRADE.get());
         registration.useNbtForSubtypes(ModItems.AFFINITY_TOME.get());
-        registration.registerSubtypeInterpreter(ModItems.POTION_BUNDLE.get(), itemStack -> PotionUtils.getPotionFromItem(itemStack).getRegistryName().toString());
     }
 
     @Override

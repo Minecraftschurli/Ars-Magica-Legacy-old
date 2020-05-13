@@ -179,7 +179,6 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addItem(ModItems.CRYSTAL_WRENCH, "Kristallstab");
         addItem(ModItems.WIZARD_CHALK, "Magischer Kalk");
         addItem(ModItems.CRYSTAL_PHYLACTERY, "Kristallphiole");
-        addItem(ModItems.POTION_BUNDLE, "%s-Trankbündel");
         addItem(ModFluids.LIQUID_ESSENCE_BUCKET, "Flüssiger Essenzeimer");
         addBiome(ModBiomes.WITCHWOOD_FOREST, "Hexenwald");
         addEntityType(ModEntities.SPELL_PROJECTILE, "Zaubergeschoss");

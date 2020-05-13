@@ -5,7 +5,6 @@ import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrenchItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
-import minecraftschurli.arsmagicalegacy.objects.item.PotionBundleItem;
 import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
@@ -187,7 +186,6 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
     public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
-    public static final RegistryObject<Item> POTION_BUNDLE = ITEMS.register("potion_bundle", () -> new PotionBundleItem(new Item.Properties().maxStackSize(1).group(ItemGroup.BREWING)));
 
     public static void register() {
     }

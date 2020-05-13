@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "arsmagicalegacy:item/potion_bundle_overlay_2",
-    "layer1": "arsmagicalegacy:item/potion_bundle_2"
-  }
-}
