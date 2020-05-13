@@ -1,6 +1,19 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 import javafx.util.Pair;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -9,7 +22,11 @@ import minecraftschurli.arsmagicalegacy.api.network.InscriptionTablePacket;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ISpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.ItemStackSpellIngredient;
 import minecraftschurli.arsmagicalegacy.api.spell.crafting.SpellIngredientList;
@@ -42,11 +59,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.stream.Collectors;
-
 /**
  * @author Minecraftschurli
  * @version 2019-12-09
@@ -76,9 +88,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         modifierCount = new HashMap<>();
         shapeGroups = new ArrayList<>();
         currentSpellName = "";
-        for (int i = 0; i < MAX_STAGE_GROUPS; i++) {
-            shapeGroups.add(new ArrayList<>());
-        }
+        for (int i = 0; i < MAX_STAGE_GROUPS; i++) shapeGroups.add(new ArrayList<>());
         resetModifierCount();
         numStageGroups = 2;
     }
@@ -149,13 +159,11 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
     private void resetModifierCount() {
         modifierCount.clear();
-        for (SpellModifiers modifier : SpellModifiers.values()) {
-            modifierCount.put(modifier, 0);
-        }
+        for (SpellModifiers modifier : SpellModifiers.values()) modifierCount.put(modifier, 0);
     }
 
     public List<AbstractSpellPart> getCurrentRecipe() {
-        return this.currentRecipe;
+        return currentRecipe;
     }
 
     @Override
@@ -184,13 +192,11 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 return itemstack;
             }
             ItemStack itemstack1 = inscriptionTableItemStacks.get(index).split(count);
-            if (inscriptionTableItemStacks.get(index).getCount() == 0) {
+            if (inscriptionTableItemStacks.get(index).getCount() == 0)
                 inscriptionTableItemStacks.set(index, ItemStack.EMPTY);
-            }
             return itemstack1;
-        } else {
-            return ItemStack.EMPTY;
         }
+        return ItemStack.EMPTY;
     }
 
     @Nonnull
@@ -200,17 +206,14 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             ItemStack itemstack = inscriptionTableItemStacks.get(index);
             inscriptionTableItemStacks.set(index, ItemStack.EMPTY);
             return itemstack;
-        } else {
-            return ItemStack.EMPTY;
         }
+        return ItemStack.EMPTY;
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         inscriptionTableItemStacks.set(index, stack);
-        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
-            stack.setCount(getInventoryStackLimit());
-        }
+        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) stack.setCount(getInventoryStackLimit());
     }
 
     @Override
@@ -220,9 +223,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 
     @Override
     public boolean isUsableByPlayer(PlayerEntity player) {
-        if (player.world.getTileEntity(pos) != this) {
-            return false;
-        }
+        if (player.world.getTileEntity(pos) != this) return false;
         return player.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) <= 64D;
     }
 
@@ -231,15 +232,14 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     public void setInUse(PlayerEntity player) {
-        this.currentPlayerUsing = player;
+        currentPlayerUsing = player;
         if (!world.isRemote) {
             markDirty();
-            //world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), world.getBlockState(pos), world.getBlockState(pos), 3);
         }
     }
 
     public PlayerEntity getCurrentPlayerUsing() {
-        return this.currentPlayerUsing;
+        return currentPlayerUsing;
     }
 
     @Override
@@ -262,49 +262,43 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     @Override
     public void tick() {
         if (world.getBlockState(pos).getBlock() != ModBlocks.INSCRIPTION_TABLE.get()) {
-            this.remove();
+            remove();
             return;
         }
-        if (world.isRemote && getUpgradeState() >= 3)
-            candleUpdate();
-        if (this.numStageGroups > MAX_STAGE_GROUPS)
-            this.numStageGroups = MAX_STAGE_GROUPS;
-        if (!world.isRemote) {
-            this.world.setBlockState(pos, world.getBlockState(pos).with(InscriptionTableBlock.TIER, MathHelper.clamp(getUpgradeState(), 0, 3)), 2);
-        }
-        this.markDirty();
+        if (world.isRemote && getUpgradeState() >= 3) candleUpdate();
+        if (numStageGroups > MAX_STAGE_GROUPS) numStageGroups = MAX_STAGE_GROUPS;
+        if (!world.isRemote)
+            world.setBlockState(pos, world.getBlockState(pos).with(InscriptionTableBlock.TIER, MathHelper.clamp(getUpgradeState(), 0, 3)), 2);
+        markDirty();
     }
 
     public int getUpgradeState() {
-        return this.numStageGroups - 2;
+        return numStageGroups - 2;
     }
 
     private void candleUpdate() {
 //        if (isRenderingLeft()){
 //            if (ticksToNextParticle == 0 || ticksToNextParticle == 15){
-//
 //                double particleX = 0;
 //                double particleZ = 0;
-//
 //                switch (world.getBlockState(pos).getValue(BlockInscriptionTable.FACING)){
 //                    case SOUTH:
-//                        particleX = this.pos.getX() + 0.15;
-//                        particleZ = this.getPos().getZ() + 0.22;
+//                        particleX = pos.getX() + 0.15;
+//                        particleZ = getPos().getZ() + 0.22;
 //                        break;
 //                    case NORTH:
-//                        particleX = this.getPos().getX() + 0.22;
-//                        particleZ = this.getPos().getZ() + 0.85;
+//                        particleX = getPos().getX() + 0.22;
+//                        particleZ = getPos().getZ() + 0.85;
 //                        break;
 //                    case WEST:
-//                        particleX = this.getPos().getX() + 0.78;
-//                        particleZ = this.getPos().getZ() + 0.85;
+//                        particleX = getPos().getX() + 0.78;
+//                        particleZ = getPos().getZ() + 0.85;
 //                        break;
 //                    case EAST:
-//                        particleX = this.getPos().getX() + 0.79;
-//                        particleZ = this.getPos().getZ() + 0.15;
+//                        particleX = getPos().getX() + 0.79;
+//                        particleZ = getPos().getZ() + 0.15;
 //                        break;
 //                }
-//
 //                ticksToNextParticle = 30;
 //                AMParticle effect = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "fire", particleX, getPos().getY() + 1.32, particleZ);
 //                if (effect != null){
@@ -313,7 +307,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 //                    effect.setIgnoreMaxAge(false);
 //                    effect.setMaxAge(400);
 //                }
-//
 //                if (world.rand.nextInt(100) > 80){
 //                    AMParticle smoke = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "smoke", particleX, getPos().getY() + 1.4, particleZ);
 //                    if (smoke != null){
@@ -325,30 +318,26 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 //                }
 //            }
 //            if (ticksToNextParticle == 10 || ticksToNextParticle == 25){
-//
-//
 //                double particleX = 0;
 //                double particleZ = 0;
-//
 //                switch (world.getBlockState(pos).getValue(BlockInscriptionTable.FACING)){
 //                    case SOUTH:
-//                        particleX = this.getPos().getX() + 0.59;
-//                        particleZ = this.getPos().getZ() - 0.72;
+//                        particleX = getPos().getX() + 0.59;
+//                        particleZ = getPos().getZ() - 0.72;
 //                        break;
 //                    case NORTH:
-//                        particleX = this.getPos().getX() - 0.72;
-//                        particleZ = this.getPos().getZ() + 0.41;
+//                        particleX = getPos().getX() - 0.72;
+//                        particleZ = getPos().getZ() + 0.41;
 //                        break;
 //                    case EAST:
-//                        particleX = this.getPos().getX() + 0.41;
-//                        particleZ = this.getPos().getZ() + 1.72;
+//                        particleX = getPos().getX() + 0.41;
+//                        particleZ = getPos().getZ() + 1.72;
 //                        break;
 //                    case WEST:
-//                        particleX = this.getPos().getX() + 1.72;
-//                        particleZ = this.getPos().getZ() + 0.41;
+//                        particleX = getPos().getX() + 1.72;
+//                        particleZ = getPos().getZ() + 0.41;
 //                        break;
 //                }
-//
 //                AMParticle effect = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "fire", particleX, getPos().getY() + 1.26, particleZ);
 //                if (effect != null){
 //                    effect.setParticleScale(0.025f, 0.1f, 0.025f);
@@ -356,7 +345,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
 //                    effect.setIgnoreMaxAge(false);
 //                    effect.setMaxAge(400);
 //                }
-//
 //                if (world.rand.nextInt(100) > 80){
 //                    AMParticle smoke = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "smoke", particleX, getPos().getY() + 1.4, particleZ);
 //                    if (smoke != null){
@@ -373,12 +361,12 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     @Nullable
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(getPos(), 300, this.write(new CompoundNBT()));
+        return new SUpdateTileEntityPacket(getPos(), 300, write(new CompoundNBT()));
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.parseTagCompound(pkt.getNbtCompound());
+        parseTagCompound(pkt.getNbtCompound());
     }
 
     @Override
@@ -389,7 +377,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     public void clearCurrentRecipe() {
-        this.currentRecipe.clear();
+        currentRecipe.clear();
         for (List<AbstractSpellPart> group : shapeGroups)
             group.clear();
         currentSpellName = "";
@@ -397,7 +385,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     private void parseTagCompound(CompoundNBT nbt) {
-//        ArsMagicaLegacy.LOGGER.debug("parse: {}",nbt);
         ItemStackHelper.loadAllItems(nbt, inscriptionTableItemStacks);
         shapeGroups.clear();
         ListNBT shapeGroups = nbt.getList(SHAPE_GROUPS_KEY, Constants.NBT.TAG_LIST);
@@ -416,8 +403,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             CompoundNBT tmp = recipe.getCompound(i);
             currentRecipe.add(tmp.getInt(SLOT_KEY), RegistryHandler.getSpellPartRegistry().getValue(new ResourceLocation(tmp.getString(ID_KEY))));
         }
-        this.numStageGroups = Math.max(nbt.getInt(NUM_SHAPE_GROUP_SLOTS_KEY), 2);
-        this.currentSpellName = nbt.getString(CURRENT_SPELL_NAME_KEY);
+        numStageGroups = Math.max(nbt.getInt(NUM_SHAPE_GROUP_SLOTS_KEY), 2);
+        currentSpellName = nbt.getString(CURRENT_SPELL_NAME_KEY);
     }
 
     @Nonnull
@@ -445,72 +432,63 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         }
         compound.put(SHAPE_GROUPS_KEY, shapeGroups);
         compound.put(CURRENT_RECIPE_KEY, recipe);
-        compound.putInt(NUM_SHAPE_GROUP_SLOTS_KEY, this.numStageGroups);
-        compound.putString(CURRENT_SPELL_NAME_KEY, this.currentSpellName);
+        compound.putInt(NUM_SHAPE_GROUP_SLOTS_KEY, numStageGroups);
+        compound.putString(CURRENT_SPELL_NAME_KEY, currentSpellName);
         return compound;
     }
 
     public String getSpellName() {
-        return this.currentSpellName != null ? this.currentSpellName : "";
+        return currentSpellName != null ? currentSpellName : "";
     }
 
     public void setSpellName(String name) {
-        this.currentSpellName = name;
+        currentSpellName = name;
         sendDataToServer();
     }
 
     public void reverseEngineerSpell(ItemStack stack) {
-        this.currentRecipe.clear();
-        for (List<AbstractSpellPart> group : shapeGroups) {
-            group.clear();
-        }
+        currentRecipe.clear();
+        for (List<AbstractSpellPart> group : shapeGroups) group.clear();
         currentSpellName = "";
-        this.currentSpellName = stack.getDisplayName().getFormattedText();
+        currentSpellName = stack.getDisplayName().getFormattedText();
         int numStages = SpellUtil.stageNum(stack);
         for (int i = 0; i < numStages; i++) {
             SpellShape shape = SpellUtil.getShape(stack, i);
-            this.currentRecipe.add(shape);
+            currentRecipe.add(shape);
             List<SpellComponent> components = SpellUtil.getComponents(stack, i);
-            this.currentRecipe.addAll(components);
+            currentRecipe.addAll(components);
             List<SpellModifier> modifiers = SpellUtil.getModifiers(stack, i);
-            this.currentRecipe.addAll(modifiers);
+            currentRecipe.addAll(modifiers);
         }
         int numShapeGroups = SpellUtil.numShapeGroups(stack);
         for (int i = 0; i < numShapeGroups; i++) {
             List<AbstractSpellPart> parts = SpellUtil.getGroupParts(stack, i);
-            for (AbstractSpellPart partID : parts) {
-                if (partID != null)
-                    this.shapeGroups.get(i).add(partID);
-            }
+            for (AbstractSpellPart partID : parts) if (partID != null) shapeGroups.get(i).add(partID);
         }
         currentSpellIsReadOnly = true;
     }
 
     public int getShapeGroupSize(int groupIndex) {
-        if (groupIndex > this.shapeGroups.size() || groupIndex < 0)
+        if (groupIndex > shapeGroups.size() || groupIndex < 0)
             return 0;
-        return this.shapeGroups.get(groupIndex).size();
+        return shapeGroups.get(groupIndex).size();
     }
 
     public AbstractSpellPart getShapeGroupPartAt(int groupIndex, int index) {
-        return this.shapeGroups.get(groupIndex).get(index);
+        return shapeGroups.get(groupIndex).get(index);
     }
 
     public void incrementUpgradeState() {
-        this.numStageGroups++;
+        numStageGroups++;
         if (!world.isRemote) {
             List<ServerPlayerEntity> players = world.getEntitiesWithinAABB(ServerPlayerEntity.class, new AxisAlignedBB(pos).expand(256, 256, 256));
-            for (ServerPlayerEntity player : players) {
-                player.connection.sendPacket(getUpdatePacket());
-            }
+            for (ServerPlayerEntity player : players) player.connection.sendPacket(getUpdatePacket());
         }
     }
 
     public ItemStack writeRecipeAndDataToBook(ItemStack bookstack, PlayerEntity player, String title) {
-        this.world = player.world;
-//        ArsMagicaLegacy.LOGGER.debug("world: {}", world != null ? world.isRemote : null);
-//        ArsMagicaLegacy.LOGGER.debug(currentRecipe);
-        if (bookstack.getItem() == Items.WRITTEN_BOOK && this.currentRecipe != null) {
+        world = player.world;
+        if (bookstack.getItem() == Items.WRITTEN_BOOK && currentRecipe != null) {
             if (!currentRecipeIsValid().valid)
                 return bookstack;
             if (!bookstack.hasTag())
@@ -558,11 +536,8 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             List<StringNBT> pages = splitStoryPartIntoPages(sb.toString());
             sb = new StringBuilder();
             sb.append("Materials List:\n\n");
-            sb.append(materialsList.getTooltip().stream()
-                    .map(ITextComponent::getFormattedText)
-                    .collect(Collectors.joining("\n")));
+            sb.append(materialsList.getTooltip().stream().map(ITextComponent::getFormattedText).collect(Collectors.joining("\n")));
             pages.addAll(splitStoryPartIntoPages(sb.toString()));
-//            ArsMagicaLegacy.LOGGER.debug("before write: {}", pages);
             sb = new StringBuilder();
             sb.append("Affinity Breakdown:\n\n");
             HashMap<Affinity, Integer> affinityData = new HashMap<>();
@@ -572,9 +547,7 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                     Set<Affinity> aff = ((SpellComponent) part).getAffinity();
                     for (Affinity affinity : aff) {
                         int qty = 1;
-                        if (affinityData.containsKey(affinity)) {
-                            qty = 1 + affinityData.get(affinity);
-                        }
+                        if (affinityData.containsKey(affinity)) qty = 1 + affinityData.get(affinity);
                         affinityData.put(affinity, qty);
                     }
                     cpCount++;
@@ -600,7 +573,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
             bookstack.getTag().put("title", StringNBT.valueOf(new StringTextComponent(currentSpellName).getUnformattedComponentText()));
             bookstack.setDisplayName(new StringTextComponent(currentSpellName));
             bookstack.getTag().put("author", StringNBT.valueOf(player.getName().getFormattedText()));
-//            ArsMagicaLegacy.LOGGER.debug("after finalize: {}", bookstack.getTag());
             bookstack.getTag().put("spell_combo", materialsList.serializeNBT());
             ListNBT list = new ListNBT();
             list.addAll(Arrays.stream(outputData).map(StringNBT::valueOf).collect(Collectors.toList()));
@@ -614,14 +586,13 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
                 bookstack.getTag().put("shapeGroupCombo_" + i++, nbt);
             }
             bookstack.getTag().putString("spell_mod_version", ArsMagicaLegacy.instance.getVersion());
-            this.currentRecipe.clear();
+            currentRecipe.clear();
             for (List<AbstractSpellPart> group : shapeGroups)
                 group.clear();
-            this.currentSpellName = "";
+            currentSpellName = "";
             bookstack.getTag().putBoolean("spellFinalized", true);
             //world.playSound(getPos().getX(), getPos().getY(), getPos().getZ(), "arsmagica2:misc.inscriptiontable.takebook", 1, 1, true);
-            this.markDirty();
-            //world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), world.getBlockState(pos), world.getBlockState(pos), 2);
+            markDirty();
         }
         return bookstack;
     }
@@ -631,14 +602,10 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         while (it.hasNext()) {
             AbstractSpellPart part = it.next();
             String displayName = SpellRegistry.getSkillFromPart(part).getDisplayName().getFormattedText();
-            if (prefix != null) {
-                sb.append(prefix).append(displayName).append("\n");
-            } else {
-                if (part instanceof SpellShape) {
-                    sb.append(displayName).append("\n");
-                } else {
-                    sb.append("-").append(displayName).append("\n");
-                }
+            if (prefix != null) sb.append(prefix).append(displayName).append("\n");
+            else {
+                if (part instanceof SpellShape) sb.append(displayName).append("\n");
+                else sb.append("-").append(displayName).append("\n");
             }
             outputCombo.add(part.getRegistryName().toString());
         }
@@ -651,135 +618,110 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     public void handleUpdatePacket(byte[] data) {
-        /*if (this.world == null)
-            return;
-        AMDataReader rdr = new AMDataReader(data);
-        switch (rdr.ID){
-            case FULL_UPDATE:
-                if (!rdr.getBoolean()){
-                    Entity e = this.world.getEntityByID(rdr.getInt());
-                    if (e instanceof PlayerEntity){
-                        PlayerEntity player = (PlayerEntity)e;
-                        this.setInUse(player);
-                    }else{
-                        this.setInUse(null);
-                    }
-                }else{
-                    this.setInUse(null);
-                }
-
-                currentRecipe.clear();
-                int partLength = rdr.getInt();
-                for (int i = 0; i < partLength; i++){
-                    AbstractSpellPart spellPart = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(rdr.getString()));
-                    if (spellPart != null)
-                        this.currentRecipe.add(spellPart);
-                }
-
-                this.shapeGroups.clear();
-                int numGroups = rdr.getInt();
-                for (int i = 0; i < numGroups; i++){
-                    ArrayList<AbstractSpellPart> group = new ArrayList<>();
-                    String[] partData = rdr.getStringArray();
-                    for (String n : partData){
-                        Skill part = ArsMagicaLegacyAPI.getSkillRegistry().getValue(n);
-                        AbstractSpellPart spellPart = ArsMagicaAPI.getSpellRegistry().getObject(part.getRegistryName());
-                        if (spellPart != null)
-                            group.add(spellPart);
-                    }
-                    this.shapeGroups.add(group);
-                }
-
-                countModifiers();
-                this.currentSpellName = rdr.getString();
-                this.currentSpellIsReadOnly = rdr.getBoolean();
-                break;
-            case MAKE_SPELL:
-                int entityID = rdr.getInt();
-                EntityPlayer player = (EntityPlayer)world.getEntityByID(entityID);
-                if (player != null){
-                    createSpellForPlayer(player);
-                }
-                break;
-            case RESET_NAME:
-                entityID = rdr.getInt();
-                player = (EntityPlayer)world.getEntityByID(entityID);
-                if (player != null){
-                    ((ContainerInscriptionTable)player.openContainer).resetSpellNameAndIcon();
-                }
-                break;
-        }*/
+//        if (world == null)
+//            return;
+//        AMDataReader rdr = new AMDataReader(data);
+//        switch (rdr.ID) {
+//            case FULL_UPDATE:
+//                if (!rdr.getBoolean()) {
+//                    Entity e = world.getEntityByID(rdr.getInt());
+//                    if (e instanceof PlayerEntity) {
+//                        PlayerEntity player = (PlayerEntity) e;
+//                        setInUse(player);
+//                    } else setInUse(null);
+//                } else setInUse(null);
+//                currentRecipe.clear();
+//                int partLength = rdr.getInt();
+//                for (int i = 0; i < partLength; i++) {
+//                    AbstractSpellPart spellPart = ArsMagicaLegacyAPI.getSpellPartRegistry().getValue(new ResourceLocation(rdr.getString()));
+//                    if (spellPart != null)
+//                        currentRecipe.add(spellPart);
+//                }
+//                shapeGroups.clear();
+//                int numGroups = rdr.getInt();
+//                for (int i = 0; i < numGroups; i++) {
+//                    ArrayList<AbstractSpellPart> group = new ArrayList<>();
+//                    String[] partData = rdr.getStringArray();
+//                    for (String n : partData) {
+//                        Skill part = ArsMagicaLegacyAPI.getSkillRegistry().getValue(n);
+//                        AbstractSpellPart spellPart = ArsMagicaAPI.getSpellRegistry().getObject(part.getRegistryName());
+//                        if (spellPart != null)
+//                            group.add(spellPart);
+//                    }
+//                    shapeGroups.add(group);
+//                }
+//                countModifiers();
+//                currentSpellName = rdr.getString();
+//                currentSpellIsReadOnly = rdr.getBoolean();
+//                break;
+//            case MAKE_SPELL:
+//                int entityID = rdr.getInt();
+//                EntityPlayer player = (EntityPlayer) world.getEntityByID(entityID);
+//                if (player != null) createSpellForPlayer(player);
+//                break;
+//            case RESET_NAME:
+//                entityID = rdr.getInt();
+//                player = (EntityPlayer) world.getEntityByID(entityID);
+//                if (player != null) ((ContainerInscriptionTable) player.openContainer).resetSpellNameAndIcon();
+//                break;
+//        }
     }
 
     private byte[] getUpdatePacketForServer() {
-        /*AMDataWriter writer = new AMDataWriter();
-        writer.add(FULL_UPDATE);
-        writer.add(this.currentPlayerUsing == null);
-        if (this.currentPlayerUsing != null) writer.add(this.currentPlayerUsing.getEntityId());
-
-        writer.add(this.currentRecipe.size());
-        for (int i = 0; i < this.currentRecipe.size(); i++){
-            writer.add(ArsMagicaAPI.getSkillRegistry().getId(this.currentRecipe.get(i).getRegistryName()));
-        }
-
-        writer.add(this.shapeGroups.size());
-        for (ArrayList<AbstractSpellPart> shapeGroup : this.shapeGroups){
-            int[] groupData = new int[shapeGroup.size()];
-            for (int i = 0; i < shapeGroup.size(); i++){
-                groupData[i] = ArsMagicaAPI.getSkillRegistry().getId(shapeGroup.get(i).getRegistryName());
-            }
-            writer.add(groupData);
-        }
-
-        writer.add(currentSpellName);
-        writer.add(currentSpellIsReadOnly);
-
-        return writer.generate();*/
+//        AMDataWriter writer = new AMDataWriter();
+//        writer.add(FULL_UPDATE);
+//        writer.add(currentPlayerUsing == null);
+//        if (currentPlayerUsing != null) writer.add(currentPlayerUsing.getEntityId());
+//        writer.add(currentRecipe.size());
+//        for (int i = 0; i < currentRecipe.size(); i++) writer.add(ArsMagicaAPI.getSkillRegistry().getId(currentRecipe.get(i).getRegistryName()));
+//        writer.add(shapeGroups.size());
+//        for (ArrayList<AbstractSpellPart> shapeGroup : shapeGroups){
+//            int[] groupData = new int[shapeGroup.size()];
+//            for (int i = 0; i < shapeGroup.size(); i++) groupData[i] = ArsMagicaAPI.getSkillRegistry().getId(shapeGroup.get(i).getRegistryName());
+//            writer.add(groupData);
+//        }
+//        writer.add(currentSpellName);
+//        writer.add(currentSpellIsReadOnly);
+//        return writer.generate();
         return null;
     }
 
     private void sendDataToServer() {
-        CompoundNBT nbt = this.write(new CompoundNBT());
-//        ArsMagicaLegacy.LOGGER.debug("send: {}",nbt);
-        NetworkHandler.INSTANCE.sendToServer(new InscriptionTablePacket(this.getPos(), nbt));
+        CompoundNBT nbt = write(new CompoundNBT());
+        NetworkHandler.INSTANCE.sendToServer(new InscriptionTablePacket(getPos(), nbt));
     }
 
     public void addSpellPartToStageGroup(int groupIndex, AbstractSpellPart part) {
-        List<AbstractSpellPart> group = this.shapeGroups.get(groupIndex);
+        List<AbstractSpellPart> group = shapeGroups.get(groupIndex);
         if (!currentSpellIsReadOnly && group.size() < 4 && !(part instanceof SpellComponent)) {
             group.add(part);
-            if (world.isRemote)
-                sendDataToServer();
+            if (world.isRemote) sendDataToServer();
             countModifiers();
         }
     }
 
     public void removeSpellPartFromStageGroup(int index, int groupIndex) {
-        List<AbstractSpellPart> group = this.shapeGroups.get(groupIndex);
+        List<AbstractSpellPart> group = shapeGroups.get(groupIndex);
         if (!currentSpellIsReadOnly) {
             group.remove(index);
-            if (world.isRemote)
-                sendDataToServer();
+            if (world.isRemote) sendDataToServer();
             countModifiers();
         }
     }
 
     public void removeMultipleSpellPartsFromStageGroup(int startIndex, int length, int groupIndex) {
-        List<AbstractSpellPart> group = this.shapeGroups.get(groupIndex);
+        List<AbstractSpellPart> group = shapeGroups.get(groupIndex);
         if (!currentSpellIsReadOnly) {
-            for (int i = 0; i <= length; i++)
-                group.remove(startIndex);
+            for (int i = 0; i <= length; i++) group.remove(startIndex);
             countModifiers();
-            if (world.isRemote)
-                sendDataToServer();
+            if (world.isRemote) sendDataToServer();
         }
     }
 
     public void addSpellPart(AbstractSpellPart part) {
         if (!currentSpellIsReadOnly && currentRecipe.size() < 16) {
             currentRecipe.add(part);
-            if (world.isRemote)
-                sendDataToServer();
+            if (world.isRemote) sendDataToServer();
             countModifiers();
         }
     }
@@ -787,19 +729,16 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     public void removeSpellPart(int index) {
         if (!currentSpellIsReadOnly) {
             currentRecipe.remove(index);
-            if (world.isRemote)
-                sendDataToServer();
+            if (world.isRemote) sendDataToServer();
             countModifiers();
         }
     }
 
     public void removeMultipleSpellParts(int startIndex, int length) {
         if (!currentSpellIsReadOnly) {
-            for (int i = 0; i <= length; i++)
-                getCurrentRecipe().remove(startIndex);
+            for (int i = 0; i <= length; i++) getCurrentRecipe().remove(startIndex);
             countModifiers();
-            if (world.isRemote)
-                sendDataToServer();
+            if (world.isRemote) sendDataToServer();
         }
     }
 
@@ -813,8 +752,6 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
         List<List<AbstractSpellPart>> stages = SpellValidator.splitToStages(currentRecipe);
         if (stages.size() == 0) return;
         for (List<AbstractSpellPart> currentStage : stages) countModifiersInList(currentStage);
-        //ArrayList<AbstractSpellPart> currentStage = stages.get(stages.size() - 1);
-        //countModifiersInList(currentStage);
     }
 
     private void countModifiersInList(List<AbstractSpellPart> currentStage) {
@@ -834,33 +771,31 @@ public class InscriptionTableTileEntity extends TileEntity implements IInventory
     }
 
     public void createSpellForPlayer(PlayerEntity player) {
-        /*if (world.isRemote){
-            AMDataWriter writer = new AMDataWriter();
-            writer.add(getPos().getX());
-            writer.add(getPos().getY());
-            writer.add(getPos().getZ());
-            writer.add(MAKE_SPELL);
-            writer.add(player.getEntityId());
-            AMNetHandler.INSTANCE.sendPacketToServer(AMPacketIDs.INSCRIPTION_TABLE_UPDATE, writer.generate());
-        }else{*/
+//        if (world.isRemote) {
+//            AMDataWriter writer = new AMDataWriter();
+//            writer.add(getPos().getX());
+//            writer.add(getPos().getY());
+//            writer.add(getPos().getZ());
+//            writer.add(MAKE_SPELL);
+//            writer.add(player.getEntityId());
+//            AMNetHandler.INSTANCE.sendPacketToServer(AMPacketIDs.INSCRIPTION_TABLE_UPDATE, writer.generate());
+//        } else {
         List<Pair<List<AbstractSpellPart>, CompoundNBT>> shapeGroupSetup = new ArrayList<>();
         Pair<List<AbstractSpellPart>, CompoundNBT> curRecipeSetup = new Pair<>(currentRecipe, new CompoundNBT());
-        for (List<AbstractSpellPart> arr : shapeGroups) {
-            shapeGroupSetup.add(new Pair<>(arr, new CompoundNBT()));
-        }
+        for (List<AbstractSpellPart> arr : shapeGroups) shapeGroupSetup.add(new Pair<>(arr, new CompoundNBT()));
         ItemStack stack = SpellUtil.makeSpellStack(shapeGroupSetup, curRecipeSetup);
         stack.getTag().putString("suggestedName", currentSpellName);
         player.inventory.addItemStackToInventory(stack);
-        //}
+//        }
     }
 
     @Override
     public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+        return write(new CompoundNBT());
     }
 
     public boolean currentSpellDefIsReadOnly() {
-        return this.currentSpellIsReadOnly;
+        return currentSpellIsReadOnly;
     }
 
     public void resetSpellNameAndIcon(ItemStack stack, PlayerEntity player) {

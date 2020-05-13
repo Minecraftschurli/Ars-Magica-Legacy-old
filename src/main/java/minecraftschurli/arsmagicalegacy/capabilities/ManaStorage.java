@@ -21,13 +21,11 @@ public class ManaStorage implements IManaStorage {
     }
 
     public void setMaxMana(float maxMana) {
-        if (maxMana >= 0)
-            this.maxMana = maxMana;
+        if (maxMana >= 0) this.maxMana = maxMana;
     }
 
     public boolean setMana(float mana) {
-        if (mana < 0)
-            return false;
+        if (mana < 0) return false;
         this.mana = Math.min(mana, this.maxMana);
         return true;
     }
@@ -35,13 +33,13 @@ public class ManaStorage implements IManaStorage {
     @Override
     public boolean increase(float amount) {
         if (amount <= 0) return false;
-        return this.setMana(this.getMana() + amount);
+        return setMana(getMana() + amount);
     }
 
     @Override
     public boolean decrease(float amount) {
         if (amount <= 0) return false;
-        return this.setMana(this.getMana() - amount);
+        return setMana(getMana() - amount);
     }
 
     @Override

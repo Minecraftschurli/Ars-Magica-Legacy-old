@@ -18,6 +18,5 @@ public class AffinityChangingEvent extends PlayerEvent {
         super(caster);
         this.affinity = affinity;
         this.amount = amount;
-
     }
 }

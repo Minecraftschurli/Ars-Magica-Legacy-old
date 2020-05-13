@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -15,9 +16,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class BoltParticle extends Particle {
+    private final BoltParticleData main;
     private BoltParticleData.BoltType type;
     private int overrideColor = -1;
-    private BoltParticleData main;
 
     public BoltParticle(World world, Vec3d jammervec, Vec3d targetvec, long seed) {
         super(world, 0, 0, 0, 0, 0, 0);
@@ -76,7 +77,6 @@ public class BoltParticle extends Particle {
 
     public void finalizeBolt() {
         main.finalizeBolt();
-//        Minecraft.getInstance().worldRenderer.addParticle(this);
     }
 
     public void setOverrideColor(int overrideColor) {
@@ -89,7 +89,6 @@ public class BoltParticle extends Particle {
 
     public void setType(BoltParticleData.BoltType type) {
         this.type = type;
-//        main.type = type;
     }
 
     public void setDamage(int dmg) {
@@ -223,17 +222,6 @@ public class BoltParticle extends Particle {
             particleGreen = RenderUtil.getGreen(overrideColor);
             particleBlue = RenderUtil.getBlue(overrideColor);
         }
-//        try{
-//            Minecraft.getInstance().worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-//        }catch (Throwable t){
-//            tessellator.draw();
-//            Minecraft.getInstance().worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-//        }
-//        renderBolt(Minecraft.getInstance().worldRenderer, ticks, cosyaw, cospitch, sinyaw, cossinpitch, 0);
-//		try{
-//			tessellator.draw();
-//		}catch (Throwable t){
-//		}
         switch (type) {
             case TYPE_0:
                 particleRed = 1;
@@ -279,17 +267,6 @@ public class BoltParticle extends Particle {
             particleGreen = RenderUtil.getGreen(overrideColor);
             particleBlue = RenderUtil.getBlue(overrideColor);
         }
-//		try{
-//			worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-//		}catch (Throwable t){
-//			tessellator.draw();
-//			worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-//		}
-//        renderBolt(Minecraft.getInstance().worldRenderer, partialTicks, cosyaw, cospitch, sinyaw, cossinpitch, 1);
-//		try{
-//			tessellator.draw();
-//		}catch (Throwable t){
-//		}
         switch (type) {
             case TYPE_0:
                 particleRed = 1;
@@ -335,19 +312,8 @@ public class BoltParticle extends Particle {
             particleGreen = RenderUtil.getGreen(overrideColor);
             particleBlue = RenderUtil.getBlue(overrideColor);
         }
-//		try{
-//			worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-//		}catch (Throwable t){
-//			tessellator.draw();
-//			worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-//		}
-//        renderBolt(Minecraft.getInstance().worldRenderer, partialTicks, cosyaw, cospitch, sinyaw, cossinpitch, 2);
         try {
             tessellator.draw();
-        } catch (Throwable ignored) {
-        }
-        try {
-//            Minecraft.getInstance().worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         } catch (Throwable ignored) {
         }
         RenderSystem.disableBlend();
@@ -356,12 +322,9 @@ public class BoltParticle extends Particle {
         RenderSystem.popMatrix();
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
-
-    public int getRenderPass() {
-        return 2;
     }
 }

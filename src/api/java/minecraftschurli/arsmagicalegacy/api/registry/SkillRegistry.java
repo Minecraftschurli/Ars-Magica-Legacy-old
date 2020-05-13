@@ -22,8 +22,7 @@ public class SkillRegistry {
     private static final Map<RegistryObject<Skill>, Supplier<? extends Skill>> skills = new LinkedHashMap<>();
 
     static void onSkillRegister(RegistryEvent.Register<Skill> event) {
-        if (event.getGenericType() != Skill.class)
-            return;
+        if (event.getGenericType() != Skill.class) return;
         IForgeRegistry<Skill> reg = event.getRegistry();
         for (Map.Entry<RegistryObject<Skill>, Supplier<? extends Skill>> e : skills.entrySet()) {
             reg.register(e.getValue().get());
@@ -46,9 +45,7 @@ public class SkillRegistry {
         final Supplier<SkillPoint> _tier = tier == null ? () -> null : tier;
         final Supplier<SkillTree> _tree = tree == null ? () -> null : tree;
         RegistryObject<Skill> ret = RegistryObject.of(id, RegistryHandler.getSkillRegistry());
-        if (skills.putIfAbsent(ret, () -> new Skill(icon, _tier.get(), posX, posY, _tree.get(), parents).setRegistryName(id)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + id);
-        }
+        if (skills.putIfAbsent(ret, () -> new Skill(icon, _tier.get(), posX, posY, _tree.get(), parents).setRegistryName(id)) != null) throw new IllegalArgumentException("Duplicate registration " + id);
         return RegistryObject.of(id, RegistryHandler.getSkillRegistry());
     }
 

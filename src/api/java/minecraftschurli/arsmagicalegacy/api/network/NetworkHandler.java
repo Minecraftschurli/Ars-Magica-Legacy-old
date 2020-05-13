@@ -30,17 +30,12 @@ public class NetworkHandler {
 
     public NetworkHandler(String modid, String channelName, int protocol) {
         String protocolStr = protocol + "";
-        this.channel = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(modid, channelName))
-                .networkProtocolVersion(() -> protocolStr)
-                .clientAcceptedVersions(protocolStr::equals)
-                .serverAcceptedVersions(protocolStr::equals)
-                .simpleChannel();
+        channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(modid, channelName)).networkProtocolVersion(() -> protocolStr).clientAcceptedVersions(protocolStr::equals).serverAcceptedVersions(protocolStr::equals).simpleChannel();
     }
 
     public int nextID() {
-        synchronized (this.id) {
-            return this.id.getAndIncrement();
+        synchronized (id) {
+            return id.getAndIncrement();
         }
     }
 
@@ -54,15 +49,13 @@ public class NetworkHandler {
                 throw new RuntimeException(e);
             }
         };
-
         BiConsumer<T, Supplier<NetworkEvent.Context>> consumer = (msg, supp) -> {
             NetworkEvent.Context context = supp.get();
             if (context == null) return;
             if (context.getDirection() != dir) return;
             context.setPacketHandled(msg.handle(context));
         };
-
-        this.channel.registerMessage(nextID(), clazz, IPacket::serialize, decoder, consumer);
+        channel.registerMessage(nextID(), clazz, IPacket::serialize, decoder, consumer);
     }
 
     public void sendToWorld(IPacket packet, IWorld world) {
@@ -70,7 +63,7 @@ public class NetworkHandler {
         ServerWorld sw = (ServerWorld) world;
         for (PlayerEntity player : sw.getPlayers()) {
             if (player.getEntityWorld() != world) continue;
-            this.sendToPlayer(packet, player);
+            sendToPlayer(packet, player);
         }
     }
 
@@ -79,25 +72,23 @@ public class NetworkHandler {
         ServerWorld sw = (ServerWorld) world;
         for (PlayerEntity player : sw.getPlayers()) {
             if (player.getPosition().distanceSq(pos) > radius * radius) continue;
-            this.sendToPlayer(packet, player);
+            sendToPlayer(packet, player);
         }
     }
 
     public void sendToAllWatching(IPacket packet, IWorld world, BlockPos pos) {
         if (world.isRemote()) return;
         ChunkManager chunkManager = ((ServerWorld) world).getChunkProvider().chunkManager;
-        chunkManager.getTrackingPlayers(new ChunkPos(pos), false).forEach(player -> {
-            this.sendToPlayer(packet, player);
-        });
+        chunkManager.getTrackingPlayers(new ChunkPos(pos), false).forEach(player -> sendToPlayer(packet, player));
     }
 
     public void sendToPlayer(IPacket packet, PlayerEntity player) {
         if (!(player instanceof ServerPlayerEntity)) return;
-        this.channel.sendTo(packet, ((ServerPlayerEntity) player).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+        channel.sendTo(packet, ((ServerPlayerEntity) player).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public void sendToServer(IPacket packet) {
-        this.channel.sendToServer(packet);
+        channel.sendToServer(packet);
     }
 
     public static void registerMessages() {

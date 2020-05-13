@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.worldgen.features;
 
+import java.util.Random;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,9 +14,6 @@ import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.common.Tags;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * @author Minecraftschurli
@@ -32,7 +31,6 @@ public class MoonstoneMeteor extends Feature<NoFeatureConfig> {
         if (rand.nextInt(30) > 0)
             return false;
         BlockState moonstone_ore = ModBlocks.MOONSTONE_ORE.get().getDefaultState();
-        //pos = pos.offset(Direction.UP);
         setBlockState(worldIn, pos, moonstone_ore);
         if (rand.nextBoolean()) {
             for (Direction value : Direction.values()) {

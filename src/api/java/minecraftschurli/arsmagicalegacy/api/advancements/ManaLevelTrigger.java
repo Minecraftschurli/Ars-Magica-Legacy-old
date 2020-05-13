@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.api.advancements;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
@@ -17,22 +18,23 @@ import net.minecraft.util.ResourceLocation;
 public class ManaLevelTrigger extends AbstractCriterionTrigger<ManaLevelTrigger.Instance> {
     private static final ResourceLocation ID = new ResourceLocation(ArsMagicaAPI.MODID, "mana_level");
 
+    @Nonnull
     @Override
     public ResourceLocation getId() {
         return ID;
     }
 
+    @Nonnull
     @Override
     public Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
         return new Instance(json.get("percentage").getAsFloat(), json.get("min").getAsBoolean());
     }
 
     public void trigger(ServerPlayerEntity player) {
-        this.func_227070_a_(player.getAdvancements(), (instance) -> instance.test(player));
+        func_227070_a_(player.getAdvancements(), (instance) -> instance.test(player));
     }
 
     public static class Instance extends CriterionInstance {
-
         private final float percentage;
         private final boolean min;
 
@@ -50,6 +52,7 @@ public class ManaLevelTrigger extends AbstractCriterionTrigger<ManaLevelTrigger.
             return new ManaLevelTrigger.Instance(percentage, false);
         }
 
+        @Nonnull
         public JsonElement serialize() {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("percentage", percentage);
@@ -58,10 +61,8 @@ public class ManaLevelTrigger extends AbstractCriterionTrigger<ManaLevelTrigger.
         }
 
         public boolean test(ServerPlayerEntity player) {
-            if (min)
-                return CapabilityHelper.getMana(player) >= CapabilityHelper.getMaxMana(player)*percentage;
-            else
-                return CapabilityHelper.getMana(player) <= CapabilityHelper.getMaxMana(player)*percentage;
+            if (min) return CapabilityHelper.getMana(player) >= CapabilityHelper.getMaxMana(player)*percentage;
+            return CapabilityHelper.getMana(player) <= CapabilityHelper.getMaxMana(player)*percentage;
         }
     }
 }

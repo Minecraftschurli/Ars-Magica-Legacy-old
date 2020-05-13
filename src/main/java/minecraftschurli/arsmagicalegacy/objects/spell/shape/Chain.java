@@ -51,7 +51,8 @@ public final class Chain extends SpellShape {
             if (e == caster) continue;
             result = SpellUtil.applyStageEntity(stack, caster, world, e, giveXP);
             SpellUtil.applyStage(stack, caster, e, e.getPosX(), e.getPosY(), e.getPosZ(), null, world, true, giveXP, 0);
-            if (world.isRemote) spawnParticles(world, prevEntity == null ? x : prevEntity.getPosX(), prevEntity == null ? y : prevEntity.getPosY(), prevEntity == null ? z : prevEntity.getPosZ(), e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
+            if (world.isRemote)
+                spawnParticles(world, prevEntity == null ? x : prevEntity.getPosX(), prevEntity == null ? y : prevEntity.getPosY(), prevEntity == null ? z : prevEntity.getPosZ(), e.getPosX(), e.getPosY() + e.getEyeHeight(), e.getPosZ(), stack);
             prevEntity = e;
             if (result == SpellCastResult.SUCCESS) atLeastOneApplication = true;
         }

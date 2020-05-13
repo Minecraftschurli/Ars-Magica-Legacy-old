@@ -22,8 +22,8 @@ public class SyncMagicPacket implements IPacket {
 
     @Override
     public void serialize(PacketBuffer buf) {
-        buf.writeInt(this.level);
-        buf.writeFloat(this.xp);
+        buf.writeInt(level);
+        buf.writeFloat(xp);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class SyncMagicPacket implements IPacket {
     @Override
     public boolean handle(NetworkEvent.Context ctx) {
         ArsMagicaAPI.getLocalPlayer().getCapability(CapabilityHelper.getMagicCapability()).ifPresent(iMagicStorage -> {
-            iMagicStorage.setLevel(this.level);
-            iMagicStorage.setXp(this.xp);
+            iMagicStorage.setLevel(level);
+            iMagicStorage.setXp(xp);
         });
         return true;
     }

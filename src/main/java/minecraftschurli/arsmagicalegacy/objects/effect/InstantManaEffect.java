@@ -34,7 +34,7 @@ public class InstantManaEffect extends AMInstantEffect {
                 manaRestored = 10000;
                 break;
             default:
-                manaRestored = 100 + (100 * amplifier);
+                manaRestored = 100 * (1 + amplifier);
         }
         CapabilityHelper.increaseMana(entityLivingBaseIn, manaRestored);
     }

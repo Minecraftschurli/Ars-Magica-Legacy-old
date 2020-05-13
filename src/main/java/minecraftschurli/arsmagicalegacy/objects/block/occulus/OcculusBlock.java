@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -59,10 +60,6 @@ public class OcculusBlock extends Block {
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }
 
-    /*private static VoxelShape makeShape(VoxelShape... shapes) {
-        return Arrays.stream(shapes).reduce((voxelShape, voxelShape2) -> VoxelShapes.combine(voxelShape, voxelShape2, IBooleanFunction.OR)).get();
-    }*/
-
     private static VoxelShape[] makeRotatedShapes(double[][] shape) {
         List<Integer> angles = Arrays.asList(0, 90, 180, 270);
         VoxelShape[] shapes = new VoxelShape[4];
@@ -79,11 +76,9 @@ public class OcculusBlock extends Block {
                 double newZ1 = centerZ + (oldX1 - centerX) * Math.sin(angle) + (oldZ1 - centerZ) * Math.cos(angle);
                 double newX2 = centerX + (oldX2 - centerX) * Math.cos(angle) - (oldZ2 - centerZ) * Math.sin(angle);
                 double newZ2 = centerZ + (oldX2 - centerX) * Math.sin(angle) + (oldZ2 - centerZ) * Math.cos(angle);
-                if (shapes[i] == null) {
-                    shapes[i] = makeCuboidShape(newX1, part[1], newZ1, newX2, part[4], newZ2);
-                } else {
+                if (shapes[i] == null) shapes[i] = makeCuboidShape(newX1, part[1], newZ1, newX2, part[4], newZ2);
+                else
                     shapes[i] = VoxelShapes.combineAndSimplify(shapes[i], makeCuboidShape(newX1, part[1], newZ1, newX2, part[4], newZ2), IBooleanFunction.OR);
-                }
             }
         }
         return shapes;
@@ -100,6 +95,7 @@ public class OcculusBlock extends Block {
         return getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
+    @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player.func_226563_dT_())
@@ -114,11 +110,13 @@ public class OcculusBlock extends Block {
         return ActionResultType.SUCCESS;
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return SHAPE[(state.get(FACING).getHorizontalIndex() + 2) % 4];
     }
 
+    @Nonnull
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;

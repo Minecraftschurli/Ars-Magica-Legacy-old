@@ -45,19 +45,19 @@ public class SimpleParticleData implements IParticleData {
         this.green = green;
         this.blue = blue;
         this.alpha = MathHelper.clamp(alpha, 0.01F, 4);
-        this.type = particleTypeIn;
+        type = particleTypeIn;
     }
 
     public void write(PacketBuffer buffer) {
-        buffer.writeFloat(this.red);
-        buffer.writeFloat(this.green);
-        buffer.writeFloat(this.blue);
-        buffer.writeFloat(this.alpha);
+        buffer.writeFloat(red);
+        buffer.writeFloat(green);
+        buffer.writeFloat(blue);
+        buffer.writeFloat(alpha);
     }
 
     @Nonnull
     public String getParameters() {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(this.getType()), this.red, this.green, this.blue, this.alpha);
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), red, green, blue, alpha);
     }
 
     @Nonnull
@@ -67,21 +67,21 @@ public class SimpleParticleData implements IParticleData {
 
     @OnlyIn(Dist.CLIENT)
     public float getRed() {
-        return this.red;
+        return red;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getGreen() {
-        return this.green;
+        return green;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getBlue() {
-        return this.blue;
+        return blue;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getAlpha() {
-        return this.alpha;
+        return alpha;
     }
 }

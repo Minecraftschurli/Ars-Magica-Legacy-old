@@ -16,7 +16,6 @@ import net.minecraft.util.ResourceLocation;
  * @version 2020-04-23
  */
 public class BlackAuremTER extends TileEntityRenderer<EtheriumGeneratorTileEntity> {
-
     private static final ResourceLocation TEXTURE = new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/black_aurem.png");
 
     public BlackAuremTER(TileEntityRendererDispatcher rendererDispatcherIn) {

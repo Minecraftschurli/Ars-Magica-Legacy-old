@@ -15,17 +15,17 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 public class EtheriumCapability {
     public static void register() {
         CapabilityManager.INSTANCE.register(IEtheriumStorage.class, new Capability.IStorage<IEtheriumStorage>() {
-                    @Override
-                    public INBT writeNBT(Capability<IEtheriumStorage> capability, IEtheriumStorage instance, Direction side) {
-                        return instance.serializeNBT();
-                    }
+            @Override
+            public INBT writeNBT(Capability<IEtheriumStorage> capability, IEtheriumStorage instance, Direction side) {
+                return instance.serializeNBT();
+            }
 
-                    @Override
-                    public void readNBT(Capability<IEtheriumStorage> capability, IEtheriumStorage instance, Direction side, INBT nbt) {
-                        if (!(instance instanceof EtheriumStorage))
-                            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        instance.deserializeNBT((CompoundNBT) nbt);
-                    }
-                }, EtheriumStorage::new);
+            @Override
+            public void readNBT(Capability<IEtheriumStorage> capability, IEtheriumStorage instance, Direction side, INBT nbt) {
+                if (!(instance instanceof EtheriumStorage))
+                    throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
+                instance.deserializeNBT((CompoundNBT) nbt);
+            }
+        }, EtheriumStorage::new);
     }
 }

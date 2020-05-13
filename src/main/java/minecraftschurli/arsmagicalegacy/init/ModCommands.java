@@ -12,10 +12,7 @@ import net.minecraft.command.Commands;
  */
 public final class ModCommands {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        LiteralCommandNode<CommandSource> command = dispatcher.register(
-                Commands.literal("arsmagica")
-                        .then(CommandResearch.register(dispatcher))
-        );
+        LiteralCommandNode<CommandSource> command = dispatcher.register(Commands.literal("arsmagica").then(CommandResearch.register(dispatcher)));
         dispatcher.register(Commands.literal("am").redirect(command));
     }
 }

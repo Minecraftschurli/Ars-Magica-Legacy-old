@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.data;
 
+import java.util.function.Consumer;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.MagicLevelTrigger;
 import minecraftschurli.arsmagicalegacy.api.advancements.SilverSkillTrigger;
@@ -14,8 +15,6 @@ import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli

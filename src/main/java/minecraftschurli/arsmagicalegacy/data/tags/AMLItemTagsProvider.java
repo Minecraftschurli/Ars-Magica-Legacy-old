@@ -30,13 +30,7 @@ public final class AMLItemTagsProvider extends ItemTagsProvider {
                 ModTags.Items.GEMS_TOPAZ
         );
         getBuilder(ModTags.Items.DUSTS_VINTEUM).add(ModItems.VINTEUM.get());
-        getBuilder(Tags.Items.DUSTS)
-                .add(
-                        ModTags.Items.DUSTS_VINTEUM
-                ).add(
-                ModItems.PURIFIED_VINTEUM.get(),
-                ModItems.ARCANE_ASH.get()
-        );
+        getBuilder(Tags.Items.DUSTS).add(ModTags.Items.DUSTS_VINTEUM).add(ModItems.PURIFIED_VINTEUM.get(), ModItems.ARCANE_ASH.get());
         getBuilder(ModTags.Items.RUNES).add(
                 ModItems.RUNE.get(),
                 ModItems.WHITE_RUNE.get(),

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -15,8 +16,7 @@ public class InscriptionTableUpgradeItem extends Item {
     public InscriptionTableUpgradeItem() {
         super(ModItems.ITEM_1);
         this.addPropertyOverride(new ResourceLocation("tier"), (stack, world, entity) -> {
-            if (!stack.hasTag() || !stack.getTag().contains("tier"))
-                return 0;
+            if (!stack.hasTag() || !stack.getTag().contains("tier")) return 0;
             return stack.getTag().getInt("tier");
         });
     }
@@ -27,13 +27,10 @@ public class InscriptionTableUpgradeItem extends Item {
 
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        if (this.isInGroup(group)) {
-            for (int i = 0; i < 3; i++) {
-                items.add(getTieredStack(i));
-            }
-        }
+        if (this.isInGroup(group)) for (int i = 0; i < 3; i++) items.add(getTieredStack(i));
     }
 
+    @Nonnull
     @Override
     public String getTranslationKey(ItemStack stack) {
         return super.getTranslationKey(stack) + getTier(stack);

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.affinitytome;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -10,8 +11,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

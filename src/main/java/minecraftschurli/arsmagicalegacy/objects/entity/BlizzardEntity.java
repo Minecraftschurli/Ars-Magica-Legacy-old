@@ -142,12 +142,12 @@ public final class BlizzardEntity extends Entity {
         }
     }
 
-    public void setDamage(float damage) {
-        dataManager.set(DAMAGE, damage);
-    }
-
     public void setOwner(LivingEntity owner) {
         dataManager.set(OWNER, owner.getEntityId());
+    }
+
+    public void setDamage(float damage) {
+        dataManager.set(DAMAGE, damage);
     }
 
     public void setRadius(float radius) {

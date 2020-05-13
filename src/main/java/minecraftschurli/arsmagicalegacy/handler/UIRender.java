@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -18,8 +19,6 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -50,15 +49,12 @@ public class UIRender {
         if (renderViewEntity == null)
             return;
         PlayerEntity player = (PlayerEntity) renderViewEntity;
-
         if (!player.getCapability(CapabilityHelper.getMagicCapability()).isPresent()) return;
         if (CapabilityHelper.getCurrentLevel(player) <= 0) return;
-
         if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.MAIN_HAND);
         else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.OFF_HAND);
-
         if (player.isCreative() || player.isSpectator()) return;
         renderManaBar(player);
         renderBurnoutBar(player);
@@ -77,25 +73,15 @@ public class UIRender {
         int bookSlot = ((SpellBookItem) bookStack.getItem()).getActiveSlot(bookStack);
         int x = spellBookUIX + bookSlot * 13;
         int y = spellBookUIY;
-        //ArsMagicaLegacy.LOGGER.debug("{}, {}", spellBookUIX, spellBookUIY);
         mc.getTextureManager().bindTexture(SPELL_BOOK_UI_TEXTURE);
         RenderSystem.color4f(1, 1, 1, 1);
-
-        /*if (hand == Hand.MAIN_HAND) {
-            int slot = player.inventory.getSlotFor(player.getHeldItem(hand));
-
-        } else {
-
-        }*/
         setBlitOffset(-5);
         drawTexturedModalRect(spellBookUIX, spellBookUIY, 0, 0, 106, 15, spellBookUIWidth, spellBookUIHeight);
         List<ItemStack> activeScrolls = ((SpellBookItem) bookStack.getItem()).getActiveInventory(bookStack);
         for (int n = 0; n < 8; n++) {
             float iconX = spellBookUIX + 1.5f + n * 12.9f;
             ItemStack stackItem = activeScrolls.get(n);
-            if (stackItem == null) {
-                continue;
-            }
+            if (stackItem == null) continue;
             RenderSystem.pushMatrix();
             RenderSystem.translatef(iconX, spellBookUIY + 1.5f, getBlitOffset());
             RenderSystem.scalef(12f / 16f, 12f / 16f, 12f / 16f);
@@ -113,21 +99,19 @@ public class UIRender {
         RenderSystem.enableBlend();
         float x = 0;
         float y = 0;
-        Vec2f position = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPBarPosition(), i, j);*/
+        Vec2f position = new Vec2f(x, y);
         Vec2f dimensions = new Vec2f(182, 5);
         Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
         RenderSystem.color4f(0.5f, 0.5f, 1, 1);
-        //base XP bar
         drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
         if (CapabilityHelper.getCurrentXP(player) > 0) {
             float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
-            if (pctXP > 1)
-                pctXP = 1;
+            if (pctXP > 1) pctXP = 1;
             int width = (int) ((dimensions.x + 1) * pctXP);
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
         }
         String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID + ".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
-        Vec2f numericPos = new Vec2f(x, y);/*getShiftedVector(ArsMagica2.config.getXPNumericPosition(), i, j);*/
+        Vec2f numericPos = new Vec2f(x, y);
         Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
         RenderSystem.popMatrix();
     }
@@ -166,10 +150,6 @@ public class UIRender {
         RenderSystem.color3f(r, g, b);
         drawTexturedModalRect(x + 2, y + 2, 2, 11, getWidth(value, maxValue) - 1, 7);
         RenderSystem.color4f(1, 1, 1, 1);
-        if (false) {
-            int i2 = getStringLength((int) value + "");
-            drawStringOnHUD((int) value + "", x - 5 - i2, y - 1, color);
-        }
         RenderSystem.disableBlend();
         RenderSystem.popMatrix();
         mc.getProfiler().endSection();
@@ -180,15 +160,15 @@ public class UIRender {
     }
 
     public void drawTexturedModalRect(int dst_x, int dst_y, float src_x, float src_y, int dst_width, int dst_height, int src_width, int src_height) {
-        //AbstractGui.blit(dst_x, dst_y, src_x, src_y, dst_width, dst_height, src_width, src_height);
-        /*Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(dst_x, dst_y + dst_height, getBlitOffset()).tex(src_x, src_y + src_height).endVertex();
-        bufferbuilder.pos(dst_x + dst_width, dst_y + dst_height, getBlitOffset()).tex(src_x + src_width, src_y + src_height).endVertex();
-        bufferbuilder.pos(dst_x + dst_width, dst_y, getBlitOffset()).tex(src_x + src_width, src_y).endVertex();
-        bufferbuilder.pos(dst_x, dst_y, getBlitOffset()).tex(src_x, src_y).endVertex();
-        tessellator.draw();*/
+//        AbstractGui.blit(dst_x, dst_y, src_x, src_y, dst_width, dst_height, src_width, src_height);
+//        Tessellator tessellator = Tessellator.getInstance();
+//        BufferBuilder bufferbuilder = tessellator.getBuffer();
+//        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+//        bufferbuilder.pos(dst_x, dst_y + dst_height, getBlitOffset()).tex(src_x, src_y + src_height).endVertex();
+//        bufferbuilder.pos(dst_x + dst_width, dst_y + dst_height, getBlitOffset()).tex(src_x + src_width, src_y + src_height).endVertex();
+//        bufferbuilder.pos(dst_x + dst_width, dst_y, getBlitOffset()).tex(src_x + src_width, src_y).endVertex();
+//        bufferbuilder.pos(dst_x, dst_y, getBlitOffset()).tex(src_x, src_y).endVertex();
+//        tessellator.draw();
         float var7 = 0.00390625F;
         float var8 = 0.00390625F;
         Tessellator var9 = Tessellator.getInstance();

@@ -23,7 +23,7 @@ public class AMEffect extends Effect {
 
     @Override
     public void affectEntity(@Nullable Entity source, @Nullable Entity indirectSource, LivingEntity entityLivingBaseIn, int amplifier, double health) {
-        this.performEffect(entityLivingBaseIn, amplifier);
+        performEffect(entityLivingBaseIn, amplifier);
     }
 
     @Override

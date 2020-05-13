@@ -30,13 +30,12 @@ public class TEClientSyncPacket implements IPacket {
 
     @Override
     public void deserialize(PacketBuffer buf) {
-        this.pos = buf.readBlockPos();
-        this.data = buf.readCompoundTag();
+        pos = buf.readBlockPos();
+        data = buf.readCompoundTag();
     }
 
     @Override
     public boolean handle(NetworkEvent.Context ctx) {
-        //noinspection ConstantConditions
         ctx.enqueueWork(() -> Minecraft.getInstance().world.getTileEntity(pos).read(data));
         return true;
     }

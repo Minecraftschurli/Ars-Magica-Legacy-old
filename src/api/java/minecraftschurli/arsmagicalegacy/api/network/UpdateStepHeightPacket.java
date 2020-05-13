@@ -24,12 +24,12 @@ public class UpdateStepHeightPacket implements IPacket {
 
     @Override
     public void deserialize(PacketBuffer buf) {
-        this.stepHeight = buf.readFloat();
+        stepHeight = buf.readFloat();
     }
 
     @Override
     public boolean handle(NetworkEvent.Context ctx) {
-        ArsMagicaAPI.getLocalPlayer().stepHeight = this.stepHeight;
+        ArsMagicaAPI.getLocalPlayer().stepHeight = stepHeight;
         return true;
     }
 }

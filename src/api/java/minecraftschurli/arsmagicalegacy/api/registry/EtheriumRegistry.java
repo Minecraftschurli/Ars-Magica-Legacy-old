@@ -18,8 +18,7 @@ public class EtheriumRegistry {
     private static final Map<RegistryObject<EtheriumType>, Supplier<? extends EtheriumType>> etherium = new LinkedHashMap<>();
 
     static void onEtheriumRegister(RegistryEvent.Register<EtheriumType> event) {
-        if (event.getGenericType() != EtheriumType.class)
-            return;
+        if (event.getGenericType() != EtheriumType.class) return;
         IForgeRegistry<EtheriumType> reg = event.getRegistry();
         for (Map.Entry<RegistryObject<EtheriumType>, Supplier<? extends EtheriumType>> e : etherium.entrySet()) {
             reg.register(e.getValue().get());
@@ -83,9 +82,7 @@ public class EtheriumRegistry {
      */
     public static RegistryObject<EtheriumType> registerEtherium(ResourceLocation key, Supplier<EtheriumType> supplier) {
         RegistryObject<EtheriumType> ret = RegistryObject.of(key, RegistryHandler.getEtheriumRegistry());
-        if (EtheriumRegistry.etherium.putIfAbsent(ret, () -> supplier.get().setRegistryName(key)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + key);
-        }
+        if (EtheriumRegistry.etherium.putIfAbsent(ret, () -> supplier.get().setRegistryName(key)) != null) throw new IllegalArgumentException("Duplicate registration " + key);
         return RegistryObject.of(key, RegistryHandler.getEtheriumRegistry());
     }
 }

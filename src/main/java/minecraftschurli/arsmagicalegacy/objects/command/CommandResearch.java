@@ -5,6 +5,8 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -19,9 +21,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 /**
  * @author Minecraftschurli
  * @version 2019-12-04
@@ -31,27 +30,10 @@ public class CommandResearch {
     private static final String TARGET = "target";
 
     public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
-        return Commands.literal("research")
-                .requires(commandSource -> commandSource.hasPermissionLevel(2))
-                .then(Commands.literal("learn")
-                        .then(Commands.argument(TARGET, EntityArgument.player())
-                                .then(Commands.argument("id", ResourceLocationArgument.resourceLocation())
-                                        .suggests(SUGGEST_RESEARCH)
-                                        .executes(context -> CommandResearch.learn(context, RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"))))
-                                ).then(Commands.literal("*").executes(CommandResearch::learnAll))
-                        )
-                ).then(Commands.literal("forget")
-                        .then(Commands.argument(TARGET, EntityArgument.player())
-                                .then(Commands.argument("id", ResourceLocationArgument.resourceLocation())
-                                        .suggests(SUGGEST_RESEARCH)
-                                        .executes(CommandResearch::forget)
-                                ).then(Commands.literal("*").executes(CommandResearch::forgetAll))
-                        )
-                ).then(Commands.literal("list")
-                        .then(Commands.argument(TARGET, EntityArgument.player())
-                                .executes(CommandResearch::list)
-                        )
-                );
+        return Commands.literal("research").requires(commandSource -> commandSource.hasPermissionLevel(2))
+                .then(Commands.literal("learn").then(Commands.argument(TARGET, EntityArgument.player()).then(Commands.argument("id", ResourceLocationArgument.resourceLocation()).suggests(SUGGEST_RESEARCH).executes(context -> CommandResearch.learn(context, RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(context, "id"))))).then(Commands.literal("*").executes(CommandResearch::learnAll))))
+                .then(Commands.literal("forget").then(Commands.argument(TARGET, EntityArgument.player()).then(Commands.argument("id", ResourceLocationArgument.resourceLocation()).suggests(SUGGEST_RESEARCH).executes(CommandResearch::forget)).then(Commands.literal("*").executes(CommandResearch::forgetAll))))
+                .then(Commands.literal("list").then(Commands.argument(TARGET, EntityArgument.player()).executes(CommandResearch::list)));
     }
 
     private static int list(CommandContext<CommandSource> ctx) throws CommandSyntaxException {

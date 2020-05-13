@@ -1,13 +1,17 @@
 package minecraftschurli.arsmagicalegacy.capabilities;
 
 import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.capability.IResearchStorage;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
-import java.util.*;
 
 /**
  * @author Minecraftschurli
@@ -17,44 +21,44 @@ public class ResearchStorage implements IResearchStorage {
     private final Map<Integer, Integer> points = new HashMap<>();
     private final Set<ResourceLocation> learned = new HashSet<>();
 
-    public ResearchStorage (){
+    public ResearchStorage() {
         add(0);
     }
 
     @Override
     public int get(int tier) {
-        return this.points.getOrDefault(tier, 0);
+        return points.getOrDefault(tier, 0);
     }
 
     @Override
     public boolean use(int tier, int count) {
-        if (this.points.containsKey(tier)) {
-            int newVal = this.points.get(tier) - count;
+        if (points.containsKey(tier)) {
+            int newVal = points.get(tier) - count;
             if (newVal < 0) return false;
-            this.points.put(tier, newVal);
+            points.put(tier, newVal);
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     @Override
     public void add(int tier, int count) {
-        this.points.compute(tier, (s, integer) -> (integer != null ? integer : 0) + count);
+        points.compute(tier, (s, integer) -> (integer != null ? integer : 0) + count);
     }
 
     @Override
     public void set(int tier, int count) {
-        this.points.put(tier, count);
+        points.put(tier, count);
     }
 
     @Override
     public void forgetAll() {
-        this.learned.clear();
+        learned.clear();
     }
 
     @Override
     public boolean knows(ResourceLocation skill) {
-        return this.learned.contains(skill);
+        return learned.contains(skill);
     }
 
     @Override
@@ -69,21 +73,21 @@ public class ResearchStorage implements IResearchStorage {
 
     @Override
     public List<Skill> getLearnedSkills() {
-        return this.learned.stream().filter(RegistryHandler.getSkillRegistry()::containsKey).map(RegistryHandler.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
+        return learned.stream().filter(RegistryHandler.getSkillRegistry()::containsKey).map(RegistryHandler.getSkillRegistry()::getValue).collect(ImmutableList.toImmutableList());
     }
 
     @Override
     public List<ResourceLocation> getLearned() {
-        return ImmutableList.copyOf(this.learned);
+        return ImmutableList.copyOf(learned);
     }
 
     @Override
     public void learn(@Nonnull ResourceLocation location) {
-        this.learned.add(location);
+        learned.add(location);
     }
 
     @Override
     public void forget(@Nonnull ResourceLocation location) {
-        this.learned.remove(location);
+        learned.remove(location);
     }
 }

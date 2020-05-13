@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.config.CraftingAltarStructureMaterials;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,10 +14,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.util.TriPredicate;
 import vazkii.patchouli.api.IStateMatcher;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Minecraftschurli
  * @version 2020-04-17
@@ -24,7 +23,7 @@ public class StairMatcher implements IStateMatcher {
     private final Half half;
     private final TriPredicate<IBlockReader, BlockPos, BlockState> predicte;
 
-    public StairMatcher(Direction facing, Half half){
+    public StairMatcher(Direction facing, Half half) {
         this.facing = facing;
         this.half = half;
         predicte = (iBlockReader, blockPos, blockState) -> blockState.getBlock() instanceof StairsBlock && blockState.get(StairsBlock.HALF) == this.half && blockState.get(StairsBlock.FACING) == this.facing;
@@ -40,7 +39,7 @@ public class StairMatcher implements IStateMatcher {
     @Override
     public BlockState getDisplayedState(int ticks) {
         List<Block> main = new ArrayList<>(CraftingAltarStructureMaterials.getAllMainBlocks());
-        return CraftingAltarStructureMaterials.getStairForBlock(main.get((ticks/20)%main.size())).getDefaultState().with(StairsBlock.FACING, this.facing).with(StairsBlock.HALF, this.half);
+        return CraftingAltarStructureMaterials.getStairForBlock(main.get((ticks / 20) % main.size())).getDefaultState().with(StairsBlock.FACING, this.facing).with(StairsBlock.HALF, this.half);
     }
 
     /**

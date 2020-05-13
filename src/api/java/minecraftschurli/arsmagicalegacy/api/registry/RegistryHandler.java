@@ -20,7 +20,6 @@ import net.minecraftforge.registries.RegistryBuilder;
  * @version 2020-03-04
  */
 public class RegistryHandler {
-
     private static ForgeRegistry<SkillTree> SKILL_TREE_REGISTRY = null;
     private static ForgeRegistry<AbstractSpellPart> SPELL_PART_REGISTRY = null;
     private static ForgeRegistry<Skill> SKILL_REGISTRY = null;
@@ -30,11 +29,10 @@ public class RegistryHandler {
     private static ForgeRegistry<AbstractRitual> RITUAL_REGISTRY = null;
 
     /**
-     * Do not call this method yourself
+     * Don't call this method yourself
      */
     public static void setup() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         modEventBus.addListener(SpellRegistry::onSpellPartRegister);
         modEventBus.addListener(SkillRegistry::onSkillRegister);
         modEventBus.addListener(SkillTreeRegistry::onSkillTreeRegister);

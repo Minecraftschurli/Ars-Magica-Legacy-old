@@ -21,7 +21,6 @@ public class Config {
     public static final String PREFIX = ArsMagicaAPI.MODID + ".config.";
     private static final String SPLIT_CHAR = "|";
     private static final String SPLIT_REGEX = "\\|";
-
     public static final Common COMMON;
     static final ForgeConfigSpec commonSpec;
 
@@ -57,28 +56,12 @@ public class Config {
             builder.comment("Common configuration settings");
             builder.push("common");
             builder.push("craftingaltar");
-            CRAFTING_ALTAR_MAIN_MAP = builder
-                    .comment("The blocks usable for the main body of the crafting altar structure")
-                    .translation(PREFIX + "altarstructure.main")
-                    .worldRestart()
-                    .defineList("main", this::getDefaultMain, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
-            CRAFTING_ALTAR_CAPS_MAP = builder
-                    .comment("The blocks usable for the caps of the crafting altar structure")
-                    .translation(PREFIX + "altarstructure.caps")
-                    .worldRestart()
-                    .defineList("caps", this::getDefaultCaps, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
+            CRAFTING_ALTAR_MAIN_MAP = builder.comment("The blocks usable for the main body of the crafting altar structure").translation(PREFIX + "altarstructure.main").worldRestart().defineList("main", this::getDefaultMain, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
+            CRAFTING_ALTAR_CAPS_MAP = builder.comment("The blocks usable for the caps of the crafting altar structure").translation(PREFIX + "altarstructure.caps").worldRestart().defineList("caps", this::getDefaultCaps, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
             builder.pop();
             builder.push("magicvalues");
-            DEFAULT_MAX_MANA = builder
-                    .comment("The default maximum mana for the player")
-                    .translation(PREFIX + "maxmana")
-                    .worldRestart()
-                    .defineInRange("maxmana", 100, 0, 10000);
-            DEFAULT_MAX_BURNOUT = builder
-                    .comment("The default maximum burnout for the player")
-                    .translation(PREFIX + "maxburnout")
-                    .worldRestart()
-                    .defineInRange("maxburnout", 100, 0, 10000);
+            DEFAULT_MAX_MANA = builder.comment("The default maximum mana for the player").translation(PREFIX + "maxmana").worldRestart().defineInRange("maxmana", 100, 0, 10000);
+            DEFAULT_MAX_BURNOUT = builder.comment("The default maximum burnout for the player").translation(PREFIX + "maxburnout").worldRestart().defineInRange("maxburnout", 100, 0, 10000);
             builder.pop();
             builder.pop();
         }
@@ -129,25 +112,21 @@ public class Config {
             CRAFTING_ALTAR_CAPS_MAP.get().stream().map(s -> s.split(SPLIT_REGEX)).filter(strings -> strings.length == 2).forEach(strings -> {
                 try {
                     ResourceLocation rl = ResourceLocation.tryCreate(strings[0]);
-                    if (rl == null)
-                        return;
+                    if (rl == null) return;
                     Block block = ForgeRegistries.BLOCKS.getValue(rl);
-                    if (block == null)
-                        return;
+                    if (block == null) return;
                     CraftingAltarStructureMaterials.addCapMaterial(block, Integer.parseInt(strings[1]));
-                } catch (Exception ignored) {
+                } catch (Throwable ignored) {
                 }
             });
             CRAFTING_ALTAR_MAIN_MAP.get().stream().map(s -> s.split(SPLIT_REGEX)).filter(strings -> strings.length == 3).forEach(strings -> {
                 try {
                     ResourceLocation blockRl = ResourceLocation.tryCreate(strings[0]);
                     ResourceLocation stairRl = ResourceLocation.tryCreate(strings[1]);
-                    if (blockRl == null || stairRl == null)
-                        return;
+                    if (blockRl == null || stairRl == null) return;
                     Block block = ForgeRegistries.BLOCKS.getValue(blockRl);
                     Block stair = ForgeRegistries.BLOCKS.getValue(stairRl);
-                    if (block == null || stair == null)
-                        return;
+                    if (block == null || stair == null) return;
                     CraftingAltarStructureMaterials.addMainMaterial(block, stair, Integer.parseInt(strings[2]));
                 } catch (Exception ignored) {
                 }

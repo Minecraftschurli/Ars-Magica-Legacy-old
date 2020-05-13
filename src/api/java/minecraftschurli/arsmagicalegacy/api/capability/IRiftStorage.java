@@ -8,7 +8,6 @@ import net.minecraft.nbt.CompoundNBT;
  * @version 2020-01-20
  */
 public interface IRiftStorage extends IInventory {
-
     int getAccessLevel();
 
     void setAccessLevel(int accessLevel);

@@ -12,11 +12,9 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
  */
 public class EtheriumType extends ForgeRegistryEntry<EtheriumType> implements ITranslatable<EtheriumType> {
     private static final String TYPE = "etherium";
-
     public static final RegistryObject<EtheriumType> DARK = RegistryObject.of(new ResourceLocation(ArsMagicaAPI.MODID,"dark"), () -> EtheriumType.class);
     public static final RegistryObject<EtheriumType> LIGHT = RegistryObject.of(new ResourceLocation(ArsMagicaAPI.MODID, "light"), () -> EtheriumType.class);
     public static final RegistryObject<EtheriumType> NEUTRAL = RegistryObject.of(new ResourceLocation(ArsMagicaAPI.MODID, "neutral"), () -> EtheriumType.class);
-
     private final int color;
 
     public EtheriumType(int color) {
@@ -24,7 +22,7 @@ public class EtheriumType extends ForgeRegistryEntry<EtheriumType> implements IT
     }
 
     public int getColor() {
-        return this.color;
+        return color;
     }
 
     @Override

@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import java.util.Locale;
+import javax.annotation.Nonnull;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -15,14 +16,14 @@ public class BeamParticleData implements IParticleData {
     public static final IParticleData.IDeserializer<BeamParticleData> DESERIALIZER = new IParticleData.IDeserializer<BeamParticleData>() {
         public BeamParticleData deserialize(ParticleType<BeamParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
-            float f = (float) reader.readDouble();
-            reader.expect(' ');
             float f1 = (float) reader.readDouble();
             reader.expect(' ');
             float f2 = (float) reader.readDouble();
             reader.expect(' ');
             float f3 = (float) reader.readDouble();
-            return new BeamParticleData(particleTypeIn, f, f1, f2, f3);
+            reader.expect(' ');
+            float f4 = (float) reader.readDouble();
+            return new BeamParticleData(particleTypeIn, f1, f2, f3, f4);
         }
 
         public BeamParticleData read(ParticleType<BeamParticleData> particleTypeIn, PacketBuffer buffer) {
@@ -40,41 +41,43 @@ public class BeamParticleData implements IParticleData {
         this.green = green;
         this.blue = blue;
         this.alpha = MathHelper.clamp(alpha, 0.01F, 4);
-        this.type = particleTypeIn;
+        type = particleTypeIn;
     }
 
     public void write(PacketBuffer buffer) {
-        buffer.writeFloat(this.red);
-        buffer.writeFloat(this.green);
-        buffer.writeFloat(this.blue);
-        buffer.writeFloat(this.alpha);
+        buffer.writeFloat(red);
+        buffer.writeFloat(green);
+        buffer.writeFloat(blue);
+        buffer.writeFloat(alpha);
     }
 
+    @Nonnull
     public String getParameters() {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(this.getType()), this.red, this.green, this.blue, this.alpha);
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), red, green, blue, alpha);
     }
 
+    @Nonnull
     public ParticleType<BeamParticleData> getType() {
         return type;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getRed() {
-        return this.red;
+        return red;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getGreen() {
-        return this.green;
+        return green;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getBlue() {
-        return this.blue;
+        return blue;
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getAlpha() {
-        return this.alpha;
+        return alpha;
     }
 }

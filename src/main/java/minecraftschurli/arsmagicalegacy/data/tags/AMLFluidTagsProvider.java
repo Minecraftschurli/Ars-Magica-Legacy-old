@@ -16,6 +16,6 @@ public final class AMLFluidTagsProvider extends FluidTagsProvider {
 
     @Override
     protected void registerTags() {
-        this.getBuilder(FluidTags.WATER).add(ModFluids.LIQUID_ESSENCE.get(), ModFluids.LIQUID_ESSENCE_FLOWING.get());
+        getBuilder(FluidTags.WATER).add(ModFluids.LIQUID_ESSENCE.get(), ModFluids.LIQUID_ESSENCE_FLOWING.get());
     }
 }

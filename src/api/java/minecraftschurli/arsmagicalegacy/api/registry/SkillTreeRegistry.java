@@ -51,14 +51,11 @@ public class SkillTreeRegistry {
     public static RegistryObject<SkillTree> registerSkillTree(ResourceLocation key, Supplier<? extends SkillTree> tree) {
         Objects.requireNonNull(key);
         RegistryObject<SkillTree> ret = RegistryObject.of(key, RegistryHandler.getSkillTreeRegistry());
-        if (entries.putIfAbsent(ret, () -> tree.get().setRegistryName(key)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + key.toString());
-        }
+        if (entries.putIfAbsent(ret, () -> tree.get().setRegistryName(key)) != null) throw new IllegalArgumentException("Duplicate registration " + key.toString());
         return ret;
     }
 
-    static void onSkillTreeRegister(RegistryEvent.Register<?> event)
-    {
+    static void onSkillTreeRegister(RegistryEvent.Register<?> event) {
         if (event.getGenericType() == RegistryHandler.getSkillTreeRegistry().getRegistrySuperType()) {
             IForgeRegistry<SkillTree> reg = (IForgeRegistry<SkillTree>)event.getRegistry();
             for (Map.Entry<RegistryObject<SkillTree>, Supplier<? extends SkillTree>> e : entries.entrySet()) {

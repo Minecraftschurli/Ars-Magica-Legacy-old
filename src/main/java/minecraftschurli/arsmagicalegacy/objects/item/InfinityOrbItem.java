@@ -39,6 +39,7 @@ public class InfinityOrbItem extends Item {
         return SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(TYPE_KEY));
     }
 
+    @Nonnull
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.EAT;
@@ -77,8 +78,9 @@ public class InfinityOrbItem extends Item {
         return new ActionResult<>(ActionResultType.SUCCESS, heldItem);
     }
 
+    @Nonnull
     @Override
-    public ITextComponent getDisplayName(ItemStack stack) {
-        return new TranslationTextComponent(this.getTranslationKey(stack), getSkillPoint(stack).getDisplayName());
+    public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
+        return new TranslationTextComponent(getTranslationKey(stack), getSkillPoint(stack).getDisplayName());
     }
 }

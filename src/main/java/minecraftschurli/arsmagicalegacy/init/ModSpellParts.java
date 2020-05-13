@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.registry.EtheriumRegistry;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
@@ -11,19 +12,45 @@ import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.objects.spell.component.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.*;
-import minecraftschurli.arsmagicalegacy.objects.spell.shape.*;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Bounce;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.BuffPower;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Damage;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Dismembering;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Gravity;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Healing;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Lunar;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.MiningPower;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Piercing;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Prosperity;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Radius;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Range;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.RuneProcs;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.SilkTouch;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Solar;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Speed;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.TargetNonSolidBlocks;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.VelocityAdded;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.AoE;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Beam;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Chain;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Channel;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.MissingShape;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Projectile;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Rune;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Self;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Touch;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Wall;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Wave;
+import minecraftschurli.arsmagicalegacy.objects.spell.shape.Zone;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
-
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-16
  */
 public final class ModSpellParts implements IInit {
-
     //region skill points
     public static final Supplier<SkillPoint> SILVER_POINT = SkillPointRegistry.registerSkillPoint(-1, new SkillPoint(TextFormatting.GRAY, 0x999999, -1, -1).disableRender());
     public static final Supplier<SkillPoint> SKILL_POINT_1 = SkillPointRegistry.registerSkillPoint(0, new SkillPoint(TextFormatting.BLUE, 0x0000ff, 0, 1));

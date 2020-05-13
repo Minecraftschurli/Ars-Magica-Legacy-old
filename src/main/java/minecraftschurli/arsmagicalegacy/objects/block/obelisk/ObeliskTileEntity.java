@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorTileEntity;
@@ -18,15 +20,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
  * @author Minecraftschurli
  * @version 2020-05-02
  */
 public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements INamedContainerProvider {
-
     private final LazyOptional<ObeliskInventory> obeliskInventory = LazyOptional.of(ObeliskInventory::new);
     private int time;
     private int maxTime;
@@ -54,8 +52,7 @@ public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements IN
                 }
             });
         }
-        if (time <= 0) return;
-        if (addEtherium(1)) time--;
+        if (time > 0 && addEtherium(1)) time--;
     }
 
     @Nonnull
@@ -66,7 +63,6 @@ public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements IN
         obeliskInventory.ifPresent(inv -> compound.put("inventory", inv.serializeNBT()));
         return compound;
     }
-
 
     @Override
     public void read(@Nonnull CompoundNBT compound) {
@@ -84,7 +80,7 @@ public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements IN
     }
 
     public IInventory getInv() {
-        return this.obeliskInventory.orElse(null);
+        return obeliskInventory.orElse(null);
     }
 
     public int getCookProgressScaled(int i) {
@@ -92,6 +88,7 @@ public class ObeliskTileEntity extends EtheriumGeneratorTileEntity implements IN
         return time * i / maxTime;
     }
 
+    @Nonnull
     @Override
     public ITextComponent getDisplayName() {
         return new StringTextComponent("");

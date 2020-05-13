@@ -31,19 +31,16 @@ public class SpellRecipeManager extends JsonReloadListener {
     }
 
     public ISpellIngredient[] getRecipe(ResourceLocation spellPart) {
-        ISpellIngredient[] ingredients = this.recipes.get(spellPart);
-        /*if (ingredients == null)
-            ingredients = ArsMagicaAPI.getSpellPartRegistry().getValue(spellPart).getRecipe();*/
+        ISpellIngredient[] ingredients = recipes.get(spellPart);
+//        if (ingredients == null) ingredients = ArsMagicaAPI.getSpellPartRegistry().getValue(spellPart).getRecipe();
         return ingredients;
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-        this.recipes = splashList.entrySet().stream().map(entry -> {
+        recipes = splashList.entrySet().stream().map(entry -> {
             List<ISpellIngredient> ingredients = new ArrayList<>();
-            for (JsonElement e : entry.getValue().getAsJsonArray("ingredients")) {
-                ingredients.add(IngredientTypes.deserialize((CompoundNBT) NBTUtil.jsonToNBT(e)));
-            }
+            for (JsonElement e : entry.getValue().getAsJsonArray("ingredients")) ingredients.add(IngredientTypes.deserialize((CompoundNBT) NBTUtil.jsonToNBT(e)));
             return new Pair<>(entry.getKey(), ingredients.toArray(new ISpellIngredient[0]));
         }).collect(ImmutableMap.toImmutableMap(Pair::getKey, Pair::getValue));
     }

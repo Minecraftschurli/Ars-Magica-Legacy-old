@@ -38,7 +38,7 @@ public class SkillTree extends ForgeRegistryEntry<SkillTree> {
 
     public SkillTree disableRender(String compendiumUnlock) {
         canRender = false;
-        this.unlock = compendiumUnlock;
+        unlock = compendiumUnlock;
         return this;
     }
 

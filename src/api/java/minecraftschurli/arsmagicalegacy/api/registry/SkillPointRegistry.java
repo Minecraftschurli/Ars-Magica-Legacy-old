@@ -22,13 +22,9 @@ public class SkillPointRegistry {
      * @return a {@link Supplier<SkillPoint>} of the {@link SkillPoint} registered for the given tier
      */
     public static Supplier<SkillPoint> registerSkillPoint(int tier, SkillPoint skillPoint) {
-        if (SKILL_POINT_REGISTRY.containsKey(tier)) {
-            ArsMagicaAPI.LOGGER.error("Skillpoint with tier " + tier + " already registered!");
-        } else {
+        if (!SKILL_POINT_REGISTRY.containsKey(tier)) {
             SKILL_POINT_REGISTRY.put(tier, skillPoint);
-            if (!skillPoint.setTier(tier)) {
-                ArsMagicaAPI.LOGGER.error("Tier already set!");
-            }
+            if (!skillPoint.setTier(tier)) ArsMagicaAPI.LOGGER.error("Tier already set!");
         }
         return () -> SKILL_POINT_REGISTRY.get(tier);
     }

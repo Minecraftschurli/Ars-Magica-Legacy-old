@@ -63,7 +63,7 @@ public final class ModTags {
         }
     }
 
-    /*public static final class EntityTypes {
+/*    public static final class EntityTypes {
         public static final Tag<EntityType<?>> MAGES = tag("mages");
 
         private static Tag<EntityType<?>> forgeTag(String name) {

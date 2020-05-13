@@ -1,13 +1,12 @@
 package minecraftschurli.arsmagicalegacy.api.skill;
 
+import java.util.ArrayList;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.util.ITranslatable;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Minecraftschurli

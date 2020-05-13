@@ -30,8 +30,7 @@ public class SpellRegistry {
     private static final Map<RegistryObject<AbstractSpellPart>, Supplier<? extends AbstractSpellPart>> parts = new LinkedHashMap<>();
 
     static void onSpellPartRegister(RegistryEvent.Register<AbstractSpellPart> event) {
-        if (event.getGenericType() != AbstractSpellPart.class)
-            return;
+        if (event.getGenericType() != AbstractSpellPart.class) return;
         IForgeRegistry<AbstractSpellPart> reg = event.getRegistry();
         for (Map.Entry<RegistryObject<AbstractSpellPart>, Supplier<? extends AbstractSpellPart>> e : parts.entrySet()) {
             reg.register(e.getValue().get());
@@ -52,9 +51,7 @@ public class SpellRegistry {
      */
     public static <T extends AbstractSpellPart> RegistryObject<T> registerSpellComponent(ResourceLocation id, Supplier<SkillPoint> tier, Supplier<SpellComponent> part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
         RegistryObject<T> ret = RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
-        if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + id);
-        }
+        if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) throw new IllegalArgumentException("Duplicate registration " + id);
         SkillRegistry.registerSkill(id, getComponentIcon(id), tier, tree, posX, posY, parents);
         return ret;
     }
@@ -102,9 +99,7 @@ public class SpellRegistry {
      */
     public static <T extends AbstractSpellPart> RegistryObject<T> registerSpellModifier(ResourceLocation id, Supplier<SkillPoint> tier, Supplier<SpellModifier> part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
         RegistryObject<T> ret = RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
-        if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + id);
-        }
+        if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) throw new IllegalArgumentException("Duplicate registration " + id);
         SkillRegistry.registerSkill(id, getModifierIcon(id), tier, tree, posX, posY, parents);
         return RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
     }
@@ -151,9 +146,7 @@ public class SpellRegistry {
      */
     public static <T extends AbstractSpellPart> RegistryObject<T> registerSpellShape(ResourceLocation id, Supplier<SkillPoint> tier, Supplier<SpellShape> part, Supplier<SkillTree> tree, int posX, int posY, String... parents) {
         RegistryObject<T> ret = RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
-        if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + id);
-        }
+        if (parts.putIfAbsent((RegistryObject<AbstractSpellPart>) ret, () -> part.get().setRegistryName(id)) != null) throw new IllegalArgumentException("Duplicate registration " + id);
         SkillRegistry.registerSkill(id, getShapeIcon(id), tier, tree, posX, posY, parents);
         return RegistryObject.of(id, RegistryHandler.getSpellPartRegistry());
     }
@@ -211,26 +204,25 @@ public class SpellRegistry {
         return RegistryHandler.getSkillRegistry().getValue(part.getRegistryName());
     }
 
-    /*public static AbstractSpellPart getPartByRecipe(List<ItemStack> currentAddedItems) {
-        //TODO @minecraftschurli
-        *//*for (AbstractSpellPart data : SPELL_PART_REGISTRY.getValues()) {
-            if (data != null && data.getRecipe() != null) {
-                List<ItemStack> convRecipe = RecipeUtils.getConvRecipe(data);
-                boolean match = currentAddedItems.size() == convRecipe.size();
-                if (!match) continue;
-                for (int i = 0; i < convRecipe.size(); i++) {
-                    //match &= OreDictionary.itemMatches(convRecipe.get(i), currentAddedItems.get(i), false);
-                    match &= convRecipe.get(i).hasTag() || (!currentAddedItems.get(i).hasTag() && NBTUtils.contains(convRecipe.get(i).getTag(), currentAddedItems.get(i).getTag()));
-                    if (!match) break;
-                }
-                if (!match) ArsMagicaLegacy.LOGGER.debug("Part doesn't match {}", data.getRegistryName().toString());
-                if (!match) continue;
-                ArsMagicaLegacy.LOGGER.debug("Part matches : {}!", data.getRegistryName().toString());
-                return data;
-            }
-        }*//*
-        return null;
-    }*/
+    //TODO @minecraftschurli
+//    public static AbstractSpellPart getPartByRecipe(List<ItemStack> currentAddedItems) {
+//        for (AbstractSpellPart data : SPELL_PART_REGISTRY.getValues()) {
+//            if (data != null && data.getRecipe() != null) {
+//                List<ItemStack> convRecipe = RecipeUtils.getConvRecipe(data);
+//                boolean match = currentAddedItems.size() == convRecipe.size();
+//                if (!match) continue;
+//                for (int i = 0; i < convRecipe.size(); i++) {
+//                    match &= convRecipe.get(i).hasTag() || (!currentAddedItems.get(i).hasTag() && NBTUtils.contains(convRecipe.get(i).getTag(), currentAddedItems.get(i).getTag()));
+//                    if (!match) break;
+//                }
+//                if (!match) ArsMagicaLegacy.LOGGER.debug("Part doesn't match {}", data.getRegistryName().toString());
+//                if (!match) continue;
+//                ArsMagicaLegacy.LOGGER.debug("Part matches : {}!", data.getRegistryName().toString());
+//                return data;
+//            }
+//        }
+//        return null;
+//    }
 
     /**
      * Gets the {@link SpellShape} for the given registry name

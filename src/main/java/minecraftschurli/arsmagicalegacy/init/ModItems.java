@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
+import java.util.Objects;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrenchItem;
@@ -13,12 +15,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Food;
+import net.minecraft.item.Item;
+import net.minecraft.item.TallBlockItem;
+import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.fml.RegistryObject;
-
-import javax.annotation.Nonnull;
-import java.util.Objects;
 
 /**
  * @author Minecraftschurli
@@ -87,8 +92,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> PLAYER_FOCUS = stackableItem64("player_focus");
     public static final RegistryObject<Item> CREATURE_FOCUS = stackableItem64("creature_focus");
     public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
-    public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
+    public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
     public static final RegistryObject<Item> WATER_ESSENCE = stackableItem64("water_essence");
     public static final RegistryObject<Item> FIRE_ESSENCE = stackableItem64("fire_essence");
     public static final RegistryObject<Item> EARTH_ESSENCE = stackableItem64("earth_essence");
@@ -155,20 +160,21 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MAGIC_WALL = stackableBlockItem64(ModBlocks.MAGIC_WALL);
     public static final RegistryObject<Item> OCCULUS = blockItem(ModBlocks.OCCULUS);
     public static final RegistryObject<Item> MANA_BATTERY = stackableBlockItem64(ModBlocks.MANA_BATTERY);
-    public static final RegistryObject<Item> ESSENCE_REFINER = stackableBlockItem64(ModBlocks.ESSENCE_REFINER);
     public static final RegistryObject<Item> ARMOR_IMBUEMENT_TABLE = stackableBlockItem64(ModBlocks.ARMOR_IMBUEMENT_TABLE);
-    public static final RegistryObject<Item> SLIPSTREAM_GENERATOR = stackableBlockItem64(ModBlocks.SLIPSTREAM_GENERATOR);
     public static final RegistryObject<Item> DRAINING_WELL = stackableBlockItem64(ModBlocks.DRAINING_WELL);
-    public static final RegistryObject<Item> FLICKER_LURE = stackableBlockItem64(ModBlocks.FLICKER_LURE);
+    public static final RegistryObject<Item> ESSENCE_REFINER = stackableBlockItem64(ModBlocks.ESSENCE_REFINER);
     public static final RegistryObject<Item> EVERSTONE = stackableBlockItem64(ModBlocks.EVERSTONE);
+    public static final RegistryObject<Item> FLICKER_LURE = stackableBlockItem64(ModBlocks.FLICKER_LURE);
+    public static final RegistryObject<Item> SLIPSTREAM_GENERATOR = stackableBlockItem64(ModBlocks.SLIPSTREAM_GENERATOR);
     public static final RegistryObject<Item> KEYSTONE_DOOR = ITEMS.register("keystone_door", () -> new TallBlockItem(ModBlocks.KEYSTONE_DOOR.get(), ITEM_64));
     public static final RegistryObject<Item> SPELL_SEALED_DOOR = ITEMS.register("spell_sealed_door", () -> new TallBlockItem(ModBlocks.SPELL_SEALED_DOOR.get(), ITEM_64));
     public static final RegistryObject<Item> KEYSTONE_TRAPDOOR = stackableBlockItem64(ModBlocks.KEYSTONE_TRAPDOOR);
     public static final RegistryObject<Item> KEYSTONE = stackableItem64("keystone");
-    public static final RegistryObject<Item> PURIFIED_VINTEUM = stackableItem64("purified_vinteum");
     public static final RegistryObject<Item> ARCANE_ASH = stackableItem64("arcane_ash");
     public static final RegistryObject<Item> ARCANE_COMPOUND = stackableItem64("arcane_compound");
+    public static final RegistryObject<Item> HELL_COW_HORN = stackableItem64("hell_cow_horn");
     public static final RegistryObject<Item> PIG_FAT = stackableItem64("pig_fat");
+    public static final RegistryObject<Item> PURIFIED_VINTEUM = stackableItem64("purified_vinteum");
     public static final RegistryObject<Item> SPELL_PARCHMENT = stackableItem64("spell_parchment");
     public static final RegistryObject<Item> WOODEN_LEG = stackableItem64("wooden_leg");
     public static final RegistryObject<Item> EVIL_BOOK = stackableItem64("evil_book");
@@ -180,12 +186,11 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> DEFICIT_CRYSTAL = stackableItem64("deficit_crystal");
     public static final RegistryObject<Item> RUNE_BAG = ITEMS.register("rune_bag", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> ESSENCE_BAG = ITEMS.register("essence_bag", () -> new Item(ITEM_1));
-    public static final RegistryObject<Item> HELL_COW_HORN = ITEMS.register("hell_cow_horn", ModItems::item64);
     public static final RegistryObject<Item> JOURNAL = ITEMS.register("journal", () -> new Item(ITEM_1));
+    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalkItem::new);
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
-    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalkItem::new);
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
 
     public static void register() {

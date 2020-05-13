@@ -1,19 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.EtheriumGeneratorManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Minecraftschurli
  * @version 2020-04-23
  */
 public class ObeliskInventory extends ItemStackHandler implements IInventory {
-    public ObeliskInventory(){
+    public ObeliskInventory() {
         super(1);
     }
 
@@ -52,7 +51,6 @@ public class ObeliskInventory extends ItemStackHandler implements IInventory {
 
     @Override
     public void markDirty() {
-
     }
 
     @Override

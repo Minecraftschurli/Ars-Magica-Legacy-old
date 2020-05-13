@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.api.advancements;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
@@ -18,11 +19,13 @@ import net.minecraft.util.ResourceLocation;
 public class MagicLevelTrigger extends AbstractCriterionTrigger<MagicLevelTrigger.Instance> {
     private static final ResourceLocation ID = new ResourceLocation(ArsMagicaAPI.MODID, "magic_level");
 
+    @Nonnull
     @Override
     public ResourceLocation getId() {
         return ID;
     }
 
+    @Nonnull
     @Override
     public Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
         MinMaxBounds.IntBound bound = MinMaxBounds.IntBound.fromJson(json.get("bound"));
@@ -30,7 +33,7 @@ public class MagicLevelTrigger extends AbstractCriterionTrigger<MagicLevelTrigge
     }
 
     public void trigger(ServerPlayerEntity player) {
-        this.func_227070_a_(player.getAdvancements(), (instance) -> instance.test(player));
+        func_227070_a_(player.getAdvancements(), (instance) -> instance.test(player));
     }
 
     public static class Instance extends CriterionInstance {
@@ -45,14 +48,15 @@ public class MagicLevelTrigger extends AbstractCriterionTrigger<MagicLevelTrigge
             return new MagicLevelTrigger.Instance(MinMaxBounds.IntBound.atLeast(level));
         }
 
+        @Nonnull
         public JsonElement serialize() {
             JsonObject jsonobject = new JsonObject();
-            jsonobject.add("bound", this.bound.serialize());
+            jsonobject.add("bound", bound.serialize());
             return jsonobject;
         }
 
         public boolean test(ServerPlayerEntity player) {
-            return this.bound.test(CapabilityHelper.getCurrentLevel(player));
+            return bound.test(CapabilityHelper.getCurrentLevel(player));
         }
     }
 }

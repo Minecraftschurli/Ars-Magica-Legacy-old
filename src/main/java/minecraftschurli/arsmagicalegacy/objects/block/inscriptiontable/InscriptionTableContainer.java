@@ -25,23 +25,16 @@ public class InscriptionTableContainer extends Container {
     private static final int PLAYER_ACTION_BAR_START = 28;
     private static final int PLAYER_ACTION_BAR_END = 37;
     private final PlayerInventory inventoryPlayer;
-    private InscriptionTableTileEntity table;
+    private final InscriptionTableTileEntity table;
 
     public InscriptionTableContainer(int id, PlayerInventory inventory, InscriptionTableTileEntity table) {
         super(ModContainers.INSCRIPTION_TABLE.get(), id);
         this.table = table;
-        this.inventoryPlayer = inventory;
+        inventoryPlayer = inventory;
         addSlot(new InscriptionTableSlot(table, 0, 102, 74));
-        //display player inventory
-        for (int i = 0; i < 3; i++) {
-            for (int k = 0; k < 9; k++) {
-                addSlot(new Slot(inventory, k + i * 9 + 9, 30 + k * 18, 170 + i * 18));
-            }
-        }
-        //display player action bar
-        for (int j1 = 0; j1 < 9; j1++) {
-            addSlot(new Slot(inventory, j1, 30 + j1 * 18, 228));
-        }
+        for (int i = 0; i < 3; i++)
+            for (int k = 0; k < 9; k++) addSlot(new Slot(inventory, k + i * 9 + 9, 30 + k * 18, 170 + i * 18));
+        for (int j1 = 0; j1 < 9; j1++) addSlot(new Slot(inventory, j1, 30 + j1 * 18, 228));
     }
 
     public InscriptionTableContainer(int id, PlayerInventory inventoryplayer, PacketBuffer additionalData) {
@@ -62,39 +55,24 @@ public class InscriptionTableContainer extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (i < PLAYER_INVENTORY_START) {
-                if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, true)) {
+                if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, true))
                     return ItemStack.EMPTY;
-                }
-            } else if (i < PLAYER_ACTION_BAR_START) //from player inventory
-            {
-                if (!mergeSpecialItems(itemstack1, slot)) {
-                    if (!mergeItemStack(itemstack1, PLAYER_ACTION_BAR_START, PLAYER_ACTION_BAR_END, false)) {
+            } else if (i < PLAYER_ACTION_BAR_START) {
+                if (mergeSpecialItems(itemstack1, slot)) {
+                    if (!mergeItemStack(itemstack1, PLAYER_ACTION_BAR_START, PLAYER_ACTION_BAR_END, false))
                         return ItemStack.EMPTY;
-                    }
-                } else {
-                    return ItemStack.EMPTY;
-                }
+                } else return ItemStack.EMPTY;
             } else if (i < PLAYER_ACTION_BAR_END) {
-                if (!mergeSpecialItems(itemstack1, slot)) {
-                    if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_START - 1, false)) {
+                if (mergeSpecialItems(itemstack1, slot)) {
+                    if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_START - 1, false))
                         return ItemStack.EMPTY;
-                    }
-                } else {
-                    return ItemStack.EMPTY;
-                }
-            } else if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, false)) {
+                } else return ItemStack.EMPTY;
+            } else if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, false))
                 return ItemStack.EMPTY;
-            }
-            if (itemstack1.getCount() == 0) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-            if (itemstack1.getCount() != itemstack.getCount()) {
-                slot.onSlotChange(itemstack1, itemstack);
-            } else {
-                return ItemStack.EMPTY;
-            }
+            if (itemstack1.getCount() == 0) slot.putStack(ItemStack.EMPTY);
+            else slot.onSlotChanged();
+            if (itemstack1.getCount() != itemstack.getCount()) slot.onSlotChange(itemstack1, itemstack);
+            else return ItemStack.EMPTY;
         }
         return itemstack;
     }
@@ -102,7 +80,7 @@ public class InscriptionTableContainer extends Container {
     private boolean mergeSpecialItems(ItemStack stack, Slot slot) {
         if (stack.getItem() instanceof WritableBookItem) {
             Slot bookSlot = inventorySlots.get(0);
-            if (bookSlot.getHasStack()) return false;
+            if (bookSlot.getHasStack()) return true;
             ItemStack newStack = stack.copy();
             newStack.setCount(1);
             bookSlot.putStack(newStack);
@@ -112,9 +90,9 @@ public class InscriptionTableContainer extends Container {
                 slot.putStack(ItemStack.EMPTY);
                 slot.onSlotChanged();
             }
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public int getCurrentRecipeSize() {
@@ -178,14 +156,11 @@ public class InscriptionTableContainer extends Container {
     }
 
     public boolean slotHasStack(int slot) {
-        return this.inventorySlots.get(slot).getHasStack();
+        return inventorySlots.get(slot).getHasStack();
     }
 
     public boolean slotIsBook(int slot) {
-        return slotHasStack(slot) &&
-                this.inventorySlots.get(slot).getStack().getItem() == Items.WRITTEN_BOOK &&
-                this.inventorySlots.get(slot).getStack().getTag() != null &&
-                !this.inventorySlots.get(slot).getStack().getTag().getBoolean("spellFinalized");
+        return slotHasStack(slot) && inventorySlots.get(slot).getStack().getItem() == Items.WRITTEN_BOOK && inventorySlots.get(slot).getStack().getTag() != null && !inventorySlots.get(slot).getStack().getTag().getBoolean("spellFinalized");
     }
 
     public SpellValidator.ValidationResult validateCurrentDefinition() {
@@ -194,10 +169,9 @@ public class InscriptionTableContainer extends Container {
 
     public boolean modifierCanBeAdded(SpellModifier modifier) {
         EnumSet<SpellModifiers> modifiers = modifier.getAspectsModified();
-        for (SpellModifiers mod : modifiers) {
+        for (SpellModifiers mod : modifiers)
             if (table.getModifierCount(mod) > 2)
                 return false;
-        }
         return true;
     }
 
@@ -206,11 +180,9 @@ public class InscriptionTableContainer extends Container {
     }
 
     public void resetSpellNameAndIcon() {
-        ItemStack stack = this.inventorySlots.get(0).getStack();
-        if (!stack.isEmpty()) {
-            table.resetSpellNameAndIcon(stack, inventoryPlayer.player);
-        }
-        this.inventorySlots.get(0).onSlotChanged();
+        ItemStack stack = inventorySlots.get(0).getStack();
+        if (!stack.isEmpty()) table.resetSpellNameAndIcon(stack, inventoryPlayer.player);
+        inventorySlots.get(0).onSlotChanged();
         detectAndSendChanges();
     }
 }

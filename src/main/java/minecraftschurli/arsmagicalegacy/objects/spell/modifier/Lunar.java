@@ -31,7 +31,8 @@ public final class Lunar extends SpellModifier {
                 return modifyValueOnTime(world, 2);
             case RADIUS:
             case RANGE:
-                if (world.getGameTime() % 24000 > 12500 && world.getGameTime() % 24000 < 23500) return 3 + ((8 - world.getMoonPhase()) / 2f);
+                if (world.getGameTime() % 24000 > 12500 && world.getGameTime() % 24000 < 23500)
+                    return 3 + ((8 - world.getMoonPhase()) / 2f);
                 return 2;
         }
         return 1;

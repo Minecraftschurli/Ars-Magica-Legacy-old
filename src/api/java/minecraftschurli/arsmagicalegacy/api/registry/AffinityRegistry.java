@@ -44,10 +44,7 @@ public class AffinityRegistry {
      * @return a registry object for the registered {@link Affinity}
      */
     public static RegistryObject<Affinity> registerAffinity(ResourceLocation key, int color, ResourceLocation directOpposite, Set<ResourceLocation> majorOpposites, Set<ResourceLocation> minorOpposites) {
-        return registerAffinity(key, () -> new Affinity(color)
-                .setDirectOpposite(directOpposite)
-                .addMajorOpposite(majorOpposites)
-                .addMinorOpposite(minorOpposites));
+        return registerAffinity(key, () -> new Affinity(color).setDirectOpposite(directOpposite).addMajorOpposite(majorOpposites).addMinorOpposite(minorOpposites));
     }
 
     /**
@@ -60,9 +57,7 @@ public class AffinityRegistry {
     public static RegistryObject<Affinity> registerAffinity(ResourceLocation key, Supplier<? extends Affinity> affinity) {
         Objects.requireNonNull(key);
         RegistryObject<Affinity> ret = RegistryObject.of(key, RegistryHandler.getAffinityRegistry());
-        if (entries.putIfAbsent(ret, () -> affinity.get().setRegistryName(key)) != null) {
-            throw new IllegalArgumentException("Duplicate registration " + key.toString());
-        }
+        if (entries.putIfAbsent(ret, () -> affinity.get().setRegistryName(key)) != null) throw new IllegalArgumentException("Duplicate registration " + key.toString());
         return ret;
     }
 

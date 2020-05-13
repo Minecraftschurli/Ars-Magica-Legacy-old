@@ -1,5 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
@@ -25,12 +30,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
@@ -40,51 +39,6 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     public SpellBookItem() {
         //noinspection Convert2MethodRef
         super(new Item.Properties().maxStackSize(1).setISTER(() -> () -> new SpellBookISTER()));
-    }
-
-    @Nonnull
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, PlayerEntity player, @Nonnull Hand hand) {
-        final ItemStack stack = player.getHeldItem(hand);
-        if (CapabilityHelper.getCurrentLevel(player) <= 0 && !player.isCreative())
-            return ActionResult.resultPass(stack);
-        if (player.func_226563_dT_()) {
-            if (!world.isRemote && player instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-                    @Override
-                    public Container createMenu(int id, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
-                        return new SpellBookContainer(id, playerInventory, new SpellBookInventory(getInventory(stack)));
-                    }
-
-                    @Nonnull
-                    @Override
-                    public ITextComponent getDisplayName() {
-                        return stack.getDisplayName();
-                    }
-                });
-            }
-            return new ActionResult<>(ActionResultType.SUCCESS, stack);
-        } else {
-            return getActiveScroll(stack)
-                    .map(spellItem -> spellItem.onItemRightClick(world, player, hand))
-                    .orElse(new ActionResult<>(ActionResultType.FAIL, stack));
-        }
-    }
-
-    @Nonnull
-    @Override
-    public UseAction getUseAction(@Nonnull ItemStack itemstack) {
-        if (getUseDuration(itemstack) == 0) {
-            return UseAction.NONE;
-        }
-        return UseAction.BLOCK;
-    }
-
-    @Override
-    public int getUseDuration(@Nonnull ItemStack stack) {
-        return getActiveScroll(stack)
-                .map(spellItem -> spellItem.getUseDuration(stack))
-                .orElse(0);
     }
 
     public static List<ItemStack> getActiveInventory(ItemStack itemStack) {
@@ -164,6 +118,51 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
     public static ITextComponent getActiveSpellName(ItemStack bookStack) {
         ItemStack stack = getActiveItemStack(bookStack);
         return stack.getDisplayName();
+    }
+
+    @Nonnull
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, PlayerEntity player, @Nonnull Hand hand) {
+        final ItemStack stack = player.getHeldItem(hand);
+        if (CapabilityHelper.getCurrentLevel(player) <= 0 && !player.isCreative())
+            return ActionResult.resultPass(stack);
+        if (player.func_226563_dT_()) {
+            if (!world.isRemote && player instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+                    @Override
+                    public Container createMenu(int id, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
+                        return new SpellBookContainer(id, playerInventory, new SpellBookInventory(getInventory(stack)));
+                    }
+
+                    @Nonnull
+                    @Override
+                    public ITextComponent getDisplayName() {
+                        return stack.getDisplayName();
+                    }
+                });
+            }
+            return new ActionResult<>(ActionResultType.SUCCESS, stack);
+        } else {
+            return getActiveScroll(stack)
+                    .map(spellItem -> spellItem.onItemRightClick(world, player, hand))
+                    .orElse(new ActionResult<>(ActionResultType.FAIL, stack));
+        }
+    }
+
+    @Nonnull
+    @Override
+    public UseAction getUseAction(@Nonnull ItemStack itemstack) {
+        if (getUseDuration(itemstack) == 0) {
+            return UseAction.NONE;
+        }
+        return UseAction.BLOCK;
+    }
+
+    @Override
+    public int getUseDuration(@Nonnull ItemStack stack) {
+        return getActiveScroll(stack)
+                .map(spellItem -> spellItem.getUseDuration(stack))
+                .orElse(0);
     }
 
     @Override

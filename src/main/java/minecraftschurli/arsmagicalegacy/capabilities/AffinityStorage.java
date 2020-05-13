@@ -11,45 +11,44 @@ import net.minecraft.util.ResourceLocation;
  * @version 2020-02-13
  */
 public class AffinityStorage implements IAffinityStorage {
-    private Map<ResourceLocation, Double> store;
+    private final Map<ResourceLocation, Double> store;
     private boolean locked;
 
     public AffinityStorage() {
-        this.store = new HashMap<>();
-        this.locked = false;
+        store = new HashMap<>();
+        locked = false;
     }
 
     @Override
     public double getAffinityDepth(ResourceLocation affinity) {
-        return this.store.containsKey(affinity) ? this.store.get(affinity) : 0;
+        return store.containsKey(affinity) ? store.get(affinity) : 0;
     }
 
     @Override
     public void setAffinityDepth(ResourceLocation affinity, double depth) {
-        this.store.put(affinity, depth);
+        store.put(affinity, depth);
     }
 
     @Override
     public Map<ResourceLocation, Double> getAffinitiesInternal() {
-        return ImmutableMap.copyOf(this.store);
+        return ImmutableMap.copyOf(store);
     }
 
     @Override
     public boolean isLocked() {
-        return this.locked;
+        return locked;
     }
 
     @Override
     public void setLocked(boolean b) {
-        this.locked = b;
+        locked = b;
     }
 
     @Override
     public void setFrom(IAffinityStorage other) {
-        this.store.clear();
-        for (Map.Entry<ResourceLocation, Double> entry : other.getAffinitiesInternal().entrySet()) {
-            this.store.put(entry.getKey(), entry.getValue());
-        }
-        this.setLocked(other.isLocked());
+        store.clear();
+        for (Map.Entry<ResourceLocation, Double> entry : other.getAffinitiesInternal().entrySet())
+            store.put(entry.getKey(), entry.getValue());
+        setLocked(other.isLocked());
     }
 }

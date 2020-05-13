@@ -19,9 +19,7 @@ public class SwiftSwimEffect extends AMEffect {
 
     @Override
     public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier) {
-        if (modifier.getID() == swim_speed) {
-            return modifier.getAmount() + 0.03 * amplifier;
-        }
+        if (modifier.getID() == swim_speed) return modifier.getAmount() + 0.03 * amplifier;
         return super.getAttributeModifierAmount(amplifier, modifier);
     }
 }

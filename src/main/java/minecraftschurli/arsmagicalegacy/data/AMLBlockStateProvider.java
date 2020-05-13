@@ -33,8 +33,8 @@ public final class AMLBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         airBlock(ModBlocks.ALTAR_VIEW);
-//        doorBlock(ModBlocks.KEYSTONE_DOOR, "keystone");
-//        doorBlock(ModBlocks.SPELL_SEALED_DOOR, "spell_sealed");
+        doorBlock(ModBlocks.KEYSTONE_DOOR, "keystone_door");
+        doorBlock(ModBlocks.SPELL_SEALED_DOOR, "keystone_door");
         doorBlock(ModBlocks.WITCHWOOD_DOOR, "witchwood");
         flowerBlock(ModBlocks.AUM);
         flowerBlock(ModBlocks.CERUBLOSSOM);

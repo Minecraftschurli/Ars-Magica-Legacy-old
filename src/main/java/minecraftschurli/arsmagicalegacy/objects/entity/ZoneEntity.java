@@ -165,12 +165,12 @@ public final class ZoneEntity extends Entity {
         }
     }
 
-    public void setGravity(float gravity) {
-        dataManager.set(GRAVITY, gravity);
-    }
-
     public void setOwner(LivingEntity owner) {
         dataManager.set(OWNER, owner.getEntityId());
+    }
+
+    public void setGravity(float gravity) {
+        dataManager.set(GRAVITY, gravity);
     }
 
     public void setRadius(float radius) {

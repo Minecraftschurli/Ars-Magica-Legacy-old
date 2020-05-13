@@ -9,7 +9,6 @@ import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
  * @version 2020-05-02
  */
 public class CelestialPrismTileEntity extends EtheriumGeneratorTileEntity {
-
     private int time;
 
     public CelestialPrismTileEntity() {
@@ -18,13 +17,10 @@ public class CelestialPrismTileEntity extends EtheriumGeneratorTileEntity {
 
     @Override
     public void tick() {
-        if (world != null && world.canBlockSeeSky(getPos()) && world.isDaytime()) {
-            if (time > 0) {
-                time--;
-            } else {
-                time = 6 / (getTier()+1);
-                addEtherium(1);
-            }
+        if (world != null && world.canBlockSeeSky(getPos()) && world.isDaytime()) if (time > 0) time--;
+        else {
+            time = 6 / (getTier() + 1);
+            addEtherium(1);
         }
     }
 }

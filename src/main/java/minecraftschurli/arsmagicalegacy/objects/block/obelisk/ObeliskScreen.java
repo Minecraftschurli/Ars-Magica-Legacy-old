@@ -29,7 +29,6 @@ public class ObeliskScreen extends ContainerScreen<ObeliskContainer> {
         int i = (width - xSize) / 2;
         int j = (height - ySize) / 2;
         blit(i, j, 0, 0, xSize, ySize);
-
         int overlayHeight = this.container.getCookProgressScaled(14);
         if (overlayHeight > 0)
             this.blit(i + 79, j + 30 + 14 - overlayHeight, 176, 14 - overlayHeight, 14, overlayHeight + 2);

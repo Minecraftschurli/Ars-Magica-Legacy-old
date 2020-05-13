@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.armor;
 
 import java.util.function.Supplier;
+import javax.annotation.Nonnull;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
@@ -41,15 +42,18 @@ public class ArmorMaterial implements IArmorMaterial {
         return this.enchantability;
     }
 
+    @Nonnull
     public SoundEvent getSoundEvent() {
         return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
     }
 
+    @Nonnull
     @Override
     public Ingredient getRepairMaterial() {
         return this.repair.getValue();
     }
 
+    @Nonnull
     @OnlyIn(Dist.CLIENT)
     public String getName() {
         return this.name;

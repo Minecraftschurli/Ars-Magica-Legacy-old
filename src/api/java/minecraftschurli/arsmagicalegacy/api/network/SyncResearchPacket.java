@@ -16,7 +16,6 @@ import net.minecraftforge.fml.network.NetworkEvent;
  * @version 2019-11-28
  */
 public class SyncResearchPacket implements IPacket {
-
     private final Map<Integer, Integer> points;
     private final List<ResourceLocation> skills;
 

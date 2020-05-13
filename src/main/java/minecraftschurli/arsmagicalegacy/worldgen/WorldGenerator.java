@@ -11,7 +11,11 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
+import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -27,21 +31,14 @@ public class WorldGenerator {
     public static void setupModFeatures() {
         ForgeRegistries.BIOMES.getValues()
                 .forEach(biome -> {
-                    if (BiomeFilter.NETHER.apply(biome)) {
+                    if (BiomeFilter.NETHER.apply(biome))
                         biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModFeatures.SUNSTONE_ORE.get().withConfiguration(new OreFeatureConfig(SimpleOreLib.fillerForBiome(biome), ModBlocks.SUNSTONE_ORE.get().getDefaultState(), 1)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(1, 0, 0, 25))));
-                    }
                     if (BiomeFilter.OVERWORLD.apply(biome)) {
                         biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModFeatures.MOONSTONE_METEOR.get().withConfiguration(NoFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.COUNT_HEIGHTMAP.configure(new FrequencyConfig(1))));
-                        if (BiomeFilter.SANDY.apply(biome)) {
+                        if (BiomeFilter.SANDY.apply(biome))
                             biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.DESERT_NOVA.lazyMap(Block::getDefaultState).get()), new SimpleBlockPlacer()).tries(4).build()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(2))));
-                        } else {
-                            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(new BlockClusterFeatureConfig.Builder(
-                                    new WeightedBlockStateProvider()
-                                            .addWeightedBlockstate(ModBlocks.AUM.lazyMap(Block::getDefaultState).get(), 1)
-                                            .addWeightedBlockstate(ModBlocks.CERUBLOSSOM.lazyMap(Block::getDefaultState).get(), 1)
-                                            .addWeightedBlockstate(ModBlocks.TARMA_ROOT.lazyMap(Block::getDefaultState).get(), 1)
-                                            .addWeightedBlockstate(ModBlocks.WAKEBLOOM.lazyMap(Block::getDefaultState).get(), 1),
-                                    new SimpleBlockPlacer()).tries(16).build()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(1))));
+                        else {
+                            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(new BlockClusterFeatureConfig.Builder(new WeightedBlockStateProvider().addWeightedBlockstate(ModBlocks.AUM.lazyMap(Block::getDefaultState).get(), 1).addWeightedBlockstate(ModBlocks.CERUBLOSSOM.lazyMap(Block::getDefaultState).get(), 1).addWeightedBlockstate(ModBlocks.TARMA_ROOT.lazyMap(Block::getDefaultState).get(), 1).addWeightedBlockstate(ModBlocks.WAKEBLOOM.lazyMap(Block::getDefaultState).get(), 1), new SimpleBlockPlacer()).tries(16).build()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(1))));
                             biome.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Feature.LAKE.withConfiguration(new BlockStateFeatureConfig(ModFluids.LIQUID_ESSENCE_BLOCK.lazyMap(Block::getDefaultState).get())).withPlacement(Placement.WATER_LAKE.configure(new ChanceConfig(200))));
                         }
                     }

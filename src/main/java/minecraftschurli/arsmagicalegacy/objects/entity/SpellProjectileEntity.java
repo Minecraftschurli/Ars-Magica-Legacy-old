@@ -168,6 +168,10 @@ public final class SpellProjectileEntity extends Entity {
         return getDataManager().get(BOUNCES);
     }
 
+    public void setBounces(int bounces) {
+        getDataManager().set(BOUNCES, bounces);
+    }
+
     public int getColor() {
         return getDataManager().get(COLOR);
     }
@@ -176,12 +180,25 @@ public final class SpellProjectileEntity extends Entity {
         return getDataManager().get(CURRENT_PIERCES);
     }
 
+    public void setCurrentPierces(int pierces) {
+        getDataManager().set(CURRENT_PIERCES, pierces);
+    }
+
     public String getIcon() {
         return getDataManager().get(ICON);
     }
 
+    public void setIcon(String icon) {
+        getDataManager().set(ICON, icon);
+    }
+
     public int getPierces() {
         return getDataManager().get(PIERCING) - getCurrentPierces();
+    }
+
+    public void setPierces(int pierces) {
+        getDataManager().set(PIERCING, pierces);
+        setCurrentPierces(0);
     }
 
     public LivingEntity getOwner() {
@@ -193,37 +210,12 @@ public final class SpellProjectileEntity extends Entity {
         }
     }
 
-    public ItemStack getStack() {
-        return getDataManager().get(STACK);
-    }
-
-    public void setBounces(int bounces) {
-        getDataManager().set(BOUNCES, bounces);
-    }
-
-    public void setCurrentPierces(int pierces) {
-        getDataManager().set(CURRENT_PIERCES, pierces);
-    }
-
-    public void setGravity(float gravity) {
-        getDataManager().set(GRAVITY, gravity);
-    }
-
-    public void setHoming(boolean homing) {
-        getDataManager().set(HOMING, homing);
-    }
-
-    public void setIcon(String icon) {
-        getDataManager().set(ICON, icon);
-    }
-
-    public void setPierces(int pierces) {
-        getDataManager().set(PIERCING, pierces);
-        setCurrentPierces(0);
-    }
-
     public void setOwner(LivingEntity owner) {
         getDataManager().set(OWNER, owner.getEntityId());
+    }
+
+    public ItemStack getStack() {
+        return getDataManager().get(STACK);
     }
 
     public void setStack(ItemStack stack) {
@@ -232,6 +224,14 @@ public final class SpellProjectileEntity extends Entity {
         if (mainAff.equals(Affinity.ENDER)) getDataManager().set(COLOR, 0x550055);
         else if (mainAff.equals(Affinity.ICE)) getDataManager().set(COLOR, 0x2299FF);
         else if (mainAff.equals(Affinity.LIFE)) getDataManager().set(COLOR, 0x22FF44);*/
+    }
+
+    public void setGravity(float gravity) {
+        getDataManager().set(GRAVITY, gravity);
+    }
+
+    public void setHoming(boolean homing) {
+        getDataManager().set(HOMING, homing);
     }
 
     public void setTargetNonSolid() {

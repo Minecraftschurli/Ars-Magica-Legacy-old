@@ -7,7 +7,14 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderState;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -22,6 +29,17 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
+    //    public static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
+    protected static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+    }, RenderSystem::disableBlend);
+    protected static final RenderState.AlphaState DEFAULT_ALPHA = new RenderState.AlphaState(0.003921569F);
+    protected static final RenderState.LightmapState LIGHTMAP_ENABLED = new RenderState.LightmapState(true);
+    protected static final RenderState.OverlayState OVERLAY_ENABLED = new RenderState.OverlayState(true);
+    protected static final RenderState.CullState CULL_DISABLED = new RenderState.CullState(false);
+    protected static final RenderState.DiffuseLightingState DIFFUSE_LIGHTING_ENABLED = new RenderState.DiffuseLightingState(true);
+
     public static void addParticle(World world, ParticleType<SimpleParticleData> type, float r, float g, float b, float a, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
         world.addParticle(new SimpleParticleData(type, r, g, b, a), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
@@ -41,7 +59,7 @@ public final class RenderUtil {
     public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
         Vec3d vVector1 = view.subtract(a);
         Vec3d vVector2 = b.subtract(a).normalize();
-        float d = (float)a.distanceTo(b);
+        float d = (float) a.distanceTo(b);
         double t = vVector2.dotProduct(vVector1);
         if (t <= 0)
             return a;
@@ -84,7 +102,6 @@ public final class RenderUtil {
         RenderSystem.depthMask(false);
         RenderSystem.disableTexture();
         RenderSystem.enableTexture();
-//        RenderSystem.blendFunc(RenderSystem.SRC_ALPHA, RenderSystem.ONE_MINUS_SRC_ALPHA);
         Tessellator tessellator = Tessellator.getInstance();
         byte b0 = 0;
         RenderSystem.disableTexture();
@@ -113,12 +130,12 @@ public final class RenderUtil {
     public static void fractalLine2df(float xStart, float yStart, float xEnd, float yEnd, float zLevel, int color, float displace, float fractalDetail) {
         if (displace < fractalDetail) line2d(xStart, yStart, xEnd, yEnd, zLevel, color);
         else {
-            int mid_x = (int) ((xEnd + xStart) / 2);
-            int mid_y = (int) ((yEnd + yStart) / 2);
-            mid_x += (Minecraft.getInstance().player.world.rand.nextFloat() - 0.5) * displace;
-            mid_y += (Minecraft.getInstance().player.world.rand.nextFloat() - 0.5) * displace;
-            fractalLine2df(xStart, yStart, mid_x, mid_y, zLevel, color, displace / 2f, fractalDetail);
-            fractalLine2df(xEnd, yEnd, mid_x, mid_y, zLevel, color, displace / 2f, fractalDetail);
+            int mx = (int) ((xEnd + xStart) / 2);
+            int my = (int) ((yEnd + yStart) / 2);
+            mx += (Minecraft.getInstance().player.world.rand.nextFloat() - 0.5) * displace;
+            my += (Minecraft.getInstance().player.world.rand.nextFloat() - 0.5) * displace;
+            fractalLine2df(xStart, yStart, mx, my, zLevel, color, displace / 2f, fractalDetail);
+            fractalLine2df(xEnd, yEnd, mx, my, zLevel, color, displace / 2f, fractalDetail);
         }
     }
 
@@ -134,12 +151,44 @@ public final class RenderUtil {
         return ((color & 0xFF0000) >> 16) / 255f;
     }
 
+    /*public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState, MatrixStack matrixStack) {
+        try {
+            RenderSystem.pushMatrix();
+            RenderSystem.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
+            Tessellator t = Tessellator.getInstance();
+            BufferBuilder wr = t.getBuffer();
+            wr.begin(7, DefaultVertexFormats.BLOCK);
+            World world = te.getWorld();
+            if (world == null)
+                world = Minecraft.getInstance().world;
+            if (world == null)
+                return;
+            BlockState state;
+            state = world.getBlockState(te.getPos());
+            if (state.getBlock() != defaultState.getBlock()) state = defaultState;
+            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), matrixStack, wr, true, world.rand, world.getSeed(), 0, te.getModelData());
+            t.draw();
+            RenderSystem.popMatrix();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }*/
+
     public static int getColor(float r, float g, float b) {
         int red = (int) (r * 255f) << 16;
         int green = (int) (g * 255f) << 8;
         int blue = (int) (b * 255f);
         return red + green + blue;
     }
+
+    /*public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
+        RenderSystem.pushMatrix();
+        RenderSystem.rotatef((float) rotation.x, 1, 0, 0);
+        RenderSystem.rotatef((float) rotation.y, 1, 1, 0);
+        RenderSystem.rotatef((float) rotation.z, 1, 0, 1);
+//        renderBlockModel(te, model, defaultState);
+        RenderSystem.popMatrix();
+    }*/
 
     public static void gradientline2d(float src_x, float src_y, float dst_x, float dst_y, float zLevel, int color1, int color2) {
         gradientline2d(src_x, src_y, dst_x, dst_y, zLevel, color1, color2, 1f);
@@ -173,29 +222,6 @@ public final class RenderUtil {
         line2d(xStart, yStart, xEnd, yEnd, zLevel, color, 4f);
     }
 
-    /*public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState, MatrixStack matrixStack) {
-        try {
-            RenderSystem.pushMatrix();
-            RenderSystem.translated(-te.getPos().getX(), -te.getPos().getY(), -te.getPos().getZ());
-            Tessellator t = Tessellator.getInstance();
-            BufferBuilder wr = t.getBuffer();
-            wr.begin(7, DefaultVertexFormats.BLOCK);
-            World world = te.getWorld();
-            if (world == null)
-                world = Minecraft.getInstance().world;
-            if (world == null)
-                return;
-            BlockState state;
-            state = world.getBlockState(te.getPos());
-            if (state.getBlock() != defaultState.getBlock()) state = defaultState;
-            Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(world, model, state, te.getPos(), matrixStack, wr, true, world.rand, world.getSeed(), 0, te.getModelData());
-            t.draw();
-            RenderSystem.popMatrix();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-    }*/
-
     public static void renderItemIntoGUI(ItemRenderer renderer, TextureManager textureManager, ItemStack stack, float x, float y, int zLevel) {
         IBakedModel bakedmodel = renderer.getItemModelWithOverrides(stack, null, null);
         RenderSystem.pushMatrix();
@@ -224,15 +250,6 @@ public final class RenderUtil {
         RenderSystem.popMatrix();
     }
 
-    /*public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
-        RenderSystem.pushMatrix();
-        RenderSystem.rotatef((float) rotation.x, 1, 0, 0);
-        RenderSystem.rotatef((float) rotation.y, 1, 1, 0);
-        RenderSystem.rotatef((float) rotation.z, 1, 0, 1);
-//        renderBlockModel(te, model, defaultState);
-        RenderSystem.popMatrix();
-    }*/
-
     public static void drawTexturedModalRectClassic(int dst_x, int dst_y, int src_x, int src_y, int dst_width, int dst_height, int src_width, int src_height, int zLevel) {
         final float uScale = 1f / 0x100;
         final float vScale = 1f / 0x100;
@@ -244,17 +261,6 @@ public final class RenderUtil {
         tessellator.getBuffer().pos(dst_x, dst_y, zLevel).tex((src_x) * uScale, (src_y) * vScale).endVertex();
         tessellator.draw();
     }
-
-//    public static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
-    protected static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-    }, RenderSystem::disableBlend);
-    protected static final RenderState.AlphaState DEFAULT_ALPHA = new RenderState.AlphaState(0.003921569F);
-    protected static final RenderState.LightmapState LIGHTMAP_ENABLED = new RenderState.LightmapState(true);
-    protected static final RenderState.OverlayState OVERLAY_ENABLED = new RenderState.OverlayState(true);
-    protected static final RenderState.CullState CULL_DISABLED = new RenderState.CullState(false);
-    protected static final RenderState.DiffuseLightingState DIFFUSE_LIGHTING_ENABLED = new RenderState.DiffuseLightingState(true);
 
     public static RenderType getPaneRenderType(ResourceLocation texture) {
         RenderType.State rendertype$state = RenderType.State.getBuilder()
@@ -276,25 +282,25 @@ public final class RenderUtil {
         MatrixStack.Entry matrixStackEntry = matrixStack.getLast();
         Matrix4f matrix = matrixStackEntry.getMatrix();
         buffer.pos(matrix, dst_x, dst_y + dst_height, zLevel)
-                .color(1f,1f,1f,1f)
+                .color(1f, 1f, 1f, 1f)
                 .tex((src_x) * uScale, (src_y + src_height) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
                 .endVertex();
         buffer.pos(matrix, dst_x + dst_width, dst_y + dst_height, zLevel)
-                .color(1f,1f,1f,1f)
+                .color(1f, 1f, 1f, 1f)
                 .tex((src_x + src_width) * uScale, (src_y + src_height) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
                 .endVertex();
         buffer.pos(matrix, dst_x + dst_width, dst_y, zLevel)
-                .color(1f,1f,1f,1f)
+                .color(1f, 1f, 1f, 1f)
                 .tex((src_x + src_width) * uScale, (src_y) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)
                 .endVertex();
         buffer.pos(matrix, dst_x, dst_y, zLevel)
-                .color(1f,1f,1f,1f)
+                .color(1f, 1f, 1f, 1f)
                 .tex((src_x) * uScale, (src_y) * vScale)
                 .lightmap(combinedLightIn)
                 .overlay(combinedOverlayIn)

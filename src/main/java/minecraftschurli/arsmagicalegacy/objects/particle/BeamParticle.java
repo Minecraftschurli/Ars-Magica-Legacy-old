@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -19,14 +20,15 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class BeamParticle extends SpriteTexturedParticle {
+    private final float rotate;
     private double dX, dY, dZ, uX, uY, uZ;
-    private float yaw, pitch, prevYaw, prevPitch;
+    private float yaw;
+    private float pitch;
+    private float prevYaw;
     private boolean change;
     private boolean fppc;
     private int maxLengthAge;
-    private BeamType type;
     private float length;
-    private float rotate;
 
     public BeamParticle(World world, double x, double y, double z, double destX, double destY, double destZ, BeamParticleData data, TextureAtlasSprite sprite) {
         super(world, x, y, z);
@@ -43,7 +45,6 @@ public class BeamParticle extends SpriteTexturedParticle {
         setSize(0.2f, 0.2f);
         lengthRotation();
         maxLengthAge = 10;
-        type = BeamType.NORMAL;
         rotate = 30;
         maxAge = 10;
         this.sprite = sprite;
@@ -101,7 +102,7 @@ public class BeamParticle extends SpriteTexturedParticle {
             change = false;
         }
         prevYaw = yaw;
-        prevPitch = pitch;
+        float prevPitch = pitch;
     }
 
     public BeamParticle setFPPC() {
@@ -115,7 +116,6 @@ public class BeamParticle extends SpriteTexturedParticle {
     }
 
     public void setType(BeamType type) {
-        this.type = type;
     }
 
     @Override
@@ -157,6 +157,7 @@ public class BeamParticle extends SpriteTexturedParticle {
         RenderSystem.popMatrix();
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
@@ -181,7 +182,7 @@ public class BeamParticle extends SpriteTexturedParticle {
     }
 
     public static class Factory implements IParticleFactory<BeamParticleData> {
-        private TextureAtlasSprite sprite;
+        private final TextureAtlasSprite sprite;
 
         public Factory(TextureAtlasSprite sprite) {
             this.sprite = sprite;

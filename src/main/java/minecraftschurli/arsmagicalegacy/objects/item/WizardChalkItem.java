@@ -20,13 +20,12 @@ public class WizardChalkItem extends Item {
     @Nonnull
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        if (context.getFace() != Direction.UP || !context.getWorld().getBlockState(context.getPos().up()).isAir(context.getWorld(), context.getPos().up())) return ActionResultType.FAIL;
-        if (!context.getWorld().isRemote){
+        if (context.getFace() != Direction.UP || !context.getWorld().getBlockState(context.getPos().up()).isAir(context.getWorld(), context.getPos().up()))
+            return ActionResultType.FAIL;
+        if (!context.getWorld().isRemote) {
             context.getWorld().setBlockState(context.getPos().up(), ModBlocks.WIZARD_CHALK.get().getDefaultState().with(WizardChalk.TYPE, context.getWorld().rand.nextInt(15)).with(WizardChalk.FACING, context.getPlacementHorizontalFacing()));
-            context.getItem().damageItem(1, context.getPlayer(), (p_220039_0_) -> {
-                p_220039_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-            });
-            if(getDamage(context.getItem()) < 0) context.getPlayer().setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
+            context.getItem().damageItem(1, context.getPlayer(), p_220039_0_ -> p_220039_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+            if (getDamage(context.getItem()) < 0) context.getPlayer().setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
         }
         return ActionResultType.PASS;
     }

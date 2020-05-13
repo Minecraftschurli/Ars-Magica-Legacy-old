@@ -106,7 +106,8 @@ public final class ThrownRockEntity extends Entity {
             setMotion(-Math.cos(angle) * 0.2, -Math.sin(angle) * 0.2, -Math.sin(Math.atan2(getPosY() - target.y, Math.sqrt(x * x + z * z))) * 2.5);
         }
         if (!dataManager.get(MOONSTONE_METEOR) && !isShootingStar()) {
-            if (!world.isRemote && (world.getEntityByID(dataManager.get(OWNER)) == null || !world.getEntityByID(dataManager.get(OWNER)).isAlive())) remove();
+            if (!world.isRemote && (world.getEntityByID(dataManager.get(OWNER)) == null || !world.getEntityByID(dataManager.get(OWNER)).isAlive()))
+                remove();
             else {
                 ticksExisted++;
                 int maxTicksToLive = getMaxTicks() > -1 ? getMaxTicks() : 100;
@@ -234,21 +235,21 @@ public final class ThrownRockEntity extends Entity {
         }
     }
 
-    public boolean isShootingStar() {
-        return dataManager.get(SHOOTING_STAR);
-    }
-
-    public void setMoonstoneMeteor() {
-        dataManager.set(MOONSTONE_METEOR, true);
-    }
-
     public void setOwner(LivingEntity owner) {
         dataManager.set(OWNER, owner.getEntityId());
+    }
+
+    public boolean isShootingStar() {
+        return dataManager.get(SHOOTING_STAR);
     }
 
     public void setShootingStar(float damage) {
         dataManager.set(SHOOTING_STAR, true);
         dataManager.set(DAMAGE, 0f);
+    }
+
+    public void setMoonstoneMeteor() {
+        dataManager.set(MOONSTONE_METEOR, true);
     }
 
     public void setStack(ItemStack stack) {

@@ -24,12 +24,12 @@ public final class DataGenerators {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
         if (event.includeServer()) {
-            gen.addProvider(new AMLRecipeProvider(gen));
-            gen.addProvider(new AMLLootTableProvider(gen));
             gen.addProvider(new AMLBlockTagsProvider(gen));
             gen.addProvider(new AMLItemTagsProvider(gen));
             gen.addProvider(new AMLFluidTagsProvider(gen));
+            gen.addProvider(new AMLLootTableProvider(gen));
             gen.addProvider(new AMLAdvancementProvider(gen));
+            gen.addProvider(new AMLRecipeProvider(gen));
         }
         if (event.includeClient()) {
             gen.addProvider(new AMLEnglishLanguageProvider(gen));

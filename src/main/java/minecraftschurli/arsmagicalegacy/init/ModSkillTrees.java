@@ -16,5 +16,6 @@ public final class ModSkillTrees {
     public static final RegistryObject<SkillTree> AFFINITY = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "affinity", 3);
     public static final RegistryObject<SkillTree> TALENT = SkillTreeRegistry.registerSkillTree(ArsMagicaAPI.MODID, "talent", 4);
 
-    public static void register() {}
+    public static void register() {
+    }
 }

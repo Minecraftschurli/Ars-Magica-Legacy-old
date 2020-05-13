@@ -26,7 +26,7 @@ public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<Abstrac
 	/**
 	 * At which point does this ability disables ?
 	 * 
-	 * @return a depth or any value under 0 or over 1 to ignore this.
+	 * @return a depth or any value under 0 or over 1 to ignore
 	 */
 	public float getMaximumDepth() {
 		return -1F;
@@ -60,7 +60,7 @@ public abstract class AbstractAffinityAbility extends ForgeRegistryEntry<Abstrac
 	}
 	
 	public boolean isEligible(PlayerEntity player) {
-		ResourceLocation aff = this.getAffinity();
+		ResourceLocation aff = getAffinity();
 		if (Objects.equals(aff, Affinity.NONE))
 			return false;
 		double depth = CapabilityHelper.getAffinityDepth(player, aff);

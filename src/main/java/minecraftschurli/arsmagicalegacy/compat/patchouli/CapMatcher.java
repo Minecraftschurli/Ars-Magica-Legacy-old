@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.config.CraftingAltarStructureMaterials;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -7,10 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.util.TriPredicate;
 import vazkii.patchouli.api.IStateMatcher;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -29,7 +28,7 @@ public class CapMatcher implements IStateMatcher {
     @Override
     public BlockState getDisplayedState(int ticks) {
         List<Block> caps = new ArrayList<>(CraftingAltarStructureMaterials.getAllCaps());
-        return caps.get((ticks/20)%caps.size()).getDefaultState();
+        return caps.get((ticks / 20) % caps.size()).getDefaultState();
     }
 
     /**

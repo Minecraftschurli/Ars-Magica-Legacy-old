@@ -19,19 +19,17 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * @author Minecraftschurli
  * @version 2020-02-28
  */
 public abstract class AdvancementProvider implements IDataProvider {
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private final DataGenerator generator;
 
     public AdvancementProvider(DataGenerator generatorIn) {
-        this.generator = generatorIn;
+        generator = generatorIn;
     }
 
     private static Path getPath(Path pathIn, Advancement advancementIn) {
@@ -39,17 +37,16 @@ public abstract class AdvancementProvider implements IDataProvider {
     }
 
     public void act(DirectoryCache cache) {
-        Path path = this.generator.getOutputFolder();
+        Path path = generator.getOutputFolder();
         Set<ResourceLocation> set = new HashSet<>();
         Consumer<Advancement> consumer = (p_204017_3_) -> {
-            if (!set.add(p_204017_3_.getId())) {
-                throw new IllegalStateException("Duplicate advancement " + p_204017_3_.getId());
-            } else {
+            if (!set.add(p_204017_3_.getId())) throw new IllegalStateException("Duplicate advancement " + p_204017_3_.getId());
+            else {
                 Path path1 = getPath(path, p_204017_3_);
                 try {
                     IDataProvider.save(GSON, cache, p_204017_3_.copy().serialize(), path1);
                 } catch (IOException ioexception) {
-                    LOGGER.error("Couldn't save advancement {}", path1, ioexception);
+                    LogManager.getLogger().error("Couldn't save advancement {}", path1, ioexception);
                 }
             }
         };
@@ -76,9 +73,6 @@ public abstract class AdvancementProvider implements IDataProvider {
         return registerAdvancement(parent, new ItemStack(display), name, frame, showToast, announceToChat, hidden);
     }
 
-    /**
-     * Gets a name for this provider, to use in logging.
-     */
     @Nonnull
     public String getName() {
         return "Advancements";

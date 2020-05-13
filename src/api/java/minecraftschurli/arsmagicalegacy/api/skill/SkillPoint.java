@@ -41,7 +41,7 @@ public final class SkillPoint {
     }
 
     public int getTier() {
-        return this.tier;
+        return tier;
     }
 
     public ITextComponent getDisplayName() {
@@ -50,7 +50,7 @@ public final class SkillPoint {
 
     @Override
     public String toString() {
-        return "skillpoint" + tier;
+        return "skillpoint." + tier;
     }
 
     public TextFormatting getChatColor() {
@@ -67,6 +67,6 @@ public final class SkillPoint {
     }
 
     public String getTranslationKey() {
-        return "skillpoint." + getTier();
+        return "skillpoint." + tier;
     }
 }

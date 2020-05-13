@@ -41,9 +41,8 @@ public class RiftStorage implements IRiftStorage {
     @Override
     public void setFrom(IRiftStorage riftStorage) {
         storage.clear();
-        for (int i = 0; i < riftStorage.getSizeInventory(); i++) {
-            this.setInventorySlotContents(i, riftStorage.getStackInSlot(i));
-        }
+        for (int i = 0; i < riftStorage.getSizeInventory(); i++)
+            setInventorySlotContents(i, riftStorage.getStackInSlot(i));
         setAccessLevel(riftStorage.getAccessLevel());
     }
 

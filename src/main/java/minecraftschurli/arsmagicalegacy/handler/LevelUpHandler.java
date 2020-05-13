@@ -19,14 +19,13 @@ public class LevelUpHandler {
     public static void compendiumPickup(final PlayerEvent.ItemPickupEvent event) {
         if (event.getPlayer().isCreative() || event.getPlayer().isSpectator()) return;
         if (CapabilityHelper.getCurrentLevel(event.getPlayer()) > 0) return;
-        if (PatchouliCompat.isCompendium(event.getStack())) {
-            CapabilityHelper.addXP(event.getPlayer(), 0);
-        }
+        if (PatchouliCompat.isCompendium(event.getStack())) CapabilityHelper.addXP(event.getPlayer(), 0);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void spellCast(final SpellCastEvent.Post event) {
-        if (!(event.castResult == SpellCastResult.SUCCESS || event.castResult == SpellCastResult.SUCCESS_REDUCE_MANA)) return;
+        if (!(event.castResult == SpellCastResult.SUCCESS || event.castResult == SpellCastResult.SUCCESS_REDUCE_MANA))
+            return;
         if (!(event.caster instanceof PlayerEntity)) return;
         PlayerEntity player = ((PlayerEntity) event.caster);
         if (player.isCreative() || player.isSpectator()) return;

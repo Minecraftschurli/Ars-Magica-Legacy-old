@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.block;
 
-import java.util.Random;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
@@ -23,6 +22,7 @@ import net.minecraft.world.IBlockReader;
 public class WizardChalk extends Block {
     public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
     public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
+
     public WizardChalk(Properties properties) {
         super(properties);
         setDefaultState(getDefaultState().with(TYPE, 0).with(FACING, Direction.NORTH));

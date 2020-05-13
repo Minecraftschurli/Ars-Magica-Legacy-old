@@ -1,12 +1,18 @@
 package minecraftschurli.arsmagicalegacy.data;
 
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.data.*;
+import net.minecraft.data.CookingRecipeBuilder;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,9 +24,6 @@ import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ForgeRecipeProvider;
 
-import javax.annotation.Nonnull;
-import java.util.function.Consumer;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-12
@@ -28,6 +31,134 @@ import java.util.function.Consumer;
 public final class AMLRecipeProvider extends ForgeRecipeProvider {
     public AMLRecipeProvider(DataGenerator generator) {
         super(generator);
+    }
+
+    public static ShapedRecipeBuilder addLargeCompressRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XXX").patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addLargeCompressRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XXX").patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addSmallCompressRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addSmallCompressRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addLargeDecompressRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapelessRecipeBuilder.shapelessRecipe(item1, 9).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addLargeDecompressRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapelessRecipeBuilder.shapelessRecipe(item1, 9).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addSmallDecompressRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapelessRecipeBuilder.shapelessRecipe(item1, 4).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addSmallDecompressRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapelessRecipeBuilder.shapelessRecipe(item1, 4).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addStairRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 4).patternLine("X  ").patternLine("XX ").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addStairRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 4).patternLine("X  ").patternLine("XX ").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addSlabRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 6).patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addSlabRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 6).patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addDoorRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XX").patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addDoorRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XX").patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addTrapdoorRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 2).patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addTrapdoorRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 2).patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XSX").patternLine("XSX").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XSX").patternLine("XSX").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceGateRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("SXS").patternLine("SXS").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addFenceGateRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("SXS").patternLine("SXS").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addPressurePlateRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapedRecipeBuilder addPressurePlateRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addButtonRecipe(IItemProvider item1, IItemProvider item2) {
+        return ShapelessRecipeBuilder.shapelessRecipe(item1).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
+    }
+
+    public static ShapelessRecipeBuilder addButtonRecipe(IItemProvider item1, Tag<Item> item2) {
+        return ShapelessRecipeBuilder.shapelessRecipe(item1).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp) {
+        return addSmeltingRecipe(output, input, exp, 200);
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, Tag<Item> input, float exp) {
+        return addSmeltingRecipe(output, input, exp, 200);
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp, int time) {
+        return CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(input));
+    }
+
+    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, Tag<Item> input, float exp, int time) {
+        return CookingRecipeBuilder.smeltingRecipe(Ingredient.fromTag(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build()));
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp) {
+        return addBlastingRecipe(output, input, exp, 100);
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp) {
+        return addBlastingRecipe(output, input, exp, 100);
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp, int time) {
+        return CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(input));
+    }
+
+    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp, int time) {
+        return CookingRecipeBuilder.blastingRecipe(Ingredient.fromTag(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build()));
     }
 
     @Override
@@ -249,12 +380,6 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('F', ModItems.STANDARD_FOCUS.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(Items.IRON_SWORD, ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.CHARGE_FOCUS.get())
-                .patternLine("GFG")
-                .key('G', Tags.Items.GLASS)
-                .key('F', ModItems.STANDARD_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GLASS).build(), ItemPredicate.Builder.create().item(ModItems.STANDARD_FOCUS.get()).build()))
-                .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.ITEM_FOCUS.get())
                 .patternLine("C")
                 .patternLine("F")
@@ -263,6 +388,12 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('F', ModItems.STANDARD_FOCUS.get())
                 .key('W', Items.CRAFTING_TABLE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.COBBLESTONE).build(), ItemPredicate.Builder.create().item(ModItems.STANDARD_FOCUS.get()).build(), ItemPredicate.Builder.create().item(Items.CRAFTING_TABLE).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.CHARGE_FOCUS.get())
+                .patternLine("GFG")
+                .key('G', Tags.Items.GLASS)
+                .key('F', ModItems.STANDARD_FOCUS.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GLASS).build(), ItemPredicate.Builder.create().item(ModItems.STANDARD_FOCUS.get()).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.FLICKER_JAR.get())
                 .patternLine("GMG")
@@ -612,16 +743,6 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('A', ModItems.ARCANE_ASH.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_CHIMERITE).build(), ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.ESSENCE_REFINER.get())
-                .patternLine("PDP")
-                .patternLine("OAO")
-                .patternLine("PPP")
-                .key('P', ItemTags.PLANKS)
-                .key('D', Tags.Items.GEMS_DIAMOND)
-                .key('O', Tags.Items.OBSIDIAN)
-                .key('A', ModItems.ARCANE_ASH.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ItemTags.PLANKS).build(), ItemPredicate.Builder.create().tag(Tags.Items.GEMS_DIAMOND).build(), ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build()))
-                .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.ARMOR_IMBUEMENT_TABLE.get())
                 .patternLine("ACA")
                 .patternLine("OEO")
@@ -631,15 +752,6 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('O', Tags.Items.OBSIDIAN)
                 .key('E', Items.ENCHANTING_TABLE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.ALTAR_CORE.get()).build(), ItemPredicate.Builder.create().tag(ItemTags.CARPETS).build(), ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build(), ItemPredicate.Builder.create().item(Items.ENCHANTING_TABLE).build()))
-                .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.SLIPSTREAM_GENERATOR.get())
-                .patternLine("WWW")
-                .patternLine("FAF")
-                .patternLine("WWW")
-                .key('W', ModTags.Items.LOGS_WITCHWOOD)
-                .key('F', Tags.Items.FEATHERS)
-                .key('A', ModItems.AIR_ESSENCE.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.LOGS_WITCHWOOD).build(), ItemPredicate.Builder.create().tag(Tags.Items.FEATHERS).build(), ItemPredicate.Builder.create().item(ModItems.AIR_ESSENCE.get()).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.DRAINING_WELL.get())
                 .patternLine("MPM")
@@ -652,14 +764,15 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('T', ModTags.Items.GEMS_TOPAZ)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.MAGIC_WALL.get()).build(), ItemPredicate.Builder.create().item(ModItems.PURE_ESSENCE_CORE.get()).build(), ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build(), ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.FLICKER_LURE.get())
-                .patternLine("CIV")
-                .patternLine("SSS")
-                .key('C', ModTags.Items.GEMS_CHIMERITE)
-                .key('I', Tags.Items.INGOTS_IRON)
-                .key('V', ModTags.Items.DUSTS_VINTEUM)
-                .key('S', Tags.Items.STONE)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_CHIMERITE).build(), ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_IRON).build(), ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
+        ShapedRecipeBuilder.shapedRecipe(ModItems.ESSENCE_REFINER.get())
+                .patternLine("PDP")
+                .patternLine("OAO")
+                .patternLine("PPP")
+                .key('P', ItemTags.PLANKS)
+                .key('D', Tags.Items.GEMS_DIAMOND)
+                .key('O', Tags.Items.OBSIDIAN)
+                .key('A', ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ItemTags.PLANKS).build(), ItemPredicate.Builder.create().tag(Tags.Items.GEMS_DIAMOND).build(), ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.EVERSTONE.get())
                 .patternLine(" T ")
@@ -669,6 +782,24 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('T', ModTags.Items.GEMS_TOPAZ)
                 .key('S', Tags.Items.STONE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_CHIMERITE).build(), ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build(), ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.FLICKER_LURE.get())
+                .patternLine("CIV")
+                .patternLine("SSS")
+                .key('C', ModTags.Items.GEMS_CHIMERITE)
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('V', ModTags.Items.DUSTS_VINTEUM)
+                .key('S', Tags.Items.STONE)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_CHIMERITE).build(), ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_IRON).build(), ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SLIPSTREAM_GENERATOR.get())
+                .patternLine("WWW")
+                .patternLine("FAF")
+                .patternLine("WWW")
+                .key('W', ModTags.Items.LOGS_WITCHWOOD)
+                .key('F', Tags.Items.FEATHERS)
+                .key('A', ModItems.AIR_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.LOGS_WITCHWOOD).build(), ItemPredicate.Builder.create().tag(Tags.Items.FEATHERS).build(), ItemPredicate.Builder.create().item(ModItems.AIR_ESSENCE.get()).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.KEYSTONE_DOOR.get())
                 .patternLine("PMP")
@@ -698,21 +829,6 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('V', ModTags.Items.DUSTS_VINTEUM)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_GOLD).build(), ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_GOLD).build(), ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build()))
                 .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_PARCHMENT.get())
-                .patternLine("S")
-                .patternLine("P")
-                .patternLine("S")
-                .key('S', Tags.Items.RODS_WOODEN)
-                .key('P', Items.PAPER)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.RODS_WOODEN).build(), ItemPredicate.Builder.create().item(Items.PAPER).build()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURIFIED_VINTEUM.get())
-                .addIngredient(ModTags.Items.DUSTS_VINTEUM)
-                .addIngredient(ModItems.ARCANE_ASH.get())
-                .addIngredient(ModItems.CERUBLOSSOM.get())
-                .addIngredient(ModItems.DESERT_NOVA.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build(), ItemPredicate.Builder.create().item(ModItems.CERUBLOSSOM.get()).build(), ItemPredicate.Builder.create().item(ModItems.DESERT_NOVA.get()).build()))
-                .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.ARCANE_COMPOUND.get())
                 .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
                 .addIngredient(Tags.Items.DUSTS_GLOWSTONE)
@@ -723,6 +839,21 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .addIngredient(Tags.Items.STONE)
                 .addIngredient(Tags.Items.STONE)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.DUSTS_GLOWSTONE).build(), ItemPredicate.Builder.create().tag(Tags.Items.DUSTS_REDSTONE).build(), ItemPredicate.Builder.create().tag(Tags.Items.NETHERRACK).build(), ItemPredicate.Builder.create().tag(Tags.Items.STONE).build()))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURIFIED_VINTEUM.get())
+                .addIngredient(ModTags.Items.DUSTS_VINTEUM)
+                .addIngredient(ModItems.ARCANE_ASH.get())
+                .addIngredient(ModItems.CERUBLOSSOM.get())
+                .addIngredient(ModItems.DESERT_NOVA.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build(), ItemPredicate.Builder.create().item(ModItems.CERUBLOSSOM.get()).build(), ItemPredicate.Builder.create().item(ModItems.DESERT_NOVA.get()).build()))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SPELL_PARCHMENT.get())
+                .patternLine("S")
+                .patternLine("P")
+                .patternLine("S")
+                .key('S', Tags.Items.RODS_WOODEN)
+                .key('P', Items.PAPER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.RODS_WOODEN).build(), ItemPredicate.Builder.create().item(Items.PAPER).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.WOODEN_LEG.get())
                 .patternLine("P")
@@ -747,6 +878,17 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('P', Items.PAPER)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.STRING).build(), ItemPredicate.Builder.create().tag(Tags.Items.LEATHER).build(), ItemPredicate.Builder.create().item(Items.PAPER).build()))
                 .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURE_ESSENCE_CORE.get())
+                .addIngredient(Tags.Items.GEMS_DIAMOND)
+                .addIngredient(Items.ENDER_EYE)
+                .addIngredient(ModItems.ARCANE_ASH.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GEMS_DIAMOND).build(), ItemPredicate.Builder.create().item(Items.ENDER_EYE).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build()))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
+                .addIngredient(Items.WRITABLE_BOOK)
+                .addIngredient(ModItems.ARCANE_ESSENCE.get())
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(Items.WRITABLE_BOOK).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build()))
+                .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.RUNE_BAG.get())
                 .patternLine("LLL")
                 .patternLine("W W")
@@ -764,10 +906,13 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('G', Tags.Items.NUGGETS_GOLD)
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.LEATHER).build(), ItemPredicate.Builder.create().tag(ItemTags.WOOL).build()))
                 .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
-                .addIngredient(Items.WRITABLE_BOOK)
-                .addIngredient(ModItems.ARCANE_ESSENCE.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(Items.WRITABLE_BOOK).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build()))
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.WIZARD_CHALK.get())
+                .addIngredient(ModTags.Items.DUSTS_VINTEUM)
+                .addIngredient(Items.BONE_MEAL)
+                .addIngredient(Items.CLAY_BALL)
+                .addIngredient(Items.FLINT)
+                .addIngredient(Items.PAPER)
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(Items.BONE_MEAL).build(), ItemPredicate.Builder.create().item(Items.CLAY_BALL).build(), ItemPredicate.Builder.create().item(Items.FLINT).build(), ItemPredicate.Builder.create().item(Items.PAPER).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.MAGITECH_GOGGLES.get())
                 .patternLine("LLL")
@@ -797,14 +942,6 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('D', ModItems.DESERT_NOVA.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.INGOTS_IRON).build(), ItemPredicate.Builder.create().item(ModItems.CERUBLOSSOM.get()).build(), ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(ModItems.DESERT_NOVA.get()).build()))
                 .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.WIZARD_CHALK.get())
-                .addIngredient(ModTags.Items.DUSTS_VINTEUM)
-                .addIngredient(Items.BONE_MEAL)
-                .addIngredient(Items.CLAY_BALL)
-                .addIngredient(Items.FLINT)
-                .addIngredient(Items.PAPER)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(Items.BONE_MEAL).build(), ItemPredicate.Builder.create().item(Items.CLAY_BALL).build(), ItemPredicate.Builder.create().item(Items.FLINT).build(), ItemPredicate.Builder.create().item(Items.PAPER).build()))
-                .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.CRYSTAL_PHYLACTERY.get())
                 .patternLine(" M ")
                 .patternLine("GVG")
@@ -814,12 +951,6 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('V', ModItems.PURIFIED_VINTEUM.get())
                 .key('W', ModItems.MAGIC_WALL.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_MOONSTONE).build(), ItemPredicate.Builder.create().tag(Tags.Items.GLASS).build(), ItemPredicate.Builder.create().item(ModItems.PURIFIED_VINTEUM.get()).build(), ItemPredicate.Builder.create().item(ModItems.MAGIC_WALL.get()).build()))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.PURE_ESSENCE_CORE.get())
-                .addIngredient(Tags.Items.GEMS_DIAMOND)
-                .addIngredient(Items.ENDER_EYE)
-                .addIngredient(ModItems.ARCANE_ASH.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.GEMS_DIAMOND).build(), ItemPredicate.Builder.create().item(Items.ENDER_EYE).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ASH.get()).build()))
                 .build(consumer);
         addBlastingRecipe(ModItems.ARCANE_ASH.get(), ModItems.ARCANE_COMPOUND.get(), 0.2f);
         addSmeltingRecipe(ModItems.ARCANE_ASH.get(), ModItems.ARCANE_COMPOUND.get(), 0.2f);
@@ -833,133 +964,5 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
         addSmeltingRecipe(ModItems.MOONSTONE.get(), ModTags.Items.ORES_MOONSTONE, 0.2f);
         addBlastingRecipe(ModItems.SUNSTONE.get(), ModTags.Items.ORES_SUNSTONE, 0.2f);
         addSmeltingRecipe(ModItems.SUNSTONE.get(), ModTags.Items.ORES_SUNSTONE, 0.2f);
-    }
-
-    public static ShapedRecipeBuilder addLargeCompressRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XXX").patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addLargeCompressRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XXX").patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addSmallCompressRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addSmallCompressRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapelessRecipeBuilder addLargeDecompressRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapelessRecipeBuilder.shapelessRecipe(item1, 9).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapelessRecipeBuilder addLargeDecompressRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapelessRecipeBuilder.shapelessRecipe(item1, 9).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapelessRecipeBuilder addSmallDecompressRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapelessRecipeBuilder.shapelessRecipe(item1, 4).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapelessRecipeBuilder addSmallDecompressRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapelessRecipeBuilder.shapelessRecipe(item1, 4).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addStairRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 4).patternLine("X  ").patternLine("XX ").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addStairRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 4).patternLine("X  ").patternLine("XX ").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addSlabRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 6).patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addSlabRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 6).patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addDoorRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XX").patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addDoorRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XX").patternLine("XX").patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addTrapdoorRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 2).patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addTrapdoorRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 2).patternLine("XXX").patternLine("XXX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addFenceRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XSX").patternLine("XSX").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addFenceRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1, 3).patternLine("XSX").patternLine("XSX").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addFenceGateRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("SXS").patternLine("SXS").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addFenceGateRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("SXS").patternLine("SXS").key('X', item2).key('S', Tags.Items.RODS_WOODEN).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addPressurePlateRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapedRecipeBuilder addPressurePlateRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapedRecipeBuilder.shapedRecipe(item1).patternLine("XX").key('X', item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static ShapelessRecipeBuilder addButtonRecipe(IItemProvider item1, IItemProvider item2) {
-        return ShapelessRecipeBuilder.shapelessRecipe(item1).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item2).build()));
-    }
-
-    public static ShapelessRecipeBuilder addButtonRecipe(IItemProvider item1, Tag<Item> item2) {
-        return ShapelessRecipeBuilder.shapelessRecipe(item1).addIngredient(item2).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(item2).build()));
-    }
-
-    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp) {
-        return addSmeltingRecipe(output, input, exp, 200);
-    }
-
-    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, Tag<Item> input, float exp) {
-        return addSmeltingRecipe(output, input, exp, 200);
-    }
-
-    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, IItemProvider input, float exp, int time) {
-        return CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(input));
-    }
-
-    public static CookingRecipeBuilder addSmeltingRecipe(IItemProvider output, Tag<Item> input, float exp, int time) {
-        return CookingRecipeBuilder.smeltingRecipe(Ingredient.fromTag(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build()));
-    }
-
-    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp) {
-        return addBlastingRecipe(output, input, exp, 100);
-    }
-
-    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp) {
-        return addBlastingRecipe(output, input, exp, 100);
-    }
-
-    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, IItemProvider input, float exp, int time) {
-        return CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(input));
-    }
-
-    public static CookingRecipeBuilder addBlastingRecipe(IItemProvider output, Tag<Item> input, float exp, int time) {
-        return CookingRecipeBuilder.blastingRecipe(Ingredient.fromTag(input), output, exp, time).addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(input).build()));
     }
 }

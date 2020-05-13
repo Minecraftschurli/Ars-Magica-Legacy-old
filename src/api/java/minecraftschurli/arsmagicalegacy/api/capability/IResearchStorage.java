@@ -23,7 +23,7 @@ public interface IResearchStorage {
     }
 
     default void add(int tier) {
-        this.add(tier, 1);
+        add(tier, 1);
     }
 
     void add(int tier, int count);
@@ -31,10 +31,8 @@ public interface IResearchStorage {
     void set(int tier, int count);
 
     default void setFrom(IResearchStorage old) {
-        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) {
-            this.set(type.getTier(), old.get(type.getTier()));
-        }
-        this.forgetAll();
+        for (SkillPoint type : SkillPointRegistry.SKILL_POINT_REGISTRY.values().stream().filter(SkillPoint::canRender).collect(Collectors.toList())) set(type.getTier(), old.get(type.getTier()));
+        forgetAll();
         old.getLearnedSkills().forEach(this::learn);
     }
 
@@ -43,11 +41,11 @@ public interface IResearchStorage {
     List<ResourceLocation> getLearned();
 
     default void learn(@Nonnull Skill skill) {
-        this.learn(skill.getRegistryName());
+        learn(skill.getRegistryName());
     }
 
     default void forget(@Nonnull Skill skill) {
-        this.forget(skill.getRegistryName());
+        forget(skill.getRegistryName());
     }
 
     void learn(@Nonnull ResourceLocation location);
@@ -57,7 +55,7 @@ public interface IResearchStorage {
     void forgetAll();
 
     default boolean knows(Skill skill) {
-        return this.knows(skill.getRegistryName());
+        return knows(skill.getRegistryName());
     }
 
     boolean knows(ResourceLocation skill);

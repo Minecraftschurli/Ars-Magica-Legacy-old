@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.entity.renderer;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.objects.entity.BlizzardEntity;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,6 +15,7 @@ public class BlizzardRenderer extends EntityRenderer<BlizzardEntity> {
         super(manager);
     }
 
+    @Nonnull
     @Override
     public ResourceLocation getEntityTexture(BlizzardEntity entity) {
         return null;

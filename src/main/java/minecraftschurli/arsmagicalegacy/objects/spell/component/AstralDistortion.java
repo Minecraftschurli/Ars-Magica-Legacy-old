@@ -1,6 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -15,10 +18,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
-
 public final class AstralDistortion extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction facing, double impactX, double impactY, double impactZ, LivingEntity caster) {
@@ -29,7 +28,7 @@ public final class AstralDistortion extends SpellComponent {
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
             if (!world.isRemote)
-                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ASTRAL_DISTORTION.get(), SpellUtil.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION), SpellUtil.countModifiers(SpellModifiers.BUFF_POWER, stack)));
+                ((LivingEntity) target).addPotionEffect(new EffectInstance(ModEffects.ASTRAL_DISTORTION.get(), SpellUtil.modifyIntMul(600, stack, caster, target, world, SpellModifiers.DURATION), SpellUtil.countModifiers(SpellModifiers.BUFF_POWER, stack)));
             return true;
         }
         return false;
@@ -55,7 +54,7 @@ public final class AstralDistortion extends SpellComponent {
         return EnumSet.of(SpellModifiers.BUFF_POWER, SpellModifiers.DURATION);
     }
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.corruption;
 //    }

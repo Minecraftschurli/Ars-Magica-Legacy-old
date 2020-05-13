@@ -1,5 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,14 +36,11 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * @author Minecraftschurli
@@ -62,6 +63,7 @@ public class InscriptionTableBlock extends Block {
         builder.add(TIER, FACING, HALF);
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         if (state.get(TIER) > 0) return SHAPE;
@@ -98,14 +100,14 @@ public class InscriptionTableBlock extends Block {
         return null;
     }
 
-    /*public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos ceurrentPos, BlockPos facingPos) {
-        boolean doubleblockhalf = stateIn.get(HALF);
-        if (facing.getAxis() == Direction.Axis.Y && (!doubleblockhalf) == (facing == Direction.UP)) {
-            return facingState.getBlock() == this && facingState.get(HALF) != doubleblockhalf ? stateIn.with(FACING, facingState.get(FACING)) : Blocks.AIR.getDefaultState();
-        } else {
-            return !doubleblockhalf && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-        }
-    }*/
+//    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos ceurrentPos, BlockPos facingPos) {
+//        boolean doubleblockhalf = stateIn.get(HALF);
+//        if (facing.getAxis() == Direction.Axis.Y && (!doubleblockhalf) == (facing == Direction.UP)) {
+//            return facingState.getBlock() == this && facingState.get(HALF) != doubleblockhalf ? stateIn.with(FACING, facingState.get(FACING)) : Blocks.AIR.getDefaultState();
+//        } else {
+//            return !doubleblockhalf && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+//        }
+//    }
 
     @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
@@ -144,19 +146,17 @@ public class InscriptionTableBlock extends Block {
         return new InscriptionTableTileEntity();
     }
 
+    @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         super.onBlockActivated(state, worldIn, pos, player, hand, hit);
-        if (worldIn.isRemote) {
-            return ActionResultType.SUCCESS;
-        }
+        if (worldIn.isRemote) return ActionResultType.SUCCESS;
         boolean left = state.get(HALF) == Half.LEFT;
         BlockPos tePos = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos;
         InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
-        if (te == null)
-            return ActionResultType.FAIL;
+        if (te == null) return ActionResultType.FAIL;
         if (te.isInUse(player)) {
-            player.sendMessage(new StringTextComponent("Someone else is using this."));
+            player.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.alreadyInUse"));
             return ActionResultType.FAIL;
         }
         ItemStack curItem = player.getHeldItem(hand);
@@ -170,20 +170,18 @@ public class InscriptionTableBlock extends Block {
                 te.incrementUpgradeState();
                 return ActionResultType.SUCCESS;
             }
-        } else {
-            NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-                @Nonnull
-                @Override
-                public ITextComponent getDisplayName() {
-                    return new StringTextComponent("");
-                }
+        } else NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+            @Nonnull
+            @Override
+            public ITextComponent getDisplayName() {
+                return new StringTextComponent("");
+            }
 
-                @Override
-                public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-                    return new InscriptionTableContainer(p_createMenu_1_, p_createMenu_2_, te);
-                }
-            }, tePos);
-        }
+            @Override
+            public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+                return new InscriptionTableContainer(p_createMenu_1_, p_createMenu_2_, te);
+            }
+        }, tePos);
         return ActionResultType.SUCCESS;
     }
 

@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockRenderType;
@@ -28,6 +29,7 @@ public class CraftingAltarViewBlock extends AirBlock {
         return true;
     }
 
+    @Nonnull
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;

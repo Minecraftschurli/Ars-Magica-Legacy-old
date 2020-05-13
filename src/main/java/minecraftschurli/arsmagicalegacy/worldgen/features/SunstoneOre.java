@@ -23,8 +23,7 @@ public class SunstoneOre extends Feature<OreFeatureConfig> {
 
     @Override
     public boolean place(@Nonnull IWorld worldIn, @Nonnull ChunkGenerator<? extends GenerationSettings> generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull OreFeatureConfig config) {
-        if (rand.nextInt(10) < 8)
-            return false;
+        if (rand.nextInt(10) < 8) return false;
         for (Direction direction : Direction.values()) {
             IFluidState fluidState = worldIn.getFluidState(pos.offset(direction));
             if (fluidState.isSource() && fluidState.getFluid().isEquivalentTo(Fluids.LAVA)) {

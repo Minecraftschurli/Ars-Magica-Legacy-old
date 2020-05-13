@@ -143,16 +143,16 @@ public final class WallEntity extends Entity {
         }
     }
 
+    public void setOwner(LivingEntity owner) {
+        dataManager.set(OWNER, owner.getEntityId());
+    }
+
     public void setDamage(float damage) {
         dataManager.set(DAMAGE, damage);
     }
 
     public void setGravity(float gravity) {
         dataManager.set(GRAVITY, gravity);
-    }
-
-    public void setOwner(LivingEntity owner) {
-        dataManager.set(OWNER, owner.getEntityId());
     }
 
     public void setRadius(float radius) {

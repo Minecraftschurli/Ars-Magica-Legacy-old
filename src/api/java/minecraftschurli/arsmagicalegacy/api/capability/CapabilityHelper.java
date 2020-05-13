@@ -1,5 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.capability;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.advancements.ArsMagicaCriteriaTriggers;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -7,7 +11,12 @@ import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.event.AffinityChangingEvent;
 import minecraftschurli.arsmagicalegacy.api.event.PlayerMagicLevelChangeEvent;
-import minecraftschurli.arsmagicalegacy.api.network.*;
+import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
+import minecraftschurli.arsmagicalegacy.api.network.SyncAffinityPacket;
+import minecraftschurli.arsmagicalegacy.api.network.SyncBurnoutPacket;
+import minecraftschurli.arsmagicalegacy.api.network.SyncMagicPacket;
+import minecraftschurli.arsmagicalegacy.api.network.SyncManaPacket;
+import minecraftschurli.arsmagicalegacy.api.network.SyncResearchPacket;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.Skill;
@@ -27,11 +36,6 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-20
@@ -40,10 +44,8 @@ public class CapabilityHelper {
     private static boolean setup = false;
 
     public static void setup() {
-        if (setup)
-            return;
+        if (setup) return;
         setup = true;
-
         MinecraftForge.EVENT_BUS.addListener(CapabilityHelper::onPlayerLevelUp);
         MinecraftForge.EVENT_BUS.addListener(CapabilityHelper::onPlayerClone);
         MinecraftForge.EVENT_BUS.addListener(CapabilityHelper::onPlayerLogin);
@@ -85,10 +87,7 @@ public class CapabilityHelper {
             MinecraftForge.EVENT_BUS.post(new PlayerMagicLevelChangeEvent(player));
         }
         magic.setXp(xp);
-
-        if (player instanceof ServerPlayerEntity) {
-            syncMagic((ServerPlayerEntity) player);
-        }
+        if (player instanceof ServerPlayerEntity) syncMagic((ServerPlayerEntity) player);
     }
 
     /**
@@ -157,9 +156,7 @@ public class CapabilityHelper {
      */
     public static void increaseBurnout(LivingEntity entity, float amount) {
         getBurnoutCapability(entity).increase(amount);
-        if (entity instanceof ServerPlayerEntity) {
-            syncBurnout((ServerPlayerEntity) entity);
-        }
+        if (entity instanceof ServerPlayerEntity) syncBurnout((ServerPlayerEntity) entity);
     }
 
     /**
@@ -169,9 +166,7 @@ public class CapabilityHelper {
      */
     public static void decreaseBurnout(LivingEntity entity, float amount) {
         getBurnoutCapability(entity).decrease(amount);
-        if (entity instanceof ServerPlayerEntity) {
-            syncBurnout((ServerPlayerEntity) entity);
-        }
+        if (entity instanceof ServerPlayerEntity) syncBurnout((ServerPlayerEntity) entity);
     }
 
     //endregion
@@ -193,7 +188,6 @@ public class CapabilityHelper {
      * @return
      */
     public static float getMaxMana(LivingEntity entity) {
-        //noinspection ConstantConditions
         EffectInstance potionEffect = entity.getActivePotionEffect(ForgeRegistries.POTIONS.getValue(new ResourceLocation(ArsMagicaAPI.MODID, "mana_boost")));
         float maxMana = getManaCapability(entity).getMaxMana();
         if (potionEffect != null)
@@ -217,16 +211,7 @@ public class CapabilityHelper {
      * @return
      */
     public static int getManaRegenLevel(LivingEntity entity) {
-        return getResearchCapability(entity)
-                .getLearnedSkills()
-                .stream()
-                .map(Skill::getRegistryName)
-                .filter(Objects::nonNull)
-                .filter(skill -> skill.getPath().contains("mana_regen"))
-                .map(skill -> skill.getPath().replace("mana_regen", ""))
-                .mapToInt(Integer::parseInt)
-                .max()
-                .orElse(0);
+        return getResearchCapability(entity).getLearnedSkills().stream().map(Skill::getRegistryName).filter(Objects::nonNull).filter(skill -> skill.getPath().contains("mana_regen")).map(skill -> skill.getPath().replace("mana_regen", "")).mapToInt(Integer::parseInt).max().orElse(0);
     }
 
     /**
@@ -266,15 +251,9 @@ public class CapabilityHelper {
      */
     public static void learnSkill(PlayerEntity player, String skillid) {
         Skill skill = RegistryHandler.getSkillRegistry().getValue(new ResourceLocation(skillid));
-        if (skill == null) {
-            return;
-        }
+        if (skill == null) return;
         IResearchStorage research = getResearchCapability(player);
-        if (!player.isCreative()) {
-            if (!research.canLearn(skill) || research.get(skill.getPoint().getTier()) <= 0) {
-                return;
-            }
-        }
+        if (!player.isCreative() && !research.canLearn(skill) || research.get(skill.getPoint().getTier()) <= 0) return;
         research.learn(skill);
         if (!player.isCreative())
             research.use(skill.getPoint().getTier());
@@ -443,24 +422,19 @@ public class CapabilityHelper {
 
     public static void doAffinityShift(LivingEntity caster, SpellComponent component, SpellShape governingShape){
         if (!(caster instanceof PlayerEntity)) return;
-        //IAffinityStorage aff = getAffinityCapability(caster);
         Set<Affinity> affList = component.getAffinity();
         for (Affinity affinity : affList){
-            float shift = component.getAffinityShift(affinity) /* * aff.getDiminishingReturnsFactor()*/ * 5;
-            float xp = 0.05f /* * aff.getDiminishingReturnsFactor()*/;
+            float shift = component.getAffinityShift(affinity) * 5;
+            float xp = 0.05f;
             if (governingShape.isChanneled()){
                 shift /= 4;
                 xp /= 4;
             }
-
             if (knows((PlayerEntity) caster, new ResourceLocation(ArsMagicaAPI.MODID, "affinity_gains"))){
                 shift *= 1.1f;
                 xp *= 0.9f;
             }
-            ItemStack chestArmor = ((PlayerEntity)caster).getItemStackFromSlot(EquipmentSlotType.CHEST);
-            /*if (chestArmor != null && ArmorHelper.isInfusionPreset(chestArmor, GenericImbuement.magicXP))
-                xp *= 1.25f;*/
-
+            ItemStack chestArmor = caster.getItemStackFromSlot(EquipmentSlotType.CHEST);
             if (shift > 0){
                 AffinityChangingEvent event = new AffinityChangingEvent((PlayerEntity)caster, affinity, shift);
                 MinecraftForge.EVENT_BUS.post(event);
@@ -468,45 +442,25 @@ public class CapabilityHelper {
                     incrementAffinity(caster, affinity, event.amount);
             }
             if (xp > 0){
-                //xp *= caster.getAttributeMap().getAttributeInstance(ArsMagicaAPI.xpGainModifier).getAttributeValue();
                 addXP((PlayerEntity) caster, xp);
             }
         }
-        //aff.addDiminishingReturns(governingShape.isChanneled());
     }
 
     public static void incrementAffinity(LivingEntity livingEntity, Affinity affinity, float amt) {
         if (affinity.getRegistryName() == Affinity.NONE) return;
         IAffinityStorage iAffinityStorage = getAffinityCapability(livingEntity);
-
         float adjacentDecrement = amt * ADJACENT_FACTOR;
         float minorOppositeDecrement = amt * MINOR_OPPOSING_FACTOR;
         float majorOppositeDecrement = amt * MAJOR_OPPOSING_FACTOR;
-
         addToAffinity(livingEntity, affinity, amt);
-
-        if (iAffinityStorage.getAffinityDepth(affinity) * MAX_DEPTH == MAX_DEPTH){
-            iAffinityStorage.setLocked(true);
-        }
-
-        for (Affinity adjacent : affinity.getAdjacentAffinities()){
-            subtractFromAffinity(livingEntity, adjacent, adjacentDecrement);
-        }
-
-        for (Affinity minorOpposite : affinity.getMinorOpposingAffinities()){
-            subtractFromAffinity(livingEntity, minorOpposite, minorOppositeDecrement);
-        }
-
-        for (Affinity majorOpposite : affinity.getMajorOpposingAffinities()){
-            subtractFromAffinity(livingEntity, majorOpposite, majorOppositeDecrement);
-        }
-
+        if (iAffinityStorage.getAffinityDepth(affinity) * MAX_DEPTH == MAX_DEPTH) iAffinityStorage.setLocked(true);
+        for (Affinity adjacent : affinity.getAdjacentAffinities()) subtractFromAffinity(livingEntity, adjacent, adjacentDecrement);
+        for (Affinity minorOpposite : affinity.getMinorOpposingAffinities()) subtractFromAffinity(livingEntity, minorOpposite, minorOppositeDecrement);
+        for (Affinity majorOpposite : affinity.getMajorOpposingAffinities()) subtractFromAffinity(livingEntity, majorOpposite, majorOppositeDecrement);
         Affinity directOpposite = affinity.getOpposingAffinity();
-        if (directOpposite != null){
-            subtractFromAffinity(livingEntity, directOpposite, amt);
-        }
-        if (livingEntity instanceof ServerPlayerEntity)
-            syncAffinity((ServerPlayerEntity) livingEntity);
+        if (directOpposite != null) subtractFromAffinity(livingEntity, directOpposite, amt);
+        if (livingEntity instanceof ServerPlayerEntity) syncAffinity((ServerPlayerEntity) livingEntity);
     }
 
     private static void modifyAffinity(LivingEntity livingEntity, Affinity affinity, float amt){
@@ -565,25 +519,17 @@ public class CapabilityHelper {
 
     private static void onPlayerLevelUp(final PlayerMagicLevelChangeEvent event) {
         PlayerEntity player = event.getPlayer();
-
         IManaStorage mana = getManaCapability(player);
         IBurnoutStorage burnout = getBurnoutCapability(player);
         IResearchStorage research = getResearchCapability(player);
-
         SkillPointRegistry.SKILL_POINT_REGISTRY.forEach((tier, point) -> {
-            if (tier < 0)
-                return;
-            if (getCurrentLevel(player) >= point.getMinEarnLevel() && ((getCurrentLevel(player) - point.getMinEarnLevel()) % point.getLevelsForPoint()) == 0) {
-                research.add(tier);
-            }
+            if (tier < 0) return;
+            if (getCurrentLevel(player) >= point.getMinEarnLevel() && ((getCurrentLevel(player) - point.getMinEarnLevel()) % point.getLevelsForPoint()) == 0) research.add(tier);
         });
-
         mana.setMaxMana((float)(Math.pow(getCurrentLevel(player), 1.5f) * (85f * ((float)getCurrentLevel(player) / 100f)) + Config.COMMON.DEFAULT_MAX_MANA.get()));
         burnout.setMaxBurnout(getCurrentLevel(player) * 10 + 1);
-
         mana.setMana(getMaxMana(player));
         burnout.setBurnout(0);
-
         if (player instanceof ServerPlayerEntity) {
             syncResearch((ServerPlayerEntity) player);
             syncMana((ServerPlayerEntity) player);
@@ -728,52 +674,31 @@ public class CapabilityHelper {
     private static void syncMana(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IManaStorage iManaStorage = getManaCapability(player);
-        NetworkHandler.INSTANCE.sendToPlayer(
-                new SyncManaPacket(
-                        iManaStorage.getMana(),
-                        iManaStorage.getMaxMana()
-                ),
-                player
-        );
+        NetworkHandler.INSTANCE.sendToPlayer(new SyncManaPacket(iManaStorage.getMana(), iManaStorage.getMaxMana()), player);
     }
 
     private static void syncBurnout(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IBurnoutStorage iBurnoutStorage = getBurnoutCapability(player);
-        NetworkHandler.INSTANCE.sendToPlayer(
-                new SyncBurnoutPacket(
-                        iBurnoutStorage.getBurnout(),
-                        iBurnoutStorage.getMaxBurnout()
-                ),
-                player
-        );
+        NetworkHandler.INSTANCE.sendToPlayer(new SyncBurnoutPacket(iBurnoutStorage.getBurnout(), iBurnoutStorage.getMaxBurnout()), player);
     }
 
     private static void syncResearch(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IResearchStorage iStorage = getResearchCapability(player);
-        NetworkHandler.INSTANCE.sendToPlayer(
-                new SyncResearchPacket(iStorage),
-                player
-        );
+        NetworkHandler.INSTANCE.sendToPlayer(new SyncResearchPacket(iStorage), player);
     }
 
     private static void syncMagic(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IMagicStorage iStorage = getMagicCapability(player);
-        NetworkHandler.INSTANCE.sendToPlayer(
-                new SyncMagicPacket(iStorage.getCurrentLevel(), iStorage.getXp()),
-                player
-        );
+        NetworkHandler.INSTANCE.sendToPlayer(new SyncMagicPacket(iStorage.getCurrentLevel(), iStorage.getXp()), player);
     }
 
     private static void syncAffinity(ServerPlayerEntity player) {
         Objects.requireNonNull(player);
         IAffinityStorage iAffinityStorage = getAffinityCapability(player);
-        NetworkHandler.INSTANCE.sendToPlayer(
-                new SyncAffinityPacket(iAffinityStorage.getAffinitiesInternal()),
-                player
-        );
+        NetworkHandler.INSTANCE.sendToPlayer(new SyncAffinityPacket(iAffinityStorage.getAffinitiesInternal()), player);
     }
 
     //endregion

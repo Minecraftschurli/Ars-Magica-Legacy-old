@@ -12,12 +12,12 @@ public class MagicStorage implements IMagicStorage {
 
     @Override
     public int getCurrentLevel() {
-        return this.level;
+        return level;
     }
 
     @Override
     public void levelUp() {
-        this.level++;
+        level++;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class MagicStorage implements IMagicStorage {
 
     @Override
     public float getXp() {
-        return this.xp;
+        return xp;
     }
 
     @Override

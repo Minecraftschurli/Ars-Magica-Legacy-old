@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.particle;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.particle.IAnimatedSprite;
@@ -18,7 +19,7 @@ public class SimpleParticle extends SpriteTexturedParticle {
 
     public SimpleParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SimpleParticleData data, IAnimatedSprite sprite) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
-        this.animatedSprite = sprite;
+        animatedSprite = sprite;
         scaleX = scaleY = scaleZ = 0.2f;
         hasGravity = false;
         hasMotion = true;
@@ -116,6 +117,7 @@ public class SimpleParticle extends SpriteTexturedParticle {
         super.tick();
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
@@ -144,13 +146,13 @@ public class SimpleParticle extends SpriteTexturedParticle {
         private final IAnimatedSprite spriteSet;
 
         public Factory(IAnimatedSprite p_i50477_1_) {
-            this.spriteSet = p_i50477_1_;
+            spriteSet = p_i50477_1_;
         }
 
         @Nullable
         @Override
         public Particle makeParticle(SimpleParticleData typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new SimpleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn, this.spriteSet);
+            return new SimpleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, typeIn, spriteSet);
         }
     }
 }

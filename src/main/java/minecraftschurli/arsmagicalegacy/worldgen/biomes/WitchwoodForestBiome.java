@@ -18,20 +18,9 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
  */
 public class WitchwoodForestBiome extends Biome implements ICustomFeatureBiome {
     public WitchwoodForestBiome() {
-        super(new Builder()
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
-                .precipitation(RainType.RAIN)
-                .category(Category.FOREST)
-                .depth(0.1F)
-                .scale(0.2F)
-                .temperature(0.6F)
-                .downfall(0.6F)
-                .waterColor(0x0a2a72)
-                .waterFogColor(0x092971)
-                .parent(null)
-        );
-        this.addStructure(Feature.MINESHAFT.withConfiguration(new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL)));
-        this.addStructure(Feature.STRONGHOLD.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+        super(new Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG).precipitation(RainType.RAIN).category(Category.FOREST).depth(0.1F).scale(0.2F).temperature(0.6F).downfall(0.6F).waterColor(0x0a2a72).waterFogColor(0x092971).parent(null));
+        addStructure(Feature.MINESHAFT.withConfiguration(new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL)));
+        addStructure(Feature.STRONGHOLD.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         DefaultBiomeFeatures.addCarvers(this);
         DefaultBiomeFeatures.addStructures(this);
         DefaultBiomeFeatures.addLakes(this);

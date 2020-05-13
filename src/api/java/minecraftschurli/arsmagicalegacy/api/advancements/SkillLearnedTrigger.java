@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.Objects;
 import java.util.stream.Stream;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
@@ -21,22 +22,23 @@ import net.minecraft.util.ResourceLocation;
 public class SkillLearnedTrigger extends AbstractCriterionTrigger<SkillLearnedTrigger.Instance> {
     private static final ResourceLocation ID = new ResourceLocation(ArsMagicaAPI.MODID, "skill_learned");
 
+    @Nonnull
     @Override
     public ResourceLocation getId() {
         return ID;
     }
 
+    @Nonnull
     @Override
     public Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
         return new Instance(ImmutableList.copyOf(json.get("skills").getAsJsonArray()).stream().map(JsonElement::getAsString).collect(ImmutableList.toImmutableList()), json.get("function").getAsString());
     }
 
     public void trigger(ServerPlayerEntity player) {
-        this.func_227070_a_(player.getAdvancements(), (instance) -> instance.test(player));
+        func_227070_a_(player.getAdvancements(), (instance) -> instance.test(player));
     }
 
     public static class Instance extends CriterionInstance {
-
         private final ImmutableList<String> skills;
         private final String function;
 
@@ -58,29 +60,22 @@ public class SkillLearnedTrigger extends AbstractCriterionTrigger<SkillLearnedTr
             return new Instance(ImmutableList.of(skill), "one");
         }
 
+        @Nonnull
         public JsonElement serialize() {
             JsonObject jsonobject = new JsonObject();
             JsonArray skills = new JsonArray();
-            for (String skill : this.skills) {
-                skills.add(skill);
-            }
+            for (String skill : this.skills) skills.add(skill);
             jsonobject.add("skills", skills);
             jsonobject.addProperty("function", function);
             return jsonobject;
         }
 
         public boolean test(ServerPlayerEntity player) {
-            if (function.equals("one"))
-                return CapabilityHelper.knows(player, ResourceLocation.tryCreate(skills.get(0)));
-            Stream<Boolean> s = skills.stream()
-                    .map(ResourceLocation::tryCreate)
-                    .filter(Objects::nonNull)
-                    .map(rl -> CapabilityHelper.knows(player, rl));
-            if (function.equals("or"))
-                return s.anyMatch(aBoolean -> aBoolean);
-            else if (function.equals("and"))
-                return s.allMatch(aBoolean -> aBoolean);
-            else return false;
+            if (function.equals("one")) return CapabilityHelper.knows(player, ResourceLocation.tryCreate(skills.get(0)));
+            Stream<Boolean> s = skills.stream().map(ResourceLocation::tryCreate).filter(Objects::nonNull).map(rl -> CapabilityHelper.knows(player, rl));
+            if (function.equals("or")) return s.anyMatch(aBoolean -> aBoolean);
+            else if (function.equals("and")) return s.allMatch(aBoolean -> aBoolean);
+            return false;
         }
     }
 }

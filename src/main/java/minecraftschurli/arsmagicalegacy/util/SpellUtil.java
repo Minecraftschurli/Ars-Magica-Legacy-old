@@ -1,6 +1,12 @@
 package minecraftschurli.arsmagicalegacy.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import javafx.util.Pair;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -8,7 +14,12 @@ import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.util.NBTUtil;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
@@ -35,9 +46,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-
-import javax.annotation.Nullable;
-import java.util.*;
 
 public final class SpellUtil {
     public static final String TYPE_SHAPE = "Shape";
@@ -663,7 +671,7 @@ public final class SpellUtil {
                         }
                         if (!foundMatch) {
                             if (!first) string.appendText(", ");
-                            string.appendText(stack.getCount()+"x ").appendSibling(stack.getDisplayName());
+                            string.appendText(stack.getCount() + "x ").appendSibling(stack.getDisplayName());
                             first = false;
                         }
                     }
@@ -751,7 +759,7 @@ public final class SpellUtil {
 
     public static boolean potionSpell(Effect effect, ItemStack stack, World world, LivingEntity caster, Entity target) {
         if (target instanceof LivingEntity) {
-            int duration = SpellUtil.modifyIntMul(ModEffects.DEFAULT_BUFF_DURATION, stack, caster, target, world, SpellModifiers.DURATION);
+            int duration = SpellUtil.modifyIntMul(600, stack, caster, target, world, SpellModifiers.DURATION);
 //            if (RitualShapeHelper.instance.matchesRitual(this, world, target.getPosition())) {
             duration += 3600 * (SpellUtil.countModifiers(SpellModifiers.BUFF_POWER, stack) + 1);
 //                RitualShapeHelper.instance.consumeReagents(this, world, target.getPosition());

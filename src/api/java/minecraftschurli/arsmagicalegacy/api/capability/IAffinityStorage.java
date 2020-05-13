@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public interface IAffinityStorage {
     default double getAffinityDepth(Affinity affinity) {
-        return this.getAffinityDepth(affinity.getRegistryName());
+        return getAffinityDepth(affinity.getRegistryName());
     }
 
     double getAffinityDepth(ResourceLocation affinity);
@@ -25,12 +25,7 @@ public interface IAffinityStorage {
     void setAffinityDepth(ResourceLocation affinity, double depth);
 
     default Map<Affinity, Double> getAffinities() {
-        return this.getAffinitiesInternal()
-                .entrySet()
-                .stream()
-                .map(entry -> new Pair<>(RegistryHandler.getAffinityRegistry().getValue(entry.getKey()), entry.getValue()))
-                .filter(entry -> entry.getKey() != null)
-                .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+        return getAffinitiesInternal().entrySet().stream().map(entry -> new Pair<>(RegistryHandler.getAffinityRegistry().getValue(entry.getKey()), entry.getValue())).filter(entry -> entry.getKey() != null).collect(Collectors.toMap(Pair::getKey, Pair::getValue));
     }
 
     Map<ResourceLocation, Double> getAffinitiesInternal();

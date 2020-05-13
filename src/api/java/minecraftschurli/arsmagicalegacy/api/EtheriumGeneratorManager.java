@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.item.ItemStack;
 
 /**
  * @author Minecraftschurli

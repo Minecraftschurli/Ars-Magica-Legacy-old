@@ -1,16 +1,43 @@
 package minecraftschurli.arsmagicalegacy;
 
 import com.google.common.collect.ImmutableList;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.IMCHandler;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
-import minecraftschurli.arsmagicalegacy.capabilities.*;
+import minecraftschurli.arsmagicalegacy.capabilities.AbilityCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.AffinityCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.BurnoutCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.ContingencyCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.EtheriumCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.MagicCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.ManaCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.ResearchCapability;
+import minecraftschurli.arsmagicalegacy.capabilities.RiftStorageCapability;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
-import minecraftschurli.arsmagicalegacy.handler.*;
-import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.handler.AffinityAbilityHelper;
+import minecraftschurli.arsmagicalegacy.handler.LevelUpHandler;
+import minecraftschurli.arsmagicalegacy.handler.PotionEffectHandler;
+import minecraftschurli.arsmagicalegacy.handler.TickHandler;
+import minecraftschurli.arsmagicalegacy.handler.UIRender;
+import minecraftschurli.arsmagicalegacy.init.IInit;
+import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModBiomes;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModCommands;
+import minecraftschurli.arsmagicalegacy.init.ModContainers;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModFeatures;
+import minecraftschurli.arsmagicalegacy.init.ModFluids;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.init.ModSkillTrees;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
+import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremTER;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarModel;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
@@ -62,8 +89,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

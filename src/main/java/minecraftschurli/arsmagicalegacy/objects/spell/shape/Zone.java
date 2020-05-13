@@ -18,7 +18,7 @@ public final class Zone extends SpellShape {
         if (world.isRemote) return SpellCastResult.SUCCESS;
         ZoneEntity entity = new ZoneEntity(world);
         entity.setPosition(x, y, z);
-        entity.setGravity((float)SpellUtil.modifyDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
+        entity.setGravity((float) SpellUtil.modifyDoubleAdd(0, stack, caster, target, world, SpellModifiers.GRAVITY));
         entity.setRadius(SpellUtil.modifyIntAdd(2, stack, caster, target, world, SpellModifiers.RADIUS));
         entity.setTicks(SpellUtil.modifyIntMul(100, stack, caster, target, world, SpellModifiers.DURATION));
         entity.setOwner(caster);

@@ -3,6 +3,7 @@ package minecraftschurli.arsmagicalegacy.api.advancements;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import java.util.Objects;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -20,11 +21,13 @@ import net.minecraft.util.ResourceLocation;
 public class SilverSkillTrigger extends AbstractCriterionTrigger<SilverSkillTrigger.Instance> {
     private static final ResourceLocation ID = new ResourceLocation(ArsMagicaAPI.MODID, "silver_skill");
 
+    @Nonnull
     @Override
     public ResourceLocation getId() {
         return ID;
     }
 
+    @Nonnull
     @Override
     public Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
         return new Instance();
@@ -44,14 +47,7 @@ public class SilverSkillTrigger extends AbstractCriterionTrigger<SilverSkillTrig
         }
 
         public boolean test(ServerPlayerEntity player) {
-            return CapabilityHelper.getLearned(player).stream()
-                    .map(RegistryHandler.getSkillRegistry()::getValue)
-                    .filter(Objects::nonNull)
-                    .map(Skill::getPoint)
-                    .mapToInt(SkillPoint::getTier)
-                    .filter(i -> (-1) == i)
-                    .findFirst()
-                    .isPresent();
+            return CapabilityHelper.getLearned(player).stream().map(RegistryHandler.getSkillRegistry()::getValue).filter(Objects::nonNull).map(Skill::getPoint).mapToInt(SkillPoint::getTier).filter(i -> (-1) == i).findFirst().isPresent();
         }
     }
 }

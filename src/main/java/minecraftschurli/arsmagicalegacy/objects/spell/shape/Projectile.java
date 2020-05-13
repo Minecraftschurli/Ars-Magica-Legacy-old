@@ -22,7 +22,7 @@ public final class Projectile extends SpellShape {
             if (SpellUtil.hasModifier(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack)) entity.setTargetNonSolid();
             entity.setHoming(SpellUtil.hasModifier(SpellModifiers.HOMING, stack));
             entity.setBounces(SpellUtil.modifyIntAdd(stack, caster, target, world, SpellModifiers.BOUNCE));
-            entity.setGravity((float)SpellUtil.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY));
+            entity.setGravity((float) SpellUtil.modifyDoubleMul(stack, caster, target, world, SpellModifiers.GRAVITY));
             entity.setPierces((SpellUtil.countModifiers(SpellModifiers.PIERCING, stack) * 2) * 2);
             entity.setOwner(caster);
             entity.setStack(stack);

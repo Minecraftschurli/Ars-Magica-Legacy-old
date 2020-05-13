@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.block;
 
 import java.util.function.Predicate;
+import javax.annotation.Nonnull;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,6 +35,7 @@ public class Inlay extends AbstractRailBlock {
         if (block.getDefaultState().canProvidePower() && rails == 3) this.getUpdatedState(world, pos, state, false);
     }
 
+    @Nonnull
     @Override
     public IProperty<RailShape> getShapeProperty() {
         return SHAPE;
@@ -44,6 +46,7 @@ public class Inlay extends AbstractRailBlock {
         return false;
     }
 
+    @Nonnull
     public BlockState rotate(BlockState state, Rotation rot) {
         switch (rot) {
             case CLOCKWISE_180:
@@ -92,6 +95,7 @@ public class Inlay extends AbstractRailBlock {
         }
     }
 
+    @Nonnull
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         RailShape railshape = state.get(SHAPE);
         switch (mirrorIn) {

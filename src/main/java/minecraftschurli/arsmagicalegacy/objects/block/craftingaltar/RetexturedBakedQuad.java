@@ -1,5 +1,7 @@
-package minecraftschurli.arsmagicalegacy.objects.block.model;
+package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
+import java.util.Arrays;
+import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.FaceBakery;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -7,14 +9,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Arrays;
-
-/**
- * Revived from 1.14
- *
- * @author Mojang
- * Thanks tterrag!
- */
 @OnlyIn(Dist.CLIENT)
 public class RetexturedBakedQuad extends BakedQuad {
 
@@ -22,22 +16,8 @@ public class RetexturedBakedQuad extends BakedQuad {
 
     public RetexturedBakedQuad(BakedQuad quad, TextureAtlasSprite textureIn) {
         super(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.getTintIndex(), FaceBakery.getFacingFromVertexData(quad.getVertexData()), quad.func_187508_a(), quad.shouldApplyDiffuseLighting());
-        this.texture = textureIn;
-        this.remapQuad();
-    }
-
-    private void remapQuad() {
-        for (int i = 0; i < 4; ++i) {
-            int j = DefaultVertexFormats.BLOCK.getIntegerSize() * i;
-            int uvIndex = 4;
-            this.vertexData[j + uvIndex] = Float.floatToRawIntBits(this.texture.getInterpolatedU(getUnInterpolatedU(this.sprite, Float.intBitsToFloat(this.vertexData[j + uvIndex]))));
-            this.vertexData[j + uvIndex + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV(getUnInterpolatedV(this.sprite, Float.intBitsToFloat(this.vertexData[j + uvIndex + 1]))));
-        }
-    }
-
-    @Override
-    public TextureAtlasSprite func_187508_a() {
-        return texture;
+        texture = textureIn;
+        remapQuad();
     }
 
     private static float getUnInterpolatedU(TextureAtlasSprite sprite, float u) {
@@ -48,5 +28,20 @@ public class RetexturedBakedQuad extends BakedQuad {
     private static float getUnInterpolatedV(TextureAtlasSprite sprite, float v) {
         float f = sprite.getMaxV() - sprite.getMinV();
         return (v - sprite.getMinV()) / f * 16.0F;
+    }
+
+    private void remapQuad() {
+        for (int i = 0; i < 4; ++i) {
+            int j = DefaultVertexFormats.BLOCK.getIntegerSize() * i;
+            int uvIndex = 4;
+            vertexData[j + uvIndex] = Float.floatToRawIntBits(texture.getInterpolatedU(getUnInterpolatedU(sprite, Float.intBitsToFloat(vertexData[j + uvIndex]))));
+            vertexData[j + uvIndex + 1] = Float.floatToRawIntBits(texture.getInterpolatedV(getUnInterpolatedV(sprite, Float.intBitsToFloat(vertexData[j + uvIndex + 1]))));
+        }
+    }
+
+    @Nonnull
+    @Override
+    public TextureAtlasSprite func_187508_a() {
+        return texture;
     }
 }

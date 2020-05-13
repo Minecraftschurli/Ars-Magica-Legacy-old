@@ -1,5 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.fluid;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModFluids;
 import net.minecraft.block.Blocks;
@@ -17,13 +27,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-12
@@ -36,26 +39,18 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
     @Override
     protected void randomTick(World worldIn, BlockPos pos, IFluidState state, Random random) {
         if (!worldIn.isRemote && state.isSource()) {
-            getLecternInRange(worldIn, pos, 2)
-                    .filter(blockPos -> worldIn.getBlockState(blockPos).get(LecternBlock.HAS_BOOK))
-                    .ifPresent(blockPos -> {
-                        TileEntity te = worldIn.getTileEntity(blockPos);
-                        if (te instanceof LecternTileEntity) {
-                            LecternTileEntity lectern = (LecternTileEntity) te;
-                            if (lectern.getBook().getItem() == net.minecraft.item.Items.WRITABLE_BOOK) {
-                                lectern.clear();
-                                LecternBlock.setHasBook(worldIn, blockPos, worldIn.getBlockState(blockPos), false);
-                                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-                                InventoryHelper.spawnItemStack(
-                                        worldIn,
-                                        blockPos.getX(),
-                                        blockPos.getY() + 1.5,
-                                        blockPos.getZ(),
-                                        PatchouliCompat.getCompendiumStack()
-                                );
-                            }
-                        }
-                    });
+            getLecternInRange(worldIn, pos, 2).filter(blockPos -> worldIn.getBlockState(blockPos).get(LecternBlock.HAS_BOOK)).ifPresent(blockPos -> {
+                TileEntity te = worldIn.getTileEntity(blockPos);
+                if (te instanceof LecternTileEntity) {
+                    LecternTileEntity lectern = (LecternTileEntity) te;
+                    if (lectern.getBook().getItem() == net.minecraft.item.Items.WRITABLE_BOOK) {
+                        lectern.clear();
+                        LecternBlock.setHasBook(worldIn, blockPos, worldIn.getBlockState(blockPos), false);
+                        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+                        InventoryHelper.spawnItemStack(worldIn, blockPos.getX(), blockPos.getY() + 1.5, blockPos.getZ(), PatchouliCompat.getCompendiumStack());
+                    }
+                }
+            });
         }
     }
 
@@ -70,27 +65,18 @@ public abstract class LiquidEssenceFluid extends ForgeFlowingFluid {
     }
 
     private Optional<BlockPos> getLecternInRange(final World worldIn, final BlockPos pos, int YRange) {
-        return IntStream.range(0, YRange)
-                .boxed()
-                .map(y -> {
-                    Set<BlockPos> pos1 = Arrays.stream(Direction8.values())
-                            .map(Direction8::getDirections)
-                            .map((Function<? super Set<Direction>, BlockPos>) directions -> {
-                                AtomicReference<BlockPos> newPos = new AtomicReference<>(pos.offset(Direction.UP, y));
-                                directions.forEach(direction -> newPos.updateAndGet(blockPos -> blockPos.offset(direction)));
-                                return newPos.get();
-                            })
-                            .collect(Collectors.toSet());
-                    if (y > 0) {
-                        pos1.add(pos.offset(Direction.UP, y));
-                    }
-                    return pos1;
-                })
-                .map(Collection::stream)
-                .reduce(Stream::concat)
-                .orElseGet(Stream::empty)
-                .filter(blockPos -> worldIn.getBlockState(blockPos).getBlock() == Blocks.LECTERN)
-                .findFirst();
+        return IntStream.range(0, YRange).boxed().map(y -> {
+            Set<BlockPos> pos1 = Arrays.stream(Direction8.values())
+                    .map(Direction8::getDirections)
+                    .map((Function<? super Set<Direction>, BlockPos>) directions -> {
+                        AtomicReference<BlockPos> newPos = new AtomicReference<>(pos.offset(Direction.UP, y));
+                        directions.forEach(direction -> newPos.updateAndGet(blockPos -> blockPos.offset(direction)));
+                        return newPos.get();
+                    })
+                    .collect(Collectors.toSet());
+            if (y > 0) pos1.add(pos.offset(Direction.UP, y));
+            return pos1;
+        }).map(Collection::stream).reduce(Stream::concat).orElseGet(Stream::empty).filter(blockPos -> worldIn.getBlockState(blockPos).getBlock() == Blocks.LECTERN).findFirst();
     }
 
     public static class Source extends LiquidEssenceFluid {

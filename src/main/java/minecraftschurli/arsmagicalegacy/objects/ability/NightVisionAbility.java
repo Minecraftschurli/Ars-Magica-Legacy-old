@@ -5,39 +5,36 @@ import minecraftschurli.arsmagicalegacy.api.affinity.AbstractToggledAffinityAbil
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 
 public class NightVisionAbility extends AbstractToggledAffinityAbility {
+    @Override
+    protected boolean isEnabled(PlayerEntity player) {
+        return CapabilityHelper.getAbilityState(player, this.getRegistryName());
+    }
 
-	@Override
-	protected boolean isEnabled(PlayerEntity player) {
-		return CapabilityHelper.getAbilityState(player, this.getRegistryName());
-	}
+    @Override
+    public float getMinimumDepth() {
+        return 0.75f;
+    }
 
-	@Override
-	public float getMinimumDepth() {
-		return 0.75f;
-	}
+    @Override
+    public ResourceLocation getAffinity() {
+        return Affinity.ENDER;
+    }
 
-	@Override
-	public ResourceLocation getAffinity() {
-		return Affinity.ENDER;
-	}
+    @Override
+    public void applyTick(PlayerEntity player) {
+        if (!player.world.isRemote && (!player.isPotionActive(Effects.NIGHT_VISION) || player.getActivePotionEffect(Effects.NIGHT_VISION).getDuration() <= 220)) {
+            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 300, 0, true, false));
+        }
+    }
 
-	@Override
-	public void applyTick(PlayerEntity player) {
-		Effect nightVision = Effects.NIGHT_VISION;
-		if (!player.world.isRemote && (!player.isPotionActive(nightVision) || player.getActivePotionEffect(nightVision).getDuration() <= 220)){
-			player.addPotionEffect(new EffectInstance(nightVision, 300, 0, true, false));
-		}
-	}
-
-	@Override
-	public Collection<AbilityListenerType> registerListeners(Collection<AbilityListenerType> types) {
-		types.add(AbilityListenerType.TICK);
-		return types;
-	}
+    @Override
+    public Collection<AbilityListenerType> registerListeners(Collection<AbilityListenerType> types) {
+        types.add(AbilityListenerType.TICK);
+        return types;
+    }
 }

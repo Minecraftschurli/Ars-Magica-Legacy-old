@@ -16,11 +16,8 @@ public class ManaRegenEffect extends AMEffect {
     @Override
     public boolean isReady(int duration, int amplifier) {
         int k = 50 >> amplifier;
-        if (k > 0) {
-            return duration % k == 0;
-        } else {
-            return true;
-        }
+        if (k > 0) return duration % k == 0;
+        return true;
     }
 
     @Override

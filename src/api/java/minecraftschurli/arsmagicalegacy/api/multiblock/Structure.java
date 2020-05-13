@@ -18,7 +18,6 @@ import net.minecraft.world.World;
  */
 @ParametersAreNonnullByDefault
 public class Structure {
-
     private final ImmutableList<ImmutableList<ImmutableList<Supplier<BlockState>>>> layers;
 
     /**
@@ -58,9 +57,7 @@ public class Structure {
                 for (int x = 0; x < blocks.size(); x++) {
                     BlockState state = blocks.get(x).get();
                     BlockPos pos = start.up(y).offset(direction.getOpposite(), z).offset(direction.rotateY(), x);
-                    if (!checkState(state, world, pos, direction)) {
-                        return false;
-                    }
+                    if (!checkState(state, world, pos, direction)) return false;
                 }
             }
         }
@@ -68,15 +65,10 @@ public class Structure {
     }
 
     protected boolean checkState(@Nullable BlockState block, World world, BlockPos pos, Direction direction) {
-        if (block == null)
-            return true;
-        if (block.has(BlockStateProperties.HORIZONTAL_FACING)) {
-            return world.getBlockState(pos).equals(block.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex((block.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex()))));
-        } else if (block.getBlock() instanceof AirBlock) {
-            return world.getBlockState(pos).isAir(world, pos);
-        } else {
-            return block.equals(world.getBlockState(pos));
-        }
+        if (block == null) return true;
+        if (block.has(BlockStateProperties.HORIZONTAL_FACING)) return world.getBlockState(pos).equals(block.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex((block.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex()))));
+        else if (block.getBlock() instanceof AirBlock) return world.getBlockState(pos).isAir(world, pos);
+        return block.equals(world.getBlockState(pos));
     }
 
     /**
@@ -94,11 +86,8 @@ public class Structure {
                 for (int x = 0; x < blocks.size(); x++) {
                     BlockState state = blocks.get(x).get();
                     BlockPos p = pos.up(y).offset(direction.getOpposite(), z).offset(direction.rotateY(), x);
-                    if (state.has(BlockStateProperties.HORIZONTAL_FACING)) {
-                        world.setBlockState(p, state.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex(state.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex())));
-                    } else {
-                        world.setBlockState(p, state);
-                    }
+                    if (state.has(BlockStateProperties.HORIZONTAL_FACING)) world.setBlockState(p, state.with(BlockStateProperties.HORIZONTAL_FACING, Direction.byHorizontalIndex(state.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + direction.getHorizontalIndex())));
+                    else world.setBlockState(p, state);
                 }
             }
         }

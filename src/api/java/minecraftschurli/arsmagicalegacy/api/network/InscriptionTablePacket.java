@@ -1,6 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.network;
 
-import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -37,10 +36,7 @@ public class InscriptionTablePacket implements IPacket {
     public boolean handle(NetworkEvent.Context ctx) {
         ctx.enqueueWork(() -> {
             TileEntity te = ctx.getSender().world.getTileEntity(pos);
-            ArsMagicaAPI.LOGGER.debug("handle update {}", te);
-            if (te != null) {
-                te.read(data);
-            }
+            if (te != null) te.read(data);
         });
         return true;
     }

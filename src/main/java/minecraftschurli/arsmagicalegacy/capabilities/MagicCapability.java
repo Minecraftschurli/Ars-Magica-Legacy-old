@@ -17,25 +17,24 @@ import net.minecraftforge.common.util.LazyOptional;
  * @version 2019-12-02
  */
 public class MagicCapability implements ICapabilitySerializable<INBT> {
-    private LazyOptional<IMagicStorage> instance = LazyOptional.of(CapabilityHelper.getMagicCapability()::getDefaultInstance);
+    private final LazyOptional<IMagicStorage> instance = LazyOptional.of(CapabilityHelper.getMagicCapability()::getDefaultInstance);
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IMagicStorage.class, new Capability.IStorage<IMagicStorage>() {
-                    @Override
-                    public INBT writeNBT(Capability<IMagicStorage> capability, IMagicStorage instance, Direction side) {
-                        CompoundNBT compoundNBT = new CompoundNBT();
-                        compoundNBT.putInt("level", instance.getCurrentLevel());
-                        compoundNBT.putFloat("xp", instance.getXp());
-                        return compoundNBT;
-                    }
+            @Override
+            public INBT writeNBT(Capability<IMagicStorage> capability, IMagicStorage instance, Direction side) {
+                CompoundNBT compoundNBT = new CompoundNBT();
+                compoundNBT.putInt("level", instance.getCurrentLevel());
+                compoundNBT.putFloat("xp", instance.getXp());
+                return compoundNBT;
+            }
 
-                    @Override
-                    public void readNBT(Capability<IMagicStorage> capability, IMagicStorage instance, Direction side, INBT nbt) {
-                        instance.setLevel(((CompoundNBT) nbt).getInt("level"));
-                        instance.setXp(((CompoundNBT) nbt).getInt("xp"));
-                    }
-                },
-                MagicStorage::new);
+            @Override
+            public void readNBT(Capability<IMagicStorage> capability, IMagicStorage instance, Direction side, INBT nbt) {
+                instance.setLevel(((CompoundNBT) nbt).getInt("level"));
+                instance.setXp(((CompoundNBT) nbt).getInt("xp"));
+            }
+        }, MagicStorage::new);
     }
 
     @Nonnull

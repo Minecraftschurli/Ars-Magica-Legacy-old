@@ -21,21 +21,20 @@ public class BurnoutCapability implements ICapabilitySerializable<INBT> {
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IBurnoutStorage.class, new Capability.IStorage<IBurnoutStorage>() {
-                    @Override
-                    public INBT writeNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side) {
-                        CompoundNBT compoundNBT = new CompoundNBT();
-                        compoundNBT.putFloat("maxBurnout", instance.getMaxBurnout());
-                        compoundNBT.putFloat("burnout", instance.getBurnout());
-                        return compoundNBT;
-                    }
+            @Override
+            public INBT writeNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side) {
+                CompoundNBT compoundNBT = new CompoundNBT();
+                compoundNBT.putFloat("maxBurnout", instance.getMaxBurnout());
+                compoundNBT.putFloat("burnout", instance.getBurnout());
+                return compoundNBT;
+            }
 
-                    @Override
-                    public void readNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side, INBT nbt) {
-                        instance.setMaxBurnout(((CompoundNBT) nbt).getFloat("maxBurnout"));
-                        instance.setBurnout(((CompoundNBT) nbt).getFloat("burnout"));
-                    }
-                },
-                BurnoutStorage::new);
+            @Override
+            public void readNBT(Capability<IBurnoutStorage> capability, IBurnoutStorage instance, Direction side, INBT nbt) {
+                instance.setMaxBurnout(((CompoundNBT) nbt).getFloat("maxBurnout"));
+                instance.setBurnout(((CompoundNBT) nbt).getFloat("burnout"));
+            }
+        }, BurnoutStorage::new);
     }
 
     @Nonnull

@@ -19,9 +19,9 @@ public class EtheriumStorage implements IEtheriumStorage {
         this(5000, EtheriumType.NEUTRAL.get());
     }
 
-    public EtheriumStorage(int maxStorage, EtheriumType type) {
-        this.maxStorage = maxStorage;
-        this.amount = 0;
+    public EtheriumStorage(int max, EtheriumType type) {
+        maxStorage = max;
+        amount = 0;
         this.type = type;
     }
 
@@ -38,18 +38,14 @@ public class EtheriumStorage implements IEtheriumStorage {
     @Override
     public synchronized boolean consume(int amount, boolean simulate) {
         boolean ret = amount > getStoredAmount();
-        if (ret && !simulate) {
-            this.amount -= amount;
-        }
+        if (ret && !simulate) this.amount -= amount;
         return ret;
     }
 
     @Override
     public synchronized boolean add(int amount, boolean simulate) {
         boolean ret = getMaxStoredAmount() >= getStoredAmount() + amount;
-        if (ret && !simulate) {
-            this.amount += amount;
-        }
+        if (ret && !simulate) amount += amount;
         return ret;
     }
 

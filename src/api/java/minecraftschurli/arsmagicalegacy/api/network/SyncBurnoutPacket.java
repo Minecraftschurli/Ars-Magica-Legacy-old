@@ -22,8 +22,8 @@ public class SyncBurnoutPacket implements IPacket {
 
     @Override
     public void serialize(PacketBuffer buf) {
-        buf.writeFloat(this.maxBurnout);
-        buf.writeFloat(this.burnout);
+        buf.writeFloat(maxBurnout);
+        buf.writeFloat(burnout);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class SyncBurnoutPacket implements IPacket {
     @Override
     public boolean handle(NetworkEvent.Context ctx) {
         ArsMagicaAPI.getLocalPlayer().getCapability(CapabilityHelper.getBurnoutCapability()).ifPresent(iBurnoutStorage -> {
-            iBurnoutStorage.setMaxBurnout(this.maxBurnout);
-            iBurnoutStorage.setBurnout(this.burnout);
+            iBurnoutStorage.setMaxBurnout(maxBurnout);
+            iBurnoutStorage.setBurnout(burnout);
         });
         return true;
     }

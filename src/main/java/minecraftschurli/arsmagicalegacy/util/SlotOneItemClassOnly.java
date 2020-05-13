@@ -16,13 +16,13 @@ public class SlotOneItemClassOnly<T extends Item> extends Slot {
     public SlotOneItemClassOnly(IInventory inventoryIn, int index, int xPosition, int yPosition, Class<T> itemClass) {
         super(inventoryIn, index, xPosition, yPosition);
         this.itemClass = itemClass;
-        this.maxStackSize = 64;
+        maxStackSize = 64;
     }
 
-    public SlotOneItemClassOnly(IInventory inventoryIn, int index, int xPosition, int yPosition, Class<T> itemClass, int maxStackSize) {
+    public SlotOneItemClassOnly(IInventory inventoryIn, int index, int xPosition, int yPosition, Class<T> itemClass, int stackSize) {
         super(inventoryIn, index, xPosition, yPosition);
         this.itemClass = itemClass;
-        this.maxStackSize = maxStackSize;
+        maxStackSize = stackSize;
     }
 
     @Override

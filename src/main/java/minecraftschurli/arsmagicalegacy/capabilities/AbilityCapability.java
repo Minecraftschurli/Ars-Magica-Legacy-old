@@ -20,33 +20,32 @@ import net.minecraftforge.common.util.LazyOptional;
  * @version 2020-02-13
  */
 public class AbilityCapability implements ICapabilitySerializable<INBT> {
-    private LazyOptional<IAbilityStorage> instance = LazyOptional.of(CapabilityHelper.getAbilityCapability()::getDefaultInstance);
+    private final LazyOptional<IAbilityStorage> instance = LazyOptional.of(CapabilityHelper.getAbilityCapability()::getDefaultInstance);
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IAbilityStorage.class, new Capability.IStorage<IAbilityStorage>() {
-                    @Override
-                    public INBT writeNBT(Capability<IAbilityStorage> capability, IAbilityStorage instance, Direction side) {
-                        CompoundNBT compoundNBT = new CompoundNBT();
-                        ListNBT list = new ListNBT();
-                        for (Map.Entry<String, Integer> entry : instance.getCooldowns().entrySet()) {
-                            CompoundNBT compound = new CompoundNBT();
-                            compound.putString("key", entry.getKey());
-                            compound.putDouble("value", entry.getValue());
-                            list.add(compound);
-                        }
-                        compoundNBT.put("data", list);
-                        return compoundNBT;
-                    }
+            @Override
+            public INBT writeNBT(Capability<IAbilityStorage> capability, IAbilityStorage instance, Direction side) {
+                CompoundNBT compoundNBT = new CompoundNBT();
+                ListNBT list = new ListNBT();
+                for (Map.Entry<String, Integer> entry : instance.getCooldowns().entrySet()) {
+                    CompoundNBT compound = new CompoundNBT();
+                    compound.putString("key", entry.getKey());
+                    compound.putDouble("value", entry.getValue());
+                    list.add(compound);
+                }
+                compoundNBT.put("data", list);
+                return compoundNBT;
+            }
 
-                    @Override
-                    public void readNBT(Capability<IAbilityStorage> capability, IAbilityStorage instance, Direction side, INBT nbt) {
-                        for (INBT entry : ((CompoundNBT) nbt).getList("data", Constants.NBT.TAG_COMPOUND)) {
-                            CompoundNBT compound = (CompoundNBT) entry;
-                            instance.addCooldown(compound.getString("key"), compound.getInt("value"));
-                        }
-                    }
-                },
-                AbilityStorage::new);
+            @Override
+            public void readNBT(Capability<IAbilityStorage> capability, IAbilityStorage instance, Direction side, INBT nbt) {
+                for (INBT entry : ((CompoundNBT) nbt).getList("data", Constants.NBT.TAG_COMPOUND)) {
+                    CompoundNBT compound = (CompoundNBT) entry;
+                    instance.addCooldown(compound.getString("key"), compound.getInt("value"));
+                }
+            }
+        }, AbilityStorage::new);
     }
 
     @Nonnull

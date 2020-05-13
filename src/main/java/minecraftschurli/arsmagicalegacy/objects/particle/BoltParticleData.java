@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
@@ -50,7 +51,6 @@ public class BoltParticleData implements IParticleData {
     public float multiplier;
     public double length;
     public Entity wrapper;
-    //    private final ParticleType<BoltParticleData> type;
     private boolean finalized;
     private int age;
     private int maxAge;
@@ -66,7 +66,6 @@ public class BoltParticleData implements IParticleData {
         this.green = green;
         this.blue = blue;
         this.alpha = MathHelper.clamp(alpha, 0.01F, 4);
-//        type = particleTypeIn;
     }
 
     public BoltParticleData(Vec3d jammervec, Vec3d targetvec, long seed) {
@@ -119,10 +118,12 @@ public class BoltParticleData implements IParticleData {
         buffer.writeFloat(alpha);
     }
 
+    @Nonnull
     public String getParameters() {
         return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", ForgeRegistries.PARTICLE_TYPES.getKey(getType()), red, green, blue, alpha);
     }
 
+    @Nonnull
     public ParticleType<BoltParticleData> getType() {
         return null;//type;
     }
@@ -174,7 +175,7 @@ public class BoltParticleData implements IParticleData {
         Segment prev;
         for (Segment segment : oldsegments) {
             prev = segment.prev;
-            Vec3d subsegment = RenderUtil.copyVec(segment.diff).scale(1 / splits);
+            Vec3d subsegment = RenderUtil.copyVec(segment.diff).scale((float) (1 / splits));
             BoltPoint[] newpoints = new BoltPoint[splits + 1];
             Vec3d startpoint = segment.startpoint.point;
             newpoints[0] = segment.startpoint;
@@ -271,6 +272,18 @@ public class BoltParticleData implements IParticleData {
         TYPE_6
     }
 
+    public static class BoltPoint {
+        Vec3d point;
+        Vec3d basepoint;
+        Vec3d offsetvec;
+
+        public BoltPoint(Vec3d basepoint, Vec3d offsetvec) {
+            point = new Vec3d(basepoint.x, basepoint.y, basepoint.z).add(offsetvec);
+            this.basepoint = basepoint;
+            this.offsetvec = offsetvec;
+        }
+    }
+
     public class SegmentSorter implements Comparator<Segment> {
         final BoltParticleData this$0;
 
@@ -329,7 +342,7 @@ public class BoltParticleData implements IParticleData {
         }
 
         public Segment(Vec3d start, Vec3d end) {
-            this(new BoltParticleData.BoltPoint(start, new Vec3d(0, 0, 0)), new BoltParticleData.BoltPoint(end, new Vec3d(0, 0, 0)), 1, 0, 0);
+            this(new BoltPoint(start, new Vec3d(0, 0, 0)), new BoltPoint(end, new Vec3d(0, 0, 0)), 1, 0, 0);
         }
 
         public void calcDiff() {
@@ -341,7 +354,6 @@ public class BoltParticleData implements IParticleData {
                 Vec3d prevdiffnorm = RenderUtil.copyVec(prev.diff).normalize();
                 Vec3d thisdiffnorm = RenderUtil.copyVec(diff).normalize();
                 prevdiff = thisdiffnorm.add(prevdiffnorm).normalize();
-//                sinprev = (float)Math.sin(Vec3d.anglePreNorm(thisdiffnorm, prevdiffnorm.scale(-1)) / 2);
             } else {
                 prevdiff = RenderUtil.copyVec(diff).normalize();
                 sinprev = 1;
@@ -350,7 +362,6 @@ public class BoltParticleData implements IParticleData {
                 Vec3d nextdiffnorm = RenderUtil.copyVec(next.diff).normalize();
                 Vec3d thisdiffnorm = RenderUtil.copyVec(diff).normalize();
                 nextdiff = thisdiffnorm.add(nextdiffnorm).normalize();
-//                sinnext = (float)Math.sin(Vec3d.anglePreNorm(thisdiffnorm, nextdiffnorm.scale(-1)) / 2);
             } else {
                 nextdiff = RenderUtil.copyVec(diff).normalize();
                 sinnext = 1;
@@ -359,18 +370,6 @@ public class BoltParticleData implements IParticleData {
 
         public String toString() {
             return startpoint.point.toString() + " " + endpoint.point.toString();
-        }
-    }
-
-    public class BoltPoint {
-        Vec3d point;
-        Vec3d basepoint;
-        Vec3d offsetvec;
-
-        public BoltPoint(Vec3d basepoint, Vec3d offsetvec) {
-            point = new Vec3d(basepoint.x, basepoint.y, basepoint.z).add(offsetvec);
-            this.basepoint = basepoint;
-            this.offsetvec = offsetvec;
         }
     }
 }

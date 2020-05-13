@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import java.util.function.Supplier;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
@@ -30,31 +33,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import vazkii.patchouli.api.IMultiblock;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
-
 /**
  * @author Minecraftschurli
  * @version 2020-04-21
  */
-@SuppressWarnings("deprecation")
 public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
+    public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final Supplier<IMultiblock> OBELISK_CHALK = PatchouliCompat.registerMultiblock("obelisk_chalk", iPatchouliAPI ->
-            iPatchouliAPI.makeMultiblock(new String[][]{
-                            {"   ", " U ", "   "},
-                            {"   ", " M ", "   "},
-                            {"CCC", "C0C", "CCC"}},
+            iPatchouliAPI.makeMultiblock(new String[][]
+                            {{"   ", " U ", "   "},
+                                    {"   ", " M ", "   "},
+                                    {"CCC", "C0C", "CCC"}},
                     '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
                     'C', PatchouliCompat.CHALK_MATCHER.get())
                     .setSymmetrical(true));
     public static final Supplier<IMultiblock> OBELISK_PILLARS = PatchouliCompat.registerMultiblock("obelisk_pillars", iPatchouliAPI ->
-            iPatchouliAPI.makeMultiblock(new String[][]{
-                            {"C   C", "     ", "  U  ", "     ", "C   C"},
-                            {"B   B", "     ", "  M  ", "     ", "B   B"},
-                            {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
+            iPatchouliAPI.makeMultiblock(new String[][]
+                            {{"C   C", "     ", "  U  ", "     ", "C   C"},
+                                    {"B   B", "     ", "  M  ", "     ", "B   B"},
+                                    {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
                     '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
@@ -62,8 +61,6 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
                     'B', iPatchouliAPI.looseBlockMatcher(Blocks.STONE_BRICKS),
                     'C', PatchouliCompat.CHALK_MATCHER.get())
                     .setSymmetrical(true));
-
-    public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public ObeliskBlock() {
@@ -74,11 +71,9 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
     @Nonnull
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         Part doubleblockhalf = stateIn.get(PART);
-        if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == Part.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(PART) != doubleblockhalf) {
+        if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == Part.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(PART) != doubleblockhalf)
             return doubleblockhalf == Part.LOWER && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-        } else {
-            return Blocks.AIR.getDefaultState();
-        }
+        else return Blocks.AIR.getDefaultState();
     }
 
     @Nullable
@@ -87,18 +82,14 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
         return blockpos.getY() < context.getWorld().getDimension().getHeight() - 1 && context.getWorld().getBlockState(blockpos.up()).isReplaceable(context) ? this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing()) : null;
     }
 
-    /**
-     * Called by ItemBlocks after a block is set in the world, to allow post-place logic
-     */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, @Nonnull BlockState state, LivingEntity placer,  @Nonnull ItemStack stack) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, @Nonnull BlockState state, LivingEntity placer, @Nonnull ItemStack stack) {
         worldIn.setBlockState(pos.up(), this.getDefaultState().with(PART, Part.MIDDLE).with(FACING, state.get(FACING)), 3);
         worldIn.setBlockState(pos.up(2), this.getDefaultState().with(PART, Part.UPPER).with(FACING, state.get(FACING)), 3);
     }
 
     public boolean isValidPosition(BlockState state, @Nonnull IWorldReader worldIn, @Nonnull BlockPos pos) {
-        if (state.get(PART) == Part.LOWER) {
-            return super.isValidPosition(state, worldIn, pos);
-        } else {
+        if (state.get(PART) == Part.LOWER) return super.isValidPosition(state, worldIn, pos);
+        else {
             BlockState blockstate = worldIn.getBlockState(pos.down());
             if (state.getBlock() != this) return super.isValidPosition(state, worldIn, pos);
             return blockstate.getBlock() == this && (blockstate.get(PART) == Part.LOWER || blockstate.get(PART) == Part.MIDDLE);
@@ -134,7 +125,6 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
                 spawnDrops(blockstate2, worldIn, blockpos2, te, player, player.getHeldItemMainhand());
             }
         }
-
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
@@ -146,12 +136,9 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
     @Nonnull
     @Override
     public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit) {
-        if (worldIn.isRemote) {
-            return ActionResultType.SUCCESS;
-        }
+        if (worldIn.isRemote) return ActionResultType.SUCCESS;
         TileEntity te = worldIn.getTileEntity(state.get(PART) == Part.LOWER ? pos : state.get(PART) == Part.MIDDLE ? pos.down() : pos.down(2));
-        if (!(te instanceof INamedContainerProvider))
-            return ActionResultType.FAIL;
+        if (!(te instanceof INamedContainerProvider)) return ActionResultType.FAIL;
         NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, state.get(PART) == Part.LOWER ? pos : state.get(PART) == Part.MIDDLE ? pos.down() : pos.down(2));
         return ActionResultType.SUCCESS;
     }
@@ -166,9 +153,7 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
         int tier = 0;
         if (OBELISK_CHALK.get().validate(world, pos) != null) {
             tier = 1;
-            if (OBELISK_PILLARS.get().validate(world, pos) != null) {
-                tier = 2;
-            }
+            if (OBELISK_PILLARS.get().validate(world, pos) != null) tier = 2;
         }
         return tier;
     }

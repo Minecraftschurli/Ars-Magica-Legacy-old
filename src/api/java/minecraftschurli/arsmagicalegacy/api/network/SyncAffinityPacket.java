@@ -20,12 +20,12 @@ public class SyncAffinityPacket implements IPacket {
     }
 
     public SyncAffinityPacket() {
-        this.affinities = new HashMap<>();
+        affinities = new HashMap<>();
     }
 
     @Override
     public void serialize(PacketBuffer buf) {
-        buf.writeInt(this.affinities.size());
+        buf.writeInt(affinities.size());
         for (Map.Entry<ResourceLocation, Double> entry : affinities.entrySet()) {
             buf.writeResourceLocation(entry.getKey());
             buf.writeDouble(entry.getValue());
@@ -35,17 +35,13 @@ public class SyncAffinityPacket implements IPacket {
     @Override
     public void deserialize(PacketBuffer buf) {
         int len = buf.readInt();
-        for (int i = 0; i < len; i++) {
-            this.affinities.put(buf.readResourceLocation(), buf.readDouble());
-        }
+        for (int i = 0; i < len; i++) affinities.put(buf.readResourceLocation(), buf.readDouble());
     }
 
     @Override
     public boolean handle(NetworkEvent.Context ctx) {
         ArsMagicaAPI.getLocalPlayer().getCapability(CapabilityHelper.getAffinityCapability()).ifPresent(iAffinityStorage -> {
-            for (Map.Entry<ResourceLocation, Double> entry : affinities.entrySet()) {
-                iAffinityStorage.setAffinityDepth(entry.getKey(), entry.getValue());
-            }
+            for (Map.Entry<ResourceLocation, Double> entry : affinities.entrySet()) iAffinityStorage.setAffinityDepth(entry.getKey(), entry.getValue());
         });
         return true;
     }
