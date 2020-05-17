@@ -1,16 +1,17 @@
 package minecraftschurli.arsmagicalegacy.api.multiblock;
 
 import com.google.common.collect.ImmutableList;
-import java.util.Arrays;
-import java.util.function.Supplier;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Arrays;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -57,7 +58,8 @@ public class Structure {
                 for (int x = 0; x < blocks.size(); x++) {
                     BlockState state = blocks.get(x).get();
                     BlockPos pos = start.up(y).offset(direction.getOpposite(), z).offset(direction.rotateY(), x);
-                    if (!checkState(state, world, pos, direction)) return false;
+                    if (!checkState(state, world, pos, direction))
+                        return false;
                 }
             }
         }

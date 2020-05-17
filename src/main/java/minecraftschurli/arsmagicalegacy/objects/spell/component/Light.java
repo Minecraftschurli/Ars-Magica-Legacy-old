@@ -1,17 +1,14 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModRituals;
 import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
@@ -23,18 +20,14 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 public final class Light extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-//        if (world.getBlockState(pos).getBlock().equals(ModBlocks.ETHERIUM_GENERATOR) && RitualShapeHelper.instance.matchesRitual(this, world, pos)) {
-//                if (!world.isRemote) {
-//                    RitualShapeHelper.instance.consumeReagents(this, world, pos);
-//                    RitualShapeHelper.instance.consumeShape(this, world, pos);
-//                    world.setBlockState(pos, ModBlocks.CELESTIAL_PRISM.getDefaultState());
-//                    PowerNodeRegistry.For(world).registerPowerNode((IPowerNode<?>) world.getTileEntity(pos));
-//                }
-//                return true;
-//        }
         if (world.getBlockState(pos).getBlock() == Blocks.AIR) blockFace = null;
         if (blockFace != null) pos = pos.offset(blockFace);
         return world.getBlockState(pos).getBlock() == Blocks.AIR;
@@ -72,23 +65,10 @@ public final class Light extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[]{
-                new ItemStack(ModItems.MANA_FOCUS.get()),
-                new ItemStack(ModItems.MOONSTONE.get())
-        };
+    public AbstractRitual getRitual(LivingEntity caster) {
+        return ModRituals.PURIFICATION.get();
     }
 
-    //    @Override
-//    public MultiblockStructureDefinition getRitualShape() {
-//        MultiblockStructureDefinition newDef = new MultiblockStructureDefinition("celestialPurification");
-//        newDef.groups = Lists.newArrayList(RitualShapeHelper.instance.purification.groups);
-//        MultiblockGroup obelisk = new MultiblockGroup("obelisk", Lists.newArrayList(ModBlocks.obelisk.getDefaultState()), true);
-//        obelisk.addBlock(new BlockPos(0, 0, 0));
-//        newDef.addGroup(obelisk);
-//        return newDef;
-//    }
-//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 5; i++) {

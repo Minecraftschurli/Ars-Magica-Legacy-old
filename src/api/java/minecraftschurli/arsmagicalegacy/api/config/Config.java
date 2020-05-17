@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.config;
 
-import java.util.Arrays;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -13,6 +11,9 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Minecraftschurli
  * @version 2019-12-30
@@ -21,47 +22,49 @@ public class Config {
     public static final String PREFIX = ArsMagicaAPI.MODID + ".config.";
     private static final String SPLIT_CHAR = "|";
     private static final String SPLIT_REGEX = "\\|";
-    public static final Common COMMON;
-    static final ForgeConfigSpec commonSpec;
+    public static final Server SERVER;
+    static final ForgeConfigSpec serverSpec;
 
     static {
-        final Pair<Common, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        commonSpec = commonPair.getRight();
-        COMMON = commonPair.getLeft();
+        final Pair<Server, ForgeConfigSpec> serverPair = new ForgeConfigSpec.Builder().configure(Server::new);
+        serverSpec = serverPair.getRight();
+        SERVER = serverPair.getLeft();
     }
 
     @SubscribeEvent
     static void reload(ModConfig.ModConfigEvent event) {
         switch (event.getConfig().getType()) {
             case COMMON:
-                COMMON.parse();
-                break;
             case CLIENT:
+                break;
             case SERVER:
+                SERVER.parse();
                 break;
         }
     }
 
     public static void setup() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec);
     }
 
-    public static class Common {
-        public final ForgeConfigSpec.IntValue DEFAULT_MAX_BURNOUT;
-        public final ForgeConfigSpec.IntValue DEFAULT_MAX_MANA;
+    public static class Server {
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_MAIN_MAP;
         final ForgeConfigSpec.ConfigValue<List<? extends String>> CRAFTING_ALTAR_CAPS_MAP;
+        public final ForgeConfigSpec.DoubleValue DEFAULT_MAX_BURNOUT;
+        public final ForgeConfigSpec.DoubleValue DEFAULT_MAX_MANA;
+        public final ForgeConfigSpec.DoubleValue MANA_BURNOUT_RATIO;
 
-        Common(ForgeConfigSpec.Builder builder) {
-            builder.comment("Common configuration settings");
-            builder.push("common");
+        Server(ForgeConfigSpec.Builder builder) {
+            builder.comment("Server configuration settings");
+            builder.push("server");
             builder.push("craftingaltar");
             CRAFTING_ALTAR_MAIN_MAP = builder.comment("The blocks usable for the main body of the crafting altar structure").translation(PREFIX + "altarstructure.main").worldRestart().defineList("main", this::getDefaultMain, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 3));
             CRAFTING_ALTAR_CAPS_MAP = builder.comment("The blocks usable for the caps of the crafting altar structure").translation(PREFIX + "altarstructure.caps").worldRestart().defineList("caps", this::getDefaultCaps, o -> ((o instanceof String) && ((String) o).split(SPLIT_REGEX).length == 2));
             builder.pop();
             builder.push("magicvalues");
-            DEFAULT_MAX_MANA = builder.comment("The default maximum mana for the player").translation(PREFIX + "maxmana").worldRestart().defineInRange("maxmana", 100, 0, 10000);
-            DEFAULT_MAX_BURNOUT = builder.comment("The default maximum burnout for the player").translation(PREFIX + "maxburnout").worldRestart().defineInRange("maxburnout", 100, 0, 10000);
+            DEFAULT_MAX_MANA = builder.comment("The default maximum mana for the player").translation(PREFIX + "maxmana").worldRestart().defineInRange("maxmana", 100, 0., 10000);
+            DEFAULT_MAX_BURNOUT = builder.comment("The default maximum burnout for the player").translation(PREFIX + "maxburnout").worldRestart().defineInRange("maxburnout", 100, 0., 10000);
+            MANA_BURNOUT_RATIO = builder.comment("The mana to burnout ratio").translation(PREFIX + "burnoutration").worldRestart().defineInRange("burnoutratio", 0, 0, 10.0);
             builder.pop();
             builder.pop();
         }

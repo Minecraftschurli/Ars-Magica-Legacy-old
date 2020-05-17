@@ -1,9 +1,8 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -12,6 +11,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Set;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-16
@@ -19,6 +23,7 @@ import net.minecraft.world.World;
 public abstract class SpellComponent extends AbstractSpellPart {
     /**
      * Apply the effect to a single block
+     * @apiNote This method is executed on both sides
      *
      * @param stack     The item stack that contains the effect data
      * @param world     The world the effect is in
@@ -34,6 +39,7 @@ public abstract class SpellComponent extends AbstractSpellPart {
 
     /**
      * Apply the effect to a single entity
+     * @apiNote This method is executed on both sides
      *
      * @param stack  The stack representing the spell
      * @param world  The world the spell was cast in
@@ -66,7 +72,7 @@ public abstract class SpellComponent extends AbstractSpellPart {
      * Gets the burnout of the spell
      */
     public float getBurnout(LivingEntity caster) {
-        return getManaCost(caster)/* * AMConfig.MANA_BURNOUT_RATIO*/;
+        return getManaCost(caster) * Config.SERVER.MANA_BURNOUT_RATIO.get().floatValue();
     }
 
     /**
@@ -90,23 +96,13 @@ public abstract class SpellComponent extends AbstractSpellPart {
     }
 
     /**
-     * Gets any reagents that must be present in the caster's inventory in order
-     * to cast the spell.
+     * Gets an iterable of reagents required to cast the spell
      *
-     * @deprecated use the ritual registry and {@link SpellComponent#getRitual(LivingEntity)} instead
+     * @param caster the casting entity of the spell
+     * @return an iterable of the reagents required to cast the spell
      */
-    @Deprecated
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return null;
-    }
-
-    /**
-     * Gets the radius (in blocks) to search for reagents
-     *
-     * @deprecated use the ritual registry and {@link SpellComponent#getRitual(LivingEntity)} instead
-     */
-    @Deprecated
-    public float getReagentSearchRadius() {
-        return 3;
+    @Nonnull
+    public Set<ItemStack> getReagents(LivingEntity caster) {
+        return Collections.emptySet();
     }
 }

@@ -1,32 +1,70 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.objects.block.WizardChalk;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class WizardChalkItem extends Item {
+import javax.annotation.Nonnull;
+
+/**
+ * @author Minecraftschurli
+ * @version 2020-05-14
+ */
+public class WizardChalkItem extends BlockItem {
     public WizardChalkItem() {
-        super(new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1).maxDamage(50));
+        super(ModBlocks.WIZARD_CHALK.get(), new Properties().maxDamage(100).group(ArsMagicaLegacy.ITEM_GROUP));
     }
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (context.getFace() != Direction.UP || !context.getWorld().getBlockState(context.getPos().up()).isAir(context.getWorld(), context.getPos().up()))
+    public ActionResultType tryPlace(@Nonnull BlockItemUseContext context) {
+        if (!context.canPlace()) {
             return ActionResultType.FAIL;
-        if (!context.getWorld().isRemote) {
-            context.getWorld().setBlockState(context.getPos().up(), ModBlocks.WIZARD_CHALK.get().getDefaultState().with(WizardChalk.TYPE, context.getWorld().rand.nextInt(15)).with(WizardChalk.FACING, context.getPlacementHorizontalFacing()));
-            context.getItem().damageItem(1, context.getPlayer(), p_220039_0_ -> p_220039_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND));
-            if (getDamage(context.getItem()) < 0) context.getPlayer().setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
+        } else {
+            BlockItemUseContext blockitemusecontext = this.getBlockItemUseContext(context);
+            if (blockitemusecontext == null) {
+                return ActionResultType.FAIL;
+            } else {
+                BlockState blockstate = this.getStateForPlacement(blockitemusecontext);
+                if (blockstate == null) {
+                    return ActionResultType.FAIL;
+                } else if (!this.placeBlock(blockitemusecontext, blockstate)) {
+                    return ActionResultType.FAIL;
+                } else {
+                    BlockPos blockpos = blockitemusecontext.getPos();
+                    World world = blockitemusecontext.getWorld();
+                    PlayerEntity playerentity = blockitemusecontext.getPlayer();
+                    ItemStack itemstack = blockitemusecontext.getItem();
+                    BlockState blockstate1 = world.getBlockState(blockpos);
+                    Block block = blockstate1.getBlock();
+                    if (block == blockstate.getBlock()) {
+                        this.onBlockPlaced(blockpos, world, playerentity, itemstack, blockstate1);
+                        block.onBlockPlacedBy(world, blockpos, blockstate1, playerentity, itemstack);
+                        if (playerentity instanceof ServerPlayerEntity && !playerentity.isCreative()) {
+                            itemstack.attemptDamageItem(1, world.rand, (ServerPlayerEntity) playerentity);
+                            CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity) playerentity, blockpos, itemstack);
+                        }
+                    }
+
+                    SoundType soundtype = blockstate1.getSoundType(world, blockpos, context.getPlayer());
+                    if (playerentity != null) {
+                        world.playSound(playerentity, blockpos, this.getPlaceSound(blockstate1, world, blockpos, playerentity), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+                    }
+                    return ActionResultType.SUCCESS;
+                }
+            }
         }
-        return ActionResultType.PASS;
     }
 }

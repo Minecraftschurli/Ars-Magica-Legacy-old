@@ -1,12 +1,6 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.google.common.base.Strings;
-import java.io.ByteArrayInputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.item.ItemStack;
@@ -15,12 +9,20 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.io.ByteArrayInputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 /**
  * @author Minecraftschurli
  * @version 2020-04-17
  */
 public class PatchouliCompat {
-    public static final Supplier<IStateMatcher> CHALK_MATCHER = () -> PatchouliAPI.instance.strictBlockMatcher(ModBlocks.WIZARD_CHALK.get());
+    public static final Supplier<IStateMatcher> CHALK_MATCHER = ModBlocks.WIZARD_CHALK.lazyMap(PatchouliAPI.instance::looseBlockMatcher);
+    public static final Supplier<IStateMatcher> CANDLE_MATCHER = ModBlocks.CANDLE.lazyMap(PatchouliAPI.instance::looseBlockMatcher);
     private static final Map<ResourceLocation, IMultiblock> MULTIBLOCKS = new HashMap<>();
     private static final Map<ResourceLocation, Function<PatchouliAPI.IPatchouliAPI, IMultiblock>> MULTIBLOCK_FACTORIES = new HashMap<>();
     private static final String SPELL_COMPONENT_TEMPLATE = "{\"components\": [{\"type\": \"custom\",\"class\": \"minecraftschurli.arsmagicalegacy.compat.patchouli.SpellComponentPage\",\"component\": \"#component\"}]}";

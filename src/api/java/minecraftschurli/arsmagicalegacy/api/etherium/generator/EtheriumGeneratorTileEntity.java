@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.api.etherium.generator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.capability.EtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
@@ -17,6 +15,9 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Minecraftschurli
  * @version 2020-04-21
@@ -28,6 +29,9 @@ public abstract class EtheriumGeneratorTileEntity extends TileEntity implements 
         super(tileType);
         etheriumStorage = LazyOptional.of(() -> new EtheriumStorage(5000, type));
     }
+
+    @Override
+    public abstract void tick();
 
     @Nonnull
     @Override

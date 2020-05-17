@@ -8,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.config.Config;
  * @version 2019-11-08
  */
 public class BurnoutStorage implements IBurnoutStorage {
-    private float maxBurnout = Config.COMMON.DEFAULT_MAX_BURNOUT.get();
+    private float maxBurnout = Config.SERVER.DEFAULT_MAX_BURNOUT.get().floatValue();
     private float burnout = 0;
 
     @Override

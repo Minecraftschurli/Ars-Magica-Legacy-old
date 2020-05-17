@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spell;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
@@ -24,6 +21,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
@@ -38,8 +39,6 @@ public class SpellItem extends Item {
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
         playerIn.setActiveHand(handIn);
-        if (worldIn.isRemote)
-            return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
         return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
@@ -47,15 +46,11 @@ public class SpellItem extends Item {
     @Nonnull
     public ActionResultType onItemUse(ItemUseContext context) {
         context.getPlayer().setActiveHand(context.getHand());
-        if (context.getWorld().isRemote)
-            return ActionResultType.PASS;
         return ActionResultType.SUCCESS;
     }
 
     @Override
     public void onPlayerStoppedUsing(@Nonnull ItemStack stack, World worldIn, @Nonnull LivingEntity entityLiving, int timeLeft) {
-        if (worldIn.isRemote)
-            return;
         SpellShape shape = SpellUtil.getShape(stack, 0);
         if (!stack.hasTag()) return;
         if (shape != null) {

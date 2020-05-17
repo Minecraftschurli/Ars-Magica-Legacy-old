@@ -1,8 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
@@ -33,6 +30,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import vazkii.patchouli.api.IMultiblock;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
+
 /**
  * @author Minecraftschurli
  * @version 2020-04-21
@@ -40,21 +41,21 @@ import vazkii.patchouli.api.IMultiblock;
 public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final Supplier<IMultiblock> OBELISK_CHALK = PatchouliCompat.registerMultiblock("obelisk_chalk", iPatchouliAPI ->
-            iPatchouliAPI.makeMultiblock(new String[][]
-                            {{"   ", " U ", "   "},
-                                    {"   ", " M ", "   "},
-                                    {"CCC", "C0C", "CCC"}},
-                    '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"   ", " U ", "   "},
+                    {"   ", " M ", "   "},
+                    {"CCC", "C0C", "CCC"}},
+            '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
                     'C', PatchouliCompat.CHALK_MATCHER.get())
                     .setSymmetrical(true));
     public static final Supplier<IMultiblock> OBELISK_PILLARS = PatchouliCompat.registerMultiblock("obelisk_pillars", iPatchouliAPI ->
-            iPatchouliAPI.makeMultiblock(new String[][]
-                            {{"C   C", "     ", "  U  ", "     ", "C   C"},
-                                    {"B   B", "     ", "  M  ", "     ", "B   B"},
-                                    {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
-                    '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+            iPatchouliAPI.makeMultiblock(new String[][]{
+                    {"C   C", "     ", "  U  ", "     ", "C   C"},
+                    {"B   B", "     ", "  M  ", "     ", "B   B"},
+                    {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
+            '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
                     'C', iPatchouliAPI.looseBlockMatcher(Blocks.CHISELED_STONE_BRICKS),

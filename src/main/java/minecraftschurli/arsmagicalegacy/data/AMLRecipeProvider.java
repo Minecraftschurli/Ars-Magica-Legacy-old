@@ -1,18 +1,13 @@
 package minecraftschurli.arsmagicalegacy.data;
 
-import java.util.function.Consumer;
-import javax.annotation.Nonnull;
+import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModTags;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.data.CookingRecipeBuilder;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,6 +18,9 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ForgeRecipeProvider;
+
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * @author Minecraftschurli
@@ -358,9 +356,9 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
         ShapedRecipeBuilder.shapedRecipe(ModItems.PLAYER_FOCUS.get())
                 .patternLine("E")
                 .patternLine("F")
-                .key('E', ModItems.LIFE_ESSENCE.get())
+                .key('E', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.LIFE)))
                 .key('F', ModItems.STANDARD_FOCUS.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.LIFE_ESSENCE.get(), ModItems.STANDARD_FOCUS.get()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(/*TODO ModItems.LIFE_ESSENCE.get(),*/ ModItems.STANDARD_FOCUS.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.CREATURE_FOCUS.get())
                 .patternLine("P ")
@@ -457,7 +455,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('1', Items.IRON_SHOVEL)
                 .key('2', Items.IRON_PICKAXE)
                 .key('3', ModItems.EARTH_FLICKER_JAR.get())
-                .key('4', ModItems.EARTH_ESSENCE.get())
+                .key('4', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.EARTH)))
                 .key('5', ModItems.ICE_FLICKER_JAR.get())
                 .key('6', ModItems.BLACK_RUNE.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.FLICKER_JAR.get()))
@@ -511,8 +509,8 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('3', ModItems.ARCANE_FLICKER_JAR.get())
                 .key('4', ModTags.Items.ORES_MOONSTONE)
                 .key('5', ModItems.EARTH_FLICKER_JAR.get())
-                .key('6', ModItems.AIR_ESSENCE.get())
-                .key('7', ModItems.EARTH_ESSENCE.get())
+                .key('6', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.AIR)))
+                .key('7', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.EARTH)))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.FLICKER_JAR.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.NATURE_BOUNTY_FLICKER_FOCUS.get())
@@ -522,7 +520,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('1', Items.BONE_MEAL)
                 .key('2', ModItems.NATURE_FLICKER_JAR.get())
                 .key('3', ModItems.LIFE_FLICKER_JAR.get())
-                .key('4', ModItems.NATURE_ESSENCE.get())
+                .key('4', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.NATURE)))
                 .key('5', ModItems.WATER_FLICKER_JAR.get())
                 .key('6', ModItems.GREEN_RUNE.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.FLICKER_JAR.get()))
@@ -534,7 +532,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('1', Items.DIRT)
                 .key('2', ModItems.BLACK_RUNE.get())
                 .key('3', ModItems.EARTH_FLICKER_JAR.get())
-                .key('4', ModItems.EARTH_ESSENCE.get())
+                .key('4', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.EARTH)))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.FLICKER_JAR.get()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.PROGENY_FLICKER_FOCUS.get())
@@ -542,7 +540,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .patternLine("131")
                 .patternLine("141")
                 .key('1', Tags.Items.EGGS)
-                .key('2', ModItems.LIFE_ESSENCE.get())
+                .key('2', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.LIFE)))
                 .key('3', ModItems.LIFE_FLICKER_JAR.get())
                 .key('4', ModItems.WHITE_RUNE.get())
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ModItems.FLICKER_JAR.get()))
@@ -638,7 +636,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('O', Tags.Items.OBSIDIAN)
                 .key('G', ModItems.GOLD_INLAY.get())
                 .key('R', ModItems.RED_RUNE.get())
-                .key('E', ModItems.WATER_ESSENCE.get())
+                .key('E', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.WATER)))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_CHESTPLATE.get())
@@ -648,7 +646,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('O', Tags.Items.OBSIDIAN)
                 .key('G', ModItems.GOLD_INLAY.get())
                 .key('R', ModItems.RED_RUNE.get())
-                .key('E', ModItems.EARTH_ESSENCE.get())
+                .key('E', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.EARTH)))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_LEGGINGS.get())
@@ -658,7 +656,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('O', Tags.Items.OBSIDIAN)
                 .key('G', ModItems.GOLD_INLAY.get())
                 .key('R', ModItems.RED_RUNE.get())
-                .key('E', ModItems.FIRE_ESSENCE.get())
+                .key('E', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.FIRE)))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.BATTLEMAGE_BOOTS.get())
@@ -668,7 +666,7 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('O', Tags.Items.OBSIDIAN)
                 .key('G', ModItems.GOLD_INLAY.get())
                 .key('R', ModItems.RED_RUNE.get())
-                .key('E', ModItems.AIR_ESSENCE.get())
+                .key('E', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.AIR)))
                 .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(Tags.Items.OBSIDIAN).build()))
                 .build(consumer);
 //        ShapelessRecipeBuilder.shapelessRecipe(Items.PINK_DYE)
@@ -760,9 +758,9 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .key('M', ModItems.MAGIC_WALL.get())
                 .key('P', ModItems.PURE_ESSENCE_CORE.get())
                 .key('V', ModTags.Items.DUSTS_VINTEUM)
-                .key('A', ModItems.ARCANE_ESSENCE.get())
+                .key('A', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.ARCANE)))
                 .key('T', ModTags.Items.GEMS_TOPAZ)
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.MAGIC_WALL.get()).build(), ItemPredicate.Builder.create().item(ModItems.PURE_ESSENCE_CORE.get()).build(), ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build(), ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build()))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(ModItems.MAGIC_WALL.get()).build(), ItemPredicate.Builder.create().item(ModItems.PURE_ESSENCE_CORE.get()).build(), ItemPredicate.Builder.create().tag(ModTags.Items.DUSTS_VINTEUM).build(), /*TODO ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build(),*/ ItemPredicate.Builder.create().tag(ModTags.Items.GEMS_TOPAZ).build()))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.ESSENCE_REFINER.get())
                 .patternLine("PDP")
@@ -798,8 +796,8 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .patternLine("WWW")
                 .key('W', ModTags.Items.LOGS_WITCHWOOD)
                 .key('F', Tags.Items.FEATHERS)
-                .key('A', ModItems.AIR_ESSENCE.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.LOGS_WITCHWOOD).build(), ItemPredicate.Builder.create().tag(Tags.Items.FEATHERS).build(), ItemPredicate.Builder.create().item(ModItems.AIR_ESSENCE.get()).build()))
+                .key('A', Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.AIR)))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ModTags.Items.LOGS_WITCHWOOD).build(), ItemPredicate.Builder.create().tag(Tags.Items.FEATHERS).build()/*TODO , ItemPredicate.Builder.create().item(ModItems.AIR_ESSENCE.get()).build()*/))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.KEYSTONE_DOOR.get())
                 .patternLine("PMP")
@@ -886,8 +884,8 @@ public final class AMLRecipeProvider extends ForgeRecipeProvider {
                 .build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ModItems.DEFICIT_CRYSTAL.get())
                 .addIngredient(Items.WRITABLE_BOOK)
-                .addIngredient(ModItems.ARCANE_ESSENCE.get())
-                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(Items.WRITABLE_BOOK).build(), ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build()))
+                .addIngredient(Ingredient.fromStacks(ModItems.AFFINITY_ESSENCE.get().getStackForAffinity(Affinity.ARCANE)))
+                .addCriterion("item", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(Items.WRITABLE_BOOK).build()/*TODO , ItemPredicate.Builder.create().item(ModItems.ARCANE_ESSENCE.get()).build()*/))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.RUNE_BAG.get())
                 .patternLine("LLL")

@@ -2,15 +2,9 @@ package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.affinity.IAffinityItem;
 import minecraftschurli.arsmagicalegacy.api.data.ILanguagePlugin;
-import minecraftschurli.arsmagicalegacy.init.ModBiomes;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.init.ModFluids;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeItem;
+import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -86,7 +80,7 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addItem(ModItems.MONSTER_FOCUS, "Monsterfokus");
         addItem(ModItems.ITEM_FOCUS, "Itemfokus");
         addItem(ModItems.CHARGE_FOCUS, "Aufgeladener Fokus");
-        addItem(ModItems.WATER_ESSENCE, "Wasseressenz");
+        /*addItem(ModItems.WATER_ESSENCE, "Wasseressenz");
         addItem(ModItems.FIRE_ESSENCE, "Feueressenz");
         addItem(ModItems.EARTH_ESSENCE, "Erdessenz");
         addItem(ModItems.AIR_ESSENCE, "Luftessenz");
@@ -95,7 +89,7 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addItem(ModItems.NATURE_ESSENCE, "Naturessenz");
         addItem(ModItems.LIFE_ESSENCE, "Lebensessenz");
         addItem(ModItems.ARCANE_ESSENCE, "Magieessenz");
-        addItem(ModItems.ENDER_ESSENCE, "Enderessenz");
+        addItem(ModItems.ENDER_ESSENCE, "Enderessenz");*/
         addItem(ModItems.FLICKER_JAR, "Flickervase");
         addItem(ModItems.WATER_FLICKER_JAR, "Wasserflickervase");
         addItem(ModItems.FIRE_FLICKER_JAR, "Feuerflickervase");
@@ -107,16 +101,16 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addItem(ModItems.LIFE_FLICKER_JAR, "Lebensflickervase");
         addItem(ModItems.ARCANE_FLICKER_JAR, "Magieflickervase");
         addItem(ModItems.ENDER_FLICKER_JAR, "Enderflickervase");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.WATER), "Wasserlexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.FIRE), "Feuerlexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.EARTH), "Erdlexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.AIR), "Luftlexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.LIGHTNING), "Blitzlexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.ICE), "Eislexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.NATURE), "Naturlexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.LIFE), "Lebenslexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.ARCANE), "Magielexikon");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.ENDER), "Enderlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.WATER), "Wasserlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.FIRE), "Feuerlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.EARTH), "Erdlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.AIR), "Luftlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.LIGHTNING), "Blitzlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.ICE), "Eislexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.NATURE), "Naturlexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.LIFE), "Lebenslexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.ARCANE), "Magielexikon");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.ENDER), "Enderlexikon");
         addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flickerfokus: Schlachter");
         addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flickerfokus: Beinhaltung");
         addItem(ModItems.FELLING_FLICKER_FOCUS, "Flickerfokus: Holzfällen");

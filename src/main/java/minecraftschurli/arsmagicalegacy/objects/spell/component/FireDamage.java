@@ -1,14 +1,12 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModRituals;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -18,20 +16,13 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
+
 public final class FireDamage extends SpellComponent {
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos pos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
-        //TODO transform obelisk to black aurem
-//        Block block = world.getBlockState(pos).getBlock();
-//        if (block == ModBlocks.ETHERIUM_GENERATOR && RitualShapeHelper.instance.matchesRitual(this, world, pos)) {
-//            if (!world.isRemote) {
-//                RitualShapeHelper.instance.consumeReagents(this, world, pos);
-//                RitualShapeHelper.instance.consumeShape(this, world, pos);
-//                world.setBlockState(pos, ModBlocks.BLACK_AUREM.getDefaultState());
-//                PowerNodeRegistry.For(world).registerPowerNode((IPowerNode<?>) world.getTileEntity(pos));
-//            }
-//            return true;
-//        }
         return false;
     }
 
@@ -62,18 +53,10 @@ public final class FireDamage extends SpellComponent {
     }
 
     @Override
-    public ItemStack[] getReagents(LivingEntity caster) {
-        return new ItemStack[]{
-                new ItemStack(ModItems.MONSTER_FOCUS.get()),
-                new ItemStack(ModItems.SUNSTONE.get())
-        };
+    public AbstractRitual getRitual(LivingEntity caster) {
+        return ModRituals.CORRUPTION.get();
     }
 
-    //    @Override
-//    public MultiblockStructureDefinition getRitualShape() {
-//        return RitualShapeHelper.instance.corruption;
-//    }
-//
     @Override
     public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 5; i++) {

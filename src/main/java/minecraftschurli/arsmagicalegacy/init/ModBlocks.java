@@ -1,14 +1,6 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.block.Button;
-import minecraftschurli.arsmagicalegacy.objects.block.Door;
-import minecraftschurli.arsmagicalegacy.objects.block.Inlay;
-import minecraftschurli.arsmagicalegacy.objects.block.PressurePlate;
-import minecraftschurli.arsmagicalegacy.objects.block.Sapling;
-import minecraftschurli.arsmagicalegacy.objects.block.Torch;
-import minecraftschurli.arsmagicalegacy.objects.block.Trapdoor;
-import minecraftschurli.arsmagicalegacy.objects.block.WallTorch;
-import minecraftschurli.arsmagicalegacy.objects.block.WizardChalk;
+import minecraftschurli.arsmagicalegacy.objects.block.*;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.celestialprism.CelestialPrismBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
@@ -16,20 +8,10 @@ import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAlta
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.wizardchalk.WizardChalk;
 import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import minecraftschurli.simpleorelib.Ore;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.GlassBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemTier;
@@ -39,6 +21,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli
@@ -84,7 +68,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<FlowerBlock> CERUBLOSSOM = BLOCKS.register("cerublossom", () -> new FlowerBlock(Effects.LEVITATION, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)));
     public static final RegistryObject<FlowerBlock> DESERT_NOVA = BLOCKS.register("desert_nova", () -> new FlowerBlock(Effects.FIRE_RESISTANCE, 7, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)) {
         @Override
-        protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        protected boolean isValidGround(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
             return Tags.Blocks.SAND.contains(state.getBlock());
         }
     });
@@ -114,6 +98,7 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Door> SPELL_SEALED_DOOR = BLOCKS.register("spell_sealed_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Trapdoor> KEYSTONE_TRAPDOOR = BLOCKS.register("keystone_trapdoor", () -> new Trapdoor(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<WizardChalk> WIZARD_CHALK = BLOCKS.register("wizard_chalk", () -> new WizardChalk(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0).notSolid().doesNotBlockMovement()));
+    public static final RegistryObject<Block> CANDLE = BLOCKS.register("candle", CandleBlock::new);
 
     public static void register() {
     }

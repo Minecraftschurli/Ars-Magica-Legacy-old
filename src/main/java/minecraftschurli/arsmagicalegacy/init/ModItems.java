@@ -1,73 +1,70 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import java.util.Objects;
-import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrenchItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.WizardChalkItem;
-import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeItem;
+import minecraftschurli.arsmagicalegacy.objects.item.affinity.AffinityEssenceItem;
+import minecraftschurli.arsmagicalegacy.objects.item.affinity.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.TallBlockItem;
-import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.fml.RegistryObject;
+
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 /**
  * @author Minecraftschurli
  * @version 2019-11-07
  */
+@SuppressWarnings("unused")
 public final class ModItems implements IInit {
     public static final Item.Properties ITEM_64 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(64);
     public static final Item.Properties ITEM_1 = new Item.Properties().group(ArsMagicaLegacy.ITEM_GROUP).maxStackSize(1);
 
-    public static final RegistryObject<Item> CHIMERITE_ORE = stackableBlockItem64(ModBlocks.CHIMERITE_ORE);
-    public static final RegistryObject<Item> CHIMERITE_BLOCK = stackableBlockItem64(ModBlocks.CHIMERITE_BLOCK);
+    public static final RegistryObject<BlockItem> CHIMERITE_ORE = stackableBlockItem64(ModBlocks.CHIMERITE_ORE);
+    public static final RegistryObject<BlockItem> CHIMERITE_BLOCK = stackableBlockItem64(ModBlocks.CHIMERITE_BLOCK);
     public static final RegistryObject<Item> CHIMERITE = stackableItem64("chimerite");
-    public static final RegistryObject<Item> TOPAZ_ORE = stackableBlockItem64(ModBlocks.TOPAZ_ORE);
-    public static final RegistryObject<Item> TOPAZ_BLOCK = stackableBlockItem64(ModBlocks.TOPAZ_BLOCK);
+    public static final RegistryObject<BlockItem> TOPAZ_ORE = stackableBlockItem64(ModBlocks.TOPAZ_ORE);
+    public static final RegistryObject<BlockItem> TOPAZ_BLOCK = stackableBlockItem64(ModBlocks.TOPAZ_BLOCK);
     public static final RegistryObject<Item> TOPAZ = stackableItem64("topaz");
-    public static final RegistryObject<Item> VINTEUM_ORE = stackableBlockItem64(ModBlocks.VINTEUM_ORE);
-    public static final RegistryObject<Item> VINTEUM_BLOCK = stackableBlockItem64(ModBlocks.VINTEUM_BLOCK);
+    public static final RegistryObject<BlockItem> VINTEUM_ORE = stackableBlockItem64(ModBlocks.VINTEUM_ORE);
+    public static final RegistryObject<BlockItem> VINTEUM_BLOCK = stackableBlockItem64(ModBlocks.VINTEUM_BLOCK);
     public static final RegistryObject<Item> VINTEUM = stackableItem64("vinteum");
-    public static final RegistryObject<Item> MOONSTONE_ORE = stackableBlockItem64(ModBlocks.MOONSTONE_ORE);
-    public static final RegistryObject<Item> MOONSTONE_BLOCK = stackableBlockItem64(ModBlocks.MOONSTONE_BLOCK);
+    public static final RegistryObject<BlockItem> MOONSTONE_ORE = stackableBlockItem64(ModBlocks.MOONSTONE_ORE);
+    public static final RegistryObject<BlockItem> MOONSTONE_BLOCK = stackableBlockItem64(ModBlocks.MOONSTONE_BLOCK);
     public static final RegistryObject<Item> MOONSTONE = stackableItem64("moonstone");
-    public static final RegistryObject<Item> SUNSTONE_ORE = stackableBlockItem64(ModBlocks.SUNSTONE_ORE);
-    public static final RegistryObject<Item> SUNSTONE_BLOCK = stackableBlockItem64(ModBlocks.SUNSTONE_BLOCK);
+    public static final RegistryObject<BlockItem> SUNSTONE_ORE = stackableBlockItem64(ModBlocks.SUNSTONE_ORE);
+    public static final RegistryObject<BlockItem> SUNSTONE_BLOCK = stackableBlockItem64(ModBlocks.SUNSTONE_BLOCK);
     public static final RegistryObject<Item> SUNSTONE = stackableItem64("sunstone");
-    public static final RegistryObject<Item> WITCHWOOD_LOG = stackableBlockItem64(ModBlocks.WITCHWOOD_LOG);
-    public static final RegistryObject<Item> WITCHWOOD_WOOD = stackableBlockItem64(ModBlocks.WITCHWOOD_WOOD);
-    public static final RegistryObject<Item> STRIPPED_WITCHWOOD_LOG = stackableBlockItem64(ModBlocks.STRIPPED_WITCHWOOD_LOG);
-    public static final RegistryObject<Item> STRIPPED_WITCHWOOD_WOOD = stackableBlockItem64(ModBlocks.STRIPPED_WITCHWOOD_WOOD);
-    public static final RegistryObject<Item> WITCHWOOD_PLANKS = stackableBlockItem64(ModBlocks.WITCHWOOD_PLANKS);
-    public static final RegistryObject<Item> WITCHWOOD_SLAB = stackableBlockItem64(ModBlocks.WITCHWOOD_SLAB);
-    public static final RegistryObject<Item> WITCHWOOD_STAIRS = stackableBlockItem64(ModBlocks.WITCHWOOD_STAIRS);
-    public static final RegistryObject<Item> WITCHWOOD_LEAVES = stackableBlockItem64(ModBlocks.WITCHWOOD_LEAVES);
-    public static final RegistryObject<Item> WITCHWOOD_FENCE = stackableBlockItem64(ModBlocks.WITCHWOOD_FENCE);
-    public static final RegistryObject<Item> WITCHWOOD_FENCE_GATE = stackableBlockItem64(ModBlocks.WITCHWOOD_FENCE_GATE);
+    public static final RegistryObject<BlockItem> WITCHWOOD_LOG = stackableBlockItem64(ModBlocks.WITCHWOOD_LOG);
+    public static final RegistryObject<BlockItem> WITCHWOOD_WOOD = stackableBlockItem64(ModBlocks.WITCHWOOD_WOOD);
+    public static final RegistryObject<BlockItem> STRIPPED_WITCHWOOD_LOG = stackableBlockItem64(ModBlocks.STRIPPED_WITCHWOOD_LOG);
+    public static final RegistryObject<BlockItem> STRIPPED_WITCHWOOD_WOOD = stackableBlockItem64(ModBlocks.STRIPPED_WITCHWOOD_WOOD);
+    public static final RegistryObject<BlockItem> WITCHWOOD_PLANKS = stackableBlockItem64(ModBlocks.WITCHWOOD_PLANKS);
+    public static final RegistryObject<BlockItem> WITCHWOOD_SLAB = stackableBlockItem64(ModBlocks.WITCHWOOD_SLAB);
+    public static final RegistryObject<BlockItem> WITCHWOOD_STAIRS = stackableBlockItem64(ModBlocks.WITCHWOOD_STAIRS);
+    public static final RegistryObject<BlockItem> WITCHWOOD_LEAVES = stackableBlockItem64(ModBlocks.WITCHWOOD_LEAVES);
+    public static final RegistryObject<BlockItem> WITCHWOOD_FENCE = stackableBlockItem64(ModBlocks.WITCHWOOD_FENCE);
+    public static final RegistryObject<BlockItem> WITCHWOOD_FENCE_GATE = stackableBlockItem64(ModBlocks.WITCHWOOD_FENCE_GATE);
     public static final RegistryObject<Item> WITCHWOOD_DOOR = ITEMS.register("witchwood_door", () -> new TallBlockItem(ModBlocks.WITCHWOOD_DOOR.get(), ITEM_64));
-    public static final RegistryObject<Item> WITCHWOOD_TRAPDOOR = stackableBlockItem64(ModBlocks.WITCHWOOD_TRAPDOOR);
-    public static final RegistryObject<Item> WITCHWOOD_BUTTON = stackableBlockItem64(ModBlocks.WITCHWOOD_BUTTON);
-    public static final RegistryObject<Item> WITCHWOOD_PRESSURE_PLATE = stackableBlockItem64(ModBlocks.WITCHWOOD_PRESSURE_PLATE);
-    public static final RegistryObject<Item> WITCHWOOD_SAPLING = stackableBlockItem64(ModBlocks.WITCHWOOD_SAPLING);
-    public static final RegistryObject<Item> AUM = stackableBlockItem64(ModBlocks.AUM);
-    public static final RegistryObject<Item> CERUBLOSSOM = stackableBlockItem64(ModBlocks.CERUBLOSSOM);
-    public static final RegistryObject<Item> DESERT_NOVA = stackableBlockItem64(ModBlocks.DESERT_NOVA);
-    public static final RegistryObject<Item> TARMA_ROOT = stackableBlockItem64(ModBlocks.TARMA_ROOT);
-    public static final RegistryObject<Item> WAKEBLOOM = stackableBlockItem64(ModBlocks.WAKEBLOOM);
+    public static final RegistryObject<BlockItem> WITCHWOOD_TRAPDOOR = stackableBlockItem64(ModBlocks.WITCHWOOD_TRAPDOOR);
+    public static final RegistryObject<BlockItem> WITCHWOOD_BUTTON = stackableBlockItem64(ModBlocks.WITCHWOOD_BUTTON);
+    public static final RegistryObject<BlockItem> WITCHWOOD_PRESSURE_PLATE = stackableBlockItem64(ModBlocks.WITCHWOOD_PRESSURE_PLATE);
+    public static final RegistryObject<BlockItem> WITCHWOOD_SAPLING = stackableBlockItem64(ModBlocks.WITCHWOOD_SAPLING);
+    public static final RegistryObject<BlockItem> AUM = stackableBlockItem64(ModBlocks.AUM);
+    public static final RegistryObject<BlockItem> CERUBLOSSOM = stackableBlockItem64(ModBlocks.CERUBLOSSOM);
+    public static final RegistryObject<BlockItem> DESERT_NOVA = stackableBlockItem64(ModBlocks.DESERT_NOVA);
+    public static final RegistryObject<BlockItem> TARMA_ROOT = stackableBlockItem64(ModBlocks.TARMA_ROOT);
+    public static final RegistryObject<BlockItem> WAKEBLOOM = stackableBlockItem64(ModBlocks.WAKEBLOOM);
     public static final RegistryObject<Item> RUNE = stackableItem64("rune");
     public static final RegistryObject<Item> WHITE_RUNE = stackableItem64("white_rune");
     public static final RegistryObject<Item> ORANGE_RUNE = stackableItem64("orange_rune");
@@ -94,7 +91,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
     public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
-    public static final RegistryObject<Item> WATER_ESSENCE = stackableItem64("water_essence");
+    /*public static final RegistryObject<Item> WATER_ESSENCE = stackableItem64("water_essence");
     public static final RegistryObject<Item> FIRE_ESSENCE = stackableItem64("fire_essence");
     public static final RegistryObject<Item> EARTH_ESSENCE = stackableItem64("earth_essence");
     public static final RegistryObject<Item> AIR_ESSENCE = stackableItem64("air_essence");
@@ -103,7 +100,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> NATURE_ESSENCE = stackableItem64("nature_essence");
     public static final RegistryObject<Item> LIFE_ESSENCE = stackableItem64("life_essence");
     public static final RegistryObject<Item> ARCANE_ESSENCE = stackableItem64("arcane_essence");
-    public static final RegistryObject<Item> ENDER_ESSENCE = stackableItem64("ender_essence");
+    public static final RegistryObject<Item> ENDER_ESSENCE = stackableItem64("ender_essence");*/
+    public static final RegistryObject<AffinityEssenceItem> AFFINITY_ESSENCE = ITEMS.register("affinity_essence", AffinityEssenceItem::new);
     public static final RegistryObject<Item> FLICKER_JAR = stackableItem64("flicker_jar");
     public static final RegistryObject<Item> WATER_FLICKER_JAR = stackableItem64("water_flicker_jar");
     public static final RegistryObject<Item> FIRE_FLICKER_JAR = stackableItem64("fire_flicker_jar");
@@ -131,9 +129,9 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> PROGENY_FLICKER_FOCUS = stackableItem64("progeny_flicker_focus");
     public static final RegistryObject<Item> MANA_CAKE = stackableFoodItem64("mana_cake", new Food.Builder().hunger(3).saturation(0.6f).effect(ModEffects.MANA_REGEN.lazyMap(effect -> new EffectInstance(effect, 600)), 1).build());
     public static final RegistryObject<Item> MANA_MARTINI = stackableFoodItem64("mana_martini", new Food.Builder().hunger(0).saturation(0).effect(ModEffects.BURNOUT_REDUCTION.lazyMap(effect -> new EffectInstance(effect, 300)), 1).build());
-    public static final RegistryObject<Item> REDSTONE_INLAY = stackableBlockItem64(ModBlocks.REDSTONE_INLAY);
-    public static final RegistryObject<Item> IRON_INLAY = stackableBlockItem64(ModBlocks.IRON_INLAY);
-    public static final RegistryObject<Item> GOLD_INLAY = stackableBlockItem64(ModBlocks.GOLD_INLAY);
+    public static final RegistryObject<BlockItem> REDSTONE_INLAY = stackableBlockItem64(ModBlocks.REDSTONE_INLAY);
+    public static final RegistryObject<BlockItem> IRON_INLAY = stackableBlockItem64(ModBlocks.IRON_INLAY);
+    public static final RegistryObject<BlockItem> GOLD_INLAY = stackableBlockItem64(ModBlocks.GOLD_INLAY);
     public static final RegistryObject<Item> VINTEUM_TORCH = ITEMS.register("vinteum_torch", () -> new WallOrFloorItem(ModBlocks.VINTEUM_TORCH.get(), ModBlocks.VINTEUM_WALL_TORCH.get(), ITEM_64));
     public static final ArmorMaterial MAGE_ARMOR = new ArmorMaterial("mage", 33, 2, 6, 4, 2, 15, 0.5f, RUNE);
     public static final ArmorMaterial BATTLEMAGE_ARMOR = new ArmorMaterial("battlemage", 48, 3, 8, 6, 3, 10, 1, GOLD_INLAY);
@@ -148,27 +146,27 @@ public final class ModItems implements IInit {
     public static final RegistryObject<InfinityOrbItem> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrbItem::new);
     public static final RegistryObject<InscriptionTableUpgradeItem> INSCRIPTION_UPGRADE = ITEMS.register("inscription_upgrade", InscriptionTableUpgradeItem::new);
     public static final RegistryObject<Item> INSCRIPTION_TABLE = ITEMS.register("inscription_table", () -> new BlockItem(ModBlocks.INSCRIPTION_TABLE.get(), ITEM_1) {
-        protected boolean placeBlock(BlockItemUseContext context, @Nonnull BlockState state) {
+        protected boolean placeBlock(@Nonnull BlockItemUseContext context, @Nonnull BlockState state) {
             context.getWorld().setBlockState(context.getPos().offset(context.getPlacementHorizontalFacing().rotateYCCW()), Blocks.AIR.getDefaultState(), 27);
             return super.placeBlock(context, state);
         }
     });
     public static final RegistryObject<Item> OBELISK = ITEMS.register("obelisk", () -> new TallBlockItem(ModBlocks.OBELISK.get(), ITEM_1));
     public static final RegistryObject<Item> CELESTIAL_PRISM = ITEMS.register("celestial_prism", () -> new TallBlockItem(ModBlocks.CELESTIAL_PRISM.get(), ITEM_1));
-    public static final RegistryObject<Item> BLACK_AUREM = blockItem(ModBlocks.BLACK_AUREM);
-    public static final RegistryObject<Item> ALTAR_CORE = stackableBlockItem64(ModBlocks.ALTAR_CORE);
-    public static final RegistryObject<Item> MAGIC_WALL = stackableBlockItem64(ModBlocks.MAGIC_WALL);
-    public static final RegistryObject<Item> OCCULUS = blockItem(ModBlocks.OCCULUS);
-    public static final RegistryObject<Item> MANA_BATTERY = stackableBlockItem64(ModBlocks.MANA_BATTERY);
-    public static final RegistryObject<Item> ARMOR_IMBUEMENT_TABLE = stackableBlockItem64(ModBlocks.ARMOR_IMBUEMENT_TABLE);
-    public static final RegistryObject<Item> DRAINING_WELL = stackableBlockItem64(ModBlocks.DRAINING_WELL);
-    public static final RegistryObject<Item> ESSENCE_REFINER = stackableBlockItem64(ModBlocks.ESSENCE_REFINER);
-    public static final RegistryObject<Item> EVERSTONE = stackableBlockItem64(ModBlocks.EVERSTONE);
-    public static final RegistryObject<Item> FLICKER_LURE = stackableBlockItem64(ModBlocks.FLICKER_LURE);
-    public static final RegistryObject<Item> SLIPSTREAM_GENERATOR = stackableBlockItem64(ModBlocks.SLIPSTREAM_GENERATOR);
+    public static final RegistryObject<BlockItem> BLACK_AUREM = blockItem(ModBlocks.BLACK_AUREM);
+    public static final RegistryObject<BlockItem> ALTAR_CORE = stackableBlockItem64(ModBlocks.ALTAR_CORE);
+    public static final RegistryObject<BlockItem> MAGIC_WALL = stackableBlockItem64(ModBlocks.MAGIC_WALL);
+    public static final RegistryObject<BlockItem> OCCULUS = blockItem(ModBlocks.OCCULUS);
+    public static final RegistryObject<BlockItem> MANA_BATTERY = stackableBlockItem64(ModBlocks.MANA_BATTERY);
+    public static final RegistryObject<BlockItem> ESSENCE_REFINER = stackableBlockItem64(ModBlocks.ESSENCE_REFINER);
+    public static final RegistryObject<BlockItem> ARMOR_IMBUEMENT_TABLE = stackableBlockItem64(ModBlocks.ARMOR_IMBUEMENT_TABLE);
+    public static final RegistryObject<BlockItem> SLIPSTREAM_GENERATOR = stackableBlockItem64(ModBlocks.SLIPSTREAM_GENERATOR);
+    public static final RegistryObject<BlockItem> DRAINING_WELL = stackableBlockItem64(ModBlocks.DRAINING_WELL);
+    public static final RegistryObject<BlockItem> FLICKER_LURE = stackableBlockItem64(ModBlocks.FLICKER_LURE);
+    public static final RegistryObject<BlockItem> EVERSTONE = stackableBlockItem64(ModBlocks.EVERSTONE);
     public static final RegistryObject<Item> KEYSTONE_DOOR = ITEMS.register("keystone_door", () -> new TallBlockItem(ModBlocks.KEYSTONE_DOOR.get(), ITEM_64));
     public static final RegistryObject<Item> SPELL_SEALED_DOOR = ITEMS.register("spell_sealed_door", () -> new TallBlockItem(ModBlocks.SPELL_SEALED_DOOR.get(), ITEM_64));
-    public static final RegistryObject<Item> KEYSTONE_TRAPDOOR = stackableBlockItem64(ModBlocks.KEYSTONE_TRAPDOOR);
+    public static final RegistryObject<BlockItem> KEYSTONE_TRAPDOOR = stackableBlockItem64(ModBlocks.KEYSTONE_TRAPDOOR);
     public static final RegistryObject<Item> KEYSTONE = stackableItem64("keystone");
     public static final RegistryObject<Item> ARCANE_ASH = stackableItem64("arcane_ash");
     public static final RegistryObject<Item> ARCANE_COMPOUND = stackableItem64("arcane_compound");
@@ -187,21 +185,21 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> RUNE_BAG = ITEMS.register("rune_bag", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> ESSENCE_BAG = ITEMS.register("essence_bag", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> JOURNAL = ITEMS.register("journal", () -> new Item(ITEM_1));
-    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalkItem::new);
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
+    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalkItem::new);
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
 
     public static void register() {
     }
 
-    private static RegistryObject<Item> stackableBlockItem64(final RegistryObject<? extends Block> block) {
+    private static <T extends Block> RegistryObject<BlockItem> stackableBlockItem64(final RegistryObject<T> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), block.lazyMap(b -> new BlockItem(b, ITEM_64)));
     }
 
-    private static RegistryObject<Item> blockItem(final RegistryObject<? extends Block> block) {
+    private static <T extends Block> RegistryObject<BlockItem> blockItem(final RegistryObject<T> block) {
         Objects.requireNonNull(block);
         return ITEMS.register(block.getId().getPath(), block.lazyMap(b -> new BlockItem(b, ITEM_1)));
     }
@@ -220,4 +218,5 @@ public final class ModItems implements IInit {
     private static Item item64() {
         return new Item(ITEM_64);
     }
+
 }

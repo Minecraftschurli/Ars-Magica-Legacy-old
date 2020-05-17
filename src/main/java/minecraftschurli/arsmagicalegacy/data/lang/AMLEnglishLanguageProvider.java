@@ -2,15 +2,9 @@ package minecraftschurli.arsmagicalegacy.data.lang;
 
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
+import minecraftschurli.arsmagicalegacy.api.affinity.IAffinityItem;
 import minecraftschurli.arsmagicalegacy.api.data.ILanguagePlugin;
-import minecraftschurli.arsmagicalegacy.init.ModBiomes;
-import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import minecraftschurli.arsmagicalegacy.init.ModEffects;
-import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.init.ModFluids;
-import minecraftschurli.arsmagicalegacy.init.ModItems;
-import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.affinitytome.AffinityTomeItem;
+import minecraftschurli.arsmagicalegacy.init.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -86,7 +80,7 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addItem(ModItems.MONSTER_FOCUS, "Monster Focus");
         addItem(ModItems.ITEM_FOCUS, "Item Focus");
         addItem(ModItems.CHARGE_FOCUS, "Charge Focus");
-        addItem(ModItems.WATER_ESSENCE, "Water Essence");
+        /*addItem(ModItems.WATER_ESSENCE, "Water Essence");
         addItem(ModItems.FIRE_ESSENCE, "Fire Essence");
         addItem(ModItems.EARTH_ESSENCE, "Earth Essence");
         addItem(ModItems.AIR_ESSENCE, "Air Essence");
@@ -95,7 +89,7 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addItem(ModItems.NATURE_ESSENCE, "Nature Essence");
         addItem(ModItems.LIFE_ESSENCE, "Life Essence");
         addItem(ModItems.ARCANE_ESSENCE, "Arcane Essence");
-        addItem(ModItems.ENDER_ESSENCE, "Ender Essence");
+        addItem(ModItems.ENDER_ESSENCE, "Ender Essence");*/
         addItem(ModItems.FLICKER_JAR, "Flicker Jar");
         addItem(ModItems.WATER_FLICKER_JAR, "Water Flicker Jar");
         addItem(ModItems.FIRE_FLICKER_JAR, "Fire Flicker Jar");
@@ -107,16 +101,16 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addItem(ModItems.LIFE_FLICKER_JAR, "Life Flicker Jar");
         addItem(ModItems.ARCANE_FLICKER_JAR, "Arcane Flicker Jar");
         addItem(ModItems.ENDER_FLICKER_JAR, "Ender Flicker Jar");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.WATER), "Water Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.FIRE), "Fire Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.EARTH), "Earth Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.AIR), "Air Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.LIGHTNING), "Lightning Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.ICE), "Ice Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.NATURE), "Nature Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.LIFE), "Life Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.ARCANE), "Arcane Tome");
-        add(AffinityTomeItem.getStackForAffinity(Affinity.ENDER), "Ender Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.WATER), "Water Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.FIRE), "Fire Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.EARTH), "Earth Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.AIR), "Air Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.LIGHTNING), "Lightning Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.ICE), "Ice Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.NATURE), "Nature Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.LIFE), "Life Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.ARCANE), "Arcane Tome");
+        add(IAffinityItem.getStackForAffinity(ModItems.AFFINITY_TOME.get(), Affinity.ENDER), "Ender Tome");
         addItem(ModItems.BUTCHER_FLICKER_FOCUS, "Flicker Focus: Butcher");
         addItem(ModItems.CONTAINMENT_FLICKER_FOCUS, "Flicker Focus: Containment");
         addItem(ModItems.FELLING_FLICKER_FOCUS, "Flicker Focus: Felling");

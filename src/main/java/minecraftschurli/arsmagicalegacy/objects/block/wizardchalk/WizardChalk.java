@@ -1,10 +1,9 @@
-package minecraftschurli.arsmagicalegacy.objects.block;
+package minecraftschurli.arsmagicalegacy.objects.block.wizardchalk;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -19,9 +18,14 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Random;
+
 public class WizardChalk extends Block {
-    public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
-    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
+    private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
+    private static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
+    private static final Random rand = new Random();
 
     public WizardChalk(Properties properties) {
         super(properties);
@@ -37,12 +41,17 @@ public class WizardChalk extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getDefaultState().with(TYPE, context.getWorld().rand.nextInt(15)).with(FACING, context.getPlacementHorizontalFacing());
+        return getDefaultState().with(TYPE, rand.nextInt(16)).with(FACING, context.getPlacementHorizontalFacing());
     }
 
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
         return new ItemStack(ModItems.WIZARD_CHALK.get());
+    }
+
+    @Override
+    public PushReaction getPushReaction(BlockState state) {
+        return PushReaction.DESTROY;
     }
 
     @Override

@@ -1,18 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.CapMatcher;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.MainMatcher;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.StairMatcher;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LecternBlock;
-import net.minecraft.block.LeverBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -23,13 +16,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import vazkii.patchouli.api.IMultiblock;
-import vazkii.patchouli.api.PatchouliAPI;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli
@@ -37,18 +34,44 @@ import vazkii.patchouli.api.PatchouliAPI;
  */
 public class CraftingAltarBlock extends Block {
     public static final Supplier<IMultiblock> ALTAR = PatchouliCompat.registerMultiblock("altar", patchouli ->
-            patchouli.makeMultiblock(new String[][]
-                            {{" CEC ", " SMN ", " SAN ", " SMN ", " CWC "},
-                                    {" MZM ", " I I ", "     ", " Y Y ", " MZM "},
-                                    {" MZMV", "     ", "     ", "     ", " MZM "},
-                                    {" MZM ", "     ", "  0  ", "     ", " MZML"},
-                                    {"MMMMM", "MMMMM", "MMCMM", "MMMMM", "MMMMM"}},
-                    'C', new CapMatcher(),
+            patchouli.makeMultiblock(new String[][]{
+                    {
+                        " CEC ",
+                        " SMN ",
+                        " SAN ",
+                        " SMN ",
+                        " CWC "
+                    }, {
+                        " MZM ",
+                        " I I ",
+                        "     ",
+                        " Y Y ",
+                        " MZM "
+                    }, {
+                        " MZM ",
+                        "     ",
+                        "     ",
+                        "     ",
+                        " MZMV"
+                    }, {
+                        " MZML",
+                        "     ",
+                        "  0  ",
+                        "     ",
+                        " MZM "
+                    }, {
+                        "MMMMM",
+                        "MMMMM",
+                        "MMCMM",
+                        "MMMMM",
+                        "MMMMM"
+                    }},
+            'C', new CapMatcher(),
                     'M', new MainMatcher(),
-                    'V', PatchouliAPI.instance.propertyMatcher(Blocks.LEVER.getDefaultState().with(LeverBlock.HORIZONTAL_FACING, Direction.SOUTH), LeverBlock.HORIZONTAL_FACING),
-                    'L', PatchouliAPI.instance.propertyMatcher(Blocks.LECTERN.getDefaultState().with(LecternBlock.FACING, Direction.SOUTH), LecternBlock.FACING),
-                    'A', PatchouliAPI.instance.looseBlockMatcher(ModBlocks.ALTAR_CORE.get()),
-                    'Z', PatchouliAPI.instance.strictBlockMatcher(ModBlocks.MAGIC_WALL.get()),
+                    'V', patchouli.propertyMatcher(Blocks.LEVER.getDefaultState().with(LeverBlock.HORIZONTAL_FACING, Direction.SOUTH), LeverBlock.HORIZONTAL_FACING),
+                    'L', patchouli.propertyMatcher(Blocks.LECTERN.getDefaultState().with(LecternBlock.FACING, Direction.SOUTH), LecternBlock.FACING),
+                    'A', patchouli.looseBlockMatcher(ModBlocks.ALTAR_CORE.get()),
+                    'Z', patchouli.strictBlockMatcher(ModBlocks.MAGIC_WALL.get()),
                     'S', new StairMatcher(Direction.SOUTH, Half.BOTTOM),
                     'N', new StairMatcher(Direction.NORTH, Half.BOTTOM),
                     'W', new StairMatcher(Direction.WEST, Half.BOTTOM),
@@ -67,7 +90,8 @@ public class CraftingAltarBlock extends Block {
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player.isCreative() && player.getHeldItem(handIn).getItem() == Items.NETHER_STAR)
-            ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
+//            ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
+            ALTAR.get().place(worldIn, pos.down(3), Rotation.NONE);
         return ActionResultType.SUCCESS;
     }
 
