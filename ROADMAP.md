@@ -10,7 +10,7 @@
 - [x] add Affinity-Ability System
 - [x] add Leveling System
 - [x] add Etherium System
-- [ ] add Ritual System
+- [x] add Ritual System
 - [ ] add Spell-Entities
 - [ ] finish commenting the api (API-FREEZE no more API breaking changes)
 - [ ] first **_alpha_** (0.0.1.0) release or Forgecraft (2020-05-20)
