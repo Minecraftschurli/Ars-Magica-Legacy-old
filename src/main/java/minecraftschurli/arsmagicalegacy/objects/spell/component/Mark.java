@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -14,6 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class Mark extends SpellComponent {
     @Override
@@ -52,7 +54,7 @@ public final class Mark extends SpellComponent {
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+    public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        makeParticle(world, caster.getPosX() - 0.5f, caster.getPosY() + 1, caster.getPosZ(), 0.2, 0, colorModifier);
 //        makeParticle(world, caster.getPosX() + 0.5f, caster.getPosY() + 1, caster.getPosZ(), -0.2, 0, colorModifier);
 //        makeParticle(world, caster.getPosX(), caster.getPosY() + 1, caster.getPosZ() - 0.5f, 0, 0.2, colorModifier);

@@ -35,6 +35,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
@@ -154,20 +155,18 @@ public final class SpellUtil {
                 break;
             }
             if (component.applyEffectBlock(stack, world, pos, blockFace, impactX, impactY, impactZ, caster)) {
-                if (isPlayer && !world.isRemote && component.getAffinity() != null) {
+                if (isPlayer && component.getAffinity() != null) {
                     CapabilityHelper.doAffinityShift(caster, component, stageShape);
                 }
-                if (world.isRemote) {
-                    int color = -1;
-                    if (hasModifier(SpellModifiers.COLOR, stack)) {
-                        List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
-                        for (SpellModifier mod : mods)
-                            if (mod instanceof Color) {
-                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtil.getAMLTag(stack.getTag()));
-                            }
-                    }
-                    component.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), caster, caster, world.rand, color);
+                int color = -1;
+                if (hasModifier(SpellModifiers.COLOR, stack)) {
+                    List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
+                    for (SpellModifier mod : mods)
+                        if (mod instanceof Color) {
+                            color = (int) mod.getModifier(SpellModifiers.COLOR, caster, null, world, NBTUtil.getAMLTag(stack.getTag()));
+                        }
                 }
+                component.spawnParticles((ServerWorld) world, pos.getX(), pos.getY(), pos.getZ(), caster, caster, world.rand, color);
             }
         }
         return SpellCastResult.SUCCESS;
@@ -189,21 +188,19 @@ public final class SpellUtil {
                 continue;
             }
             if (component.applyEffectEntity(stack, world, caster, target)) {
-                if (caster instanceof PlayerEntity && !world.isRemote && component.getAffinity() != null) {
+                if (caster instanceof PlayerEntity && component.getAffinity() != null) {
                     CapabilityHelper.doAffinityShift(caster, component, stageShape);
                 }
                 appliedOneComponent = true;
-                if (world.isRemote) {
-                    int color = -1;
-                    if (SpellUtil.hasModifier(SpellModifiers.COLOR, stack)) {
-                        List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
-                        for (SpellModifier mod : mods)
-                            if (mod instanceof Color) {
-                                color = (int) mod.getModifier(SpellModifiers.COLOR, caster, target, world, NBTUtil.getAMLTag(stack.getTag()));
-                            }
-                    }
-                    component.spawnParticles(world, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, caster, target, world.rand, color);
+                int color = -1;
+                if (SpellUtil.hasModifier(SpellModifiers.COLOR, stack)) {
+                    List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
+                    for (SpellModifier mod : mods)
+                        if (mod instanceof Color) {
+                            color = (int) mod.getModifier(SpellModifiers.COLOR, caster, target, world, NBTUtil.getAMLTag(stack.getTag()));
+                        }
                 }
+                component.spawnParticles((ServerWorld) world, target.getPositionVec().x, target.getPositionVec().y + target.getEyeHeight(), target.getPositionVec().z, caster, target, world.rand, color);
                 if (caster instanceof PlayerEntity) {
                     CapabilityHelper.doAffinityShift(caster, component, stageShape);
                 }
@@ -236,7 +233,7 @@ public final class SpellUtil {
                 LivingEntity source = (LivingEntity) damagesource.getTrueSource();
                 if (target.getClass() == CreeperEntity.class) {
                     return false;
-                } else if (source instanceof PlayerEntity && target instanceof PlayerEntity && !target.world.isRemote && (!((ServerPlayerEntity) target).server.isPVPEnabled() || ((PlayerEntity) target).isCreative())) {
+                } else if (source instanceof PlayerEntity && target instanceof PlayerEntity && (!((ServerPlayerEntity) target).server.isPVPEnabled() || ((PlayerEntity) target).isCreative())) {
                     return false;
                 }
                 if (source.isPotionActive(ModEffects.FURY.get())) {

@@ -1,11 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -18,6 +13,7 @@ import minecraftschurli.arsmagicalegacy.api.skill.Skill;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.init.ModSkillTrees;
+import minecraftschurli.arsmagicalegacy.util.ColorUtil;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -31,6 +27,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -212,7 +214,7 @@ public class OcculusScreen extends Screen {
                 if (!hasPrereq)
                     RenderSystem.color3f(0.5F, 0.5F, 0.5F);
                 else if (!CapabilityHelper.knows(player, s))
-                    RenderSystem.color3f(Math.max(RenderUtil.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtil.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(RenderUtil.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
+                    RenderSystem.color3f(Math.max(ColorUtil.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(ColorUtil.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(ColorUtil.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
                 RenderSystem.enableBlend();
                 RenderUtil.drawBox(offsetX + xStartMod, offsetY + yStartMod, renderSize - xStartMod - xEndMod, renderSize - yStartMod - yEndMod, 0, minU + (xStartMod / renderSize * spriteXSize), minV + (yStartMod / renderSize * spriteYSize), maxU - (xEndMod / renderSize * spriteXSize), maxV - (yEndMod / renderSize * spriteYSize));
                 RenderSystem.disableBlend();

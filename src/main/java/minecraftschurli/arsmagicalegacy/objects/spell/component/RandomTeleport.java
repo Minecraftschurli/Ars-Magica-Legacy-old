@@ -1,10 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -20,8 +16,14 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
+
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class RandomTeleport extends SpellComponent {
     @Override
@@ -87,7 +89,7 @@ public final class RandomTeleport extends SpellComponent {
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+    public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
         world.addParticle(ParticleTypes.PORTAL, target.getPosX() + (rand.nextDouble() - 0.5D) * target.getWidth(), target.getPosY() + rand.nextDouble() * target.getHeight() - 0.25D, target.getPosZ() + (rand.nextDouble() - 0.5D) * target.getWidth(), (rand.nextDouble() - 0.5D) * 2, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2);
     }
 }

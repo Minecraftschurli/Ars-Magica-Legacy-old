@@ -2,8 +2,7 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import java.util.Locale;
-import javax.annotation.Nonnull;
+import minecraftschurli.arsmagicalegacy.util.ColorUtil;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -11,6 +10,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 /**
  * @author Minecraftschurli
@@ -45,6 +47,14 @@ public class SimpleParticleData implements IParticleData {
         this.green = green;
         this.blue = blue;
         this.alpha = MathHelper.clamp(alpha, 0.01F, 4);
+        type = particleTypeIn;
+    }
+
+    public SimpleParticleData(ParticleType<SimpleParticleData> particleTypeIn, int color) {
+        this.red = ColorUtil.getRed(color);
+        this.green = ColorUtil.getGreen(color);
+        this.blue = ColorUtil.getBlue(color);
+        this.alpha = MathHelper.clamp(ColorUtil.getAlpha(color), 0.01F, 4);
         type = particleTypeIn;
     }
 

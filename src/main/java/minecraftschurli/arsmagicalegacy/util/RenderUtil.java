@@ -7,14 +7,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderState;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -44,16 +37,19 @@ public final class RenderUtil {
         world.addParticle(new SimpleParticleData(type, r, g, b, a), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
 
+    @Deprecated
     public static void addParticle(World world, ParticleType<SimpleParticleData> type, int color, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
-        world.addParticle(new SimpleParticleData(type, getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
+        world.addParticle(new SimpleParticleData(type, ColorUtil.getRed(color), ColorUtil.getGreen(color), ColorUtil.getBlue(color), 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
     }
 
+    @Deprecated
     public static void addParticle(World world, ParticleType<SimpleParticleData> type, float r, float g, float b, double x, double y, double z) {
         world.addParticle(new SimpleParticleData(type, r, g, b, 1), x, y + 1.5, z, 0, 0, 0);
     }
 
+    @Deprecated
     public static void addParticle(World world, ParticleType<SimpleParticleData> type, int color, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type, getRed(color), getGreen(color), getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
+        world.addParticle(new SimpleParticleData(type, ColorUtil.getRed(color), ColorUtil.getGreen(color), ColorUtil.getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
     }
 
     public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
@@ -70,7 +66,7 @@ public final class RenderUtil {
     }
 
     public static void color(int color) {
-        RenderSystem.color4f(getRed(color), getGreen(color), getBlue(color), 0.5F);
+        RenderSystem.color4f(ColorUtil.getRed(color), ColorUtil.getGreen(color), ColorUtil.getBlue(color), 0.5F);
     }
 
     public static Vec3d copyVec(Vec3d vec) {
@@ -139,18 +135,6 @@ public final class RenderUtil {
         }
     }
 
-    public static float getBlue(int color) {
-        return (color & 0x0000FF) / 255f;
-    }
-
-    public static float getGreen(int color) {
-        return ((color & 0x00FF00) >> 8) / 255f;
-    }
-
-    public static float getRed(int color) {
-        return ((color & 0xFF0000) >> 16) / 255f;
-    }
-
     /*public static void renderBlockModel(TileEntity te, IBakedModel model, BlockState defaultState, MatrixStack matrixStack) {
         try {
             RenderSystem.pushMatrix();
@@ -174,13 +158,6 @@ public final class RenderUtil {
         }
     }*/
 
-    public static int getColor(float r, float g, float b) {
-        int red = (int) (r * 255f) << 16;
-        int green = (int) (g * 255f) << 8;
-        int blue = (int) (b * 255f);
-        return red + green + blue;
-    }
-
     /*public static void renderRotatedModelGroup(TileEntity te, IBakedModel model, BlockState defaultState, Vec3d rotation) {
         RenderSystem.pushMatrix();
         RenderSystem.rotatef((float) rotation.x, 1, 0, 0);
@@ -202,8 +179,8 @@ public final class RenderUtil {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buf = tessellator.getBuffer();
         buf.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
-        buf.pos(src_x, src_y, zLevel).color(getRed(color1), getGreen(color1), getBlue(color1), 0xFF).endVertex();
-        buf.pos(dst_x, dst_y, zLevel).color(getRed(color2), getGreen(color2), getBlue(color2), 0xFF).endVertex();
+        buf.pos(src_x, src_y, zLevel).color(ColorUtil.getRed(color1), ColorUtil.getGreen(color1), ColorUtil.getBlue(color1), 0xFF).endVertex();
+        buf.pos(dst_x, dst_y, zLevel).color(ColorUtil.getRed(color2), ColorUtil.getGreen(color2), ColorUtil.getBlue(color2), 0xFF).endVertex();
         tessellator.draw();
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.enableTexture();

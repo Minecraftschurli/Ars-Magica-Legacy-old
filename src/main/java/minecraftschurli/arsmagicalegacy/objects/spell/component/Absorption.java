@@ -13,6 +13,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -62,7 +63,7 @@ public final class Absorption extends SpellComponent {
 //    }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+    public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        for (int i = 0; i < 15; i++) {
 //            world.addOptionalParticle((IParticleData) ModParticles.LENS_FLARE.get(), x, y, z, 0, 0, 0);
 //            SimpleParticle particle = new SimpleParticle(world, x, y, z);

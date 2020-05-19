@@ -51,6 +51,8 @@ public class SpellItem extends Item {
 
     @Override
     public void onPlayerStoppedUsing(@Nonnull ItemStack stack, World worldIn, @Nonnull LivingEntity entityLiving, int timeLeft) {
+        if (worldIn.isRemote)
+            return;
         SpellShape shape = SpellUtil.getShape(stack, 0);
         if (!stack.hasTag()) return;
         if (shape != null) {
@@ -66,6 +68,8 @@ public class SpellItem extends Item {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
+        if (player.world.isRemote)
+            return;
         SpellShape shape = SpellUtil.getShape(stack, 0);
         if (shape.isChanneled())
             SpellUtil.applyStage(stack, player, null, player.getPosX(), player.getPosY(), player.getPosZ(), Direction.UP, player.world, true, true, count - 1);

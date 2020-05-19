@@ -7,9 +7,11 @@ import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -56,10 +58,12 @@ public abstract class SpellComponent extends AbstractSpellPart {
 
     /**
      * Spawn visual effects for the component
+     * This is in fact not client side. Spells are entirely executed on the server.
+     * use {@link ServerWorld#spawnParticle(IParticleData, double, double, double, int, double, double, double, double)} to spawn particles
      *
-     * @param colorModifier The color from the color modifier.  -1 if missing.
+     * @param colorModifier The color from the color modifier. -1 if missing.
      */
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {}
+    public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {}
 
     /**
      * Gets the affinity of the spell

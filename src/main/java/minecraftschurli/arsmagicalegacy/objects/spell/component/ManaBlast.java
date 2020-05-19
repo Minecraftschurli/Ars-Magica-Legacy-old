@@ -1,9 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -17,6 +14,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 
 public final class ManaBlast extends SpellComponent {
     @Override
@@ -58,7 +60,7 @@ public final class ManaBlast extends SpellComponent {
     }
 
     @Override
-    public void spawnParticles(World world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
+    public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
 //        double snapAngle = (2 * 3.14159265358979) / (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5;
 //        for (int j = 0; j < 4; j++) {
 //            for (int i = 0; i < (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5; i++) {

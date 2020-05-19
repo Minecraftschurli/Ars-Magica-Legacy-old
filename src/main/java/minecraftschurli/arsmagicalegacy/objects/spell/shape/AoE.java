@@ -1,15 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import java.util.EnumSet;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
-import minecraftschurli.arsmagicalegacy.init.ModParticles;
 import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
-import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
-import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,6 +15,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.List;
 
 public final class AoE extends SpellShape {
     @Override
@@ -128,13 +126,13 @@ public final class AoE extends SpellShape {
     }
 
     private void spawnParticles(ItemStack stack, World world, double x, double y, double z) {
-        int color = 0xFFFFFF;
-        if (SpellUtil.hasModifier(SpellModifiers.COLOR, stack)) {
-            List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
-            for (SpellModifier mod : mods)
-                if (mod instanceof Color)
-                    color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
-        }
-        for (int i = 0; i < 360; i += 60) RenderUtil.addParticle(world, ModParticles.LENS_FLARE.get(), color, x, y, z);
+//        int color = 0xFFFFFF;
+//        if (SpellUtil.hasModifier(SpellModifiers.COLOR, stack)) {
+//            List<SpellModifier> mods = SpellUtil.getModifiers(stack, -1);
+//            for (SpellModifier mod : mods)
+//                if (mod instanceof Color)
+//                    color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, stack.getTag());
+//        }
+//        for (int i = 0; i < 360; i += 60) RenderUtil.addParticle(world, ModParticles.LENS_FLARE.get(), color, x, y, z);
     }
 }
