@@ -1,10 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.item.spellbook;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
@@ -29,6 +24,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -126,7 +127,7 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         final ItemStack stack = player.getHeldItem(hand);
         if (CapabilityHelper.getCurrentLevel(player) <= 0 && !player.isCreative())
             return ActionResult.resultPass(stack);
-        if (player.func_226563_dT_()) {
+        if (player.isSneaking()) {
             if (!world.isRemote && player instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                     @Override

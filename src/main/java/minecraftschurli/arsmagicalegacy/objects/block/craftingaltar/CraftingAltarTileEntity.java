@@ -178,7 +178,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                     if (!isMultiblockFormed()) {
                         this.leverPos = getPos().offset(direction, 2).offset(direction.rotateY(), 2).down(2);
                         getWorld().setBlockState(te.getPos().up(), ModBlocks.ALTAR_VIEW.map(Block::getDefaultState).orElse(Blocks.AIR.getDefaultState()));
-                        getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true), 2);
+                        getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, true));
                         modelData.setData(CraftingAltarModel.CAMO_STATE, getWorld().getBlockState(getPos().down(4).north()));
                         ((CraftingAltarViewTileEntity) getWorld().getTileEntity(te.getPos().up())).setAltarPos(getPos());
                     }
@@ -197,7 +197,8 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 invalidateMB();
             return;
         }
-        if (this.getRecipe() != null && this.hasEnoughPower()) if (craft()) sync();
+        if (this.getRecipe() != null && this.hasEnoughPower())
+            if (craft()) sync();
     }
 
     private boolean checkAltarPower() {
@@ -218,10 +219,13 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
     }
 
     private void invalidateMB() {
-        if (getWorld() != null && lecternPos != null) {
-            BlockPos pos = lecternPos.up();
-            if (getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get())
-                getWorld().removeBlock(pos, false);
+        if (getWorld() != null) {
+            if (lecternPos != null) {
+                BlockPos pos = lecternPos.up();
+                if (getWorld().getBlockState(pos).getBlock() == ModBlocks.ALTAR_VIEW.get()) {
+                    getWorld().removeBlock(pos, false);
+                }
+            }
             getWorld().setBlockState(getPos(), getBlockState().with(CraftingAltarBlock.FORMED, false), 2);
         }
         modelData.setData(CraftingAltarModel.CAMO_STATE, null);
@@ -230,6 +234,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         this.lecternPos = null;
         this.leverPos = null;
         this.lectern = null;
+        this.book = null;
         sync();
     }
 
@@ -237,10 +242,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
         if (getWorld() == null || getRecipe() == null)
             return false;
         if (this.currentStage >= getRecipe().size()) {
-            if (!getWorld().isRemote()) {
-                InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY() - 2, getPos().getZ(), createSpellStack());
-                this.currentStage = 0;
-            }
+            finish(getWorld());
             return true;
         }
         ISpellIngredient ingredient = getRecipe().get(this.currentStage);
@@ -249,6 +251,13 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
             return true;
         }
         return false;
+    }
+
+    void finish(World world) {
+        if (!world.isRemote()) {
+            InventoryHelper.spawnItemStack(getWorld(), getPos().getX(), getPos().getY() - 2, getPos().getZ(), createSpellStack());
+            this.currentStage = 0;
+        }
     }
 
     private ItemStack createSpellStack() {

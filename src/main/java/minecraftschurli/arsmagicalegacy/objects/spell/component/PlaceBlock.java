@@ -1,8 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
-import java.util.EnumSet;
-import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -24,6 +22,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 public final class PlaceBlock extends SpellComponent {
     private static final String KEY = "PlaceBlockID";
 
@@ -32,19 +33,19 @@ public final class PlaceBlock extends SpellComponent {
         PlayerEntity player = (PlayerEntity) caster;
         ItemStack spellStack = player.getActiveItemStack();
         BlockState bd = spellStack.hasTag() && spellStack.getTag().get(KEY) != null ? Block.getStateById(spellStack.getTag().getInt(KEY)) : null;
-        if (bd != null && !caster.func_226296_dJ_()) {
+        if (bd != null && !caster.isSneaking()) {
             if (world.isAirBlock(pos) || !world.getBlockState(pos).isSolid()) blockFace = null;
-            if (blockFace != null) pos = pos.add(blockFace.getDirectionVec());
+            if (blockFace != null) pos = pos.offset(blockFace);
             if (world.isAirBlock(pos) || !world.getBlockState(pos).getMaterial().isSolid()) {
                 ItemStack searchStack = new ItemStack(bd.getBlock());
-                if (!world.isRemote && (player.isCreative() || player.inventory.hasItemStack(searchStack))) {
+                if ((player.isCreative() || player.inventory.hasItemStack(searchStack))) {
                     world.setBlockState(pos, bd);
                     if (!player.isCreative()) player.inventory.deleteStack(searchStack);
                 }
                 return true;
             }
-        } else if (caster.func_226296_dJ_()) {
-            if (!world.isRemote && !world.isAirBlock(pos)) {
+        } else if (caster.isSneaking()) {
+            if (!world.isAirBlock(pos)) {
                 if (!spellStack.hasTag()) spellStack.setTag(new CompoundNBT());
                 spellStack.getTag().putInt(KEY, Block.getStateId(world.getBlockState(pos)));
                 if (spellStack.getTag().get("Lore") == null) spellStack.getTag().put("Lore", new ListNBT());

@@ -89,9 +89,17 @@ public class CraftingAltarBlock extends Block {
     @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (player.isCreative() && player.getHeldItem(handIn).getItem() == Items.NETHER_STAR)
-//            ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
-            ALTAR.get().place(worldIn, pos.down(3), Rotation.NONE);
+        //            ((CraftingAltarTileEntity) worldIn.getTileEntity(pos)).placeStructure(worldIn, player.getHorizontalFacing());
+        if (player.isCreative()) {
+            if (player.getHeldItem(handIn).getItem() == Items.NETHER_STAR) {
+                ALTAR.get().place(worldIn, pos.down(3), Rotation.NONE);
+            } else if (player.getHeldItem(handIn).isEmpty()) {
+                CraftingAltarTileEntity tile = ((CraftingAltarTileEntity) worldIn.getTileEntity(pos));
+                if (tile != null && tile.getRecipe() != null) {
+                    tile.finish(worldIn);
+                }
+            }
+        }
         return ActionResultType.SUCCESS;
     }
 

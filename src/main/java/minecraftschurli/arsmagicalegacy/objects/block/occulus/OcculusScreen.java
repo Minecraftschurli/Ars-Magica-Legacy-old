@@ -110,8 +110,8 @@ public class OcculusScreen extends Screen {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        renderBackground(0);
+    public void render(int mouseX, int mouseY, float partialTicks) { // fixme
+        renderBackground();
         int posX = width / 2 - xSize / 2;
         int posY = height / 2 - ySize / 2;
         float renderSize = 32F;
@@ -248,7 +248,7 @@ public class OcculusScreen extends Screen {
                 if (!flag) hoverItem = null;
             }
         } else {
-            boolean isShiftDown = player.func_226563_dT_();
+            boolean isShiftDown = player.isSneaking();
             RenderUtil.drawBox(posX + 7, posY + 7, 196, 196, getBlitOffset(), 0, 0, 1, 1);
             int affNum = RegistryHandler.getAffinityRegistry().getValues().size() - 1;
             int portion = 360 / affNum;
