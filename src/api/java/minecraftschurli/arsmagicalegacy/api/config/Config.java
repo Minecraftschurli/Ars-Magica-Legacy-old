@@ -64,7 +64,7 @@ public class Config {
             builder.push("magicvalues");
             DEFAULT_MAX_MANA = builder.comment("The default maximum mana for the player").translation(PREFIX + "maxmana").worldRestart().defineInRange("maxmana", 100, 0., 10000);
             DEFAULT_MAX_BURNOUT = builder.comment("The default maximum burnout for the player").translation(PREFIX + "maxburnout").worldRestart().defineInRange("maxburnout", 100, 0., 10000);
-            MANA_BURNOUT_RATIO = builder.comment("The mana to burnout ratio").translation(PREFIX + "burnoutration").worldRestart().defineInRange("burnoutratio", 0, 0, 10.0);
+            MANA_BURNOUT_RATIO = builder.comment("The mana to burnout ratio").translation(PREFIX + "burnoutration").worldRestart().defineInRange("burnoutratio", 0.5, 0, 10.0);
             builder.pop();
             builder.pop();
         }

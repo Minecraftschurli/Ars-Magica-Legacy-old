@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.util;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import javafx.util.Pair;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
@@ -440,6 +441,7 @@ public final class SpellUtil {
             affinities = CapabilityHelper.getHighestAffinities(caster);
         }
         try {
+            AtomicDouble cTemp = new AtomicDouble(0);
             float cost = 0;
             float modMultiplier = 1;
             for (int j = 0; j < NBTUtil.getAMLTag(mergedStack.getTag()).getInt("StageNum"); j++) {
@@ -457,10 +459,11 @@ public final class SpellUtil {
                                 if (component == null) continue;
                                 for (Affinity aff2 : component.getAffinity()) {
                                     if (aff == aff2 && CapabilityHelper.getAffinityDepth(caster, aff) > 0) {
-                                        cost = cost - (float) (cost * (0.5f * CapabilityHelper.getAffinityDepth(caster, aff)));
+                                        cost -= (float) (cost * (0.5f * CapabilityHelper.getAffinityDepth(caster, aff)/100f));
                                         break;
                                     } else {
                                         cost = cost + (cost * (0.10f));
+
                                     }
                                 }
                             }
@@ -481,6 +484,7 @@ public final class SpellUtil {
                 }
             }
             cost *= modMultiplier;
+
             if (caster instanceof PlayerEntity) {
                 if (CapabilityHelper.getAffinityDepth(caster, Affinity.ARCANE) > 0.5f) {
                     float reduction = (float) (1 - (0.5 * CapabilityHelper.getAffinityDepth(caster, Affinity.ARCANE)));

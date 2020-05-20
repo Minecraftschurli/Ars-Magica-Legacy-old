@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
@@ -18,7 +19,7 @@ public class LevelUpHandler {
     @SubscribeEvent
     public static void compendiumPickup(final PlayerEvent.ItemPickupEvent event) {
         if (event.getPlayer().isCreative() || event.getPlayer().isSpectator()) return;
-        if (CapabilityHelper.getCurrentLevel(event.getPlayer()) > 0) return;
+        if (CapabilityHelper.getCurrentLevel(event.getPlayer()) >= 0) return;
         if (PatchouliCompat.isCompendium(event.getStack())) CapabilityHelper.addXP(event.getPlayer(), 0);
     }
 
@@ -39,6 +40,18 @@ public class LevelUpHandler {
     }
 
     private static float calculateXp(final int complexity, final float manaCost, final float maxMana, final float burnout, final float maxBurnout) {
-        return complexity * manaCost / (burnout / maxBurnout);
+        float b = (burnout / maxBurnout);
+        if (b == 0) {
+            b = 1;
+        }
+        float m = (manaCost / maxMana);
+        float v = complexity * m / b;
+        ArsMagicaLegacy.LOGGER.debug("Complexity: {}", complexity);
+        ArsMagicaLegacy.LOGGER.debug("Mana cost: {}", manaCost);
+        ArsMagicaLegacy.LOGGER.debug("Max Mana: {}", maxMana);
+        ArsMagicaLegacy.LOGGER.debug("Burnout: {}", burnout);
+        ArsMagicaLegacy.LOGGER.debug("Max Burnout: {}", maxBurnout);
+        ArsMagicaLegacy.LOGGER.debug("XP: {}", v);
+        return v;
     }
 }

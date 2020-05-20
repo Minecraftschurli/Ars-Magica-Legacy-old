@@ -7,10 +7,8 @@ import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -24,12 +22,12 @@ import java.util.Random;
 
 public class WizardChalk extends Block {
     private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
-    private static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
+//    private static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class);
     private static final Random rand = new Random();
 
     public WizardChalk(Properties properties) {
         super(properties);
-        setDefaultState(getDefaultState().with(TYPE, 0).with(FACING, Direction.NORTH));
+        setDefaultState(getDefaultState().with(TYPE, 0)/*.with(FACING, Direction.NORTH)*/);
     }
 
     @Nonnull
@@ -41,7 +39,7 @@ public class WizardChalk extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getDefaultState().with(TYPE, rand.nextInt(16)).with(FACING, context.getPlacementHorizontalFacing());
+        return getDefaultState().with(TYPE, rand.nextInt(16))/*.with(FACING, context.getPlacementHorizontalFacing())*/;
     }
 
     @Override
@@ -56,6 +54,6 @@ public class WizardChalk extends Block {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(TYPE, FACING);
+        builder.add(TYPE/*, FACING*/);
     }
 }

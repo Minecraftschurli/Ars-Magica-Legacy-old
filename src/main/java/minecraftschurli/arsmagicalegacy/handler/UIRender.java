@@ -1,11 +1,11 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
+import minecraftschurli.arsmagicalegacy.util.ColorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -16,9 +16,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import java.util.List;
 
 /**
  * @author Minecraftschurli
@@ -42,15 +43,48 @@ public class UIRender {
     }
 
     @SubscribeEvent
+    public void nudge(RenderGameOverlayEvent.Pre event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE ||
+                event.getType() == RenderGameOverlayEvent.ElementType.HEALTH ||
+                event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT ||
+                event.getType() == RenderGameOverlayEvent.ElementType.FOOD ||
+                event.getType() == RenderGameOverlayEvent.ElementType.AIR ||
+                event.getType() == RenderGameOverlayEvent.ElementType.ARMOR ||
+                event.getType() == RenderGameOverlayEvent.ElementType.SUBTITLES) {
+            RenderSystem.pushMatrix();
+            PlayerEntity player = (PlayerEntity) mc.getRenderViewEntity();
+            if (player == null) return;
+            if (!player.getCapability(CapabilityHelper.getMagicCapability()).isPresent()) return;
+            if (CapabilityHelper.getCurrentLevel(player) < 0) return;
+            if (player.isCreative() || player.isSpectator()) return;
+            RenderSystem.translatef(0, -6f, 0);
+        }
+    }
+
+    @SubscribeEvent
+    public void nudge(RenderGameOverlayEvent.Post event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE ||
+                event.getType() == RenderGameOverlayEvent.ElementType.HEALTH ||
+                event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT ||
+                event.getType() == RenderGameOverlayEvent.ElementType.FOOD ||
+                event.getType() == RenderGameOverlayEvent.ElementType.AIR ||
+                event.getType() == RenderGameOverlayEvent.ElementType.ARMOR ||
+                event.getType() == RenderGameOverlayEvent.ElementType.SUBTITLES) {
+            RenderSystem.popMatrix();
+        }
+    }
+
+    @SubscribeEvent
     public void render(RenderGameOverlayEvent.Pre event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL)
+        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             return;
+        }
         Entity renderViewEntity = mc.getRenderViewEntity();
         if (renderViewEntity == null)
             return;
         PlayerEntity player = (PlayerEntity) renderViewEntity;
         if (!player.getCapability(CapabilityHelper.getMagicCapability()).isPresent()) return;
-        if (CapabilityHelper.getCurrentLevel(player) <= 0) return;
+        if (CapabilityHelper.getCurrentLevel(player) < 0) return;
         if (player.getHeldItem(Hand.MAIN_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
             renderSpellBook(player, Hand.MAIN_HAND);
         else if (player.getHeldItem(Hand.OFF_HAND).getItem().equals(ModItems.SPELL_BOOK.get()))
@@ -95,6 +129,8 @@ public class UIRender {
     }
 
     private void renderMagicXp(PlayerEntity player) {
+        int scaledWidth = mc.getMainWindow().getScaledWidth();
+        int scaledHeight = mc.getMainWindow().getScaledHeight();
         RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         float x = 0;
@@ -103,16 +139,26 @@ public class UIRender {
         Vec2f dimensions = new Vec2f(182, 5);
         Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
         RenderSystem.color4f(0.5f, 0.5f, 1, 1);
+        RenderSystem.translatef((scaledWidth-dimensions.x)/2f, scaledHeight-28.5f, 0);
         drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
         if (CapabilityHelper.getCurrentXP(player) > 0) {
             float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
             if (pctXP > 1) pctXP = 1;
             int width = (int) ((dimensions.x + 1) * pctXP);
+            RenderSystem.color3f(ColorUtil.getRed(0x99EEFF), ColorUtil.getGreen(0x99EEFF), ColorUtil.getBlue(0x99EEFF));
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
         }
-        String xpStr = new TranslationTextComponent(ArsMagicaAPI.MODID + ".gui.xp", CapabilityHelper.getCurrentXP(player), CapabilityHelper.getMaxXP(player)).getString();
-        Vec2f numericPos = new Vec2f(x, y);
-        Minecraft.getInstance().fontRenderer.drawString(xpStr, numericPos.x, numericPos.y, 0x999999);
+        if (CapabilityHelper.getCurrentLevel(player) > 0) {
+            String xpStr = String.format("%d", CapabilityHelper.getCurrentLevel(player));
+            int width = Minecraft.getInstance().fontRenderer.getStringWidth(xpStr);
+            float x1 = (182 - width) / 2f;
+            float y1 = -2;
+            Minecraft.getInstance().fontRenderer.drawString(xpStr, x1 + 1, y1, 0);
+            Minecraft.getInstance().fontRenderer.drawString(xpStr, x1 - 1, y1, 0);
+            Minecraft.getInstance().fontRenderer.drawString(xpStr, x1, y1 + 1, 0);
+            Minecraft.getInstance().fontRenderer.drawString(xpStr, x1, y1 - 1, 0);
+            Minecraft.getInstance().fontRenderer.drawString(xpStr, x1, y1, 0x99FFFF);
+        }
         RenderSystem.popMatrix();
     }
 

@@ -12,7 +12,9 @@ public interface IMagicStorage {
     void setLevel(int level);
 
     default float getMaxXP() {
-        return (float)Math.pow(getCurrentLevel() * 0.25f, 1.5f);
+        if (getCurrentLevel() < 0) return 0;
+        int x = getCurrentLevel();
+        return (float) ((Math.atan(x * 0.2 + 0.6) * 3.0) + (Math.pow(x, 2) * 0.006) + (x * -0.01) - 1.2);
     }
 
     void setXp(float xp);

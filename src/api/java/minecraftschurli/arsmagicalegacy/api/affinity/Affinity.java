@@ -3,8 +3,6 @@ package minecraftschurli.arsmagicalegacy.api.affinity;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.util.ITranslatable;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -29,11 +27,11 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
     public static final ResourceLocation NATURE = new ResourceLocation(ArsMagicaAPI.MODID, "nature");
     public static final ResourceLocation LIFE = new ResourceLocation(ArsMagicaAPI.MODID, "life");
     public static final ResourceLocation ENDER = new ResourceLocation(ArsMagicaAPI.MODID, "ender");
+
     private final int color;
     private ResourceLocation directOpposite;
     private final Set<ResourceLocation> majorOpposites = new HashSet<>();
     private final Set<ResourceLocation> minorOpposites = new HashSet<>();
-    private IItemProvider essence = Items.AIR;
 
     public Affinity(int color) {
         this.color = color;
@@ -103,10 +101,6 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
         return this;
     }
 
-    public void setEssence(IItemProvider essence) {
-        this.essence = essence;
-    }
-
     @Override
     public String toString() {
         return getRegistryName().toString();
@@ -116,10 +110,6 @@ public class Affinity extends ForgeRegistryEntry<Affinity> implements Comparable
     public int compareTo(@Nonnull Affinity o) {
         if (o.getRegistryName() == null && getRegistryName() != null) return 1;
         return Objects.compare(RegistryHandler.getAffinityRegistry().getKey(this), RegistryHandler.getAffinityRegistry().getKey(o), Comparator.comparing(ResourceLocation::toString));
-    }
-
-    public IItemProvider getEssence() {
-        return essence;
     }
 
     @Nullable
