@@ -1,6 +1,15 @@
 package minecraftschurli.arsmagicalegacy.init;
 
-import minecraftschurli.arsmagicalegacy.objects.block.*;
+import javax.annotation.Nonnull;
+import minecraftschurli.arsmagicalegacy.objects.block.Button;
+import minecraftschurli.arsmagicalegacy.objects.block.CandleBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.Door;
+import minecraftschurli.arsmagicalegacy.objects.block.Inlay;
+import minecraftschurli.arsmagicalegacy.objects.block.PressurePlate;
+import minecraftschurli.arsmagicalegacy.objects.block.Sapling;
+import minecraftschurli.arsmagicalegacy.objects.block.Torch;
+import minecraftschurli.arsmagicalegacy.objects.block.Trapdoor;
+import minecraftschurli.arsmagicalegacy.objects.block.WallTorch;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.celestialprism.CelestialPrismBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
@@ -11,7 +20,18 @@ import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.wizardchalk.WizardChalk;
 import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import minecraftschurli.simpleorelib.Ore;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.LogBlock;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemTier;
@@ -21,8 +41,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

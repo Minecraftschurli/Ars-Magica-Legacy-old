@@ -1,7 +1,13 @@
 package minecraftschurli.arsmagicalegacy.util;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import javafx.util.Pair;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
@@ -10,7 +16,12 @@ import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import minecraftschurli.arsmagicalegacy.api.rituals.RitualHelper;
-import minecraftschurli.arsmagicalegacy.api.spell.*;
+import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellShape;
 import minecraftschurli.arsmagicalegacy.api.util.NBTUtil;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
@@ -33,14 +44,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
-
-import javax.annotation.Nullable;
-import java.util.*;
 
 @SuppressWarnings("unused")
 public final class SpellUtil {
@@ -284,6 +293,17 @@ public final class SpellUtil {
 //        AMEnchantmentHelper.fortuneStack(stack, looting);
 //        AMEnchantmentHelper.lootingStack(stack, looting);
 //        AMEnchantmentHelper.silkTouchStack(stack, silkTouch);
+    }
+
+    public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
+        Vec3d c = view.subtract(a);
+        Vec3d d = b.subtract(a).normalize();
+        double p = d.dotProduct(c);
+        if (p <= 0)
+            return a;
+        if (p >= a.distanceTo(b))
+            return b;
+        return a.add(d.scale(p));
     }
 
     public static void consumeReagents(LivingEntity caster, ItemStack spellStack) {

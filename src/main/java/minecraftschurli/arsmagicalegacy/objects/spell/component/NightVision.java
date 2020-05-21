@@ -1,6 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -13,11 +15,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class NightVision extends SpellComponent {
     @Override
@@ -62,19 +59,4 @@ public final class NightVision extends SpellComponent {
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
-//
-    @Override
-    public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 8; i++) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "radiant", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 2, 1);
-//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.1f + rand.nextFloat() * 0.1f, 1, false));
-//                if (rand.nextBoolean()) particle.setRGBColorF(0.2f, 0.5f, 0.2f);
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
-    }
 }

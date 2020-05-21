@@ -1,6 +1,11 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.affinity.IAffinityItem;
@@ -15,7 +20,7 @@ import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillTree;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSkillTrees;
-import minecraftschurli.arsmagicalegacy.util.ColorUtil;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -28,12 +33,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli
@@ -65,22 +64,19 @@ public class OcculusScreen extends Screen {
         int posY = height / 2 - ySize / 2;
         for (SkillTree tree : RegistryHandler.getSkillTreeRegistry()) {
             int tabId = tree.getOcculusIndex();
-            if (tabId % 16 < 8) {
+            if (tabId % 16 < 8)
                 addButton(new SkillTreeGuiButton(tabId, posX + 7 + ((tabId % 16) * 24), posY - 22, tree, (int) Math.floor((float) tabId / 16F), false, this::actionPerformed));
-            } else {
+            else
                 addButton(new SkillTreeGuiButton(tabId, posX + 7 + (((tabId % 16) - 8) * 24), posY + 210, tree, (int) Math.floor((float) tabId / 16F), true, this::actionPerformed));
-            }
         }
         int maxPage = (int) Math.floor((float) (RegistryHandler.getSkillTreeRegistry().getValues().size() - 1) / 16F);
         Button nextPage = new Button(posX + 212, posY - 21, 20, 20, ">", this::actionPerformed);
         Button prevPage = new Button(posX - 15, posY - 21, 20, 20, "<", this::actionPerformed);
         nextPage.active = page < maxPage;
         prevPage.active = false;
-        for (Widget button : buttons) {
-            if (button instanceof SkillTreeGuiButton) {
+        for (Widget button : buttons)
+            if (button instanceof SkillTreeGuiButton)
                 button.visible = (int) Math.floor((float) ((SkillTreeGuiButton) button).id / 16F) == page;
-            }
-        }
         addButton(nextPage);
         addButton(prevPage);
     }
@@ -89,12 +85,9 @@ public class OcculusScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if (mouseButton == 0) {
             if (hoverItem != null && !CapabilityHelper.knows(player, hoverItem)) {
-                if (CapabilityHelper.canLearn(player, hoverItem) || player.isCreative()) {
+                if (CapabilityHelper.canLearn(player, hoverItem) || player.isCreative())
                     NetworkHandler.INSTANCE.sendToServer(new LearnSkillPacket(hoverItem.getID()));
-                }
-            } else {
-                setDragging(true);
-            }
+            } else setDragging(true);
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -230,7 +223,7 @@ public class OcculusScreen extends Screen {
             if (!hasPrereq)
                 RenderSystem.color3f(0.5F, 0.5F, 0.5F);
             else if (!CapabilityHelper.knows(player, s))
-                RenderSystem.color3f(Math.max(ColorUtil.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(ColorUtil.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(ColorUtil.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
+                RenderSystem.color3f(Math.max(ParticleUtil.getRed(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(ParticleUtil.getGreen(s.getPoint().getColor()), 0.6F) * multiplier, Math.max(ParticleUtil.getBlue(s.getPoint().getColor()), 0.6F) * multiplier);
             RenderSystem.enableBlend();
             RenderUtil.drawBox(offsetX + xStartMod, offsetY + yStartMod, renderSize - xStartMod - xEndMod, renderSize - yStartMod - yEndMod, 0, minU + (xStartMod / renderSize * spriteXSize), minV + (yStartMod / renderSize * spriteYSize), maxU - (xEndMod / renderSize * spriteXSize), maxV - (yEndMod / renderSize * spriteYSize));
             RenderSystem.disableBlend();

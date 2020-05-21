@@ -1,11 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -14,10 +19,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class Flight extends SpellComponent {
     @Override
@@ -64,15 +65,6 @@ public final class Flight extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; i++) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, rand.nextBoolean() ? "wind" : "ember", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 0.5, 1);
-//                particle.AddParticleController(new ParticleOrbitEntity(particle, target, 0.2f + rand.nextFloat() * 0.2f, 1, false));
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
+        for (int i = 0; i < 15; i++) ParticleUtil.addParticle(world, target, world.rand.nextBoolean() ? ModParticles.WIND : ModParticles.EMBER, colorModifier, 0, x + rand.nextInt(2) - 1, y, z + rand.nextInt(2) - 1);
     }
 }

@@ -1,11 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,10 +20,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class ManaBlast extends SpellComponent {
     @Override
@@ -61,19 +62,6 @@ public final class ManaBlast extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        double snapAngle = (2 * 3.14159265358979) / (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5;
-//        for (int j = 0; j < 4; j++) {
-//            for (int i = 0; i < (ArsMagicaLegacy.config.getGFXLevel() + 1) * 5; i++) {
-//                double posX = x + (Math.cos(snapAngle * i) * (j * 0.5));
-//                double posZ = z + (Math.sin(snapAngle * i) * (j * 0.5));
-//                AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", posX, target.posY + target.height / 2 + j * 0.5, posZ);
-//                if (particle != null) {
-//                    particle.setIgnoreMaxAge(true);
-//                    particle.AddParticleController(new ParticleApproachEntity(particle, target, 0.15f, 0.1, 1, false));
-//                    particle.AddParticleController(new ParticleFadeOut(particle, 2, false).setFadeSpeed(0.1f));
-//                    particle.setRGBColorF(0.6f, 0f, 0.9f);
-//                }
-//            }
-//        }
+        for (int j = 0; j < 4; j++) for (int i = 0; i < 5; i++) ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, 0, x + Math.cos(3.14159265358979 * 0.4 * i) * j / 2, y, z + Math.sin(3.14159265358979 * 0.4 * i) * j / 2);
     }
 }

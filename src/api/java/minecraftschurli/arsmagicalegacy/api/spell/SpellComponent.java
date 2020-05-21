@@ -1,6 +1,10 @@
 package minecraftschurli.arsmagicalegacy.api.spell;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Set;
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
@@ -12,11 +16,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Set;
 
 /**
  * @author Minecraftschurli

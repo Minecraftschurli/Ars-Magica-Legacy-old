@@ -2,7 +2,12 @@ package minecraftschurli.arsmagicalegacy.objects.entity;
 
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -78,18 +83,12 @@ public final class FireRainEntity extends Entity {
     @Override
     public void tick() {
         if (world.isRemote) {
-//            int color = 0xFFFFFF;
-//            if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK))) for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1)) if (mod instanceof Color) color = (int)mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
-//            for (int i = 0; i < 10; ++i){
-//                AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "implosion", getPosX() - dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), getPosY() + 10, dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2));
-//                if (particle != null){
-//                    particle.setMaxAge(20);
-//                    particle.addVelocity(rand.nextDouble() * 0.2f, 0, rand.nextDouble() * 0.2f);
-//                    particle.setAffectedByGravity();
-//                    particle.setDontRequireControllers();
-//                    particle.setRGBColorI(color);
-//                }
-//            }
+            int color = 0xffffff;
+            if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
+                for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
+                    if (mod instanceof Color)
+                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, world, dataManager.get(STACK).getTag());
+            for (int i = 0; i < 10; ++i) ParticleUtil.addParticle(world, null, ModParticles.IMPLOSION, color, 0xffffff, getPosX() - dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), getPosY() + 10, dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), (float)rand.nextDouble() * 0.2f, -0.5f, (float)rand.nextDouble() * 0.2f);
         } else {
             for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - dataManager.get(RADIUS), getPosY() - 1, getPosZ() - dataManager.get(RADIUS), getPosX() + dataManager.get(RADIUS), getPosY() + 3, getPosZ() + dataManager.get(RADIUS)))) {
                 if (e != getOwner()) {

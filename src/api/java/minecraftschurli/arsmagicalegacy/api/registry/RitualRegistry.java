@@ -1,5 +1,9 @@
 package minecraftschurli.arsmagicalegacy.api.registry;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.rituals.AbstractRitual;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -9,11 +13,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.patchouli.api.IMultiblock;
-
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

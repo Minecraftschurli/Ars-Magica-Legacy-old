@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.config;
 
+import java.util.Arrays;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -10,9 +12,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Minecraftschurli

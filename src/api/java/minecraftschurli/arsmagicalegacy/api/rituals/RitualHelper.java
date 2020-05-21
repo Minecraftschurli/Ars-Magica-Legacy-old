@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.rituals;
 
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
@@ -9,9 +11,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.patchouli.api.IMultiblock;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public final class RitualHelper {
 	public static boolean matchesRitual(AbstractRitual ritual, World world, BlockPos pos) {

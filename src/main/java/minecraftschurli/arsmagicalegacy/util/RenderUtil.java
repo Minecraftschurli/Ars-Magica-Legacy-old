@@ -4,10 +4,16 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderState;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -15,58 +21,24 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
-    //    public static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
-    protected static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
+//    private static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
+    private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
     }, RenderSystem::disableBlend);
-    protected static final RenderState.AlphaState DEFAULT_ALPHA = new RenderState.AlphaState(0.003921569F);
-    protected static final RenderState.LightmapState LIGHTMAP_ENABLED = new RenderState.LightmapState(true);
-    protected static final RenderState.OverlayState OVERLAY_ENABLED = new RenderState.OverlayState(true);
-    protected static final RenderState.CullState CULL_DISABLED = new RenderState.CullState(false);
-    protected static final RenderState.DiffuseLightingState DIFFUSE_LIGHTING_ENABLED = new RenderState.DiffuseLightingState(true);
-
-    public static void addParticle(World world, ParticleType<SimpleParticleData> type, float r, float g, float b, float a, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
-        world.addParticle(new SimpleParticleData(type, r, g, b, a), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
-    }
-
-    @Deprecated
-    public static void addParticle(World world, ParticleType<SimpleParticleData> type, int color, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed) {
-        world.addParticle(new SimpleParticleData(type, ColorUtil.getRed(color), ColorUtil.getGreen(color), ColorUtil.getBlue(color), 1), x, y + 1.5, z, xSpeed, ySpeed, zSpeed);
-    }
-
-    @Deprecated
-    public static void addParticle(World world, ParticleType<SimpleParticleData> type, float r, float g, float b, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type, r, g, b, 1), x, y + 1.5, z, 0, 0, 0);
-    }
-
-    @Deprecated
-    public static void addParticle(World world, ParticleType<SimpleParticleData> type, int color, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type, ColorUtil.getRed(color), ColorUtil.getGreen(color), ColorUtil.getBlue(color), 1), x, y + 1.5, z, 0, 0, 0);
-    }
-
-    public static Vec3d closestPointOnLine(Vec3d view, Vec3d a, Vec3d b) {
-        Vec3d vVector1 = view.subtract(a);
-        Vec3d vVector2 = b.subtract(a).normalize();
-        float d = (float) a.distanceTo(b);
-        double t = vVector2.dotProduct(vVector1);
-        if (t <= 0)
-            return a;
-        if (t >= d)
-            return b;
-        Vec3d vVector3 = vVector2.scale(t);
-        return a.add(vVector3);
-    }
+    private static final RenderState.AlphaState DEFAULT_ALPHA = new RenderState.AlphaState(0.003921569F);
+    private static final RenderState.LightmapState LIGHTMAP_ENABLED = new RenderState.LightmapState(true);
+    private static final RenderState.OverlayState OVERLAY_ENABLED = new RenderState.OverlayState(true);
+    private static final RenderState.CullState CULL_DISABLED = new RenderState.CullState(false);
+    private static final RenderState.DiffuseLightingState DIFFUSE_LIGHTING_ENABLED = new RenderState.DiffuseLightingState(true);
 
     public static void color(int color) {
-        RenderSystem.color4f(ColorUtil.getRed(color), ColorUtil.getGreen(color), ColorUtil.getBlue(color), 0.5F);
+        RenderSystem.color4f(ParticleUtil.getRed(color), ParticleUtil.getGreen(color), ParticleUtil.getBlue(color), 0.5F);
     }
 
     public static Vec3d copyVec(Vec3d vec) {
@@ -84,7 +56,7 @@ public final class RenderUtil {
         t.draw();
     }
 
-    public static void drawTextInWorldAtOffset(String text, double x, double y, double z, int color) {
+    public static void drawTextInWorld(String text, double x, double y, double z, int color) {
         FontRenderer fontrenderer = Minecraft.getInstance().fontRenderer;
         float f = 0.0104166675f;
         RenderSystem.pushMatrix();
@@ -99,20 +71,19 @@ public final class RenderUtil {
         RenderSystem.disableTexture();
         RenderSystem.enableTexture();
         Tessellator tessellator = Tessellator.getInstance();
-        byte b0 = 0;
         RenderSystem.disableTexture();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
         int j = fontrenderer.getStringWidth(text) / 2;
-        tessellator.getBuffer().pos(-j - 1, -1 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
-        tessellator.getBuffer().pos(-j - 1, 8 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
-        tessellator.getBuffer().pos(j + 1, 8 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
-        tessellator.getBuffer().pos(j + 1, -1 + b0, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(-j - 1, -1, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(-j - 1, 8, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(j + 1, 8, 0).color(0, 0, 0, 0.75F).endVertex();
+        tessellator.getBuffer().pos(j + 1, -1, 0).color(0, 0, 0, 0.75F).endVertex();
         tessellator.draw();
         RenderSystem.enableTexture();
-        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2f, b0, 553648127);
+        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2f, 0, 553648127);
         RenderSystem.enableTexture();
         RenderSystem.depthMask(true);
-        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2f, b0, -1);
+        fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2f, 0, -1);
         RenderSystem.enableTexture();
         RenderSystem.disableTexture();
         RenderSystem.color4f(1, 1, 1, 1);
@@ -128,8 +99,8 @@ public final class RenderUtil {
         else {
             int mx = (int) ((xEnd + xStart) / 2);
             int my = (int) ((yEnd + yStart) / 2);
-            mx += (Minecraft.getInstance().player.world.rand.nextFloat() - 0.5) * displace;
-            my += (Minecraft.getInstance().player.world.rand.nextFloat() - 0.5) * displace;
+            mx += (Minecraft.getInstance().world.rand.nextFloat() - 0.5) * displace;
+            my += (Minecraft.getInstance().world.rand.nextFloat() - 0.5) * displace;
             fractalLine2df(xStart, yStart, mx, my, zLevel, color, displace / 2f, fractalDetail);
             fractalLine2df(xEnd, yEnd, mx, my, zLevel, color, displace / 2f, fractalDetail);
         }
@@ -179,8 +150,8 @@ public final class RenderUtil {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buf = tessellator.getBuffer();
         buf.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
-        buf.pos(src_x, src_y, zLevel).color(ColorUtil.getRed(color1), ColorUtil.getGreen(color1), ColorUtil.getBlue(color1), 0xFF).endVertex();
-        buf.pos(dst_x, dst_y, zLevel).color(ColorUtil.getRed(color2), ColorUtil.getGreen(color2), ColorUtil.getBlue(color2), 0xFF).endVertex();
+        buf.pos(src_x, src_y, zLevel).color(ParticleUtil.getRed(color1), ParticleUtil.getGreen(color1), ParticleUtil.getBlue(color1), 0xFF).endVertex();
+        buf.pos(dst_x, dst_y, zLevel).color(ParticleUtil.getRed(color2), ParticleUtil.getGreen(color2), ParticleUtil.getBlue(color2), 0xFF).endVertex();
         tessellator.draw();
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.enableTexture();

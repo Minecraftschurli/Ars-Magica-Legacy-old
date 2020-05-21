@@ -1,10 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,10 +18,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class BanishRain extends SpellComponent {
     @Override
@@ -72,14 +73,6 @@ public final class BanishRain extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 25; i++) {
-//            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "water_ball", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(5, 4, 5);
-//                particle.AddParticleController(new ParticleFloatUpward(particle, 0f, 0.5f, 1, false));
-//                particle.setMaxAge(25 + rand.nextInt(10));
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
+        for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.WATERBALL, colorModifier, 0, x + rand.nextInt(10) - 5, y + rand.nextInt(8) - 4, z + rand.nextInt(10) - 5);
     }
 }

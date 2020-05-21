@@ -1,10 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,12 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
-
 public final class Absorption extends SpellComponent {
-
     @Override
     public boolean applyEffectBlock(ItemStack stack, World world, BlockPos blockPos, Direction blockFace, double impactX, double impactY, double impactZ, LivingEntity caster) {
         return false;
@@ -61,15 +61,9 @@ public final class Absorption extends SpellComponent {
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
-
+//
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; i++) {
-//            world.addOptionalParticle((IParticleData) ModParticles.LENS_FLARE.get(), x, y, z, 0, 0, 0);
-//            SimpleParticle particle = new SimpleParticle(world, x, y, z);
-//            particle.setMaxAge(25 + rand.nextInt(10));
-//            particle.setColor(244, 200, 60);
-//            if (colorModifier > -1) particle.setColor(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//        }
+        for (int i = 0; i < 15; i++) ParticleUtil.addParticle(world, target, ModParticles.LENS_FLARE, colorModifier, 0xf4c83c, x, y, z);
     }
 }

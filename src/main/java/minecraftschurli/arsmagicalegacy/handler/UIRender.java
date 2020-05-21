@@ -1,11 +1,12 @@
 package minecraftschurli.arsmagicalegacy.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookItem;
-import minecraftschurli.arsmagicalegacy.util.ColorUtil;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,8 +20,6 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.List;
-
 /**
  * @author Minecraftschurli
  * @version 2019-11-12
@@ -33,12 +32,10 @@ public class UIRender {
     private float blitOffset;
 
     public static int getWidth(double d1, double d2) {
-        int w = 80;
-        double d3 = Math.max(w * (d1 / d2), 0);
-        return (int) Math.ceil(d3);
+        return (int) Math.ceil(Math.max(80 * (d1 / d2), 0));
     }
 
-    private FontRenderer fontRenderer() {
+    private FontRenderer fontRender() {
         return mc.fontRenderer;
     }
 
@@ -145,7 +142,7 @@ public class UIRender {
             float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);
             if (pctXP > 1) pctXP = 1;
             int width = (int) ((dimensions.x + 1) * pctXP);
-            RenderSystem.color3f(ColorUtil.getRed(0x99EEFF), ColorUtil.getGreen(0x99EEFF), ColorUtil.getBlue(0x99EEFF));
+            RenderSystem.color3f(ParticleUtil.getRed(0x99EEFF), ParticleUtil.getGreen(0x99EEFF), ParticleUtil.getBlue(0x99EEFF));
             drawTexturedModalRect((int) position.x, (int) position.y, 0, 69, width, (int) dimensions.y, width, (int) dimensions.y);
         }
         if (CapabilityHelper.getCurrentLevel(player) > 0) {
@@ -235,12 +232,12 @@ public class UIRender {
     }
 
     public int getStringLength(String s) {
-        return fontRenderer().getStringWidth(s);
+        return fontRender().getStringWidth(s);
     }
 
     public void drawStringOnHUD(String string, int xOffset, int yOffset, int color) {
         xOffset += 2;
         yOffset += 2;
-        fontRenderer().drawStringWithShadow(string, xOffset, yOffset, color);
+        fontRender().drawStringWithShadow(string, xOffset, yOffset, color);
     }
 }

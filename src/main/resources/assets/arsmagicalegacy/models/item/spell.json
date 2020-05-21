@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "arsmagicalegacy:item/spell"
+    "layer0": "arsmagicalegacy:item/spell_parchment"
   }
 }

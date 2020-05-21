@@ -3,7 +3,8 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import minecraftschurli.arsmagicalegacy.util.ColorUtil;
+import javax.annotation.Nonnull;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -14,8 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class BoltParticle extends Particle {
     private final BoltParticleData main;
@@ -220,9 +219,9 @@ public class BoltParticle extends Particle {
                 break;
         }
         if (overrideColor != -1) {
-            particleRed = ColorUtil.getRed(overrideColor);
-            particleGreen = ColorUtil.getGreen(overrideColor);
-            particleBlue = ColorUtil.getBlue(overrideColor);
+            particleRed = ParticleUtil.getRed(overrideColor);
+            particleGreen = ParticleUtil.getGreen(overrideColor);
+            particleBlue = ParticleUtil.getBlue(overrideColor);
         }
         switch (type) {
             case TYPE_0:
@@ -265,9 +264,9 @@ public class BoltParticle extends Particle {
                 break;
         }
         if (overrideColor != -1) {
-            particleRed = ColorUtil.getRed(overrideColor);
-            particleGreen = ColorUtil.getGreen(overrideColor);
-            particleBlue = ColorUtil.getBlue(overrideColor);
+            particleRed = ParticleUtil.getRed(overrideColor);
+            particleGreen = ParticleUtil.getGreen(overrideColor);
+            particleBlue = ParticleUtil.getBlue(overrideColor);
         }
         switch (type) {
             case TYPE_0:
@@ -310,9 +309,9 @@ public class BoltParticle extends Particle {
                 break;
         }
         if (overrideColor != -1) {
-            particleRed = ColorUtil.getRed(overrideColor);
-            particleGreen = ColorUtil.getGreen(overrideColor);
-            particleBlue = ColorUtil.getBlue(overrideColor);
+            particleRed = ParticleUtil.getRed(overrideColor);
+            particleGreen = ParticleUtil.getGreen(overrideColor);
+            particleBlue = ParticleUtil.getBlue(overrideColor);
         }
         try {
             tessellator.draw();

@@ -3,9 +3,14 @@ package minecraftschurli.arsmagicalegacy.objects.entity;
 import java.util.Collections;
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -122,95 +127,63 @@ public final class ThrownRockEntity extends Entity {
             if (getMotion().y < -2f)
                 setMotion(getMotion().x, -2f, getMotion().z);
         }
-//        if (world.isRemote) {
-//            if (dataManager.get(MOONSTONE_METEOR)) {
-//                AMParticle fire = (AMParticle) ArsMagica2.proxy.particleManager.spawn(worldObj, "explosion_2", getPosX(), getPosY(), getPosZ());
-//                if (fire != null) {
-//                    fire.setMaxAge(20);
-//                    fire.setRGBColorF(1, 1, 1);
-//                    fire.setParticleScale(2);
-//                    fire.AddParticleController(new ParticleHoldPosition(fire, 20, 1, false));
-//                    fire.AddParticleController(new ParticleColorShift(fire, 1, false).SetShiftSpeed(0.1f).SetColorTarget(0.01f, 0.01f, 0.01f).SetEndOnReachingTargetColor().setKillParticleOnFinish(false));
-//                }
-//            } else if (isShootingStar()) {
-//                int color = -1;
-//                dataManager.get(STACK);
-//                if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
-//                    for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
-//                        if (mod instanceof Color)
-//                            color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
-//                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f) {
-//                    AMParticle star = (AMParticle) ArsMagica2.proxy.particleManager.spawn(worldObj, "ember", getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
-//                    if (star != null) {
-//                        star.setMaxAge(22);
-//                        float clrMod = Minecraft.getInstance().world.rand.nextFloat();
-//                        int finalColor = -1;
-//                        if (color == -1)
-//                            finalColor = MathUtilities.colorFloatsToInt(0.24f * clrMod, 0.58f * clrMod, 0.71f * clrMod);
-//                        else {
-//                            float[] colors = MathUtilities.colorIntToFloats(color);
-//                            for (int c = 0; c < colors.length; c++)
-//                                colors[c] = colors[c] * clrMod;
-//                            finalColor = MathUtilities.colorFloatsToInt(colors[0], colors[1], colors[2]);
-//                        }
-//                        star.setRGBColorI(finalColor);
-//                        star.AddParticleController(new ParticleHoldPosition(star, 20, 1, false));
-//                        star.AddParticleController(new ParticleChangeSize(star, 0.5f, 0.05f, 20, 1, false));
-//                    }
-//                }
-//            }
-//        }
-        Vec3d vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
-        Vec3d vec3d1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
-        RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
-        vec3d = new Vec3d(getPosX(), getPosY(), getPosZ());
-        vec3d1 = new Vec3d(mop.getHitVec().x, mop.getHitVec().y, mop.getHitVec().z);
+        if (world.isRemote) {
+            if (dataManager.get(MOONSTONE_METEOR)) ParticleUtil.addParticle(world, null, ModParticles.IMPLOSION, 0xffffff, 0xffffff, getPosX(), getPosY(), getPosZ());
+            else if (isShootingStar()) {
+                int color = -1;
+                if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
+                    for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
+                        if (mod instanceof Color)
+                            color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
+                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f) ParticleUtil.addParticle(world, null, ModParticles.EMBER, color, color, getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
+            }
+        }
+        Vec3d vec0 = new Vec3d(getPosX(), getPosY(), getPosZ());
+        Vec3d vec1 = new Vec3d(getPosX() + getMotion().x, getPosY() + getMotion().y, getPosZ() + getMotion().z);
+        RayTraceResult mop = world.rayTraceBlocks(new RayTraceContext(vec0, vec1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+        vec0 = new Vec3d(getPosX(), getPosY(), getPosZ());
+        vec1 = new Vec3d(mop.getHitVec().x, mop.getHitVec().y, mop.getHitVec().z);
         Entity entity = null;
         double d = 0;
-        for (Entity value : world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1, 1, 1))) {
-            if (!value.canBeCollidedWith() || value.isEntityEqual(world.getEntityByID(dataManager.get(OWNER))) && ticksExisted < 25)
+        for (Entity e : world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(getMotion().x, getMotion().y, getMotion().z).expand(1, 1, 1))) {
+            if (!e.canBeCollidedWith() || e.isEntityEqual(getOwner()) && ticksExisted < 25)
                 continue;
-            float f2 = 0.3F;
-            AxisAlignedBB axisalignedbb = value.getBoundingBox().expand(f2, f2, f2);
-            RayTraceResult rtr = AxisAlignedBB.rayTrace(Collections.singletonList(axisalignedbb), vec3d, vec3d1, getPosition());
+            AxisAlignedBB axisalignedbb = e.getBoundingBox().expand(0.3f, 0.3f, 0.3f);
+            RayTraceResult rtr = AxisAlignedBB.rayTrace(Collections.singletonList(axisalignedbb), vec0, vec1, getPosition());
             if (rtr == null) continue;
-            double d1 = vec3d.distanceTo(rtr.getHitVec());
-            if (d1 < d || d == 0) {
-                entity = value;
-                d = d1;
+            if (vec0.distanceTo(rtr.getHitVec()) < d || d == 0) {
+                entity = e;
+                d = vec0.distanceTo(rtr.getHitVec());
             }
         }
         if (entity != null) mop = new EntityRayTraceResult(entity);
         if (!world.isRemote) {
             if (isShootingStar()) {
-                //AMNetHandler.INSTANCE.sendStarImpactToClients(getPosX(), getPosY() + ((mop.getType() == RayTraceResult.Type.ENTITY) ? -((EntityRayTraceResult)mop).getEntity().getEyeHeight() : 1.5f), getPosZ(), world, getSpellStack());
                 setPosition(getPosX(), getPosY() + 1, getPosZ());
                 for (LivingEntity e : world.getEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(12, 5, 12))) {
                     if (e == world.getEntityByID(dataManager.get(OWNER))) continue;
                     if (getDistance(e) < 12)
                         SpellUtil.attackWithType(null, e, DamageSource.causeIndirectMagicDamage(getOwner(), this), dataManager.get(DAMAGE));
                 }
-            } else {
-                if (mop.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) mop).getEntity() instanceof LivingEntity) {
-                    if (((EntityRayTraceResult) mop).getEntity() == world.getEntityByID(dataManager.get(OWNER)) || world.getEntityByID(dataManager.get(OWNER)) == null)
-                        return;
-                    ((EntityRayTraceResult) mop).getEntity().attackEntityFrom(DamageSource.causeMobDamage(getOwner()), 10);
-                } else if (mop.getType() == RayTraceResult.Type.BLOCK) {
-                    if (dataManager.get(MOONSTONE_METEOR)) {
-                        if (target == null) target = mop.getHitVec();
-                        world.createExplosion(this, target.getX(), target.getY(), target.getZ(), 0.8f, Explosion.Mode.NONE);
-                        int numOres = rand.nextInt(4) + 1;
-                        for (int i = 0; i < numOres; i++) {
-                            BlockPos pos = new BlockPos(target);
-                            pos = pos.east(rand.nextInt(4) - 2);
-                            pos = pos.south(rand.nextInt(4) - 2);
-                            while (!world.isAirBlock(pos) && pos.getY() < world.getActualHeight())
-                                pos = pos.up();
-                            if (rand.nextInt(4) < 2 || i == 0)
-                                world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());
-                            else
-                                world.setBlockState(pos, Blocks.STONE.getDefaultState());
-                        }
+            } else if (mop.getType() == RayTraceResult.Type.ENTITY && ((EntityRayTraceResult) mop).getEntity() instanceof LivingEntity) {
+                if (((EntityRayTraceResult) mop).getEntity() == world.getEntityByID(dataManager.get(OWNER)) || world.getEntityByID(dataManager.get(OWNER)) == null)
+                    return;
+                ((EntityRayTraceResult) mop).getEntity().attackEntityFrom(DamageSource.causeMobDamage(getOwner()), 10);
+            } else if (mop.getType() == RayTraceResult.Type.BLOCK) {
+                if (dataManager.get(MOONSTONE_METEOR)) {
+                    if (target == null) target = mop.getHitVec();
+                    world.createExplosion(this, target.getX(), target.getY(), target.getZ(), 0.8f, Explosion.Mode.NONE);
+                    int numOres = rand.nextInt(4) + 1;
+                    for (int i = 0; i < numOres; i++) {
+                        BlockPos pos = new BlockPos(target);
+                        pos = pos.east(rand.nextInt(4) - 2);
+                        pos = pos.south(rand.nextInt(4) - 2);
+                        while (!world.isAirBlock(pos) && pos.getY() < world.getActualHeight())
+                            pos = pos.up();
+                        if (rand.nextInt(4) < 2 || i == 0)
+                            world.setBlockState(pos, ModBlocks.MOONSTONE_ORE.get().getDefaultState());
+                        else
+                            world.setBlockState(pos, Blocks.STONE.getDefaultState());
                     }
                 }
             }

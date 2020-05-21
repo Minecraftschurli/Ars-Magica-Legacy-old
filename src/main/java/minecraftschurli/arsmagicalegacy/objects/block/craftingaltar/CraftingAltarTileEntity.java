@@ -1,7 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import javafx.util.Pair;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.config.CraftingAltarStructureMaterials;
 import minecraftschurli.arsmagicalegacy.api.etherium.IEtheriumConsumer;
 import minecraftschurli.arsmagicalegacy.api.multiblock.Structure;
@@ -15,7 +23,11 @@ import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableTileEntity;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeverBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,15 +46,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.Constants;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * @author Minecraftschurli

@@ -1,6 +1,12 @@
 package minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import com.google.common.base.Strings;
+import java.io.ByteArrayInputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.item.ItemStack;
@@ -8,13 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import java.io.ByteArrayInputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

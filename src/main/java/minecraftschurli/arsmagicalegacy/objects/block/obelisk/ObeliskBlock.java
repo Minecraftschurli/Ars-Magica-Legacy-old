@@ -1,5 +1,8 @@
 package minecraftschurli.arsmagicalegacy.objects.block.obelisk;
 
+import java.util.function.Supplier;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.etherium.generator.EtheriumGeneratorBlock;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
@@ -30,10 +33,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import vazkii.patchouli.api.IMultiblock;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
-
 /**
  * @author Minecraftschurli
  * @version 2020-04-21
@@ -52,13 +51,13 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
                     .setSymmetrical(true));
     public static final Supplier<IMultiblock> OBELISK_PILLARS = PatchouliCompat.registerMultiblock("obelisk_pillars", iPatchouliAPI ->
             iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"C   C", "     ", "  U  ", "     ", "C   C"},
+                    {"S   S", "     ", "  U  ", "     ", "S   S"},
                     {"B   B", "     ", "  M  ", "     ", "B   B"},
                     {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
             '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
-                    'C', iPatchouliAPI.looseBlockMatcher(Blocks.CHISELED_STONE_BRICKS),
+                    'S', iPatchouliAPI.looseBlockMatcher(Blocks.CHISELED_STONE_BRICKS),
                     'B', iPatchouliAPI.looseBlockMatcher(Blocks.STONE_BRICKS),
                     'C', PatchouliCompat.CHALK_MATCHER.get())
                     .setSymmetrical(true));
@@ -71,10 +70,10 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
 
     @Nonnull
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
-        Part doubleblockhalf = stateIn.get(PART);
-        if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == Part.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(PART) != doubleblockhalf)
-            return doubleblockhalf == Part.LOWER && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-        else return Blocks.AIR.getDefaultState();
+        Part half = stateIn.get(PART);
+        if (facing.getAxis() != Direction.Axis.Y || half == Part.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(PART) != half)
+            return half == Part.LOWER && facing == Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return Blocks.AIR.getDefaultState();
     }
 
     @Nullable

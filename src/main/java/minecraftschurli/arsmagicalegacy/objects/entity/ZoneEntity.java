@@ -89,29 +89,16 @@ public final class ZoneEntity extends Entity {
 
     @Override
     public void tick() {
-        if (world.isRemote) {
-//            rot += 10;
-//            rot %= 360;
-//            double dist = dataManager.get(RADIUS_DATA);
-//            if (spell == null) spell = dataManager.get(STACK_DATA);
-//            int color = 0xFFFFFF;
-//            if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) for (SpellModifier mod : SpellUtils.getModifiers(spell, -1)) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
-//            if (ticksExisted % 8 == 0) {
-//                for (int i = 0; i < 4; ++i) {
-//                    double x = getPosX() - Math.cos(3.141 / 180 * (rot + 90 * i) % 360) * dist;
-//                    double z = getPosZ() - Math.sin(3.141 / 180 * (rot + 90 * i) % 360) * dist;
-//                    AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
-//                    if (effect != null) {
-//                        effect.setIgnoreMaxAge(false);
-//                        effect.setMaxAge(20);
-//                        effect.setParticleScale(0.15f);
-//                        effect.setRGBColorI(color);
-//                        effect.AddParticleController(new ParticleFloatUpward(effect, 0, 0.07f, 1, false));
-//                        if (ArsMagica2.config.LowGFX()) effect.AddParticleController(new ParticleOrbitPoint(effect, getPosX(), getPosY(), getPosZ(), 2, false).setIgnoreYCoordinate(true).SetOrbitSpeed(0.05f).SetTargetDistance(dist).setRotateDirection(true));
-//                    }
-//                }
-//            }
-        }
+//        if (world.isRemote) {
+//            double dist = dataManager.get(RADIUS);
+//            int color = 0xffffff;
+//            if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
+//                for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
+//                    if (mod instanceof Color)
+//                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, getDataManager().get(STACK).getTag());
+//            if (ticksExisted % 8 == 0) for (int i = 0; i < 4; ++i)
+//                RenderUtil.addParticle(world, null, AffinityHelper.getParticleForAffinity(AffinityHelper.getAffinityForSpell(dataManager.get(STACK))), color, color, getPosX() - Math.cos(3.14159265358979 / 16200 * i % 360) * dist, getPosY(), getPosZ() - Math.sin(3.14159265358979 / 16200 * i % 360) * dist);
+//        }
         moveForced(0, dataManager.get(GRAVITY), 0);
         dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
         if (dataManager.get(EFFECT) <= 0) {

@@ -4,7 +4,13 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.affinity.IAffinityItem;
 import minecraftschurli.arsmagicalegacy.api.data.ILanguagePlugin;
-import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.init.ModBiomes;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModFluids;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -291,7 +297,6 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addSpellPart(ModSpellParts.MANA_BLAST, "Mana Blast", "I LOVE mana, especially when it blows up in someone's face.");
         addSpellPart(ModSpellParts.MANA_DRAIN, "Mana Drain", "So much pools at my disposal!");
         addSpellPart(ModSpellParts.MANA_SHIELD, "Mana Shield", "Well, now I know what boredom looks like.");
-        addSpellPart(ModSpellParts.MARK, "Mark", "Home sweet home.");
         addSpellPart(ModSpellParts.MINING_POWER, "Mining Power", "Who needs diamond?");
         addSpellPart(ModSpellParts.MOONRISE, "Moonrise", "Full Moon.");
         addSpellPart(ModSpellParts.NIGHT_VISION, "Night Vision", "Oh? There was a tunnel?");

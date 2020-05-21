@@ -5,19 +5,19 @@
       "predicate": {
         "tier": 0
       },
-      "model": "arsmagicalegacy:item/inscription_upgrade0"
+      "model": "arsmagicalegacy:item/inscription_upgrade_0"
     },
     {
       "predicate": {
         "tier": 1
       },
-      "model": "arsmagicalegacy:item/inscription_upgrade1"
+      "model": "arsmagicalegacy:item/inscription_upgrade_1"
     },
     {
       "predicate": {
         "tier": 2
       },
-      "model": "arsmagicalegacy:item/inscription_upgrade2"
+      "model": "arsmagicalegacy:item/inscription_upgrade_2"
     }
   ]
 }

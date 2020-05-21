@@ -3,7 +3,9 @@ package minecraftschurli.arsmagicalegacy.objects.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import minecraftschurli.arsmagicalegacy.util.ColorUtil;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -16,9 +18,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BeamParticle extends SpriteTexturedParticle {
     private final float rotate;
@@ -165,9 +164,9 @@ public class BeamParticle extends SpriteTexturedParticle {
     }
 
     public void setColor(int color) {
-        particleRed = ColorUtil.getRed(color);
-        particleGreen = ColorUtil.getGreen(color);
-        particleBlue = ColorUtil.getBlue(color);
+        particleRed = ParticleUtil.getRed(color);
+        particleGreen = ParticleUtil.getGreen(color);
+        particleBlue = ParticleUtil.getBlue(color);
     }
 
     public void setColor(float r, float g, float b) {

@@ -156,7 +156,6 @@ public final class ModSpellParts implements IInit {
     public static final RegistryObject<SpellComponent> MANA_BLAST = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "mana_blast", SILVER_POINT, ManaBlast::new, ModSkillTrees.OFFENSE, 75, 180);
     public static final RegistryObject<SpellComponent> MANA_DRAIN = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "mana_drain", SKILL_POINT_2, ManaDrain::new, ModSkillTrees.DEFENSE, 312, 225, "arsmagicalegacy:life_drain");
     public static final RegistryObject<SpellComponent> MANA_SHIELD = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "mana_shield", SILVER_POINT, ManaShield::new, ModSkillTrees.DEFENSE, 30, 90);
-    public static final RegistryObject<SpellComponent> MARK = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "mark", SKILL_POINT_2, Mark::new, ModSkillTrees.UTILITY, 155, 435, "arsmagicalegacy:transplace");
     public static final RegistryObject<SpellComponent> MOONRISE = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "moonrise", SILVER_POINT, Moonrise::new, ModSkillTrees.UTILITY, 75, 90);
     //TODO nausea
     public static final RegistryObject<SpellComponent> NIGHT_VISION = SpellRegistry.registerSpellComponent(ArsMagicaAPI.MODID, "night_vision", SKILL_POINT_1, NightVision::new, ModSkillTrees.UTILITY, 185, 165, "arsmagicalegacy:light");

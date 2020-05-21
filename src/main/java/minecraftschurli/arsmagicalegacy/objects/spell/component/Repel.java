@@ -1,10 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -13,11 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 public final class Repel extends SpellComponent {
     @Override
@@ -70,15 +71,6 @@ public final class Repel extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < ArsMagicaLegacy.config.getGFXLevel() * 2; i++) {
-//            AMParticle effect = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle", x, y, z);
-//            if (effect != null) {
-//                effect.addRandomOffset(1, 2, 1);
-//                effect.AddParticleController(new ParticleFleePoint(effect, caster.getPositionVec().add(new Vec3d(0, caster.getEyeHeight(), 0)), 0.075f, 3f, 1, true));
-//                effect.AddParticleController(new ParticleFadeOut(effect, 1, false).setFadeSpeed(0.05f));
-//                effect.setMaxAge(20);
-//                if (colorModifier > -1) effect.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
+        for (int i = 0; i < 2; i++) ParticleUtil.addParticle(world, target, ModParticles.SPARKLE, colorModifier, 0, x + rand.nextInt(2) - 1, y + rand.nextInt(4) - 2, z + rand.nextInt(2) - 1);
     }
 }

@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import java.util.EnumSet;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -21,9 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.EnumSet;
-import java.util.List;
-
 public final class AoE extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
@@ -32,15 +31,10 @@ public final class AoE extends SpellShape {
         boolean appliedToAtLeastOneEntity = false;
         for (Entity e : entities) {
             if (e == caster || e instanceof SpellProjectileEntity) continue;
-            if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null) {
+            if (e instanceof EnderDragonPartEntity && ((EnderDragonPartEntity) e).dragon != null)
                 e = ((EnderDragonPartEntity) e).dragon;
-            }
-            if (SpellUtil.applyStageEntity(stack, caster, world, e, giveXP) == SpellCastResult.SUCCESS) {
+            if (SpellUtil.applyStageEntity(stack, caster, world, e, giveXP) == SpellCastResult.SUCCESS)
                 appliedToAtLeastOneEntity = true;
-            }
-        }
-        if (appliedToAtLeastOneEntity) {
-            return SpellCastResult.SUCCESS;
         }
         BlockPos pos = new BlockPos(x, y, z);
         if (side != null) {
@@ -91,9 +85,14 @@ public final class AoE extends SpellShape {
                     if (result != SpellCastResult.SUCCESS) return result;
                 }
             }
+            if (world.isRemote) addParticles(stack, caster, target, world, pos, y - 1, side);
+            return SpellCastResult.SUCCESS;
         }
-        spawnParticles(stack, caster, target, world, pos, radius, side);
-        return SpellCastResult.SUCCESS;
+        if (appliedToAtLeastOneEntity) {
+            if (world.isRemote) addParticles(stack, caster, target, world, pos, y + 1, side);
+            return SpellCastResult.SUCCESS;
+        }
+        return SpellCastResult.EFFECT_FAILED;
     }
 
     @Override
@@ -129,7 +128,7 @@ public final class AoE extends SpellShape {
         return 2 * radius + 2;
     }
 
-    private void spawnParticles(ItemStack stack, LivingEntity caster, LivingEntity target, World world, BlockPos pos, double radius, Direction side) {
+    private void addParticles(ItemStack stack, LivingEntity caster, LivingEntity target, World world, BlockPos pos, double radius, Direction side) {
         int color = 0xFFFFFF;
         for (SpellModifier mod : SpellUtil.getModifiers(stack, -1)) {
             if (mod instanceof Color) {

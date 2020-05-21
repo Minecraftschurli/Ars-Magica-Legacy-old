@@ -2,8 +2,13 @@ package minecraftschurli.arsmagicalegacy.objects.entity;
 
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.objects.spell.modifier.Color;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -81,38 +86,14 @@ public final class BlizzardEntity extends Entity {
     public void tick() {
         if (getOwner() != null) getOwner().tick();
         float radius = dataManager.get(RADIUS);
-        if (world.isRemote) {
-//            int color = 0xFFFFFF;
-//            if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK))) {
-//                for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
-//                    if (mod instanceof Color)
-//                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
-//            }
-//            for (int i = 0; i < 20; ++i) {
-//                double x = getPosX() - radius + (rand.nextDouble() * radius * 2);
-//                double z = getPosZ() - radius + (rand.nextDouble() * radius * 2);
-//                double y = getPosY() + 10;
-//                AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "snowflakes", x, y, z);
-//                if (particle != null) {
-//                    particle.setMaxAge(20);
-//                    particle.setParticleScale(0.1f);
-//                    particle.addVelocity(rand.nextDouble() * 0.2f - 0.1f, 0, rand.nextDouble() * 0.2f - 0.1f);
-//                    particle.setAffectedByGravity();
-//                    particle.setRGBColorI(color);
-//                    particle.setDontRequireControllers();
-//                }
-//            }
-//            double x = getPosX() - radius + (rand.nextDouble() * radius * 2);
-//            double z = getPosZ() - radius + (rand.nextDouble() * radius * 2);
-//            double y = getPosY() + rand.nextDouble();
-//            AMParticle particle = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, "smoke", x, y, z);
-//            if (particle != null) {
-//                particle.setParticleScale(2.0f);
-//                particle.setMaxAge(20);
-//                particle.setRGBColorF(0.5098f, 0.7843f, 0.7843f);
-//                particle.SetParticleAlpha(0.6f);
-//                particle.AddParticleController(new ParticleFleePoint(particle, new Vec3d(x, y, z), 0.1f, 3f, 1, false));
-//            }
+        if(world.isRemote) {
+            int color = 0xffffff;
+            if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
+                for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
+                    if (mod instanceof Color)
+                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, world, dataManager.get(STACK).getTag());
+            for (int i = 0; i < 20; i++) ParticleUtil.addParticle(world, null, ModParticles.SNOWFLAKE, color, 0xffffff, getPosX() - radius + (rand.nextDouble() * radius * 2), getPosY() + 10, getPosZ() - radius + (rand.nextDouble() * radius * 2), (float)rand.nextDouble() * 0.2f - 0.1f, -0.5f, (float)rand.nextDouble() * 0.2f - 0.1f);
+            ParticleUtil.addParticle(world, null, ModParticles.SMOKE, color, 0x81c7c7, getPosX() - radius + (rand.nextDouble() * radius * 2), getPosY() + rand.nextDouble(), getPosZ() - radius + (rand.nextDouble() * radius * 2), (float)rand.nextDouble() * 0.2f - 0.1f, -0.5f, (float)rand.nextDouble() * 0.2f - 0.1f);
         } else {
             for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e != getOwner()) {

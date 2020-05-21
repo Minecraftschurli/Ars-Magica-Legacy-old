@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -15,8 +16,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

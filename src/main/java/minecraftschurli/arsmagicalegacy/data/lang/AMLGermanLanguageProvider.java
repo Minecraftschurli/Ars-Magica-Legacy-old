@@ -4,7 +4,13 @@ import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.affinity.IAffinityItem;
 import minecraftschurli.arsmagicalegacy.api.data.ILanguagePlugin;
-import minecraftschurli.arsmagicalegacy.init.*;
+import minecraftschurli.arsmagicalegacy.init.ModBiomes;
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
+import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModEntities;
+import minecraftschurli.arsmagicalegacy.init.ModFluids;
+import minecraftschurli.arsmagicalegacy.init.ModItems;
+import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -291,7 +297,6 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addSpellPart(ModSpellParts.MANA_BLAST, "Manabombe", "Ich LIEBE Mana, speziell wenn es das Gesicht von anderen sprengt.");
         addSpellPart(ModSpellParts.MANA_DRAIN, "Manaentzug", "So viele Manaleisten!");
         addSpellPart(ModSpellParts.MANA_SHIELD, "Manaschild", "Jetzt weiß ich, wie Unnahbarkeit aussieht.");
-        addSpellPart(ModSpellParts.MARK, "Heimat", "Home sweet home.");
         addSpellPart(ModSpellParts.MINING_POWER, "Abbaukraft", "Wer braucht Diamanten?");
         addSpellPart(ModSpellParts.MOONRISE, "Mondlicht", "Vollmond.");
         addSpellPart(ModSpellParts.NIGHT_VISION, "Nachtsicht", "Oh! Das war ein Tunnel?");

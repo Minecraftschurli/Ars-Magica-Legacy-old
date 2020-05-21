@@ -1,11 +1,18 @@
 package minecraftschurli.arsmagicalegacy.objects.block.craftingaltar;
 
+import java.util.function.Supplier;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.CapMatcher;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.MainMatcher;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.StairMatcher;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LecternBlock;
+import net.minecraft.block.LeverBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -23,10 +30,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import vazkii.patchouli.api.IMultiblock;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
 
 /**
  * @author Minecraftschurli

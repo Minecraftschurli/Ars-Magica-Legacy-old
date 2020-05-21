@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.item.affinity;
 
+import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.affinity.IAffinityItem;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
@@ -8,8 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Minecraftschurli

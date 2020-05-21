@@ -1,12 +1,17 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
 import minecraftschurli.arsmagicalegacy.init.ModEffects;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,10 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class Recall extends SpellComponent {
     @Override
@@ -76,7 +77,7 @@ public final class Recall extends SpellComponent {
         };
     }*/
 
-    //    @Override
+//    @Override
 //    public float getReagentSearchRadius() {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }
@@ -88,15 +89,6 @@ public final class Recall extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 25; i++) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "arcane", x, y - 1, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 0, 1);
-//                particle.AddParticleController(new ParticleExpandingCollapsingRingAtPoint(particle, x, y - 1, z, 0.1, 3, 0.3, 1, false).setCollapseOnce());
-//                particle.setMaxAge(20);
-//                particle.setParticleScale(0.2f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
+        for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.ARCANE, colorModifier, 0, x + rand.nextInt(2) - 1, y, z + rand.nextInt(2) - 1);
     }
 }

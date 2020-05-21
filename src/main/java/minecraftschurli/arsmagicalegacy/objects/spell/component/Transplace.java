@@ -1,10 +1,15 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -12,10 +17,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class Transplace extends SpellComponent {
     @Override
@@ -80,27 +81,9 @@ public final class Transplace extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 15; i++) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", caster.getPosX(), caster.getPosY() + caster.getEyeHeight(), caster.getPosZ());
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleArcToPoint(particle, 1, target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), false).SetSpeed(0.05f).generateControlPoints());
-//                particle.setMaxAge(40);
-//                particle.setParticleScale(0.2f);
-//                particle.setRGBColorF(1, 0, 0);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
-//        for (int i = 0; i < 15; i++) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ());
-//            if (particle != null) {
-//                particle.addRandomOffset(1, 1, 1);
-//                particle.AddParticleController(new ParticleArcToPoint(particle, 1, caster.getPosX(), caster.getPosY() + caster.getEyeHeight(), caster.getPosZ(), false).SetSpeed(0.05f).generateControlPoints());
-//                particle.setMaxAge(40);
-//                particle.setParticleScale(0.2f);
-//                particle.setRGBColorF(0, 0, 1);
-//                if (colorModifier > -1) particle.setRGBColorF((0xFF - ((colorModifier >> 16) & 0xFF)) / 255, (0xFF - ((colorModifier >> 8) & 0xFF)) / 255, (0xFF - (colorModifier & 0xFF)) / 255);
-//            }
-//        }
+        for (int i = 0; i < 15; i++) {
+            ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, 0xff00000, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
+            ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, 0x00000ff, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
+        }
     }
 }

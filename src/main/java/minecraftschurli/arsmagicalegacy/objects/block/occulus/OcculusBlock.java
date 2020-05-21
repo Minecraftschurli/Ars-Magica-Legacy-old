@@ -1,5 +1,9 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import net.minecraft.block.Block;
@@ -25,11 +29,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
 
 public class OcculusBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -99,7 +98,7 @@ public class OcculusBlock extends Block {
     @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (player.isSneaking())
+        if (player.isSecondaryUseActive())
             return ActionResultType.PASS;
         if (worldIn.isRemote) {
             if (CapabilityHelper.getCurrentLevel(player) == 0 && !player.isCreative()) {

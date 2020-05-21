@@ -1,11 +1,16 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.component;
 
 import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Random;
+import java.util.Set;
 import minecraftschurli.arsmagicalegacy.api.affinity.Affinity;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
 import minecraftschurli.arsmagicalegacy.init.ModAffinities;
+import minecraftschurli.arsmagicalegacy.init.ModParticles;
+import minecraftschurli.arsmagicalegacy.util.ParticleUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,10 +20,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.Random;
-import java.util.Set;
 
 public final class LifeTap extends SpellComponent {
     @Override
@@ -72,17 +73,6 @@ public final class LifeTap extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-//        for (int i = 0; i < 25; i++) {
-//            AMParticle particle = (AMParticle) ArsMagicaLegacy.proxy.particleManager.spawn(world, "sparkle2", x, y, z);
-//            if (particle != null) {
-//                particle.addRandomOffset(2, 2, 2);
-//                particle.setMaxAge(15);
-//                particle.setParticleScale(0.1f);
-//                particle.AddParticleController(new ParticleApproachEntity(particle, target, 0.1, 0.1, 1, false));
-//                if (rand.nextBoolean()) particle.setRGBColorF(0.4f, 0.1f, 0.5f);
-//                else particle.setRGBColorF(0.1f, 0.5f, 0.1f);
-//                if (colorModifier > -1) particle.setRGBColorF(((colorModifier >> 16) & 0xFF) / 255, ((colorModifier >> 8) & 0xFF) / 255, (colorModifier & 0xFF) / 255);
-//            }
-//        }
+        for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, rand.nextBoolean() ? 0x17657f : 0x177f17, x + rand.nextInt(4) - 2, y + rand.nextInt(4) - 2, z + rand.nextInt(4) - 2);
     }
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.init.ModEntities;
-import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import minecraftschurli.arsmagicalegacy.util.SpellUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -91,33 +90,14 @@ public final class WaveEntity extends Entity {
     @Override
     public void tick() {
         if (world.isRemote) {
-//            if (spell == null) spell = dataManager.get(STACK_DATA);
-//            double dist = dataManager.get(RADIUS_DATA);
-//            int color = 0xFFFFFF;
-//            if (SpellUtils.hasModifier(SpellModifiers.COLOR, spell)) for (SpellModifier mod : SpellUtils.getModifiers(spell, -1)) if (mod instanceof Color) color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, spell.getTag());
-//            for (float i = 0; i < dist; i += 0.5f) {
-//                double x = getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i;
-//                double z = getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i;
-//                AMParticle effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
-//                if (effect != null) {
-//                    effect.setIgnoreMaxAge(false);
-//                    effect.setMaxAge(20);
-//                    effect.addRandomOffset(1, 1, 1);
-//                    effect.setParticleScale(0.15f);
-//                    effect.setRGBColorI(color);
-//                    effect.AddParticleController(new ParticleFloatUpward(effect, 0, 0.07f, 1, false));
-//                }
-//                x = getPosX() - Math.cos(Math.toRadians(rotationYaw)) * -i;
-//                z = getPosZ() - Math.sin(Math.toRadians(rotationYaw)) * -i;
-//                effect = (AMParticle) ArsMagica2.proxy.particleManager.spawn(world, AMParticleDefs.getParticleForAffinity(AffinityShiftUtils.getMainShiftForStack(spell)), x, getPosY(), z);
-//                if (effect != null) {
-//                    effect.setIgnoreMaxAge(false);
-//                    effect.addRandomOffset(1, 1, 1);
-//                    effect.setMaxAge(20);
-//                    effect.setParticleScale(0.15f);
-//                    effect.setRGBColorI(color);
-//                    effect.AddParticleController(new ParticleFloatUpward(effect, 0, 0.07f, 1, false));
-//                }
+//            int color = 0xffffff;
+//            if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
+//                for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
+//                    if (mod instanceof Color)
+//                        color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
+//            for (float i = 0; i < dataManager.get(RADIUS); i += 0.5f) {
+//                RenderUtil.addParticle(world, null, AffinityHelper.getParticleForAffinity(AffinityHelper.getAffinityForSpell(dataManager.get(STACK))), color, color, getPosX() - Math.cos(3.14159265358979 / 180 * (rotationYaw)) * i + rand.nextInt(2) - 1, getPosY() + rand.nextInt(2) - 1, getPosZ() - Math.sin(3.14159265358979 / 180 * (rotationYaw)) * i + rand.nextInt(2) - 1);
+//                RenderUtil.addParticle(world, null, AffinityHelper.getParticleForAffinity(AffinityHelper.getAffinityForSpell(dataManager.get(STACK))), color, color, getPosX() - Math.cos(Math.toRadians(rotationYaw)) * -i + rand.nextInt(2) - 1, getPosY() + rand.nextInt(2) - 1, getPosZ() - Math.sin(Math.toRadians(rotationYaw)) * -i + rand.nextInt(2) - 1);
 //            }
         } else {
             dataManager.set(EFFECT, dataManager.get(EFFECT) - 1);
@@ -130,7 +110,7 @@ public final class WaveEntity extends Entity {
                     Vec3d a = new Vec3d(getPosX() - Math.cos(3.1415926f / 180 * (rotationYaw)) * dataManager.get(RADIUS), getPosY(), getPosZ() - Math.sin(3.1415926f / 180 * (rotationYaw)) * dataManager.get(RADIUS));
                     Vec3d b = new Vec3d(getPosX() - Math.cos(3.1415926f / 180 * (rotationYaw)) * -dataManager.get(RADIUS), getPosY(), getPosZ() - Math.sin(3.1415926f / 180 * (rotationYaw)) * -dataManager.get(RADIUS));
                     Vec3d target = new Vec3d(e.getPosX(), e.getPosY(), e.getPosZ());
-                    Vec3d closest = RenderUtil.closestPointOnLine(target, a, b);
+                    Vec3d closest = SpellUtil.closestPointOnLine(target, a, b);
                     target = new Vec3d(target.x, 0, target.z);
                     closest = new Vec3d(closest.x, 0, closest.z);
                     if (e instanceof LivingEntity && closest.distanceTo(target) < 0.75f && Math.abs(getPosY() - e.getPosY()) < 2)

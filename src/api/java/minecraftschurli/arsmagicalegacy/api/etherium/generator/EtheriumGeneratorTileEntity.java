@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.api.etherium.generator;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.capability.EtheriumStorage;
 import minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
@@ -14,9 +16,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @author Minecraftschurli

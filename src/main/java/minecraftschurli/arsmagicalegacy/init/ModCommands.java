@@ -2,14 +2,13 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import java.util.Collections;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.objects.command.CommandResearch;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;
-
-import java.util.Collections;
 
 /**
  * @author Minecraftschurli
