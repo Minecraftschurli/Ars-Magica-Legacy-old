@@ -1,7 +1,5 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
-import java.util.EnumSet;
-import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -23,6 +21,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.EnumSet;
+import java.util.List;
+
 public final class AoE extends SpellShape {
     @Override
     public SpellCastResult beginStackStage(Item item, ItemStack stack, LivingEntity caster, LivingEntity target, World world, double x, double y, double z, Direction side, boolean giveXP, int useCount) {
@@ -37,6 +38,10 @@ public final class AoE extends SpellShape {
                 appliedToAtLeastOneEntity = true;
         }
         BlockPos pos = new BlockPos(x, y, z);
+        if (appliedToAtLeastOneEntity) {
+            addParticles(stack, caster, target, world, pos, y + 1, side);
+            return SpellCastResult.SUCCESS;
+        }
         if (side != null) {
             switch (side.getAxis()) {
                 case Y:
@@ -85,14 +90,9 @@ public final class AoE extends SpellShape {
                     if (result != SpellCastResult.SUCCESS) return result;
                 }
             }
-            if (world.isRemote) addParticles(stack, caster, target, world, pos, y - 1, side);
-            return SpellCastResult.SUCCESS;
         }
-        if (appliedToAtLeastOneEntity) {
-            if (world.isRemote) addParticles(stack, caster, target, world, pos, y + 1, side);
-            return SpellCastResult.SUCCESS;
-        }
-        return SpellCastResult.EFFECT_FAILED;
+        addParticles(stack, caster, target, world, pos, radius, side);
+        return SpellCastResult.SUCCESS;
     }
 
     @Override
