@@ -63,22 +63,15 @@ public class OcculusBlock extends Block {
     private static VoxelShape[] makeRotatedShapes(double[][] shape) {
         List<Integer> angles = Arrays.asList(0, 90, 180, 270);
         VoxelShape[] shapes = new VoxelShape[4];
-        double centerX = 8;
-        double centerZ = 8;
         for (int i = 0; i < angles.size(); i++) {
             double angle = Math.toRadians(angles.get(i));
             for (double[] part : shape) {
-                double oldX1 = part[0];
-                double oldZ1 = part[2];
-                double oldX2 = part[3];
-                double oldZ2 = part[5];
-                double newX1 = centerX + (oldX1 - centerX) * Math.cos(angle) - (oldZ1 - centerZ) * Math.sin(angle);
-                double newZ1 = centerZ + (oldX1 - centerX) * Math.sin(angle) + (oldZ1 - centerZ) * Math.cos(angle);
-                double newX2 = centerX + (oldX2 - centerX) * Math.cos(angle) - (oldZ2 - centerZ) * Math.sin(angle);
-                double newZ2 = centerZ + (oldX2 - centerX) * Math.sin(angle) + (oldZ2 - centerZ) * Math.cos(angle);
-                if (shapes[i] == null) shapes[i] = makeCuboidShape(newX1, part[1], newZ1, newX2, part[4], newZ2);
-                else
-                    shapes[i] = VoxelShapes.combineAndSimplify(shapes[i], makeCuboidShape(newX1, part[1], newZ1, newX2, part[4], newZ2), IBooleanFunction.OR);
+                double x1 = 8 + (part[0] - 8) * Math.cos(angle) - (part[2] - 8) * Math.sin(angle);
+                double z1 = 8 + (part[0] - 8) * Math.sin(angle) + (part[2] - 8) * Math.cos(angle);
+                double x2 = 8 + (part[3] - 8) * Math.cos(angle) - (part[5] - 8) * Math.sin(angle);
+                double z2 = 8 + (part[3] - 8) * Math.sin(angle) + (part[5] - 8) * Math.cos(angle);
+                if (shapes[i] == null) shapes[i] = makeCuboidShape(x1, part[1], z1, x2, part[4], z2);
+                else shapes[i] = VoxelShapes.combineAndSimplify(shapes[i], makeCuboidShape(x1, part[1], z1, x2, part[4], z2), IBooleanFunction.OR);
             }
         }
         return shapes;

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
+import minecraftschurli.arsmagicalegacy.util.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -31,6 +32,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -51,7 +53,10 @@ public class InscriptionTableBlock extends Block {
     public static final IntegerProperty TIER = IntegerProperty.create("tier", 0, 3);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<InscriptionTableBlock.Half> HALF = EnumProperty.create("half", Half.class);
-    private static final VoxelShape SHAPE = VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 1.25, 1));
+    private static final VoxelShape LX = BlockUtil.combineShapes(makeCuboidShape(0, 14, 0, 16, 16, 16), makeCuboidShape(1, 13, 1, 0, 14, 16), makeCuboidShape(15, 13, 1, 16, 14, 16), makeCuboidShape(0, 12, 1, 16, 14, 0), makeCuboidShape(6, 5, 3, 10, 11, 4), makeCuboidShape(12, 3, 3, 4, 5, 4), makeCuboidShape(11, 11, 2, 5, 14, 4), makeCuboidShape(4, 0, 3, 0, 5, 5), makeCuboidShape(16, 0, 3, 12, 5, 5), makeCuboidShape(12, 3, 3, 4, 5, 4));
+    private static final VoxelShape LZ = BlockUtil.combineShapes(makeCuboidShape(0, 14, 0, 16, 16, 16), makeCuboidShape(0, 13, 0, 15, 14, 1), makeCuboidShape(0, 13, 15, 15, 14, 16), makeCuboidShape(15, 12, 0, 16, 14, 16), makeCuboidShape(12, 5, 6, 13, 11, 10), makeCuboidShape(12, 3, 4, 13, 5, 12), makeCuboidShape(12, 11, 5, 14, 14, 11), makeCuboidShape(11, 0, 0, 13, 5, 4), makeCuboidShape(11, 0, 12, 13, 5, 16), makeCuboidShape(12, 3, 4, 13, 5, 12));
+    private static final VoxelShape RX = BlockUtil.combineShapes(makeCuboidShape(0, 14, 0, 16, 16, 16), makeCuboidShape(1, 13, 0, 0, 14, 15), makeCuboidShape(15, 13, 0, 16, 14, 15), makeCuboidShape(0, 12, 15, 16, 14, 16), makeCuboidShape(6, 5, 12, 10, 11, 13), makeCuboidShape(12, 3, 12, 4, 5, 13), makeCuboidShape(11, 11, 12, 5, 14, 14), makeCuboidShape(4, 0, 11, 0, 5, 13), makeCuboidShape(16, 0, 11, 12, 5, 13), makeCuboidShape(12, 3, 12, 4, 5, 13));
+    private static final VoxelShape RZ = BlockUtil.combineShapes(makeCuboidShape(0, 14, 0, 16, 16, 16), makeCuboidShape(1, 13, 0, 16, 14, 1), makeCuboidShape(1, 13, 15, 16, 14, 16), makeCuboidShape(0, 12, 0, 1, 14, 16), makeCuboidShape(3, 5, 6, 4, 11, 10), makeCuboidShape(3, 3, 4, 4, 5, 12), makeCuboidShape(2, 11, 5, 4, 14, 11), makeCuboidShape(3, 0, 0, 5, 5, 4), makeCuboidShape(3, 0, 12, 5, 5, 16), makeCuboidShape(3, 3, 4, 4, 5, 12));
 
     public InscriptionTableBlock() {
         super(Properties.create(Material.WOOD).hardnessAndResistance(2, 2).lightValue(1).notSolid());
@@ -66,8 +71,9 @@ public class InscriptionTableBlock extends Block {
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if (state.get(TIER) > 0) return SHAPE;
-        return super.getShape(state, worldIn, pos, context);
+        if(state.get(FACING) == Direction.EAST) return state.get(HALF) == Half.LEFT ? RX : LX;
+        if(state.get(FACING) == Direction.WEST) return state.get(HALF) == Half.LEFT ? LX : RX;
+        return state.get(HALF) == Half.LEFT ? LZ : RZ;
     }
 
     @Nonnull
