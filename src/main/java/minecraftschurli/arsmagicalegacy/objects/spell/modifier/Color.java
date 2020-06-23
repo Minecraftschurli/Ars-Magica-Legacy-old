@@ -29,7 +29,7 @@ public final class Color extends SpellModifier {
 
     @Override
     public float getManaCostMultiplier(ItemStack spellStack, int stage, int quantity) {
-        return 1F;
+        return 1;
     }
 
     @Override

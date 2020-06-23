@@ -125,7 +125,7 @@ public final class AoE extends SpellShape {
             for (SpellModifier modifier : mods)
                 if (modifier.getAspectsModified().contains(SpellModifiers.RADIUS)) radius++;
         }
-        return 2 * radius + 2;
+        return Math.abs(2 * radius + 2);
     }
 
     private void addParticles(ItemStack stack, LivingEntity caster, LivingEntity target, World world, BlockPos pos, double radius, Direction side) {

@@ -26,6 +26,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public final class FireRainEntity extends Entity {
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(FireRainEntity.class, DataSerializers.VARINT);
@@ -88,7 +89,7 @@ public final class FireRainEntity extends Entity {
                 for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
                     if (mod instanceof Color)
                         color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, world, dataManager.get(STACK).getTag());
-            for (int i = 0; i < 10; ++i) ParticleUtil.addParticle(world, null, ModParticles.IMPLOSION, color, 0xffffff, getPosX() - dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), getPosY() + 10, dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), (float)rand.nextDouble() * 0.2f, -0.5f, (float)rand.nextDouble() * 0.2f);
+            for (int i = 0; i < 10; ++i) ParticleUtil.addParticle((ServerWorld) world, null, ModParticles.IMPLOSION, color, 0xffffff, getPosX() - dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), getPosY() + 10, dataManager.get(RADIUS) + (rand.nextDouble() * dataManager.get(RADIUS) * 2), (float)rand.nextDouble() * 0.2f, -0.5f, (float)rand.nextDouble() * 0.2f);
         } else {
             for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - dataManager.get(RADIUS), getPosY() - 1, getPosZ() - dataManager.get(RADIUS), getPosX() + dataManager.get(RADIUS), getPosY() + 3, getPosZ() + dataManager.get(RADIUS)))) {
                 if (e != getOwner()) {

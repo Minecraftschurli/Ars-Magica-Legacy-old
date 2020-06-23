@@ -224,34 +224,23 @@ public final class SpellUtil {
     }
 
     public static SpellCastResult applyUsingStage(ItemStack stack, LivingEntity caster, LivingEntity target, double x, double y, double z, World world, boolean consumeMBR, boolean giveXP, int ticks) {
-        if (SpellUtil.stageNum(stack) == 0) {
-            return SpellCastResult.SUCCESS;
-        }
-        if (!SpellUtil.getShape(stack).isChanneled()) {
-            return SpellCastResult.EFFECT_FAILED;
-        }
+        if (SpellUtil.stageNum(stack) == 0) return SpellCastResult.SUCCESS;
+        if (!SpellUtil.getShape(stack).isChanneled()) return SpellCastResult.EFFECT_FAILED;
         return applyStage(stack, caster, target, x, y, z, null, world, consumeMBR, giveXP, ticks);
     }
 
     public static boolean attackWithType(ItemStack spellStack, Entity target, DamageSource damagesource, float magnitude) {
-        if (target.world.isRemote) {
-            return true;
-        }
-//        PlayerEntity dmgSrcPlayer;
+        if (target.world.isRemote) return true;
         if (damagesource.getTrueSource() != null) {
             if (damagesource.getTrueSource() instanceof LivingEntity) {
                 LivingEntity source = (LivingEntity) damagesource.getTrueSource();
-                if (target.getClass() == CreeperEntity.class) {
+                if (target.getClass() == CreeperEntity.class) return false;
+                else if (source instanceof PlayerEntity && target instanceof PlayerEntity && (!((ServerPlayerEntity) target).server.isPVPEnabled() || ((PlayerEntity) target).isCreative()))
                     return false;
-                } else if (source instanceof PlayerEntity && target instanceof PlayerEntity && (!((ServerPlayerEntity) target).server.isPVPEnabled() || ((PlayerEntity) target).isCreative())) {
-                    return false;
-                }
-                if (source.isPotionActive(ModEffects.FURY.get())) {
-                    magnitude += 4;
-                }
+                if (source.isPotionActive(ModEffects.FURY.get())) magnitude += 4;
             }
 //            if (damagesource.getTrueSource() instanceof PlayerEntity) {
-//                dmgSrcPlayer = (PlayerEntity)damagesource.getTrueSource();
+//                PlayerEntity dmgSrcPlayer = (PlayerEntity)damagesource.getTrueSource();
 //                int armorSet = ArmorHelper.getFullArsMagicaArmorSet(dmgSrcPlayer);
 //                if (armorSet == ArsMagicaArmorMaterial.MAGE.getMaterialID()) magnitude *= 1.05f;
 //                else if (armorSet == ArsMagicaArmorMaterial.BATTLEMAGE.getMaterialID()) magnitude *= 1.025f;

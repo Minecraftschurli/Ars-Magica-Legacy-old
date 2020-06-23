@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticleData;
 import net.minecraft.entity.Entity;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 /**
  * @author Minecraftschurli
@@ -23,10 +23,6 @@ public final class ParticleUtil {
         return (0xFF & ( color >> 16)) / 255f;
     }
 
-    public static float getAlpha(int color) {
-        return (0xFF & ( color >> 24)) / 255f;
-    }
-
     public static int getColor(float r, float g, float b) {
         int red = (int) (r * 255f) << 16;
         int green = (int) (g * 255f) << 8;
@@ -42,23 +38,11 @@ public final class ParticleUtil {
         return red + green + blue + alpha;
     }
 
-    @Deprecated
-    public static void addParticle(World world, Entity target, Supplier<ParticleType<SimpleParticleData>> type, int colorModifier, int color, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type.get(), getRed(colorModifier > -1 ? colorModifier : color), getGreen(colorModifier > -1 ? colorModifier : color), getBlue(colorModifier > -1 ? colorModifier : color)), x, y + (target == null ? 0 : target.getEyeHeight()), z, 0, 0, 0);
+    public static void addParticle(ServerWorld world, Entity target, Supplier<ParticleType<SimpleParticleData>> type, int colorModifier, int color, double x, double y, double z) {
+        world.spawnParticle(new SimpleParticleData(type.get(), getRed(colorModifier > -1 ? colorModifier : color), getGreen(colorModifier > -1 ? colorModifier : color), getBlue(colorModifier > -1 ? colorModifier : color)), x, y + (target == null ? 0 : target.getEyeHeight()), z, 0, 0, 0, 0, 1);
     }
 
-    @Deprecated
-    public static void addParticle(World world, Entity target, Supplier<ParticleType<SimpleParticleData>> type, int colorModifier, int color, double x, double y, double z, float dx, float dy, float dz) {
-        world.addParticle(new SimpleParticleData(type.get(), getRed(colorModifier > -1 ? colorModifier : color), getGreen(colorModifier > -1 ? colorModifier : color), getBlue(colorModifier > -1 ? colorModifier : color)), x, y + (target == null ? 0 : target.getEyeHeight()), z, dx, dy, dz);
-    }
-
-    @Deprecated
-    public static void addParticle(World world, Entity target, Supplier<ParticleType<SimpleParticleData>> type, int colorModifier, float r, float g, float b, double x, double y, double z) {
-        world.addParticle(new SimpleParticleData(type.get(), colorModifier > -1 ? getRed(colorModifier) : r, colorModifier > -1 ? getGreen(colorModifier) : g, colorModifier > -1 ? getBlue(colorModifier) : b), x, y + (target == null ? 0 : target.getEyeHeight()), z, 0, 0, 0);
-    }
-
-    @Deprecated
-    public static void addParticle(World world, Entity target, Supplier<ParticleType<SimpleParticleData>> type, int colorModifier, float r, float g, float b, double x, double y, double z, float dx, float dy, float dz) {
-        world.addParticle(new SimpleParticleData(type.get(), colorModifier > -1 ? getRed(colorModifier) : r, colorModifier > -1 ? getGreen(colorModifier) : g, colorModifier > -1 ? getBlue(colorModifier) : b), x, y + (target == null ? 0 : target.getEyeHeight()), z, dx, dy, dz);
+    public static void addParticle(ServerWorld world, Entity target, Supplier<ParticleType<SimpleParticleData>> type, int colorModifier, int color, double x, double y, double z, float dx, float dy, float dz) {
+        world.spawnParticle(new SimpleParticleData(type.get(), getRed(colorModifier > -1 ? colorModifier : color), getGreen(colorModifier > -1 ? colorModifier : color), getBlue(colorModifier > -1 ? colorModifier : color)), x, y + (target == null ? 0 : target.getEyeHeight()), z, 0, dx, dy, dz, 1);
     }
 }

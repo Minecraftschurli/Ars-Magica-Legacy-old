@@ -32,6 +32,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 /**
  * @author Minecraftschurli
@@ -128,14 +129,14 @@ public final class ThrownRockEntity extends Entity {
                 setMotion(getMotion().x, -2f, getMotion().z);
         }
         if (world.isRemote) {
-            if (dataManager.get(MOONSTONE_METEOR)) ParticleUtil.addParticle(world, null, ModParticles.IMPLOSION, 0xffffff, 0xffffff, getPosX(), getPosY(), getPosZ());
+            if (dataManager.get(MOONSTONE_METEOR)) ParticleUtil.addParticle((ServerWorld) world, null, ModParticles.IMPLOSION, 0xffffff, 0xffffff, getPosX(), getPosY(), getPosZ());
             else if (isShootingStar()) {
                 int color = -1;
                 if (SpellUtil.hasModifier(SpellModifiers.COLOR, dataManager.get(STACK)))
                     for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
                         if (mod instanceof Color)
                             color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, null, dataManager.get(STACK).getTag());
-                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f) ParticleUtil.addParticle(world, null, ModParticles.EMBER, color, color, getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
+                for (float i = 0; i < Math.abs(getMotion().y); i += 0.1f) ParticleUtil.addParticle((ServerWorld) world, null, ModParticles.EMBER, color, color, getPosX() + getMotion().x * i, getPosY() + getMotion().y * i, getPosZ() + getMotion().z * i);
             }
         }
         Vec3d vec0 = new Vec3d(getPosX(), getPosY(), getPosZ());

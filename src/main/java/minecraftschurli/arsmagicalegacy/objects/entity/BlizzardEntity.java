@@ -28,6 +28,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public final class BlizzardEntity extends Entity {
     private static final DataParameter<Integer> OWNER = EntityDataManager.createKey(BlizzardEntity.class, DataSerializers.VARINT);
@@ -92,8 +93,8 @@ public final class BlizzardEntity extends Entity {
                 for (SpellModifier mod : SpellUtil.getModifiers(dataManager.get(STACK), -1))
                     if (mod instanceof Color)
                         color = (int) mod.getModifier(SpellModifiers.COLOR, null, null, world, dataManager.get(STACK).getTag());
-            for (int i = 0; i < 20; i++) ParticleUtil.addParticle(world, null, ModParticles.SNOWFLAKE, color, 0xffffff, getPosX() - radius + (rand.nextDouble() * radius * 2), getPosY() + 10, getPosZ() - radius + (rand.nextDouble() * radius * 2), (float)rand.nextDouble() * 0.2f - 0.1f, -0.5f, (float)rand.nextDouble() * 0.2f - 0.1f);
-            ParticleUtil.addParticle(world, null, ModParticles.SMOKE, color, 0x81c7c7, getPosX() - radius + (rand.nextDouble() * radius * 2), getPosY() + rand.nextDouble(), getPosZ() - radius + (rand.nextDouble() * radius * 2), (float)rand.nextDouble() * 0.2f - 0.1f, -0.5f, (float)rand.nextDouble() * 0.2f - 0.1f);
+            for (int i = 0; i < 20; i++) ParticleUtil.addParticle((ServerWorld) world, null, ModParticles.SNOWFLAKE, color, 0xffffff, getPosX() - radius + (rand.nextDouble() * radius * 2), getPosY() + 10, getPosZ() - radius + (rand.nextDouble() * radius * 2), (float)rand.nextDouble() * 0.2f - 0.1f, -0.5f, (float)rand.nextDouble() * 0.2f - 0.1f);
+            ParticleUtil.addParticle((ServerWorld) world, null, ModParticles.SMOKE, color, 0x81c7c7, getPosX() - radius + (rand.nextDouble() * radius * 2), getPosY() + rand.nextDouble(), getPosZ() - radius + (rand.nextDouble() * radius * 2), (float)rand.nextDouble() * 0.2f - 0.1f, -0.5f, (float)rand.nextDouble() * 0.2f - 0.1f);
         } else {
             for (Entity e : world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - radius, getPosY() - 1, getPosZ() - radius, getPosX() + radius, getPosY() + 3, getPosZ() + radius))) {
                 if (e != getOwner()) {
