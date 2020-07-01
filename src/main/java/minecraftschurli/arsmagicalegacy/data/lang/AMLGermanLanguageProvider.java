@@ -766,6 +766,9 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         add(ArsMagicaAPI.MODID + ".spell.validate.invalid", "Defekter Zauber");
         add(ArsMagicaAPI.MODID + ".spell.validate.principum", "Principumzauber");
         add(ArsMagicaAPI.MODID + ".spell.validate.terminus", "Terminuszauber");
+        add(ArsMagicaAPI.MODID + ".spell_book.warning.0", "Vor dem Färben");
+        add(ArsMagicaAPI.MODID + ".spell_book.warning.1", "Zauber entfernen!");
+        add(ArsMagicaAPI.MODID + ".tooltip.open", "Schleiche während dem Benutzen, um das Buch zu öffnen");
     }
 
     @Override

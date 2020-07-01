@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
@@ -38,7 +39,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class SpellBookItem extends Item implements IDyeableArmorItem {
     public SpellBookItem() {
         //noinspection Convert2MethodRef
-        super(new Item.Properties().maxStackSize(1).setISTER(() -> () -> new SpellBookISTER()));
+        super(new Item.Properties().maxStackSize(1).group(ArsMagicaLegacy.ITEM_GROUP).setISTER(() -> () -> new SpellBookISTER()));
     }
 
     public static List<ItemStack> getActiveInventory(ItemStack itemStack) {
@@ -171,8 +172,8 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         ItemStack stack = getActiveItemStack(stackIn);
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".tooltip.open"));
         activeScroll.ifPresent(spellItem -> spellItem.addInformation(stack, worldIn, tooltip, flagIn));
-        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".tooltip.spellbook_warning_1"));
-        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".tooltip.spellbook_warning_2"));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell_book.warning.0"));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell_book.warning.1"));
     }
 
     @Override

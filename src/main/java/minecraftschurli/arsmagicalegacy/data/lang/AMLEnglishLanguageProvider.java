@@ -766,6 +766,9 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         add(ArsMagicaAPI.MODID + ".spell.validate.invalid", "Invalid Spell");
         add(ArsMagicaAPI.MODID + ".spell.validate.principum", "Principum Spell");
         add(ArsMagicaAPI.MODID + ".spell.validate.terminus", "Terminus Spell");
+        add(ArsMagicaAPI.MODID + ".spell_book.warning.0", "If you dye this,");
+        add(ArsMagicaAPI.MODID + ".spell_book.warning.1", "remove your spells first!");
+        add(ArsMagicaAPI.MODID + ".tooltip.open", "Sneak while using to open");
     }
 
     @Override

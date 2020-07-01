@@ -71,9 +71,7 @@ public class InscriptionTableBlock extends Block {
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if(state.get(FACING) == Direction.EAST) return state.get(HALF) == Half.LEFT ? RX : LX;
-        if(state.get(FACING) == Direction.WEST) return state.get(HALF) == Half.LEFT ? LX : RX;
-        return state.get(HALF) == Half.LEFT ? LZ : RZ;
+        return state.get(FACING) == Direction.EAST ? (state.get(HALF) == Half.LEFT ? RX : LX) : state.get(FACING) == Direction.WEST ? (state.get(HALF) == Half.LEFT ? LX : RX) :                         state.get(FACING) == Direction.NORTH ? (state.get(HALF) == Half.LEFT ? LZ : RZ) : state.get(HALF) == Half.LEFT ? RZ : LZ;
     }
 
     @Nonnull
