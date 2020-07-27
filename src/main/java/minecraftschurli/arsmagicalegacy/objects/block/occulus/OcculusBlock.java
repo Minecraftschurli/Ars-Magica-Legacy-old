@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.util.ClientUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -98,7 +99,7 @@ public class OcculusBlock extends Block {
                 player.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.prevent"));
                 return ActionResultType.FAIL;
             }
-            Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.displayname"), player));
+            ClientUtil.displayOcculusScreen(player);
         }
         return ActionResultType.SUCCESS;
     }

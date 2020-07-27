@@ -39,7 +39,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class SpellBookItem extends Item implements IDyeableArmorItem {
     public SpellBookItem() {
         //noinspection Convert2MethodRef
-        super(new Item.Properties().maxStackSize(1).group(ArsMagicaLegacy.ITEM_GROUP).setISTER(() -> () -> new SpellBookISTER()));
+        super(new Item.Properties().maxStackSize(1).group(ArsMagicaLegacy.ITEM_GROUP).setISTER(() -> SpellBookISTER::new));
     }
 
     public static List<ItemStack> getActiveInventory(ItemStack itemStack) {
