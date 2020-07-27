@@ -77,6 +77,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
@@ -110,24 +111,17 @@ public final class ArsMagicaLegacy {
 
     public ArsMagicaLegacy() {
         instance = this;
-
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(IMCHandler::processIMC);
-        modEventBus.addListener(this::registerItemColorHandler);
         modEventBus.addListener(EventPriority.LOW, this::onRegistrySetupFinish);
-        modEventBus.addListener(this::preStitch);
-        modEventBus.addListener(this::postStitch);
         modEventBus.register(Config.class);
-
         MinecraftForge.EVENT_BUS.addListener(this::onAttachPlayerCapabilities);
         MinecraftForge.EVENT_BUS.addListener(this::onServerLoad);
         MinecraftForge.EVENT_BUS.addListener(this::beforeServerLoad);
         MinecraftForge.EVENT_BUS.register(TickHandler.class);
         MinecraftForge.EVENT_BUS.register(PotionEffectHandler.class);
         MinecraftForge.EVENT_BUS.register(LevelUpHandler.class);
-
         preInit();
     }
 
@@ -162,50 +156,12 @@ public final class ArsMagicaLegacy {
         AbilityCapability.register();
         ContingencyCapability.register();
         EtheriumCapability.register();
-        /*ForgeRegistries.BIOMES.getValues()
-                .stream()
-                .filter(Predicates.instanceOf(ICustomFeatureBiome.class))
-                .map(ICustomFeatureBiome.class::cast)
-                .forEach(ICustomFeatureBiome::init);*/
+//        ForgeRegistries.BIOMES.getValues().stream().filter(Predicates.instanceOf(ICustomFeatureBiome.class)).map(ICustomFeatureBiome.class::cast).forEach(ICustomFeatureBiome::init);
         ModBiomes.WITCHWOOD_FOREST.get().init();
         AffinityAbilityHelper.registerListeners();
         PatchouliCompat.init();
     }
 
-    @SuppressWarnings("RedundantCast")
-    private void clientSetup(final FMLClientSetupEvent event) {
-        PatchouliCompat.clientInit();
-
-        ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
-        ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
-        ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<ObeliskContainer, ObeliskScreen>) ObeliskScreen::new);
-
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
-//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_CORE.get(), CraftingAltarTER::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_AUREM.get(), BlackAuremTER::new);
-
-        RenderTypeLookup.setRenderLayer(ModBlocks.AUM.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.CERUBLOSSOM.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.DESERT_NOVA.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.TARMA_ROOT.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WAKEBLOOM.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_SAPLING.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.OCCULUS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.INSCRIPTION_TABLE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_DOOR.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_TRAPDOOR.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.MAGIC_WALL.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(ModBlocks.REDSTONE_INLAY.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.IRON_INLAY.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GOLD_INLAY.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.OBELISK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.CELESTIAL_PRISM.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.BLACK_AUREM.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WIZARD_CHALK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(ModBlocks.ALTAR_CORE.get(), RenderType.getTranslucent());
-    }
     //endregion
     //region =========EVENTS=========
 
@@ -225,12 +181,8 @@ public final class ArsMagicaLegacy {
     private void registerModels(final ModelRegistryEvent event) {
         RegistryHandler.getAffinityRegistry().forEach(affinity -> {
             ResourceLocation rl;
-            if ((rl = affinity.getTextureLocation("tome")) != null) {
-                ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
-            }
-            if ((rl = affinity.getTextureLocation("essence")) != null) {
-                ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
-            }
+            if ((rl = affinity.getTextureLocation("tome")) != null) ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
+            if ((rl = affinity.getTextureLocation("essence")) != null) ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
         });
     }
 
@@ -260,35 +212,15 @@ public final class ArsMagicaLegacy {
         }*/
     }
 
-    private void preStitch(TextureStitchEvent.Pre event) {
-        if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) {
-            return;
-        }
-        event.addSprite(CraftingAltarModel.OVERLAY_LOC);
-    }
-
-    private void postStitch(TextureStitchEvent.Post event) {
-        if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) {
-            return;
-        }
-        AtlasTexture map = event.getMap();
-        CraftingAltarModel.OVERLAY = map.getSprite(CraftingAltarModel.OVERLAY_LOC);
-    }
-
     private void onServerLoad(final FMLServerStartingEvent event) {
         ModCommands.register(event.getCommandDispatcher());
     }
 
     private void beforeServerLoad(final FMLServerAboutToStartEvent event) {
-        minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI.beforeServerLoad(event);
+        ArsMagicaAPI.beforeServerLoad(event);
     }
     //endregion
     //region =========UTIL=========
-
-    private void registerItemColorHandler(final ColorHandlerEvent.Item event) {
-        event.getItemColors().register((stack, index) -> index == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
-        event.getItemColors().register((stack, index) -> index == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
-    }
 
     private void onRegistrySetupFinish(final RegistryEvent.NewRegistry event) {
         ModBlocks.register();
@@ -315,4 +247,59 @@ public final class ArsMagicaLegacy {
         return getModInfo().getVersion().getQualifier();
     }
     //endregion
+
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD, modid = ArsMagicaAPI.MODID)
+    public static final class ClientSetup {
+        @SubscribeEvent
+        public static void registerItemColorHandler(ColorHandlerEvent.Item e) {
+            e.getItemColors().register((stack, index) -> index == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
+            e.getItemColors().register((stack, index) -> index == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
+        }
+
+        @SuppressWarnings("RedundantCast")
+        @SubscribeEvent
+        public static void clientSetup(final FMLClientSetupEvent event) {
+            PatchouliCompat.clientInit();
+            ScreenManager.registerFactory(ModContainers.SPELLBOOK.get(), (ScreenManager.IScreenFactory<SpellBookContainer, SpellBookScreen>) SpellBookScreen::new);
+            ScreenManager.registerFactory(ModContainers.INSCRIPTION_TABLE.get(), (ScreenManager.IScreenFactory<InscriptionTableContainer, InscriptionTableScreen>) InscriptionTableScreen::new);
+            ScreenManager.registerFactory(ModContainers.ETHERIUM_GENERATOR.get(), (ScreenManager.IScreenFactory<ObeliskContainer, ObeliskScreen>) ObeliskScreen::new);
+            ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_VIEW.get(), CraftingAltarViewTER::new);
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ALTAR_CORE.get(), CraftingAltarTER::new);
+            ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_AUREM.get(), BlackAuremTER::new);
+            RenderTypeLookup.setRenderLayer(ModBlocks.AUM.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.CERUBLOSSOM.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.DESERT_NOVA.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.TARMA_ROOT.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WAKEBLOOM.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_SAPLING.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.OCCULUS.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.INSCRIPTION_TABLE.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_DOOR.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WITCHWOOD_TRAPDOOR.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.MAGIC_WALL.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.REDSTONE_INLAY.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.IRON_INLAY.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.GOLD_INLAY.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.OBELISK.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.CELESTIAL_PRISM.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.BLACK_AUREM.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WIZARD_CHALK.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.ALTAR_CORE.get(), RenderType.getTranslucent());
+        }
+
+        @SubscribeEvent
+        public static void preStitch(TextureStitchEvent.Pre event) {
+            if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) return;
+            event.addSprite(CraftingAltarModel.OVERLAY_LOC);
+        }
+
+        @SubscribeEvent
+        public static void postStitch(TextureStitchEvent.Post event) {
+            if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) return;
+            AtlasTexture map = event.getMap();
+            CraftingAltarModel.OVERLAY = map.getSprite(CraftingAltarModel.OVERLAY_LOC);
+        }
+    }
 }
