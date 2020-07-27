@@ -223,5 +223,4 @@ public final class ModItems implements IInit {
     private static Item item64() {
         return new Item(ITEM_64);
     }
-
 }

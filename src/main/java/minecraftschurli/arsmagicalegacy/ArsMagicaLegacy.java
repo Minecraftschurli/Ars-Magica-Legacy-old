@@ -50,8 +50,10 @@ import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskScreen;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
+import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticle;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.RenderType;
@@ -70,6 +72,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -298,8 +301,45 @@ public final class ArsMagicaLegacy {
         @SubscribeEvent
         public static void postStitch(TextureStitchEvent.Post event) {
             if (!event.getMap().getTextureLocation().toString().equals(CraftingAltarModel.BLOCK_ATLAS)) return;
-            AtlasTexture map = event.getMap();
-            CraftingAltarModel.OVERLAY = map.getSprite(CraftingAltarModel.OVERLAY_LOC);
+            CraftingAltarModel.OVERLAY = event.getMap().getSprite(CraftingAltarModel.OVERLAY_LOC);
+        }
+
+        @SubscribeEvent
+        public static void registerParticleFactories(ParticleFactoryRegisterEvent e) {
+            Minecraft.getInstance().particles.registerFactory(ModParticles.ARCANE.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.CLOCK.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.EMBER.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.GHOST.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.IMPLOSION.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.LEAF.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.LENS_FLARE.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.LIGHT.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.PLANT.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.PULSE.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.ROCK.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.ROTATING_RINGS.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.SHINY.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.SMOKE.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.SNOWFLAKE.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.SYMBOL.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.WATERBALL.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.WIND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.WITCHWOOD_LEAF.get(), SimpleParticle.Factory::new);
+//        Minecraft.getInstance().particles.registerFactory(ModParticles.BEAM.get(), BeamParticle.Factory::new);
+//        Minecraft.getInstance().particles.registerFactory(ModParticles.DARK_BEAM.get(), BeamParticle.Factory::new);
+//        Minecraft.getInstance().particles.registerFactory(ModParticles.LIGHT_BEAM.get(), BeamParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.NONE_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.WATER_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.FIRE_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.EARTH_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.AIR_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.LIGHTNING_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.ICE_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.NATURE_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.LIFE_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.ARCANE_HAND.get(), SimpleParticle.Factory::new);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.ENDER_HAND.get(), SimpleParticle.Factory::new);
         }
     }
 }
