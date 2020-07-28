@@ -1,5 +1,6 @@
 package minecraftschurli.arsmagicalegacy.objects.effect;
 
+import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectType;
 
@@ -14,10 +15,10 @@ public class IlluminationEffect extends AMEffect {
 
     @Override
     public void performEffect(LivingEntity livingEntity, int amplifier) {
-//        if (!livingEntity.world.isRemote && livingEntity.ticksExisted % 10 == 0) {
-//            if (livingEntity.world.isAirBlock(livingEntity.getPosition()) && livingEntity.world.getLight(livingEntity.getPosition()) < 7){
-//                livingEntity.world.setBlockState(livingEntity.getPosition(), ModBlocks.LIGHT.get().getDefaultState());
-//            }
-//        }
+        if (!livingEntity.world.isRemote && livingEntity.ticksExisted % 10 == 0) {
+            if (livingEntity.world.isAirBlock(livingEntity.getPosition()) && livingEntity.world.getLight(livingEntity.getPosition()) < 7){
+                livingEntity.world.setBlockState(livingEntity.getPosition(), ModBlocks.ILLUMINATION_LIGHT.get().getDefaultState());
+            }
+        }
     }
 }

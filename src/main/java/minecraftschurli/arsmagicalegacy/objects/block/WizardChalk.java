@@ -1,4 +1,4 @@
-package minecraftschurli.arsmagicalegacy.objects.block.wizardchalk;
+package minecraftschurli.arsmagicalegacy.objects.block;
 
 import java.util.Random;
 import javax.annotation.Nonnull;
@@ -6,6 +6,8 @@ import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -26,8 +28,8 @@ public class WizardChalk extends Block {
     private static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     private static final Random rand = new Random();
 
-    public WizardChalk(Properties properties) {
-        super(properties);
+    public WizardChalk() {
+        super(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0).doesNotBlockMovement().sound(SoundType.GROUND));
         setDefaultState(getDefaultState().with(TYPE, 0).with(FACING, Direction.NORTH));
     }
 

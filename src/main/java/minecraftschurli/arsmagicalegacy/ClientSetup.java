@@ -73,6 +73,7 @@ public final class ClientSetup {
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE_FLOWING.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.ALTAR_CORE.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.ILLUMINATION_LIGHT.get(), RenderType.getTranslucent());
     }
 
     @SubscribeEvent

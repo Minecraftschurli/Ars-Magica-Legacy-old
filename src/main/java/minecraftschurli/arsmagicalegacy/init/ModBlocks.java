@@ -2,14 +2,15 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.objects.block.Button;
-import minecraftschurli.arsmagicalegacy.objects.block.CandleBlock;
+import minecraftschurli.arsmagicalegacy.objects.block.Candle;
 import minecraftschurli.arsmagicalegacy.objects.block.Door;
+import minecraftschurli.arsmagicalegacy.objects.block.IlluminationLight;
 import minecraftschurli.arsmagicalegacy.objects.block.Inlay;
 import minecraftschurli.arsmagicalegacy.objects.block.PressurePlate;
 import minecraftschurli.arsmagicalegacy.objects.block.Sapling;
-import minecraftschurli.arsmagicalegacy.objects.block.Torch;
+import minecraftschurli.arsmagicalegacy.objects.block.VinteumTorch;
 import minecraftschurli.arsmagicalegacy.objects.block.Trapdoor;
-import minecraftschurli.arsmagicalegacy.objects.block.WallTorch;
+import minecraftschurli.arsmagicalegacy.objects.block.VinteumWallTorch;
 import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.celestialprism.CelestialPrismBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarBlock;
@@ -17,7 +18,7 @@ import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAlta
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskBlock;
 import minecraftschurli.arsmagicalegacy.objects.block.occulus.OcculusBlock;
-import minecraftschurli.arsmagicalegacy.objects.block.wizardchalk.WizardChalk;
+import minecraftschurli.arsmagicalegacy.objects.block.WizardChalk;
 import minecraftschurli.arsmagicalegacy.worldgen.features.WitchwoodTree;
 import minecraftschurli.simpleorelib.Ore;
 import net.minecraft.block.Block;
@@ -95,8 +96,8 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Inlay> REDSTONE_INLAY = BLOCKS.register("redstone_inlay", () -> new Inlay(Block.Properties.create(Material.MISCELLANEOUS).notSolid()));
     public static final RegistryObject<Inlay> IRON_INLAY = BLOCKS.register("iron_inlay", () -> new Inlay(Block.Properties.create(Material.MISCELLANEOUS).notSolid()));
     public static final RegistryObject<Inlay> GOLD_INLAY = BLOCKS.register("gold_inlay", () -> new Inlay(Block.Properties.create(Material.MISCELLANEOUS).notSolid()));
-    public static final RegistryObject<Torch> VINTEUM_TORCH = BLOCKS.register("vinteum_torch", () -> new Torch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0).lightValue(14).sound(SoundType.WOOD)));
-    public static final RegistryObject<WallTorch> VINTEUM_WALL_TORCH = BLOCKS.register("vinteum_wall_torch", () -> new WallTorch(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0).lightValue(14).sound(SoundType.WOOD)));
+    public static final RegistryObject<VinteumTorch> VINTEUM_TORCH = BLOCKS.register("vinteum_torch", VinteumTorch::new);
+    public static final RegistryObject<VinteumWallTorch> VINTEUM_WALL_TORCH = BLOCKS.register("vinteum_wall_torch", VinteumWallTorch::new);
     public static final RegistryObject<InscriptionTableBlock> INSCRIPTION_TABLE = BLOCKS.register("inscription_table", InscriptionTableBlock::new);
     public static final RegistryObject<ObeliskBlock> OBELISK = BLOCKS.register("obelisk", ObeliskBlock::new);
     public static final RegistryObject<CelestialPrismBlock> CELESTIAL_PRISM = BLOCKS.register("celestial_prism", CelestialPrismBlock::new);
@@ -115,8 +116,9 @@ public final class ModBlocks implements IInit {
     public static final RegistryObject<Door> KEYSTONE_DOOR = BLOCKS.register("keystone_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Door> SPELL_SEALED_DOOR = BLOCKS.register("spell_sealed_door", () -> new Door(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Trapdoor> KEYSTONE_TRAPDOOR = BLOCKS.register("keystone_trapdoor", () -> new Trapdoor(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<WizardChalk> WIZARD_CHALK = BLOCKS.register("wizard_chalk", () -> new WizardChalk(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0).notSolid().doesNotBlockMovement()));
-    public static final RegistryObject<Block> CANDLE = BLOCKS.register("candle", CandleBlock::new);
+    public static final RegistryObject<WizardChalk> WIZARD_CHALK = BLOCKS.register("wizard_chalk", WizardChalk::new);
+    public static final RegistryObject<Block> CANDLE = BLOCKS.register("candle", Candle::new);
+    public static final RegistryObject<Block> ILLUMINATION_LIGHT = BLOCKS.register("illumination_light", IlluminationLight::new);
 
     public static void register() {
     }
