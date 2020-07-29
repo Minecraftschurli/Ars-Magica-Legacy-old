@@ -28,7 +28,7 @@ public final class FireWeaknessAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyTick(PlayerEntity player) {
-        if(player.isBurning()) player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(MODIFIER);
+        if (player.isBurning()) player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(MODIFIER);
     }
 
     @Override

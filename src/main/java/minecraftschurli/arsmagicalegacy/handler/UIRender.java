@@ -136,7 +136,7 @@ public class UIRender {
         Vec2f dimensions = new Vec2f(182, 5);
         Minecraft.getInstance().getTextureManager().bindTexture(MC_TEXTURE);
         RenderSystem.color4f(0.5f, 0.5f, 1, 1);
-        RenderSystem.translatef((scaledWidth-dimensions.x)/2f, scaledHeight-28.5f, 0);
+        RenderSystem.translatef((scaledWidth - dimensions.x) / 2f, scaledHeight - 28.5f, 0);
         drawTexturedModalRect((int) position.x, (int) position.y, 0, 64, (int) dimensions.x, (int) dimensions.y, (int) dimensions.x, (int) dimensions.y);
         if (CapabilityHelper.getCurrentXP(player) > 0) {
             float pctXP = CapabilityHelper.getCurrentXP(player) / CapabilityHelper.getMaxXP(player);

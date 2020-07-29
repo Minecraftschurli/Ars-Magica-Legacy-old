@@ -28,7 +28,8 @@ public final class SunlightWeaknessAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyTick(PlayerEntity player) {
-        if(player.world.isDaytime() && player.world.canBlockSeeSky(player.getPosition())) player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(MODIFIER);
+        if (player.world.isDaytime() && player.world.canBlockSeeSky(player.getPosition()))
+            player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(MODIFIER);
     }
 
     @Override

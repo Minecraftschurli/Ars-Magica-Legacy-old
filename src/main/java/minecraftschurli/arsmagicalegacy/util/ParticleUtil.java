@@ -16,11 +16,11 @@ public final class ParticleUtil {
     }
 
     public static float getGreen(int color) {
-        return (0xFF & ( color >> 8 )) / 255f;
+        return (0xFF & (color >> 8)) / 255f;
     }
 
     public static float getRed(int color) {
-        return (0xFF & ( color >> 16)) / 255f;
+        return (0xFF & (color >> 16)) / 255f;
     }
 
     public static int getColor(float r, float g, float b) {

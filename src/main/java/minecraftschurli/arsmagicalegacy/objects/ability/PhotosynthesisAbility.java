@@ -19,7 +19,7 @@ public final class PhotosynthesisAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyTick(PlayerEntity player) {
-        if(player.world.isRemote) return;
+        if (player.world.isRemote) return;
         player.addExhaustion(player.world.canBlockSeeSky(player.getPosition()) && player.world.isDaytime() && !player.world.isRainingAt(player.getPosition()) ? -0.025f : 0.025f);
     }
 

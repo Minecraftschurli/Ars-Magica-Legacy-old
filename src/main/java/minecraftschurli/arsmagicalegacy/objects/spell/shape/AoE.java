@@ -1,5 +1,7 @@
 package minecraftschurli.arsmagicalegacy.objects.spell.shape;
 
+import java.util.EnumSet;
+import java.util.List;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import minecraftschurli.arsmagicalegacy.api.spell.SpellModifiers;
@@ -20,9 +22,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.List;
 
 public final class AoE extends SpellShape {
     @Override
@@ -177,7 +176,7 @@ public final class AoE extends SpellShape {
                     z = pos.getZ();
                     break;
             }
-            ((ServerWorld)world).spawnParticle(new SimpleParticleData(ModParticles.LENS_FLARE.get(), color), x, y, z, 0, 0, 0, 0, 0);
+            ((ServerWorld) world).spawnParticle(new SimpleParticleData(ModParticles.LENS_FLARE.get(), color), x, y, z, 0, 0, 0, 0, 0);
         }
     }
 }

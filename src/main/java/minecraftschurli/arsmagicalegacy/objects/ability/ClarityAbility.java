@@ -22,7 +22,8 @@ public final class ClarityAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyPreSpellCast(PlayerEntity player, SpellCastEvent.Pre event) {
-        if (player.world.rand.nextInt(100) < 5 && !player.world.isRemote && (!player.isPotionActive(ModEffects.CLARITY.get()) || player.getActivePotionEffect(ModEffects.CLARITY.get()).getDuration() <= 220)) player.addPotionEffect(new EffectInstance(ModEffects.CLARITY.get(), 300, 0, true, false));
+        if (player.world.rand.nextInt(100) < 5 && !player.world.isRemote && (!player.isPotionActive(ModEffects.CLARITY.get()) || player.getActivePotionEffect(ModEffects.CLARITY.get()).getDuration() <= 220))
+            player.addPotionEffect(new EffectInstance(ModEffects.CLARITY.get(), 300, 0, true, false));
     }
 
     @Override

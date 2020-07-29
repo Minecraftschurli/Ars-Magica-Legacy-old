@@ -468,11 +468,10 @@ public final class SpellUtil {
                                 if (component == null) continue;
                                 for (Affinity aff2 : component.getAffinity()) {
                                     if (aff == aff2 && CapabilityHelper.getAffinityDepth(caster, aff) > 0) {
-                                        cost -= (float) (cost * (0.5f * CapabilityHelper.getAffinityDepth(caster, aff)/100f));
+                                        cost -= (float) (cost * (0.5f * CapabilityHelper.getAffinityDepth(caster, aff) / 100f));
                                         break;
                                     } else {
                                         cost = cost + (cost * (0.10f));
-
                                     }
                                 }
                             }

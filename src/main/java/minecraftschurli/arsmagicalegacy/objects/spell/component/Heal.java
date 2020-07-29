@@ -66,7 +66,9 @@ public final class Heal extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        if(target instanceof LivingEntity && ((LivingEntity)target).isEntityUndead()) for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.SYMBOL, colorModifier, 0xff3232, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
-        else for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.SPARKLE, colorModifier, 0x17ff17, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
+        if (target instanceof LivingEntity && ((LivingEntity) target).isEntityUndead()) for (int i = 0; i < 25; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.SYMBOL, colorModifier, 0xff3232, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
+        else for (int i = 0; i < 25; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.SPARKLE, colorModifier, 0x17ff17, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
     }
 }

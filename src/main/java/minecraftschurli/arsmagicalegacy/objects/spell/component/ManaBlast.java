@@ -62,6 +62,8 @@ public final class ManaBlast extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int j = 0; j < 4; j++) for (int i = 0; i < 5; i++) ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, 0, x + Math.cos(3.14159265358979 * 0.4 * i) * j / 2, y, z + Math.sin(3.14159265358979 * 0.4 * i) * j / 2);
+        for (int j = 0; j < 4; j++)
+            for (int i = 0; i < 5; i++)
+                ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, 0, x + Math.cos(3.14159265358979 * 0.4 * i) * j / 2, y, z + Math.sin(3.14159265358979 * 0.4 * i) * j / 2);
     }
 }

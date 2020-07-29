@@ -38,38 +38,38 @@ import vazkii.patchouli.api.IMultiblock;
 public class CraftingAltarBlock extends Block {
     public static final Supplier<IMultiblock> ALTAR = PatchouliCompat.registerMultiblock("altar", patchouli ->
             patchouli.makeMultiblock(new String[][]{
-                    {
-                        " CEC ",
-                        " SMN ",
-                        " SAN ",
-                        " SMN ",
-                        " CWC "
+                            {
+                                    " CEC ",
+                                    " SMN ",
+                                    " SAN ",
+                                    " SMN ",
+                                    " CWC "
+                            }, {
+                            " MZM ",
+                            " I I ",
+                            "     ",
+                            " Y Y ",
+                            " MZM "
                     }, {
-                        " MZM ",
-                        " I I ",
-                        "     ",
-                        " Y Y ",
-                        " MZM "
+                            " MZM ",
+                            "     ",
+                            "     ",
+                            "     ",
+                            " MZMV"
                     }, {
-                        " MZM ",
-                        "     ",
-                        "     ",
-                        "     ",
-                        " MZMV"
+                            " MZML",
+                            "     ",
+                            "  0  ",
+                            "     ",
+                            " MZM "
                     }, {
-                        " MZML",
-                        "     ",
-                        "  0  ",
-                        "     ",
-                        " MZM "
-                    }, {
-                        "MMMMM",
-                        "MMMMM",
-                        "MMCMM",
-                        "MMMMM",
-                        "MMMMM"
+                            "MMMMM",
+                            "MMMMM",
+                            "MMCMM",
+                            "MMMMM",
+                            "MMMMM"
                     }},
-            'C', new CapMatcher(),
+                    'C', new CapMatcher(),
                     'M', new MainMatcher(),
                     'V', patchouli.propertyMatcher(Blocks.LEVER.getDefaultState().with(LeverBlock.HORIZONTAL_FACING, Direction.SOUTH), LeverBlock.HORIZONTAL_FACING),
                     'L', patchouli.propertyMatcher(Blocks.LECTERN.getDefaultState().with(LecternBlock.FACING, Direction.SOUTH), LecternBlock.FACING),

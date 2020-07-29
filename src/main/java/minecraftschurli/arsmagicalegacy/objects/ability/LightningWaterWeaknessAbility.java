@@ -28,7 +28,7 @@ public final class LightningWaterWeaknessAbility extends AbstractAffinityAbility
 
     @Override
     public void applyTick(PlayerEntity player) {
-        if(player.isInWater()) player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(MODIFIER);
+        if (player.isInWater()) player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(MODIFIER);
     }
 
     @Override

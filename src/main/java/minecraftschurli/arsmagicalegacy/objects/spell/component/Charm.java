@@ -60,6 +60,7 @@ public final class Charm extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 10; i++) world.addParticle(ParticleTypes.HEART, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1, 0, 0, 0);
+        for (int i = 0; i < 10; i++)
+            world.addParticle(ParticleTypes.HEART, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1, 0, 0, 0);
     }
 }

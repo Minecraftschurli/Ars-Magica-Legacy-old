@@ -33,9 +33,9 @@ public final class ModCommands {
                 iBurnoutStorage.setBurnout(0);
             });
             player.getCapability(CapabilityHelper.getResearchCapability()).ifPresent(iResearchStorage -> {
-                iResearchStorage.set(0,2);
-                iResearchStorage.set(1,0);
-                iResearchStorage.set(2,0);
+                iResearchStorage.set(0, 2);
+                iResearchStorage.set(1, 0);
+                iResearchStorage.set(2, 0);
             });
             CapabilityHelper.addXP(player, 0);
             return 0;

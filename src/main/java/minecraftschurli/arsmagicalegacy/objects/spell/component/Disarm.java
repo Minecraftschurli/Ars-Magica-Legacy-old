@@ -105,6 +105,7 @@ public final class Disarm extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, rand.nextBoolean() ? 0xb2b217 : 0x17b217, x + rand.nextInt(2) - 1, y + rand.nextInt(4) - 2, z + rand.nextInt(2) - 1, 0, -0.5f, 0);
+        for (int i = 0; i < 25; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, rand.nextBoolean() ? 0xb2b217 : 0x17b217, x + rand.nextInt(2) - 1, y + rand.nextInt(4) - 2, z + rand.nextInt(2) - 1, 0, -0.5f, 0);
     }
 }

@@ -58,6 +58,7 @@ public final class Blind extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; i++) ParticleUtil.addParticle(world, target, ModParticles.LENS_FLARE, colorModifier, 0, x, y, z);
+        for (int i = 0; i < 15; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.LENS_FLARE, colorModifier, 0, x, y, z);
     }
 }

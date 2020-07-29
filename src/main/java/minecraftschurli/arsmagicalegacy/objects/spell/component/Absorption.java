@@ -57,13 +57,14 @@ public final class Absorption extends SpellComponent {
         return Sets.newHashSet(new ItemStack(Items.APPLE), new ItemStack(Items.GOLD_NUGGET));
     }*/
 
-//    @Override
+    //    @Override
 //    public MultiblockStructureDefinition getRitualShape() {
 //        return RitualShapeHelper.instance.hourglass;
 //    }
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; i++) ParticleUtil.addParticle(world, target, ModParticles.LENS_FLARE, colorModifier, 0xf4c83c, x, y, z);
+        for (int i = 0; i < 15; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.LENS_FLARE, colorModifier, 0xf4c83c, x, y, z);
     }
 }

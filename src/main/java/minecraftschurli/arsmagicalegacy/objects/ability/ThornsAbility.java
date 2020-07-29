@@ -23,7 +23,8 @@ public final class ThornsAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyHurt(PlayerEntity player, LivingHurtEvent event) {
-        if(event.getSource().getTrueSource() instanceof LivingEntity) event.getSource().getTrueSource().attackEntityFrom(DamageSource.CACTUS, CapabilityHelper.getAffinityDepth(player, Affinity.NATURE) == 1 ? 3 : CapabilityHelper.getAffinityDepth(player, Affinity.NATURE) >= 0.75 ? 2 : 1);
+        if (event.getSource().getTrueSource() instanceof LivingEntity)
+            event.getSource().getTrueSource().attackEntityFrom(DamageSource.CACTUS, CapabilityHelper.getAffinityDepth(player, Affinity.NATURE) == 1 ? 3 : CapabilityHelper.getAffinityDepth(player, Affinity.NATURE) >= 0.75 ? 2 : 1);
     }
 
     @Override

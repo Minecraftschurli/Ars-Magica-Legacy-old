@@ -22,7 +22,8 @@ public final class NightVisionAbility extends AbstractToggledAffinityAbility {
 
     @Override
     public void applyTick(PlayerEntity player) {
-        if (!player.world.isRemote && (!player.isPotionActive(Effects.NIGHT_VISION) || player.getActivePotionEffect(Effects.NIGHT_VISION).getDuration() <= 220)) player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 300, 0, true, false));
+        if (!player.world.isRemote && (!player.isPotionActive(Effects.NIGHT_VISION) || player.getActivePotionEffect(Effects.NIGHT_VISION).getDuration() <= 220))
+            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 300, 0, true, false));
     }
 
     @Override

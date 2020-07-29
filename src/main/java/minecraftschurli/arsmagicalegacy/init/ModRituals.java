@@ -15,10 +15,10 @@ public final class ModRituals implements IInit {
     public static RegistryObject<RitualRegistry.DefaultRitual> CORRUPTION = RitualRegistry.registerRitual("corruption",
             () -> Lists.newArrayList(new ItemStack(ModItems.SUNSTONE.get()), new ItemStack(ModItems.MONSTER_FOCUS.get())),
             PatchouliCompat.registerMultiblock("corruption_ritual", iPatchouliAPI -> iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"     ", "     ", "     ", "  U  ", "     ", "     ", "     "},
-                    {"     ", "     ", "     ", "  O  ", "     ", "     ", "     "},
-                    {" C C ", "CICIC", "C C C", " C0C ", "C C C", "CICIC", " C C "}},
-            'C', PatchouliCompat.CHALK_MATCHER.get(),
+                            {"     ", "     ", "     ", "  U  ", "     ", "     ", "     "},
+                            {"     ", "     ", "     ", "  O  ", "     ", "     ", "     "},
+                            {" C C ", "CICIC", "C C C", " C0C ", "C C C", "CICIC", " C C "}},
+                    'C', PatchouliCompat.CHALK_MATCHER.get(),
                     'I', PatchouliCompat.CANDLE_MATCHER.get(),
                     '0', iPatchouliAPI.propertyMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.LOWER), ObeliskBlock.PART),
                     'O', iPatchouliAPI.propertyMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.MIDDLE), ObeliskBlock.PART),
@@ -28,14 +28,16 @@ public final class ModRituals implements IInit {
     public static RegistryObject<RitualRegistry.DefaultRitual> PURIFICATION = RitualRegistry.registerRitual("purification",
             () -> Lists.newArrayList(new ItemStack(ModItems.MOONSTONE.get()), new ItemStack(ModItems.MANA_FOCUS.get())),
             PatchouliCompat.registerMultiblock("purification_ritual", iPatchouliAPI -> iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"       ", "       ", "       ", "   U   ", "       ", "       ", "       "},
-                    {"       ", "       ", "       ", "   O   ", "       ", "       ", "       "},
-                    {"  CCC  ", " IC CI ", "CCC CCC", "C  0  C", "CCC CCC", " IC CI ", "  CCC  "}},
-            'C', PatchouliCompat.CHALK_MATCHER.get(),
+                            {"       ", "       ", "       ", "   U   ", "       ", "       ", "       "},
+                            {"       ", "       ", "       ", "   O   ", "       ", "       ", "       "},
+                            {"  CCC  ", " IC CI ", "CCC CCC", "C  0  C", "CCC CCC", " IC CI ", "  CCC  "}},
+                    'C', PatchouliCompat.CHALK_MATCHER.get(),
                     'I', PatchouliCompat.CANDLE_MATCHER.get(),
                     '0', iPatchouliAPI.propertyMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.LOWER), ObeliskBlock.PART),
                     'O', iPatchouliAPI.propertyMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.MIDDLE), ObeliskBlock.PART),
                     'U', iPatchouliAPI.propertyMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, ObeliskBlock.Part.UPPER), ObeliskBlock.PART))),
             ModItems.CELESTIAL_PRISM.lazyMap(ItemStack::new));
-    public static void register() {}
+
+    public static void register() {
+    }
 }

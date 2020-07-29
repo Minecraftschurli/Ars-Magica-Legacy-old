@@ -59,6 +59,7 @@ public final class LifeDrain extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 15; i++) ParticleUtil.addParticle(world, target, ModParticles.EMBER, colorModifier, 0xff3232, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
+        for (int i = 0; i < 15; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.EMBER, colorModifier, 0xff3232, x + rand.nextInt(2) - 1, y + rand.nextInt(2) - 1, z + rand.nextInt(2) - 1);
     }
 }

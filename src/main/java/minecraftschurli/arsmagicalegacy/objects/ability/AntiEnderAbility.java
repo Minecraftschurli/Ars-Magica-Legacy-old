@@ -23,7 +23,8 @@ public final class AntiEnderAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyHurt(PlayerEntity player, LivingHurtEvent event) {
-        if (event.getSource().getTrueSource() instanceof EndermanEntity || event.getSource().getTrueSource() instanceof EndermiteEntity) event.getSource().getTrueSource().attackEntityFrom(DamageSource.DROWN, 2);
+        if (event.getSource().getTrueSource() instanceof EndermanEntity || event.getSource().getTrueSource() instanceof EndermiteEntity)
+            event.getSource().getTrueSource().attackEntityFrom(DamageSource.DROWN, 2);
     }
 
     @Override

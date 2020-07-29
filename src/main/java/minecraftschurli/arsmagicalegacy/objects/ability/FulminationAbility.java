@@ -30,8 +30,8 @@ public final class FulminationAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyTick(PlayerEntity player) {
-        if(!player.world.isRemote) {
-            if(CapabilityHelper.getAffinityDepth(player, Affinity.LIGHTNING) >= 0.8f) {
+        if (!player.world.isRemote) {
+            if (CapabilityHelper.getAffinityDepth(player, Affinity.LIGHTNING) >= 0.8f) {
                 BlockPos offsetPos = new BlockPos(player.getPosX() - 5 + player.getRNG().nextInt(11), player.getPosY() - 5 + player.getRNG().nextInt(11), player.getPosZ() - 5 + player.getRNG().nextInt(11));
                 BlockState block = player.world.getBlockState(offsetPos);
                 if (block.getBlock() == Blocks.TNT) {
@@ -39,7 +39,7 @@ public final class FulminationAbility extends AbstractAffinityAbility {
                     Blocks.TNT.catchFire(block, player.world, offsetPos, null, player);
                 }
             }
-            if (CapabilityHelper.getAffinityDepth(player, Affinity.LIGHTNING) >= 0.7f && player.getRNG().nextDouble() < 0.05f){
+            if (CapabilityHelper.getAffinityDepth(player, Affinity.LIGHTNING) >= 0.7f && player.getRNG().nextDouble() < 0.05f) {
                 List<CreeperEntity> creepers = player.world.getEntitiesWithinAABB(CreeperEntity.class, player.getBoundingBox().expand(5, 5, 5));
                 for (CreeperEntity creeper : creepers) {
                     creeper.onStruckByLightning(null);

@@ -21,7 +21,8 @@ public final class FireImmunityAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyHurt(PlayerEntity player, LivingHurtEvent event) {
-        if (event.getSource().isFireDamage()) event.setAmount((float) (event.getAmount() * (1 - (0.6f * CapabilityHelper.getAffinityDepth(player, Affinity.FIRE)))));
+        if (event.getSource().isFireDamage())
+            event.setAmount((float) (event.getAmount() * (1 - (0.6f * CapabilityHelper.getAffinityDepth(player, Affinity.FIRE)))));
     }
 
     @Override

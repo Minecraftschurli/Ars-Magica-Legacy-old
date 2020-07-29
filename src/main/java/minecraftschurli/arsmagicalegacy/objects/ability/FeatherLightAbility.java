@@ -26,7 +26,8 @@ public final class FeatherLightAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyPreSpellCast(PlayerEntity player, SpellCastEvent.Pre event) {
-        if (!player.world.isRemote && player.world.isRainingAt(player.getPosition()) && player.world.rand.nextInt(100) < 10 && !player.isSneaking() && !player.isPotionActive(ModEffects.GRAVITY_WELL.get()) && !player.isInWater() && player.isWet()) player.addVelocity(player.world.rand.nextDouble() - 0.5, player.world.rand.nextDouble() - 0.5, player.world.rand.nextDouble() - 0.5);
+        if (!player.world.isRemote && player.world.isRainingAt(player.getPosition()) && player.world.rand.nextInt(100) < 10 && !player.isSneaking() && !player.isPotionActive(ModEffects.GRAVITY_WELL.get()) && !player.isInWater() && player.isWet())
+            player.addVelocity(player.world.rand.nextDouble() - 0.5, player.world.rand.nextDouble() - 0.5, player.world.rand.nextDouble() - 0.5);
     }
 
     @Override

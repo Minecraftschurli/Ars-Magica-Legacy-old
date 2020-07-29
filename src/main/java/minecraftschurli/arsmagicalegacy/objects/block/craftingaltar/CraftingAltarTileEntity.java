@@ -173,7 +173,7 @@ public class CraftingAltarTileEntity extends TileEntity implements ITickableTile
                 TileEntity te = getWorld().getTileEntity(getPos().offset(direction.getOpposite(), 2).offset(direction.rotateY(), 2).down(3));
                 if (te instanceof LecternTileEntity) {
                     if (((LecternTileEntity) te).hasBook())
-                    this.lecternPos = te.getPos();
+                        this.lecternPos = te.getPos();
                     if (!this.getWorld().isRemote()) {
                         this.powerFlag = checkAltarPower();
                         sync();

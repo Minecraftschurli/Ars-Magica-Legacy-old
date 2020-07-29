@@ -73,6 +73,7 @@ public final class LifeTap extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, rand.nextBoolean() ? 0x17657f : 0x177f17, x + rand.nextInt(4) - 2, y + rand.nextInt(4) - 2, z + rand.nextInt(4) - 2);
+        for (int i = 0; i < 25; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.SHINY, colorModifier, rand.nextBoolean() ? 0x17657f : 0x177f17, x + rand.nextInt(4) - 2, y + rand.nextInt(4) - 2, z + rand.nextInt(4) - 2);
     }
 }

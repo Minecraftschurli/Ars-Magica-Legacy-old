@@ -22,7 +22,8 @@ public final class PoisonImmunityAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyHurt(PlayerEntity player, LivingHurtEvent event) {
-        if(event.getSource() == DamageSource.MAGIC || event.getSource() == DamageSource.WITHER) event.setAmount(event.getAmount() * (float)(1 - (0.75f * CapabilityHelper.getAffinityDepth(player, Affinity.ENDER))));
+        if (event.getSource() == DamageSource.MAGIC || event.getSource() == DamageSource.WITHER)
+            event.setAmount(event.getAmount() * (float) (1 - (0.75f * CapabilityHelper.getAffinityDepth(player, Affinity.ENDER))));
     }
 
     @Override

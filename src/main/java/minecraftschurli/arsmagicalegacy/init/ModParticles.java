@@ -30,7 +30,7 @@ public final class ModParticles implements IInit {
     public static final RegistryObject<ParticleType<SimpleParticleData>> WATERBALL = register("waterball", SimpleParticleData.DESERIALIZER);
     public static final RegistryObject<ParticleType<SimpleParticleData>> WIND = register("wind", SimpleParticleData.DESERIALIZER);
     public static final RegistryObject<ParticleType<SimpleParticleData>> WITCHWOOD_LEAF = register("witchwood_leaf", SimpleParticleData.DESERIALIZER);
-//    public static final RegistryObject<ParticleType<BeamParticleData>> BEAM = register("beam", BeamParticleData.DESERIALIZER);
+    //    public static final RegistryObject<ParticleType<BeamParticleData>> BEAM = register("beam", BeamParticleData.DESERIALIZER);
 //    public static final RegistryObject<ParticleType<BeamParticleData>> DARK_BEAM = register("dark_beam", BeamParticleData.DESERIALIZER);
 //    public static final RegistryObject<ParticleType<BeamParticleData>> LIGHT_BEAM = register("light_beam", BeamParticleData.DESERIALIZER);
     public static final RegistryObject<ParticleType<SimpleParticleData>> NONE_HAND = register("none_hand", SimpleParticleData.DESERIALIZER);

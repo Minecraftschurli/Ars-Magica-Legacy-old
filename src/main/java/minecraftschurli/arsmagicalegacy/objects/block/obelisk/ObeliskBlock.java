@@ -41,20 +41,20 @@ public class ObeliskBlock extends EtheriumGeneratorBlock<ObeliskTileEntity> {
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final Supplier<IMultiblock> OBELISK_CHALK = PatchouliCompat.registerMultiblock("obelisk_chalk", iPatchouliAPI ->
             iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"   ", " U ", "   "},
-                    {"   ", " M ", "   "},
-                    {"CCC", "C0C", "CCC"}},
-            '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+                            {"   ", " U ", "   "},
+                            {"   ", " M ", "   "},
+                            {"CCC", "C0C", "CCC"}},
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
                     'C', PatchouliCompat.CHALK_MATCHER.get())
                     .setSymmetrical(true));
     public static final Supplier<IMultiblock> OBELISK_PILLARS = PatchouliCompat.registerMultiblock("obelisk_pillars", iPatchouliAPI ->
             iPatchouliAPI.makeMultiblock(new String[][]{
-                    {"S   S", "     ", "  U  ", "     ", "S   S"},
-                    {"B   B", "     ", "  M  ", "     ", "B   B"},
-                    {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
-            '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
+                            {"S   S", "     ", "  U  ", "     ", "S   S"},
+                            {"B   B", "     ", "  M  ", "     ", "B   B"},
+                            {"B   B", " CCC ", " C0C ", " CCC ", "B   B"}},
+                    '0', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState()),
                     'M', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.MIDDLE)),
                     'U', iPatchouliAPI.stateMatcher(ModBlocks.OBELISK.get().getDefaultState().with(ObeliskBlock.PART, Part.UPPER)),
                     'S', iPatchouliAPI.looseBlockMatcher(Blocks.CHISELED_STONE_BRICKS),

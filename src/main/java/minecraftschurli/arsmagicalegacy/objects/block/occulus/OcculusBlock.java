@@ -11,7 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
@@ -72,7 +71,8 @@ public class OcculusBlock extends Block {
                 double x2 = 8 + (part[3] - 8) * Math.cos(angle) - (part[5] - 8) * Math.sin(angle);
                 double z2 = 8 + (part[3] - 8) * Math.sin(angle) + (part[5] - 8) * Math.cos(angle);
                 if (shapes[i] == null) shapes[i] = makeCuboidShape(x1, part[1], z1, x2, part[4], z2);
-                else shapes[i] = VoxelShapes.combineAndSimplify(shapes[i], makeCuboidShape(x1, part[1], z1, x2, part[4], z2), IBooleanFunction.OR);
+                else
+                    shapes[i] = VoxelShapes.combineAndSimplify(shapes[i], makeCuboidShape(x1, part[1], z1, x2, part[4], z2), IBooleanFunction.OR);
             }
         }
         return shapes;

@@ -54,6 +54,7 @@ public final class LightningDamage extends SpellComponent {
 
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 5; i++) ParticleUtil.addParticle(world, target, ModParticles.LIGHTNING_HAND, colorModifier, 0, x + rand.nextInt(2) - 1, y, z + rand.nextInt(2) - 1, (float)(rand.nextDouble() * 0.2 - 0.1), (float)(rand.nextDouble() * 0.2 - 0.5), (float)(rand.nextDouble() * 0.2 - 0.1));
+        for (int i = 0; i < 5; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.LIGHTNING_HAND, colorModifier, 0, x + rand.nextInt(2) - 1, y, z + rand.nextInt(2) - 1, (float) (rand.nextDouble() * 0.2 - 0.1), (float) (rand.nextDouble() * 0.2 - 0.5), (float) (rand.nextDouble() * 0.2 - 0.1));
     }
 }

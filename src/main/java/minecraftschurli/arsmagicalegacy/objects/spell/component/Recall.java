@@ -77,7 +77,7 @@ public final class Recall extends SpellComponent {
         };
     }*/
 
-//    @Override
+    //    @Override
 //    public float getReagentSearchRadius() {
 //        return RitualShapeHelper.instance.ringedCross.getWidth();
 //    }
@@ -89,6 +89,7 @@ public final class Recall extends SpellComponent {
 //
     @Override
     public void spawnParticles(ServerWorld world, double x, double y, double z, LivingEntity caster, Entity target, Random rand, int colorModifier) {
-        for (int i = 0; i < 25; i++) ParticleUtil.addParticle(world, target, ModParticles.ARCANE, colorModifier, 0, x + rand.nextInt(2) - 1, y, z + rand.nextInt(2) - 1);
+        for (int i = 0; i < 25; i++)
+            ParticleUtil.addParticle(world, target, ModParticles.ARCANE, colorModifier, 0, x + rand.nextInt(2) - 1, y, z + rand.nextInt(2) - 1);
     }
 }

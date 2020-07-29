@@ -8,7 +8,6 @@ import minecraftschurli.arsmagicalegacy.api.affinity.AffinityOverrideModel;
 import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.api.network.NetworkHandler;
 import minecraftschurli.arsmagicalegacy.api.registry.RegistryHandler;
-import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.capabilities.AbilityCapability;
 import minecraftschurli.arsmagicalegacy.capabilities.AffinityCapability;
 import minecraftschurli.arsmagicalegacy.capabilities.BurnoutCapability;
@@ -40,53 +39,31 @@ import minecraftschurli.arsmagicalegacy.init.ModRituals;
 import minecraftschurli.arsmagicalegacy.init.ModSkillTrees;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
-import minecraftschurli.arsmagicalegacy.objects.block.blackaurem.BlackAuremTER;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarModel;
-import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarViewTER;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
-import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskContainer;
-import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskScreen;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
-import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
-import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticle;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.BlockModelShapes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -184,8 +161,10 @@ public final class ArsMagicaLegacy {
     private void registerModels(final ModelRegistryEvent event) {
         RegistryHandler.getAffinityRegistry().forEach(affinity -> {
             ResourceLocation rl;
-            if ((rl = affinity.getTextureLocation("tome")) != null) ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
-            if ((rl = affinity.getTextureLocation("essence")) != null) ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
+            if ((rl = affinity.getTextureLocation("tome")) != null)
+                ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
+            if ((rl = affinity.getTextureLocation("essence")) != null)
+                ModelLoader.addSpecialModel(new ModelResourceLocation(rl, "inventory"));
         });
     }
 

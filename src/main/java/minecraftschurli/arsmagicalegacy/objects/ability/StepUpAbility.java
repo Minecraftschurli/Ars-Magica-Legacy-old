@@ -24,7 +24,7 @@ public final class StepUpAbility extends AbstractAffinityAbility {
 
     @Override
     public void removeEffects(PlayerEntity player) {
-        if(player.stepHeight == 1.014f) player.stepHeight = 0.6f;
+        if (player.stepHeight == 1.014f) player.stepHeight = 0.6f;
     }
 
     @Override

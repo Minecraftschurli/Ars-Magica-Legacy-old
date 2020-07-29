@@ -22,7 +22,8 @@ public final class ThunderPunchAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyHurting(PlayerEntity player, LivingHurtEvent event) {
-        if(!player.world.isRemote && player.getHeldItemMainhand() == ItemStack.EMPTY) player.world.addEntity(new LightningBoltEntity(player.world, event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(), false));
+        if (!player.world.isRemote && player.getHeldItemMainhand() == ItemStack.EMPTY)
+            player.world.addEntity(new LightningBoltEntity(player.world, event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(), false));
     }
 
     @Override

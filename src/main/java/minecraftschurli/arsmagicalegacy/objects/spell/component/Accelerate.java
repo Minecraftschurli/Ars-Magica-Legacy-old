@@ -26,8 +26,8 @@ public final class Accelerate extends SpellComponent {
 
     @Override
     public boolean applyEffectEntity(ItemStack stack, World world, LivingEntity caster, Entity target) {
-        if(target instanceof LivingEntity) {
-            ((LivingEntity)target).setAIMoveSpeed(((LivingEntity)target).getAIMoveSpeed() * 1.6f);
+        if (target instanceof LivingEntity) {
+            ((LivingEntity) target).setAIMoveSpeed(((LivingEntity) target).getAIMoveSpeed() * 1.6f);
             return true;
         }
         return false;

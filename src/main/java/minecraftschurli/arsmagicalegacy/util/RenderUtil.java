@@ -26,7 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
-//    private static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
+    //    private static final VertexFormat POSITION_TEX_NORMAL = new VertexFormat(ImmutableList .<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
     private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = new RenderState.TransparencyState("translucent_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

@@ -23,7 +23,7 @@ public final class ManaCostDecreaseAbility extends AbstractAffinityAbility {
     public void applyPreSpellCast(PlayerEntity player, SpellCastEvent.Pre event) {
         event.manaCost *= 0.95f;
         event.burnout *= 0.95f;
-        if(player.isPotionActive(ModEffects.CLARITY.get())) {
+        if (player.isPotionActive(ModEffects.CLARITY.get())) {
             event.manaCost = 0;
             event.burnout = 0;
         }

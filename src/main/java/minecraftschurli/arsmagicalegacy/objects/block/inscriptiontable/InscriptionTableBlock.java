@@ -29,13 +29,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -71,7 +68,7 @@ public class InscriptionTableBlock extends Block {
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return state.get(FACING) == Direction.EAST ? (state.get(HALF) == Half.LEFT ? RX : LX) : state.get(FACING) == Direction.WEST ? (state.get(HALF) == Half.LEFT ? LX : RX) :                         state.get(FACING) == Direction.NORTH ? (state.get(HALF) == Half.LEFT ? LZ : RZ) : state.get(HALF) == Half.LEFT ? RZ : LZ;
+        return state.get(FACING) == Direction.EAST ? (state.get(HALF) == Half.LEFT ? RX : LX) : state.get(FACING) == Direction.WEST ? (state.get(HALF) == Half.LEFT ? LX : RX) : state.get(FACING) == Direction.NORTH ? (state.get(HALF) == Half.LEFT ? LZ : RZ) : state.get(HALF) == Half.LEFT ? RZ : LZ;
     }
 
     @Nonnull

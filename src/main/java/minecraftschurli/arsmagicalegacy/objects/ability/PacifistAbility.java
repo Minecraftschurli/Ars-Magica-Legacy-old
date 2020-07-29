@@ -22,7 +22,7 @@ public final class PacifistAbility extends AbstractAffinityAbility {
 
     @Override
     public void applyKill(PlayerEntity player, LivingDeathEvent event) {
-        if(!event.getEntityLiving().isEntityUndead()) {
+        if (!event.getEntityLiving().isEntityUndead()) {
             player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 100, 1));
             player.addPotionEffect(new EffectInstance(Effects.HUNGER, 100, 1));
             player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 100, 1));
