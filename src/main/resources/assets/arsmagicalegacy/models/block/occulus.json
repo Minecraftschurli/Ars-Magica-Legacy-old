@@ -4,9 +4,9 @@
     "particle": "arsmagicalegacy:block/occulus_base",
     "base": "arsmagicalegacy:block/occulus_base",
     "hook": "arsmagicalegacy:block/occulus_hook",
-    "eye": "arsmagicalegacy:block/occulus_eye",
-    "eyein2": "arsmagicalegacy:block/occulus_eyein2",
-    "eyein": "arsmagicalegacy:block/occulus_eyein"
+    "eyeball": "arsmagicalegacy:block/occulus_eyeball",
+    "pupil": "arsmagicalegacy:block/occulus_pupil",
+    "eye": "arsmagicalegacy:block/occulus_eye"
   },
   "elements": [
     {
@@ -443,22 +443,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -475,22 +475,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -507,22 +507,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -539,22 +539,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -571,22 +571,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -603,22 +603,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -635,22 +635,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "up": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "north": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "south": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "west": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         },
         "east": {
-          "texture": "#eye"
+          "texture": "#eyeball"
         }
       }
     },
@@ -667,22 +667,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eyein"
+          "texture": "#eye"
         },
         "up": {
-          "texture": "#eyein"
+          "texture": "#eye"
         },
         "north": {
-          "texture": "#eyein"
+          "texture": "#eye"
         },
         "south": {
-          "texture": "#eyein"
+          "texture": "#eye"
         },
         "west": {
-          "texture": "#eyein"
+          "texture": "#eye"
         },
         "east": {
-          "texture": "#eyein"
+          "texture": "#eye"
         }
       }
     },
@@ -699,22 +699,22 @@
       ],
       "faces": {
         "down": {
-          "texture": "#eyein2"
+          "texture": "#pupil"
         },
         "up": {
-          "texture": "#eyein2"
+          "texture": "#pupil"
         },
         "north": {
-          "texture": "#eyein2"
+          "texture": "#pupil"
         },
         "south": {
-          "texture": "#eyein2"
+          "texture": "#pupil"
         },
         "west": {
-          "texture": "#eyein2"
+          "texture": "#pupil"
         },
         "east": {
-          "texture": "#eyein2"
+          "texture": "#pupil"
         }
       }
     }

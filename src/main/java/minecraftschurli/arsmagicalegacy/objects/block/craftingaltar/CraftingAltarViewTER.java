@@ -36,7 +36,7 @@ public class CraftingAltarViewTER extends TileEntityRenderer<CraftingAltarViewTi
         matrixStackIn.push();
         matrixStackIn.scale(0.55f, 0.55f, 0.55f);
         if (!altar.hasEnoughPower())
-            drawNameplate(new TranslationTextComponent(ArsMagicaAPI.MODID + ".altar.lowpower").getFormattedText(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+            drawNameplate(new TranslationTextComponent(ArsMagicaAPI.MODID + ".altar.lowPower").getFormattedText(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         else {
             ISpellIngredient ingredient = altar.getCurrentIngredient();
             if (ingredient == null) {

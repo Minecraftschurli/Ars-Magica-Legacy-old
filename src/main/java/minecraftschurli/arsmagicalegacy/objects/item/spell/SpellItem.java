@@ -106,6 +106,6 @@ public class SpellItem extends Item {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.manacost", SpellUtil.getMana(stack, ArsMagicaAPI.getLocalPlayer())));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell.manaCost", SpellUtil.getMana(stack, ArsMagicaAPI.getLocalPlayer())));
     }
 }

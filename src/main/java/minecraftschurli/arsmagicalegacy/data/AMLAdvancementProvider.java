@@ -8,7 +8,7 @@ import minecraftschurli.arsmagicalegacy.api.data.AdvancementProvider;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrb;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -30,7 +30,7 @@ public final class AMLAdvancementProvider extends AdvancementProvider {
         Advancement root = registerAdvancement(PatchouliCompat.getCompendiumStack(), "compendium", new ResourceLocation(ArsMagicaAPI.MODID, "textures/block/vinteum_ore.png"), FrameType.TASK, false, false, true)
                 .withCriterion("got_compendium", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(PatchouliCompat.getCompendiumStack().getItem()).nbt(PatchouliCompat.getCompendiumStack().getTag()).build()))
                 .register(consumer, ArsMagicaAPI.MODID + ":compendium");
-        Advancement silver = registerAdvancement(root, InfinityOrbItem.getWithSkillPoint(ModSpellParts.SILVER_POINT.get()), "silver", FrameType.CHALLENGE, false, false, true)
+        Advancement silver = registerAdvancement(root, InfinityOrb.getWithSkillPoint(ModSpellParts.SILVER_POINT.get()), "silver", FrameType.CHALLENGE, false, false, true)
                 .withCriterion("got_silver_skill", SilverSkillTrigger.Instance.create())
                 .register(consumer, ArsMagicaAPI.MODID + ":silver");
         Advancement lvl5 = registerAdvancement(root, ModItems.VINTEUM.get(), "level5", FrameType.TASK, false, false, true)

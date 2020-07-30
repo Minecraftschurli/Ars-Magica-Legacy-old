@@ -21,8 +21,8 @@ import net.minecraft.world.World;
  * @author Minecraftschurli
  * @version 2020-05-14
  */
-public class WizardChalkItem extends BlockItem {
-    public WizardChalkItem() {
+public class WizardChalk extends BlockItem {
+    public WizardChalk() {
         super(ModBlocks.WIZARD_CHALK.get(), new Properties().maxDamage(100).group(ArsMagicaLegacy.ITEM_GROUP));
     }
 

@@ -6,6 +6,7 @@ import minecraftschurli.arsmagicalegacy.api.registry.SpellRegistry;
 import minecraftschurli.arsmagicalegacy.api.skill.SkillPoint;
 import minecraftschurli.arsmagicalegacy.api.spell.AbstractSpellPart;
 import minecraftschurli.arsmagicalegacy.api.util.ITranslatable;
+import net.minecraft.potion.Effect;
 
 /**
  * @author Minecraftschurli
@@ -155,6 +156,10 @@ public interface ILanguagePlugin {
         add("item.minecraft.splash_potion.effect." + key, splashPotion);
         add("item.minecraft.lingering_potion.effect." + key, lingeringPotion);
         add("item.minecraft.tipped_arrow.effect." + key, tippedArrow);
+    }
+
+    default void addEffect(String modid, Supplier<? extends Effect> key, String translation) {
+        add("effect." + modid + "." + key, translation);
     }
 
     /**

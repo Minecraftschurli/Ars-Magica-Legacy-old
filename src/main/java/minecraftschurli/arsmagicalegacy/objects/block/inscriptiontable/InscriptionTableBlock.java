@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
-import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgrade;
 import minecraftschurli.arsmagicalegacy.util.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -157,13 +157,13 @@ public class InscriptionTableBlock extends Block {
         InscriptionTableTileEntity te = (InscriptionTableTileEntity) worldIn.getTileEntity(tePos);
         if (te == null) return ActionResultType.FAIL;
         if (te.isInUse(player)) {
-            player.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.alreadyInUse"));
+            player.sendMessage(new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptionTable.alreadyInUse"));
             return ActionResultType.FAIL;
         }
         ItemStack curItem = player.getHeldItem(hand);
-        if (!curItem.isEmpty() && curItem.getItem() instanceof InscriptionTableUpgradeItem && curItem.getTag() != null) {
+        if (!curItem.isEmpty() && curItem.getItem() instanceof InscriptionTableUpgrade && curItem.getTag() != null) {
             int tier = state.get(TIER);
-            if (tier == InscriptionTableUpgradeItem.getTier(curItem)) {
+            if (tier == InscriptionTableUpgrade.getTier(curItem)) {
                 curItem.shrink(1);
                 worldIn.setBlockState(pos, state.with(TIER, tier + 1), 2);
                 BlockPos other = left ? pos.offset(state.get(FACING).rotateYCCW()) : pos.offset(state.get(FACING).rotateY());

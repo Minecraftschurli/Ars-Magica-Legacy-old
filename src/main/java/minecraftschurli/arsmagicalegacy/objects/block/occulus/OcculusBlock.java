@@ -1,11 +1,10 @@
 package minecraftschurli.arsmagicalegacy.objects.block.occulus;
 
-import java.util.Arrays;
-import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.capability.CapabilityHelper;
+import minecraftschurli.arsmagicalegacy.util.BlockUtil;
 import minecraftschurli.arsmagicalegacy.util.RenderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -32,50 +31,15 @@ import net.minecraftforge.common.ToolType;
 
 public class OcculusBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final VoxelShape[] SHAPE = makeRotatedShapes(new double[][]{
-            {0, 0, 0, 16, 1, 16},
-            {1.5, 1, 1.5, 14.5, 2, 14.5},
-            {3, 2, 3, 13, 3, 13},
-            {4.5, 3, 4.5, 11.5, 4, 11.5},
-            {6, 4, 6, 10, 8, 10},
-            {5, 7, 6, 6, 9, 10},
-            {11, 7, 10, 10, 9, 6},
-            {6, 7, 5, 10, 9, 6},
-            {10, 7, 11, 6, 9, 10},
-            {9, 8, 12, 7, 10, 11},
-            {12, 8, 9, 11, 10, 7},
-            {4, 8, 7, 5, 10, 9},
-            {7, 8, 4, 9, 10, 5},
-            {5, 11, 6.5, 11, 12, 9.5},
-            {5, 14, 6.5, 11, 15, 9.5},
-            {5, 12, 6.5, 6.5, 14, 9.5},
-            {9.5, 12, 6.5, 11, 14, 9.5},
-            {4, 11, 7.5, 12, 15, 8.5},
-            {5, 10, 7.5, 11, 16, 8.5},
-            {6.5, 12, 8.5, 9.5, 14, 9.5},
-    });
+    private static final VoxelShape SOCKET = BlockUtil.combineShapes(makeCuboidShape(0, 0, 0, 16, 1, 16), makeCuboidShape(1.5, 1, 1.5, 14.5, 2, 14.5), makeCuboidShape(3, 2, 3, 13, 3, 13), makeCuboidShape(4.5, 3, 4.5, 11.5, 4, 11.5), makeCuboidShape(6, 4, 6, 10, 8, 10), makeCuboidShape(5, 7, 6, 6, 9, 10), makeCuboidShape(11, 7, 10, 10, 9, 6), makeCuboidShape(6, 7, 5, 10, 9, 6), makeCuboidShape(10, 7, 11, 6, 9, 10), makeCuboidShape(9, 8, 12, 7, 10, 11), makeCuboidShape(12, 8, 9, 11, 10, 7), makeCuboidShape(4, 8, 7, 5, 10, 9), makeCuboidShape(7, 8, 4, 9, 10, 5));
+    private static final VoxelShape NORTH = BlockUtil.combineShapes(makeCuboidShape(5, 11, 6.5, 11, 12, 9.5), makeCuboidShape(5, 14, 6.5, 11, 15, 9.5), makeCuboidShape(5, 12, 6.5, 6.5, 14, 9.5), makeCuboidShape(9.5, 12, 6.5, 11, 14, 9.5), makeCuboidShape(4, 11, 7.5, 12, 15, 8.5), makeCuboidShape(5, 10, 7.5, 11, 16, 8.5), makeCuboidShape(6.5, 12, 8.5, 9.5, 14, 9.5));
+    private static final VoxelShape EAST = BlockUtil.combineShapes(makeCuboidShape(9.5, 11, 5, 6.5, 12, 11), makeCuboidShape(9.5, 14, 5, 6.5, 15, 11), makeCuboidShape(9.5, 12, 5, 6.5, 14, 6.5), makeCuboidShape(9.5, 12, 9.5, 6.5, 14, 11), makeCuboidShape(8.5, 11, 4, 7.5, 15, 12), makeCuboidShape(8.5, 10, 5, 7.5, 16, 11), makeCuboidShape(9.5, 12, 6.5, 8.5, 14, 9.5));
+    private static final VoxelShape SOUTH = BlockUtil.combineShapes(makeCuboidShape(5, 10, 7.5, 11, 16, 8.5), makeCuboidShape(4, 11, 7.5, 12, 15, 8.5), makeCuboidShape(5, 11, 6.5, 11, 12, 9.5), makeCuboidShape(5, 14, 6.5, 11, 15, 9.5), makeCuboidShape(5, 12, 6.5, 6.5, 14, 9.5), makeCuboidShape(9.5, 12, 6.5, 11, 14, 9.5), makeCuboidShape(6.5, 12, 6.5, 9.5, 14, 7.5));
+    private static final VoxelShape WEST = BlockUtil.combineShapes(makeCuboidShape(6.5, 11, 11, 9.5, 12, 5), makeCuboidShape(6.5, 14, 11, 9.5, 15, 5), makeCuboidShape(6.5, 12, 6.5, 9.5, 14, 5), makeCuboidShape(6.5, 12, 11, 9.5, 14, 9.5), makeCuboidShape(7.5, 11, 12, 8.5, 15, 4), makeCuboidShape(7.5, 10, 11, 8.5, 16, 5), makeCuboidShape(8.5, 12, 9.5, 9.5, 14, 6.5));
 
     public OcculusBlock() {
         super(Properties.create(Material.ROCK).hardnessAndResistance(3, 5).harvestLevel(-1).harvestTool(ToolType.PICKAXE));
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
-    }
-
-    private static VoxelShape[] makeRotatedShapes(double[][] shape) {
-        List<Integer> angles = Arrays.asList(0, 90, 180, 270);
-        VoxelShape[] shapes = new VoxelShape[4];
-        for (int i = 0; i < angles.size(); i++) {
-            double angle = Math.toRadians(angles.get(i));
-            for (double[] part : shape) {
-                double x1 = 8 + (part[0] - 8) * Math.cos(angle) - (part[2] - 8) * Math.sin(angle);
-                double z1 = 8 + (part[0] - 8) * Math.sin(angle) + (part[2] - 8) * Math.cos(angle);
-                double x2 = 8 + (part[3] - 8) * Math.cos(angle) - (part[5] - 8) * Math.sin(angle);
-                double z2 = 8 + (part[3] - 8) * Math.sin(angle) + (part[5] - 8) * Math.cos(angle);
-                if (shapes[i] == null) shapes[i] = makeCuboidShape(x1, part[1], z1, x2, part[4], z2);
-                else
-                    shapes[i] = VoxelShapes.combineAndSimplify(shapes[i], makeCuboidShape(x1, part[1], z1, x2, part[4], z2), IBooleanFunction.OR);
-            }
-        }
-        return shapes;
     }
 
     @Override
@@ -107,7 +71,7 @@ public class OcculusBlock extends Block {
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return SHAPE[(state.get(FACING).getHorizontalIndex() + 2) % 4];
+        return VoxelShapes.combineAndSimplify(SOCKET, state.get(FACING) == Direction.NORTH ? NORTH : state.get(FACING) == Direction.EAST ? EAST : state.get(FACING) == Direction.SOUTH ? SOUTH : WEST, IBooleanFunction.OR);
     }
 
     @Nonnull

@@ -44,8 +44,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
     private final List<ResourceLocation> knownShapes;
     private final List<ResourceLocation> knownComponents;
     private final List<ResourceLocation> knownModifiers;
-    private final String defaultSearchLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.search").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
-    private final String defaultNameLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.name").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
+    private final String defaultSearchLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptionTable.search").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
+    private final String defaultNameLabel = new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptionTable.name").applyTextStyle(TextFormatting.GRAY).applyTextStyle(style -> style.setItalic(true)).getFormattedText();
     int iconXStartUpper = 41;
     int iconYStartUpper = 5;
     int iconXStartLower = 41;
@@ -96,8 +96,8 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         searchBar.setMaxStringLength(64);
         nameBar = addButton(new TextFieldWidget(Minecraft.getInstance().fontRenderer, 39 + l, 93 + i1, 141, 12, ""));
         nameBar.setMaxStringLength(64);
-        createSpellButton = new Button(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.makeSpell").getFormattedText(), this::actionPerformed);
-        resetSpellButton = new Button(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.resetSpell").getFormattedText(), this::actionPerformed);
+        createSpellButton = new Button(l - 65, i1, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptionTable.makeSpell").getFormattedText(), this::actionPerformed);
+        resetSpellButton = new Button(l + 120, i1 + 72, 60, 20, new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptionTable.resetSpell").getFormattedText(), this::actionPerformed);
         resetSpellButton.visible = false;
         if (usingPlayer.isCreative()) addButton(createSpellButton);
         addButton(resetSpellButton);
@@ -262,7 +262,7 @@ public class InscriptionTableScreen extends ContainerScreen<InscriptionTableCont
         if (result.valid) {
             if (container.slotHasStack(0)) {
                 if (container.slotIsBook(0))
-                    Minecraft.getInstance().fontRenderer.drawSplitString(new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptiontable.bookOut").getFormattedText(), 225, 5, 100, 0xFF7700);
+                    Minecraft.getInstance().fontRenderer.drawSplitString(new TranslationTextComponent(ArsMagicaAPI.MODID + ".inscriptionTable.bookOut").getFormattedText(), 225, 5, 100, 0xFF7700);
                 else resetSpellButton.visible = true;
             } else resetSpellButton.visible = false;
         } else {

@@ -50,7 +50,7 @@ public final class RenderUtil {
     }
 
     public static void displayOcculusScreen(PlayerEntity player) {
-        Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.displayname"), player));
+        Minecraft.getInstance().displayGuiScreen(new OcculusScreen(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.name"), player));
     }
 
     public static void drawBox(float minX, float minY, float maxX, float maxY, float zLevel, float minU, float minV, float maxU, float maxV) {

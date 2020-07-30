@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class SpellBookScreen extends ContainerScreen<SpellBookContainer> {
     private static final ResourceLocation background = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui.png");
-    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui_2.png");
+    private static final ResourceLocation extras = new ResourceLocation(ArsMagicaAPI.MODID, "textures/gui/spell_book_gui_extras.png");
     private int bookActiveSlot;
 
     public SpellBookScreen(SpellBookContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

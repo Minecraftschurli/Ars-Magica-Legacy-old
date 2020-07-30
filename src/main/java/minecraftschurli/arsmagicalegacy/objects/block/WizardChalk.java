@@ -12,9 +12,11 @@ import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -25,7 +27,7 @@ import net.minecraft.world.IBlockReader;
 
 public class WizardChalk extends Block {
     private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 15);
-    private static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
+    private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final Random rand = new Random();
 
     public WizardChalk() {

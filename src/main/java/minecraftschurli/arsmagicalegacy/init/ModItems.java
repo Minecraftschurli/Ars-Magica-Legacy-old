@@ -4,10 +4,10 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.ArsMagicaLegacy;
 import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
-import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrenchItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
-import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgradeItem;
-import minecraftschurli.arsmagicalegacy.objects.item.WizardChalkItem;
+import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrench;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrb;
+import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgrade;
+import minecraftschurli.arsmagicalegacy.objects.item.WizardChalk;
 import minecraftschurli.arsmagicalegacy.objects.item.affinity.AffinityEssenceItem;
 import minecraftschurli.arsmagicalegacy.objects.item.affinity.AffinityTomeItem;
 import minecraftschurli.arsmagicalegacy.objects.item.spell.SpellItem;
@@ -96,28 +96,18 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> MONSTER_FOCUS = stackableItem64("monster_focus");
     public static final RegistryObject<Item> ITEM_FOCUS = stackableItem64("item_focus");
     public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
-    /*public static final RegistryObject<Item> WATER_ESSENCE = stackableItem64("water_essence");
-    public static final RegistryObject<Item> FIRE_ESSENCE = stackableItem64("fire_essence");
-    public static final RegistryObject<Item> EARTH_ESSENCE = stackableItem64("earth_essence");
-    public static final RegistryObject<Item> AIR_ESSENCE = stackableItem64("air_essence");
-    public static final RegistryObject<Item> LIGHTNING_ESSENCE = stackableItem64("lightning_essence");
-    public static final RegistryObject<Item> ICE_ESSENCE = stackableItem64("ice_essence");
-    public static final RegistryObject<Item> NATURE_ESSENCE = stackableItem64("nature_essence");
-    public static final RegistryObject<Item> LIFE_ESSENCE = stackableItem64("life_essence");
-    public static final RegistryObject<Item> ARCANE_ESSENCE = stackableItem64("arcane_essence");
-    public static final RegistryObject<Item> ENDER_ESSENCE = stackableItem64("ender_essence");*/
     public static final RegistryObject<AffinityEssenceItem> AFFINITY_ESSENCE = ITEMS.register("affinity_essence", AffinityEssenceItem::new);
     public static final RegistryObject<Item> FLICKER_JAR = stackableItem64("flicker_jar");
-    public static final RegistryObject<Item> WATER_FLICKER_JAR = stackableItem64("water_flicker_jar");
-    public static final RegistryObject<Item> FIRE_FLICKER_JAR = stackableItem64("fire_flicker_jar");
-    public static final RegistryObject<Item> EARTH_FLICKER_JAR = stackableItem64("earth_flicker_jar");
-    public static final RegistryObject<Item> AIR_FLICKER_JAR = stackableItem64("air_flicker_jar");
-    public static final RegistryObject<Item> LIGHTNING_FLICKER_JAR = stackableItem64("lightning_flicker_jar");
-    public static final RegistryObject<Item> ICE_FLICKER_JAR = stackableItem64("ice_flicker_jar");
-    public static final RegistryObject<Item> NATURE_FLICKER_JAR = stackableItem64("nature_flicker_jar");
-    public static final RegistryObject<Item> LIFE_FLICKER_JAR = stackableItem64("life_flicker_jar");
-    public static final RegistryObject<Item> ARCANE_FLICKER_JAR = stackableItem64("arcane_flicker_jar");
-    public static final RegistryObject<Item> ENDER_FLICKER_JAR = stackableItem64("ender_flicker_jar");
+//    public static final RegistryObject<Item> WATER_FLICKER_JAR = stackableItem64("water_flicker_jar");
+//    public static final RegistryObject<Item> FIRE_FLICKER_JAR = stackableItem64("fire_flicker_jar");
+//    public static final RegistryObject<Item> EARTH_FLICKER_JAR = stackableItem64("earth_flicker_jar");
+//    public static final RegistryObject<Item> AIR_FLICKER_JAR = stackableItem64("air_flicker_jar");
+//    public static final RegistryObject<Item> LIGHTNING_FLICKER_JAR = stackableItem64("lightning_flicker_jar");
+//    public static final RegistryObject<Item> ICE_FLICKER_JAR = stackableItem64("ice_flicker_jar");
+//    public static final RegistryObject<Item> NATURE_FLICKER_JAR = stackableItem64("nature_flicker_jar");
+//    public static final RegistryObject<Item> LIFE_FLICKER_JAR = stackableItem64("life_flicker_jar");
+//    public static final RegistryObject<Item> ARCANE_FLICKER_JAR = stackableItem64("arcane_flicker_jar");
+//    public static final RegistryObject<Item> ENDER_FLICKER_JAR = stackableItem64("ender_flicker_jar");
     public static final RegistryObject<AffinityTomeItem> AFFINITY_TOME = ITEMS.register("affinity_tome", AffinityTomeItem::new);
     public static final RegistryObject<Item> BUTCHER_FLICKER_FOCUS = stackableItem64("butcher_flicker_focus");
     public static final RegistryObject<Item> CONTAINMENT_FLICKER_FOCUS = stackableItem64("containment_flicker_focus");
@@ -148,8 +138,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = ITEMS.register("battlemage_chestplate", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = ITEMS.register("battlemage_leggings", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_BOOTS = ITEMS.register("battlemage_boots", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
-    public static final RegistryObject<InfinityOrbItem> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrbItem::new);
-    public static final RegistryObject<InscriptionTableUpgradeItem> INSCRIPTION_UPGRADE = ITEMS.register("inscription_upgrade", InscriptionTableUpgradeItem::new);
+    public static final RegistryObject<InfinityOrb> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrb::new);
+    public static final RegistryObject<InscriptionTableUpgrade> INSCRIPTION_UPGRADE = ITEMS.register("inscription_upgrade", InscriptionTableUpgrade::new);
     public static final RegistryObject<Item> INSCRIPTION_TABLE = ITEMS.register("inscription_table", () -> new BlockItem(ModBlocks.INSCRIPTION_TABLE.get(), ITEM_1) {
         protected boolean placeBlock(@Nonnull BlockItemUseContext context, @Nonnull BlockState state) {
             context.getWorld().setBlockState(context.getPos().offset(context.getPlacementHorizontalFacing().rotateYCCW()), Blocks.AIR.getDefaultState(), 27);
@@ -192,8 +182,8 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> JOURNAL = ITEMS.register("journal", () -> new Item(ITEM_1));
     public static final RegistryObject<Item> MAGITECH_GOGGLES = ITEMS.register("magitech_goggles", () -> new ArmorItem(new ArmorMaterial("magitech_goggles", 15, 1, 3, 2, 1, 15, 0, CHIMERITE), EquipmentSlotType.HEAD, ITEM_1));
     public static final RegistryObject<Item> MAGITECH_STAFF = ITEMS.register("magitech_staff", () -> new Item(ITEM_1));
-    public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrenchItem::new);
-    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalkItem::new);
+    public static final RegistryObject<Item> CRYSTAL_WRENCH = ITEMS.register("crystal_wrench", CrystalWrench::new);
+    public static final RegistryObject<Item> WIZARD_CHALK = ITEMS.register("wizard_chalk", WizardChalk::new);
     public static final RegistryObject<Item> CRYSTAL_PHYLACTERY = ITEMS.register("crystal_phylactery", () -> new Item(ITEM_1));
 
     public static void register() {

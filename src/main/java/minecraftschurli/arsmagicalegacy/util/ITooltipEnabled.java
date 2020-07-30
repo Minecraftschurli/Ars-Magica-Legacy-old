@@ -11,10 +11,10 @@ import net.minecraft.util.text.TranslationTextComponent;
  * @author Minecraftschurli
  * @version 2020-03-21
  */
-public interface TooltipEnabled {
+public interface ITooltipEnabled {
     void addTooltip(List<ITextComponent> tooltip);
 
-    interface Auto extends TooltipEnabled {
+    interface Auto extends ITooltipEnabled {
         String getTooltipTranslationKey();
 
         @Override

@@ -16,7 +16,7 @@ import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.Inscripti
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskScreen;
-import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrbItem;
+import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrb;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
 import minecraftschurli.arsmagicalegacy.objects.particle.SimpleParticle;
@@ -39,7 +39,7 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerItemColorHandler(ColorHandlerEvent.Item e) {
         e.getItemColors().register((stack, index) -> index == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1, ModItems.SPELL_BOOK.get());
-        e.getItemColors().register((stack, index) -> index == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrbItem.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
+        e.getItemColors().register((stack, index) -> index == 0 && stack.hasTag() ? SkillPointRegistry.getSkillPointFromTier(stack.getTag().getInt(InfinityOrb.TYPE_KEY)).getColor() : -1, ModItems.INFINITY_ORB.get());
     }
 
     @SuppressWarnings("RedundantCast")

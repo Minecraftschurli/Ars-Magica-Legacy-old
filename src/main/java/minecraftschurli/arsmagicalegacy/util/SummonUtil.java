@@ -6,13 +6,13 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public final class SummonUtil {
-    private static final String IS_SUMMON = "Is_Summon";
-    private static final String SUMMON_DURATION = "Summon_Duration";
-    private static final String SUMMON_ENTITY_IDS = "Summon_Entity_IDs";
-    private static final String SUMMON_OWNER = "Summon_Owner";
-    private static final String SUMMON_X = "Summon_X";
-    private static final String SUMMON_Y = "Summon_Y";
-    private static final String SUMMON_Z = "Summon_Z";
+    private static final String IS_SUMMON = "IsSummon";
+    private static final String SUMMON_DURATION = "SummonDuration";
+    private static final String SUMMON_ENTITY_IDS = "SummonEntityIDs";
+    private static final String SUMMON_OWNER = "SummonOwner";
+    private static final String SUMMON_X = "SummonX";
+    private static final String SUMMON_Y = "SummonY";
+    private static final String SUMMON_Z = "SummonZ";
 
     public static int getOwner(LivingEntity entityliving) {
         if (!isSummon(entityliving)) return -1;

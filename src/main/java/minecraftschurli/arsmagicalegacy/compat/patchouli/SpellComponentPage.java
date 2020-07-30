@@ -95,7 +95,7 @@ public class SpellComponentPage implements ICustomComponent {
 
     private void renderModifiers(IComponentRenderContext context, int posX, int posY, int mouseX, int mouseY, List<SpellModifier> modifiers) {
         if (modifiers.isEmpty()) return;
-        String shapeName = new TranslationTextComponent(ArsMagicaAPI.MODID + (part instanceof SpellComponent ? ".gui.modifies" : ".gui.modified_by")).getUnformattedComponentText();
+        String shapeName = new TranslationTextComponent(ArsMagicaAPI.MODID + (part instanceof SpellComponent ? ".gui.modifies" : ".gui.modifiedBy")).getUnformattedComponentText();
         context.getFont().drawString(shapeName, posX + 58 - (context.getFont().getStringWidth(shapeName) / 2f), posY, 0);
         RenderSystem.color3f(1.0f, 1.0f, 1.0f);
         int startX = 0;

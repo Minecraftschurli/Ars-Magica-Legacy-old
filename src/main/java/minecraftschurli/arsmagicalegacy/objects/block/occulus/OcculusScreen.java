@@ -247,7 +247,7 @@ public class OcculusScreen extends Screen {
                 if (hasPrereq)
                     list.add(s.getDescription().applyTextStyle(TextFormatting.DARK_GRAY));
                 else
-                    list.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.missingrequirements").applyTextStyle(TextFormatting.DARK_RED));
+                    list.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".occulus.missingRequirements").applyTextStyle(TextFormatting.DARK_RED));
                 renderTooltip(list.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY, font);
                 flag = true;
                 hoverItem = s;

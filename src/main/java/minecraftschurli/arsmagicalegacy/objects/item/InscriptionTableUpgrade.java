@@ -12,8 +12,8 @@ import net.minecraft.util.ResourceLocation;
  * @author Minecraftschurli
  * @version 2020-01-11
  */
-public class InscriptionTableUpgradeItem extends Item {
-    public InscriptionTableUpgradeItem() {
+public class InscriptionTableUpgrade extends Item {
+    public InscriptionTableUpgrade() {
         super(ModItems.ITEM_1);
         this.addPropertyOverride(new ResourceLocation("tier"), (stack, world, entity) -> {
             if (!stack.hasTag() || !stack.getTag().contains("tier")) return 0;

@@ -87,12 +87,12 @@ public class EtheriumSpellIngredient implements ISpellIngredient {
     @Override
     public ITextComponent getTooltip() {
         if (this.essenceType.isEmpty())
-            return new TranslationTextComponent(ArsMagicaAPI.MODID+".essence_type.any");
+            return new TranslationTextComponent(ArsMagicaAPI.MODID+".essence.any");
         return this.getEssenceTypes()
                 .stream()
                 .map(EtheriumType::getDisplayName)
                 .reduce((iTextComponent, component) -> iTextComponent.appendText(" | ").appendSibling(component))
-                .orElse(new TranslationTextComponent(ArsMagicaAPI.MODID+".essence_type.any"));
+                .orElse(new TranslationTextComponent(ArsMagicaAPI.MODID+".essence.any"));
     }
 
     @Override

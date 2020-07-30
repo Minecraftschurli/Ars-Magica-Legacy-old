@@ -38,7 +38,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 @SuppressWarnings("unused")
 public class SpellBookItem extends Item implements IDyeableArmorItem {
     public SpellBookItem() {
-        //noinspection Convert2MethodRef
         super(new Item.Properties().maxStackSize(1).group(ArsMagicaLegacy.ITEM_GROUP).setISTER(() -> SpellBookISTER::new));
     }
 
@@ -172,8 +171,8 @@ public class SpellBookItem extends Item implements IDyeableArmorItem {
         ItemStack stack = getActiveItemStack(stackIn);
         tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".tooltip.open"));
         activeScroll.ifPresent(spellItem -> spellItem.addInformation(stack, worldIn, tooltip, flagIn));
-        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell_book.warning.0"));
-        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spell_book.warning.1"));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spellBook.warning.0"));
+        tooltip.add(new TranslationTextComponent(ArsMagicaAPI.MODID + ".spellBook.warning.1"));
     }
 
     @Override

@@ -24,10 +24,10 @@ import net.minecraft.world.World;
 /**
  * @author IchHabeHunger54
  */
-public class InfinityOrbItem extends Item {
+public class InfinityOrb extends Item {
     public static String TYPE_KEY = "type";
 
-    public InfinityOrbItem() {
+    public InfinityOrb() {
         super(ModItems.ITEM_64);
     }
 
@@ -64,7 +64,7 @@ public class InfinityOrbItem extends Item {
     }
 
     public ItemStack setSkillPoint(ItemStack stack, SkillPoint point) {
-        if (!(stack.getItem() instanceof InfinityOrbItem))
+        if (!(stack.getItem() instanceof InfinityOrb))
             return stack;
         stack.getOrCreateTag().putInt(TYPE_KEY, point.getTier());
         return stack;

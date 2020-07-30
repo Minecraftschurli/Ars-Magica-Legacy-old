@@ -21,8 +21,8 @@ import net.minecraft.world.World;
  * @author Minecraftschurli
  * @version 2020-04-21
  */
-public class CrystalWrenchItem extends Item {
-    public CrystalWrenchItem() {
+public class CrystalWrench extends Item {
+    public CrystalWrench() {
         super(ModItems.ITEM_1);
     }
 
@@ -57,11 +57,11 @@ public class CrystalWrenchItem extends Item {
             if (tileEntity instanceof IEtheriumConsumer) {
                 ((IEtheriumConsumer) tileEntity).setEtheriumSource(readPos(context.getItem()));
                 storePos(context.getItem(), null);
-                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalwrench.linked");
+                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalWrench.linked");
             } else if (tileEntity.getCapability(CapabilityHelper.getEtheriumCapability()).isPresent()) {
                 storePos(context.getItem(), pos);
-                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalwrench.saved").appendText("(x=" + pos.getX() + ", y=" + pos.getY() + ", z=" + pos.getZ() + ")");
-            } else message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalwrench.failed");
+                message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalWrench.saved").appendText("(x=" + pos.getX() + ", y=" + pos.getY() + ", z=" + pos.getZ() + ")");
+            } else message = new TranslationTextComponent(ArsMagicaAPI.MODID + ".crystalWrench.failed");
             player.sendStatusMessage(message, true);
             return ActionResultType.SUCCESS;
         }

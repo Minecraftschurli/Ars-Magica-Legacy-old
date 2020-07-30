@@ -1,6 +1,6 @@
 {
-  "name": "arsmagicalegacy.arcane_compendium.name",
-  "landing_text": "arsmagicalegacy.arcane_compendium.landing_text",
+  "name": "arsmagicalegacy.arcaneCompendium.name",
+  "landing_text": "arsmagicalegacy.arcaneCompendium.landingText",
   "book_texture": "patchouli:textures/gui/book_blue.png",
   "model": "arsmagicalegacy:arcane_compendium",
   "creative_tab": "arsmagicalegacy",
