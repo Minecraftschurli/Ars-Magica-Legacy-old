@@ -98,7 +98,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> CHARGE_FOCUS = stackableItem64("charge_focus");
     public static final RegistryObject<AffinityEssenceItem> AFFINITY_ESSENCE = ITEMS.register("affinity_essence", AffinityEssenceItem::new);
     public static final RegistryObject<Item> FLICKER_JAR = stackableItem64("flicker_jar");
-//    public static final RegistryObject<Item> WATER_FLICKER_JAR = stackableItem64("water_flicker_jar");
+    //    public static final RegistryObject<Item> WATER_FLICKER_JAR = stackableItem64("water_flicker_jar");
 //    public static final RegistryObject<Item> FIRE_FLICKER_JAR = stackableItem64("fire_flicker_jar");
 //    public static final RegistryObject<Item> EARTH_FLICKER_JAR = stackableItem64("earth_flicker_jar");
 //    public static final RegistryObject<Item> AIR_FLICKER_JAR = stackableItem64("air_flicker_jar");
