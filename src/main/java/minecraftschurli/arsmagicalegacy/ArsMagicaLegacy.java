@@ -1,6 +1,10 @@
 package minecraftschurli.arsmagicalegacy;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.IMCHandler;
@@ -41,12 +45,14 @@ import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarModel;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -60,6 +66,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
@@ -140,6 +147,11 @@ public final class ArsMagicaLegacy {
         ModBiomes.WITCHWOOD_FOREST.get().init();
         AffinityAbilityHelper.registerListeners();
         PatchouliCompat.init();
+        DeferredWorkQueue.runLaterChecked(() -> {
+            AxeItem.BLOCK_STRIPPING_MAP = new HashMap<>(AxeItem.BLOCK_STRIPPING_MAP);
+            AxeItem.BLOCK_STRIPPING_MAP.put(ModBlocks.WITCHWOOD_LOG.get(), ModBlocks.STRIPPED_WITCHWOOD_LOG.get());
+            AxeItem.BLOCK_STRIPPING_MAP.put(ModBlocks.WITCHWOOD_WOOD.get(), ModBlocks.STRIPPED_WITCHWOOD_WOOD.get());
+        });
     }
 
     //endregion
