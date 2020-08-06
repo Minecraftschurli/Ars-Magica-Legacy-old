@@ -1,10 +1,7 @@
 package minecraftschurli.arsmagicalegacy;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Nonnull;
 import minecraftschurli.arsmagicalegacy.api.ArsMagicaAPI;
 import minecraftschurli.arsmagicalegacy.api.IMCHandler;
@@ -45,8 +42,8 @@ import minecraftschurli.arsmagicalegacy.init.ModSpellParts;
 import minecraftschurli.arsmagicalegacy.init.ModTileEntities;
 import minecraftschurli.arsmagicalegacy.objects.block.craftingaltar.CraftingAltarModel;
 import minecraftschurli.arsmagicalegacy.worldgen.WorldGenerator;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -151,6 +148,14 @@ public final class ArsMagicaLegacy {
             AxeItem.BLOCK_STRIPPING_MAP = new HashMap<>(AxeItem.BLOCK_STRIPPING_MAP);
             AxeItem.BLOCK_STRIPPING_MAP.put(ModBlocks.WITCHWOOD_LOG.get(), ModBlocks.STRIPPED_WITCHWOOD_LOG.get());
             AxeItem.BLOCK_STRIPPING_MAP.put(ModBlocks.WITCHWOOD_WOOD.get(), ModBlocks.STRIPPED_WITCHWOOD_WOOD.get());
+            ComposterBlock.CHANCES.put(ModItems.WITCHWOOD_LEAVES.get(), 0.3f);
+            ComposterBlock.CHANCES.put(ModItems.WITCHWOOD_SAPLING.get(), 0.3f);
+            ComposterBlock.CHANCES.put(ModItems.AUM.get(), 0.65f);
+            ComposterBlock.CHANCES.put(ModItems.CERUBLOSSOM.get(), 0.65f);
+            ComposterBlock.CHANCES.put(ModItems.DESERT_NOVA.get(), 0.65f);
+            ComposterBlock.CHANCES.put(ModItems.TARMA_ROOT.get(), 0.65f);
+            ComposterBlock.CHANCES.put(ModItems.WAKEBLOOM.get(), 0.65f);
+            ComposterBlock.CHANCES.put(ModItems.MANA_CAKE.get(), 1.0f);
         });
     }
 
