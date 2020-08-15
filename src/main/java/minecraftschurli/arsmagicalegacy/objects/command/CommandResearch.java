@@ -44,29 +44,29 @@ public class CommandResearch {
     private static int forget(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
         Skill skill = RegistryHandler.getSkillRegistry().getValue(ResourceLocationArgument.getResourceLocation(ctx, "id"));
         if (skill == null) {
-            ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillNotFound", skill.getDisplayName()), false);
+            ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.arsmagica.skillNotFound", skill.getDisplayName()), false);
             return 1;
         }
         CapabilityHelper.forget(EntityArgument.getPlayer(ctx, TARGET), skill);
-        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgot", skill.getDisplayName()), false);
+        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.arsmagica.forgot", skill.getDisplayName()), false);
         return 0;
     }
 
     private static int forgetAll(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
         CapabilityHelper.forgetAll(EntityArgument.getPlayer(ctx, TARGET));
-        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.forgotAll"), false);
+        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.arsmagica.forgotAll"), false);
         return 0;
     }
 
     private static int learn(CommandContext<CommandSource> ctx, Skill skill) throws CommandSyntaxException {
         if (skill == null) {
-            ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.skillNotFound", ResourceLocationArgument.getResourceLocation(ctx, "id")), false);
+            ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.arsmagica.skillNotFound", ResourceLocationArgument.getResourceLocation(ctx, "id")), false);
             return 1;
         }
         if (Objects.equals(skill.getRegistryName(), SpellRegistry.MISSING_SHAPE))
             return 0;
         CapabilityHelper.learn(EntityArgument.getPlayer(ctx, TARGET), skill);
-        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.learned", skill.getDisplayName()), false);
+        ctx.getSource().sendFeedback(new TranslationTextComponent(ArsMagicaAPI.MODID + ".command.arsmagica.learned", skill.getDisplayName()), false);
         return 0;
     }
 

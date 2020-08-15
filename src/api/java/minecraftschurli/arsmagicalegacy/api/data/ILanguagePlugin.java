@@ -151,6 +151,14 @@ public interface ILanguagePlugin {
         add("itemGroup." + key, translation);
     }
 
+    /**
+     * Adds a potion translation.
+     * @param key             the effect key
+     * @param potion          the potion translation
+     * @param splashPotion    the splash potion translation
+     * @param lingeringPotion the lingering potion translation
+     * @param tippedArrow     the tipped arrow translation
+     */
     default void addPotion(String key, String potion, String splashPotion, String lingeringPotion, String tippedArrow) {
         add("item.minecraft.potion.effect." + key, potion);
         add("item.minecraft.splash_potion.effect." + key, splashPotion);
@@ -158,8 +166,34 @@ public interface ILanguagePlugin {
         add("item.minecraft.tipped_arrow.effect." + key, tippedArrow);
     }
 
+    /**
+     * Adds an effect translation.
+     * @param modid       the effect mod id
+     * @param key         the effect name
+     * @param translation the effect translation
+     */
     default void addEffect(String modid, Supplier<? extends Effect> key, String translation) {
         add("effect." + modid + "." + key, translation);
+    }
+
+    /**
+     * Adds a command translation.
+     * @param modid       the command mod id
+     * @param key         the command name
+     * @param translation the command translation
+     */
+    default void addCommand(String modid, String key, String translation) {
+        add(modid + ".command." + key, translation);
+    }
+
+    /**
+     * Adds a config translation.
+     * @param modid       the config mod id
+     * @param key         the config name
+     * @param translation the config translation
+     */
+    default void addConfig(String modid, String key, String translation) {
+        add(modid + ".config." + key, translation);
     }
 
     /**

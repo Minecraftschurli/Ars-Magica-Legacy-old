@@ -1,6 +1,7 @@
 package minecraftschurli.arsmagicalegacy.init;
 
 import javax.annotation.Nonnull;
+import minecraftschurli.arsmagicalegacy.api.config.Config;
 import minecraftschurli.arsmagicalegacy.objects.block.Button;
 import minecraftschurli.arsmagicalegacy.objects.block.Candle;
 import minecraftschurli.arsmagicalegacy.objects.block.Door;
@@ -35,7 +36,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.ItemTier;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -50,16 +50,16 @@ import net.minecraftforge.fml.RegistryObject;
 public final class ModBlocks implements IInit {
     //region resources
     public static final RegistryObject<Ore> CHIMERITE_ORE = BLOCKS.register("chimerite_ore", () -> new Ore(
-            Block.Properties.create(Material.ROCK).harvestLevel(ItemTier.IRON.getHarvestLevel()).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
-            Ore.OreSpawnProperties.create(8, 6, 10, 80)));
+            Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
+            Ore.OreSpawnProperties.create(Config.SERVER.CHIMERITE_VEIN_SIZE.get(), Config.SERVER.CHIMERITE_CHANCE.get(), Config.SERVER.CHIMERITE_MIN_HEIGHT.get(), Config.SERVER.CHIMERITE_MAX_HEIGHT.get())));
     public static final RegistryObject<Block> CHIMERITE_BLOCK = BLOCKS.register("chimerite_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Ore> TOPAZ_ORE = BLOCKS.register("topaz_ore", () -> new Ore(
-            Block.Properties.create(Material.ROCK).harvestLevel(ItemTier.IRON.getHarvestLevel()).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
-            Ore.OreSpawnProperties.create(8, 6, 10, 80)));
+            Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
+            Ore.OreSpawnProperties.create(Config.SERVER.TOPAZ_VEIN_SIZE.get(), Config.SERVER.TOPAZ_CHANCE.get(), Config.SERVER.TOPAZ_MIN_HEIGHT.get(), Config.SERVER.TOPAZ_MAX_HEIGHT.get())));
     public static final RegistryObject<Block> TOPAZ_BLOCK = BLOCKS.register("topaz_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Ore> VINTEUM_ORE = BLOCKS.register("vinteum_ore", () -> new Ore(
-            Block.Properties.create(Material.ROCK).harvestLevel(ItemTier.IRON.getHarvestLevel()).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
-            Ore.OreSpawnProperties.create(6, 4, 10, 45)));
+            Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(3, 5).harvestTool(ToolType.PICKAXE),
+            Ore.OreSpawnProperties.create(Config.SERVER.CHIMERITE_VEIN_SIZE.get(), Config.SERVER.CHIMERITE_CHANCE.get(), Config.SERVER.CHIMERITE_MIN_HEIGHT.get(), Config.SERVER.CHIMERITE_MAX_HEIGHT.get())));
     public static final RegistryObject<Block> VINTEUM_BLOCK = BLOCKS.register("vinteum_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> MOONSTONE_ORE = BLOCKS.register("moonstone_ore", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(2).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> MOONSTONE_BLOCK = BLOCKS.register("moonstone_block", () -> new Block(Block.Properties.create(Material.ROCK).harvestLevel(1).hardnessAndResistance(5, 6).harvestTool(ToolType.PICKAXE)));
