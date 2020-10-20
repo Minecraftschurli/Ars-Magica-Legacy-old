@@ -5,6 +5,7 @@ import minecraftschurli.arsmagicalegacy.api.registry.SkillPointRegistry;
 import minecraftschurli.arsmagicalegacy.compat.patchouli.PatchouliCompat;
 import minecraftschurli.arsmagicalegacy.init.ModBlocks;
 import minecraftschurli.arsmagicalegacy.init.ModContainers;
+import minecraftschurli.arsmagicalegacy.init.ModEntities;
 import minecraftschurli.arsmagicalegacy.init.ModFluids;
 import minecraftschurli.arsmagicalegacy.init.ModItems;
 import minecraftschurli.arsmagicalegacy.init.ModParticles;
@@ -16,6 +17,8 @@ import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.Inscripti
 import minecraftschurli.arsmagicalegacy.objects.block.inscriptiontable.InscriptionTableScreen;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskContainer;
 import minecraftschurli.arsmagicalegacy.objects.block.obelisk.ObeliskScreen;
+import minecraftschurli.arsmagicalegacy.objects.entity.ManaCreeperEntity;
+import minecraftschurli.arsmagicalegacy.objects.entity.renderer.ManaCreeperRenderer;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrb;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookContainer;
 import minecraftschurli.arsmagicalegacy.objects.item.spellbook.SpellBookScreen;
@@ -24,6 +27,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -31,6 +36,7 @@ import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -74,6 +80,7 @@ public final class ClientSetup {
         RenderTypeLookup.setRenderLayer(ModFluids.LIQUID_ESSENCE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.ALTAR_CORE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.ILLUMINATION_LIGHT.get(), RenderType.getTranslucent());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);
     }
 
     @SubscribeEvent

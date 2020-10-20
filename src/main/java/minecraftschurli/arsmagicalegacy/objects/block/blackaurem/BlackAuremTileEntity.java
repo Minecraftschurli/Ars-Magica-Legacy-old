@@ -28,7 +28,7 @@ public class BlackAuremTileEntity extends EtheriumGeneratorTileEntity {
         if (timer <= 0) {
             int r = 5 + tier;
             BlockPos pos = getPos();
-            List<LivingEntity> entitiesWithinAABB = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).expand(r, r, r));
+            List<LivingEntity> entitiesWithinAABB = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(r, r, r));
             entitiesWithinAABB.sort(Comparator.comparingDouble(o -> o.getDistanceSq(pos.getX(), pos.getY(), pos.getZ())));
             int c = Math.max(1, tier / 2);
             for (LivingEntity livingEntity : entitiesWithinAABB)

@@ -7,6 +7,7 @@ import minecraftschurli.arsmagicalegacy.objects.armor.ArmorMaterial;
 import minecraftschurli.arsmagicalegacy.objects.item.CrystalWrench;
 import minecraftschurli.arsmagicalegacy.objects.item.InfinityOrb;
 import minecraftschurli.arsmagicalegacy.objects.item.InscriptionTableUpgrade;
+import minecraftschurli.arsmagicalegacy.objects.item.spawnegg.ManaCreeperSpawnEgg;
 import minecraftschurli.arsmagicalegacy.objects.item.WizardChalk;
 import minecraftschurli.arsmagicalegacy.objects.item.affinity.AffinityEssenceItem;
 import minecraftschurli.arsmagicalegacy.objects.item.affinity.AffinityTomeItem;
@@ -138,6 +139,7 @@ public final class ModItems implements IInit {
     public static final RegistryObject<Item> BATTLEMAGE_CHESTPLATE = ITEMS.register("battlemage_chestplate", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.CHEST, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_LEGGINGS = ITEMS.register("battlemage_leggings", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.LEGS, ITEM_1));
     public static final RegistryObject<Item> BATTLEMAGE_BOOTS = ITEMS.register("battlemage_boots", () -> new ArmorItem(BATTLEMAGE_ARMOR, EquipmentSlotType.FEET, ITEM_1));
+    public static final RegistryObject<Item> MANA_CREEPER_SPAWN_EGG = ITEMS.register("mana_creeper_spawn_egg", ManaCreeperSpawnEgg::new);
     public static final RegistryObject<InfinityOrb> INFINITY_ORB = ITEMS.register("infinity_orb", InfinityOrb::new);
     public static final RegistryObject<InscriptionTableUpgrade> INSCRIPTION_UPGRADE = ITEMS.register("inscription_upgrade", InscriptionTableUpgrade::new);
     public static final RegistryObject<Item> INSCRIPTION_TABLE = ITEMS.register("inscription_table", () -> new BlockItem(ModBlocks.INSCRIPTION_TABLE.get(), ITEM_1) {

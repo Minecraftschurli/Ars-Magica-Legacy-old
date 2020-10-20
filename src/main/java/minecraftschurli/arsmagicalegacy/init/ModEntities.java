@@ -2,6 +2,7 @@ package minecraftschurli.arsmagicalegacy.init;
 
 import minecraftschurli.arsmagicalegacy.objects.entity.BlizzardEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.FireRainEntity;
+import minecraftschurli.arsmagicalegacy.objects.entity.ManaCreeperEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.SpellProjectileEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.ThrownRockEntity;
 import minecraftschurli.arsmagicalegacy.objects.entity.WallEntity;
@@ -10,6 +11,7 @@ import minecraftschurli.arsmagicalegacy.objects.entity.ZoneEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -24,6 +26,7 @@ public final class ModEntities implements IInit {
     public static final RegistryObject<EntityType<Entity>> WALL = ENTITIES.register("wall", () -> EntityType.Builder.create(WallEntity::new, EntityClassification.MISC).build("wall"));
     public static final RegistryObject<EntityType<Entity>> WAVE = ENTITIES.register("wave", () -> EntityType.Builder.create(WaveEntity::new, EntityClassification.MISC).build("wave"));
     public static final RegistryObject<EntityType<Entity>> ZONE = ENTITIES.register("zone", () -> EntityType.Builder.create(ZoneEntity::new, EntityClassification.MISC).build("zone"));
+    public static final RegistryObject<EntityType<ManaCreeperEntity>> MANA_CREEPER = ENTITIES.register("mana_creeper", () -> EntityType.Builder.<ManaCreeperEntity>create(ManaCreeperEntity::new, EntityClassification.MONSTER).build("mana_creeper"));
 
     public static void register() {
     }

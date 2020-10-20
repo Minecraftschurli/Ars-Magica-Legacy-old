@@ -144,6 +144,7 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addItem(ModItems.BATTLEMAGE_CHESTPLATE, "Kampfmagierbrustplatte");
         addItem(ModItems.BATTLEMAGE_LEGGINGS, "Kampfmagierhose");
         addItem(ModItems.BATTLEMAGE_BOOTS, "Kampfmagierstiefel");
+        addItem(ModItems.MANA_CREEPER_SPAWN_EGG, "Manacreeper-Spawn-Ei");
         addItem(ModItems.INFINITY_ORB, "%s Infinityorb");
         addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(0)), "Upgrade Level I");
         addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(1)), "Upgrade Level II");
@@ -197,6 +198,7 @@ public final class AMLGermanLanguageProvider extends LanguageProvider implements
         addEntityType(ModEntities.WALL, "Magiemauer");
         addEntityType(ModEntities.WAVE, "Magiewelle");
         addEntityType(ModEntities.ZONE, "Magiezone");
+        addEntityType(ModEntities.MANA_CREEPER, "Manacreeper");
         addEffect(ArsMagicaAPI.MODID, ModEffects.AGILITY, "Agilität");
         addEffect(ArsMagicaAPI.MODID, ModEffects.ASTRAL_DISTORTION, "Astrale Verkrümmung");
         addEffect(ArsMagicaAPI.MODID, ModEffects.BURNOUT_REDUCTION, "Chillout");

@@ -144,6 +144,7 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addItem(ModItems.BATTLEMAGE_CHESTPLATE, "Battlemage Chestplate");
         addItem(ModItems.BATTLEMAGE_LEGGINGS, "Battlemage Leggings");
         addItem(ModItems.BATTLEMAGE_BOOTS, "Battlemage Boots");
+        addItem(ModItems.MANA_CREEPER_SPAWN_EGG, "Mana Creeper Spawn Egg");
         addItem(ModItems.INFINITY_ORB, "%s Infinity Orb");
         addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(0)), "Tier I Upgrade");
         addItemStack(ModItems.INSCRIPTION_UPGRADE.lazyMap(item -> item.getTieredStack(1)), "Tier II Upgrade");
@@ -197,6 +198,7 @@ public final class AMLEnglishLanguageProvider extends LanguageProvider implement
         addEntityType(ModEntities.WALL, "Wall");
         addEntityType(ModEntities.WAVE, "Wave");
         addEntityType(ModEntities.ZONE, "Zone");
+        addEntityType(ModEntities.MANA_CREEPER, "Mana Creeper");
         addEffect(ArsMagicaAPI.MODID, ModEffects.AGILITY, "Agility");
         addEffect(ArsMagicaAPI.MODID, ModEffects.ASTRAL_DISTORTION, "Astral Distortion");
         addEffect(ArsMagicaAPI.MODID, ModEffects.BURNOUT_REDUCTION, "Chillout");
